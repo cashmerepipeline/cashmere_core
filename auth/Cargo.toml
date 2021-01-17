@@ -1,0 +1,22 @@
+[package]
+name = "auth"
+version = "0.1.0"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+configs = {path="../configs"}
+account = {path="../account"}
+entity = {path="../entity"}
+
+
+futures = "0.3.7"
+tokio = "0.2.22"
+tonic = "0.3.1"
+rust-argon2 = "0.8.2"
+chrono = "0.4.19"
+jsonwebtoken = "7.2"
+serde = "1.0.116"
+serde_derive = "1.0.116"

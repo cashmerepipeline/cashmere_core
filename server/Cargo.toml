@@ -1,0 +1,31 @@
+[package]
+name = "server"
+version = "0.2.2"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
+futures = "0.3.8"
+tokio = { version = "0.2.23" }
+tonic = { version = "0.3.1", features = ["tls"] }
+prost = "0.6"
+chrono = "0.4.19"
+bson = "1.1.0"
+log = "0.4"
+
+cash_core = { path = "../cash_core" }
+configs = { path = "../configs" }
+account = { path = "../account" }
+majordomo = { path = "../majordomo" }
+manage = { path = "../manage" }
+managers = { path = "../managers" }
+event = { path = "../event" }
+auth = { path = "../auth" }
+entity = { path = "../entity" }
+view = { path = "../view" }
+
+[build-dependencies]
+tonic-build = "0.3"

@@ -1,0 +1,46 @@
+#
+# 管理定义模板
+#
+
+# 管理名, 对应数据库的表或者集合
+name = "accounts"
+
+# 数据描写 或者 模式
+[schema]
+# 通用属性
+id = "String"
+name = "String"
+creator_id = "String"
+create_timestamp = "String"
+modifier_id = "String"
+modify_timestamp = "String"
+owner = "String"
+groups = "List"
+
+# 访问控制
+view_rule = "Map"
+
+# 特有属性
+country_code = "UInt32"
+phone = "UInt64"
+
+include_views_rules = "List"
+exclude_views_rules = "List"
+
+# 事件队列和消息队列表
+[queues]
+event_queue = ["account_event_queue"]
+massage_queue = ["account_message_queue"]
+
+# 事件定义, 不是必须
+[events]
+before_create = { name = "before_create", sender_id = "" }
+after_create = { name = "after_create", sender_id = "" }
+deactivate = { name = "deactivate", sender_id = "" }
+
+# 初始记录
+# 每个记录都需要指定 _id owner_id
+[items]
+root = { id = "8610000000000", creator_id = "8610000000000", owner_id = "8610000000000", country_code = 86, phone = 10000000000, name = "root", password = "root", groups = ["1000000"] }
+
+

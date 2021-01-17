@@ -1,0 +1,20 @@
+[package]
+name = "database"
+version = "0.1.0"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dev-dependencies]
+tokio-test = "0.2.1"
+
+[dependencies]
+configs = {path="../configs"}
+ cash_core = {path="../cash_core"}
+#auth = {path="../auth"}
+
+mongodb = "1.1"
+tokio = "0.2.23"
+toml = {version = "0.5.7", features=["preserve_order"]}
+linked-hash-map="0.5.3"

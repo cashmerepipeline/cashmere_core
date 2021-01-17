@@ -1,0 +1,77 @@
+#
+# 过程模板管理定义
+#
+
+id = 10011
+name = { Cn = "模板", En = "templates" }
+
+# 描写，模式
+schema = [
+    # 通用属性
+    # common
+    { id = 1000, data_type = "String", name = { Cn = "编号", En = "id"}, removed = false },
+    { id = 1001, data_type = "String", name = { Cn = "实体名", En = "name"}, removed = false },
+    { id = 1002, data_type = "String", name = { Cn = "创建人", En = "creator"}, removed = false },
+    { id = 1003, data_type = "Int64", name = { Cn = "创建时间戳", En = "create_timestamp"}, removed = false },
+    { id = 1004, data_type = "String", name = { Cn = "修改人", En = "modifier"}, removed = false },
+    { id = 1005, data_type = "Int64", name = { Cn = "修改时间戳", En = "modify_timestamp"}, removed = false },
+    { id = 1006, data_type = "String", name = { Cn = "主人", En = "owner"}, removed = false },
+    { id = 1007, data_type = "String", name = { Cn = "组表", En = "groups"}, removed = false },
+    { id = 1008, data_type = "List", name = { Cn = "数据", En = "datas"}, removed = false },
+    #-----------------
+    # 专有属性
+    #-----------------
+    { id = 2008, data_type = "String", name = { Cn = "管理", En = "manage"}, removed = false },
+    { id = 2009, data_type = "List", name = { Cn = "预设表", En = "presets"}, removed = false },
+]
+
+[queues]
+event_queue = []
+massage_queue = []
+
+[events]
+
+[items]
+
+[view_rules]
+[view_rules.manage]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+[view_rules.entity]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+
+[view_rules.schema.1000]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1001]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1002]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1003]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1004]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1005]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1006]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1007]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1008]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+
+[view_rules.schema.2008]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.2009]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }

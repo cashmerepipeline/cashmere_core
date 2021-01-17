@@ -1,0 +1,23 @@
+[package]
+name = "event"
+version = "0.1.0"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+database = { path = "../database" }
+configs = { path = "../configs" }
+entity = { path = "../entity" }
+view = { path = "../view" }
+cash_core = { path = "../cash_core" }
+runtime_handle = { path = "../runtime_handle" }
+
+bson = "1.1.0"
+sled = "0.34.4"
+futures = "0.3.8"
+tokio = { version = "0.2.23", features = ["sync"]}
+parking_lot = "0.11.0"
+serde = "1.0.117"
+serde_derive = "1.0.117"

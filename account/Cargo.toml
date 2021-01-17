@@ -1,0 +1,16 @@
+[package]
+name = "account"
+version = "0.1.0"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+entity = { path = "../entity" }
+database = { path = "../database" }
+configs = { path = "../configs" }
+cash_core = { path = "../cash_core" }
+
+bson = "1.1.0"
+linked-hash-map = "0.5.3"

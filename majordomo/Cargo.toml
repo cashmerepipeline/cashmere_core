@@ -1,0 +1,18 @@
+[package]
+name = "majordomo"
+version = "0.3.0"
+authors = ["wangrongwen <403271579@qq.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bson = "1.1.0"
+parking_lot = "0.11.1"
+log = "0.4.11"
+
+cash_core = {path = "../cash_core"}
+configs = {path = "../configs"}
+manage = {path = "../manage"}
+managers = {path = "../managers"}
+entity = {path = "../entity"}

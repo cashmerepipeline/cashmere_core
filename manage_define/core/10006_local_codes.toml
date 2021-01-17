@@ -1,0 +1,118 @@
+#
+# 管理定义模板
+#
+
+# 管理名, 对应数据库的表或者集合
+id = 10006
+name = { Cn = "地区编码", En = "local_codes" }
+
+# 数据描写 或者 模式
+schema = [
+    # 通用属性
+    # common
+    { id = 1000, data_type = "String", name = { Cn = "编号", En = "id"}, removed = false },
+    { id = 1001, data_type = "String", name = { Cn = "实体名", En = "name"}, removed = false },
+    { id = 1002, data_type = "String", name = { Cn = "创建人", En = "creator"}, removed = false },
+    { id = 1003, data_type = "Int64", name = { Cn = "创建时间戳", En = "create_timestamp"}, removed = false },
+    { id = 1004, data_type = "String", name = { Cn = "修改人", En = "modifier"}, removed = false },
+    { id = 1005, data_type = "Int64", name = { Cn = "修改时间戳", En = "modify_timestamp"}, removed = false },
+    { id = 1006, data_type = "String", name = { Cn = "主人", En = "owner"}, removed = false },
+    { id = 1007, data_type = "String", name = { Cn = "组表", En = "groups"}, removed = false },
+    { id = 1008, data_type = "List", name = { Cn = "数据", En = "datas"}, removed = false },
+    #-----------------
+    # 专有属性
+    #-----------------
+    { id = 2008, data_type = "Int32", name = { Cn = "编码", En = "code"}, removed = false },
+    { id = 2009, data_type = "String", name = { Cn = "验证正则", En = "regex"}, removed = false },
+]
+
+# 事件队列和消息队列表
+[queues]
+event_queue = []
+massage_queue = []
+
+# 事件定义, 不是必须
+[events]
+
+# 初始实体
+[items]
+zh_CN = { 1000 = "zh_CN", 1002 = "8610000000000", 1001 = "zh_CN", 2008 = 86, 2009 = "^(\\+?0?86\\-?)?1[345789]\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_hk = { 1000 = "en_hk", 1002 = "8610000000000", 1001 = "en_hk", 2008 = 852, 2009 = "^(\\+?0?852\\-?)([6|9])\\d{7}", 1006 = "8610000000000", 1007 = ["1000000"] }
+zh_TW = { 1000 = "zh_TW", 1002 = "8610000000000", 1001 = "zh_TW", 2008 = 886, 2009 = "^(\\+?886\\-?|0)?9\\d{8}", 1006 = "8610000000000", 1007 = ["1000000"] }
+ar_DZ = { 1000 = "ar_DZ", 1002 = "8610000000000", 1001 = "ar_DZ", 2008 = 213, 2009 = "^(\\+?213|0)(5|6|7)\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+ar_SY = { 1000 = "ar_SY", 1002 = "8610000000000", 1001 = "ar_SY", 2008 = 963, 2009 = "^(!?(\\+?963)|0)?9\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+ar_SA = { 1000 = "ar_SA", 1002 = "8610000000000", 1001 = "ar_SA", 2008 = 966, 2009 = "^(!?(\\+?966)|0)?5\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_US = { 1000 = "en_US", 1002 = "8610000000000", 1001 = "en_US", 2008 = 1, 2009 = "^(\\+?1)?[2-9]\\d{2}[2-9](?!11)\\d{6}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+cs_CZ = { 1000 = "cs_CZ", 1002 = "8610000000000", 1001 = "cs_CZ", 2008 = 420, 2009 = "^(\\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+de_DE = { 1000 = "de_DE", 1002 = "8610000000000", 1001 = "de_DE", 2008 = 49, 2009 = "^(\\+?49[ \\.\\-])?([\\(]{1}[0-9]{1,6}[\\)])?([0-9 \\.\\-\\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$", 1006 = "8610000000000", 1007 = ["1000000"] }
+da_DK = { 1000 = "da_DK", 1002 = "8610000000000", 1001 = "da_DK", 2008 = 45, 2009 = "^(\\+?45)?(\\d{8})$", 1006 = "8610000000000", 1007 = ["1000000"] }
+el_GR = { 1000 = "el_GR", 1002 = "8610000000000", 1001 = "el_GR", 2008 = 30, 2009 = "^(\\+?30)?(69\\d{8})$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_AU = { 1000 = "en_AU", 1002 = "8610000000000", 1001 = "en_AU", 2008 = 61, 2009 = "^(\\+?61|0)4\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_GB = { 1000 = "en_GB", 1002 = "8610000000000", 1001 = "en_GB", 2008 = 44, 2009 = "^(\\+?44|0)7\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_HK = { 1000 = "en_HK", 1002 = "8610000000000", 1001 = "en_HK", 2008 = 852, 2009 = "^(\\+?852\\-?)?[569]\\d{3}\\-?\\d{4}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_IN = { 1000 = "en_IN", 1002 = "8610000000000", 1001 = "en_IN", 2008 = 91, 2009 = "^(\\+?91|0)?[789]\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_NZ = { 1000 = "en_NZ", 1002 = "8610000000000", 1001 = "en_NZ", 2008 = 64, 2009 = "^(\\+?64|0)2\\d{7,9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_ZA = { 1000 = "en_ZA", 1002 = "8610000000000", 1001 = "en_ZA", 2008 = 27, 2009 = "^(\\+?27|0)\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+en_ZM = { 1000 = "en_ZM", 1002 = "8610000000000", 1001 = "en_ZM", 2008 = 26, 2009 = "^(\\+?26)?09[567]\\d{7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+es_ES = { 1000 = "es_ES", 1002 = "8610000000000", 1001 = "es_ES", 2008 = 34, 2009 = "^(\\+?34)?(6\\d{1}|7[1234])\\d{7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+fi_FI = { 1000 = "fi_FI", 1002 = "8610000000000", 1001 = "fi_FI", 2008 = 358, 2009 = "^(\\+?358|0)\\s?(4(0|1|2|4|5)?|50)\\s?(\\d\\s?){4,8}\\d$", 1006 = "8610000000000", 1007 = ["1000000"] }
+fr_FR = { 1000 = "fr_FR", 1002 = "8610000000000", 1001 = "fr_FR", 2008 = 33, 2009 = "^(\\+?33|0)[67]\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+he_IL = { 1000 = "he_IL", 1002 = "8610000000000", 1001 = "he_IL", 2008 = 972, 2009 = "^(\\+972|0)([23489]|5[0248]|77)[1-9]\\d{6}", 1006 = "8610000000000", 1007 = ["1000000"] }
+hu_HU = { 1000 = "hu_HU", 1002 = "8610000000000", 1001 = "hu_HU", 2008 = 36, 2009 = "^(\\+?36)(20|30|70)\\d{7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+it_IT = { 1000 = "it_IT", 1002 = "8610000000000", 1001 = "it_IT", 2008 = 39, 2009 = "^(\\+?39)?\\s?3\\d{2} ?\\d{6,7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+ja_JP = { 1000 = "ja_JP", 1002 = "8610000000000", 1001 = "ja_JP", 2008 = 81, 2009 = "^(\\+?81|0)\\d{1,4}[ \\-]?\\d{1,4}[ \\-]?\\d{4}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+ms_MY = { 1000 = "ms_MY", 1002 = "8610000000000", 1001 = "ms_MY", 2008 = 601, 2009 = "^(\\+?6?01){1}(([145]{1}(\\-|\\s)?\\d{7,8})|([236789]{1}(\\s|\\-)?\\d{7}))$", 1006 = "8610000000000", 1007 = ["1000000"] }
+nb_NO = { 1000 = "nb_NO", 1002 = "8610000000000", 1001 = "nb_NO", 2008 = 47, 2009 = "^(\\+?47)?[49]\\d{7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+nl_BE = { 1000 = "nl_BE", 1002 = "8610000000000", 1001 = "nl_BE", 2008 = 32, 2009 = "^(\\+?32|0)4?\\d{8}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+nn_NO = { 1000 = "nn_NO", 1002 = "8610000000000", 1001 = "nn_NO", 2008 = 47, 2009 = "^(\\+?47)?[49]\\d{7}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+pl_PL = { 1000 = "pl_PL", 1002 = "8610000000000", 1001 = "pl_PL", 2008 = 48, 2009 = "^(\\+?48)? ?[5-8]\\d ?\\d{3} ?\\d{2} ?\\d{2}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+pt_BR = { 1000 = "pt_BR", 1002 = "8610000000000", 1001 = "pt_BR", 2008 = 55, 2009 = "^(\\+?55|0)\\-?[1-9]{2}\\-?[2-9]{1}\\d{3,4}\\-?\\d{4}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+pt_PT = { 1000 = "pt_PT", 1002 = "8610000000000", 1001 = "pt_PT", 2008 = 351, 2009 = "^(\\+?351)?9[1236]\\d{7}$/", 1006 = "8610000000000", 1007 = ["1000000"] }
+ru_RU = { 1000 = "ru_RU", 1002 = "8610000000000", 1001 = "ru_RU", 2008 = 7, 2009 = "^(\\+?7|8)?9\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+sr_RS = { 1000 = "sr_RS", 1002 = "8610000000000", 1001 = "sr_RS", 2008 = 3816, 2009 = "^(\\+3816|06)[- \\d]{5,9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+tr_TR = { 1000 = "tr_TR", 1002 = "8610000000000", 1001 = "tr_TR", 2008 = 90, 2009 = "^(\\+?90|0)?5\\d{9}$", 1006 = "8610000000000", 1007 = ["1000000"] }
+vi_VN = { 1000 = "vi_VN", 1002 = "8610000000000", 1001 = "vi_VN", 2008 = 84, 2009 = "^(\\+?84|0)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$", 1006 = "8610000000000", 1007 = ["1000000"] }
+
+[view_rules]
+
+[view_rules.manage]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+[view_rules.entity]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+
+[view_rules.schema.1000]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1001]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1002]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1003]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1004]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1005]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1006]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1007]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1008]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+
+[view_rules.schema.2008]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.2009]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }

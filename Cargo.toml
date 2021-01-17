@@ -1,0 +1,29 @@
+
+# Author: 闫刚 (yes7rose@sina.com)
+# Cargo.toml (c) 2020
+# Desc: workspace 工作空间
+# Created:  2020-11-16T02:08:10.711Z
+# Modified: !date!
+
+[workspace]
+members = [
+    "account",
+    "auth",
+    "cash_core",
+    "configs",
+    "database",
+    "entity",
+    "event",
+    "server",
+    "majordomo",
+    "manage",
+    "managers",
+    "minit",
+    "message",
+    "procedure",
+    "view",
+    "work",
+    "runtime_handle"
+]
+
+# exclude = ["minit"]
