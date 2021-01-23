@@ -52,7 +52,7 @@ pub const PROCEDURES_MANAGE_ID: i32 = 10010;
 // 模板
 pub const TEMPLATES_MANAGE_ID: i32 = 10011;
 
-// 工作节点
+/// 工作节点
 pub const WORK_NODES_MANAGE_ID: i32 = 10017;
 
 /// 过程阶段集
@@ -68,3 +68,41 @@ pub const TASK_TEMPLATES_MANAGE_ID: i32 = 10013;
 // 编号的管理
 pub const IDS_MANAGE_ID: i32 = 19999;
 
+
+//---------------图知-------------------
+/// 知识点
+pub const POINTS_MANAGE_ID: i32 = 30000;
+
+/// 图
+pub const GRAPHS_MANAGE_ID: i32 = 30001;
+
+// 单位或组织或公司
+pub const ORGNIZATIONS_MANAGE_ID: i32 = 30005;
+
+// 单位或组织或公司的部门
+pub const DEPARTMENTS_MANAGE_ID: i32 = 30004;
+
+
+/// 路线图
+pub const ROADMAPS_MANAGE_ID: i32 = 30002;
+
+/// 班
+pub const CLASSES_MANAGE_ID: i32 = 30006;
+
+/// 课
+pub const COURSES_MANAGE_ID: i32 = 30007;
+
+/// 领域
+pub const DOMAINS_MANAGE_ID: i32 = 30008;
+
+/// 评论
+pub const COMMENTS_MANAGE_ID: i32 = 30009;
+
+/// 问题
+pub const QUESTIONS_MANAGE_ID: i32 = 30010;
+
+/// 回答
+pub const ANWSERS_MANAGE_ID: i32 = 30011;
+
+/// 标记
+pub const TAGS_MANAGE_ID: i32 = 30012;

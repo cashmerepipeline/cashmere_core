@@ -180,4 +180,11 @@ pub mod ids {
     pub const TASK_DATA_FIELD_ID: i32 = 2010;
 
     pub const DATA_TASK_FIELD_ID: i32 = 2010;
+
+    //------图知-------
+    pub const GRAPHS_LINKS_FIELD_ID:i32=2008;
+    pub const GRAPHS_INDIVIDUAL_LEVEL_FIELD_ID:i32=2009;
+    pub const GRAPHS_INDIVIDUAL_ID_FIELD_ID:i32=2010;
+    pub const GRAPHS_DOMAIN_ID_FIELD_ID:i32=2011;
+    pub const GRAPHS_COMPOSE_TYPE_FIELD_ID:i32=2012;
 }

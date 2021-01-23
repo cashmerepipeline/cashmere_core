@@ -15,6 +15,7 @@ members = [
     "entity",
     "event",
     "server",
+    "service_handles",
     "majordomo",
     "manage",
     "managers",

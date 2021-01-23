@@ -32,6 +32,19 @@ pub mod templates_manager;
 // mod manage_documents_map;
 // mod manages_map;
 
+pub mod points_manager;
+pub mod graphs_manager;
+pub mod orgnizations_manager;
+pub mod departments_manager;
+pub mod classes_manager;
+pub mod courses_manager;
+pub mod domains_manager;
+pub mod questions_manager;
+pub mod comments_manager;
+pub mod answers_manager;
+pub mod roadmaps_manager;
+pub mod tags_manager;
+
 pub mod traits;
 mod macros;
 pub(crate) mod schema;
