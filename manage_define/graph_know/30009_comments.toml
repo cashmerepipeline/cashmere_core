@@ -3,7 +3,7 @@
 #
 
 id = 30006
-name = { Cn = "问题", En = "domains" }
+name = { Cn = "评论", En = "comments" }
 
 # 数据描写 或者 模式
 schema = [
@@ -21,7 +21,7 @@ schema = [
     #-----------------
     # 专有属性
     #-----------------
-    { id = 2008, data_type = "List", name = { Cn = "相关知识点", En = "nodes"}, removed = false },
+    { id = 2008, data_type = "String", name = { Cn = "根路径", En = "root"}, removed = false },
 ]
 
 # 特有属性

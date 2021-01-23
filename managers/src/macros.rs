@@ -13,7 +13,7 @@ use super::{ManagerTrait, Manager, ManagerInner};
 macro_rules! declare_get_manager {
     ($manager:ty, $static_manager:ident) => {
         // 取得管理器
-        pub(crate) async fn get_manager() -> Arc<Manager> {
+        pub async fn get_manager() -> Arc<Manager> {
             unsafe {
                 if $static_manager.is_none() {
                     let m_object = <$manager>::default();

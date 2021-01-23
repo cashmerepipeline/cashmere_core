@@ -8,6 +8,7 @@ Modified: !date!
 
 use std::sync::Arc;
 use std::{collections::HashMap};
+use std::any::Any;
 
 use bson::{Document};
 use parking_lot::RwLock;
@@ -63,6 +64,10 @@ impl Majordomo {
         get_managers_map().await.clone()
     }
 
+    /// 设置管理器表
+    pub async fn add_managers(&self, new_managers: Vec<Arc<Manager>>) -> Result<OperationResult, OperationResult> {
+        add_managers(new_managers).await
+    }
 
 
     // TODO: 管理依赖检查，全部管理库加载完成后
@@ -88,8 +93,21 @@ pub async fn get_majordomo() -> Arc<Majordomo> {
     }
 }
 
+/// 设置管理器
+async fn add_managers(new_managers: Vec<Arc<Manager>>) -> Result<OperationResult, OperationResult> {
+    if new_managers.is_empty() { return Ok(operation_succeed("ok")); }
 
-/// 取得管理映射表
+    let managers_map_arc = get_managers_map().await;
+    let mut managers_map_lock = managers_map_arc.write();
+    for m in new_managers.iter() {
+        managers_map_lock.insert(m.get_manager_id().clone(), m.clone());
+    }
+
+    Ok(operation_succeed("ok"))
+}
+
+
+/// 取得管理器映射表
 async fn get_managers_map() -> Arc<RwLock<ManagersMap>> {
     unsafe {
         if MANAGERS_MAP.is_none() {
@@ -100,7 +118,6 @@ async fn get_managers_map() -> Arc<RwLock<ManagersMap>> {
         }
     }
 }
-
 
 /// 从设置新建管理管理器
 async fn init_majordomo() -> Arc<Majordomo> {
@@ -113,17 +130,10 @@ async fn init_majordomo() -> Arc<Majordomo> {
 
 /// 初始化管理器映射表
 async fn init_managers_map() -> Arc<RwLock<ManagersMap>> {
-    let managers = managers::get_managers().await;
-    if managers.is_empty() { panic!("没有任何管理器加载") }
-
     let mut m_map: ManagersMap = HashMap::new();
-
-    for m in managers.iter() {
-        m_map.insert(m.get_manager_id().clone(), m.clone());
-    }
-
     Arc::new(RwLock::new(m_map))
 }
+
 
 #[cfg(test)]
 mod tests {

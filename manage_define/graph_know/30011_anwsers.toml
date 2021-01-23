@@ -1,9 +1,9 @@
 #
-# 知识技能树
+# 资产库, 收集分类资产，资产可以存放在本库路径下，也可以存放到其他位置
 #
 
-id = 30001
-name = { Cn = "知识树", En = "trees" }
+id = 30006
+name = { Cn = "回答", En = "answers" }
 
 # 数据描写 或者 模式
 schema = [
@@ -21,8 +21,7 @@ schema = [
     #-----------------
     # 专有属性
     #-----------------
-    # {0:知识点或树,...}
-    { id = 2008, data_type = "Map", name = { Cn = "连接表", En = "links"}, removed = false },
+    { id = 2008, data_type = "List", name = { Cn = "相关知识点", En = "nodes"}, removed = false },
 ]
 
 # 特有属性
