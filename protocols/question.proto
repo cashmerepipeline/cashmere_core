@@ -1,0 +1,34 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+question.proto (c) 2021
+Desc: 问题
+Created:  2021-01-14T07:16:13.483Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package cashmere;
+
+message NewQuestionRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message NewQuestionResponse {
+    string result = 1;
+}
+
+message EditQuestionRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message EditQuestionResponse {
+    string result = 1;
+}
+
+message RemoveQuestionRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message RemoveQuestionResponse {
+    string result = 1;
+}

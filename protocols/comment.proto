@@ -1,0 +1,35 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+comment.proto (c) 2021
+Desc: 评论
+Created:  2021-01-14T07:14:04.450Z
+Modified: !date!
+*/
+
+
+syntax = "proto3";
+package cashmere;
+
+message NewCommentRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message NewCommentResponse {
+    string result = 1;
+}
+
+message EditCommentRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message EditCommentResponse {
+    string result = 1;
+}
+
+message RemoveCommentRequest {
+    string tree_id = 1;
+    string owner_id = 2;
+}
+message RemoveCommentResponse {
+    string result = 1;
+}

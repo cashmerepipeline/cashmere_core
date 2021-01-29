@@ -145,11 +145,16 @@ pub async fn push_event_target_queue(
     account_id: &String
 ) -> Result<OperationResult, OperationResult> {
     let new_values: Bson = bson::to_bson(target_que).unwrap();
+    let query_doc = doc! {
+        "_id":event_id
+    };
+    let modify_doc = doc! {
+        TARGET_QUEUES.to_string():new_values
+    };
     entity::push_entity_array_field(
         &EVENTS_MANAGE_ID.to_string(),
-        &event_id,
-        &TARGET_QUEUES.to_string(),
-        &new_values,
+        query_doc,
+        modify_doc,
         account_id
     )
     .await

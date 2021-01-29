@@ -128,20 +128,23 @@ impl CashmereServer {
             .new_entity(&mut new_procedure_doc, &account_id, &group_id)
             .await;
 
-        // 添加到工作
-        let new_phase_bson = bson::bson!({
-            phase_name: new_procedure_id.to_string()
-        });
+        let query_doc = doc! {
+            "_id":work_id
+        };
+        let modify_doc = doc! {
+            format!("{}.{}", WORK_WORK_PHASES_FIELD_ID.to_string(), phase_name):new_procedure_id
+        };
 
         match result {
             Ok(r) => {
+                let query_doc = doc! {
+                    "_id":work_id
+                };
+                let modify_doc = doc! {
+                    format!("{}.{}", WORK_WORK_PHASES_FIELD_ID.to_string(), phase_name):new_procedure_id
+                };
                 match work_manager
-                    .push_entity_array_field(
-                        work_id,
-                        &WORK_WORK_PHASES_FIELD_ID.to_string(),
-                        new_phase_bson,
-                        &account_id,
-                    )
+                    .insert_entity_map_field(query_doc, modify_doc, &account_id)
                     .await
                 {
                     Err(e) => {
@@ -298,13 +301,14 @@ impl CashmereServer {
         match result {
             Ok(r) => {
                 // 添加成功后，更新过程
+                let query_doc = doc! {
+                    "_id":procedure_id
+                };
+                let modify_doc = doc! {
+                     PROCEDURE_WORK_NODES_FIELD_ID.to_string():node_id
+                };
                 match procedure_mamager
-                    .push_entity_array_field(
-                        procedure_id,
-                        &PROCEDURE_WORK_NODES_FIELD_ID.to_string(),
-                        bson::to_bson(&node_id).unwrap(),
-                        &account_id,
-                    )
+                    .push_entity_array_field(query_doc, modify_doc, &account_id)
                     .await
                 {
                     Err(e) => {
@@ -357,13 +361,15 @@ impl CashmereServer {
             .await
             .unwrap();
 
+        let query_doc = doc! {
+            "_id":work_node_id
+        };
+        let modify_doc = doc! {
+             WORK_NODE_WORKER_FIELD_ID.to_string():worker_id
+        };
+
         let result = node_manager
-            .update_entity_field(
-                work_node_id,
-                &WORK_NODE_WORKER_FIELD_ID.to_string(),
-                bson::to_bson(&worker_id).unwrap(),
-                &account_id,
-            )
+            .update_entity_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

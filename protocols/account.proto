@@ -8,7 +8,7 @@ Modified: !date!
 
 syntax = "proto3";
 
-package swb.cashmere;
+package account_service;
 
 enum LoginStatus{
   Login = 0;

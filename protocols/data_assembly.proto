@@ -7,7 +7,7 @@ Modified: !date!
 */
 
 syntax = "proto3";
-package swb.cashmere;
+package cashmere;
 
 
 // 新建数据组装

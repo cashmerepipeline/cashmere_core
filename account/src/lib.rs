@@ -103,12 +103,18 @@ pub async fn update_account_login_timestamps(
         timestamps[min_index] = new_timestapm;
     }
 
-    let new_value = Bson::from(timestamps);
+    let query_doc = doc! {
+        "_id": account_id.clone()
+    };
+    let modify_doc = doc! {
+        ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID.to_string():timestamps
+    };
 
     let result =
         entity::update_entity_field(&ACCOUNTS_MANAGE_ID.to_string(),
-                                    account_id,
-                                    &ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID.to_string(), new_value, account_id).await;
+                                    query_doc,
+                                    modify_doc,
+                                    account_id).await;
 
     match result {
         Ok(_r) => Ok(operation_succeed("ok")),

@@ -62,11 +62,20 @@ pub fn entity_not_exists(
     OperationResult::Failed(result)
 }
 
-// 实体属性不存在
+/// 实体属性不存在
 pub fn field_not_exists(operation: impl Into<String>, field: impl Into<String>) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
         details: format!("不能取得属性: {}", field.into()),
+    };
+
+    OperationResult::Failed(result)
+}
+/// 属性不需要更新
+pub fn field_edited_already(operation: impl Into<String>, field: impl Into<String>) -> OperationResult {
+    let result = Failed {
+        operation: operation.into(),
+        details: format!("属性已经是想要的值: {}", field.into()),
     };
 
     OperationResult::Failed(result)

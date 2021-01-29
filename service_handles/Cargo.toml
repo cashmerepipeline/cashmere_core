@@ -26,3 +26,6 @@ event = { path = "../event" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
 view = { path = "../view" }
+
+[build-dependencies]
+tonic-build = "0.3"

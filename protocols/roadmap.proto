@@ -1,0 +1,57 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+tree.proto (c) 2021
+Desc: 路线图接口
+Created:  2021-01-14T03:45:12.018Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package cashmere;
+
+enum RoadMapVisType {
+  Person = 0;
+  Class = 1;
+  Group = 2;
+  Department = 3;
+  Organization = 4;
+}
+
+// 新路线图
+message NewRoadmapRequest {
+  string graph_id = 1;
+  string local = 3;
+  string name = 4;
+  string is_public = 5;
+}
+message NewRoadmapResponse {
+  string result = 1;
+}
+
+// 设置公开
+message SetRoadmapPublicRequest{
+  string roadmap_id = 1;
+  bool public = 2;
+}
+message SetRoadmapPublicResponse {
+  string result = 1;
+}
+
+// 添加访问者
+message AddMapVisitorRequest{
+  string roadmap_id = 1;
+  RoadMapVisType type = 2;
+  string visitor_id = 3;
+}
+message AddMapVisitorResponse {
+  string result = 1;
+}
+
+message RefrenceRoadmapRequest {
+  string graph_id = 1;
+  string owner_id = 2;
+  bytes name = 3;
+}
+message RefrenceRoadmapResponse {
+  string result = 1;
+}

@@ -8,7 +8,7 @@ Modified: !date!
 
 syntax = "proto3";
 
-package swb.cashmere;
+package cashmere;
 
 message Entity{
   bytes data = 1; // bson document {id, name, writeable_fields, readonly_fields}

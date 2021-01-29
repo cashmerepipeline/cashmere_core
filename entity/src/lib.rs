@@ -27,7 +27,7 @@ use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 /// 取得新连续id
 pub async fn get_new_entity_id(
     manage_id: &String,
-    account_id: &String
+    account_id: &String,
 ) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
     let result = ids_collection
@@ -156,14 +156,16 @@ pub async fn change_entity_owner(
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     let new_value = Bson::from(new_owner);
+
+    let query_doc = doc! {"_id":entity_id.clone()};
+    let modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
+
     let result = update_entity_field(
-        entity_id,
         manage_id,
-        &"onwer".to_string(),
-        new_value,
+        query_doc,
+        modify_doc,
         account_id,
-    )
-        .await;
+    ).await;
 
     result
 }
@@ -175,62 +177,33 @@ pub async fn update_entity_groups(
     new_groups: &Vec<String>,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
-    let new_value = Bson::from(new_groups);
-    let result = update_entity_field(
-        entity_id,
-        manage_id,
-        &"onwer".to_string(),
-        new_value,
-        account_id,
-    )
-        .await;
-
-    result
-}
-
-/// 添加实体到组
-pub async fn add_entity_to_group(
-    manage_id: &String,
-    entity_id: &String,
-    group: &String,
-    account_id: &String,
-) -> Result<OperationResult, OperationResult> {
-    let entity_doc = match get_entity_by_id(manage_id, entity_id).await {
-        Ok(r) => r,
-        Err(e) => return Err(e),
+    // 集合是否存在， 不自动创建集合
+    let collection = match database::get_collection_by_id(manage_id).await {
+        Some(c) => c,
+        None => return Err(collection_not_exists("update_entity_groups")),
     };
 
-    let mut groups: Vec<String> = match get_entity_field(&entity_doc, "groups") {
-        Some(r) => r
-            .as_array()
-            .unwrap()
-            .iter()
-            .map(|x| x.as_str().unwrap().to_string())
-            .collect(),
-        None => {
-            return Err(operation_failed(
-                "add_entity_to_group",
-                "groups实体属性不存在",
-            ));
-        }
+    let query_doc = doc! {
+        "_id": entity_id
     };
 
-    if groups.contains(group) {
-        return Err(operation_failed("add_entity_to_group", "entity已经属于组"));
-    } else {
-        groups.push(group.clone());
-    }
+    let modify_doc = doc! {
+        GROUPS_FIELD_ID.to_string(): { "$each":new_groups}
+    };
 
-    let new_value = Bson::from(groups);
-    update_entity_field(entity_id, manage_id, "groups", new_value, account_id).await
+    push_entity_array_field(
+        manage_id, 
+        query_doc, 
+        modify_doc, 
+        account_id).await
+
 }
 
 /// 更新实体单个属性
 pub async fn update_entity_field(
     manage_id: &String,
-    entity_id: &String,
-    field: impl Into<String>,
-    new_value: Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -239,17 +212,13 @@ pub async fn update_entity_field(
         None => return Err(collection_not_exists("update_entity_field")),
     };
 
-    let field = field.into();
-
     // 更新
     let result = collection
         .update_one(
+            query_doc.clone(),
             doc! {
-                "_id": entity_id
-            },
-            doc! {
+            "$set": modify_doc,
                 "$set": {
-                    field:new_value,
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
                 }
@@ -264,12 +233,12 @@ pub async fn update_entity_field(
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
                 "updata_entity",
-                format!("更新了多个实体{}", entity_id),
+                format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
             "update_entity",
-            format!("更新操作失败{}", entity_id),
+            format!("更新操作失败{}", query_doc),
         )),
     }
 }
@@ -278,12 +247,11 @@ pub async fn update_entity_field(
 // 数组属性操作
 // --------------------------
 
-///  添加新元素
+///  添加单个新元素
 pub async fn push_entity_array_field(
     manage_id: &String,
-    entity_id: &String,
-    array_id: &String,
-    value: &Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -295,11 +263,10 @@ pub async fn push_entity_array_field(
     // 更新
     let result = collection
         .update_one(
+            query_doc.clone(),
             doc! {
-                "_id": entity_id
-            },
-            doc! {
-                "$push": { array_id: value.clone() },
+                // 添加
+                "$addToSet": modify_doc,
                 "$set": {
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
@@ -308,8 +275,6 @@ pub async fn push_entity_array_field(
             None,
         )
         .await;
-
-    // 记录修改
 
     // 结果
     match result {
@@ -317,22 +282,21 @@ pub async fn push_entity_array_field(
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
                 "push_entity_array_field",
-                format!("更新了多个实体{}", entity_id),
+                format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
             "push_entity_array_field",
-            format!("添加操作失败{}", entity_id),
+            format!("添加操作失败{}", query_doc),
         )),
     }
 }
 
 ///  列表属性 移除元素
-pub async fn pop_entity_array_field(
+pub async fn pull_entity_array_field(
     manage_id: &String,
-    entity_id: &String,
-    array_id: &String,
-    item: &Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -344,11 +308,9 @@ pub async fn pop_entity_array_field(
     // 更新
     let result = collection
         .update_one(
+           query_doc.clone(),
             doc! {
-                "_id": entity_id
-            },
-            doc! {
-                "$pop": { array_id: item.clone() },
+                "$pull": modify_doc,
                 "$set": {
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
@@ -358,20 +320,18 @@ pub async fn pop_entity_array_field(
         )
         .await;
 
-    // 记录修改
-
     // 结果
     match result {
         Ok(r) => match r.modified_count == 1 {
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
                 "pop_entity_array_field",
-                format!("更新了多个实体{}", entity_id),
+                format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
             "pop_entity_array_field",
-            format!("删除操作失败{}", entity_id),
+            format!("删除操作失败{}", query_doc),
         )),
     }
 }
@@ -379,10 +339,8 @@ pub async fn pop_entity_array_field(
 /// 更新元素
 pub async fn update_entity_array_field(
     manage_id: &String,
-    entity_id: &String,
-    array_id: &String,
-    field_id: i32,
-    new_value: &Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -394,13 +352,10 @@ pub async fn update_entity_array_field(
     // 更新
     let result = collection
         .update_one(
+            query_doc.clone(),
             doc! {
-                "_id": entity_id,
-                format!("{}.id", array_id): field_id
-            },
-            doc! {
+                "$set": modify_doc,
                 "$set": {
-                    format!("{}.$", MANAGES_SCHEMA_FIELD_ID): new_value,
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
                 }
@@ -409,8 +364,49 @@ pub async fn update_entity_array_field(
         )
         .await;
 
-    // 记录修改
-    // utils::update_entity_modify_stamp(entity_id, collection, account_id);
+    // 结果
+    match result {
+        Ok(r) => match r.modified_count == 1 {
+            true => Ok(operation_succeed("succeed")),
+            false => Err(operation_failed(
+                "update_entity_array_field",
+                format!("更新了多个实体{}", query_doc),
+            )),
+        },
+        Err(_e) => Err(operation_failed(
+            "update_entity_array_field",
+            format!("更新操作失败{}", query_doc),
+        )),
+    }
+}
+
+/// 更新map元素
+pub async fn update_entity_array_map_field(
+    manage_id: &String,
+    query_doc: Document,
+    modify_doc: Document,
+    account_id: &String,
+) -> Result<OperationResult, OperationResult> {
+    // 集合是否存在， 不自动创建集合
+    let collection = match database::get_collection_by_id(manage_id).await {
+        Some(c) => c,
+        None => return Err(collection_not_exists("upate_entity_array_field")),
+    };
+
+    // 更新
+    let result = collection
+        .update_one(
+            query_doc.clone(),
+            doc! {
+                "$set": modify_doc,
+                "$set": {
+                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
+                    MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
+                }
+            },
+            None,
+        )
+        .await;
 
     // 结果
     match result {
@@ -418,12 +414,12 @@ pub async fn update_entity_array_field(
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
                 "update_entity_array_field",
-                format!("更新了多个实体{}", entity_id),
+                format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
             "update_entity_array_field",
-            format!("更新操作失败{}", entity_id),
+            format!("更新操作失败{}", query_doc),
         )),
     }
 }
@@ -433,7 +429,7 @@ pub async fn update_entity_fields(
     entity_id: &String,
     collection: &String,
     new_value: Document,
-    account_id: &String
+    account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(collection).await {
@@ -477,10 +473,8 @@ pub async fn update_entity_fields(
 // --------------------------
 pub async fn insert_entity_map_field(
     manage_id: &String,
-    entity_id: &String,
-    field_id: &String,
-    key: &String,
-    value: &Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -492,12 +486,10 @@ pub async fn insert_entity_map_field(
     // 更新
     let result = collection
         .update_one(
+            query_doc.clone(),
             doc! {
-                "_id": entity_id
-            },
-            doc! {
+                "$set":modify_doc,
                 "$set": {
-                format!("{}.{}", field_id, key):value.clone(),
                 MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                 MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
                 }
@@ -512,30 +504,27 @@ pub async fn insert_entity_map_field(
             true => Ok(operation_succeed("ok")),
             false => Err(operation_failed(
                 "insert_entity_map_field",
-                format!("更新了多个实体{}", entity_id),
+                format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
             "insert_entity_map_field",
-            format!("更新操作失败{}", entity_id),
+            format!("更新操作失败{}", query_doc),
         )),
     }
 }
 
+/// 更新map字段
 pub async fn update_entity_map_field(
     manage_id: &String,
-    entity_id: &String,
-    field_id: &String,
-    key: &String,
-    value: &Bson,
+    query_doc: Document,
+    modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     insert_entity_map_field(
         manage_id,
-        entity_id,
-        field_id,
-        key,
-        value,
+        query_doc,
+        modify_doc,
         account_id,
     ).await
 }

@@ -7,7 +7,7 @@ Modified: !date!
 */
 
 syntax = "proto3";
-package swb.cashmere;
+package cashmere;
 
 message NewWorkPhaseRequest {
   string name = 1;

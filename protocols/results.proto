@@ -8,7 +8,7 @@ Modified: !date!
 
 syntax = "proto3";
 
-package swb.cashmere;
+package cashmere;
 
 
 // 操作返回结果统一格式，

@@ -14,7 +14,7 @@ members = [
     "database",
     "entity",
     "event",
-    "server",
+#    "server",
     "service_handles",
     "majordomo",
     "manage",
@@ -27,4 +27,4 @@ members = [
     "runtime_handle"
 ]
 
-# exclude = ["minit"]
+ exclude = ["server"]

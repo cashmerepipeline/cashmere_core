@@ -93,12 +93,6 @@ impl CashmereServer {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        // 取得第一个可写组作为组
-        let group_id =
-            match view::get_first_write_group(&groups, &WORK_PHASES_MANAGE_ID.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
@@ -110,11 +104,17 @@ impl CashmereServer {
         let new_value_docs = bson::Document::from_reader(&mut new_value.as_slice()).unwrap();
         let new_value = bson::to_bson(&new_value_docs).unwrap();
 
+        let query_doc = doc! {
+            "_id":phase_id
+        };
+        let modify_doc = doc! {
+             WORK_PHASE_PHASES_FIELD_ID.to_string():worker_id
+        };
+
         let result = manager
             .update_entity_field(
-                phase_id,
-                &WORK_PHASE_PHASES_FIELD_ID.to_string(),
-                new_value,
+                query_doc,
+                modify_doc,
                 &account_id,
             )
             .await;

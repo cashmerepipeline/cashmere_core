@@ -126,7 +126,7 @@ impl CashmereServer {
         link.insert("in_slot", start_node_id);
 
         let result = manager
-            .pop_entity_array_field(
+            .pull_entity_array_field(
                 procedure_id,
                 &PROCEDURE_LINKS_FIELD_ID.to_string(),
                 bson::to_bson(&link).unwrap(),
