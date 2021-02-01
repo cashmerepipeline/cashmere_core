@@ -9,56 +9,40 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-enum TagDataType {
-  //选项
-  Option = 0;
-  // 笔记
-  Note = 1;
-  // 时长
-  Dueration = 2;
-  //日期
-  Date = 3;
-  // 日期时间
-  DateTime = 4;
-  // 测量
-  Messure = 5;
-}
-
 message Tag{
   string name = 1;
   float ammount = 2;
 }
 
+// 添加标签
 message AddTagRequest {
-  string roadmap_id = 1;
+  string tag_map_id = 1;
   string point_id = 2;
   string tag_type_id = 3;
-  double tag_value = 4;
+  bytes tag_value = 4;
 }
 message AddTagResponse {
   string result = 1;
 }
 
-message EditTagRequest {
-  string roadmap_id = 1;
-  string owner_id = 2;
+// 设置标签值
+message SetTagValueRequest {
+  string tag_map_id = 1;
+  string point_id = 2;
+  string tag_type_id = 3;
+  bytes tag_value = 4;
 }
-message EditTagResponse {
+message SetTagValueResponse {
   string result = 1;
 }
 
+
+// 移除标签
 message RemoveTagRequest {
-  string roadmap_id = 1;
-  string owner_id = 2;
+  string tag_map_id = 1;
+  string point_id = 2;
+  string tag_type_id = 3;
 }
 message RemoveTagResponse {
-  string result = 1;
-}
-
-message NewTagTypeRequest {
-  string roadmap_id = 1;
-  string owner_id = 2;
-}
-message NewTagTypeResponse {
   string result = 1;
 }

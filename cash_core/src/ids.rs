@@ -104,5 +104,8 @@ pub const QUESTIONS_MANAGE_ID: i32 = 30010;
 /// 回答
 pub const ANWSERS_MANAGE_ID: i32 = 30011;
 
-/// 标记
-pub const TAGS_MANAGE_ID: i32 = 30012;
+/// 标记类
+pub const TAG_TYPES_MANAGE_ID: i32 = 30012;
+
+/// 标记图
+pub const TAG_MAPS_MANAGE_ID: i32 = 30013;

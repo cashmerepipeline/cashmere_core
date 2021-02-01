@@ -11,7 +11,7 @@ syntax = "proto3";
 package cashmere;
 
 message NewCommentRequest {
-    string tree_id = 1;
+    string point_id = 1;
     string owner_id = 2;
 }
 message NewCommentResponse {
@@ -19,7 +19,7 @@ message NewCommentResponse {
 }
 
 message EditCommentRequest {
-    string tree_id = 1;
+    string point_id = 1;
     string owner_id = 2;
 }
 message EditCommentResponse {
@@ -27,7 +27,7 @@ message EditCommentResponse {
 }
 
 message RemoveCommentRequest {
-    string tree_id = 1;
+    string point_id = 1;
     string owner_id = 2;
 }
 message RemoveCommentResponse {

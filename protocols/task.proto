@@ -13,7 +13,6 @@ package cashmere;
 message NewTaskForWorkNodeRequest{
     string work_node_id = 1;
 }
-
 message NewTaskForWorkNodeResponse{
     string result = 1;
 }

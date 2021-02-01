@@ -21,6 +21,7 @@ schema = [
     { id = 1006, data_type = "String", name = { Cn = "主人", En = "owner"}, removed = false },
     { id = 1007, data_type = "String", name = { Cn = "组表", En = "groups"}, removed = false },
     { id = 1008, data_type = "List", name = { Cn = "数据", En = "datas"}, removed = false },
+    { id = 1009, data_type = "List", name = { Cn = "评论", En = "comments"}, removed = false },
     # 专有属性
     { id = 2008, data_type = "String", name = { Cn = "事件编号", En = "event_id"}, removed = false },
     { id = 2009, data_type = "List", name = { Cn = "源队列", En = "source_queues"}, removed = false },

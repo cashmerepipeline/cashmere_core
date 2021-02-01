@@ -10,6 +10,17 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+// 名
+message Name {
+  string local = 1;
+  string name = 2;
+}
+// 名属性，语言：语言名
+message NameField {
+  map<string, string> name_field = 1;
+}
+
+// 重命名
 message RenameRequest {
   string manage_id = 1;
   string entity_id = 2;

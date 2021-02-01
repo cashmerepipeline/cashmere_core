@@ -10,11 +10,11 @@ syntax = "proto3";
 package cashmere;
 
 enum RoadMapVisType {
-  Person = 0;
-  Class = 1;
-  Group = 2;
-  Department = 3;
-  Organization = 4;
+  VisTypePerson = 0;
+  VisTypeClass = 1;
+  VisTypeGroup = 2;
+  VisTypeDepartment = 3;
+  VisTypeOrganization = 4;
 }
 
 // 新路线图
@@ -22,7 +22,6 @@ message NewRoadmapRequest {
   string graph_id = 1;
   string local = 3;
   string name = 4;
-  string is_public = 5;
 }
 message NewRoadmapResponse {
   string result = 1;
@@ -40,18 +39,27 @@ message SetRoadmapPublicResponse {
 // 添加访问者
 message AddMapVisitorRequest{
   string roadmap_id = 1;
-  RoadMapVisType type = 2;
+  RoadMapVisType visitor_type = 2;
   string visitor_id = 3;
 }
 message AddMapVisitorResponse {
   string result = 1;
 }
 
-message RefrenceRoadmapRequest {
-  string graph_id = 1;
-  string owner_id = 2;
-  bytes name = 3;
+// 添加标签类型
+message AddTagTypeRequest{
+  string roadmap_id = 1;
+  string tag_type_id = 2;
 }
-message RefrenceRoadmapResponse {
+message AddTagTypeResponse {
+  string result = 1;
+}
+
+// 移除标签类型
+message RemoveTagTypeRequest{
+  string roadmap_id = 1;
+  string tag_type_id = 2;
+}
+message RemoveTagTypeResponse {
   string result = 1;
 }

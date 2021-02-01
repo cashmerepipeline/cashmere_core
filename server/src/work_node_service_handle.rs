@@ -22,22 +22,7 @@ use crate::UnaryResponseResult;
 
 type ResponseResult<T> = Result<Response<T>, Status>;
 
-// 整数到槽类型
-impl SlotType {
-    fn from(val: &i32) -> Option<SlotType> {
-        if val == &0i32 {
-            Some(SlotType::RefrenceData)
-        } else if val == &1i32 {
-            Some(SlotType::DepedentData)
-        } else if val == &2i32 {
-            Some(SlotType::WorkData)
-        } else if val == &3i32 {
-            Some(SlotType::OutData)
-        } else {
-            None
-        }
-    }
-}
+// TODO:: SLotTYpe 已经移动
 
 impl CashmereServer {
     pub(crate) async fn handle_create_work_node_link(

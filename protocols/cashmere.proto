@@ -21,6 +21,9 @@ import "work_phase.proto";
 import "work_node.proto";
 import "point.proto";
 import "graph.proto";
+import "tag_type.proto";
+import "tag.proto";
+import "tag_map.proto";
 import "roadmap.proto";
 import "question.proto";
 

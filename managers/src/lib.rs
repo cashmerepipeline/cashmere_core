@@ -43,7 +43,7 @@ pub mod questions_manager;
 pub mod comments_manager;
 pub mod answers_manager;
 pub mod roadmaps_manager;
-pub mod tags_manager;
+pub mod tag_types_manager;
 
 pub mod traits;
 mod macros;
