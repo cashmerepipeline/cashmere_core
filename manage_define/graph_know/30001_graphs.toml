@@ -32,7 +32,8 @@ schema = [
     # 所在领域
     { id = 2011, data_type = "List", name = { Cn = "领域", En = "domain_id"}, removed = false },
     # 排版显示方式
-    { id = 2012, data_type = "List", name = { Cn = "排版", En = "compose_type"}, removed = false },
+    { id = 2012, data_type = "Int64", name = { Cn = "排版", En = "compose_type"}, removed = false },
+    { id = 2013, data_type = "List", name = { Cn = "问题", En = "quetions"}, removed = false },
 ]
 
 # 事件队列和消息队列表

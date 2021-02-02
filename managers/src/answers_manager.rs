@@ -16,7 +16,7 @@ use parking_lot::RwLock;
 use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
-use cash_core::{ids::ANWSERS_MANAGE_ID, results::*};
+use cash_core::{ids::ANSWERS_MANAGE_ID, results::*};
 use database;
 
 use crate::{declare_get_manager};
@@ -27,14 +27,14 @@ use cash_core::ids::MANAGES_MANAGE_ID;
 pub struct WorksManager;
 
 /// 缓存
-static mut ANWSERS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut ANWSERS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut ANSWERS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut ANSWERS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
-static mut ANWSERS_MANAGER: Option<Arc<Manager>> = None;
+static mut ANSWERS_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(WorksManager, ANWSERS_MANAGER);
+declare_get_manager!(WorksManager, ANSWERS_MANAGER);
 
 // 实现接口
 #[async_trait]
@@ -44,7 +44,7 @@ impl ManagerTrait for WorksManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return ANWSERS_MANAGE_ID;
+        return ANSWERS_MANAGE_ID;
     }
 
     fn get_manager_name(&self) -> String {
@@ -57,36 +57,36 @@ impl ManagerTrait for WorksManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if ANWSERS_MANAGE.is_some() {
-                ANWSERS_MANAGE.clone().unwrap()
+            if ANSWERS_MANAGE.is_some() {
+                ANSWERS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = ANWSERS_MANAGE_ID.to_string();
-                let id_str = ANWSERS_MANAGE_ID.to_string();
+                let collection_name = ANSWERS_MANAGE_ID.to_string();
+                let id_str = ANSWERS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
-                ANWSERS_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                ANWSERS_MANAGE.clone().unwrap()
+                ANSWERS_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                ANSWERS_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if ANWSERS_MANAGE_DOCUMENT.is_some() {
-                ANWSERS_MANAGE_DOCUMENT.clone().unwrap()
+            if ANSWERS_MANAGE_DOCUMENT.is_some() {
+                ANSWERS_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = ANWSERS_MANAGE_ID.to_string();
+                let id_str = ANSWERS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
                 };
 
-                ANWSERS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                ANWSERS_MANAGE_DOCUMENT.clone().unwrap()
+                ANSWERS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                ANSWERS_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }

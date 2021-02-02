@@ -102,7 +102,7 @@ pub const COMMENTS_MANAGE_ID: i32 = 30009;
 pub const QUESTIONS_MANAGE_ID: i32 = 30010;
 
 /// 回答
-pub const ANWSERS_MANAGE_ID: i32 = 30011;
+pub const ANSWERS_MANAGE_ID: i32 = 30011;
 
 /// 标记类
 pub const TAG_TYPES_MANAGE_ID: i32 = 30012;

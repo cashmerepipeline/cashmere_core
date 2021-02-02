@@ -2,7 +2,7 @@
 # 资产库, 收集分类资产，资产可以存放在本库路径下，也可以存放到其他位置
 #
 
-id = 30006
+id = 30011
 name = { Cn = "回答", En = "answers" }
 
 # 数据描写 或者 模式
@@ -22,7 +22,8 @@ schema = [
     #-----------------
     # 专有属性
     #-----------------
-    { id = 2008, data_type = "List", name = { Cn = "相关知识点", En = "nodes"}, removed = false },
+    { id = 2008, data_type = "String", name = { Cn = "问题", En = "question", removed = false }},
+    { id = 2009, data_type = "String", name = { Cn = "内容", En = "contents", removed = false }},
 ]
 
 # 特有属性

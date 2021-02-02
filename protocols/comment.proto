@@ -11,24 +11,26 @@ syntax = "proto3";
 package cashmere;
 
 message NewCommentRequest {
-    string point_id = 1;
-    string owner_id = 2;
+    string target_manage_id = 1;
+    string target_entity_id = 2;
+    string contents = 3;
 }
 message NewCommentResponse {
     string result = 1;
 }
 
 message EditCommentRequest {
-    string point_id = 1;
-    string owner_id = 2;
+    string comment_id = 1;
+    string new_contents = 2;
 }
 message EditCommentResponse {
     string result = 1;
 }
 
 message RemoveCommentRequest {
-    string point_id = 1;
-    string owner_id = 2;
+    string target_manage_id = 1;
+    string target_entity_id = 2;
+    string comment_id = 3;
 }
 message RemoveCommentResponse {
     string result = 1;

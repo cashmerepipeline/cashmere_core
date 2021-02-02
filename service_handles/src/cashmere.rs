@@ -904,11 +904,53 @@ pub enum RoadMapVisType {
     VisTypeOrganization = 4,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCommentRequest {
+    #[prost(string, tag = "1")]
+    pub target_manage_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub target_entity_id: std::string::String,
+    #[prost(string, tag = "3")]
+    pub contents: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCommentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditCommentRequest {
+    #[prost(string, tag = "1")]
+    pub comment_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub new_contents: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditCommentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveCommentRequest {
+    #[prost(string, tag = "1")]
+    pub target_manage_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub target_entity_id: std::string::String,
+    #[prost(string, tag = "3")]
+    pub comment_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveCommentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewQuestionRequest {
     #[prost(string, tag = "1")]
-    pub tree_id: std::string::String,
+    pub graph_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub owner_id: std::string::String,
+    pub name: std::string::String,
+    #[prost(string, tag = "3")]
+    pub contents: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewQuestionResponse {
@@ -917,10 +959,12 @@ pub struct NewQuestionResponse {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditQuestionRequest {
-    #[prost(string, tag = "1")]
-    pub tree_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub owner_id: std::string::String,
+    pub question_id: std::string::String,
+    #[prost(string, tag = "3")]
+    pub new_name: std::string::String,
+    #[prost(string, tag = "4")]
+    pub new_contents: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditQuestionResponse {
@@ -930,12 +974,48 @@ pub struct EditQuestionResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveQuestionRequest {
     #[prost(string, tag = "1")]
-    pub tree_id: std::string::String,
+    pub graph_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub owner_id: std::string::String,
+    pub question_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveQuestionResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAnswerRequest {
+    #[prost(string, tag = "1")]
+    pub question_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub contents: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAnswerResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAnswerRequest {
+    #[prost(string, tag = "1")]
+    pub answer_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub new_contents: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAnswerResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAnswerRequest {
+    #[prost(string, tag = "1")]
+    pub question_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub answer_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAnswerResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }

@@ -10,24 +10,26 @@ syntax = "proto3";
 package cashmere;
 
 message NewQuestionRequest {
-    string tree_id = 1;
-    string owner_id = 2;
+    string graph_id = 1;
+    string name = 2;
+    string contents = 3;
 }
 message NewQuestionResponse {
     string result = 1;
 }
 
 message EditQuestionRequest {
-    string tree_id = 1;
-    string owner_id = 2;
+    string question_id = 2;
+    string new_name = 3;
+    string new_contents = 4;
 }
 message EditQuestionResponse {
     string result = 1;
 }
 
 message RemoveQuestionRequest {
-    string tree_id = 1;
-    string owner_id = 2;
+    string graph_id = 1;
+    string question_id = 2;
 }
 message RemoveQuestionResponse {
     string result = 1;

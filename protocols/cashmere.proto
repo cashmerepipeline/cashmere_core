@@ -25,7 +25,9 @@ import "tag_type.proto";
 import "tag.proto";
 import "tag_map.proto";
 import "roadmap.proto";
+import "comment.proto";
 import "question.proto";
+import "answer.proto";
 
 service CashmereGrpc{
   // // =====管理=====
