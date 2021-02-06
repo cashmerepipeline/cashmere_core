@@ -6,7 +6,6 @@ Created:  2021-01-14T03:45:12.018Z
 Modified: !date!
 */
 
-
 syntax = "proto3";
 package cashmere;
 
@@ -29,7 +28,7 @@ message NewGraphRequest {
   string domain_id = 1;
   IndividualLevel level = 2;
   string individual_id = 3;
-  string local = 4;
+  string language = 4;
   string name = 5;
   ComposeType compose_type = 6;
 }
@@ -39,7 +38,7 @@ message NewGraphResponse {
 
 message RenameGraphRequest {
   string graph_id = 1;
-  string local = 2;
+  string language = 2;
   string new_name = 3;
 }
 message RenameGraphResponse {

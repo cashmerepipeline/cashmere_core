@@ -2,7 +2,7 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Name {
     #[prost(string, tag = "1")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "2")]
     pub name: std::string::String,
 }
@@ -20,7 +20,7 @@ pub struct RenameRequest {
     #[prost(string, tag = "2")]
     pub entity_id: std::string::String,
     #[prost(string, tag = "3")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "4")]
     pub new_name: std::string::String,
 }
@@ -29,19 +29,234 @@ pub struct RenameResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
+/// 新语言名
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLocalNameRequest {
+pub struct NewLanguageNameRequest {
     #[prost(string, tag = "1")]
     pub manage_id: std::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: std::string::String,
     #[prost(string, tag = "3")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "4")]
     pub new_name: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLocalNameResponse {
+pub struct NewLanguageNameResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 新建单位组织
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewOrganizationRequest {
+    #[prost(string, tag = "1")]
+    pub location: std::string::String,
+    #[prost(string, tag = "2")]
+    pub language: std::string::String,
+    #[prost(string, tag = "3")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewOrganizationResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加管理员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAdministratorToOrganizationRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAdministratorToOrganizationResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除管理员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAdministratorFromOrganizationRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAdministratorFromOrganizationResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加雇员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddEmployeeToOrganizationRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddEmployeeToOrganizationResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除雇员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveEmployeeFromOrganizationRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveEmployeeFromOrganizationResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 新建单位部门
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDepartmentRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub language: std::string::String,
+    #[prost(string, tag = "3")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDepartmentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加部门管理元员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAdministratorToDepartmentRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAdministratorToDepartmentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除管理员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAdministratorFromDepartmentRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAdministratorFromDepartmentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加部门员工
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddEmployeeToDepartmentRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddEmployeeToDepartmentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除部门员工
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveEmployeeFromDepartmentRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveEmployeeFromDepartmentResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 新班级
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewClassRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub language: std::string::String,
+    #[prost(string, tag = "3")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewClassResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加班级管理员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddClassTeacherToClassRequest {
+    #[prost(string, tag = "1")]
+    pub class_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddClassTeacherToClassResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加老师
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddTeacherToClassRequest {
+    #[prost(string, tag = "1")]
+    pub class_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddTeacherToClassResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除老师
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTeacherFromClassRequest {
+    #[prost(string, tag = "1")]
+    pub class_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTeacherFromClassResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加学生
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddStudentToClassRequest {
+    #[prost(string, tag = "1")]
+    pub class_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddStudentToClassResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 移除学生
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStudentFromClassRequest {
+    #[prost(string, tag = "1")]
+    pub class_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub account_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStudentFromClassResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
@@ -198,7 +413,7 @@ pub struct EditSchemaFieldNameRequest {
     #[prost(int32, tag = "2")]
     pub field_id: i32,
     #[prost(string, tag = "3")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "4")]
     pub new_name: std::string::String,
 }
@@ -536,7 +751,7 @@ pub struct NewPointRequest {
     #[prost(string, tag = "1")]
     pub domain_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub name: std::string::String,
 }
@@ -550,7 +765,7 @@ pub struct RenamePointRequest {
     #[prost(string, tag = "1")]
     pub point_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub new_name: std::string::String,
 }
@@ -564,7 +779,7 @@ pub struct AppendPointNameRequest {
     #[prost(string, tag = "1")]
     pub point_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub name: std::string::String,
 }
@@ -582,7 +797,7 @@ pub struct NewGraphRequest {
     #[prost(string, tag = "3")]
     pub individual_id: std::string::String,
     #[prost(string, tag = "4")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "5")]
     pub name: std::string::String,
     #[prost(enumeration = "ComposeType", tag = "6")]
@@ -598,7 +813,7 @@ pub struct RenameGraphRequest {
     #[prost(string, tag = "1")]
     pub graph_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub new_name: std::string::String,
 }
@@ -675,7 +890,7 @@ pub struct NewTagTypeRequest {
     #[prost(string, tag = "1")]
     pub domain_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub name: std::string::String,
     #[prost(string, tag = "4")]
@@ -691,7 +906,7 @@ pub struct AddDataFieldToTagTypeRequest {
     #[prost(string, tag = "1")]
     pub tag_type_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub field_name: std::string::String,
     #[prost(enumeration = "TagDataType", tag = "4")]
@@ -709,7 +924,7 @@ pub struct RemoveDataFieldFromTagTypeRequest {
     #[prost(string, tag = "1")]
     pub tag_type_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub field_name: std::string::String,
 }
@@ -724,7 +939,7 @@ pub struct EditDataFieldForTagTypeRequest {
     #[prost(string, tag = "1")]
     pub tag_type_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub old_field_name: std::string::String,
     #[prost(string, tag = "4")]
@@ -816,7 +1031,7 @@ pub struct CreateTagMapRequest {
     #[prost(string, tag = "1")]
     pub roadmap_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "3")]
     pub name: std::string::String,
 }
@@ -831,7 +1046,7 @@ pub struct NewRoadmapRequest {
     #[prost(string, tag = "1")]
     pub graph_id: std::string::String,
     #[prost(string, tag = "3")]
-    pub local: std::string::String,
+    pub language: std::string::String,
     #[prost(string, tag = "4")]
     pub name: std::string::String,
 }
@@ -858,7 +1073,7 @@ pub struct SetRoadmapPublicResponse {
 pub struct AddMapVisitorRequest {
     #[prost(string, tag = "1")]
     pub roadmap_id: std::string::String,
-    #[prost(enumeration = "RoadMapVisType", tag = "2")]
+    #[prost(enumeration = "RoadmapVisType", tag = "2")]
     pub visitor_type: i32,
     #[prost(string, tag = "3")]
     pub visitor_id: std::string::String,
@@ -894,9 +1109,10 @@ pub struct RemoveTagTypeResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
+/// 路线图可访问类型
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
-pub enum RoadMapVisType {
+pub enum RoadmapVisType {
     VisTypePerson = 0,
     VisTypeClass = 1,
     VisTypeGroup = 2,

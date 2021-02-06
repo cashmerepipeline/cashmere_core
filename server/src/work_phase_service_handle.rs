@@ -93,7 +93,6 @@ impl CashmereServer {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
             .get_manager_by_id(WORK_PHASES_MANAGE_ID)
@@ -112,11 +111,7 @@ impl CashmereServer {
         };
 
         let result = manager
-            .update_entity_field(
-                query_doc,
-                modify_doc,
-                &account_id,
-            )
+            .update_entity_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

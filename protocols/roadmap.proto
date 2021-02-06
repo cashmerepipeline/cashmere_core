@@ -9,7 +9,8 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-enum RoadMapVisType {
+// 路线图可访问类型
+enum RoadmapVisType {
   VisTypePerson = 0;
   VisTypeClass = 1;
   VisTypeGroup = 2;
@@ -20,7 +21,7 @@ enum RoadMapVisType {
 // 新路线图
 message NewRoadmapRequest {
   string graph_id = 1;
-  string local = 3;
+  string language = 3;
   string name = 4;
 }
 message NewRoadmapResponse {
@@ -39,7 +40,7 @@ message SetRoadmapPublicResponse {
 // 添加访问者
 message AddMapVisitorRequest{
   string roadmap_id = 1;
-  RoadMapVisType visitor_type = 2;
+  RoadmapVisType visitor_type = 2;
   string visitor_id = 3;
 }
 message AddMapVisitorResponse {

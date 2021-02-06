@@ -22,8 +22,9 @@ schema = [
     #-----------------
     # 专有属性
     #-----------------
-    { id = 2008, data_type = "List", name = { Cn = "路线图林", En = "roadmaps"}, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "自建树林", En = "trees"}, removed = false },
+    { id = 2008, data_type = "List", name = { Cn = "知识图表", En = "roadmaps"}, removed = false },
+    { id = 2009, data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
+    { id = 2010, data_type = "List", name = { Cn = "标记图表", En = "trees"}, removed = false },
 ]
 
 # 特有属性

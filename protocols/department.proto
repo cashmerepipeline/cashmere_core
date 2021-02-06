@@ -1,0 +1,53 @@
+/*
+  部门管理
+ */
+
+syntax = "proto3";
+package cashmere;
+
+
+// 新建单位部门
+message NewDepartmentRequest {
+  string organization_id = 1;
+  string language = 2;
+  string name = 3;
+}
+message NewDepartmentResponse {
+  string result = 1;
+}
+
+// 添加部门管理元员
+message AddAdministratorToDepartmentRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message AddAdministratorToDepartmentResponse{
+  string result = 1;
+}
+
+// 移除管理员
+message RemoveAdministratorFromDepartmentRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message RemoveAdministratorFromDepartmentResponse{
+  string result = 1;
+}
+
+// 添加部门员工
+message AddEmployeeToDepartmentRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message AddEmployeeToDepartmentResponse{
+  string result = 1;
+}
+
+// 移除部门员工
+message RemoveEmployeeFromDepartmentRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message RemoveEmployeeFromDepartmentResponse{
+  string result = 1;
+}

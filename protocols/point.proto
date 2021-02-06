@@ -12,7 +12,7 @@ package cashmere;
 
 message NewPointRequest {
     string domain_id = 1;
-    string local = 2;
+    string language = 2;
     string name = 3;
 }
 message NewPointResponse {
@@ -21,7 +21,7 @@ message NewPointResponse {
 
 message RenamePointRequest {
     string point_id = 1;
-    string local = 2;
+    string language = 2;
     string new_name = 3;
 }
 message RenamePointResponse {
@@ -30,7 +30,7 @@ message RenamePointResponse {
 
 message AppendPointNameRequest {
     string point_id = 1;
-    string local = 2;
+    string language = 2;
     string name = 3;
 }
 message AppendPointNameResponse {

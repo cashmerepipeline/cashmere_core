@@ -186,7 +186,7 @@ macro_rules! declare_handle_edit_schema_field_name {
 
                 let manage_id = &request.get_ref().manage_id;
                 let field_id = request.get_ref().field_id;
-                let local = &request.get_ref().local;
+                let language = &request.get_ref().language;
                 let new_name = &request.get_ref().new_name;
 
                 if !view::can_manage_write(&account_id, &groups, manage_id).await {
@@ -199,7 +199,7 @@ macro_rules! declare_handle_edit_schema_field_name {
                     .await
                     .unwrap();
                 let result = manager
-                    .edit_schema_field_name(field_id, local, new_name, &account_id)
+                    .edit_schema_field_name(field_id, language, new_name, &account_id)
                     .await;
 
                 match result {

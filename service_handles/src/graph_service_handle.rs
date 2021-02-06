@@ -13,7 +13,7 @@ macro_rules! declare_handle_new_graph {
             let domain_id = &request.get_ref().domain_id;
             let individual_level = &request.get_ref().level;
             let individual_id = &request.get_ref().individual_id;
-            let local = &request.get_ref().local;
+            let language = &request.get_ref().language;
             let name = &request.get_ref().name;
             let compose_type = &request.get_ref().compose_type;
 

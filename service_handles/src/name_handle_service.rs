@@ -34,7 +34,7 @@ macro_rules! declare_handle_rename {
 
                 let manage_id = &request.get_ref().manage_id;
                 let entity_id = &request.get_ref().entity_id;
-                let local = &request.get_ref().local;
+                let language = &request.get_ref().language;
                 let name = &request.get_ref().new_name;
 
                 if !view::can_manage_write(&account_id, &groups, manage_id).await {
@@ -51,7 +51,7 @@ macro_rules! declare_handle_rename {
                     "_id":entity_id
                 };
                 let modify_doc = doc! {
-                    format!("{}.{}", NAME_FIELD_ID, local):name.clone()
+                    format!("{}.{}", NAME_FIELD_ID, language):name.clone()
                 };
 
                 let result = manager
@@ -74,13 +74,13 @@ macro_rules! declare_handle_rename {
 }
 
 #[macro_export]
-macro_rules! declare_handle_new_local_name {
+macro_rules! declare_handle_new_language_name {
     ($server:ty) => {
         impl $server {
-            pub async fn handle_new_local_name(
+            pub async fn handle_new_language_name(
                 &self,
-                request: Request<NewLocalNameRequest>,
-            ) -> Result<Response<NewLocalNameResponse>, Status> {
+                request: Request<NewLanguageNameRequest>,
+            ) -> Result<Response<NewLanguageNameResponse>, Status> {
                 let metadata = request.metadata();
                 // 已检查过，不需要再检查正确性
                 let token = auth::get_auth_token(metadata).unwrap();
@@ -88,7 +88,7 @@ macro_rules! declare_handle_new_local_name {
 
                 let manage_id = &request.get_ref().manage_id;
                 let entity_id = &request.get_ref().entity_id;
-                let local = &request.get_ref().local;
+                let language = &request.get_ref().language;
                 let new_name = &request.get_ref().new_name;
 
                 if !view::can_manage_write(&account_id, &groups, manage_id).await {
@@ -105,7 +105,7 @@ macro_rules! declare_handle_new_local_name {
                     "_id":entity_id
                 };
                 let modify_doc = doc! {
-                    format!("{}", NAME_FIELD_ID):{local.clone():new_name.clone()}
+                    format!("{}", NAME_FIELD_ID):{language.clone():new_name.clone()}
                 };
 
                 let result = manager
@@ -113,7 +113,7 @@ macro_rules! declare_handle_new_local_name {
                     .await;
 
                 match result {
-                    Ok(r) => Ok(Response::new(NewLocalNameResponse {
+                    Ok(r) => Ok(Response::new(NewLanguageNameResponse {
                         result: "ok".to_string(),
                     })),
                     Err(e) => Err(Status::aborted(format!(

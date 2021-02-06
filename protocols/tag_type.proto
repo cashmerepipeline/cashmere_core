@@ -9,7 +9,7 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-import "common.proto";
+import "name.proto";
 
 enum TagDataType {
   //选项
@@ -28,7 +28,7 @@ enum TagDataType {
 
 message NewTagTypeRequest {
   string domain_id = 1;
-  string local = 2;
+  string language = 2;
   string name = 3;
   string description = 4;
 }
@@ -38,7 +38,7 @@ message NewTagTypeResponse {
 
 message AddDataFieldToTagTypeRequest {
   string tag_type_id = 1;
-  string local = 2;
+  string language = 2;
   string field_name = 3;
   TagDataType data_type = 4;
   bytes default_value = 5;
@@ -49,7 +49,7 @@ message  AddDataFieldToTagTypeResponse {
 
 message RemoveDataFieldFromTagTypeRequest {
   string tag_type_id = 1;
-  string local = 2;
+  string language = 2;
   string field_name = 3;
 }
 message RemoveDataFieldFromTagTypeResponse {
@@ -59,7 +59,7 @@ message RemoveDataFieldFromTagTypeResponse {
 //
 message EditDataFieldForTagTypeRequest {
   string tag_type_id = 1;
-  string local = 2;
+  string language = 2;
   string old_field_name = 3;
   string new_field_name = 4;
   TagDataType new_data_type = 5;

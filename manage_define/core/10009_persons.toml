@@ -25,6 +25,9 @@ schema = [
     { id = 2008, data_type = "String", name = { Cn = "性别", En = "gender"}, removed = false },
     { id = 2009, data_type = "Date", name = { Cn = "生日", En = "birthday"}, removed = false },
     { id = 2010, data_type = "Bytes", name = { Cn = "头像", En = "portrait"}, removed = false },
+    { id = 2011, data_type = "List", name = { Cn = "组织单位表", En = "organizations"}, removed = false },
+    { id = 2012, data_type = "List", name = { Cn = "部门表", En = "departments"}, removed = false },
+    { id = 2013, data_type = "List", name = { Cn = "班级表", En = "classes"}, removed = false },
 ]
 
 [queues]

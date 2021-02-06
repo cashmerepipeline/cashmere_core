@@ -55,7 +55,7 @@ message RemoveSchemaFieldResponse{
 message EditSchemaFieldNameRequest{
   string manage_id = 1;
   int32 field_id = 2;
-  string local = 3;
+  string language = 3;
   string new_name = 4;
 }
 message EditSchemaFieldNameResponse{

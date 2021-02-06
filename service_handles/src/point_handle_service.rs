@@ -33,7 +33,7 @@ macro_rules! declare_handle_new_point {
                 let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
 
                 let domain = &request.get_ref().domain_id;
-                let local = &request.get_ref().local;
+                let language = &request.get_ref().language;
                 let name = &request.get_ref().name;
 
                 if !view::can_manage_write(&account_id, &groups, &POINTS_MANAGE_ID.to_string())
@@ -59,7 +59,7 @@ macro_rules! declare_handle_new_point {
                 let new_id = manager.get_new_entity_id().await.unwrap();
 
                 let local_name = doc! {
-                    local.clone(): name.clone()
+                    language.clone(): name.clone()
                 };
 
                 new_entity_doc.insert("_id", new_id.to_string());

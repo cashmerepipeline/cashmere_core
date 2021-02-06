@@ -1,0 +1,38 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+tree.proto (c) 2021
+Desc: 路线图接口
+Created:  2021-01-14T03:45:12.018Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package cashmere;
+
+
+// 取得知识图表
+message GetIndividualGraphsRequest{
+  string individual_id = 1;
+  string individual_type = 2;
+}
+message GetIndividualGraphsResponse{
+  repeated bytes graphs = 1;
+}
+
+// 取得路线图表
+message GetIndividualRoadmapsRequest{
+  string individual_id = 1;
+  string individual_type = 2;
+}
+message GetIndividualRoadmapsResponse{
+  repeated bytes roadmaps = 1;
+}
+
+// 取得标记图表
+message GetIndividualTagMapsRequest{
+  string individual_id = 1;
+  string individual_type = 2;
+}
+message GetIndividualTagMapsResponse{
+  repeated bytes tag_maps = 1;
+}

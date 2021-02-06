@@ -10,7 +10,10 @@ syntax = "proto3";
 
 package cashmere;
 
-import "common.proto";
+import "name.proto";
+import "organization.proto";
+import "department.proto";
+import "class.proto";
 import "entity.proto";
 import "manage.proto";
 import "view.proto";

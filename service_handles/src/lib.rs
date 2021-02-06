@@ -2,8 +2,8 @@ pub mod account_handle_service;
 pub mod account_service;
 
 pub mod cashmere;
-pub mod common_handle_service;
 pub mod graph_service_handle;
+pub mod name_handle_service;
 pub mod point_handle_service;
 
 use tonic::{Request, Response, Status};
@@ -11,27 +11,28 @@ use tonic::{Request, Response, Status};
 type UnaryResponseResult<T> = Result<Response<T>, Status>;
 type StreamResponseResult<T> = Result<Response<T>, Status>;
 
-use cashmere::RoadMapVisType;
+use cashmere::RoadmapVisType;
 use cashmere::SlotType;
 
-impl RoadMapVisType {
+// 路线图可见类
+impl RoadmapVisType {
     // 整数到RoadMapVisType
     // VisTypePerson = 0,
     // VisTypeClass = 1,
     // VisTypeGroup = 2,
     // VisTypeDepartment = 3,
     // VisTypeOrganization = 4,
-    pub fn from(val: &i32) -> Option<RoadMapVisType> {
+    pub fn from(val: &i32) -> Option<RoadmapVisType> {
         if val == &0i32 {
-            Some(RoadMapVisType::VisTypePerson)
+            Some(RoadmapVisType::VisTypePerson)
         } else if val == &1i32 {
-            Some(RoadMapVisType::VisTypeClass)
+            Some(RoadmapVisType::VisTypeClass)
         } else if val == &2i32 {
-            Some(RoadMapVisType::VisTypeGroup)
+            Some(RoadmapVisType::VisTypeGroup)
         } else if val == &3i32 {
-            Some(RoadMapVisType::VisTypeDepartment)
+            Some(RoadmapVisType::VisTypeDepartment)
         } else if val == &4i32 {
-            Some(RoadMapVisType::VisTypeOrganization)
+            Some(RoadmapVisType::VisTypeOrganization)
         } else {
             None
         }

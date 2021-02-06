@@ -1,0 +1,53 @@
+/*
+  组织管理
+ */
+
+syntax = "proto3";
+package cashmere;
+
+
+// 新建单位组织
+message NewOrganizationRequest {
+  string location = 1;
+  string language = 2;
+  string name = 3;
+}
+message NewOrganizationResponse {
+  string result = 1;
+}
+
+// 添加管理员
+message AddAdministratorToOrganizationRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message AddAdministratorToOrganizationResponse{
+  string result = 1;
+}
+
+// 移除管理员
+message RemoveAdministratorFromOrganizationRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message RemoveAdministratorFromOrganizationResponse{
+  string result = 1;
+}
+
+// 添加雇员
+message AddEmployeeToOrganizationRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message AddEmployeeToOrganizationResponse{
+  string result = 1;
+}
+
+// 移除雇员
+message RemoveEmployeeFromOrganizationRequest{
+  string organization_id = 1;
+  string account_id = 2;
+}
+message RemoveEmployeeFromOrganizationResponse{
+  string result = 1;
+}
