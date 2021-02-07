@@ -19,7 +19,7 @@ message NewOrganizationResponse {
 // 添加管理员
 message AddAdministratorToOrganizationRequest{
   string organization_id = 1;
-  string account_id = 2;
+  string admin_id = 2;
 }
 message AddAdministratorToOrganizationResponse{
   string result = 1;
@@ -28,7 +28,7 @@ message AddAdministratorToOrganizationResponse{
 // 移除管理员
 message RemoveAdministratorFromOrganizationRequest{
   string organization_id = 1;
-  string account_id = 2;
+  string admin_id = 2;
 }
 message RemoveAdministratorFromOrganizationResponse{
   string result = 1;
@@ -37,7 +37,7 @@ message RemoveAdministratorFromOrganizationResponse{
 // 添加雇员
 message AddEmployeeToOrganizationRequest{
   string organization_id = 1;
-  string account_id = 2;
+  string employee_id = 2;
 }
 message AddEmployeeToOrganizationResponse{
   string result = 1;
@@ -46,7 +46,7 @@ message AddEmployeeToOrganizationResponse{
 // 移除雇员
 message RemoveEmployeeFromOrganizationRequest{
   string organization_id = 1;
-  string account_id = 2;
+  string employee_id = 2;
 }
 message RemoveEmployeeFromOrganizationResponse{
   string result = 1;

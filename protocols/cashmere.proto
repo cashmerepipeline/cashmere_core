@@ -22,6 +22,7 @@ import "work.proto";
 import "task.proto";
 import "work_phase.proto";
 import "work_node.proto";
+import "domain.proto";
 import "point.proto";
 import "graph.proto";
 import "tag_type.proto";

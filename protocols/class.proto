@@ -19,19 +19,19 @@ message NewClassResponse {
   string result = 1;
 }
 
-// 添加班级管理员
-message AddClassTeacherToClassRequest {
+// 添加班主任
+message SetClassTeacherOfClassRequest {
   string class_id = 1;
-  string account_id = 2;
+  string class_teacher_id = 2;
 }
-message AddClassTeacherToClassResponse {
+message SetClassTeacherOfClassResponse {
   string result = 1;
 }
 
 // 添加老师
 message AddTeacherToClassRequest {
   string class_id = 1;
-  string account_id = 2;
+  string teacher_id = 2;
 }
 message AddTeacherToClassResponse{
   string result = 1;
@@ -40,7 +40,7 @@ message AddTeacherToClassResponse{
 // 移除老师
 message RemoveTeacherFromClassRequest {
   string class_id = 1;
-  string account_id = 2;
+  string teacher_id = 2;
 }
 message RemoveTeacherFromClassResponse{
   string result = 1;
@@ -49,15 +49,16 @@ message RemoveTeacherFromClassResponse{
 // 添加学生
 message AddStudentToClassRequest {
   string class_id = 1;
-  string account_id = 2;
+  string student_id = 2;
 }
 message AddStudentToClassResponse{
   string result = 1;
 }
+
 // 移除学生
 message RemoveStudentFromClassRequest {
   string class_id = 1;
-  string account_id = 2;
+  string student_id = 2;
 }
 message RemoveStudentFromClassResponse{
   string result = 1;

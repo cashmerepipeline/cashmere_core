@@ -1,0 +1,19 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+domain.proto (c) 2021
+Desc: 专业行业领域
+Created:  2021-02-07T08:02:53.605Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package cashmere;
+
+message NewDomainRequest {
+    string language = 1;
+    string name = 2;
+}
+message NewDomainResponse {
+    string result = 1;
+}
+
