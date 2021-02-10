@@ -6,8 +6,7 @@ Created:  2020-11-23T11:57:54.268Z
 Modified: !date!
 */
 
-
-use mongodb::sync::{Client, Database};
+use mongodb::{Client, Database};
 use mongodb::options::{ClientOptions, StreamAddress};
 
 pub fn get_cashmere_db(

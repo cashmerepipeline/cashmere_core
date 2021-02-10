@@ -67,7 +67,7 @@ pub struct AddAdministratorToOrganizationRequest {
     #[prost(string, tag = "1")]
     pub organization_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub admin_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToOrganizationResponse {
@@ -80,7 +80,7 @@ pub struct RemoveAdministratorFromOrganizationRequest {
     #[prost(string, tag = "1")]
     pub organization_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub admin_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromOrganizationResponse {
@@ -93,7 +93,7 @@ pub struct AddEmployeeToOrganizationRequest {
     #[prost(string, tag = "1")]
     pub organization_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub employee_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToOrganizationResponse {
@@ -106,7 +106,7 @@ pub struct RemoveEmployeeFromOrganizationRequest {
     #[prost(string, tag = "1")]
     pub organization_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub employee_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromOrganizationResponse {
@@ -132,9 +132,9 @@ pub struct NewDepartmentResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub department_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub admin_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToDepartmentResponse {
@@ -145,9 +145,9 @@ pub struct AddAdministratorToDepartmentResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub department_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub admin_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromDepartmentResponse {
@@ -158,9 +158,9 @@ pub struct RemoveAdministratorFromDepartmentResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub department_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub employee_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToDepartmentResponse {
@@ -171,9 +171,9 @@ pub struct AddEmployeeToDepartmentResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub department_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub employee_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromDepartmentResponse {
@@ -186,6 +186,8 @@ pub struct NewClassRequest {
     #[prost(string, tag = "1")]
     pub organization_id: std::string::String,
     #[prost(string, tag = "2")]
+    pub language: std::string::String,
+    #[prost(string, tag = "3")]
     pub name: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -193,16 +195,16 @@ pub struct NewClassResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
-/// 添加班级管理员
+/// 添加班主任
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddAdministratorToClassRequest {
+pub struct SetClassTeacherOfClassRequest {
     #[prost(string, tag = "1")]
     pub class_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub class_teacher_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddAdministratorToClassResponse {
+pub struct SetClassTeacherOfClassResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
@@ -212,7 +214,7 @@ pub struct AddTeacherToClassRequest {
     #[prost(string, tag = "1")]
     pub class_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub teacher_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTeacherToClassResponse {
@@ -225,7 +227,7 @@ pub struct RemoveTeacherFromClassRequest {
     #[prost(string, tag = "1")]
     pub class_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub teacher_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTeacherFromClassResponse {
@@ -238,7 +240,7 @@ pub struct AddStudentToClassRequest {
     #[prost(string, tag = "1")]
     pub class_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub student_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddStudentToClassResponse {
@@ -251,7 +253,7 @@ pub struct RemoveStudentFromClassRequest {
     #[prost(string, tag = "1")]
     pub class_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub account_id: std::string::String,
+    pub student_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveStudentFromClassResponse {
@@ -743,6 +745,34 @@ pub enum SlotType {
     WorkData = 2,
     /// 输出
     OutData = 3,
+}
+/// 编码参照
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDomainRequest {
+    /// 门类编码
+    #[prost(string, tag = "1")]
+    pub section_code: std::string::String,
+    /// 大类编码
+    #[prost(string, tag = "2")]
+    pub division_code: std::string::String,
+    ///中类编码
+    #[prost(string, tag = "3")]
+    pub group_code: std::string::String,
+    /// 小类编码
+    #[prost(string, tag = "4")]
+    pub class_code: std::string::String,
+    ///描述
+    #[prost(string, tag = "5")]
+    pub descriptions: std::string::String,
+    #[prost(string, tag = "6")]
+    pub language: std::string::String,
+    #[prost(string, tag = "7")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDomainResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointRequest {

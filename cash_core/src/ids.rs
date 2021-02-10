@@ -1,6 +1,6 @@
 /*
 Author: 闫刚 (yes7rose@sina.com)
-ids.rs (c) 2020
+manage_ids (c) 2020
 Desc: 核心基础管理编号
 Created:  2020-11-13T01:53:38.380Z
 Modified: !date!

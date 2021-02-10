@@ -751,19 +751,19 @@ pub enum SlotType {
 pub struct NewDomainRequest {
     /// 门类编码
     #[prost(string, tag = "1")]
-    pub section: std::string::String,
+    pub section_code: std::string::String,
     /// 大类编码
     #[prost(string, tag = "2")]
-    pub division: std::string::String,
+    pub division_code: std::string::String,
     ///中类编码
     #[prost(string, tag = "3")]
-    pub group: std::string::String,
+    pub group_code: std::string::String,
     /// 小类编码
     #[prost(string, tag = "4")]
-    pub class: std::string::String,
+    pub class_code: std::string::String,
     ///描述
     #[prost(string, tag = "5")]
-    pub description: std::string::String,
+    pub descriptions: std::string::String,
     #[prost(string, tag = "6")]
     pub language: std::string::String,
     #[prost(string, tag = "7")]

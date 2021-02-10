@@ -18,6 +18,7 @@ members = [
     "service_handles",
     "majordomo",
     "manage",
+#    "manage_define",
     "managers",
     "minit",
     "message",
@@ -27,4 +28,4 @@ members = [
     "runtime_handle"
 ]
 
- exclude = ["server"]
+ exclude = ["server", "manage_define"]

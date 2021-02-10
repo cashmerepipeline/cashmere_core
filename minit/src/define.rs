@@ -14,6 +14,10 @@ use cash_core::view_rules::{ViewRule, ViewRules};
 
 use std::{path::Path};
 use std::io::prelude::*;
+use std::io::Error;
+use std::fs::File;
+use toml::Value;
+use toml::map::Map;
 
 /// 取得管理id
 pub fn get_id(toml_map: &toml::map::Map<String, toml::Value>) -> Option<i32> {
@@ -39,11 +43,19 @@ pub fn get_name(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Docume
 
 /// 管理描写
 pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson> {
+    let id = get_id(toml_map).unwrap();
     let value = toml_map.get("schema").expect("取得描写数据失败");
     let mut schema_vec: Vec<Document> = Vec::new();
-    for v in value.as_array().unwrap().iter(){
-        // println!("{}", v.to_string());
-        let field: PropertyField = PropertyField::from_toml(&v.as_table().unwrap());
+    for v in value.as_array().unwrap().iter() {
+
+        let field_toml = match v.as_table() {
+            None => {
+                println!("错误 {}-{}", id, v.to_string());
+                panic!("定义文件错误")
+            },
+            Some(r) => r
+        };
+        let field: PropertyField = PropertyField::from_toml(field_toml);
         // println!("{:?}", field);
         let mut temp_doc = Document::new();
         temp_doc.insert("id", field.id);
@@ -53,7 +65,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
 
         schema_vec.push(temp_doc);
     }
-        // toml::from_str(&value.to_string()).expect("转换描写列表失败");
+    // toml::from_str(&value.to_string()).expect("转换描写列表失败");
 
     match bson::to_bson(&schema_vec) {
         Ok(r) => Some(r),
@@ -168,23 +180,58 @@ pub fn get_toml_files_of_dir(
 // 从文件列表创建toml表
 pub fn get_tomls_from_pathes(
     toml_pathes: &Vec<String>
-) -> Option<Vec<toml::map::Map<String, toml::Value>>>{
+) -> Option<Vec<toml::map::Map<String, toml::Value>>> {
     // 读入所有文件并构造toml映射
     let mut tomls: Vec<toml::map::Map<String, toml::Value>> = vec![];
     for toml_path in toml_pathes {
-        let mut toml_file = std::fs::File::open(toml_path).expect("初始化数据库文件不存在");
-
-        let mut toml_string = "".to_string();
-        toml_file
-            .read_to_string(&mut toml_string)
-            .expect("管理定义文件读取错误");
-
-        let toml_map: toml::map::Map<String, toml::Value> =
-            toml::from_str(&toml_string).expect("管理定义文件定义错误");
-        tomls.push(toml_map);
+        // let mut toml_file = std::fs::File::open(toml_path).expect("初始化数据库文件不存在");
+        //
+        // let mut toml_string = "".to_string();
+        // toml_file
+        //     .read_to_string(&mut toml_string)
+        //     .expect("管理定义文件读取错误");
+        //
+        // let toml_map: toml::map::Map<String, toml::Value> =
+        //     toml::from_str(&toml_string).expect("管理定义文件定义错误");
+        if let Some(toml_map) = get_toml_map(toml_path) {
+            tomls.push(toml_map);
+        }
     }
 
     Some(tomls)
+}
+
+pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::Value>> {
+    let mut toml_file =
+        match std::fs::File::open(toml_path) {
+            Ok(r) => r,
+            Err(_) => {
+                println!("初始化数据库文件不存在: {}", toml_path);
+                return None;
+            }
+        };
+
+    let mut toml_string = "".to_string();
+    match toml_file
+        .read_to_string(&mut toml_string)
+    {
+        Ok(_) => {}
+        Err(_) => {
+            println!("读取文件错误：{}", toml_path);
+            return None;
+        }
+    }
+
+    let toml_map: toml::map::Map<String, toml::Value> =
+        match toml::from_str(&toml_string) {
+            Ok(r) => r,
+            Err(_e) => {
+                println!("管理定义文件定义错误: {}", toml_path);
+                return None;
+            }
+        };
+
+    Some(toml_map)
 }
 
 // // 创建新管理实体到数据库, 返回新document

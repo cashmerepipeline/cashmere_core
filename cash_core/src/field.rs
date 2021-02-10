@@ -191,11 +191,11 @@ pub mod ids {
     pub const DATA_TASK_FIELD_ID: i32 = 2010;
 
     //------图知-------
-    pub const DOMAINS_SECTION_FIELD_ID:I32 = 2008;
-    pub const DOMAINS_DIVISION_FIELD_ID:I32 = 2009;
-    pub const DOMAINS_GROUP_FIELD_ID:I32 = 2010;
-    pub const DOMAINS_CLASS_FIELD_ID:I32 = 2011;
-    pub const DOMAINS_DESCRIPTION_FIELD_ID:I32 = 2012;
+    pub const DOMAINS_SECTION_FIELD_ID:i32 = 2008;
+    pub const DOMAINS_DIVISION_FIELD_ID:i32 = 2009;
+    pub const DOMAINS_GROUP_FIELD_ID:i32 = 2010;
+    pub const DOMAINS_CLASS_FIELD_ID:i32 = 2011;
+    pub const DOMAINS_DESCRIPTION_FIELD_ID:i32 = 2012;
 
     pub const ORGANIZATIONS_GRPAPHS_FIELD_ID: i32 = 2008;
     pub const ORGANIZATIONS_ROADMAPS_FIELD_ID: i32 = 2009;

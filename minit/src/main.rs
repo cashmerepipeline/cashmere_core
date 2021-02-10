@@ -5,11 +5,10 @@ Create time: 2020-10-16 10:45
 Introduction:
 */
 
-// mod database;
-mod define;
+pub mod define;
+pub mod database;
 // mod entity;
 
-use database;
 use entity;
 
 use clap::{App, Arg};
@@ -25,24 +24,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .short('d'),
         )
         .args(&[
-            // // 数据库地址
-            // Arg::new("address")
-            //     .about("db address")
-            //     .takes_value(true)
-            //     .short('a')
-            //     .long("address"),
-            // // 数据库端口
-            // Arg::new("port")
-            //     .about("manage toml file")
-            //     .takes_value(true)
-            //     .short('p')
-            //     .long("port"),
-            // // 数据库端口
-            // Arg::new("name")
-            // .about("database name")
-            // .takes_value(true)
-            // .short('n')
-            // .long("name"),
+            // 数据库地址
+            Arg::new("address")
+                .about("db address")
+                .takes_value(true)
+                .short('a')
+                .long("address"),
+            // 数据库端口
+            Arg::new("port")
+                .about("manage toml file")
+                .takes_value(true)
+                .short('p')
+                .long("port"),
+            // 数据库端口
+            Arg::new("name")
+            .about("database name")
+            .takes_value(true)
+            .short('n')
+            .long("name"),
             // 指定单个文件
             Arg::new("file")
                 .about("manage toml file")
@@ -63,12 +62,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         panic!("需要指定定义文件或者包含定义文件的目录");
     }
 
-    // let address = matches.value_of("address").unwrap().to_string();
-    // let port: u16 = matches.value_of("port").unwrap().parse().unwrap();
-    // let name = matches.value_of("name").unwrap().to_string();
+    let address = matches.value_of("address").unwrap().to_string();
+    let port: u16 = matches.value_of("port").unwrap().parse().unwrap();
+    let name = matches.value_of("name").unwrap().to_string();
 
     // 数据库检查
-    let db = database::get_cashmere_database().await;
+    let db = database::get_cashmere_db(&address, &port, &name);
     let db_name = db.name();
     println!("连接到数据库：{}", db_name);
 

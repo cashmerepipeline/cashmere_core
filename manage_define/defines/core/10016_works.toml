@@ -1,0 +1,83 @@
+# 
+# Author: 闫刚 (yes7rose@sina.com)
+# works.toml (c) 2020
+# Desc: 工作
+# Created:  2020-11-11T23:22:49.855Z
+# Modified: !date!
+# 
+
+id = 10016
+name = { Cn = "工作", En = "works" }
+
+# 描写，模式
+schema = [
+    { id = 2008, data_type = "String", name = { Cn = "管理", En = "manage"}, removed = false },
+    # 阶段：过程
+    { id = 2009, data_type = "Map", name = { Cn = "阶段", En = "phase_set"}, removed = false },
+    # 状态 等待开始，正在进行，取消，完成
+    { id = 2010, data_type = "String", name = { Cn = "状态", En = "status"}, removed = false },
+]
+
+# 管理id
+manage = "String"
+# 过程id
+procedure = "String"
+
+status = "String"
+
+[queues]
+event_queue = []
+massage_queue = []
+
+[events]
+
+[items]
+
+[view_rules]
+id = 10016
+name = { Cn = "工作", En = "works" }
+
+[view_rules.manage]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+[view_rules.entity]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+
+[view_rules.schema.1000]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1001]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1002]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1003]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1004]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1005]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1006]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "OwnerWrite", read_filters = [], write_filters = [] }
+[view_rules.schema.1007]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1008]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+
+[view_rules.schema.2008]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.2009]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.2010]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
