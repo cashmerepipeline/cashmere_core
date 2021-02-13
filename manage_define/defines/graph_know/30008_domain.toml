@@ -12,7 +12,7 @@ schema = [
     { id = 2009, data_type = "String", name = { Cn = "大类", En = "division"}, removed = false },
     { id = 2011, data_type = "String", name = { Cn = "中类", En = "group"}, removed = false },
     { id = 2012, data_type = "String", name = { Cn = "小类", En = "class"}, removed = false },
-    { id = 2013, data_type = "String", name = { Cn = "描述", En = "despription"}, removed = false },
+    { id = 2013, data_type = "String", name = { Cn = "描述", En = "descriptions"}, removed = false },
 ]
 
 # 特有属性

@@ -10,7 +10,7 @@ schema = [
     { id = 2008, data_type = "List", name = { Cn = "知识图表", En = "graphs" }, removed = false },
     { id = 2009, data_type = "List", name = { Cn = "路线图表", En = "roadmaps" }, removed = false },
     { id = 2010, data_type = "List", name = { Cn = "标记图表", En = "tag_maps" }, removed = false },
-    { id = 2011, data_type = "List", name = { Cn = "管理员表", En = "admintrators" }, removed = false },
+    { id = 2011, data_type = "List", name = { Cn = "管理员表", En = "administrators" }, removed = false },
     { id = 2012, data_type = "List", name = { Cn = "员工表", En = "employees" }, removed = false },
     { id = 2013, data_type = "List", name = { Cn = "领域表", En = "domains" }, removed = false },
     # 地区编码

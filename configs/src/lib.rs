@@ -23,7 +23,7 @@ pub struct ServerConfigs {
     pub secret_code: String,
     pub use_tls: bool,
     pub login_limit: u8,
-    pub managers_path: Vec<String>,
+    // pub managers_path: Vec<String>,
     pub events_dbs_dir: String,
     pub lang_code: String,
 }
@@ -49,7 +49,29 @@ pub struct Configs {
     pub tls: TlsConfigs,
 }
 
+static mut CONFIGS_FILE_PATH: Option<Arc<String>> = None;
 static mut CONFIGS: Option<Arc<Configs>> = None;
+
+pub fn init_configs_path(configs_path: String) -> Result<(), ()>{
+    unsafe {
+        if CONFIGS_FILE_PATH.is_none() {
+            CONFIGS_FILE_PATH.replace(Arc::new(configs_path));
+            Ok(())
+        }else {
+        Err(())
+        }
+    }
+}
+
+pub fn get_configs_path() -> &'static String{
+    unsafe {
+        if CONFIGS_FILE_PATH.is_some() {
+            CONFIGS_FILE_PATH.as_ref().unwrap()
+        } else {
+            panic!("配置文件不存在")
+        }
+    }
+}
 
 pub fn get_configs() -> &'static Configs {
     unsafe {
@@ -63,7 +85,7 @@ pub fn get_configs() -> &'static Configs {
 }
 
 fn read_configs() -> Option<Arc<Configs>> {
-    let mut config_file = std::fs::File::open("configs.toml")
+    let mut config_file = std::fs::File::open(get_configs_path())
         .expect("配置文件不存在");
     let mut config_str = "".to_string();
     config_file

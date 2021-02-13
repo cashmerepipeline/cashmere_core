@@ -48,7 +48,7 @@ impl ManagerTrait for WorksManager {
     }
 
     fn get_manager_name(&self) -> String {
-        "WorksManager".to_string()
+        "GraphsManager".to_string()
     }
 
     fn has_cache(&self) -> bool {

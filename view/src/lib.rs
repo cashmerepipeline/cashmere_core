@@ -81,7 +81,7 @@ pub async fn can_manage_write(account: &String, groups: &Vec<String>, manage_id:
     let view_rules = view_rule::get_view_rules_map().await.read();
 
     let mut result = false;
-    println!("查看管理是否可写 {}", manage_id);
+    // println!("查看管理是否可写 {}", manage_id);
     // TODO: 异常处理完善
     for group in groups {
         let rule = &view_rules

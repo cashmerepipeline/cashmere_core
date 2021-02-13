@@ -9,6 +9,7 @@ name = { Cn = "问题", En = "questions"}
 schema = [
     { id = 2008, data_type = "List", name = { Cn = "知识点", En = "points"}, removed = false },
     { id = 2009, data_type = "List", name = { Cn = "回答", En = "answers"}, removed = false },
+    { id = 2010, data_type = "List", name = { Cn = "回答", En = "contents"}, removed = false },
 ]
 
 # 特有属性

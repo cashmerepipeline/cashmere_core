@@ -30,19 +30,22 @@ pub async fn get_new_entity_id(
     account_id: &String,
 ) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
-    let result = ids_collection
-        .find_one_and_update(
-            doc! {
+    let result =
+        ids_collection
+            .find_one_and_update(
+                doc! {
                 "_id": manage_id.clone()
             },
-            doc! {
+                doc! {
                 "$inc": {"id_count":1},
-                MODIFIER_FIELD_ID.to_string(): account_id.clone(),
+                "$set": {
+                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
+                }
             },
-            Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
-        )
-        .await;
+                Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
+            )
+            .await;
 
     match result {
         Ok(r) => Some(r.unwrap().get_i32("id_count").unwrap() as i64),
@@ -192,11 +195,10 @@ pub async fn update_entity_groups(
     };
 
     push_entity_array_field(
-        manage_id, 
-        query_doc, 
-        modify_doc, 
+        manage_id,
+        query_doc,
+        modify_doc,
         account_id).await
-
 }
 
 /// 更新实体单个属性
@@ -308,7 +310,7 @@ pub async fn pull_entity_array_field(
     // 更新
     let result = collection
         .update_one(
-           query_doc.clone(),
+            query_doc.clone(),
             doc! {
                 "$pull": modify_doc,
                 "$set": {

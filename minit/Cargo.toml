@@ -1,6 +1,6 @@
 [package]
 name = "minit"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["闫刚 <7470718@qq.com>"]
 edition = "2018"
 
@@ -9,7 +9,9 @@ edition = "2018"
 [dependencies]
 cash_core = { path = "../cash_core" }
 entity = { path = "../entity" }
-
+defines = { path = "../defines" }
+database = { path = "../database" }
+configs = { path = "../configs" }
 
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
 toml = "0.5.7"
@@ -21,8 +23,4 @@ clap = "3.0.0-beta.2"
 bson = "1.1.0"
 mongodb = "1.1.1"
 
-# [dependencies.mongodb]
-# version = "1.1.1"
-# default-features = false
-# features = ["sync"]
 

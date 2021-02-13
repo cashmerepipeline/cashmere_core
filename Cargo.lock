@@ -438,6 +438,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "defines"
+version = "0.1.0"
+dependencies = [
+ "bson",
+ "cash_core",
+ "linked-hash-map",
+ "toml",
+]
+
+[[package]]
 name = "derivative"
 version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -728,6 +738,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f6503fe142514ca4799d4c26297c4248239fe8838d827db6bd6065c6ed29a6ce"
 
 [[package]]
+name = "glob"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
+
+[[package]]
 name = "h2"
 version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -996,9 +1012,9 @@ checksum = "1482821306169ec4d07f6aca392a4681f66c75c9918aa49641a2595db64053cb"
 
 [[package]]
 name = "linked-hash-map"
-version = "0.5.3"
+version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8dd5a6d5999d9907cda8ed67bbd137d3af8085216c2ac62de5be860bd41f304a"
+checksum = "7fb9b38af92608140b86b693604b9ffcc5824240a484d1ecd4795bacb2fe88f3"
 dependencies = [
  "serde",
  "serde_test",
@@ -1071,6 +1087,17 @@ dependencies = [
  "serde_derive",
  "simplelog",
  "tokio",
+ "toml",
+]
+
+[[package]]
+name = "manage_define"
+version = "0.1.0"
+dependencies = [
+ "bson",
+ "defines",
+ "glob",
+ "linked-hash-map",
  "toml",
 ]
 
@@ -1154,12 +1181,15 @@ dependencies = [
 
 [[package]]
 name = "minit"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "bson",
  "cash_core",
  "chrono",
  "clap",
+ "configs",
+ "database",
+ "defines",
  "entity",
  "futures",
  "linked-hash-map",

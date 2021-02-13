@@ -5,15 +5,17 @@ Create time: 2020-10-16 10:45
 Introduction:
 */
 
-pub mod define;
-pub mod database;
+// pub mod database;
 // mod entity;
 
+use database;
 use entity;
+use configs;
 
 use clap::{App, Arg};
 use bson::{ doc};
 use cash_core::{ids, field};
+use defines::utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -25,23 +27,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .args(&[
             // 数据库地址
-            Arg::new("address")
-                .about("db address")
+            Arg::new("configs")
+                .about("configs file path")
                 .takes_value(true)
-                .short('a')
-                .long("address"),
-            // 数据库端口
-            Arg::new("port")
-                .about("manage toml file")
-                .takes_value(true)
-                .short('p')
-                .long("port"),
-            // 数据库端口
-            Arg::new("name")
-            .about("database name")
-            .takes_value(true)
-            .short('n')
-            .long("name"),
+                .short('c')
+                .long("configs"),
             // 指定单个文件
             Arg::new("file")
                 .about("manage toml file")
@@ -58,16 +48,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .get_matches();
 
     // 没有指定则退出
-    if !matches.is_present("file") && !matches.is_present("directory") {
-        panic!("需要指定定义文件或者包含定义文件的目录");
+    if !matches.is_present("file")
+        && !matches.is_present("directory")
+        && !matches.is_present("configs")
+    {
+        panic!("需要指定项目配置文件、定义文件或者包含定义文件的目录");
     }
 
-    let address = matches.value_of("address").unwrap().to_string();
-    let port: u16 = matches.value_of("port").unwrap().parse().unwrap();
-    let name = matches.value_of("name").unwrap().to_string();
+    if let Some(cfg_path) = matches.value_of("configs"){
+        configs::init_configs_path(cfg_path.to_string()).expect("初始化设置文件路径失败");
+    }
 
     // 数据库检查
-    let db = database::get_cashmere_db(&address, &port, &name);
+    let db = database::get_cashmere_database().await;
     let db_name = db.name();
     println!("连接到数据库：{}", db_name);
 
@@ -80,12 +73,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     // 添加目录
     if let Some(path) = matches.value_of("directory") {
-        let mut tomls = define::get_toml_files_of_dir(&path.to_string()).unwrap();
+        let mut tomls = utils::get_toml_files_of_dir(&path.to_string()).unwrap();
         toml_pathes.append(&mut tomls);
     }
 
     // 读入所有文件并构造toml映射
-    let tomls = define::get_tomls_from_pathes(&toml_pathes).unwrap();
+    let tomls = utils::get_tomls_from_pathes(&toml_pathes).unwrap();
     print!("------读取定义文件完成-----\n\n");
 
 
@@ -101,16 +94,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("------创建管理-------");
     for map in &tomls {
-        let manage_id = match define::get_id(&map) {
+        let manage_id = match utils::get_id(&map) {
             Some(m) => m.to_string(),
             None => continue,
         };
         // println!("开始创建管理：{}", manage_id);
-        let manage_name = match define::get_name(&map) {
+        let manage_name = match utils::get_name(&map) {
             Some(m) => m,
             None => continue,
         };
-        let manage_schema = match define::get_schema(&map) {
+        let manage_schema = match utils::get_schema(&map) {
             Some(s) => s,
             None => continue,
         };
@@ -158,7 +151,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 2. 创建队列集合
     println!("------创建队列-------");
     for map in &tomls {
-        let queues = match define::get_queues(&map) {
+        let queues = match utils::get_queues(&map) {
             Some(q) => q,
             None => continue,
         };
@@ -172,9 +165,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 3. 添加初始实体数据
     println!("------开始插入初始数据-------");
     for map in &tomls {
-        let manage_id = define::get_id(&map).unwrap();
+        let manage_id = utils::get_id(&map).unwrap();
         // let collection = db.collection(&id.to_string());
-        if let Some(items) = define::get_init_items(&map) {
+        if let Some(items) = utils::get_init_items(&map) {
             for mut item in items {
                 if let Ok(_r) =
                     entity::insert_entity(&manage_id.to_string(), &mut item, root_id, root_group_id).await
@@ -191,16 +184,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 4. 添加映像规则
     println!("------开始添加映像规则-------");
     for map in &tomls {
-        let rule_id = define::get_id(&map).unwrap();
+        let rule_id = utils::get_id(&map).unwrap();
         let rule_name = 
-            match define::get_name(&map){
+            match utils::get_name(&map){
             Some(m) => m,
             None => continue,
         };
 
         // let collection = db.collection(&collect_name);
 
-        let view_rules = match define::get_init_view_rules(&map) {
+        let view_rules = match utils::get_init_view_rules(&map) {
             Some(m) => m,
             None => continue,
         };

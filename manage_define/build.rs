@@ -1,16 +1,22 @@
-use toml;
 use glob::glob;
-use bson::{self, Document};
 
 use linked_hash_map::LinkedHashMap;
+use bson;
+use bson::{Document, Bson};
+use toml;
 
-use minit::define::{get_toml_map, get_name, get_id, get_schema};
+use std::{path::Path};
 use std::io::prelude::*;
-use bson::document::ValueAccessError;
+use std::io::Error;
+use std::fs::File;
+use toml::Value;
+use toml::map::Map;
+
+use defines::utils::{get_toml_map, get_name, get_id, get_schema};
 
 fn main() {
-    let manage_ids_path = "src/manage_ids.rs";
-    let manage_field_ids_path = "src/field_ids.rs";
+    let manage_ids_path = "../defines/src/manage_ids.rs";
+    let manage_field_ids_path = "../defines/src/field_ids.rs";
 
     let mut manage_ids_map: LinkedHashMap<String, i32> = LinkedHashMap::new();
     let mut manage_field_ids_map: LinkedHashMap<String, Vec<(String, i32)>> = LinkedHashMap::new();
@@ -66,12 +72,12 @@ fn main() {
         std::fs::File::create(manage_field_ids_path).expect("打开属性编号文件失败");
 
     for (name, id) in manage_ids_map.iter() {
-        manage_ids_file.write_fmt(format_args!("const {}_MANAGE_ID:i32 = {}; \n", name.to_uppercase(), id)).expect("写入管理文件编码错误");
+        manage_ids_file.write_fmt(format_args!("pub const {}_MANAGE_ID:i32 = {}; \n", name.to_uppercase(), id)).expect("写入管理文件编码错误");
     }
 
     for (name, fields) in manage_field_ids_map.iter() {
         for (s_name, s_id) in fields.iter() {
-            manage_field_ids_file.write_fmt(format_args!("const {}_{}_FIELD_ID:i32 = {};\n", name.to_uppercase(), s_name.to_uppercase(), s_id)).expect("写入属性编码文件错误")
+            manage_field_ids_file.write_fmt(format_args!("pub const {}_{}_FIELD_ID:i32 = {};\n", name.to_uppercase(), s_name.to_uppercase(), s_id)).expect("写入属性编码文件错误")
         }
     }
 }
