@@ -14,7 +14,7 @@ use cash_result::*;
 use parking_lot::RwLock;
 use async_trait::async_trait;
 
-use cash_core::field::PropertyField;
+use property_field::PropertyField;
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use crate::{Manager, ManagerInner, ManagerTrait, declare_get_manager};
 

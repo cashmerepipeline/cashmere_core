@@ -16,10 +16,10 @@ use crate::protocol::*;
 use auth::jwt::validate_is_root;
 use cash_core::field::ids::MANAGES_SCHEMA_FIELD_ID;
 use cash_core::field::{FieldDataType, Name, PropertyField};
-use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use majordomo;
 use majordomo::get_majordomo;
 use manage;
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use managers::traits::ManagerTrait;
 use view;
 

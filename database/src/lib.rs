@@ -17,8 +17,7 @@ use std::sync::Arc;
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use configs;
 use manage_define::manage_ids::{MANAGES_MANAGE_ID, IDS_MANAGE_ID};
-use mongodb::options::FindOneOptions;
-use cash_core::results::{OperationResult, operation_succeed, operation_failed};
+use cash_result::{OperationResult, operation_succeed, operation_failed};
 
 pub type MongodbResult<T> = mongodb::error::Result<T>;
 

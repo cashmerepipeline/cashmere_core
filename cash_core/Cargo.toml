@@ -17,3 +17,5 @@ futures = "0.3.8"
 bytes = "1.0.0"
 
 manage_define = {path="../manage_define"}
+cash_result = {path="../cash_result"}
+property_field = {path="../property_field"}

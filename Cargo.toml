@@ -13,6 +13,7 @@ members = [
     "configs",
     "database",
     "entity",
+    "property_field",
     "event",
     #    "server",
     "service_handles",

@@ -14,9 +14,9 @@ use tonic::{Request, Response, Status};
 use crate::protocol::*;
 use crate::CashmereServer;
 use cash_core::field::ids::*;
-use  manage_define::manage_ids::*;
 use cash_core::results::OperationResult;
 use majordomo::get_majordomo;
+use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 
 type ResponseResult<T> = Result<Response<T>, Status>;

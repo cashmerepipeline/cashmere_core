@@ -6,9 +6,8 @@ Introduction:
 */
 
 use cash_result::*;
-use cash_core::{
-    field::PropertyField, Manage,
-};
+use cash_core::Manage;
+use property_field::*;
 
 use manage_define::manage_ids::*;
 use manage_define::field_ids::*;

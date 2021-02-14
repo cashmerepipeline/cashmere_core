@@ -11,7 +11,7 @@ use account;
 use tonic::{Request, Status};
 use chrono::{Utc};
 
-
+///检查授权token
 pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
     // token检查
     let auth_meta = request.metadata();

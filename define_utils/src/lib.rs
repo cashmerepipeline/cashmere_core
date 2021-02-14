@@ -1,5 +1,5 @@
 
-use cash_core::field::PropertyField;
+use property_field::PropertyField;
 use linked_hash_map::LinkedHashMap;
 use bson;
 use bson::{Document, Bson};
@@ -8,9 +8,6 @@ use cash_core::view_rules::{ViewRule, ViewRules};
 
 use std::{path::Path};
 use std::io::prelude::*;
-use std::fs::File;
-use toml::Value;
-use toml::map::Map;
 
 /// 取得管理id
 pub fn get_id(toml_map: &toml::map::Map<String, toml::Value>) -> Option<i32> {

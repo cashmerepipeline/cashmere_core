@@ -7,16 +7,15 @@ Modified: !date!
 */
 
 pub mod group;
-pub mod view;
 
-use bson::{doc, Document, Bson};
+use bson::{doc, Document};
 
-use entity;
 use cash_result::*;
+use entity;
 
+use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
-use  manage_define::field_ids::*;
-use  manage_define::general_field_ids::*;
 
 #[derive(Debug)]
 pub enum AccountStatus {
@@ -70,7 +69,7 @@ pub fn is_account_stopped(doc: &Document) -> bool {
 pub fn get_account_login_timestamps(doc: &Document) -> Option<Vec<i64>> {
     let timstamps: Vec<i64> = match doc.get_array(&ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID.to_string()) {
         Ok(ss) => ss.iter().map(|x| x.as_i64().unwrap()).collect(),
-        Err(_e) => vec![]
+        Err(_e) => vec![],
     };
 
     Some(timstamps)
@@ -83,7 +82,6 @@ pub fn get_account_login_timestamps(doc: &Document) -> Option<Vec<i64>> {
 //     };
 //     Some(view_rules)
 // }
-
 
 // 更新登录时间戳
 pub async fn update_account_login_timestamps(
@@ -111,15 +109,20 @@ pub async fn update_account_login_timestamps(
         ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID.to_string():timestamps
     };
 
-    let result =
-        entity::update_entity_field(&ACCOUNTS_MANAGE_ID.to_string(),
-                                    query_doc,
-                                    modify_doc,
-                                    account_id).await;
+    let result = entity::update_entity_field(
+        &ACCOUNTS_MANAGE_ID.to_string(),
+        query_doc,
+        modify_doc,
+        account_id,
+    )
+    .await;
 
     match result {
         Ok(_r) => Ok(operation_succeed("ok")),
-        Err(e) => Err(add_call_name_to_chain(e, "update_account_login_timestamps".to_string())),
+        Err(e) => Err(add_call_name_to_chain(
+            e,
+            "update_account_login_timestamps".to_string(),
+        )),
     }
 }
 

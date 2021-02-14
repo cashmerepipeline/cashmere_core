@@ -1,3 +1,11 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+lib.rs (c) 2021
+Desc: 服务处理定义
+Created:  2021-02-14T09:31:29.747Z
+Modified: !date!
+*/
+
 pub mod account_handle_service;
 pub mod account_service;
 

@@ -14,8 +14,8 @@ use tonic::{Request, Response, Status};
 use crate::protocol::*;
 use crate::CashmereServer;
 use cash_core::field::ids::*;
-use  manage_define::manage_ids::*;
 use majordomo::get_majordomo;
+use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 
 use crate::UnaryResponseResult;

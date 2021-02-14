@@ -12,3 +12,4 @@ toml = "0.5.8"
 linked-hash-map = "0.5.4"
 
 cash_core = {path="../cash_core"}
+property_field = {path="../property_field"}

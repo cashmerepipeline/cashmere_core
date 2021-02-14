@@ -235,10 +235,12 @@ version = "0.2.0"
 dependencies = [
  "bson",
  "bytes 1.0.0",
+ "cash_result",
  "futures",
  "linked-hash-map",
  "manage_define",
  "parking_lot 0.11.1",
+ "property_field",
  "serde",
  "serde_derive",
  "toml",
@@ -436,6 +438,7 @@ name = "database"
 version = "0.1.0"
 dependencies = [
  "cash_core",
+ "cash_result",
  "configs",
  "linked-hash-map",
  "manage_define",
@@ -452,6 +455,7 @@ dependencies = [
  "bson",
  "cash_core",
  "linked-hash-map",
+ "property_field",
  "toml",
 ]
 
@@ -1094,6 +1098,7 @@ dependencies = [
  "manage_define",
  "managers",
  "parking_lot 0.11.1",
+ "property_field",
 ]
 
 [[package]]
@@ -1125,8 +1130,7 @@ dependencies = [
  "bson",
  "glob",
  "linked-hash-map",
- "serde",
- "serde_derive",
+ "property_field",
  "toml",
 ]
 
@@ -1146,6 +1150,7 @@ dependencies = [
  "log",
  "manage_define",
  "parking_lot 0.11.1",
+ "property_field",
  "serde",
  "serde_derive",
  "simplelog",
@@ -1661,6 +1666,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "property_field"
+version = "0.1.0"
+dependencies = [
+ "bson",
+ "linked-hash-map",
+ "serde",
+ "serde_derive",
+ "toml",
+]
+
+[[package]]
 name = "prost"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2058,6 +2074,7 @@ dependencies = [
  "auth",
  "bson",
  "cash_core",
+ "cash_result",
  "chrono",
  "configs",
  "entity",
@@ -2069,6 +2086,7 @@ dependencies = [
  "manage",
  "manage_define",
  "managers",
+ "property_field",
  "prost",
  "tokio",
  "tonic",

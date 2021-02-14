@@ -58,6 +58,7 @@ use async_trait::async_trait;
 use cash_result::*;
 use cash_core::Manage;
 use traits::ManagerTrait;
+use property_field::PropertyField;
 // use log::{info};
 
 /// 管理器包装
@@ -73,7 +74,7 @@ pub struct ManagerInner {
 
 #[async_trait]
 impl ManagerTrait for Manager {
-    async fn get_manage_schema(&self) -> Option<Vec<cash_core::field::PropertyField>> {
+    async fn get_manage_schema(&self) -> Option<Vec<PropertyField>> {
         self.inner.get_manage_schema().await
     }
 
@@ -134,7 +135,7 @@ impl ManagerTrait for Manager {
 
 #[async_trait]
 impl ManagerTrait for ManagerInner {
-    async fn get_manage_schema(&self) -> Option<Vec<cash_core::field::PropertyField>> {
+    async fn get_manage_schema(&self) -> Option<Vec<PropertyField>> {
         self.manager.get_manage_schema().await
     }
 

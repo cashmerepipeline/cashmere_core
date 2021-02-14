@@ -6,7 +6,7 @@ Created:  2020-12-18T04:00:07.277Z
 Modified: !date!
 */
 
-use cash_core::field::PropertyField;
+use property_field::PropertyField;
 
 pub fn schema_field_exists(field_id: i32, schema: &Vec<PropertyField>) -> bool{
     let field_ids: Vec<i32> = schema.iter().map(|x| x.id.clone()).collect();

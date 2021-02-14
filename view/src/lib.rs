@@ -1,13 +1,9 @@
 pub mod view_rule;
 
-use linked_hash_map::LinkedHashMap;
 use mongodb::bson::Document;
 use serde::{Deserialize, Serialize};
 
-use database;
-use entity;
-use manage;
-use cash_core::results::OperationResult;
+use cash_result::OperationResult;
 use view_rule::{ReadRule, WriteRule};
 pub enum ViewLevel {
     Manage,

@@ -7,7 +7,6 @@ Introduction:
 
 
 use mongodb::{ bson::Document};
-
 use super::view::ViewRules;
 
 

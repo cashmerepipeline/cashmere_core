@@ -16,7 +16,9 @@ chrono = "0.4.19"
 bson = "1.1.0"
 log = "0.4"
 
+
 cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
 configs = { path = "../configs" }
 account = { path = "../account" }
 majordomo = { path = "../majordomo" }
@@ -26,6 +28,7 @@ manage_define = {path="../manage_define"}
 event = { path = "../event" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
+property_field = { path = "../property_field" }
 view = { path = "../view" }
 
 [build-dependencies]
