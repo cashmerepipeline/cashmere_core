@@ -19,7 +19,6 @@ members = [
     "service_handles",
     "majordomo",
     "manage",
-    "generate_ids",
     "manage_define",
     "define_utils",
     "managers",

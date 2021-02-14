@@ -1,5 +1,5 @@
 [package]
-name = "generate_ids"
+name = "property_field"
 version = "0.1.0"
 authors = ["wangrongwen <403271579@qq.com>"]
 edition = "2018"
@@ -7,10 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-[build-dependencies]
-toml = "0.5.8"
-glob = "0.3.0"
-linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
+linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
 bson = "1.1.0"
-serde = "1.0.123"
-serde_derive = "1.0.123"
+serde = "1.0.117"
+serde_derive = "1.0.117"
+toml = "0.5.8"
