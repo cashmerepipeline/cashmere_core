@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tokio::stream::StreamExt;
 
-use cash_core::ids::VIEW_RULES_MANAGE_ID;
-use cash_core::field::ids::VIEW_RULES_MANAGE_FIELD_ID;
-use cash_core::field::ids::VIEW_RULES_COLLECTION_FIELD_ID;
-use cash_core::field::ids::VIEW_RULES_ENTITY_FIELD_ID;
+use  manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
+use  manage_define::field_ids::VIEW_RULES_MANAGE_FIELD_ID;
+use  manage_define::field_ids::VIEW_RULES_COLLECTION_FIELD_ID;
+use  manage_define::field_ids::VIEW_RULES_ENTITY_FIELD_ID;
 
 /// 映像结果
 enum ViewRuleResult {

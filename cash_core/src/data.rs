@@ -7,7 +7,7 @@ Modified: !date!
 */
 
 use bson::Bson;
-use std::{any::Any, sync::Arc};
+use std::{sync::Arc};
 use futures::Stream;
 use bytes::Bytes;
 

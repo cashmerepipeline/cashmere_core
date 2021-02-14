@@ -10,7 +10,6 @@ use std::{fmt::{Display, Formatter}};
 
 use linked_hash_map::LinkedHashMap;
 use serde::{Serialize, Deserialize};
-use std::str::FromStr;
 use toml::map::Map;
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
@@ -129,132 +128,132 @@ impl PropertyField {
     }
 }
 
-pub mod ids {
-    // ----------------
-    // 必须属性
-    // ----------------
-    pub const ID_FIELD_ID: i32 = 1000;
-    pub const NAME_FIELD_ID: i32 = 1001;
-    pub const CREATOR_FIELD_ID: i32 = 1002;
-    pub const CREATE_TIMESTAMP_FIELD_ID: i32 = 1003;
-    pub const MODIFIER_FIELD_ID: i32 = 1004;
-    pub const MODIFY_TIMESTAMP_FIELD_ID: i32 = 1005;
-    pub const OWNER_FIELD_ID: i32 = 1006;
-    pub const GROUPS_FIELD_ID: i32 = 1007;
-    pub const DATAS_FIELD_ID: i32 = 1008;
-    pub const COMMENTS_FIELD_ID: i32 = 1009;
-
-    // 特殊的描写属性
-    pub const ACCOUNTS_PASSWORD_FIELD_ID: i32 = 2010;
-    pub const ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID: i32 = 2012;
-
-    pub const PERSONS_GENDER_FIELD_ID: i32 = 2008;
-    pub const PERSONS_BIRTHDAY_FIELD_ID: i32 = 2009;
-    pub const PERSONS_PORTRAIT_FIELD_ID: i32 = 2010;
-    pub const PERSONS_ORGANIZATIONS_FIELD_ID: i32 = 2011;
-    pub const PERSONS_DEPARTMENTS_FIELD_ID: i32 = 2012;
-    pub const PERSONS_CLASSES_AS_TEACHER_FIELD_ID: i32 = 2013;
-    pub const PERSONS_CLASSES_AS_STUDENT_FIELD_ID: i32 = 2014;
-
-    pub const MANAGES_SCHEMA_FIELD_ID: i32 = 2008;
-
-    pub const TEMPLATES_MANAGE_FIELD_ID: i32 = 2008;
-    pub const TEMPLATES_PRESETS_FIELD_ID: i32 = 2008;
-
-    pub const VIEW_RULES_MANAGE_FIELD_ID: i32 = 2008;
-    pub const VIEW_RULES_COLLECTION_FIELD_ID: i32 = 2009;
-    pub const VIEW_RULES_ENTITY_FIELD_ID: i32 = 2010;
-
-    pub const WORK_MANAGE_FIELD_ID: i32 = 2008;
-    pub const WORK_PROCEDURE_FIELD_ID: i32 = 2009;
-    pub const WORK_WORK_PHASES_FIELD_ID: i32 = 2010;
-
-    pub const WORK_PHASE_PHASES_FIELD_ID: i32 = 2008;
-
-    pub const PROCEDURE_WORK_ID_FIELD_ID: i32 = 2008;
-    pub const PROCEDURE_PHASE_NAME_FIELD_ID: i32 = 2009;
-    pub const PROCEDURE_WORK_NODES_FIELD_ID: i32 = 2010;
-    pub const PROCEDURE_LINKS_FIELD_ID: i32 = 2010;
-
-    pub const WORK_NODE_PROCEDURE_FIELD_ID: i32 = 2008;
-    pub const WORK_NODE_TASKS_FIELD_ID: i32 = 2009;
-    pub const WORK_NODE_WORKER_FIELD_ID: i32 = 2010;
-    pub const WORK_NODE_REFERENCE_DATAS_FIELD_ID: i32 = 2009;
-    pub const WORK_NODE_DEPENDED_DATAS_FIELD_ID: i32 = 2011;
-    pub const WORK_NODE_WORK_DATAS_FIELD_ID: i32 = 2011;
-    pub const WORK_NODE_OUT_DATAS_FIELD_ID: i32 = 2011;
-
-    pub const TASK_WORK_NODE_FIELD_ID: i32 = 2008;
-    pub const TASK_STATUS_FIELD_ID: i32 = 2009;
-    pub const TASK_DATA_FIELD_ID: i32 = 2010;
-
-    pub const DATA_TASK_FIELD_ID: i32 = 2010;
-
-    //------图知-------
-    pub const DOMAINS_SECTION_FIELD_ID:i32 = 2008;
-    pub const DOMAINS_DIVISION_FIELD_ID:i32 = 2009;
-    pub const DOMAINS_GROUP_FIELD_ID:i32 = 2010;
-    pub const DOMAINS_CLASS_FIELD_ID:i32 = 2011;
-    pub const DOMAINS_DESCRIPTION_FIELD_ID:i32 = 2012;
-
-    pub const ORGANIZATIONS_GRPAPHS_FIELD_ID: i32 = 2008;
-    pub const ORGANIZATIONS_ROADMAPS_FIELD_ID: i32 = 2009;
-    pub const ORGANIZATIONS_TAG_MAPS_FIELD_ID: i32 = 2010;
-    pub const ORGANIZATIONS_ADMINISTRATOR_FIELD_ID: i32 = 2011;
-    pub const ORGANIZATIONS_EMPLOYEES_FIELD_ID: i32 = 2012;
-    pub const ORGANIZATIONS_DOMAINS_FIELD_ID: i32 = 2013;
-    pub const ORGANIZATIONS_LOCATION_FIELD_ID: i32 = 2014;
-
-    pub const DEPARTMENTS_GRPAPHS_FIELD_ID: i32 = 2008;
-    pub const DEPARTMENTS_ROADMAPS_FIELD_ID: i32 = 2009;
-    pub const DEPARTMENTS_TAG_MAPS_FIELD_ID: i32 = 2010;
-    pub const DEPARTMENTS_ADMINISTRATOR_FIELD_ID: i32 = 2011;
-    pub const DEPARTMENTS_EMPLOYEES_FIELD_ID: i32 = 2012;
-    pub const DEPARTMENTS_ORGANIZATION_FIELD_ID: i32 = 2013;
-
-    pub const CLASSES_TEACHERS_FIELD_ID: i32 = 2008;
-    pub const CLASSES_STUDENTS_FIELD_ID: i32 = 2009;
-    pub const CLASSES_ROADMAPS_FIELD_ID: i32 = 2010;
-    pub const CLASSES_CLASS_TEACHER_FIELD_ID: i32 = 2011;
-    pub const CLASSES_ORGANIZATION_FIELD_ID: i32 = 2012;
-
-    pub const GRAPHS_EDGES_FIELD_ID: i32 = 2008;
-    pub const GRAPHS_INDIVIDUAL_LEVEL_FIELD_ID: i32 = 2009;
-    pub const GRAPHS_INDIVIDUAL_ID_FIELD_ID: i32 = 2010;
-    pub const GRAPHS_DOMAIN_ID_FIELD_ID: i32 = 2011;
-    pub const GRAPHS_COMPOSE_TYPE_FIELD_ID: i32 = 2012;
-    pub const GRAPHS_QUESTIONS_FIELD_ID: i32 = 2013;
-
-    pub const ROADMAPS_GRAPH_FIELD_ID: i32 = 2008;
-    pub const ROADMAPS_TAG_TYPES_FIELD_ID: i32 = 2009;
-    pub const ROADMAPS_VIS_PERSONS_FIELD_ID: i32 = 2010;
-    pub const ROADMAPS_VIS_CLASSES_FIELD_ID: i32 = 2011;
-    pub const ROADMAPS_VIS_GROUPS_FIELD_ID: i32 = 2012;
-    pub const ROADMAPS_VIS_DEPARTMENT_FIELD_ID: i32 = 2013;
-    pub const ROADMAPS_VIS_ORGANIZATIONS_FIELD_ID: i32 = 2014;
-    pub const ROADMAPS_IS_PUBLIC_FIELD_ID: i32 = 2015;
-
-    pub const TAG_TYPES_DOMAIN_FIELD_ID: i32 = 2008;
-    pub const TAG_TYPES_DATA_FIELDS_FIELD_ID: i32 = 2009;
-    pub const TAG_TYPES_DESCTIPTION_FIELD_ID: i32 = 2010;
-
-    pub const TAG_MAPS_ROADMAP_FIELD_ID: i32 = 2008;
-    pub const TAG_MAPS_TAGS_FIELD_ID: i32 = 2009;
-    pub const TAG_MAPS_VIS_PERSONS_FIELD_ID: i32 = 2010;
-    pub const TAG_MAPS_VIS_CLASSES_FIELD_ID: i32 = 2011;
-    pub const TAG_MAPS_VIS_GROUPS_FIELD_ID: i32 = 2012;
-    pub const TAG_MAPS_VIS_DEPARTMENT_FIELD_ID: i32 = 2013;
-    pub const TAG_MAPS_VIS_ORGANIZATIONS_FIELD_ID: i32 = 2014;
-    pub const TAG_MAPS_IS_PUBLIC_FIELD_ID: i32 = 2015;
-
-    pub const COMMENTS_TARGET_MANAGE_ID_FIELD_ID: i32 = 2008;
-    pub const COMMENTS_TARGET_ENTITY_ID_FIELD_ID: i32 = 2009;
-    pub const COMMENTS_CONTENTS_FIELD_ID: i32 = 2010;
-
-    pub const QUESTIONS_POINTS_FIELD_ID: i32 = 2008;
-    pub const QUESTIONS_ANSWERS_FIELD_ID: i32 = 2009;
-    pub const QUESTIONS_CONTENTS_FIELD_ID: i32 = 2010;
-
-    pub const ANSWERS_QUESTION_FIELD_ID: i32 = 2008;
-    pub const ANSWERS_CONTENTS_FIELD_ID: i32 = 2009;
-}
+// pub mod ids {
+//     // ----------------
+//     // 必须属性
+//     // ----------------
+//     pub const ID_FIELD_ID: i32 = 1000;
+//     pub const NAME_FIELD_ID: i32 = 1001;
+//     pub const CREATOR_FIELD_ID: i32 = 1002;
+//     pub const CREATE_TIMESTAMP_FIELD_ID: i32 = 1003;
+//     pub const MODIFIER_FIELD_ID: i32 = 1004;
+//     pub const MODIFY_TIMESTAMP_FIELD_ID: i32 = 1005;
+//     pub const OWNER_FIELD_ID: i32 = 1006;
+//     pub const GROUPS_FIELD_ID: i32 = 1007;
+//     pub const DATAS_FIELD_ID: i32 = 1008;
+//     pub const COMMENTS_FIELD_ID: i32 = 1009;
+//
+//     // 特殊的描写属性
+//     pub const ACCOUNTS_PASSWORD_FIELD_ID: i32 = 2010;
+//     pub const ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID: i32 = 2012;
+//
+//     pub const PERSONS_GENDER_FIELD_ID: i32 = 2008;
+//     pub const PERSONS_BIRTHDAY_FIELD_ID: i32 = 2009;
+//     pub const PERSONS_PORTRAIT_FIELD_ID: i32 = 2010;
+//     pub const PERSONS_ORGANIZATIONS_FIELD_ID: i32 = 2011;
+//     pub const PERSONS_DEPARTMENTS_FIELD_ID: i32 = 2012;
+//     pub const PERSONS_CLASSES_AS_TEACHER_FIELD_ID: i32 = 2013;
+//     pub const PERSONS_CLASSES_AS_STUDENT_FIELD_ID: i32 = 2014;
+//
+//     pub const MANAGES_SCHEMA_FIELD_ID: i32 = 2008;
+//
+//     pub const TEMPLATES_MANAGE_FIELD_ID: i32 = 2008;
+//     pub const TEMPLATES_PRESETS_FIELD_ID: i32 = 2008;
+//
+//     pub const VIEW_RULES_MANAGE_FIELD_ID: i32 = 2008;
+//     pub const VIEW_RULES_COLLECTION_FIELD_ID: i32 = 2009;
+//     pub const VIEW_RULES_ENTITY_FIELD_ID: i32 = 2010;
+//
+//     pub const WORK_MANAGE_FIELD_ID: i32 = 2008;
+//     pub const WORK_PROCEDURE_FIELD_ID: i32 = 2009;
+//     pub const WORK_WORK_PHASES_FIELD_ID: i32 = 2010;
+//
+//     pub const WORK_PHASE_PHASES_FIELD_ID: i32 = 2008;
+//
+//     pub const PROCEDURE_WORK_ID_FIELD_ID: i32 = 2008;
+//     pub const PROCEDURE_PHASE_NAME_FIELD_ID: i32 = 2009;
+//     pub const PROCEDURE_WORK_NODES_FIELD_ID: i32 = 2010;
+//     pub const PROCEDURE_LINKS_FIELD_ID: i32 = 2010;
+//
+//     pub const WORK_NODE_PROCEDURE_FIELD_ID: i32 = 2008;
+//     pub const WORK_NODE_TASKS_FIELD_ID: i32 = 2009;
+//     pub const WORK_NODE_WORKER_FIELD_ID: i32 = 2010;
+//     pub const WORK_NODE_REFERENCE_DATAS_FIELD_ID: i32 = 2009;
+//     pub const WORK_NODE_DEPENDED_DATAS_FIELD_ID: i32 = 2011;
+//     pub const WORK_NODE_WORK_DATAS_FIELD_ID: i32 = 2011;
+//     pub const WORK_NODE_OUT_DATAS_FIELD_ID: i32 = 2011;
+//
+//     pub const TASK_WORK_NODE_FIELD_ID: i32 = 2008;
+//     pub const TASK_STATUS_FIELD_ID: i32 = 2009;
+//     pub const TASK_DATA_FIELD_ID: i32 = 2010;
+//
+//     pub const DATA_TASK_FIELD_ID: i32 = 2010;
+//
+//     //------图知-------
+//     pub const DOMAINS_SECTION_FIELD_ID:i32 = 2008;
+//     pub const DOMAINS_DIVISION_FIELD_ID:i32 = 2009;
+//     pub const DOMAINS_GROUP_FIELD_ID:i32 = 2010;
+//     pub const DOMAINS_CLASS_FIELD_ID:i32 = 2011;
+//     pub const DOMAINS_DESCRIPTION_FIELD_ID:i32 = 2012;
+//
+//     pub const ORGANIZATIONS_GRPAPHS_FIELD_ID: i32 = 2008;
+//     pub const ORGANIZATIONS_ROADMAPS_FIELD_ID: i32 = 2009;
+//     pub const ORGANIZATIONS_TAG_MAPS_FIELD_ID: i32 = 2010;
+//     pub const ORGANIZATIONS_ADMINISTRATOR_FIELD_ID: i32 = 2011;
+//     pub const ORGANIZATIONS_EMPLOYEES_FIELD_ID: i32 = 2012;
+//     pub const ORGANIZATIONS_DOMAINS_FIELD_ID: i32 = 2013;
+//     pub const ORGANIZATIONS_LOCATION_FIELD_ID: i32 = 2014;
+//
+//     pub const DEPARTMENTS_GRPAPHS_FIELD_ID: i32 = 2008;
+//     pub const DEPARTMENTS_ROADMAPS_FIELD_ID: i32 = 2009;
+//     pub const DEPARTMENTS_TAG_MAPS_FIELD_ID: i32 = 2010;
+//     pub const DEPARTMENTS_ADMINISTRATOR_FIELD_ID: i32 = 2011;
+//     pub const DEPARTMENTS_EMPLOYEES_FIELD_ID: i32 = 2012;
+//     pub const DEPARTMENTS_ORGANIZATION_FIELD_ID: i32 = 2013;
+//
+//     pub const CLASSES_TEACHERS_FIELD_ID: i32 = 2008;
+//     pub const CLASSES_STUDENTS_FIELD_ID: i32 = 2009;
+//     pub const CLASSES_ROADMAPS_FIELD_ID: i32 = 2010;
+//     pub const CLASSES_CLASS_TEACHER_FIELD_ID: i32 = 2011;
+//     pub const CLASSES_ORGANIZATION_FIELD_ID: i32 = 2012;
+//
+//     pub const GRAPHS_EDGES_FIELD_ID: i32 = 2008;
+//     pub const GRAPHS_INDIVIDUAL_LEVEL_FIELD_ID: i32 = 2009;
+//     pub const GRAPHS_INDIVIDUAL_ID_FIELD_ID: i32 = 2010;
+//     pub const GRAPHS_DOMAIN_ID_FIELD_ID: i32 = 2011;
+//     pub const GRAPHS_COMPOSE_TYPE_FIELD_ID: i32 = 2012;
+//     pub const GRAPHS_QUESTIONS_FIELD_ID: i32 = 2013;
+//
+//     pub const ROADMAPS_GRAPH_FIELD_ID: i32 = 2008;
+//     pub const ROADMAPS_TAG_TYPES_FIELD_ID: i32 = 2009;
+//     pub const ROADMAPS_VIS_PERSONS_FIELD_ID: i32 = 2010;
+//     pub const ROADMAPS_VIS_CLASSES_FIELD_ID: i32 = 2011;
+//     pub const ROADMAPS_VIS_GROUPS_FIELD_ID: i32 = 2012;
+//     pub const ROADMAPS_VIS_DEPARTMENT_FIELD_ID: i32 = 2013;
+//     pub const ROADMAPS_VIS_ORGANIZATIONS_FIELD_ID: i32 = 2014;
+//     pub const ROADMAPS_IS_PUBLIC_FIELD_ID: i32 = 2015;
+//
+//     pub const TAG_TYPES_DOMAIN_FIELD_ID: i32 = 2008;
+//     pub const TAG_TYPES_DATA_FIELDS_FIELD_ID: i32 = 2009;
+//     pub const TAG_TYPES_DESCTIPTION_FIELD_ID: i32 = 2010;
+//
+//     pub const TAG_MAPS_ROADMAP_FIELD_ID: i32 = 2008;
+//     pub const TAG_MAPS_TAGS_FIELD_ID: i32 = 2009;
+//     pub const TAG_MAPS_VIS_PERSONS_FIELD_ID: i32 = 2010;
+//     pub const TAG_MAPS_VIS_CLASSES_FIELD_ID: i32 = 2011;
+//     pub const TAG_MAPS_VIS_GROUPS_FIELD_ID: i32 = 2012;
+//     pub const TAG_MAPS_VIS_DEPARTMENT_FIELD_ID: i32 = 2013;
+//     pub const TAG_MAPS_VIS_ORGANIZATIONS_FIELD_ID: i32 = 2014;
+//     pub const TAG_MAPS_IS_PUBLIC_FIELD_ID: i32 = 2015;
+//
+//     pub const COMMENTS_TARGET_MANAGE_ID_FIELD_ID: i32 = 2008;
+//     pub const COMMENTS_TARGET_ENTITY_ID_FIELD_ID: i32 = 2009;
+//     pub const COMMENTS_CONTENTS_FIELD_ID: i32 = 2010;
+//
+//     pub const QUESTIONS_POINTS_FIELD_ID: i32 = 2008;
+//     pub const QUESTIONS_ANSWERS_FIELD_ID: i32 = 2009;
+//     pub const QUESTIONS_CONTENTS_FIELD_ID: i32 = 2010;
+//
+//     pub const ANSWERS_QUESTION_FIELD_ID: i32 = 2008;
+//     pub const ANSWERS_CONTENTS_FIELD_ID: i32 = 2009;
+// }

@@ -14,9 +14,9 @@ use mongodb::{options::ClientOptions, options::StreamAddress, Client, Collection
 use mongodb::bson::doc;
 use std::sync::Arc;
 
-// use cash_core::ids::MANAGES_MANAGE_ID;
+// use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use configs;
-use cash_core::ids::{MANAGES_MANAGE_ID, IDS_MANAGE_ID};
+use manage_define::manage_ids::{MANAGES_MANAGE_ID, IDS_MANAGE_ID};
 use mongodb::options::FindOneOptions;
 use cash_core::results::{OperationResult, operation_succeed, operation_failed};
 

@@ -16,11 +16,12 @@ use parking_lot::RwLock;
 use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
-use cash_core::{ids::EVENT_HANDLES_MANAGE_ID, results::*};
+use cash_core::results::*;
+use manage_define::manage_ids::*;
 use database;
 
 use crate::{declare_get_manager};
-use cash_core::ids::MANAGES_MANAGE_ID;
+use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use bson::Document;
 
 #[derive(Default)]

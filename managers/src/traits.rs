@@ -7,8 +7,11 @@ Introduction:
 
 use cash_core::results::*;
 use cash_core::{
-    field::ids::MANAGES_SCHEMA_FIELD_ID, field::PropertyField, ids::MANAGES_MANAGE_ID, Manage,
+    field::PropertyField, Manage,
 };
+
+use manage_define::manage_ids::*;
+use manage_define::field_ids::*;
 
 use bson::doc;
 use database;

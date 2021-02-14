@@ -17,7 +17,7 @@ use serde::Deserialize;
 use std::collections::BTreeMap;
 use tokio::stream::StreamExt;
 
-use cash_core::field::ids::*;
+use manage_define::general_field_ids::*;
 use cash_core::results::*;
 use configs;
 use database;

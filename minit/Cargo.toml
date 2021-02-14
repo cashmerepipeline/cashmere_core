@@ -9,7 +9,8 @@ edition = "2018"
 [dependencies]
 cash_core = { path = "../cash_core" }
 entity = { path = "../entity" }
-defines = { path = "../defines" }
+manage_define = { path = "../manage_define" }
+define_utils = { path = "../define_utils" }
 database = { path = "../database" }
 configs = { path = "../configs" }
 

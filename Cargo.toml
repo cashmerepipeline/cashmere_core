@@ -9,6 +9,7 @@ members = [
     "account",
     "auth",
     "cash_core",
+    "cash_result",
     "configs",
     "database",
     "entity",
@@ -17,8 +18,9 @@ members = [
     "service_handles",
     "majordomo",
     "manage",
+    "generate_ids",
     "manage_define",
-    "defines",
+    "define_utils",
     "managers",
     "minit",
     "message",
@@ -28,4 +30,4 @@ members = [
     "runtime_handle"
 ]
 
-exclude = ["server"]
+exclude = ["server", ]

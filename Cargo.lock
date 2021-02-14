@@ -10,6 +10,7 @@ dependencies = [
  "database",
  "entity",
  "linked-hash-map",
+ "manage_define",
 ]
 
 [[package]]
@@ -63,7 +64,7 @@ checksum = "25f9db3b38af870bf7e5cc649167533b493928e50744e2c30ae350230b414670"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -74,7 +75,7 @@ checksum = "8d3a45e77e34375a7923b1e8febb049bb011f064714a8e17a1a616fef01da13d"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -235,11 +236,16 @@ dependencies = [
  "bytes 1.0.0",
  "futures",
  "linked-hash-map",
+ "manage_define",
  "parking_lot 0.11.1",
  "serde",
  "serde_derive",
  "toml",
 ]
+
+[[package]]
+name = "cash_result"
+version = "0.1.0"
 
 [[package]]
 name = "cc"
@@ -302,7 +308,7 @@ dependencies = [
  "proc-macro-error",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -410,7 +416,7 @@ dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
  "strsim 0.9.3",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -421,7 +427,7 @@ checksum = "d9b5a2f4ac4969822c62224815d069952656cadc7084fdca9751e6d959189b72"
 dependencies = [
  "darling_core",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -431,6 +437,7 @@ dependencies = [
  "cash_core",
  "configs",
  "linked-hash-map",
+ "manage_define",
  "mongodb",
  "tokio",
  "tokio-test",
@@ -438,7 +445,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "defines"
+name = "define_utils"
 version = "0.1.0"
 dependencies = [
  "bson",
@@ -455,7 +462,7 @@ checksum = "cb582b60359da160a9477ee80f15c8d784c477e69c217ef2cdd4169c24ea380f"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -491,6 +498,7 @@ dependencies = [
  "configs",
  "database",
  "linked-hash-map",
+ "manage_define",
  "mongodb",
  "serde",
  "serde_derive",
@@ -506,7 +514,7 @@ dependencies = [
  "heck",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -519,7 +527,7 @@ dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
  "rustversion",
- "syn 1.0.54",
+ "syn 1.0.60",
  "synstructure",
 ]
 
@@ -533,6 +541,7 @@ dependencies = [
  "database",
  "entity",
  "futures",
+ "manage_define",
  "parking_lot 0.11.1",
  "runtime_handle",
  "serde",
@@ -664,7 +673,7 @@ dependencies = [
  "proc-macro-hack",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -709,6 +718,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
 dependencies = [
  "byteorder",
+]
+
+[[package]]
+name = "generate_ids"
+version = "0.1.0"
+dependencies = [
+ "bson",
+ "glob",
+ "linked-hash-map",
+ "serde",
+ "serde_derive",
+ "toml",
 ]
 
 [[package]]
@@ -1066,6 +1087,7 @@ dependencies = [
  "entity",
  "log",
  "manage",
+ "manage_define",
  "managers",
  "parking_lot 0.11.1",
 ]
@@ -1081,6 +1103,7 @@ dependencies = [
  "futures",
  "linked-hash-map",
  "log",
+ "manage_define",
  "mongodb",
  "parking_lot 0.11.1",
  "serde",
@@ -1095,9 +1118,10 @@ name = "manage_define"
 version = "0.1.0"
 dependencies = [
  "bson",
- "defines",
  "glob",
  "linked-hash-map",
+ "serde",
+ "serde_derive",
  "toml",
 ]
 
@@ -1114,6 +1138,7 @@ dependencies = [
  "event",
  "linked-hash-map",
  "log",
+ "manage_define",
  "parking_lot 0.11.1",
  "serde",
  "serde_derive",
@@ -1189,10 +1214,11 @@ dependencies = [
  "clap",
  "configs",
  "database",
- "defines",
+ "define_utils",
  "entity",
  "futures",
  "linked-hash-map",
+ "manage_define",
  "mongodb",
  "tokio",
  "toml",
@@ -1521,7 +1547,7 @@ checksum = "65ad2ae56b6abe3a1ee25f15ee605bacadb9a764edaba9c2bf4103800d4a1895"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -1532,7 +1558,7 @@ checksum = "f8e8d2bf0b23038a4424865103a4df472855692821aab4e4f5c3312d461d9e5f"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -1568,7 +1594,7 @@ dependencies = [
  "proc-macro-error-attr",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
  "version_check",
 ]
 
@@ -1621,6 +1647,7 @@ dependencies = [
  "database",
  "entity",
  "linked-hash-map",
+ "manage_define",
  "mongodb",
  "serde",
  "serde_derive",
@@ -1664,7 +1691,7 @@ dependencies = [
  "itertools",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -1933,9 +1960,9 @@ dependencies = [
 
 [[package]]
 name = "serde"
-version = "1.0.118"
+version = "1.0.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "06c64263859d87aa2eb554587e2d23183398d617427327cf2b3d0ed8c69e4800"
+checksum = "92d5161132722baa40d802cc70b15262b98258453e85e5d1d365c757c73869ae"
 dependencies = [
  "serde_derive",
 ]
@@ -1951,13 +1978,13 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.118"
+version = "1.0.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c84d3526699cd55261af4b941e4e725444df67aa4f9e6a3564f18030d12672df"
+checksum = "9391c295d64fc0abb2c556bad848f33cb8296276b1ad2677d1ae1ace4f258f31"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2012,7 +2039,7 @@ dependencies = [
  "darling",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2032,6 +2059,7 @@ dependencies = [
  "log",
  "majordomo",
  "manage",
+ "manage_define",
  "managers",
  "prost",
  "tokio",
@@ -2182,9 +2210,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.54"
+version = "1.0.60"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a2af957a63d6bd42255c359c93d9bfdb97076bd3b820897ce55ffbfbf107f44"
+checksum = "c700597eca8a5a762beb35753ef6b94df201c81cca676604f547495a0d7f0081"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
@@ -2199,7 +2227,7 @@ checksum = "b834f2d66f734cb897113e34aaff2f1ab4719ca946f9a7358dba8f8064148701"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
  "unicode-xid 0.2.1",
 ]
 
@@ -2258,7 +2286,7 @@ checksum = "9ba20f23e85b10754cd195504aebf6a27e2e6cbe28c17778a0c930724628dd56"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2319,7 +2347,7 @@ checksum = "e44da00bfc73a25f814cd8d7e57a68a5c31b74b3152a0a1d1f590c97ed06265a"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2421,7 +2449,7 @@ dependencies = [
  "proc-macro2 1.0.24",
  "prost-build",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2623,7 +2651,7 @@ checksum = "80e0ccfc3378da0cce270c946b676a376943f5cd16aeba64568e7939806f4ada"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
 ]
 
 [[package]]
@@ -2809,6 +2837,7 @@ dependencies = [
  "entity",
  "linked-hash-map",
  "manage",
+ "manage_define",
  "mongodb",
  "parking_lot 0.11.1",
  "serde",
@@ -2861,7 +2890,7 @@ dependencies = [
  "log",
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
  "wasm-bindgen-shared",
 ]
 
@@ -2895,7 +2924,7 @@ checksum = "b5a48c72f299d80557c7c62e37e7225369ecc0c963964059509fbafe917c7549"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.7",
- "syn 1.0.54",
+ "syn 1.0.60",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -3053,6 +3082,7 @@ dependencies = [
  "database",
  "entity",
  "manage",
+ "manage_define",
  "procedure",
  "serde",
  "serde_derive",

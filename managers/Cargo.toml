@@ -12,6 +12,7 @@ database = {path = "../database"}
 entity = {path="../entity"}
 configs = {path="../configs"}
 event = {path="../event"}
+manage_define = {path="../manage_define"}
 
 async-trait = "0.1.41"
 parking_lot = "0.11.0"

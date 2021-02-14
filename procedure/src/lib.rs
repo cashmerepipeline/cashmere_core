@@ -11,7 +11,7 @@ mod work_graph;
 mod work_node;
 mod task;
 
-use cash_core::ids::PROCEDURES_MANAGE_ID;
+use manage_define::manage_ids::PROCEDURES_MANAGE_ID;
 use database;
 use entity;
 

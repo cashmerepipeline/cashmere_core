@@ -12,7 +12,7 @@ mod task;
 mod procedure;
 mod phases;
 
-use cash_core::ids::WORKS_MANAGE_ID;
+use manage_define::manage_ids::WORKS_MANAGE_ID;
 use database;
 use entity;
 use bson::{doc, Document};

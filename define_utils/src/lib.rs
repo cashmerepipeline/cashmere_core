@@ -1,9 +1,3 @@
-/*
-Project: cashmere_server
-Creator: 闫刚
-Create time: 2020-10-19 11:16
-Introduction:
-*/
 
 use cash_core::field::PropertyField;
 use linked_hash_map::LinkedHashMap;
@@ -201,6 +195,7 @@ pub fn get_tomls_from_pathes(
     Some(tomls)
 }
 
+/// 读取文件为toml_map
 pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::Value>> {
     let mut toml_file =
         match std::fs::File::open(toml_path) {

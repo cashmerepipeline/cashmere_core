@@ -11,6 +11,7 @@ entity = { path = "../entity" }
 database = { path = "../database" }
 configs = { path = "../configs" }
 cash_core = { path = "../cash_core" }
+manage_define = { path = "../manage_define" }
 
 bson = "1.1.0"
 linked-hash-map = "0.5.3"

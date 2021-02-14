@@ -6,7 +6,7 @@ Created:  2020-11-15T09:30:04.425Z
 Modified: !date!
 */
 
-use cash_core::ids::WORK_NODES_MANAGE_ID;
+use manage_define::manage_ids::WORK_NODES_MANAGE_ID;
 use database;
 use entity;
 use cash_core::results::*;

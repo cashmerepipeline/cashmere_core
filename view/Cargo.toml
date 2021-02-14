@@ -13,6 +13,7 @@ manage = { path = "../manage" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
 cash_core = { path = "../cash_core" }
+manage_define = { path = "../manage_define" }
 
 tokio = { version = "0.2.22", features = ["full"] }
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }

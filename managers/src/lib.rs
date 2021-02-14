@@ -25,7 +25,6 @@ pub mod messages_manager;
 pub mod message_handles_manager;
 pub mod persons_manager;
 pub mod show_settings_manager;
-pub mod task_templates_manager;
 pub mod view_rules_manager;
 pub mod phase_sets_manager;
 pub mod templates_manager;

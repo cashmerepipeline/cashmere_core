@@ -7,10 +7,10 @@ Modified: !date!
 */
 
 use auth::jwt::validate_is_root;
-use cash_core::field::ids::*;
 use cash_core::field::{FieldDataType, Name, PropertyField};
-use cash_core::ids::*;
 use majordomo::{self, get_majordomo};
+use manage_define::field_ids::*;
+use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use view;
 

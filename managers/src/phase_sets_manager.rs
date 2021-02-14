@@ -16,12 +16,13 @@ use parking_lot::RwLock;
 use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
-use cash_core::{ids::WORK_PHASES_MANAGE_ID, results::*};
+use cash_core::results::*;
+use manage_define::manage_ids::*;
 use database;
 
 use crate::{declare_get_manager};
 use bson::Document;
-use cash_core::ids::MANAGES_MANAGE_ID;
+use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
 pub struct PhaseSetsManager;
@@ -44,7 +45,7 @@ impl ManagerTrait for PhaseSetsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return WORK_PHASES_MANAGE_ID;
+        return PHASE_SETS_MANAGE_ID;
     }
 
     fn get_manager_name(&self) -> String {
@@ -60,8 +61,8 @@ impl ManagerTrait for PhaseSetsManager {
             if WORK_PHASES_MANAGE.is_some() {
                 WORK_PHASES_MANAGE.clone().unwrap()
             } else {
-                let collection_name = WORK_PHASES_MANAGE_ID.to_string();
-                let id_str = WORK_PHASES_MANAGE_ID.to_string();
+                let collection_name = PHASE_SETS_MANAGE_ID.to_string();
+                let id_str = PHASE_SETS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
@@ -79,7 +80,7 @@ impl ManagerTrait for PhaseSetsManager {
                 WORK_PHASES_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = WORK_PHASES_MANAGE_ID.to_string();
+                let id_str = PHASE_SETS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),

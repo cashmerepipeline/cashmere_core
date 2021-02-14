@@ -9,7 +9,7 @@ name = { Cn = "知识树", En = "graphs" }
 schema = [
     # {起点:结束点,tags[],...],...},
     # 两个定点之间只有两条有向边，多个标记
-    { id = 2008, data_type = "Map", name = { Cn = "连接", En = "links"}, removed = false },
+    { id = 2008, data_type = "Map", name = { Cn = "连接", En = "edges"}, removed = false },
     # 组织层次，部门层次，个人层次
     { id = 2009, data_type = "Int64", name = { Cn = "个体层级", En = "individual_level"}, removed = false },
     # 具体归属
@@ -18,7 +18,7 @@ schema = [
     { id = 2011, data_type = "List", name = { Cn = "领域", En = "domain_id"}, removed = false },
     # 排版显示方式
     { id = 2012, data_type = "Int64", name = { Cn = "排版", En = "compose_type"}, removed = false },
-    { id = 2013, data_type = "List", name = { Cn = "问题", En = "quetions"}, removed = false },
+    { id = 2013, data_type = "List", name = { Cn = "问题", En = "questions"}, removed = false },
 ]
 
 # 事件队列和消息队列表

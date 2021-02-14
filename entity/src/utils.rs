@@ -1,7 +1,7 @@
 use mongodb::{Collection, bson::doc};
 use chrono::Utc;
 
-use cash_core::field::ids::*;
+use manage_define::general_field_ids::*;
 
 pub(crate) async fn update_entity_modify_stamp(
     entity_id: &String,

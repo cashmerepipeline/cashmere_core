@@ -13,8 +13,8 @@ use bson::Document;
 use chrono::Utc;
 use tonic::{Request, Response, Status};
 
-use cash_core::ids::ACCOUNTS_MANAGE_ID;
-use cash_core::ids::PERSONS_MANAGE_ID;
+use  manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
+use  manage_define::manage_ids::PERSONS_MANAGE_ID;
 use managers::traits::ManagerTrait;
 
 type ResponseResult<T> = Result<Response<T>, Status>;

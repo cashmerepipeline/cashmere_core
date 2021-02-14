@@ -19,7 +19,7 @@ use serde::{Deserialize, Serialize};
 use tokio::stream::StreamExt;
 use futures::executor::block_on;
 
-use cash_core::ids::MANAGES_MANAGE_ID;
+use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use cash_core::Manage;
 
 use database::MongodbResult;

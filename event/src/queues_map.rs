@@ -15,7 +15,7 @@ use tokio::{sync::mpsc::Sender};
 use sled;
 
 use cash_core::results::*;
-use cash_core::ids::EVENT_QUEUES_MANAGE_ID;
+use  manage_define::manage_ids::EVENT_QUEUES_MANAGE_ID;
 
 use crate::{Event, queue::EventQueue, queue::extract_queue_handle_ids, queue::get_queue_handles};
 use crate::queue::spawn_recieve_task;

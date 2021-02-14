@@ -14,8 +14,9 @@ use bson::{doc, Document, Bson};
 use entity;
 use cash_core::results::*;
 
-use cash_core::ids::ACCOUNTS_MANAGE_ID;
-use cash_core::field::ids::*;
+use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
+use  manage_define::field_ids::*;
+use  manage_define::general_field_ids::*;
 
 #[derive(Debug)]
 pub enum AccountStatus {

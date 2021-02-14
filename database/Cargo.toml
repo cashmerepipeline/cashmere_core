@@ -11,8 +11,8 @@ tokio-test = "0.2.1"
 
 [dependencies]
 configs = {path="../configs"}
- cash_core = {path="../cash_core"}
-#auth = {path="../auth"}
+cash_core = {path="../cash_core"}
+manage_define = {path="../manage_define"}
 
 mongodb = "1.1"
 tokio = "0.2.23"

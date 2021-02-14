@@ -14,7 +14,7 @@ use std::sync::Arc;
 use tokio::stream::StreamExt;
 
 use cash_core;
-use cash_core::ids::EVENTS_MANAGE_ID;
+use manage_define::manage_ids::EVENTS_MANAGE_ID;
 use cash_core::results::*;
 use database::MongodbResult;
 use entity;

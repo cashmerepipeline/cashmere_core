@@ -1,5 +1,5 @@
 /*
-Project: cashmere_server
+Project: minit
 Creator: 闫刚
 Create time: 2020-10-16 10:45
 Introduction:
@@ -14,8 +14,11 @@ use configs;
 
 use clap::{App, Arg};
 use bson::{ doc};
-use cash_core::{ids, field};
-use defines::utils;
+use manage_define::manage_ids::*;
+use manage_define::general_field_ids::*;
+use manage_define::field_ids::*;
+
+use define_utils as utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -87,9 +90,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let root_group_id = &"1000000".to_string();
 
     // 1. 创建管理集合
-    match db.create_collection(&ids::MANAGES_MANAGE_ID.to_string(), None).await{
-        Err(e) => println!("创建管理集合失败: {} {:?}", ids::MANAGES_MANAGE_ID, e),
-        _ => println!("创建管理成功 {}", ids::MANAGES_MANAGE_ID),
+    match db.create_collection(&MANAGES_MANAGE_ID.to_string(), None).await{
+        Err(e) => println!("创建管理集合失败: {} {:?}", MANAGES_MANAGE_ID, e),
+        _ => println!("创建管理成功 {}", MANAGES_MANAGE_ID),
     }
 
     println!("------创建管理-------");
@@ -112,15 +115,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let mut manage_doc = doc! {
             "_id": manage_id.clone(),
-            field::ids::ID_FIELD_ID.to_string(): manage_id.clone(),
-            field::ids::NAME_FIELD_ID.to_string(): manage_name.clone(),
-            field::ids::MANAGES_SCHEMA_FIELD_ID.to_string(): manage_schema
+            ID_FIELD_ID.to_string(): manage_id.clone(),
+            NAME_FIELD_ID.to_string(): manage_name.clone(),
+            MANAGES_SCHEMA_FIELD_ID.to_string(): manage_schema
         };
 
-        // let collection = db.collection(&cash_core::ids::MANAGES_MANAGE_ID.to_string());
+        // let collection = db.collection(&cash_core::MANAGES_MANAGE_ID.to_string());
         // 创建实体入库
         match entity::insert_entity(
-            &ids::MANAGES_MANAGE_ID.to_string(),
+            &MANAGES_MANAGE_ID.to_string(),
             &mut manage_doc,
             &root_id,
             root_group_id,
@@ -136,7 +139,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         };
 
         // 管理集合已经创建
-        if manage_id == ids::MANAGES_MANAGE_ID.to_string() {
+        if manage_id == MANAGES_MANAGE_ID.to_string() {
             continue
         }
 
@@ -200,15 +203,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let mut rulse_doc = doc! {
             "_id": rule_id.to_string(),
-            field::ids::ID_FIELD_ID.to_string(): rule_id.to_string(),
-            field::ids::NAME_FIELD_ID.to_string(): rule_name.clone(),
-            field::ids::VIEW_RULES_MANAGE_FIELD_ID.to_string(): bson::to_bson(&view_rules.manage).unwrap(),
-            field::ids::VIEW_RULES_COLLECTION_FIELD_ID.to_string(): bson::to_bson(&view_rules.entity).unwrap(),
-            field::ids::VIEW_RULES_ENTITY_FIELD_ID.to_string(): bson::to_bson(&view_rules.schema).unwrap(),
+            ID_FIELD_ID.to_string(): rule_id.to_string(),
+            NAME_FIELD_ID.to_string(): rule_name.clone(),
+            VIEW_RULES_MANAGE_FIELD_ID.to_string(): bson::to_bson(&view_rules.manage).unwrap(),
+            // VIEW_RULES_COLLECTION_FIELD_ID.to_string(): bson::to_bson(&view_rules.entity).unwrap(),
+            VIEW_RULES_ENTITY_FIELD_ID.to_string(): bson::to_bson(&view_rules.schema).unwrap(),
         };
 
         match entity::insert_entity(
-            &ids::VIEW_RULES_MANAGE_ID.to_string(),
+            &VIEW_RULES_MANAGE_ID.to_string(),
             &mut rulse_doc,
             root_id,
             root_group_id,

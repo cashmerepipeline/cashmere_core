@@ -16,12 +16,13 @@ use parking_lot::RwLock;
 use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
-use cash_core::{ids::TAG_TYPES_MANAGE_ID, results::*};
+use manage_define::manage_ids::TAG_TYPES_MANAGE_ID;
+use cash_core::{results::*};
 use database;
 
 use crate::{declare_get_manager};
 use bson::Document;
-use cash_core::ids::MANAGES_MANAGE_ID;
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
 pub struct TagTypesManager;
