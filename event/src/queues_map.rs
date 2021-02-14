@@ -14,8 +14,8 @@ use parking_lot::RwLock;
 use tokio::{sync::mpsc::Sender};
 use sled;
 
-use cash_core::results::*;
-use  manage_define::manage_ids::EVENT_QUEUES_MANAGE_ID;
+use cash_result::*;
+use manage_define::manage_ids::EVENT_QUEUES_MANAGE_ID;
 
 use crate::{Event, queue::EventQueue, queue::extract_queue_handle_ids, queue::get_queue_handles};
 use crate::queue::spawn_recieve_task;
@@ -111,11 +111,11 @@ pub async fn update_event_queues_map(new_doc: &Document) -> Result<OperationResu
     };
     let handles = extract_queue_handle_ids(new_doc).unwrap();
     let mut handles_arc_map: HashMap<i64, Arc<RwLock<Vec<i64>>>> = HashMap::new();
-        handles.iter().map(|(k, v)| {
-            handles_arc_map.insert(k.clone(), Arc::new(RwLock::new(v.clone())))
-        });
+    handles.iter().map(|(k, v)| {
+        handles_arc_map.insert(k.clone(), Arc::new(RwLock::new(v.clone())))
+    });
 
-        let handles_arc_map = Arc::new(RwLock::new(handles_arc_map));
+    let handles_arc_map = Arc::new(RwLock::new(handles_arc_map));
 
     let server_configs = configs::get_server_configs();
     let events_dbs_root_dir = format!(

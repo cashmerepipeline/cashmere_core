@@ -13,7 +13,7 @@ use linked_hash_map::LinkedHashMap;
 use log::{error, info, warn};
 use mongodb::bson;
 use mongodb::bson::{doc, Document};
-use cash_core::results::*;
+use cash_result::*;
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
 use tokio::stream::StreamExt;

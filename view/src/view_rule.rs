@@ -9,7 +9,7 @@ Modified: !date!
 use crate::validate_is_owner;
 use linked_hash_map::LinkedHashMap;
 use mongodb::{bson, bson::de::from_document, bson::doc, bson::Document};
-use cash_core::results::*;
+use cash_result::*;
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;

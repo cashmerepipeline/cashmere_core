@@ -10,6 +10,7 @@ edition = "2018"
 entity = {path="../entity"}
 database = {path="../database"}
 cash_core = {path="../cash_core"}
+cash_result = {path="../cash_result"}
 manage_define = {path="../manage_define"}
 
 serde = "1.0.117"

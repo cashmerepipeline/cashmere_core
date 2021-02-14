@@ -16,7 +16,7 @@ use manage_define::manage_ids::WORKS_MANAGE_ID;
 use database;
 use entity;
 use bson::{doc, Document};
-use cash_core::results::*;
+use cash_result::*;
 
 use serde::{Deserialize, Serialize};
 

@@ -10,7 +10,7 @@ use std::sync::Arc;
 
 // use log::{error, info, warn};
 use bson::{self, Bson, Document};
-use cash_core::results::*;
+use cash_result::*;
 use parking_lot::RwLock;
 use async_trait::async_trait;
 

@@ -17,7 +17,7 @@ use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
 use manage_define::manage_ids::TAG_TYPES_MANAGE_ID;
-use cash_core::{results::*};
+use cash_result::*;
 use database;
 
 use crate::{declare_get_manager};

@@ -17,7 +17,7 @@ use managers::{self, Manager};
 use managers::traits::ManagerTrait;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
-use cash_core::results::*;
+use cash_result::*;
 use cash_core::field::PropertyField;
 use std::ops::Deref;
 

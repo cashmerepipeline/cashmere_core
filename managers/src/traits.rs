@@ -5,7 +5,7 @@ Create time: 2020-11-16 16:20
 Introduction:
 */
 
-use cash_core::results::*;
+use cash_result::*;
 use cash_core::{
     field::PropertyField, Manage,
 };

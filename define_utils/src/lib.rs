@@ -8,7 +8,6 @@ use cash_core::view_rules::{ViewRule, ViewRules};
 
 use std::{path::Path};
 use std::io::prelude::*;
-use std::io::Error;
 use std::fs::File;
 use toml::Value;
 use toml::map::Map;

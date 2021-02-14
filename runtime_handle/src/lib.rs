@@ -6,7 +6,7 @@ Created:  2020-11-30T09:52:21.266Z
 Modified: !date!
 */
 
-use cash_core::results::*;
+use cash_result::*;
 use tokio::runtime::Handle;
 
 pub static mut TOKIO_RUNTIME_HANDLE: Option<Handle> = None;

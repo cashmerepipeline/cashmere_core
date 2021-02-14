@@ -12,6 +12,7 @@ configs = { path = "../configs" }
 entity = { path = "../entity" }
 view = { path = "../view" }
 cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 runtime_handle = { path = "../runtime_handle" }
 

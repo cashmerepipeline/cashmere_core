@@ -11,6 +11,7 @@ entity = { path = "../entity" }
 database = { path = "../database" }
 configs = { path = "../configs" }
 cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 
 bson = "1.1.0"

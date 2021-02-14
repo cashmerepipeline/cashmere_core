@@ -11,6 +11,7 @@ manage = {path = "../manage"}
 database = {path = "../database"}
 entity = {path = "../entity"}
 cash_core = {path = "../cash_core"}
+cash_result = {path = "../cash_result"}
 procedure = {path = "../procedure"}
 manage_define = {path = "../manage_define"}
 

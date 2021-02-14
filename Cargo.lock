@@ -6,6 +6,7 @@ version = "0.1.0"
 dependencies = [
  "bson",
  "cash_core",
+ "cash_result",
  "configs",
  "database",
  "entity",
@@ -494,6 +495,7 @@ name = "entity"
 version = "0.3.0"
 dependencies = [
  "cash_core",
+ "cash_result",
  "chrono",
  "configs",
  "database",
@@ -537,6 +539,7 @@ version = "0.1.0"
 dependencies = [
  "bson",
  "cash_core",
+ "cash_result",
  "configs",
  "database",
  "entity",
@@ -1083,6 +1086,7 @@ version = "0.4.0"
 dependencies = [
  "bson",
  "cash_core",
+ "cash_result",
  "configs",
  "entity",
  "log",
@@ -1097,6 +1101,7 @@ name = "manage"
 version = "0.1.0"
 dependencies = [
  "cash_core",
+ "cash_result",
  "chrono",
  "database",
  "entity",
@@ -1132,6 +1137,7 @@ dependencies = [
  "async-trait",
  "bson",
  "cash_core",
+ "cash_result",
  "configs",
  "database",
  "entity",
@@ -1644,6 +1650,7 @@ name = "procedure"
 version = "0.1.0"
 dependencies = [
  "cash_core",
+ "cash_result",
  "database",
  "entity",
  "linked-hash-map",
@@ -1877,6 +1884,7 @@ name = "runtime_handle"
 version = "0.1.0"
 dependencies = [
  "cash_core",
+ "cash_result",
  "tokio",
 ]
 
@@ -2833,6 +2841,7 @@ dependencies = [
  "account",
  "auth",
  "cash_core",
+ "cash_result",
  "database",
  "entity",
  "linked-hash-map",
@@ -3079,6 +3088,7 @@ version = "0.1.0"
 dependencies = [
  "bson",
  "cash_core",
+ "cash_result",
  "database",
  "entity",
  "manage",

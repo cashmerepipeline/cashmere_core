@@ -55,7 +55,7 @@ use bson::{Document};
 use parking_lot::RwLock;
 use async_trait::async_trait;
 
-use cash_core::results::*;
+use cash_result::*;
 use cash_core::Manage;
 use traits::ManagerTrait;
 // use log::{info};

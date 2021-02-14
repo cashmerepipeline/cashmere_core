@@ -17,7 +17,7 @@ use parking_lot::RwLock;
 use super::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::Manage;
-use cash_core::results::*;
+use cash_result::*;
 use manage_define::manage_ids::*;
 use database;
 

@@ -18,7 +18,7 @@ use std::collections::BTreeMap;
 use tokio::stream::StreamExt;
 
 use manage_define::general_field_ids::*;
-use cash_core::results::*;
+use cash_result::*;
 use configs;
 use database;
 use database::get_cashmere_database;

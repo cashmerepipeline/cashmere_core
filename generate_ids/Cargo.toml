@@ -1,5 +1,5 @@
 [package]
-name = "runtime_handle"
+name = "generate_ids"
 version = "0.1.0"
 authors = ["wangrongwen <403271579@qq.com>"]
 edition = "2018"
@@ -7,6 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cash_core = {path="../cash_core"}
-cash_result = {path="../cash_result"}
-tokio="0.2.23"
+[build-dependencies]
+toml = "0.5.8"
+glob = "0.3.0"
+linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
+bson = "1.1.0"
+serde = "1.0.123"
+serde_derive = "1.0.123"

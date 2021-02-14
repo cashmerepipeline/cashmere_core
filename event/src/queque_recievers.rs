@@ -1,6 +1,6 @@
 use tokio::{stream::StreamExt, sync::mpsc::Receiver, sync::mpsc::Sender};
 use crate::event::Event;
-use cash_core::results::*;
+use cash_result::*;
 use runtime_handle::get_runtime_handle;
 use crate::queue::get_queue_handles;
 use crate::queues_map::get_event_queues_map;

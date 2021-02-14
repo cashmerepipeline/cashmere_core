@@ -8,6 +8,7 @@ edition = "2018"
 
 [dependencies]
 cash_core = {path="../cash_core"}
+cash_result = {path="../cash_result"}
 database = {path = "../database"}
 entity = {path="../entity"}
 configs = {path="../configs"}

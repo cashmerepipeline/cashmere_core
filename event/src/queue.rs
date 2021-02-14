@@ -13,9 +13,7 @@ use tokio::{self, sync::mpsc::Receiver, sync::mpsc::Sender};
 use crate::handles_map::get_handle_sender_by_id;
 use crate::queues_map::get_event_queues_map;
 use crate::Event;
-use cash_core::results::{
-    add_call_name_to_chain, operation_failed, operation_succeed, OperationResult,
-};
+use cash_result::*;
 
 use parking_lot::RwLock;
 use runtime_handle::get_runtime_handle;

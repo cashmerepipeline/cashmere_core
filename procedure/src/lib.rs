@@ -17,7 +17,7 @@ use entity;
 
 use linked_hash_map::LinkedHashMap;
 use mongodb::{bson, bson::doc, bson::Document};
-use cash_core::results::*;
+use cash_result::*;
 use serde::{Deserialize, Serialize};
 
 use phases::Phase;

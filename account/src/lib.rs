@@ -12,7 +12,7 @@ pub mod view;
 use bson::{doc, Document, Bson};
 
 use entity;
-use cash_core::results::*;
+use cash_result::*;
 
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
 use  manage_define::field_ids::*;

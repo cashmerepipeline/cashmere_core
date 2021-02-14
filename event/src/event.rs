@@ -15,7 +15,7 @@ use tokio::stream::StreamExt;
 
 use cash_core;
 use  manage_define::manage_ids::EVENTS_MANAGE_ID;
-use cash_core::results::*;
+use cash_result::*;
 use entity;
 
 use crate::events_map::get_events_map;

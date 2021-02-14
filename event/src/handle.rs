@@ -9,7 +9,7 @@ Modified: !date!
 use tokio::{sync::mpsc::Receiver, sync::mpsc::Sender};
 
 use crate::event::Event;
-use cash_core::results::*;
+use cash_result::*;
 use runtime_handle::get_runtime_handle;
 
 /// 事件处理器

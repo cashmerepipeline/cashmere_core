@@ -8,7 +8,7 @@ Modified: !date!
 
 // use database;
 // use entity;
-// use cash_core::results::*;
+// use cash_result::*;
 // use mongodb::bson::{doc, Document};
 // use super::work_node;
 
