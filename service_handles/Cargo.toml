@@ -22,7 +22,7 @@ cash_result = { path = "../cash_result" }
 configs = { path = "../configs" }
 account = { path = "../account" }
 majordomo = { path = "../majordomo" }
-manage = { path = "../manage" }
+
 managers = { path = "../managers" }
 manage_define = {path="../manage_define"}
 event = { path = "../event" }

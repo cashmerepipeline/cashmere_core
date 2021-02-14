@@ -16,10 +16,8 @@ use parking_lot::RwLock;
 use managers::{self, Manager};
 use managers::traits::ManagerTrait;
 
-
 use cash_result::*;
 use property_field::PropertyField;
-
 
 // use log::info;
 

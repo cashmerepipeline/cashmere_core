@@ -16,7 +16,6 @@ use auth::jwt::validate_is_root;
 use cash_core::Manage;
 use event::event;
 use majordomo;
-use manage;
 use manage_define::manage_ids::EVENTS_MANAGE_ID;
 use managers::{traits::ManagerTrait, Manager};
 use std::sync::Arc;

@@ -1082,33 +1082,10 @@ dependencies = [
  "configs",
  "entity",
  "log",
- "manage",
  "manage_define",
  "managers",
  "parking_lot 0.11.1",
  "property_field",
-]
-
-[[package]]
-name = "manage"
-version = "0.1.0"
-dependencies = [
- "cash_core",
- "cash_result",
- "chrono",
- "database",
- "entity",
- "futures",
- "linked-hash-map",
- "log",
- "manage_define",
- "mongodb",
- "parking_lot 0.11.1",
- "serde",
- "serde_derive",
- "simplelog",
- "tokio",
- "toml",
 ]
 
 [[package]]
@@ -2071,7 +2048,6 @@ dependencies = [
  "linked-hash-map",
  "log",
  "majordomo",
- "manage",
  "manage_define",
  "managers",
  "property_field",
@@ -2851,7 +2827,6 @@ dependencies = [
  "database",
  "entity",
  "linked-hash-map",
- "manage",
  "manage_define",
  "mongodb",
  "parking_lot 0.11.1",
@@ -3097,7 +3072,6 @@ dependencies = [
  "cash_result",
  "database",
  "entity",
- "manage",
  "manage_define",
  "procedure",
  "serde",

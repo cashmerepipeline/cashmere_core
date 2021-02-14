@@ -20,7 +20,7 @@ cash_core = { path = "../cash_core" }
 configs = { path = "../configs" }
 account = { path = "../account" }
 majordomo = { path = "../majordomo" }
-manage = { path = "../manage" }
+
 managers = { path = "../managers" }
 event = { path = "../event" }
 auth = { path = "../auth" }

@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 database = { path = "../database" }
 account = { path = "../account" }
-manage = { path = "../manage" }
+
 auth = { path = "../auth" }
 entity = { path = "../entity" }
 cash_core = { path = "../cash_core" }

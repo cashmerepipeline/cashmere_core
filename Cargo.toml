@@ -18,7 +18,6 @@ members = [
     #    "server",
     "service_handles",
     "majordomo",
-    "manage",
     "manage_define",
     "define_utils",
     "managers",

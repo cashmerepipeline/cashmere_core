@@ -11,7 +11,6 @@ use configs;
 use event;
 use log::info;
 use majordomo;
-use manage;
 use managers::traits::ManagerTrait;
 use std::fs::FileType;
 use std::path::{Path, PathBuf};
