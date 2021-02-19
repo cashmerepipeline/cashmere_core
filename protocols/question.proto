@@ -9,6 +9,7 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+// 问题属于图
 message NewQuestionRequest {
     string graph_id = 1;
     string name = 2;

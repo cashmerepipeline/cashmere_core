@@ -11,6 +11,7 @@ use property_field::*;
 
 use manage_define::manage_ids::*;
 use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
 
 use bson::doc;
 use database;
@@ -442,7 +443,10 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     // 通过id取得实体
-    async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
+    async fn get_entity_by_id(
+        &self,
+        entity_id: &String
+    ) -> Result<Document, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
         match entity::get_entity_by_id(&manage_id, entity_id).await {
             Ok(r) => Ok(r),
@@ -479,6 +483,31 @@ pub trait ManagerTrait: Any + Send + Sync {
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "update_entity_field".to_string())),
+        }
+    }
+
+    async fn mark_entity_removed(
+        &self,
+        entity_id:&String,
+        account_id: &String
+    ) -> Result<OperationResult, OperationResult> {
+        let manage_id = self.get_manager_id();
+        let q_doc = doc! {
+            "_id": entity_id
+        };
+        let m_doc = doc! {
+            ENTITY_REMOVED_FIELD_ID.to_string(): true
+        };
+        match entity::update_entity_field(
+            &manage_id.to_string(),
+            q_doc,
+            m_doc,
+            account_id,
+        )
+            .await
+        {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
     }
 

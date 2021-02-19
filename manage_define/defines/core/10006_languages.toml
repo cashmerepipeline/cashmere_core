@@ -1,10 +1,10 @@
 #
-# 管理定义模板
+#  语言
 #
 
 # 管理名, 对应数据库的表或者集合
 id = 10006
-name = { Cn = "地区编码", En = "local_codes" }
+name = { Cn = "语言", En = "languages" }
 
 # 数据描写 或者 模式
 schema = [

@@ -18,8 +18,6 @@ use super::{Manager, ManagerInner, ManagerTrait};
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
-use manage_define::manage_ids::*;
-use database;
 
 use crate::{declare_get_manager};
 use bson::Document;

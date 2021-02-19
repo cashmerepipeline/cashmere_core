@@ -72,8 +72,12 @@ pub fn validate_is_in_group(entity_doc: &Document, group_ids: &Vec<String>) -> b
     unimplemented!()
 }
 
-/// 管理是否可写
-pub async fn can_manage_write(account: &String, groups: &Vec<String>, manage_id: &String) -> bool {
+/// 管理是否可写, 管理的字段定义添加删除
+pub async fn can_manage_write(
+    account: &String, 
+    groups: &Vec<String>, 
+    manage_id: &String
+) -> bool {
     let view_rules = view_rule::get_view_rules_map().await.read();
 
     let mut result = false;
@@ -95,7 +99,12 @@ pub async fn can_manage_write(account: &String, groups: &Vec<String>, manage_id:
     result
 }
 
-pub async fn can_collection_write(account: &String, groups: &Vec<String>, manage_id: &String) -> bool {
+/// 集合是否可写，向集合添加或者删除实体
+pub async fn can_collection_write(
+    account: &String, 
+    groups: &Vec<String>, 
+    manage_id: &String
+) -> bool {
     let view_rules = view_rule::get_view_rules_map().await.read();
 
     for group in groups {
@@ -117,6 +126,7 @@ pub async fn can_collection_write(account: &String, groups: &Vec<String>, manage
     false
 }
 
+/// 实体的可写性，可否修改实体的字段
 pub async fn can_entity_write(
     account: &String,
     groups: &Vec<String>,
@@ -148,7 +158,10 @@ pub async fn can_entity_write(
 
 
 /// 取得第一个可写组
-pub async fn get_first_write_group(groups: &Vec<String>, manage_id: &String) -> Option<String> {
+pub async fn get_first_write_group(
+    groups: &Vec<String>, 
+    manage_id: &String
+) -> Option<String> {
     let view_rules = view_rule::get_view_rules_map().await.read();
 
     for group in groups {

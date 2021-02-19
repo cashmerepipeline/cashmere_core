@@ -33,12 +33,12 @@ message EditEntityResponse {
   string result = 1;
 }
 
-message RemoveEntityRequest {
-  int32 manage_id = 1;
+message MarkEntityRemovedRequest {
+  string manage_id = 1;
   string entity_id = 2;
 }
 
-message RemoveEntityResponse {
+message MarkEntityRemovedResponse {
   string result = 1;
 }
 

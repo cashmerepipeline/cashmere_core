@@ -293,14 +293,14 @@ pub struct EditEntityResponse {
     pub result: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+pub struct MarkEntityRemovedRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: std::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityResponse {
+pub struct MarkEntityRemovedResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
@@ -1187,6 +1187,7 @@ pub struct RemoveCommentResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
+/// 问题属于图
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewQuestionRequest {
     #[prost(string, tag = "1")]

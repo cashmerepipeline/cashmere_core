@@ -25,31 +25,31 @@ use bson::Document;
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
-pub struct LocalCodesManager;
+pub struct AreasManager;
 
 /// 缓存
-static mut LOCAL_CODES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut LOCAL_CODES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut AREAS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut AREAS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
-static mut LOCAL_CODES_MANAGER: Option<Arc<Manager>> = None;
+static mut AREAS_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(LocalCodesManager, LOCAL_CODES_MANAGER);
+declare_get_manager!(AreasManager, AREAS_MANAGER);
 
 // 实现接口
 #[async_trait]
-impl ManagerTrait for LocalCodesManager {
+impl ManagerTrait for AreasManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
         Err(operation_failed("unregister", "账户管理器不能被注销"))
     }
 
     fn get_manager_id(&self) -> i32 {
-        return LOCAL_CODES_MANAGE_ID;
+        return AREAS_MANAGE_ID;
     }
 
     fn get_manager_name(&self) -> String {
-        "LocalCodesManager".to_string()
+        "AreasManager".to_string()
     }
 
     fn has_cache(&self) -> bool {
@@ -58,36 +58,36 @@ impl ManagerTrait for LocalCodesManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if LOCAL_CODES_MANAGE.is_some() {
-                LOCAL_CODES_MANAGE.clone().unwrap()
+            if AREAS_MANAGE.is_some() {
+                AREAS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = LOCAL_CODES_MANAGE_ID.to_string();
-                let id_str = LOCAL_CODES_MANAGE_ID.to_string();
+                let collection_name = AREAS_MANAGE_ID.to_string();
+                let id_str = AREAS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
-                LOCAL_CODES_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                LOCAL_CODES_MANAGE.clone().unwrap()
+                AREAS_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                AREAS_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if LOCAL_CODES_MANAGE_DOCUMENT.is_some() {
-                LOCAL_CODES_MANAGE_DOCUMENT.clone().unwrap()
+            if AREAS_MANAGE_DOCUMENT.is_some() {
+                AREAS_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = LOCAL_CODES_MANAGE_ID.to_string();
+                let id_str = AREAS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
                 };
 
-                LOCAL_CODES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                LOCAL_CODES_MANAGE_DOCUMENT.clone().unwrap()
+                AREAS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                AREAS_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }

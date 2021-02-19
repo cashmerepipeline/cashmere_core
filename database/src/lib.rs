@@ -24,6 +24,8 @@ pub type MongodbResult<T> = mongodb::error::Result<T>;
 static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
 static mut CASHMERE_DATABASE: Option<Arc<Database>> = None;
 
+
+/// 取得客户端
 pub async fn get_mongodb_client() -> &'static Client {
     unsafe {
         if MONGODB_CLIENT.is_some() {
@@ -50,6 +52,8 @@ pub async fn get_mongodb_client() -> &'static Client {
     }
 }
 
+
+/// 根据设置文件，取得数据库
 pub async fn get_cashmere_database() -> &'static Database {
     unsafe {
         if CASHMERE_DATABASE.is_some() {
@@ -135,6 +139,8 @@ pub async fn get_ids_collection() -> Collection {
     return cashmere_db.collection(manages_id);
 }
 
+
+/// 初始化实体编号字段
 pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult, OperationResult> {
     let ids_collection = get_ids_collection().await;
 
@@ -174,13 +180,13 @@ pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult,
 #[cfg(test)]
 mod tests {
     use crate::get_cashmere_database;
-    use mongodb::bson::{doc};
+    use mongodb::bson::doc;
     use tokio_test::assert_ok;
 
     #[test]
     fn test_database() {
         let db = tokio_test::block_on(get_cashmere_database());
-        tokio_test::block_on(db.create_collection("test", None));
+        tokio_test::block_on(db.create_collection("test", None)).expect("创建测试集合失败");
         let collection = db.collection("test");
         let doc =
             doc! {
