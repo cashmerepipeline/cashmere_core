@@ -11,6 +11,7 @@ syntax = "proto3";
 package cashmere;
 
 import "name.proto";
+import "area.proto";
 import "organization.proto";
 import "department.proto";
 import "class.proto";

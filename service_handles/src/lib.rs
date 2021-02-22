@@ -16,9 +16,10 @@ pub mod point_handle_service;
 
 use tonic::{Request, Response, Status};
 
-type UnaryResponseResult<T> = Result<Response<T>, Status>;
-type StreamResponseResult<T> = Result<Response<T>, Status>;
+pub type UnaryResponseResult<T> = Result<Response<T>, Status>;
+pub type StreamResponseResult<T> = Result<Response<T>, Status>;
 
+use cashmere::AreaLevel;
 use cashmere::RoadmapVisType;
 use cashmere::SlotType;
 
@@ -66,6 +67,31 @@ impl SlotType {
             Some(SlotType::WorkData)
         } else if val == &3i32 {
             Some(SlotType::OutData)
+        } else {
+            None
+        }
+    }
+}
+
+impl AreaLevel {
+    // 整数到区域类型
+    // 国家级
+    // Country = 0,
+    // 省直辖市自治区
+    // Province = 1,
+    // 城市
+    // City = 2,
+    // 区
+    // Area = 3,
+    pub fn from(val: &i32) -> Option<AreaLevel> {
+        if val == &0i32 {
+            Some(AreaLevel::Country)
+        } else if val == &1i32 {
+            Some(AreaLevel::Province)
+        } else if val == &2i32 {
+            Some(AreaLevel::City)
+        } else if val == &3i32 {
+            Some(AreaLevel::Area)
         } else {
             None
         }

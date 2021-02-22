@@ -46,6 +46,46 @@ pub struct NewLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaRequest {
+    #[prost(string, tag = "1")]
+    pub language: std::string::String,
+    #[prost(string, tag = "2")]
+    pub name: std::string::String,
+    #[prost(string, tag = "3")]
+    pub parent_id: std::string::String,
+    #[prost(string, tag = "4")]
+    pub code: std::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "5")]
+    pub level: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaRequest {
+    #[prost(string, tag = "1")]
+    pub area_id: std::string::String,
+    #[prost(string, tag = "3")]
+    pub new_parent_id: std::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "4")]
+    pub new_level: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AreaLevel {
+    Country = 0,
+    Province = 1,
+    City = 2,
+    Area = 3,
+}
 /// 新建单位组织
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewOrganizationRequest {

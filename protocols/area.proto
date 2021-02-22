@@ -9,28 +9,29 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-enum LocationLevel {
+enum AreaLevel {
     Country = 0;
     Province = 1;
     City = 2;
     Area = 3;
 }
 
-message NewLocationRequest {
+message NewAreaRequest {
     string language = 1;
     string name = 2;
     string parent_id = 3;
-    LocationLevel level = 4;
+    string code = 4;
+    AreaLevel level = 5;
 }
-message NewLocationResponse {
+message NewAreaResponse {
     string result = 1;
 }
 
-message EditLocationRequest {
-    string location_id = 1;
+message EditAreaRequest {
+    string area_id = 1;
     string new_parent_id = 3;
-    LocationLevel new_level = 4;
+    AreaLevel new_level = 4;
 }
-message EditLocationResponse {
+message EditAreaResponse {
     string result = 1;
 }

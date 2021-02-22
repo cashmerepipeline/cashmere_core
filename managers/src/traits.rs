@@ -486,6 +486,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
+    // 标记为移除
     async fn mark_entity_removed(
         &self,
         entity_id:&String,
@@ -509,6 +510,14 @@ pub trait ManagerTrait: Any + Send + Sync {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
+    }
+
+    async fn entity_exists(
+        &self,
+        query_doc: Document
+    ) -> bool {
+        let manage_id = self.get_manager_id();
+        entity::entity_exists(&manage_id.to_string(), query_doc).await
     }
 
     //-------------------------

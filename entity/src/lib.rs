@@ -53,19 +53,18 @@ pub async fn get_new_entity_id(
     }
 }
 
-/// 根据名字判断条目是否存在
-pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
+pub async fn entity_exists(
+    manage_id: &String,
+    query_doc: Document
+) -> bool{
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
         None => return false,
     };
-
     let result = collection
         .find_one(
-            doc! {
-                "name": entity_name.clone()
-            },
+            query_doc,
             None,
         )
         .await;
@@ -77,27 +76,24 @@ pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
     }
 }
 
-pub async fn exists_by_id(manage_id: &String, entity_id: &String) -> bool {
-    // 检查
-    let collection = match database::get_collection_by_id(manage_id).await {
-        Some(c) => c,
-        None => return false,
+/// 根据名字判断条目是否存在
+pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
+    let query_doc = doc!{
+        "name": entity_name.clone()
     };
 
-    let result = collection
-        .find_one(
-            doc! {
-                "_id": entity_id
-            },
-            None,
-        )
-        .await;
+    entity_exists(manage_id, query_doc).await
+}
 
-    match result {
-        Ok(Some(_r)) => true,
-        Ok(None) => false,
-        Err(_e) => false,
-    }
+pub async fn exists_by_id(
+    manage_id: &String,
+    entity_id: &String
+) -> bool {
+    let query_doc = doc!{
+        "_id": entity_id.clone()
+    };
+
+    entity_exists(manage_id, query_doc).await
 }
 
 /// 插入实体
@@ -620,7 +616,7 @@ pub async fn get_entities(
             Ok(result)
         }
         Err(_e) => Err(operation_failed(
-            "get_entity_by_id",
+            "get_entities",
             format!("获取失败{}", filter.clone().unwrap_or_default()),
         )),
     }

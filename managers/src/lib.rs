@@ -95,6 +95,13 @@ impl ManagerTrait for Manager {
         self.inner.new_entity(new_entity_doc, account_id, group_id).await
     }
 
+    async fn entity_exists(
+        &self,
+        query_doc: Document
+    ) -> bool {
+        self.inner.entity_exists(query_doc).await
+    }
+
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
         self.inner.get_entity_by_id(entity_id).await
     }
