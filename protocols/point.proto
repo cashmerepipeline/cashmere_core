@@ -6,33 +6,46 @@ Created:  2021-01-14T03:45:12.018Z
 Modified: !date!
 */
 
-
 syntax = "proto3";
 package cashmere;
 
 message NewPointRequest {
+    // 行业id
     string domain_id = 1;
-    string language = 2;
-    string name = 3;
+    // 学科id
+    string discipline_id = 2;
+    string language = 3;
+    string name = 4;
+    repeated string bases = 5;
+    string descriptions = 6;
 }
 message NewPointResponse {
     string result = 1;
 }
 
-message RenamePointRequest {
+message EditPointRequest {
     string point_id = 1;
-    string language = 2;
-    string new_name = 3;
+    string domain_id = 2;
+    string language = 3;
+    string discipline_id = 4;
+    string descriptions = 5;
 }
-message RenamePointResponse {
+message EditPointResponse {
     string result = 1;
 }
 
-message AppendPointNameRequest {
+message AddPointBaseRequest {
     string point_id = 1;
-    string language = 2;
-    string name = 3;
+    string base_id = 2;
 }
-message AppendPointNameResponse {
+message AddPointBaseResponse {
+    string result = 1;
+}
+
+message RemovePointBaseRequest {
+    string point_id = 1;
+    string base_id = 2;
+}
+message RemovePointBaseResponse {
     string result = 1;
 }

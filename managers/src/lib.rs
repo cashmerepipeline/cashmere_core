@@ -31,6 +31,7 @@ pub mod templates_manager;
 // mod manage_documents_map;
 // mod manages_map;
 
+pub mod disciplines_manager;
 pub mod points_manager;
 pub mod graphs_manager;
 pub mod orgnizations_manager;
@@ -102,11 +103,17 @@ impl ManagerTrait for Manager {
         self.inner.entity_exists(query_doc).await
     }
 
-    async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
+    async fn get_entity_by_id(
+        &self,
+        entity_id: &String
+    ) -> Result<Document, OperationResult> {
         self.inner.get_entity_by_id(entity_id).await
     }
 
-    async fn get_entities_by_filter(&self, filter: &Option<Document>) -> Result<Vec<Document>, OperationResult> {
+    async fn get_entities_by_filter(
+        &self,
+        filter: &Option<Document>
+    ) -> Result<Vec<Document>, OperationResult> {
         self.inner.get_entities_by_filter(filter).await
     }
 
@@ -219,50 +226,6 @@ impl ManagerTrait for ManagerInner {
     }
 }
 
-
-/// 取得所有管理器
-pub async fn get_managers() -> Vec<Arc<Manager>> {
-    let manages_manager_arc = manages_manager::get_manager().await;
-    let accounts_manager_arc = accounts_manager::get_manager().await;
-    let datas_manager_arc = datas_manager::get_manager().await;
-    let groups_manager_arc = groups_manager::get_manager().await;
-    let local_codes_manager_arc = areas_manager::get_manager().await;
-    let messages_manager_arc = messages_manager::get_manager().await;
-    let message_handles_manager_arc = message_handles_manager::get_manager().await;
-    let persons_manager_arc = persons_manager::get_manager().await;
-    let phase_sets_manager_arc = phase_sets_manager::get_manager().await;
-    let events_manager_arc = events_manager::get_manager().await;
-    let event_handles_manager_arc = event_handles_manager::get_manager().await;
-    let event_queues_manager_arc = event_queues_manager::get_manager().await;
-    let works_manager_arc = works_manager::get_manager().await;
-    let procedures_manager_arc = procedures_manager::get_manager().await;
-    let work_nodes_manager_arc = work_nodes_manager::get_manager().await;
-    let tasks_manager_arc = tasks_manager::get_manager().await;
-    let show_settings_manager_arc = show_settings_manager::get_manager().await;
-    let view_rules_manager_arc = view_rules_manager::get_manager().await;
-    let templates_manager_arc = templates_manager::get_manager().await;
-
-    vec![manages_manager_arc,
-         templates_manager_arc,
-         accounts_manager_arc,
-         groups_manager_arc,
-         local_codes_manager_arc,
-         persons_manager_arc,
-         view_rules_manager_arc,
-         show_settings_manager_arc,
-         messages_manager_arc,
-         message_handles_manager_arc,
-         works_manager_arc,
-         phase_sets_manager_arc,
-         procedures_manager_arc,
-         work_nodes_manager_arc,
-         tasks_manager_arc,
-         datas_manager_arc,
-         events_manager_arc,
-         event_handles_manager_arc,
-         event_queues_manager_arc,
-    ]
-}
 
 #[cfg(test)]
 mod tests {

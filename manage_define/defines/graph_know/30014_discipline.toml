@@ -3,16 +3,15 @@
 #
 
 id = 30014
-name = { Cn = "领域", En = "discipline" }
+name = { Cn = "学科", En = "disciplines" }
 
 # 数据描写 或者 模式
 schema = [
-    # {"section":门类，"division":大类，"group":中类, "class":小类， "description":描述}
-    { id = 2008, data_type = "String", name = { Cn = "门类", En = "section"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "大类", En = "division"}, removed = false },
-    { id = 2011, data_type = "String", name = { Cn = "中类", En = "group"}, removed = false },
-    { id = 2012, data_type = "String", name = { Cn = "小类", En = "class"}, removed = false },
-    { id = 2013, data_type = "String", name = { Cn = "描述", En = "descriptions"}, removed = false },
+    # {"section":门，"division":类，"discipline":学科, "description":描述}
+    { id = 2008, data_type = "String", name = { Cn = "门", En = "section"}, removed = false },
+    { id = 2009, data_type = "String", name = { Cn = "类", En = "division"}, removed = false },
+    { id = 2011, data_type = "String", name = { Cn = "学科", En = "discipline"}, removed = false },
+    { id = 2012, data_type = "Map", name = { Cn = "描述", En = "descriptions"}, removed = false },
 ]
 
 # 特有属性
@@ -27,7 +26,6 @@ massage_queue = []
 
 # 初始实体
 [items]
-
 
 [view_rules]
 

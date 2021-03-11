@@ -814,14 +814,46 @@ pub struct NewDomainResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
+/// 编码参照
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDisciplineRequest {
+    /// 门类编码
+    #[prost(string, tag = "1")]
+    pub section_code: std::string::String,
+    /// 大类编码
+    #[prost(string, tag = "2")]
+    pub division_code: std::string::String,
+    #[prost(string, tag = "3")]
+    pub discipline_code: std::string::String,
+    ///描述
+    #[prost(string, tag = "5")]
+    pub descriptions: std::string::String,
+    #[prost(string, tag = "6")]
+    pub language: std::string::String,
+    #[prost(string, tag = "7")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDisciplineResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointRequest {
+    /// 行业id
     #[prost(string, tag = "1")]
     pub domain_id: std::string::String,
+    /// 学科id
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub discipline_id: std::string::String,
     #[prost(string, tag = "3")]
+    pub language: std::string::String,
+    #[prost(string, tag = "4")]
     pub name: std::string::String,
+    #[prost(string, repeated, tag = "5")]
+    pub bases: ::std::vec::Vec<std::string::String>,
+    #[prost(string, tag = "6")]
+    pub descriptions: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointResponse {
@@ -829,30 +861,44 @@ pub struct NewPointResponse {
     pub result: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RenamePointRequest {
+pub struct EditPointRequest {
     #[prost(string, tag = "1")]
     pub point_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub domain_id: std::string::String,
     #[prost(string, tag = "3")]
-    pub new_name: std::string::String,
+    pub language: std::string::String,
+    #[prost(string, tag = "4")]
+    pub discipline_id: std::string::String,
+    #[prost(string, tag = "5")]
+    pub descriptions: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RenamePointResponse {
+pub struct EditPointResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AppendPointNameRequest {
+pub struct AddPointBaseRequest {
     #[prost(string, tag = "1")]
     pub point_id: std::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
-    #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub base_id: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AppendPointNameResponse {
+pub struct AddPointBaseResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemovePointBaseRequest {
+    #[prost(string, tag = "1")]
+    pub point_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub base_id: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemovePointBaseResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
 }

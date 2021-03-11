@@ -9,7 +9,7 @@ name = { Cn = "标记类", En = "tag_types" }
 schema = [
     { id = 2008, data_type = "List", name = { Cn = "领域", En = "domain"}, removed = false },
     { id = 2009, data_type = "List", name = { Cn = "属性", En = "data_fields"}, removed = false },
-    { id = 2010, data_type = "List", name = { Cn = "描述", En = "descriptions"}, removed = false },
+    { id = 2010, data_type = "Map", name = { Cn = "描述", En = "descriptions"}, removed = false },
 ]
 
 # 特有属性
