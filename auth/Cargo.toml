@@ -11,9 +11,11 @@ configs = {path="../configs"}
 account = {path="../account"}
 entity = {path="../entity"}
 
-
-futures = "0.3.7"
-tokio = "0.2.23"
+futures = "0.3.13"
+tokio = "0.2.25"
+# smol运行时必须
+#smol = {version = "1.2.5"}
+async-compat = "0.2.0"
 tonic = "0.3.1"
 rust-argon2 = "0.8.2"
 chrono = "0.4.19"

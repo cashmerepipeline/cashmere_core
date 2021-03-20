@@ -100,13 +100,13 @@ pub type ViewRulesMap = LinkedHashMap<String, ViewRules>;
 /// 全局映像规则缓存, {id:rules}
 static mut VIEW_RULES_MAP: Option<Arc<RwLock<ViewRulesMap>>> = None;
 
-pub async fn get_view_rules_map() -> &'static RwLock<ViewRulesMap> {
+pub async fn get_view_rules_map() -> Arc<RwLock<ViewRulesMap>> {
     unsafe {
         if VIEW_RULES_MAP.is_some() {
-            VIEW_RULES_MAP.as_ref().unwrap()
+            VIEW_RULES_MAP.clone().unwrap()
         } else {
             VIEW_RULES_MAP.get_or_insert(init_view_rules().await.unwrap());
-            VIEW_RULES_MAP.as_ref().unwrap()
+            VIEW_RULES_MAP.clone().unwrap()
         }
     }
 }
@@ -162,7 +162,8 @@ pub async fn new_view_rules(
     // 加入全局列表
     match result {
         Ok(r) => {
-            let mut view_rules_map = get_view_rules_map().await.write();
+            let view_rules_arc = get_view_rules_map().await;
+            let mut view_rules_map = view_rules_arc.write();
             view_rules_map.insert(name.clone(), rules.clone());
             Ok(r)
         }

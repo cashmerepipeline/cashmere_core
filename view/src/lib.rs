@@ -78,7 +78,8 @@ pub async fn can_manage_write(
     groups: &Vec<String>, 
     manage_id: &String
 ) -> bool {
-    let view_rules = view_rule::get_view_rules_map().await.read();
+    let view_rules_arc = view_rule::get_view_rules_map().await;
+    let view_rules = view_rules_arc.read();
 
     let mut result = false;
     // println!("查看管理是否可写 {}", manage_id);
@@ -105,7 +106,8 @@ pub async fn can_collection_write(
     groups: &Vec<String>, 
     manage_id: &String
 ) -> bool {
-    let view_rules = view_rule::get_view_rules_map().await.read();
+    let view_rules_arc = view_rule::get_view_rules_map().await;
+    let view_rules = view_rules_arc.read();
 
     for group in groups {
         let rule = &view_rules
@@ -133,7 +135,8 @@ pub async fn can_entity_write(
     manage_id: &String,
     field: &String,
 ) -> bool {
-    let view_rules = view_rule::get_view_rules_map().await.read();
+    let view_rules_arc = view_rule::get_view_rules_map().await;
+    let view_rules = view_rules_arc.read();
 
     let mut result = false;
     // TODO: 异常处理
@@ -162,7 +165,8 @@ pub async fn get_first_write_group(
     groups: &Vec<String>, 
     manage_id: &String
 ) -> Option<String> {
-    let view_rules = view_rule::get_view_rules_map().await.read();
+    let view_rules_arc = view_rule::get_view_rules_map().await;
+    let view_rules = view_rules_arc.read();
 
     for group in groups {
         let rule = &view_rules

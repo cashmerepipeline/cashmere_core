@@ -10,6 +10,9 @@ use account;
 
 use tonic::{Request, Status};
 use chrono::{Utc};
+// use smol;
+use futures;
+use async_compat::{Compat, CompatExt};
 
 ///检查授权token
 pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
@@ -42,8 +45,10 @@ pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
         return Err(Status::cancelled("登录已过期，请重新登录"));
     }
 
-    // 3. 登录限制校验
-    let account_doc = match futures::executor::block_on(account::get_account_by_id(&account_id)) {
+    // 3. 登录限制校验, mongodb使用async-std
+    let account_doc = match futures::executor::block_on(
+        account::get_account_by_id(&account_id)
+    ) {
         Ok(r) => r,
         Err(_e) => return Err(Status::data_loss("账号不存在"))
     };
