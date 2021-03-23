@@ -832,11 +832,71 @@ pub struct NewDisciplineRequest {
     pub language: std::string::String,
     #[prost(string, tag = "7")]
     pub name: std::string::String,
+    /// 门名
+    #[prost(string, tag = "8")]
+    pub section_name: std::string::String,
+    /// 类名
+    #[prost(string, tag = "9")]
+    pub division_name: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDisciplineResponse {
     #[prost(string, tag = "1")]
     pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditDisciplineRequest {
+    #[prost(string, tag = "1")]
+    pub discipline_id: std::string::String,
+    /// 门类编码
+    #[prost(string, tag = "2")]
+    pub section_code: std::string::String,
+    /// 大类编码
+    #[prost(string, tag = "3")]
+    pub division_code: std::string::String,
+    #[prost(string, tag = "4")]
+    pub discipline_code: std::string::String,
+    ///描述
+    #[prost(string, tag = "5")]
+    pub descriptions: std::string::String,
+    #[prost(string, tag = "6")]
+    pub language: std::string::String,
+    #[prost(string, tag = "7")]
+    pub name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditDisciplineResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineSectionsRequest {}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineSectionsResponse {
+    #[prost(bytes, repeated, tag = "1")]
+    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineSectionDivisionsRequest {
+    #[prost(string, tag = "1")]
+    pub section_code: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineSectionDivisionsResponse {
+    #[prost(bytes, repeated, tag = "1")]
+    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineDivisionsDisciplinesRequest {
+    #[prost(string, tag = "1")]
+    pub section_code: std::string::String,
+    #[prost(string, tag = "2")]
+    pub division_code: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDisciplineDivisionsDisciplinesResponse {
+    #[prost(bytes, repeated, tag = "1")]
+    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointRequest {

@@ -20,8 +20,48 @@ message NewDisciplineRequest {
     string descriptions = 5;
     string language = 6;
     string name = 7;
+    // 门名
+    string section_name = 8;
+    // 类名
+    string division_name = 9;
 }
 message NewDisciplineResponse {
     string result = 1;
 }
 
+message EditDisciplineRequest {
+    string discipline_id = 1;
+    // 门类编码
+    string section_code = 2;
+    // 大类编码
+    string division_code = 3;
+    string discipline_code = 4;
+    //描述
+    string descriptions = 5;
+    string language = 6;
+    string name = 7;
+}
+message EditDisciplineResponse {
+    string result = 1;
+}
+
+message GetDisciplineSectionsRequest {
+}
+message GetDisciplineSectionsResponse {
+    repeated bytes result = 1;
+}
+
+message GetDisciplineSectionDivisionsRequest {
+    string section_code = 1;
+}
+message GetDisciplineSectionDivisionsResponse {
+    repeated bytes result = 1;
+}
+
+message GetDisciplineDivisionsDisciplinesRequest {
+    string section_code = 1;
+    string division_code = 2;
+}
+message GetDisciplineDivisionsDisciplinesResponse {
+    repeated bytes result = 1;
+}
