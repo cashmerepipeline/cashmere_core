@@ -16,7 +16,7 @@ event = {path="../event"}
 manage_define = {path="../manage_define"}
 property_field = {path="../property_field"}
 
-async-trait = "0.1.41"
+async-trait = "0.1.48"
 parking_lot = "0.11.0"
 serde = "1.0.117"
 serde_derive = "1.0.117"

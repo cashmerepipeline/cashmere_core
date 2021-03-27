@@ -14,7 +14,7 @@ configs = {path="../configs"}
 manage_define = {path="../manage_define"}
 
 chrono = { version = "0.4.19", features = ["serde"] }
-tokio = {version = "0.2.23", features = ["stream"]}
+tokio = {version = "0.2.25", features = ["stream"]}
 mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"

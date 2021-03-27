@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
 futures = "0.3.13"
-tokio = { version = "0.2.23" }
+tokio = { version = "0.2.25" }
 tonic = { version = "0.3.1", features = ["tls"] }
 prost = "0.6"
 chrono = "0.4.19"

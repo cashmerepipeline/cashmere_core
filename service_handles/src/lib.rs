@@ -9,6 +9,7 @@ Modified: !date!
 pub mod account_handle_service;
 pub mod account_service;
 
+pub mod area_handle_service;
 pub mod cashmere;
 pub mod graph_service_handle;
 pub mod name_handle_service;
