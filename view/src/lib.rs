@@ -7,7 +7,7 @@ use cash_result::OperationResult;
 use view_rule::{ReadRule, WriteRule};
 pub enum ViewLevel {
     Manage,
-    Entity,
+    Collection,
     Schema,
 }
 

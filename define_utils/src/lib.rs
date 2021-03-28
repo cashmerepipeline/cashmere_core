@@ -117,19 +117,19 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
     match result {
         Some(r) => {
             let manage_str = r.get("manage").unwrap().to_string();
-            let entity_str = r.get("entity").unwrap().to_string();
+            let collection_str = r.get("collection").unwrap().to_string();
             let schema_str = r.get("schema").unwrap().to_string();
 
             let manage_map: LinkedHashMap<String, ViewRule> =
                 toml::from_str(manage_str.as_str()).unwrap();
             let entity_map: LinkedHashMap<String, ViewRule> =
-                toml::from_str(entity_str.as_str()).unwrap();
+                toml::from_str(collection_str.as_str()).unwrap();
             let schema_map: LinkedHashMap<String, LinkedHashMap<String, ViewRule>> =
                 toml::from_str(schema_str.as_str()).unwrap();
 
             Some(ViewRules {
                 manage: manage_map,
-                entity: entity_map,
+                collection: entity_map,
                 schema: schema_map,
             })
         }

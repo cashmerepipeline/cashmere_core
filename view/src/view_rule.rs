@@ -130,6 +130,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
             Ok(ref d) => {
 
                 let id = d.get_str("_id").unwrap().to_string();
+                println!("manage_id: {}", id);
                 let manage_rule = from_document(d.get_document(&VIEW_RULES_MANAGE_FIELD_ID.to_string()).unwrap().clone()).unwrap();
                 let collection_rule = from_document(d.get_document(&VIEW_RULES_COLLECTION_FIELD_ID.to_string()).unwrap().clone()).unwrap();
                 let schema_rule = from_document(d.get_document(&VIEW_RULES_ENTITY_FIELD_ID.to_string()).unwrap().clone()).unwrap();

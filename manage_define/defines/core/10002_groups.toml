@@ -25,7 +25,8 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007=["1000001
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
-[view_rules.entity]
+
+[view_rules.collection]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["OnlyOwner"], write_filters = [] }
 

@@ -194,8 +194,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             None => continue,
         };
 
-        // let collection = db.collection(&collect_name);
-
         let view_rules = match utils::get_init_view_rules(&map) {
             Some(m) => m,
             None => continue,
@@ -206,7 +204,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ID_FIELD_ID.to_string(): rule_id.to_string(),
             NAME_FIELD_ID.to_string(): rule_name.clone(),
             VIEW_RULES_MANAGE_FIELD_ID.to_string(): bson::to_bson(&view_rules.manage).unwrap(),
-            // VIEW_RULES_COLLECTION_FIELD_ID.to_string(): bson::to_bson(&view_rules.entity).unwrap(),
+            VIEW_RULES_COLLECTION_FIELD_ID.to_string(): bson::to_bson(&view_rules.collection).unwrap(),
             VIEW_RULES_ENTITY_FIELD_ID.to_string(): bson::to_bson(&view_rules.schema).unwrap(),
         };
 

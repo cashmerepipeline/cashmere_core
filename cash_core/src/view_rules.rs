@@ -33,7 +33,7 @@ enum ViewRuleResult {
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub enum ViewRuleLevel{
     Manage,
-    Entity,
+    Collection,
     Schema
 }
 
@@ -87,7 +87,7 @@ pub struct ViewRule {
 pub struct ViewRules {
     // {组：规则}
     pub manage: LinkedHashMap<String, ViewRule>,
-    pub entity: LinkedHashMap<String, ViewRule>,
+    pub collection: LinkedHashMap<String, ViewRule>,
     // {属性：组：规则}
     pub schema: LinkedHashMap<String, LinkedHashMap<String, ViewRule>>,
 }
@@ -99,7 +99,7 @@ impl Display for ViewRuleLevel {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             ViewRuleLevel::Manage => write!(f, "Manage"),
-            ViewRuleLevel::Entity => write!(f, "Entity"),
+            ViewRuleLevel::Collection => write!(f, "Collection"),
             ViewRuleLevel::Schema => write!(f, "Schema"),
         }
     }
