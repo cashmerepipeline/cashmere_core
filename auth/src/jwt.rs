@@ -26,7 +26,11 @@ pub struct Claims {
     pub iss: String,
     // Optional. Subject (whom token refers to)
     pub sub: String,
-    // 权限
+    // 组织或者单位
+    pub org: Vec<String>,
+    // 部门
+    pub dpt: Vec<String>,
+    // 角色或者身份
     pub roles: Vec<String>,
 }
 
@@ -55,6 +59,8 @@ pub async fn verify_passwd(passwd: &String, hash: &String) -> Option<bool> {
 pub async fn gen_jwt_token(
     phone: &String,
     name: &String,
+    orgnizations: &Vec<String>,
+    departments: &Vec<String>,
     roles: &Vec<String>,
 ) -> Option<String> {
     let configs = configs::get_configs();
@@ -65,6 +71,8 @@ pub async fn gen_jwt_token(
     let claims: Claims = Claims {
         aud: phone.clone(),
         name: name.clone(),
+        org: orgnizations.clone(),
+        dpt: departments.clone(),
         exp: (Utc::now().timestamp() + 60 * 60 * 24 * 7) as usize,
         iat: Utc::now().timestamp() as usize,
         iss: "grpc.cashmere.swb".to_string(),

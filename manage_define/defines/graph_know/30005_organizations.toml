@@ -15,9 +15,8 @@ schema = [
     { id = 2013, data_type = "List", name = { Cn = "领域表", En = "domains" }, removed = false },
     # 地区编码
     { id = 2014, data_type = "String", name = { Cn = "地区", En = "location" }, removed = false },
+    { id = 2015, data_type = "String", name = { Cn = "部门表", En = "departments" }, removed = false },
 ]
-
-# 特有属性
 
 # 事件队列和消息队列表
 [queues]
@@ -29,7 +28,7 @@ massage_queue = []
 
 # 初始实体
 [items]
-
+wuchong = { 1000 = "100000", 1001 = "杭州无重科技", 1002="8610000000000", 1006 = "8610000000000", 2011=["8610000000000"], 2012=["8610000000000"],2015=["1000"]}
 
 [view_rules]
 

@@ -17,7 +17,7 @@ schema = [
     { id = 2015, data_type = "List", name = { Cn = "公开", En = "is_public"}, removed = false },
 ]
 
-# 特有属性
+
 
 # 事件队列和消息队列表
 [queues]

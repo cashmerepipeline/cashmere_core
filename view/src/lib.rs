@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate log;
+
 pub mod view_rule;
 
 use mongodb::bson::Document;
@@ -5,6 +8,7 @@ use serde::{Deserialize, Serialize};
 
 use cash_result::OperationResult;
 use view_rule::{ReadRule, WriteRule};
+
 pub enum ViewLevel {
     Manage,
     Collection,

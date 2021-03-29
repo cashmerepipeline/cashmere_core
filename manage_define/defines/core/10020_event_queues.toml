@@ -12,7 +12,7 @@ schema = [
     { id = 2008, data_type = "List", name = { Cn = "处理器表", En = "handles"}, removed = false },
 ]
 
-# 特有属性
+
 # 关联管理
 manage = "String"
 # 目标队列

@@ -12,7 +12,7 @@ schema = [
     { id = 2010, data_type = "String", name = { Cn = "根目录", En = "root"}, removed = false },
 ]
 
-# 特有属性
+
 
 # 事件队列和消息队列表
 [queues]

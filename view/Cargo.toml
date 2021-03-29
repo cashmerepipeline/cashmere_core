@@ -22,3 +22,4 @@ parking_lot = "0.11.0"
 mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"
+log = "0.4.14"

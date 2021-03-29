@@ -17,7 +17,7 @@ schema = [
     { id = 2011, data_type = "Map", name = { Cn = "解释", En = "descriptions"}, removed = false },
 ]
 
-# 特有属性
+
 
 # 事件队列和消息队列表
 [queues]

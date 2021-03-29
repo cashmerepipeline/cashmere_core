@@ -1,4 +1,4 @@
-/// 登录
+/// 使用手机号码 密码登录
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
     #[prost(string, tag = "1")]
@@ -23,6 +23,107 @@ pub struct LogoutResponse {
     #[prost(enumeration = "LoginStatus", tag = "1")]
     pub result: i32,
 }
+/// 使用校验码登录
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LoginWithValidCodeRequest {
+    #[prost(string, tag = "1")]
+    pub phone: std::string::String,
+    #[prost(string, tag = "2")]
+    pub valid_code: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LoginWithValidCodeResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 取得校验码
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetValidateCodeRequest {
+    #[prost(string, tag = "1")]
+    pub phone: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetValidateCodeResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 添加账号, 需要手工添加账号的情景
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAccountRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub department_id: std::string::String,
+    #[prost(string, tag = "3")]
+    pub group_id: std::string::String,
+    #[prost(string, tag = "4")]
+    pub phone: std::string::String,
+    #[prost(string, tag = "5")]
+    pub password: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAccountResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 注册账号, 用户需要自己注册账号的情景
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RegisterRequest {
+    #[prost(string, tag = "1")]
+    pub organization_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub department_id: std::string::String,
+    #[prost(string, tag = "4")]
+    pub phone: std::string::String,
+    #[prost(string, tag = "5")]
+    pub password: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RegisterResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 自己修改手机号码
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnPhoneRequest {
+    #[prost(string, tag = "1")]
+    pub old_phone: std::string::String,
+    #[prost(string, tag = "2")]
+    pub new_phone: std::string::String,
+    #[prost(string, tag = "3")]
+    pub password: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangePhoneOwnResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 修改自己的密码
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnPasswordRequest {
+    #[prost(string, tag = "1")]
+    pub old_password: std::string::String,
+    #[prost(string, tag = "2")]
+    pub new_password: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnPasswordResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
+/// 重置密码, 管理员操作或者后台操作
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResetPasswordRequest {
+    #[prost(string, tag = "1")]
+    pub account_id: std::string::String,
+    #[prost(string, tag = "2")]
+    pub new_password: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResetPasswordResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum LoginStatus {
@@ -34,68 +135,6 @@ pub enum LoginStatus {
 pub enum AccountStatus {
     Stopped = 0,
     Actived = 1,
-}
-#[doc = r" Generated client implementations."]
-pub mod account_grpc_client {
-    #![allow(unused_variables, dead_code, missing_docs)]
-    use tonic::codegen::*;
-    pub struct AccountGrpcClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl AccountGrpcClient<tonic::transport::Channel> {
-        #[doc = r" Attempt to create a new client by connecting to a given endpoint."]
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> AccountGrpcClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + HttpBody + Send + 'static,
-        T::Error: Into<StdError>,
-        <T::ResponseBody as HttpBody>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_interceptor(inner: T, interceptor: impl Into<tonic::Interceptor>) -> Self {
-            let inner = tonic::client::Grpc::with_interceptor(inner, interceptor);
-            Self { inner }
-        }
-        #[doc = " 登录"]
-        pub async fn login(
-            &mut self,
-            request: impl tonic::IntoRequest<super::LoginRequest>,
-        ) -> Result<tonic::Response<super::LoginResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/account_service.AccountGrpc/Login");
-            self.inner.unary(request.into_request(), path, codec).await
-        }
-    }
-    impl<T: Clone> Clone for AccountGrpcClient<T> {
-        fn clone(&self) -> Self {
-            Self {
-                inner: self.inner.clone(),
-            }
-        }
-    }
-    impl<T> std::fmt::Debug for AccountGrpcClient<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "AccountGrpcClient {{ ... }}")
-        }
-    }
 }
 #[doc = r" Generated server implementations."]
 pub mod account_grpc_server {

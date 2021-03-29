@@ -9,6 +9,7 @@ fn main() {
         ).unwrap();
     tonic_build::configure()
         .out_dir("src")
+        .build_client(false)
         .compile(
             &["../protocols/account.proto"],
             &["../protocols"],
