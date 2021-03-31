@@ -141,7 +141,6 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
                     schema: schema_rule,
                 };
                 result.insert(id, view_rules);
-                // TODO: 在扩展中
             }
             Err(_e) => continue,
         }
