@@ -24,7 +24,6 @@ pub type MongodbResult<T> = mongodb::error::Result<T>;
 static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
 static mut CASHMERE_DATABASE: Option<Arc<Database>> = None;
 
-
 /// 取得客户端
 pub async fn get_mongodb_client() -> &'static Client {
     unsafe {

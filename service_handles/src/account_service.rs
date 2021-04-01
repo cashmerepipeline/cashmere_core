@@ -2,18 +2,18 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
     #[prost(string, tag = "1")]
-    pub country_code: std::string::String,
+    pub country_code: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub phone: std::string::String,
+    pub phone: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub password: std::string::String,
+    pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginResponse {
-    #[prost(bytes, tag = "1")]
-    pub person: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "1")]
+    pub person: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag = "2")]
-    pub token: std::string::String,
+    pub token: ::prost::alloc::string::String,
 }
 /// 登出
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -27,102 +27,102 @@ pub struct LogoutResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginWithValidCodeRequest {
     #[prost(string, tag = "1")]
-    pub phone: std::string::String,
+    pub phone: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub valid_code: std::string::String,
+    pub valid_code: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginWithValidCodeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 取得校验码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetValidateCodeRequest {
     #[prost(string, tag = "1")]
-    pub phone: std::string::String,
+    pub phone: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetValidateCodeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加账号, 需要手工添加账号的情景
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAccountRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub group_id: std::string::String,
+    pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub phone: std::string::String,
+    pub phone: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub password: std::string::String,
+    pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAccountResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 注册账号, 用户需要自己注册账号的情景
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub phone: std::string::String,
+    pub phone: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub password: std::string::String,
+    pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 自己修改手机号码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPhoneRequest {
     #[prost(string, tag = "1")]
-    pub old_phone: std::string::String,
+    pub old_phone: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub new_phone: std::string::String,
+    pub new_phone: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub password: std::string::String,
+    pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangePhoneOwnResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 修改自己的密码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPasswordRequest {
     #[prost(string, tag = "1")]
-    pub old_password: std::string::String,
+    pub old_password: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub new_password: std::string::String,
+    pub new_password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPasswordResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 重置密码, 管理员操作或者后台操作
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResetPasswordRequest {
     #[prost(string, tag = "1")]
-    pub account_id: std::string::String,
+    pub account_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub new_password: std::string::String,
+    pub new_password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResetPasswordResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -216,6 +216,7 @@ pub mod account_grpc_server {
                     Ok(http::Response::builder()
                         .status(200)
                         .header("grpc-status", "12")
+                        .header("content-type", "application/grpc")
                         .body(tonic::body::BoxBody::empty())
                         .unwrap())
                 }),

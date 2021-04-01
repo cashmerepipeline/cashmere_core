@@ -2,81 +2,82 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Name {
     #[prost(string, tag = "1")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 /// 名属性，语言：语言名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NameField {
     #[prost(map = "string, string", tag = "1")]
-    pub name_field: ::std::collections::HashMap<std::string::String, std::string::String>,
+    pub name_field:
+        ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
 }
 /// 重命名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub entity_id: std::string::String,
+    pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub new_name: std::string::String,
+    pub new_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新语言名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLanguageNameRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub entity_id: std::string::String,
+    pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub new_name: std::string::String,
+    pub new_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLanguageNameResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaRequest {
     #[prost(string, tag = "1")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub parent_id: std::string::String,
+    pub parent_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub code: std::string::String,
+    pub code: ::prost::alloc::string::String,
     #[prost(enumeration = "AreaLevel", tag = "5")]
     pub level: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditAreaRequest {
     #[prost(string, tag = "1")]
-    pub area_id: std::string::String,
+    pub area_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub new_parent_id: std::string::String,
+    pub new_parent_id: ::prost::alloc::string::String,
     #[prost(enumeration = "AreaLevel", tag = "4")]
     pub new_level: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditAreaResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -90,318 +91,318 @@ pub enum AreaLevel {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewOrganizationRequest {
     #[prost(string, tag = "1")]
-    pub location: std::string::String,
+    pub location: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewOrganizationResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加管理员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToOrganizationRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub admin_id: std::string::String,
+    pub admin_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToOrganizationResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除管理员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromOrganizationRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub admin_id: std::string::String,
+    pub admin_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromOrganizationResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加雇员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToOrganizationRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub employee_id: std::string::String,
+    pub employee_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToOrganizationResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除雇员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromOrganizationRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub employee_id: std::string::String,
+    pub employee_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromOrganizationResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新建单位部门
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDepartmentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加部门管理元员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub admin_id: std::string::String,
+    pub admin_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddAdministratorToDepartmentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除管理员
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub admin_id: std::string::String,
+    pub admin_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAdministratorFromDepartmentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加部门员工
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub employee_id: std::string::String,
+    pub employee_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEmployeeToDepartmentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除部门员工
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromDepartmentRequest {
     #[prost(string, tag = "1")]
-    pub department_id: std::string::String,
+    pub department_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub employee_id: std::string::String,
+    pub employee_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEmployeeFromDepartmentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新班级
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewClassRequest {
     #[prost(string, tag = "1")]
-    pub organization_id: std::string::String,
+    pub organization_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加班主任
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetClassTeacherOfClassRequest {
     #[prost(string, tag = "1")]
-    pub class_id: std::string::String,
+    pub class_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub class_teacher_id: std::string::String,
+    pub class_teacher_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetClassTeacherOfClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加老师
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTeacherToClassRequest {
     #[prost(string, tag = "1")]
-    pub class_id: std::string::String,
+    pub class_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub teacher_id: std::string::String,
+    pub teacher_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTeacherToClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除老师
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTeacherFromClassRequest {
     #[prost(string, tag = "1")]
-    pub class_id: std::string::String,
+    pub class_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub teacher_id: std::string::String,
+    pub teacher_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTeacherFromClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加学生
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddStudentToClassRequest {
     #[prost(string, tag = "1")]
-    pub class_id: std::string::String,
+    pub class_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub student_id: std::string::String,
+    pub student_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddStudentToClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除学生
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveStudentFromClassRequest {
     #[prost(string, tag = "1")]
-    pub class_id: std::string::String,
+    pub class_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub student_id: std::string::String,
+    pub student_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveStudentFromClassResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entity {
     /// bson document {id, name, writeable_fields, readonly_fields}
-    #[prost(bytes, tag = "1")]
-    pub data: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "1")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
-    #[prost(bytes, tag = "2")]
-    pub data: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "2")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(string, tag = "2")]
-    pub entity_id: std::string::String,
-    #[prost(bytes, tag = "3")]
-    pub data: std::vec::Vec<u8>,
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "3")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub entity_id: std::string::String,
+    pub entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityTemplateRequest {
     /// 模板对应管理
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     /// 属性:值 列表
-    #[prost(bytes, repeated, tag = "2")]
-    pub fields: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityTemplateResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityTemplateRequest {
     /// 模板编号
     #[prost(string, tag = "1")]
-    pub template_id: std::string::String,
+    pub template_id: ::prost::alloc::string::String,
     /// 属性:值 列表
-    #[prost(bytes, repeated, tag = "2")]
-    pub fields: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityTemplateResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEntityTemplateRequest {
     #[prost(string, tag = "1")]
-    pub template_id: std::string::String,
+    pub template_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEntityTemplateResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 映像请求
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageViewRequest {
     #[prost(string, tag = "1")]
-    pub manage_name: std::string::String,
+    pub manage_name: ::prost::alloc::string::String,
 }
 /// 映像返回
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageViewResponse {
     #[prost(string, tag = "1")]
-    pub view_token: std::string::String,
+    pub view_token: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Field {
     #[prost(int32, tag = "1")]
     pub id: i32,
-    #[prost(bytes, tag = "2")]
-    pub name: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "2")]
+    pub name: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag = "3")]
-    pub data_type: std::string::String,
+    pub data_type: ::prost::alloc::string::String,
     #[prost(bool, tag = "4")]
     pub removed: bool,
 }
@@ -412,69 +413,69 @@ pub struct GetManagesRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaResponse {
-    #[prost(bytes, repeated, tag = "1")]
-    pub schema: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub schema: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 添加管理属性
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
-    pub field: ::std::option::Option<Field>,
+    pub field: ::core::option::Option<Field>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除管理属性
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveSchemaFieldRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(int32, tag = "2")]
     pub field_id: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveSchemaFieldResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 编辑管理属性
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditSchemaFieldNameRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(int32, tag = "2")]
     pub field_id: i32,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub new_name: std::string::String,
+    pub new_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditSchemaFieldNameResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Event {
     #[prost(int32, tag = "1")]
     pub event_id: i32,
-    #[prost(bytes, tag = "2")]
-    pub context: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "2")]
+    pub context: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventQueue {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(string, tag = "2")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventHandle {
@@ -485,7 +486,7 @@ pub struct EventHandle {
     #[prost(int32, tag = "3")]
     pub manage_id: i32,
     #[prost(string, tag = "4")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 /// 新建事件
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -493,20 +494,20 @@ pub struct NewEventRequest {
     #[prost(int32, tag = "2")]
     pub manage_id: i32,
     #[prost(string, tag = "1")]
-    pub event_name: std::string::String,
+    pub event_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEventResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 编辑 事件表
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEventRequest {
     #[prost(int32, tag = "1")]
     pub event_id: i32,
-    #[prost(bytes, tag = "2")]
-    pub new_values: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "2")]
+    pub new_values: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEventResponse {
@@ -519,12 +520,12 @@ pub struct AddEventTargetQueueRequest {
     #[prost(int32, tag = "1")]
     pub event_id: i32,
     #[prost(message, optional, tag = "3")]
-    pub target: ::std::option::Option<EventQueue>,
+    pub target: ::core::option::Option<EventQueue>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEventTargetQueueResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新建事件队列
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -532,12 +533,12 @@ pub struct NewEventQueueRequest {
     #[prost(int32, tag = "2")]
     pub manage_id: i32,
     #[prost(string, tag = "1")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEventQueueResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新建事件处理
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -547,23 +548,23 @@ pub struct NewEventHandleRequest {
     #[prost(int32, tag = "3")]
     pub queue_id: i32,
     #[prost(string, tag = "4")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEventHandleResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 触发事件
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EmitEventRequest {
     #[prost(message, optional, tag = "1")]
-    pub event: ::std::option::Option<Event>,
+    pub event: ::core::option::Option<Event>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EmitEventResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 连接事件队列
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -574,205 +575,205 @@ pub struct LinkEventQueueRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: std::string::String,
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPhaseForWorkRequest {
     #[prost(string, tag = "1")]
-    pub work_id: std::string::String,
+    pub work_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub phase_name: std::string::String,
+    pub phase_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPhaseForWorkResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkNodeForProcedureGraphRequest {
     #[prost(string, tag = "1")]
-    pub procedure_id: std::string::String,
+    pub procedure_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub node_name: std::string::String,
+    pub node_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkNodeForProcedureGraphResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateWorkNodeLinkRequest {
     #[prost(string, tag = "1")]
-    pub procedure_id: std::string::String,
+    pub procedure_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub start_node_id: std::string::String,
+    pub start_node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub out_slot: std::string::String,
+    pub out_slot: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub end_node_id: std::string::String,
+    pub end_node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub in_slot: std::string::String,
+    pub in_slot: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateWorkNodeLinkResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveWorkNodeLinkRequest {
     #[prost(string, tag = "1")]
-    pub procedure_id: std::string::String,
+    pub procedure_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub start_node_id: std::string::String,
+    pub start_node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub out_slot: std::string::String,
+    pub out_slot: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub end_node_id: std::string::String,
+    pub end_node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub in_slot: std::string::String,
+    pub in_slot: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveWorkNodeLinkResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssignWorkNodeToWorkerRequest {
     #[prost(string, tag = "1")]
-    pub work_node_id: std::string::String,
+    pub work_node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub worker_id: std::string::String,
+    pub worker_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssignWorkNodeToWorkerResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTaskForWorkNodeRequest {
     #[prost(string, tag = "1")]
-    pub work_node_id: std::string::String,
+    pub work_node_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTaskForWorkNodeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataForTaskRequest {
     #[prost(string, tag = "1")]
-    pub task_id: std::string::String,
+    pub task_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataForTaskResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssociateDataToTaskRequest {
     #[prost(string, tag = "1")]
-    pub data_id: std::string::String,
+    pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub task_id: std::string::String,
+    pub task_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssociateDataToTaskResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommitTaskRequest {
     #[prost(string, tag = "1")]
-    pub task_id: std::string::String,
+    pub task_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommitTaskResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkTaskStatusRequest {
     #[prost(string, tag = "1")]
-    pub task_id: std::string::String,
+    pub task_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub status_set_id: std::string::String,
+    pub status_set_id: ::prost::alloc::string::String,
     #[prost(int32, tag = "3")]
     pub status_index: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkTaskStatusResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkPhaseRequest {
     #[prost(string, tag = "1")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkPhaseResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditWorkPhaseRequest {
     #[prost(string, tag = "1")]
-    pub phase_id: std::string::String,
-    #[prost(bytes, tag = "2")]
-    pub new_phase: std::vec::Vec<u8>,
+    pub phase_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "2")]
+    pub new_phase: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditWorkPhaseResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataSlotForWorkNodeRequest {
     #[prost(string, tag = "1")]
-    pub node_id: std::string::String,
+    pub node_id: ::prost::alloc::string::String,
     #[prost(enumeration = "SlotType", tag = "2")]
     pub slot_type: i32,
     #[prost(string, tag = "3")]
-    pub slot_name: std::string::String,
+    pub slot_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataSlotForWorkNodeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveDataSlotForWorkNodeRequest {
     #[prost(string, tag = "1")]
-    pub node_id: std::string::String,
+    pub node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub slot_name: std::string::String,
+    pub slot_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveDataSlotForWorkNodeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddDataToDataSlotRequest {
     #[prost(string, tag = "1")]
-    pub node_id: std::string::String,
+    pub node_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub slot_name: std::string::String,
+    pub slot_name: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub data_id: std::string::String,
+    pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddDataToDataSlotResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -791,256 +792,256 @@ pub enum SlotType {
 pub struct NewDomainRequest {
     /// 门类编码
     #[prost(string, tag = "1")]
-    pub section_code: std::string::String,
+    pub section_code: ::prost::alloc::string::String,
     /// 大类编码
     #[prost(string, tag = "2")]
-    pub division_code: std::string::String,
+    pub division_code: ::prost::alloc::string::String,
     ///中类编码
     #[prost(string, tag = "3")]
-    pub group_code: std::string::String,
+    pub group_code: ::prost::alloc::string::String,
     /// 小类编码
     #[prost(string, tag = "4")]
-    pub class_code: std::string::String,
+    pub class_code: ::prost::alloc::string::String,
     ///描述
     #[prost(string, tag = "5")]
-    pub descriptions: std::string::String,
+    pub descriptions: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "7")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDomainResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 编码参照
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDisciplineRequest {
     /// 门类编码
     #[prost(string, tag = "1")]
-    pub section_code: std::string::String,
+    pub section_code: ::prost::alloc::string::String,
     /// 大类编码
     #[prost(string, tag = "2")]
-    pub division_code: std::string::String,
+    pub division_code: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub discipline_code: std::string::String,
+    pub discipline_code: ::prost::alloc::string::String,
     ///描述
     #[prost(string, tag = "5")]
-    pub descriptions: std::string::String,
+    pub descriptions: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "7")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     /// 门名
     #[prost(string, tag = "8")]
-    pub section_name: std::string::String,
+    pub section_name: ::prost::alloc::string::String,
     /// 类名
     #[prost(string, tag = "9")]
-    pub division_name: std::string::String,
+    pub division_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDisciplineResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditDisciplineRequest {
     #[prost(string, tag = "1")]
-    pub discipline_id: std::string::String,
+    pub discipline_id: ::prost::alloc::string::String,
     /// 门类编码
     #[prost(string, tag = "2")]
-    pub section_code: std::string::String,
+    pub section_code: ::prost::alloc::string::String,
     /// 大类编码
     #[prost(string, tag = "3")]
-    pub division_code: std::string::String,
+    pub division_code: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub discipline_code: std::string::String,
+    pub discipline_code: ::prost::alloc::string::String,
     ///描述
     #[prost(string, tag = "5")]
-    pub descriptions: std::string::String,
+    pub descriptions: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "7")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditDisciplineResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineSectionsRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineSectionsResponse {
-    #[prost(bytes, repeated, tag = "1")]
-    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub result: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineSectionDivisionsRequest {
     #[prost(string, tag = "1")]
-    pub section_code: std::string::String,
+    pub section_code: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineSectionDivisionsResponse {
-    #[prost(bytes, repeated, tag = "1")]
-    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub result: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineDivisionsDisciplinesRequest {
     #[prost(string, tag = "1")]
-    pub section_code: std::string::String,
+    pub section_code: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub division_code: std::string::String,
+    pub division_code: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDisciplineDivisionsDisciplinesResponse {
-    #[prost(bytes, repeated, tag = "1")]
-    pub result: ::std::vec::Vec<std::vec::Vec<u8>>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub result: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointRequest {
     /// 行业id
     #[prost(string, tag = "1")]
-    pub domain_id: std::string::String,
+    pub domain_id: ::prost::alloc::string::String,
     /// 学科id
     #[prost(string, tag = "2")]
-    pub discipline_id: std::string::String,
+    pub discipline_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "5")]
-    pub bases: ::std::vec::Vec<std::string::String>,
+    pub bases: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, tag = "6")]
-    pub descriptions: std::string::String,
+    pub descriptions: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPointResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditPointRequest {
     #[prost(string, tag = "1")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub domain_id: std::string::String,
+    pub domain_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub discipline_id: std::string::String,
+    pub discipline_id: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub descriptions: std::string::String,
+    pub descriptions: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditPointResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddPointBaseRequest {
     #[prost(string, tag = "1")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub base_id: std::string::String,
+    pub base_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddPointBaseResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemovePointBaseRequest {
     #[prost(string, tag = "1")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub base_id: std::string::String,
+    pub base_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemovePointBaseResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGraphRequest {
     #[prost(string, tag = "1")]
-    pub domain_id: std::string::String,
+    pub domain_id: ::prost::alloc::string::String,
     #[prost(enumeration = "IndividualLevel", tag = "2")]
     pub level: i32,
     #[prost(string, tag = "3")]
-    pub individual_id: std::string::String,
+    pub individual_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(enumeration = "ComposeType", tag = "6")]
     pub compose_type: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGraphResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameGraphRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub new_name: std::string::String,
+    pub new_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameGraphResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEdgeToGraphRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub start_id: std::string::String,
+    pub start_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub end_id: std::string::String,
+    pub end_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddEdgeToGraphResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEdgeFromGraphRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub start_id: std::string::String,
+    pub start_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub end_id: std::string::String,
+    pub end_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveEdgeFromGraphResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagToEdgeRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub start_id: std::string::String,
+    pub start_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub end_id: std::string::String,
+    pub end_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub tag_type: std::string::String,
+    pub tag_type: ::prost::alloc::string::String,
     #[prost(double, tag = "5")]
     pub value: f64,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagToEdgeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -1062,71 +1063,71 @@ pub enum ComposeType {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub domain_id: std::string::String,
+    pub domain_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub description: std::string::String,
+    pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddDataFieldToTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub field_name: std::string::String,
+    pub field_name: ::prost::alloc::string::String,
     #[prost(enumeration = "TagDataType", tag = "4")]
     pub data_type: i32,
-    #[prost(bytes, tag = "5")]
-    pub default_value: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub default_value: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddDataFieldToTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveDataFieldFromTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub field_name: std::string::String,
+    pub field_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveDataFieldFromTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 ///
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditDataFieldForTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub old_field_name: std::string::String,
+    pub old_field_name: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub new_field_name: std::string::String,
+    pub new_field_name: ::prost::alloc::string::String,
     #[prost(enumeration = "TagDataType", tag = "5")]
     pub new_data_type: i32,
-    #[prost(bytes, tag = "6")]
-    pub new_default_value: std::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "6")]
+    pub new_default_value: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditDataFieldForTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -1147,7 +1148,7 @@ pub enum TagDataType {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Tag {
     #[prost(string, tag = "1")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(float, tag = "2")]
     pub ammount: f32,
 }
@@ -1155,133 +1156,133 @@ pub struct Tag {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagRequest {
     #[prost(string, tag = "1")]
-    pub tag_map_id: std::string::String,
+    pub tag_map_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub tag_type_id: std::string::String,
-    #[prost(bytes, tag = "4")]
-    pub tag_value: std::vec::Vec<u8>,
+    pub tag_type_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "4")]
+    pub tag_value: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 设置标签值
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetTagValueRequest {
     #[prost(string, tag = "1")]
-    pub tag_map_id: std::string::String,
+    pub tag_map_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub tag_type_id: std::string::String,
-    #[prost(bytes, tag = "4")]
-    pub tag_value: std::vec::Vec<u8>,
+    pub tag_type_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "4")]
+    pub tag_value: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetTagValueResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除标签
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagRequest {
     #[prost(string, tag = "1")]
-    pub tag_map_id: std::string::String,
+    pub tag_map_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub point_id: std::string::String,
+    pub point_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagMapRequest {
     #[prost(string, tag = "1")]
-    pub roadmap_id: std::string::String,
+    pub roadmap_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagMapResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 新路线图
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewRoadmapRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub language: std::string::String,
+    pub language: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewRoadmapResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 设置公开
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetRoadmapPublicRequest {
     #[prost(string, tag = "1")]
-    pub roadmap_id: std::string::String,
+    pub roadmap_id: ::prost::alloc::string::String,
     #[prost(bool, tag = "2")]
     pub public: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetRoadmapPublicResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加访问者
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddMapVisitorRequest {
     #[prost(string, tag = "1")]
-    pub roadmap_id: std::string::String,
+    pub roadmap_id: ::prost::alloc::string::String,
     #[prost(enumeration = "RoadmapVisType", tag = "2")]
     pub visitor_type: i32,
     #[prost(string, tag = "3")]
-    pub visitor_id: std::string::String,
+    pub visitor_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddMapVisitorResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 添加标签类型
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub roadmap_id: std::string::String,
+    pub roadmap_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 移除标签类型
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagTypeRequest {
     #[prost(string, tag = "1")]
-    pub roadmap_id: std::string::String,
+    pub roadmap_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub tag_type_id: std::string::String,
+    pub tag_type_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagTypeResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 路线图可访问类型
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -1296,117 +1297,117 @@ pub enum RoadmapVisType {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCommentRequest {
     #[prost(string, tag = "1")]
-    pub target_manage_id: std::string::String,
+    pub target_manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub target_entity_id: std::string::String,
+    pub target_entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub contents: std::string::String,
+    pub contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCommentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditCommentRequest {
     #[prost(string, tag = "1")]
-    pub comment_id: std::string::String,
+    pub comment_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub new_contents: std::string::String,
+    pub new_contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditCommentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveCommentRequest {
     #[prost(string, tag = "1")]
-    pub target_manage_id: std::string::String,
+    pub target_manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub target_entity_id: std::string::String,
+    pub target_entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub comment_id: std::string::String,
+    pub comment_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveCommentResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 问题属于图
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewQuestionRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub name: std::string::String,
+    pub name: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub contents: std::string::String,
+    pub contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewQuestionResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditQuestionRequest {
     #[prost(string, tag = "2")]
-    pub question_id: std::string::String,
+    pub question_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub new_name: std::string::String,
+    pub new_name: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
-    pub new_contents: std::string::String,
+    pub new_contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditQuestionResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveQuestionRequest {
     #[prost(string, tag = "1")]
-    pub graph_id: std::string::String,
+    pub graph_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub question_id: std::string::String,
+    pub question_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveQuestionResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAnswerRequest {
     #[prost(string, tag = "1")]
-    pub question_id: std::string::String,
+    pub question_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub contents: std::string::String,
+    pub contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAnswerResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditAnswerRequest {
     #[prost(string, tag = "1")]
-    pub answer_id: std::string::String,
+    pub answer_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub new_contents: std::string::String,
+    pub new_contents: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditAnswerResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAnswerRequest {
     #[prost(string, tag = "1")]
-    pub question_id: std::string::String,
+    pub question_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub answer_id: std::string::String,
+    pub answer_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveAnswerResponse {
     #[prost(string, tag = "1")]
-    pub result: std::string::String,
+    pub result: ::prost::alloc::string::String,
 }

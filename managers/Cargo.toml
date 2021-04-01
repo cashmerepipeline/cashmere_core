@@ -22,7 +22,7 @@ serde = "1.0.117"
 serde_derive = "1.0.117"
 linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
 bson = "1.1.0"
-tokio = "0.2.25"
+tokio = "1.4.0"
 
 # logging
 log = "0.4.14"

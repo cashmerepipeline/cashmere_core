@@ -10,9 +10,9 @@ edition = "2018"
 linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
 async-trait = "0.1.48"
 futures = "0.3.13"
-tokio = { version = "0.2.25" }
-tonic = { version = "0.3.1", features = ["tls"] }
-prost = "0.6"
+tokio = { version = "1.4.0" }
+tonic = { version = "0.4.1", features = ["tls"] }
+prost = "0.7.0"
 chrono = "0.4.19"
 bson = "1.2.0"
 log = "0.4.14"
@@ -32,4 +32,4 @@ property_field = { path = "../property_field" }
 view = { path = "../view" }
 
 [build-dependencies]
-tonic-build = "0.3"
+tonic-build = "0.4.1"

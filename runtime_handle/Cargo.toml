@@ -9,4 +9,4 @@ edition = "2018"
 [dependencies]
 cash_core = {path="../cash_core"}
 cash_result = {path="../cash_result"}
-tokio="0.2.25"
+tokio="1.4.0"

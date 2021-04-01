@@ -13,8 +13,10 @@ cash_result = {path="../cash_result"}
 configs = {path="../configs"}
 manage_define = {path="../manage_define"}
 
+async-std = "1.9.0"
+futures = "0.3.13"
 chrono = { version = "0.4.19", features = ["serde"] }
-tokio = {version = "0.2.25", features = ["stream"]}
+tokio = {version = "1.4.0"}
 mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"

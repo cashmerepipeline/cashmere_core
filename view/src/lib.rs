@@ -3,7 +3,7 @@ extern crate log;
 
 pub mod view_rule;
 
-use mongodb::bson::Document;
+use bson::Document;
 use serde::{Deserialize, Serialize};
 
 use cash_result::OperationResult;

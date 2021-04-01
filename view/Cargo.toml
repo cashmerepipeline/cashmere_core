@@ -16,9 +16,11 @@ cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 
-tokio = { version = "0.2.25", features = ["full"] }
+#tokio = { version = "1.4.0", features = ["full"] }
+futures = "0.3.13"
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
 parking_lot = "0.11.0"
+bson = "1.2.0"
 mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"

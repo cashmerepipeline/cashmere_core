@@ -11,7 +11,7 @@ use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
-use tokio::stream::StreamExt;
+use futures::stream::StreamExt;
 
 use cash_core;
 use manage_define::manage_ids::EVENTS_MANAGE_ID;

@@ -11,7 +11,8 @@ use std::sync::Arc;
 
 use bson::{self, Document};
 use parking_lot::RwLock;
-use tokio::{stream::StreamExt, sync::mpsc::Receiver, sync::mpsc::Sender};
+use futures::stream::StreamExt;
+use tokio::{sync::mpsc::Receiver, sync::mpsc::Sender};
 use sled;
 
 use cash_result::*;
