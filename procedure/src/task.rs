@@ -27,7 +27,7 @@ pub struct Task{
 
 
 /// 取得新编号
-pub async fn get_new_task_id() -> Result<i64, OperationResult> {
+pub async fn get_new_task_id() -> Result<u64, OperationResult> {
     let collect =
         match database::get_collection_by_id(&TASKS_MANAGE_ID.to_string()).await {
             Some(r) => r,

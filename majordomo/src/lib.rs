@@ -8,18 +8,14 @@ Modified: !date!
 
 use std::sync::Arc;
 use std::{collections::HashMap};
+use log::{info};
 
-
-use bson::{Document};
 use parking_lot::RwLock;
 
 use managers::{self, Manager};
 use managers::traits::ManagerTrait;
 
 use cash_result::*;
-use property_field::PropertyField;
-
-// use log::info;
 
 /// 管理表类型
 pub type ManagersMap = HashMap<i32, Arc<Manager>>;
@@ -119,6 +115,7 @@ async fn get_managers_map() -> Arc<RwLock<ManagersMap>> {
 
 /// 从设置新建管理管理器
 async fn init_majordomo() -> Arc<Majordomo> {
+    info!("初始化主管实例");
     let majordomo = Majordomo::new();
 
     get_managers_map().await;

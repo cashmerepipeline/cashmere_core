@@ -10,12 +10,12 @@ use manage_define::manage_ids::WORK_NODES_MANAGE_ID;
 use database;
 use entity;
 use cash_result::*;
-use mongodb::bson::{doc, Document};
+use mongodb::bson::{doc};
 
 use super::task;
 
 /// 取得新编号
-pub async fn get_new_work_node_id() -> Result<i64, OperationResult> {
+pub async fn get_new_work_node_id() -> Result<u64, OperationResult> {
     let collect =
         match database::get_collection_by_id(&WORK_NODES_MANAGE_ID.to_string()).await {
             Some(r) => r,
@@ -70,7 +70,7 @@ pub async fn add_new_task(
     task::new_task(
         work_node_id,
         task_id,
-         task_name,
+        task_name,
         account_id, 
         group_id).await
 }

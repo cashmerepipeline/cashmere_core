@@ -20,8 +20,8 @@ manage_define = { path = "../manage_define" }
 futures = "0.3.13"
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
 parking_lot = "0.11.0"
-bson = "1.2.0"
-mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
+bson = "2.0.1"
+mongodb = {version="2.0.1", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"
 log = "0.4.14"

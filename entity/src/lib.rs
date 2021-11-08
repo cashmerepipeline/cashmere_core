@@ -671,8 +671,8 @@ pub fn get_entity_name(entity_doc: &Document) -> Option<String> {
     };
 
     if let Some(n) = name.as_document() {
-        if n.contains_key(lang_code.as_ref()) {
-            Some(n.get(lang_code.as_ref()).unwrap().to_string())
+        if n.contains_key(lang_code.as_str()) {
+            Some(n.get(lang_code.as_str()).unwrap().to_string())
         } else {
             // 如果没有，使用第一个名字
             let mut name_b: Bson = Bson::String("".to_string());

@@ -85,7 +85,7 @@ pub async fn gen_jwt_token(
     Some(token)
 }
 
-pub async fn validate_jwt_token(token: &String) -> bool {
+pub fn validate_jwt_token(token: &String) -> bool {
     let configs = configs::get_configs();
     let secret_code = configs.server.secret_code.as_bytes();
 

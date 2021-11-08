@@ -84,14 +84,14 @@ pub trait HandleLogin {
 
         let orgnizations: Vec<String> = bson::from_bson(
             person_doc
-                .get(PERSONS_ORGANIZATIONS_FIELD_ID.to_string().as_ref())
+                .get(PERSONS_ORGANIZATIONS_FIELD_ID.to_string().as_str())
                 .unwrap()
                 .clone(),
         )
         .unwrap();
         let departments: Vec<String> = bson::from_bson(
             person_doc
-                .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string().as_ref())
+                .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string().as_str())
                 .unwrap()
                 .clone(),
         )

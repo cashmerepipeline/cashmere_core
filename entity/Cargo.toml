@@ -17,7 +17,7 @@ async-std = "1.9.0"
 futures = "0.3.13"
 chrono = { version = "0.4.19", features = ["serde"] }
 tokio = {version = "1.4.0"}
-mongodb = {version="1.2.0", default_features=false, features=["async-std-runtime"]}
+mongodb = {version="2.0.1", default_features=false, features=["async-std-runtime"]}
 serde = "1.0.117"
 serde_derive = "1.0.117"
 linked-hash-map="0.5.3"

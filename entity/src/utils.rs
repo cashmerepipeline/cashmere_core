@@ -1,11 +1,11 @@
-use mongodb::{Collection, bson::doc};
+use mongodb::{Collection, bson::doc, bson::Document};
 use chrono::Utc;
 
 use manage_define::general_field_ids::*;
 
 pub(crate) async fn update_entity_modify_stamp(
     entity_id: &String,
-    collection: Collection,
+    collection: Collection<Document>,
     account_id: &String,
 ) -> bool {
     // 记录修改

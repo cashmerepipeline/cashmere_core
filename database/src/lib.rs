@@ -10,14 +10,14 @@ Introduction:
 所有操作只使用一个client, 需要进一步测试
 */
 
-use mongodb::{options::ClientOptions, options::StreamAddress, Client, Collection, Database};
-use mongodb::bson::doc;
+use mongodb::bson::{doc, Document};
+use mongodb::{options::ClientOptions, options::ServerAddress, Client, Collection, Database};
 use std::sync::Arc;
 
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
+use cash_result::{operation_failed, operation_succeed, OperationResult};
 use configs;
-use manage_define::manage_ids::{MANAGES_MANAGE_ID, IDS_MANAGE_ID};
-use cash_result::{OperationResult, operation_succeed, operation_failed};
+use manage_define::manage_ids::{IDS_MANAGE_ID, MANAGES_MANAGE_ID};
 
 pub type MongodbResult<T> = mongodb::error::Result<T>;
 
@@ -34,8 +34,8 @@ pub async fn get_mongodb_client() -> &'static Client {
 
             MONGODB_CLIENT.get_or_insert_with(|| {
                 let options = ClientOptions::builder()
-                    .hosts(vec![StreamAddress {
-                        hostname: configs.database.address.clone(),
+                    .hosts(vec![ServerAddress::Tcp {
+                        host: configs.database.address.clone(),
                         port: Some(configs.database.port.clone()),
                     }])
                     .build();
@@ -51,7 +51,6 @@ pub async fn get_mongodb_client() -> &'static Client {
     }
 }
 
-
 /// 根据设置文件，取得数据库
 pub async fn get_cashmere_database() -> &'static Database {
     unsafe {
@@ -62,8 +61,8 @@ pub async fn get_cashmere_database() -> &'static Database {
 
             CASHMERE_DATABASE.get_or_insert_with(|| {
                 let options = ClientOptions::builder()
-                    .hosts(vec![StreamAddress {
-                        hostname: configs.database.address.clone(),
+                    .hosts(vec![ServerAddress::Tcp {
+                        host: configs.database.address.clone(),
                         port: Some(configs.database.port.clone()),
                     }])
                     .build();
@@ -93,7 +92,7 @@ pub async fn collection_exists(collection: &String) -> bool {
 }
 
 /// 取得集合
-pub async fn get_collection_by_id(manage_id: &String) -> Option<Collection> {
+pub async fn get_collection_by_id(manage_id: &String) -> Option<Collection<Document>> {
     let cashmere_db = get_cashmere_database().await;
 
     // 不存在
@@ -105,7 +104,7 @@ pub async fn get_collection_by_id(manage_id: &String) -> Option<Collection> {
 }
 
 /// 取得管理-管理集合, 不存在则新建
-pub async fn get_manages_collection() -> Collection {
+pub async fn get_manages_collection() -> Collection<Document> {
     let cashmere_db = get_cashmere_database().await;
 
     let manages_id = &MANAGES_MANAGE_ID.to_string();
@@ -122,7 +121,7 @@ pub async fn get_manages_collection() -> Collection {
 }
 
 /// 取得编号-管理集合, 不存在则新建
-pub async fn get_ids_collection() -> Collection {
+pub async fn get_ids_collection() -> Collection<Document> {
     let cashmere_db = get_cashmere_database().await;
 
     let manages_id = &IDS_MANAGE_ID.to_string();
@@ -138,7 +137,6 @@ pub async fn get_ids_collection() -> Collection {
     return cashmere_db.collection(manages_id);
 }
 
-
 /// 初始化实体编号字段
 pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult, OperationResult> {
     let ids_collection = get_ids_collection().await;
@@ -146,8 +144,8 @@ pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult,
     let f_result = ids_collection
         .find_one(
             doc! {
-                    "_id": manage_id.clone()
-                },
+                "_id": manage_id.clone()
+            },
             None,
         )
         .await;
@@ -162,15 +160,24 @@ pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult,
                     },
                     None,
                 )
-                .await {
+                .await
+            {
                 Ok(_r) => (),
-                Err(_e) => return Err(operation_failed("init_ids_count_field", "初始化序列号记录失败"))
+                Err(_e) => {
+                    return Err(operation_failed(
+                        "init_ids_count_field",
+                        "初始化序列号记录失败",
+                    ))
+                }
             };
         } else {
             println! {"序号生成器记录已存在 {}", manage_id};
         }
     } else {
-         return Err(operation_failed("init_ids_count_field", "初始化序列号记录失败"));
+        return Err(operation_failed(
+            "init_ids_count_field",
+            "初始化序列号记录失败",
+        ));
     }
 
     Ok(operation_succeed("ok"))
@@ -187,13 +194,14 @@ mod tests {
         let db = tokio_test::block_on(get_cashmere_database());
         tokio_test::block_on(db.create_collection("test", None)).expect("创建测试集合失败");
         let collection = db.collection("test");
-        let doc =
-            doc! {
-                "name": "Test"
-            };
+        let doc = doc! {
+            "name": "Test"
+        };
         let result = tokio_test::block_on(collection.insert_one(doc.clone(), None));
         assert_ok!(result);
-        let f_doc = tokio_test::block_on(collection.find_one(doc.clone(), None)).unwrap().unwrap();
+        let f_doc = tokio_test::block_on(collection.find_one(doc.clone(), None))
+            .unwrap()
+            .unwrap();
         assert_eq!(doc.get_str("name").unwrap(), f_doc.get_str("name").unwrap());
     }
 }

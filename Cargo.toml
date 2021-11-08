@@ -21,7 +21,7 @@ members = [
     "manage_define",
     "define_utils",
     "managers",
-    "minit",
+    # "minit",
     "message",
     "procedure",
     "view",
