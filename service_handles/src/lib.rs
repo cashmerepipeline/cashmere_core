@@ -18,7 +18,7 @@ pub mod graph_service_handle;
 pub mod name_handle_service;
 pub mod point_handle_service;
 
-use tonic::{Request, Response, Status};
+use tonic::{Response, Status};
 
 pub type UnaryResponseResult<T> = Result<Response<T>, Status>;
 pub type StreamResponseResult<T> = Result<Response<T>, Status>;

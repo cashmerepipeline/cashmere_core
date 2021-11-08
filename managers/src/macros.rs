@@ -6,8 +6,8 @@ Created:  2020-12-02T14:29:51.128Z
 Modified: !date!
 */
 
-use std::sync::Arc;
-use super::{ManagerTrait, Manager, ManagerInner};
+
+
 
 #[macro_export]
 macro_rules! declare_get_manager {

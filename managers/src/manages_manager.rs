@@ -9,17 +9,17 @@ Modified: !date!
 use std::sync::Arc;
 
 // use log::{error, info, warn};
-use bson::{self, Bson, Document};
+use bson::{self, Document};
 use cash_result::*;
 use parking_lot::RwLock;
 use async_trait::async_trait;
 
-use property_field::PropertyField;
+
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use crate::{Manager, ManagerInner, ManagerTrait, declare_get_manager};
 
 use cash_core::{Manage, manage_from_document};
-use database;
+
 
 #[derive(Default)]
 pub struct ManagesManager;
@@ -60,7 +60,7 @@ impl ManagerTrait for ManagesManager {
                 let id_str = MANAGES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 println!("{:?}", m_doc);
                 let manage: Manage = manage_from_document(m_doc).unwrap();
@@ -79,7 +79,7 @@ impl ManagerTrait for ManagesManager {
                 let id_str = MANAGES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
                 MANAGES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));

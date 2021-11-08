@@ -18,7 +18,7 @@ use super::{Manager, ManagerInner, ManagerTrait};
 use cash_core::Manage;
 use manage_define::manage_ids::TAG_TYPES_MANAGE_ID;
 use cash_result::*;
-use database;
+
 
 use crate::{declare_get_manager};
 use bson::Document;
@@ -65,7 +65,7 @@ impl ManagerTrait for TagTypesManager {
                 let id_str = TAG_TYPES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
                 TAG_TYPES_MANAGE.replace(Arc::new(RwLock::new(manage)));
@@ -83,7 +83,7 @@ impl ManagerTrait for TagTypesManager {
                 let id_str = TAG_TYPES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
                 TAG_TYPES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));

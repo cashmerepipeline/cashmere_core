@@ -50,7 +50,7 @@ mod macros;
 pub(crate) mod schema;
 
 use std::sync::{Arc};
-use std::marker::{Sync, Send};
+
 
 use bson::{Document};
 use parking_lot::RwLock;
