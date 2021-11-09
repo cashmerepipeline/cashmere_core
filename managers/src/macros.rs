@@ -48,7 +48,7 @@ macro_rules! declare_get_manager {
 //                     let id_str = $id.to_string();
 //                     let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
 //                         Ok(r) => r,
-//                         Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+//                         Err(e) => panic!("{} {}", e.operation(), e.details())),
 //                     };
 //                     let manage: Manage = bson::from_document(m_doc).unwrap();
 //                     $static_manager.replace(Arc::new(RwLock::new(manage)));
@@ -95,7 +95,7 @@ macro_rules! declare_get_manager {
 //                     let id_str = $id.to_string();
 //                     let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
 //                         Ok(r) => r,
-//                         Err(e) => panic!(format!("{} {}", e.operation(), e.details())),
+//                         Err(e) => panic!("{} {}", e.operation(), e.details())),
 //                     };
 //                     let manage: Manage = bson::from_document(m_doc).unwrap();
 //                     $static_manager.replace(Arc::new(RwLock::new(manage)));
