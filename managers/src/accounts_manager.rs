@@ -66,7 +66,7 @@ impl ManagerTrait for AccountsManager {
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
                 ACCOUNTS_MANAGE.replace(Arc::new(RwLock::new(manage)));
@@ -84,7 +84,7 @@ impl ManagerTrait for AccountsManager {
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details())),
+                    Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
                 ACCOUNTS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
