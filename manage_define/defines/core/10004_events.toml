@@ -9,7 +9,7 @@ name = { Cn = "事件", En = "events" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "List", name = { Cn = "目标队列", En = "queues" }, removed = false },
+    { data_type = "List", name = { Cn = "目标队列", En = "queues" }, removed = false },
 ]
 
 

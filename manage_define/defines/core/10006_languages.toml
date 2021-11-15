@@ -8,8 +8,8 @@ name = { Cn = "语言", En = "languages" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "Int32", name = { Cn = "编码", En = "code"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "验证正则", En = "regex"}, removed = false },
+    { data_type = "Int32", name = { Cn = "编码", En = "code"}, removed = false },
+    { data_type = "String", name = { Cn = "验证正则", En = "regex"}, removed = false },
 ]
 
 # 事件队列和消息队列表

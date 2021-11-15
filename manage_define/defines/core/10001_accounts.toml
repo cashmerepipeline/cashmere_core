@@ -7,12 +7,12 @@ name = { Cn = "账号", En = "accounts" }
 
 # 描写，模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "地区码", En = "country_code" }, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "电话", En = "phone" }, removed = false },
-    { id = 2010, data_type = "String", name = { Cn = "密码", En = "password" }, removed = false },
-    { id = 2011, data_type = "Bool", name = { Cn = "是否停用", En = "stopped" }, removed = false },
+    { data_type = "String", name = { Cn = "地区码", En = "country_code" }, removed = false },
+    { data_type = "String", name = { Cn = "电话", En = "phone" }, removed = false },
+    { data_type = "String", name = { Cn = "密码", En = "password" }, removed = false },
+    { data_type = "Bool", name = { Cn = "是否停用", En = "stopped" }, removed = false },
     # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期
-    { id = 2012, data_type = "List", name = { Cn = "登录时间戳", En = "login_timestamps" }, removed = false },
+    { data_type = "List", name = { Cn = "登录时间戳", En = "login_timestamps" }, removed = false },
 ]
 
 

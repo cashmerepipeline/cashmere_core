@@ -11,7 +11,7 @@ name = { Cn = "阶段集", En = "phase_sets" }
 
 # 描写，模式
 schema = [
-    { id = 2008, data_type = "List", name = { Cn = "阶段列表", En = "phases"}, removed = false },
+    { data_type = "List", name = { Cn = "阶段列表", En = "phases"}, removed = false },
 ]
 
 [queues]

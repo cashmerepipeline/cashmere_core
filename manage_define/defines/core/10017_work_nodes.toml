@@ -7,13 +7,13 @@ name = { Cn = "工作节点", En = "work_nodes" }
 
 # 描写，模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "过程编号", En = "procedure"}, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "任务表", En = "tasks"}, removed = false },
-    { id = 2010, data_type = "String", name = { Cn = "工作者", En = "worker"}, removed = false },
-    { id = 2011, data_type = "Map", name = { Cn = "参考数据", En = "reference_datas"}, removed = false },
-    { id = 2012, data_type = "Map", name = { Cn = "依赖数据", En = "depended_datas"}, removed = false },
-    { id = 2013, data_type = "Map", name = { Cn = "工作数据", En = "work_datas"}, removed = false },
-    { id = 2014, data_type = "Map", name = { Cn = "输出数据", En = "out_datas"}, removed = false },
+    { data_type = "String", name = { Cn = "过程编号", En = "procedure"}, removed = false },
+    { data_type = "List", name = { Cn = "任务表", En = "tasks"}, removed = false },
+    { data_type = "String", name = { Cn = "工作者", En = "worker"}, removed = false },
+    { data_type = "Map", name = { Cn = "参考数据", En = "reference_datas"}, removed = false },
+    { data_type = "Map", name = { Cn = "依赖数据", En = "depended_datas"}, removed = false },
+    { data_type = "Map", name = { Cn = "工作数据", En = "work_datas"}, removed = false },
+    { data_type = "Map", name = { Cn = "输出数据", En = "out_datas"}, removed = false },
 ]
 
 [queues]

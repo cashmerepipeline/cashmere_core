@@ -7,8 +7,8 @@ name = { Cn = "集", En = "epics" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "Int64", name = { Cn = "项目编号", En = "project"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "根目录", En = "root"}, removed = false },
+    { data_type = "Int64", name = { Cn = "项目编号", En = "project"}, removed = false },
+    { data_type = "String", name = { Cn = "根目录", En = "root"}, removed = false },
 ]
 
 

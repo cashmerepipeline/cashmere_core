@@ -7,9 +7,9 @@ name = { Cn = "评论", En = "comments" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "管理", En = "target_manage"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "实体", En = "target_entity"}, removed = false },
-    { id = 2010, data_type = "String", name = { Cn = "内容", En = "contents"}, removed = false },
+    { data_type = "String", name = { Cn = "管理", En = "target_manage"}, removed = false },
+    { data_type = "String", name = { Cn = "实体", En = "target_entity"}, removed = false },
+    { data_type = "String", name = { Cn = "内容", En = "contents"}, removed = false },
 ]
 
 

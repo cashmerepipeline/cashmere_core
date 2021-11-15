@@ -24,9 +24,9 @@ schema = [
     # 组 所有       GroupALl,
     # 只有组的       OnlyGroup,
     # 只有主的      OnlyOwner,
-    { id = 2008, data_type = "Map", name = { Cn = "管理级", En = "manage"}, removed = false },
-    { id = 2009, data_type = "Map", name = { Cn = "属性级", En = "collection"}, removed = false },
-    { id = 2010, data_type = "Map", name = { Cn = "实体级", En = "entity"}, removed = false },
+    { data_type = "Map", name = { Cn = "管理级", En = "manage"}, removed = false },
+    { data_type = "Map", name = { Cn = "属性级", En = "collection"}, removed = false },
+    { data_type = "Map", name = { Cn = "实体级", En = "entity"}, removed = false },
 ]
 
 [queues]

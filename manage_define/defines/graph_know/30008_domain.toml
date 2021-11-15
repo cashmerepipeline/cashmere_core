@@ -8,11 +8,11 @@ name = { Cn = "行业", En = "domains" }
 # 数据描写 或者 模式
 schema = [
     # {"section":门类，"division":大类，"group":中类, "class":小类， "description":描述}
-    { id = 2008, data_type = "String", name = { Cn = "门类", En = "section"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "大类", En = "division"}, removed = false },
-    { id = 2011, data_type = "String", name = { Cn = "中类", En = "group"}, removed = false },
-    { id = 2012, data_type = "String", name = { Cn = "小类", En = "class"}, removed = false },
-    { id = 2013, data_type = "Map", name = { Cn = "描述", En = "descriptions"}, removed = false },
+    { data_type = "String", name = { Cn = "门类", En = "section"}, removed = false },
+    { data_type = "String", name = { Cn = "大类", En = "division"}, removed = false },
+    { data_type = "String", name = { Cn = "中类", En = "group"}, removed = false },
+    { data_type = "String", name = { Cn = "小类", En = "class"}, removed = false },
+    { data_type = "Map", name = { Cn = "描述", En = "descriptions"}, removed = false },
 ]
 
 

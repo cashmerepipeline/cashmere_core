@@ -10,10 +10,10 @@ name = { Cn = "消息处理", En = "message_handles" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "管理编号", En = "manage_id" }, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "来源队列", En = "source_queues" }, removed = false },
+    { data_type = "String", name = { Cn = "管理编号", En = "manage_id" }, removed = false },
+    { data_type = "List", name = { Cn = "来源队列", En = "source_queues" }, removed = false },
     # 脚本表，按顺序执行的脚本
-    { id = 2010, data_type = "Map", name = { Cn = "脚本表", En = "scripts" }, removed = false },
+    { data_type = "Map", name = { Cn = "脚本表", En = "scripts" }, removed = false },
 ]
 
 # 事件队列和消息队列表

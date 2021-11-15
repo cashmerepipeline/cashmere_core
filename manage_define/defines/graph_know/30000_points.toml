@@ -9,12 +9,12 @@ name = { Cn = "知识点", En = "points" }
 schema = [
     # 某个领域的专有名词，应当只属于某一个领域，
     # 或者属于基础研究领域，某学科
-    { id = 2008, data_type = "String", name = { Cn = "领域", En = "domain"}, removed = false },
+    { data_type = "String", name = { Cn = "领域", En = "domain"}, removed = false },
     # 基础研究领域的话，属于某个学科
-    { id = 2009, data_type = "String", name = { Cn = "学科", En = "discipline"}, removed = false },
+    { data_type = "String", name = { Cn = "学科", En = "discipline"}, removed = false },
     # 成分或基础知识点
-    { id = 2010, data_type = "List", name = { Cn = "基础", En = "base"}, removed = false },
-    { id = 2011, data_type = "Map", name = { Cn = "解释", En = "descriptions"}, removed = false },
+    { data_type = "List", name = { Cn = "基础", En = "base"}, removed = false },
+    { data_type = "Map", name = { Cn = "解释", En = "descriptions"}, removed = false },
 ]
 
 

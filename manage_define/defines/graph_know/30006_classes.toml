@@ -7,11 +7,11 @@ name = { Cn = "班", En = "classes" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "List", name = { Cn = "老师表", En = "teachers"}, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "学生表", En = "students"}, removed = false },
-    { id = 2010, data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
-    { id = 2011, data_type = "List", name = { Cn = "班主任", En = "class_teacher"}, removed = false },
-    { id = 2012, data_type = "String", name = { Cn = "组织单位", En = "organization"}, removed = false },
+    { data_type = "List", name = { Cn = "老师表", En = "teachers"}, removed = false },
+    { data_type = "List", name = { Cn = "学生表", En = "students"}, removed = false },
+    { data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
+    { data_type = "List", name = { Cn = "班主任", En = "class_teacher"}, removed = false },
+    { data_type = "String", name = { Cn = "组织单位", En = "organization"}, removed = false },
 ]
 
 

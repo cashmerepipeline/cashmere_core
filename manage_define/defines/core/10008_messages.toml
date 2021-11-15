@@ -10,10 +10,10 @@ name = { Cn = "消息", En = "messages" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "管理编号", En = "manage"}, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "目标队列", En = "target_queues"}, removed = false },
-    { id = 2010, data_type = "String", name = { Cn = "发送者", En = "sender"}, removed = false },
-    { id = 2011, data_type = "Map", name = { Cn = "内容", En = "contents"}, removed = false },
+    { data_type = "String", name = { Cn = "管理编号", En = "manage"}, removed = false },
+    { data_type = "List", name = { Cn = "目标队列", En = "target_queues"}, removed = false },
+    { data_type = "String", name = { Cn = "发送者", En = "sender"}, removed = false },
+    { data_type = "Map", name = { Cn = "内容", En = "contents"}, removed = false },
 ]
 
 # 事件队列和消息队列表

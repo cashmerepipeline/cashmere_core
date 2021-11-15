@@ -7,8 +7,8 @@ name = { Cn = "回答", En = "answers" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "String", name = { Cn = "问题", En = "question"}, removed = false },
-    { id = 2009, data_type = "String", name = { Cn = "内容", En = "contents"}, removed = false },
+    { data_type = "String", name = { Cn = "问题", En = "question"}, removed = false },
+    { data_type = "String", name = { Cn = "内容", En = "contents"}, removed = false },
 ]
 
 

@@ -7,9 +7,9 @@ name = { Cn = "个体", En = "individuals" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "List", name = { Cn = "知识图表", En = "graphs"}, removed = false },
-    { id = 2009, data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
-    { id = 2010, data_type = "List", name = { Cn = "标记图表", En = "trees"}, removed = false },
+    { data_type = "List", name = { Cn = "知识图表", En = "graphs"}, removed = false },
+    { data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
+    { data_type = "List", name = { Cn = "标记图表", En = "trees"}, removed = false },
 ]
 
 

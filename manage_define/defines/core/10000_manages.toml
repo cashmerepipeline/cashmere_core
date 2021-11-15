@@ -7,13 +7,13 @@ name = { Cn = "管理", En = "manages" }
 
 # 描写，模式
 schema = [
-    { id = 2008, data_type = "Map", name = { Cn = "描写", En = "schema" }, removed = false },
+    { data_type = "Map", name = { Cn = "描写", En = "schema" }, removed = false },
     # 事件，消息
-    { id = 2009, data_type = "List", name = { Cn = "事件表", En = "events" }, removed = false },
-    { id = 2010, data_type = "List", name = { Cn = "消息表", En = "messages" }, removed = false },
+    { data_type = "List", name = { Cn = "事件表", En = "events" }, removed = false },
+    { data_type = "List", name = { Cn = "消息表", En = "messages" }, removed = false },
     # 队列
-    { id = 2011, data_type = "List", name = { Cn = "事件队列表", En = "event_queues" }, removed = false },
-    { id = 2012, data_type = "List", name = { Cn = "消息队列表", En = "message_queues" }, removed = false },
+    { data_type = "List", name = { Cn = "事件队列表", En = "event_queues" }, removed = false },
+    { data_type = "List", name = { Cn = "消息队列表", En = "message_queues" }, removed = false },
 ]
 
 

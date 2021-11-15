@@ -7,7 +7,7 @@ name = { Cn = "编号器", En = "ids" }
 
 # 数据描写 或者 模式
 schema = [
-    { id = 2008, data_type = "List", name = { Cn = "编号", En = "id_count"}, removed = false },
+    { data_type = "List", name = { Cn = "编号", En = "id_count"}, removed = false },
 ]
 
 
