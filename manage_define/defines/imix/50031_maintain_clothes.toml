@@ -1,32 +1,15 @@
 #
-# 单品
-# 单品是某个产品被使用者收购或者收藏后的概念,注重在产品的使用方面
+# 洗护
+# 衣物洗护方法
 #
 
-id = 50000
-name = { Cn = "单品", En = "apparels" }
+id = 50031
+name = { Cn = "洗护", En = "maintains" }
 
 # 数据描写 或者 模式
 schema = [
-    # 对应产品
-    { data_type = "String", name = { Cn = "产品编号", En = "clothes_id"}, removed = false },
-    { data_type = "String", name = { Cn = "店铺编号", En = "store_id"}, removed = false },
-    { data_type = "String", name = { Cn = "款式编号", En = "styles_id"}, removed = false },
-
-    { data_type = "String", name = { Cn = "状态", En = "status"}, removed = false },
-    { data_type = "String", name = { Cn = "使用成员", En = "family_member_id"}, removed = false },
-
-    { data_type = "Int64", name = { Cn = "店铺标价", En = "price"}, removed = false },
-    { data_type = "Int64", name = { Cn = "实付款", En = "actual_payment"}, removed = false },
-
-    { data_type = "Map", name = { Cn = "穿着日历", En = "wear_calendar"}, removed = false },
-    { data_type = "Map", name = { Cn = "洗护日历", En = "maintain_calendar"}, removed = false },
-
-    { data_type = "Map", name = { Cn = "特殊日子", En = "special_day"}, removed = false },
-    { data_type = "Map", name = { Cn = "特殊场合", En = "special_occasion"}, removed = false },
+    { data_type = "String", name = { Cn = "洗护方法", En = "maintains"}, removed = false },
 ]
-
-
 
 # 事件队列和消息队列表
 [queues]
