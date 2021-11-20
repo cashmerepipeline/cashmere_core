@@ -10,8 +10,14 @@ schema = [
     { data_type = "String", name = { Cn = "性别", En = "gender"}, removed = false },
     { data_type = "Date", name = { Cn = "生日", En = "birthday"}, removed = false },
     { data_type = "Bytes", name = { Cn = "头像", En = "portrait"}, removed = false },
+
+    { data_type = "List", name = { Cn = "身体属性表", En = "body_property_ids"}, removed = false },
+    { data_type = "Map", name = { Cn = "脚属性表", En = "feet_property_id"}, removed = false },
+
+
     { data_type = "List", name = { Cn = "组织单位表", En = "organizations"}, removed = false },
     { data_type = "List", name = { Cn = "部门表", En = "departments"}, removed = false },
+
     { data_type = "List", name = { Cn = "作为老师", En = "classes_as_teacher"}, removed = false },
     { data_type = "List", name = { Cn = "作为学生", En = "classes_as_student"}, removed = false },
 ]

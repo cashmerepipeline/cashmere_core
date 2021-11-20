@@ -1,15 +1,19 @@
 #
-# 供货商
-# 
+# 商品
+# 商品
 #
 
-id = 50029
-name = { Cn = "供货商", En = "suppliers" }
+id = 50003
+name = { Cn = "商品", En = "commodities" }
 
 # 数据描写 或者 模式
-schema = []
-
-
+schema = [
+    { data_type = "String", name = { Cn = "产品编号", En = "product_id"}, removed = false },
+    { data_type = "String", name = { Cn = "款式编号", En = "style_id"}, removed = false },
+    { data_type = "String", name = { Cn = "店铺编号", En = "store_id"}, removed = false },
+    { data_type = "String", name = { Cn = "数量", En = "count"}, removed = false },
+    { data_type = "String", name = { Cn = "价格", En = "price"}, removed = false },
+]
 
 # 事件队列和消息队列表
 [queues]

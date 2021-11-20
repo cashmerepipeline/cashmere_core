@@ -1,15 +1,13 @@
 #
-# 供货商
-# 
+# 材质
+# 材质
 #
 
-id = 50029
-name = { Cn = "供货商", En = "suppliers" }
+id = 50010
+name = { Cn = "材质", En = "materials" }
 
 # 数据描写 或者 模式
 schema = []
-
-
 
 # 事件队列和消息队列表
 [queues]
