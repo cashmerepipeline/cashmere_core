@@ -1,0 +1,36 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+product.proto (c) 2021
+Desc: 产品
+Created:  2021-11-14T03:06:02.246Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package cashmere;
+
+enum SuitableOccasion
+{
+  // 全场合
+  All = 0;
+  // 职业场合
+  Work = 1;
+  // 严肃场合
+  Serious = 2;
+  // 轻松场合
+  Easy = 3;
+  // 家居场合
+  Home = 4;
+  // 运动
+  Sports = 5;
+  // 旅行
+  Travel = 6;
+  // 家庭
+  Family = 7;
+  // 学习
+  Study = 8;
+  // 休闲
+  Relax = 9;
+  // 正式
+  Formal = 10;
+}

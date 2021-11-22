@@ -11,39 +11,9 @@ package cashmere;
 
 import "name.proto";
 import "property_type.proto";
-
-enum SuitableSex
-{
-  MaleFemale = 0;
-  Male = 1;
-  Female = 2;
-}
-
-enum SuitableOccasion
-{
-  // 全场合
-  All = 0;
-  // 职业场合
-  Work = 1;
-  // 严肃场合
-  Serious = 2;
-  // 轻松场合
-  Easy = 3;
-  // 家居场合
-  Home = 4;
-  // 运动
-  Sports = 5;
-  // 旅行
-  Travel = 6;
-  // 家庭
-  Family = 7;
-  // 学习
-  Study = 8;
-  // 休闲
-  Relax = 9;
-  // 正式
-  Formal = 10;
-}
+import "season.proto";
+import "suitable_sex.proto";
+import "suitable_occasion.proto";
 
 message NewProductRequest
 {
@@ -56,14 +26,14 @@ message NewProductRequest
   // 尺码
   bytes measures = 12;
   // 样式, 包含材质,颜色,类型,等等
-  
+
   bytes styles = 13;
   // 穿着部位
   string wear_location = 5;
   // 穿着层
   string wear_layer = 6;
   // 适宜季节
-  string seasons = 7;
+  repeated Season seasons = 7;
   // 适宜人群
   string crowds = 8;
   // 适宜年龄段
@@ -77,6 +47,7 @@ message NewProductRequest
   // 描述
   string descriptions = 14;
 }
+
 message NewProductResponse
 {
   string result = 1;
