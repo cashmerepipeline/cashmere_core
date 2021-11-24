@@ -20,7 +20,6 @@ import "work.proto";
 import "task.proto";
 import "work_phase.proto";
 import "work_node.proto";
-import "graph.proto";
 import "tag_type.proto";
 import "tag.proto";
 import "tag_map.proto";
