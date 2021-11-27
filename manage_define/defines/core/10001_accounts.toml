@@ -62,23 +62,25 @@ user = { 1000 = "8610000000001", 1001 = "user", 1002 = "8610000000000", 1006 = "
 [view_rules.schema.1007]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-
 [view_rules.schema.1008]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1009]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 
-[view_rules.schema.2008]
+[view_rules.schema.2001]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-[view_rules.schema.2009]
+[view_rules.schema.2002]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-[view_rules.schema.2010]
+[view_rules.schema.2003]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "OwnerWrite", read_filters = [], write_filters = [] }
-[view_rules.schema.2011]
+[view_rules.schema.2004]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [], write_filters = [] }
-[view_rules.schema.2012]
+[view_rules.schema.2005]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [], write_filters = [] }

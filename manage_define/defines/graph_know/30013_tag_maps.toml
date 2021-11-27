@@ -67,3 +67,6 @@ massage_queue = []
 [view_rules.schema.1008]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1009]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }

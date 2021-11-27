@@ -6,11 +6,13 @@
 pub const ID_FIELD_ID: i32 = 1000;
 // 名字
 pub const NAME_FIELD_ID: i32 = 1001;
-// 创建人和创建时间
+// 创建人
 pub const CREATOR_FIELD_ID: i32 = 1002;
+//创建时间
 pub const CREATE_TIMESTAMP_FIELD_ID: i32 = 1003;
-// 修改人和修改时间
+// 修改人
 pub const MODIFIER_FIELD_ID: i32 = 1004;
+//修改时间
 pub const MODIFY_TIMESTAMP_FIELD_ID: i32 = 1005;
 // 主人
 pub const OWNER_FIELD_ID: i32 = 1006;
