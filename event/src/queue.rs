@@ -16,7 +16,6 @@ use crate::Event;
 use cash_result::*;
 
 use parking_lot::RwLock;
-use runtime_handle::get_runtime_handle;
 use std::sync::Arc;
 
 type QueueHandlesMap = Arc<RwLock<HashMap<i64, Arc<RwLock<Vec<i64>>>>>>;
@@ -62,39 +61,39 @@ pub async fn spawn_recieve_task(
     mut receiver: Receiver<Event>,
     handles_map: QueueHandlesMap,
 ) -> Result<OperationResult, OperationResult> {
-    let handle = get_runtime_handle();
-    // let queue_handles_map = get_queue_handles(&id).await;
+    // let handle = get_runtime_handle();
+    // // let queue_handles_map = get_queue_handles(&id).await;
 
-    let result = handle
-        .spawn(async move {
-            while let Some(event) = receiver.recv().await {
-                println!("got = {:?}", event);
+    // let result = handle
+    //     .spawn(async move {
+    //         while let Some(event) = receiver.recv().await {
+    //             println!("got = {:?}", event);
 
-                let event_id: i64 = event.event_id.clone().parse().unwrap();
-                // 取得事件处理列表
-                let mut target_handles: Vec<i64> = Vec::new();
-                {
-                    let handles_map_lock = handles_map.read();
-                    let target_handles_arc = handles_map_lock.get(&event_id).unwrap();
-                    let target_handles_lock = target_handles_arc.read();
-                    target_handles = target_handles_lock.clone();
-                }
-                // 执行所有处理
-                for handle_id in target_handles.iter() {
-                    send_event_to_handle(event.clone(), *handle_id).await;
-                }
-            }
-        })
-        .await;
+    //             let event_id: i64 = event.event_id.clone().parse().unwrap();
+    //             // 取得事件处理列表
+    //             let mut target_handles: Vec<i64> = Vec::new();
+    //             {
+    //                 let handles_map_lock = handles_map.read();
+    //                 let target_handles_arc = handles_map_lock.get(&event_id).unwrap();
+    //                 let target_handles_lock = target_handles_arc.read();
+    //                 target_handles = target_handles_lock.clone();
+    //             }
+    //             // 执行所有处理
+    //             for handle_id in target_handles.iter() {
+    //                 send_event_to_handle(event.clone(), *handle_id).await;
+    //             }
+    //         }
+    //     })
+    //     .await;
 
-    if result.is_ok() {
+    // if result.is_ok() {
         Ok(operation_succeed("ok"))
-    } else {
-        Err(operation_failed(
-            "spawn_start_recieve",
-            "启动事件队列线程失败",
-        ))
-    }
+    // } else {
+    //     Err(operation_failed(
+    //         "spawn_start_recieve",
+    //         "启动事件队列线程失败",
+    //     ))
+    // }
 }
 
 /// 发送事件到处理器

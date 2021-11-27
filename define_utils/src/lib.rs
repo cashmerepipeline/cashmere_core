@@ -45,7 +45,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
             },
             Some(r) => r
         };
-        let field: PropertyField = PropertyField::from_toml(field_toml);
+        let field: PropertyField = PropertyField::from_toml(field_toml, &id);
         // println!("{:?}", field);
         let mut temp_doc = Document::new();
         temp_doc.insert("id", field.id);
