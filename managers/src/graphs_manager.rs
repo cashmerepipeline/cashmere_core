@@ -25,7 +25,7 @@ use bson::Document;
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
-pub struct WorksManager;
+pub struct GraphsManager;
 
 /// 缓存
 static mut GRAPHS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
@@ -35,11 +35,11 @@ static mut GRAPHS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 static mut GRAPHS_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(WorksManager, GRAPHS_MANAGER);
+declare_get_manager!(GraphsManager, GRAPHS_MANAGER);
 
 // 实现接口
 #[async_trait]
-impl ManagerTrait for WorksManager {
+impl ManagerTrait for GraphsManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
         Err(operation_failed("unregister", "账户管理器不能被注销"))
     }
