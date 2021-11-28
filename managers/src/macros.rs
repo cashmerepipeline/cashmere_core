@@ -6,9 +6,6 @@ Created:  2020-12-02T14:29:51.128Z
 Modified: !date!
 */
 
-
-
-
 #[macro_export]
 macro_rules! declare_get_manager {
     ($manager:ty, $static_manager:ident) => {

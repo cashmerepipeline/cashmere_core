@@ -59,8 +59,6 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 移除管理器
     fn unregister(&self) -> Result<OperationResult, OperationResult>;
 
-    // fn get_manager_inner(&self) -> &'static dyn ManagerTrait;
-
     // 取得管理器id
     fn get_manager_id(&self) -> i32;
     // 取得管理器名

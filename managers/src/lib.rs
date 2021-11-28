@@ -63,12 +63,12 @@ use property_field::PropertyField;
 /// 管理器包装
 #[derive(Clone)]
 pub struct Manager {
-    inner: Arc<ManagerInner>
+    pub inner: Arc<ManagerInner>
 }
 
 #[derive(Clone)]
 pub struct ManagerInner {
-    manager: Arc<dyn ManagerTrait>
+    pub manager: Arc<dyn ManagerTrait>
 }
 
 #[async_trait]
