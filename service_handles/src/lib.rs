@@ -9,9 +9,6 @@ Modified: !date!
 #[macro_use]
 extern crate log;
 
-pub mod account_service;
-pub mod account_service_handles;
-
 pub mod area_service_handles;
 pub mod cashmere;
 // pub mod graph_service_handle;

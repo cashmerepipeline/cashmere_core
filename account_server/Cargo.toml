@@ -1,0 +1,26 @@
+[package]
+name = "account_server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-trait = "0.1.48"
+tonic = { version = "0.5.2", features = ["tls"] }
+tokio = { version = "1.4.0" }
+prost = "0.8.0"
+bson = "2.0.1"
+chrono = "0.4.19"
+log = "0.4.14"
+
+account = { path = "../account" }
+auth = { path = "../auth" }
+entity = { path = "../entity" }
+service_handles = { path = "../service_handles" }
+majordomo = {path = "../majordomo"}
+managers = {path = "../managers"}
+manage_define = {path = "../manage_define"}
+
+[build-dependencies]
+tonic-build = "0.5.2"
