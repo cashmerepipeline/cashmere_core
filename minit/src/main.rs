@@ -22,7 +22,7 @@ use define_utils as utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let matches = App::new("Wav2AnimServer")
+    let matches = App::new("Manager Init")
         .arg(
             Arg::new("debug")
                 .about("turn on debugging information")

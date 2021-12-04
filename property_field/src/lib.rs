@@ -137,7 +137,7 @@ impl PropertyField {
     pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id:&i32) -> PropertyField {
         let name: LinkedHashMap<String, String> =
             toml::from_str(&toml.get("name").unwrap().to_string()).unwrap();
-        // println!("{:?}", name);
+        println!("{:?}", name);
         let data_type: FieldDataType =
             toml::from_str(&toml.get("data_type").unwrap().to_string()).unwrap();
         let removed: bool = toml.get("removed").unwrap().as_bool().unwrap();

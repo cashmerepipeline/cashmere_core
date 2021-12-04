@@ -3,7 +3,7 @@
 # 商品
 #
 
-id = 50003
+id = 50004
 name = { Cn = "商品", En = "commodities" }
 
 # 数据描写 或者 模式

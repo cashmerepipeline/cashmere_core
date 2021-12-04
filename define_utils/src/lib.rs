@@ -33,20 +33,21 @@ pub fn get_name(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Docume
 
 /// 管理描写
 pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson> {
-    let id = get_id(toml_map).unwrap();
+    let manage_id = get_id(toml_map).unwrap();
+
     let value = toml_map.get("schema").expect("取得描写数据失败");
     let mut schema_vec: Vec<Document> = Vec::new();
-    for v in value.as_array().unwrap().iter() {
+    for (field_id, v) in value.as_array().unwrap().iter().enumerate() {
 
         let field_toml = match v.as_table() {
             None => {
-                println!("错误 {}-{}", id, v.to_string());
+                println!("错误 {}-{}", manage_id, v.to_string());
                 panic!("定义文件错误")
             },
             Some(r) => r
         };
-        let field: PropertyField = PropertyField::from_toml(field_toml, &id);
-        // println!("{:?}", field);
+        let field: PropertyField = PropertyField::from_toml(field_toml, &((field_id + 2001)  as i32));
+        println!("{:?}", field);
         let mut temp_doc = Document::new();
         temp_doc.insert("id", field.id);
         temp_doc.insert("data_type", field.data_type.to_string());
@@ -119,6 +120,7 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
             let manage_str = r.get("manage").unwrap().to_string();
             let collection_str = r.get("collection").unwrap().to_string();
             let schema_str = r.get("schema").unwrap().to_string();
+            println!("{} {} {}", manage_str, collection_str, schema_str);
 
             let manage_map: LinkedHashMap<String, ViewRule> =
                 toml::from_str(manage_str.as_str()).unwrap();
