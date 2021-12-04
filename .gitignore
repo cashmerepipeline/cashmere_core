@@ -6,3 +6,4 @@ target/
 *.pyc
 *.log
 *.lock
+manage_define/src/manage_ids.rs
