@@ -12,44 +12,40 @@ use std::sync::Arc;
 use async_trait::async_trait;
 use bson;
 use parking_lot::RwLock;
-
-use super::{Manager, ManagerInner, ManagerTrait};
+use bson::Document;
 
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
-
-
-use crate::{declare_get_manager};
-use bson::Document;
+use crate::{Manager, ManagerInner, traits::ManagerTrait, declare_get_manager};
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
-pub struct DomainsManager;
+pub struct CoursesManager;
 
 /// 缓存
-static mut DOMAINS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut DOMAINS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut COURSES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut COURSES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
-static mut DOMAINS_MANAGER: Option<Arc<Manager>> = None;
+static mut COURSES_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(DomainsManager, DOMAINS_MANAGER);
+declare_get_manager!(CoursesManager, COURSES_MANAGER);
 
 // 实现接口
 #[async_trait]
-impl ManagerTrait for DomainsManager {
+impl ManagerTrait for CoursesManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
         Err(operation_failed("unregister", "账户管理器不能被注销"))
     }
 
     fn get_manager_id(&self) -> i32 {
-        return DOMAINS_MANAGE_ID;
+        return COURSES_MANAGE_ID;
     }
 
     fn get_manager_name(&self) -> String {
-        "DomainsManager".to_string()
+        "CoursesManager".to_string()
     }
 
     fn has_cache(&self) -> bool {
@@ -58,36 +54,36 @@ impl ManagerTrait for DomainsManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if DOMAINS_MANAGE.is_some() {
-                DOMAINS_MANAGE.clone().unwrap()
+            if COURSES_MANAGE.is_some() {
+                COURSES_MANAGE.clone().unwrap()
             } else {
-                let collection_name = DOMAINS_MANAGE_ID.to_string();
-                let id_str = DOMAINS_MANAGE_ID.to_string();
+                let collection_name = COURSES_MANAGE_ID.to_string();
+                let id_str = COURSES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
-                DOMAINS_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                DOMAINS_MANAGE.clone().unwrap()
+                COURSES_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                COURSES_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if DOMAINS_MANAGE_DOCUMENT.is_some() {
-                DOMAINS_MANAGE_DOCUMENT.clone().unwrap()
+            if COURSES_MANAGE_DOCUMENT.is_some() {
+                COURSES_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = DOMAINS_MANAGE_ID.to_string();
+                let id_str = COURSES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
-                DOMAINS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                DOMAINS_MANAGE_DOCUMENT.clone().unwrap()
+                COURSES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                COURSES_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }

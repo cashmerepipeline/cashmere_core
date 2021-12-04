@@ -12,16 +12,13 @@ use std::sync::Arc;
 use async_trait::async_trait;
 use bson;
 use parking_lot::RwLock;
-
-use super::{Manager, ManagerInner, ManagerTrait};
+use bson::Document;
 
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
+use crate::{Manager, ManagerInner, traits::ManagerTrait};
 
-
-use crate::{declare_get_manager};
-use bson::Document;
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]

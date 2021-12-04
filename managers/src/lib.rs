@@ -9,55 +9,48 @@ Modified: !date!
 // 异步线程限制
 #![recursion_limit = "256"]
 
+use std::sync::Arc;
+
+use async_trait::async_trait;
+use bson::Document;
+use parking_lot::RwLock;
+
+use cash_core::Manage;
+use cash_result::*;
+use property_field::PropertyField;
+use traits::ManagerTrait;
+
 pub mod manages_manager;
 pub mod accounts_manager;
 pub mod groups_manager;
 pub mod events_manager;
 pub mod event_queues_manager;
 pub mod event_handles_manager;
-pub mod works_manager;
-pub mod procedures_manager;
-pub mod work_nodes_manager;
 pub mod tasks_manager;
 pub mod datas_manager;
 pub mod areas_manager;
 pub mod messages_manager;
 pub mod message_handles_manager;
 pub mod persons_manager;
-pub mod show_settings_manager;
 pub mod view_rules_manager;
-pub mod phase_sets_manager;
 pub mod templates_manager;
-// mod manage_documents_map;
-// mod manages_map;
 
-pub mod disciplines_manager;
-pub mod graphs_manager;
 pub mod orgnizations_manager;
 pub mod departments_manager;
-pub mod courses_manager;
-pub mod domains_manager;
 pub mod questions_manager;
 pub mod comments_manager;
 pub mod answers_manager;
-pub mod roadmaps_manager;
-pub mod tag_types_manager;
+
+pub mod graph_know;
+pub mod imix;
+pub mod knitter;
 
 pub mod traits;
 mod macros;
 pub(crate) mod schema;
+pub mod tag_types_manager;
+pub mod show_settings_manager;
 
-use std::sync::{Arc};
-
-
-use bson::{Document};
-use parking_lot::RwLock;
-use async_trait::async_trait;
-
-use cash_result::*;
-use cash_core::Manage;
-use traits::ManagerTrait;
-use property_field::PropertyField;
 // use log::{info};
 
 /// 管理器包装

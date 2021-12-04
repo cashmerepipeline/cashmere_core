@@ -12,17 +12,13 @@ use std::sync::Arc;
 use async_trait::async_trait;
 use bson;
 use parking_lot::RwLock;
-
-use super::{Manager, ManagerInner, ManagerTrait};
+use bson::Document;
 
 use cash_core::Manage;
 use manage_define::manage_ids::TAG_TYPES_MANAGE_ID;
 use cash_result::*;
-
-
-use crate::{declare_get_manager};
-use bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
+use crate::{Manager, ManagerInner, traits::ManagerTrait, declare_get_manager};
 
 #[derive(Default)]
 pub struct TagTypesManager;

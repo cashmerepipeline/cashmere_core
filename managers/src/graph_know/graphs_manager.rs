@@ -1,7 +1,7 @@
 /*
 Author: 闫刚 (yes7rose@sina.com)
 lib.rs (c) 2020
-Desc: 人管理器
+Desc: 工作管理
 Created:  2020-11-28T02:17:47.146Z
 Modified: !date!
 */
@@ -17,35 +17,36 @@ use bson::Document;
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
+use crate::{Manager, ManagerInner, traits::ManagerTrait, declare_get_manager};
+
 use  manage_define::manage_ids::MANAGES_MANAGE_ID;
-use crate::{Manager, ManagerInner, traits::ManagerTrait,declare_get_manager};
 
 #[derive(Default)]
-pub struct ShowSettingsManager;
+pub struct GraphsManager;
 
 /// 缓存
-static mut SHOW_SETTINGS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut SHOW_SETTINGS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut GRAPHS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut GRAPHS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
-static mut SHOW_SETTINGS_MANAGER: Option<Arc<Manager>> = None;
+static mut GRAPHS_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(ShowSettingsManager, SHOW_SETTINGS_MANAGER);
+declare_get_manager!(GraphsManager, GRAPHS_MANAGER);
 
 // 实现接口
 #[async_trait]
-impl ManagerTrait for ShowSettingsManager {
+impl ManagerTrait for GraphsManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
         Err(operation_failed("unregister", "账户管理器不能被注销"))
     }
 
     fn get_manager_id(&self) -> i32 {
-        return SHOW_SETTINGS_MANAGE_ID;
+        return GRAPHS_MANAGE_ID;
     }
 
     fn get_manager_name(&self) -> String {
-        "ShowSettingsManager".to_string()
+        "GraphsManager".to_string()
     }
 
     fn has_cache(&self) -> bool {
@@ -54,36 +55,36 @@ impl ManagerTrait for ShowSettingsManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if SHOW_SETTINGS_MANAGE.is_some() {
-                SHOW_SETTINGS_MANAGE.clone().unwrap()
+            if GRAPHS_MANAGE.is_some() {
+                GRAPHS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = SHOW_SETTINGS_MANAGE_ID.to_string();
-                let id_str = SHOW_SETTINGS_MANAGE_ID.to_string();
+                let collection_name = GRAPHS_MANAGE_ID.to_string();
+                let id_str = GRAPHS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = bson::from_document(m_doc).unwrap();
-                SHOW_SETTINGS_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                SHOW_SETTINGS_MANAGE.clone().unwrap()
+                GRAPHS_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                GRAPHS_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if SHOW_SETTINGS_MANAGE_DOCUMENT.is_some() {
-                SHOW_SETTINGS_MANAGE_DOCUMENT.clone().unwrap()
+            if GRAPHS_MANAGE_DOCUMENT.is_some() {
+                GRAPHS_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = SHOW_SETTINGS_MANAGE_ID.to_string();
+                let id_str = GRAPHS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
-                SHOW_SETTINGS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                SHOW_SETTINGS_MANAGE_DOCUMENT.clone().unwrap()
+                GRAPHS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                GRAPHS_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }
