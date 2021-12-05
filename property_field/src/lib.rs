@@ -107,7 +107,7 @@ impl From<String> for FieldDataType {
         } else if s == "Bytes".to_string() {
             return FieldDataType::Bytes;
         } else if s == "Map".to_string() {
-            return FieldDataType::Bytes;
+            return FieldDataType::Map;
         } else if s == "Date".to_string() {
             return FieldDataType::Date;
         } else if s == "DateTime".to_string() {
@@ -134,7 +134,7 @@ impl PropertyField {
         names.contains(name)
     }
 
-    pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id:&i32) -> PropertyField {
+    pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
         let name: LinkedHashMap<String, String> =
             toml::from_str(&toml.get("name").unwrap().to_string()).unwrap();
         println!("{:?}", name);

@@ -675,10 +675,14 @@ pub fn get_entity_name(entity_doc: &Document) -> Option<String> {
             Some(n.get(lang_code.as_str()).unwrap().to_string())
         } else {
             // 如果没有，使用第一个名字
+
             let mut name_b: Bson = Bson::String("".to_string());
-            for x in n {
-                name_b = x.1.clone();
-                break;
+            // for x in n {
+            //     name_b = x.1.clone();
+            //     break;
+            // }
+            if let Some(first_name) = n.into_iter().next(){
+                name_b = first_name.1.clone();
             }
             Some(name_b.as_str().unwrap().to_string())
         }
