@@ -36,7 +36,7 @@ impl OperationResult {
 
 // 操作成功
 pub fn operation_succeed(result: impl Into<String>) -> OperationResult {
-    return OperationResult::Succeed(result.into());
+    OperationResult::Succeed(result.into())
 }
 
 // 集合不存在
@@ -108,7 +108,7 @@ pub fn operation_failed(
 pub fn add_call_name_to_chain(e: OperationResult, new_operation: String) -> OperationResult {
     let mut new_op = e.operation();
     new_op.insert_str(0, " -> ");
-    new_op.insert_str(0, new_operation.clone().as_str());
+    new_op.insert_str(0, new_operation.as_str());
 
     OperationResult::Failed(Failed {
         operation: new_op,

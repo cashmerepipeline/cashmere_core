@@ -16,7 +16,7 @@ use std::sync::Arc;
 
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use cash_result::{operation_failed, operation_succeed, OperationResult};
-use configs;
+
 use manage_define::manage_ids::{IDS_MANAGE_ID, MANAGES_MANAGE_ID};
 
 pub type MongodbResult<T> = mongodb::error::Result<T>;
@@ -36,7 +36,7 @@ pub async fn get_mongodb_client() -> &'static Client {
                 let options = ClientOptions::builder()
                     .hosts(vec![ServerAddress::Tcp {
                         host: configs.database.address.clone(),
-                        port: Some(configs.database.port.clone()),
+                        port: Some(configs.database.port),
                     }])
                     .build();
 
@@ -63,7 +63,7 @@ pub async fn get_cashmere_database() -> &'static Database {
                 let options = ClientOptions::builder()
                     .hosts(vec![ServerAddress::Tcp {
                         host: configs.database.address.clone(),
-                        port: Some(configs.database.port.clone()),
+                        port: Some(configs.database.port),
                     }])
                     .build();
 
@@ -84,11 +84,7 @@ pub async fn collection_exists(collection: &String) -> bool {
     let db = get_cashmere_database().await;
     let collections = db.list_collection_names(None).await.unwrap();
 
-    if collections.contains(collection) {
-        return true;
-    } else {
-        return false;
-    }
+    collections.contains(collection)
 }
 
 /// 取得集合
@@ -100,7 +96,7 @@ pub async fn get_collection_by_id(manage_id: &String) -> Option<Collection<Docum
         return None;
     }
 
-    return Some(cashmere_db.collection(manage_id));
+    Some(cashmere_db.collection(manage_id))
 }
 
 /// 取得管理-管理集合, 不存在则新建
@@ -117,7 +113,7 @@ pub async fn get_manages_collection() -> Collection<Document> {
             .expect("创建管理失败");
     }
 
-    return cashmere_db.collection(manages_id);
+    cashmere_db.collection(manages_id)
 }
 
 /// 取得编号-管理集合, 不存在则新建
@@ -134,7 +130,7 @@ pub async fn get_ids_collection() -> Collection<Document> {
             .expect("创建管理失败");
     }
 
-    return cashmere_db.collection(manages_id);
+    cashmere_db.collection(manages_id)
 }
 
 /// 初始化实体编号字段

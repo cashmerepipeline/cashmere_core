@@ -55,15 +55,15 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
 
     Ok(Manage {
         _id: _id.to_string(),
-        id: id,
-        name: name,
+        id,
+        name,
         creator: creator.to_string(),
         create_timestamp,
         modifier: modifier.to_string(),
         modify_timestamp,
         owner: owner.to_string(),
         groups,
-        schema: schema,
+        schema,
     }
     )
 }

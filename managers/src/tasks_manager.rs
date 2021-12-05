@@ -45,7 +45,7 @@ impl ManagerTrait for TasksManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return TASKS_MANAGE_ID;
+        TASKS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

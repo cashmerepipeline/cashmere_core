@@ -1,9 +1,9 @@
 
 use property_field::PropertyField;
 use linked_hash_map::LinkedHashMap;
-use bson;
+
 use bson::{Document, Bson};
-use toml;
+
 use cash_core::view_rules::{ViewRule, ViewRules};
 
 use std::{path::Path};
@@ -12,10 +12,7 @@ use std::io::prelude::*;
 /// 取得管理id
 pub fn get_id(toml_map: &toml::map::Map<String, toml::Value>) -> Option<i32> {
     let result = toml_map.get("id");
-    match result {
-        Some(v) => Some(v.as_integer().unwrap() as i32),
-        None => None,
-    }
+    result.map(|v| v.as_integer().unwrap() as i32)
 }
 
 /// 取得管理名
@@ -135,7 +132,7 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
                 schema: schema_map,
             })
         }
-        None => return None,
+        None => None,
     }
 }
 
@@ -149,7 +146,7 @@ pub fn get_toml_files_of_dir(
     if toml_dir_path.exists() && toml_dir_path.is_dir() {
         for entry in toml_dir_path
             .read_dir()
-            .expect(format!("{} 目录不存在或者不是目录", toml_dir).as_str())
+            .unwrap_or_else(|_| panic!("{} 目录不存在或者不是目录", toml_dir))
         {
             if let Ok(ref entry) = entry {
                 let path_buf = &entry.path();

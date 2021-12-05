@@ -35,10 +35,7 @@ impl Majordomo {
         let managers = get_managers_map().await;
         let managers = managers.read();
         managers
-            .get(&id)
-            .map(|v| {
-                v.clone()
-            })
+            .get(&id).cloned()
             .ok_or(operation_failed("get_manager_by_id", "取得管理器失败"))
     }
 
@@ -47,15 +44,14 @@ impl Majordomo {
         let managers_ids: Vec<i32> =
             self.get_managers_map().await
                 .read()
-                .keys()
-                .map(|x| x.clone())
+                .keys().copied()
                 .collect();
         managers_ids
     }
 
     /// 取得管理表
     pub async fn get_managers_map(&self) -> Arc<RwLock<ManagersMap>> {
-        get_managers_map().await.clone()
+        get_managers_map().await
     }
 
     /// 设置管理器表
@@ -94,7 +90,7 @@ async fn add_managers(new_managers: Vec<Arc<Manager>>) -> Result<OperationResult
     let managers_map_arc = get_managers_map().await;
     let mut managers_map_lock = managers_map_arc.write();
     for m in new_managers.iter() {
-        managers_map_lock.insert(m.get_manager_id().clone(), m.clone());
+        managers_map_lock.insert(m.get_manager_id(), m.clone());
     }
 
     Ok(operation_succeed("ok"))
@@ -125,7 +121,7 @@ async fn init_majordomo() -> Arc<Majordomo> {
 
 /// 初始化管理器映射表
 async fn init_managers_map() -> Arc<RwLock<ManagersMap>> {
-    let mut m_map: ManagersMap = HashMap::new();
+    let m_map: ManagersMap = HashMap::new();
     Arc::new(RwLock::new(m_map))
 }
 

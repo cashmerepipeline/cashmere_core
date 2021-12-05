@@ -20,9 +20,9 @@ use entity;
 use async_trait::async_trait;
 use bson::{Bson, Document};
 use parking_lot::RwLock;
-use std::{any::Any, collections::HashMap, sync::Arc};
+use std::{any::Any, sync::Arc};
 
-use crate::schema;
+
 use crate::schema::schema_field_exists;
 
 /// 管理接口
@@ -33,7 +33,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let manage_id = &self.get_manager_id().to_string();
 
         // 检查数据库是否存在管理集合，不存在则创建管理集合
-        if !database::collection_exists(&manage_id).await {
+        if !database::collection_exists(manage_id).await {
             return Err(operation_failed(
                 "init",
                 format!("请先使用minit命令初始化管理数据库 {}", manage_id),
@@ -101,7 +101,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         data: &Vec<u8>,
     ) -> Result<OperationResult, OperationResult> {
-        let mut b = data.clone();
+        let b = data.clone();
         let d = match Document::from_reader(&mut b.as_slice()) {
             Ok(r) => r,
             Err(_e) => {
@@ -117,9 +117,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
         // 检查是否在描写中
         let schema = self.get_manage_schema().await.unwrap();
-        let schema_ids: Vec<i32> = schema.iter().map(|x| x.id).collect();
+        
 
-        if schema_ids.contains(&ks[0]) {
+        if schema.iter().map(|x| x.id).any(|x| x == ks[0]) {
             Ok(operation_succeed("ok"))
         } else {
             return Err(operation_failed(
@@ -136,7 +136,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         // 取出ids
         let mut data_keys: Vec<i32> = Vec::new();
         for x in data {
-            let mut b = x.clone();
+            let b = x.clone();
             let d = match Document::from_reader(&mut b.as_slice()) {
                 Ok(r) => r,
                 Err(_e) => {
@@ -155,9 +155,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
         // 检查是否在描写中
         let schema = self.get_manage_schema().await.unwrap();
-        let schema_ids: Vec<i32> = schema.iter().map(|x| x.id).collect();
+        
         for k in data_keys {
-            if schema_ids.contains(&k) {
+            if schema.iter().map(|x| x.id).any(|x| x == k) {
                 continue;
             } else {
                 return Err(operation_failed(
@@ -209,7 +209,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         new_field: PropertyField,
         account_id: &String,
     ) -> Result<(), OperationResult> {
-        let field_id = new_field.id.clone();
+        let field_id = new_field.id;
 
         // 更新管理
         let manage_id = self.get_manager_id();
@@ -229,7 +229,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         {
             let doc_arc = self.get_manage_document().await;
             let mut doc = doc_arc.write();
-            let mut schema = doc
+            let schema = doc
                 .get_array_mut(&MANAGES_SCHEMA_FIELD_ID.to_string())
                 .unwrap();
             let new_bson = bson::to_bson(&new_field).unwrap();
@@ -273,9 +273,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         {
             let manage_arc = self.get_manage().await;
             let mut manage = manage_arc.write();
-            let fields_ids: Vec<i32> = manage.schema.iter().map(|x| x.id.clone()).collect();
+            
             // 字段是否存在
-            if !fields_ids.contains(&field_id) {
+            if !manage.schema.iter().map(|x| x.id).any(|x| x == field_id) {
                 return Err(field_not_exists(
                     "edit_schema_field_name",
                     field_id.to_string(),
@@ -283,16 +283,14 @@ pub trait ManagerTrait: Any + Send + Sync {
             }
 
             index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
-            let mut field = &mut manage.schema[index];
+            let field = &mut manage.schema[index];
 
             // 名字已经存在，不需要更新
-            if field.name.contains_key(local) {
-                if field.name.get(local).unwrap() == new_name {
-                    return Err(field_edited_already(
-                        "edit_schema_field_name",
-                        field_id.to_string(),
-                    ));
-                }
+            if field.name.contains_key(local) && field.name.get(local).unwrap() == new_name {
+                return Err(field_edited_already(
+                    "edit_schema_field_name",
+                    field_id.to_string(),
+                ));
             }
 
             field.name.insert(local.clone(), new_name.clone());
@@ -335,13 +333,13 @@ pub trait ManagerTrait: Any + Send + Sync {
         // 更新管理
         let manage_id = self.get_manager_id();
         let mut index: usize = 0;
-        let mut new_field: Option<PropertyField> = None;
+        let _new_field: Option<PropertyField> = None;
 
         {
             let manage_arc = self.get_manage().await;
             let mut manage = manage_arc.write();
-            let fields_ids: Vec<i32> = manage.schema.iter().map(|x| x.id.clone()).collect();
-            if !fields_ids.contains(&field_id) {
+            
+            if !manage.schema.iter().map(|x| x.id).any(|x| x == field_id) {
                 return Err(field_not_exists(
                     "edit_schema_field_name",
                     field_id.to_string(),
@@ -398,7 +396,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 // fn get_entities_cache_map(&self) -> Option<Arc<RwLock<HashMap<i32, Document>>>>;
 // fn refresh_cache(&self) -> Result<OperationResult, OperationResult>;
 
-    async fn update_cache(&self, new_doc: &Document) -> Result<OperationResult, OperationResult> {
+    async fn update_cache(&self, _new_doc: &Document) -> Result<OperationResult, OperationResult> {
         if !self.has_cache() {
             return Ok(operation_succeed("管理没有缓存，不需要更新"));
         }
@@ -431,7 +429,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             };
 
         if self.has_cache() {
-            let result = match self.update_cache(new_entity_doc).await {
+            let _result = match self.update_cache(new_entity_doc).await {
                 Err(e) => Err(add_call_name_to_chain(e, "new_entity".to_string())),
                 _ => Ok(operation_succeed("ok")),
             };

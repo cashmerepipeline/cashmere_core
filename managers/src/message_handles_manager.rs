@@ -45,7 +45,7 @@ impl ManagerTrait for MessageHandlesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return MESSAGE_HANDLES_MANAGE_ID;
+        MESSAGE_HANDLES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

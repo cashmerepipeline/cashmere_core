@@ -20,8 +20,8 @@ use futures::stream::StreamExt;
 
 use manage_define::general_field_ids::*;
 use cash_result::*;
-use configs;
-use database;
+
+
 use database::get_cashmere_database;
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 
@@ -155,7 +155,7 @@ pub async fn change_entity_owner(
     new_owner: &String,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
-    let new_value = Bson::from(new_owner);
+    let _new_value = Bson::from(new_owner);
 
     let query_doc = doc! {"_id":entity_id.clone()};
     let modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
@@ -178,7 +178,7 @@ pub async fn update_entity_groups(
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
-    let collection = match database::get_collection_by_id(manage_id).await {
+    let _collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
         None => return Err(collection_not_exists("update_entity_groups")),
     };
@@ -603,7 +603,7 @@ pub async fn get_entities(
         None => return Err(collection_not_exists("get_entities")),
     };
 
-    let mut cursor = collection.find(filter.clone(), None).await;
+    let cursor = collection.find(filter.clone(), None).await;
 
     let mut result: Vec<Document> = Vec::new();
     match cursor {
@@ -625,10 +625,7 @@ pub async fn get_entities(
 
 /// 取得实体属性
 pub fn get_entity_field(entity_doc: &Document, field_name: impl Into<String>) -> Option<Bson> {
-    match entity_doc.get(field_name.into().as_str()) {
-        Some(e) => Some(e.clone()),
-        None => None,
-    }
+    entity_doc.get(field_name.into().as_str()).cloned()
 }
 
 /// 取得实体属性为String
@@ -641,11 +638,7 @@ pub fn get_entity_field_as_string(
         None => return None,
     };
 
-    if let Some(result) = b.as_str() {
-        Some(result.to_string())
-    } else {
-        None
-    }
+    b.as_str().map(|result| result.to_string())
 }
 
 /// 取得实体属性到对应类型
@@ -698,11 +691,7 @@ pub fn get_entity_id(entity_doc: &Document) -> Option<String> {
         None => return None,
     };
 
-    if let Some(r) = id.as_str() {
-        Some(r.to_string())
-    } else {
-        None
-    }
+    id.as_str().map(|r| r.to_string())
 }
 
 /// 取得实体数据 所属人

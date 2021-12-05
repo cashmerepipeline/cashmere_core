@@ -17,7 +17,7 @@ use sled;
 use cash_result::*;
 use manage_define::manage_ids::EVENT_QUEUES_MANAGE_ID;
 
-use crate::{Event, queue::EventQueue, queue::extract_queue_handle_ids, queue::get_queue_handles};
+use crate::{Event, queue::EventQueue, queue::extract_queue_handle_ids};
 use crate::queue::spawn_recieve_task;
 
 // {queue_id:event_id:[handle_id...]}
@@ -44,13 +44,13 @@ async fn init_event_queues_map() -> Arc<RwLock<EventQueuesMap>> {
     let event_queues_docs =
         match entity::get_entities(&EVENT_QUEUES_MANAGE_ID.to_string(), &None).await {
             Ok(r) => r,
-            Err(e) => panic!("初始化事件队列映射表失败")
+            Err(_e) => panic!("初始化事件队列映射表失败")
         };
 
     // 收集所有事件队列
     let mut event_queues: Vec<(i64, String)> = vec![];
     for d in event_queues_docs.iter() {
-        let (id, name) = (entity::get_entity_id(&d).unwrap(), entity::get_entity_name(&d).unwrap());
+        let (id, name) = (entity::get_entity_id(d).unwrap(), entity::get_entity_name(d).unwrap());
         event_queues.push((id.parse().unwrap(), name));
     }
 
@@ -63,7 +63,7 @@ async fn init_event_queues_map() -> Arc<RwLock<EventQueuesMap>> {
     );
 
     for d in event_queues_docs {
-        let (sd, mut rc) = tokio::sync::mpsc::channel::<Event>(100);
+        let (sd, rc) = tokio::sync::mpsc::channel::<Event>(100);
 
         let id: i64 = entity::get_entity_id(&d).unwrap().parse().unwrap();
 
@@ -72,7 +72,7 @@ async fn init_event_queues_map() -> Arc<RwLock<EventQueuesMap>> {
         let handles = extract_queue_handle_ids(&d).unwrap();
         let mut handles_arc_map: HashMap<i64, Arc<RwLock<Vec<i64>>>> = HashMap::new();
         handles.iter().map(|(k, v)| {
-            handles_arc_map.insert(k.clone(), Arc::new(RwLock::new(v.clone())))
+            handles_arc_map.insert(*k, Arc::new(RwLock::new(v.clone())))
         });
 
         let handles_arc_map = Arc::new(RwLock::new(handles_arc_map));
@@ -81,14 +81,14 @@ async fn init_event_queues_map() -> Arc<RwLock<EventQueuesMap>> {
         let db = sled::open(&db_path).expect("打开事件数据库错误");
 
         let event_q = EventQueue {
-            name: name,
+            name,
             database: db,
             handles: handles_arc_map.clone(),
             sender: sd,
         };
 
         // 启动新接收任务
-        spawn_recieve_task(id.clone(), rc, handles_arc_map.clone()).await;
+        spawn_recieve_task(id, rc, handles_arc_map.clone()).await;
 
         // 添加到映射表
         result.insert(id, event_q);
@@ -112,7 +112,7 @@ pub async fn update_event_queues_map(new_doc: &Document) -> Result<OperationResu
     let handles = extract_queue_handle_ids(new_doc).unwrap();
     let mut handles_arc_map: HashMap<i64, Arc<RwLock<Vec<i64>>>> = HashMap::new();
     handles.iter().map(|(k, v)| {
-        handles_arc_map.insert(k.clone(), Arc::new(RwLock::new(v.clone())))
+        handles_arc_map.insert(*k, Arc::new(RwLock::new(v.clone())))
     });
 
     let handles_arc_map = Arc::new(RwLock::new(handles_arc_map));
@@ -123,13 +123,13 @@ pub async fn update_event_queues_map(new_doc: &Document) -> Result<OperationResu
         server_configs.root_dir, server_configs.events_dbs_dir
     );
 
-    let (sd, mut rc) = tokio::sync::mpsc::channel::<Event>(100);
+    let (sd, _rc) = tokio::sync::mpsc::channel::<Event>(100);
 
     let db_path = format!("{}/{}.db", events_dbs_root_dir, name);
     let db = sled::open(&db_path).expect("打开事件数据库错误");
 
     let event_q = EventQueue {
-        name: name,
+        name,
         database: db,
         handles: handles_arc_map,
         sender: sd,
@@ -193,9 +193,7 @@ async fn event_queue_exists_by_id(id: &i64) -> bool {
     let event_q_map_arc = get_event_queues_map().await;
     let queues_map_lock = event_q_map_arc.read();
 
-    if queues_map_lock.contains_key(id) {
-        true
-    } else { false }
+    queues_map_lock.contains_key(id)
 }
 
 /// 取得管理事件映射队列 发射端
@@ -207,10 +205,6 @@ async fn get_queue_event_sender(
     }
     let event_q_map_lock = get_event_queues_map().await;
     let queues_map = event_q_map_lock.read();
-    if let Some(r) = queues_map.get(id) {
-        Some(r.sender.clone())
-    } else {
-        None
-    }
+    queues_map.get(id).map(|r| r.sender.clone())
 }
 

@@ -44,7 +44,7 @@ impl ManagerTrait for TempaltesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return TEMPLATES_MANAGE_ID;
+        TEMPLATES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

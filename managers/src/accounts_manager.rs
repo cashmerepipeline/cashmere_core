@@ -11,7 +11,7 @@ use std::sync::Arc;
 // use log::{error, info, warn};
 use async_trait::async_trait;
 use bson;
-use bson::doc;
+
 use parking_lot::RwLock;
 
 use super::{Manager, ManagerInner, ManagerTrait};
@@ -19,7 +19,7 @@ use super::{Manager, ManagerInner, ManagerTrait};
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
-use database;
+
 
 use crate::declare_get_manager;
 use bson::Document;
@@ -46,7 +46,7 @@ impl ManagerTrait for AccountsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return ACCOUNTS_MANAGE_ID;
+        ACCOUNTS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

@@ -44,7 +44,7 @@ impl ManagerTrait for EventQueuesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return EVENT_QUEUES_MANAGE_ID;
+        EVENT_QUEUES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

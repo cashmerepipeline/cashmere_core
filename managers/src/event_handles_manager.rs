@@ -45,7 +45,7 @@ impl ManagerTrait for EventHandlesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return EVENT_HANDLES_MANAGE_ID;
+        EVENT_HANDLES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

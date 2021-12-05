@@ -11,9 +11,9 @@ use std::sync::Arc;
 
 use bson::{self, Document};
 use parking_lot::RwLock;
-use futures::stream::StreamExt;
-use tokio::{sync::mpsc::Receiver, sync::mpsc::Sender};
-use sled;
+
+use tokio::{sync::mpsc::Sender};
+
 
 use cash_result::*;
 use  manage_define::manage_ids::EVENT_HANDLES_MANAGE_ID;
@@ -45,13 +45,13 @@ async fn init_event_handle_map() -> Arc<RwLock<EventHandlesMap>> {
     let event_handles_docs =
         match entity::get_entities(&EVENT_HANDLES_MANAGE_ID.to_string(), &None).await {
             Ok(r) => r,
-            Err(e) => panic!("初始化事件队列映射表失败")
+            Err(_e) => panic!("初始化事件队列映射表失败")
         };
 
     // 收集所有事件队列
     let mut event_handles: Vec<(i64, String)> = vec![];
     for d in event_handles_docs.iter() {
-        let (id, name) = (entity::get_entity_id(&d).unwrap(), entity::get_entity_name(&d).unwrap());
+        let (id, name) = (entity::get_entity_id(d).unwrap(), entity::get_entity_name(d).unwrap());
         event_handles.push((id.parse().unwrap(), name));
     }
 
@@ -59,7 +59,7 @@ async fn init_event_handle_map() -> Arc<RwLock<EventHandlesMap>> {
     let mut result = EventHandlesMap::new();
 
     for d in event_handles_docs {
-        let (sd, mut rc) = tokio::sync::mpsc::channel::<Event>(100);
+        let (sd, rc) = tokio::sync::mpsc::channel::<Event>(100);
 
         let id: i64 = entity::get_entity_id(&d).unwrap().parse().unwrap();
 
@@ -68,12 +68,12 @@ async fn init_event_handle_map() -> Arc<RwLock<EventHandlesMap>> {
 
         let event_q = EventHandle {
             name,
-            event_id: event_id,
+            event_id,
             sender: sd,
         };
 
         // 启动新接收任务
-        spawn_recieve_task(id.clone(), rc).await;
+        spawn_recieve_task(id, rc).await;
 
         // 添加到映射表
         result.insert(id, event_q);

@@ -45,7 +45,7 @@ impl ManagerTrait for GroupsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return GROUPS_MANAGE_ID;
+        GROUPS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

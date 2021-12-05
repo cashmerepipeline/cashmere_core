@@ -7,8 +7,8 @@ Modified: !date!
 */
 
 use manage_define::manage_ids::WORK_NODES_MANAGE_ID;
-use database;
-use entity;
+
+
 use cash_result::*;
 use mongodb::bson::{doc};
 
@@ -61,7 +61,7 @@ pub async fn add_new_task(
     account_id: &String,
     group_id: &String,
 ) -> Result<OperationResult, OperationResult> {
-    let new_id = 
+    let _new_id = 
         match task::get_new_task_id().await {
             Ok(r) => r,
             Err(e) => return Err(e)

@@ -11,8 +11,8 @@ use std::fmt::{Display, Formatter};
 use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
 
-use bson;
-use toml;
+
+
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub enum FieldDataType {
@@ -84,36 +84,36 @@ impl Display for FieldDataType {
 
 impl From<String> for FieldDataType {
     fn from(s: String) -> Self {
-        if s == "Bool".to_string() {
-            return FieldDataType::Bool;
-        } else if s == "Int32".to_string() {
-            return FieldDataType::Int32;
-        } else if s == "Int64".to_string() {
-            return FieldDataType::Int64;
-        } else if s == "UInt32".to_string() {
-            return FieldDataType::UInt32;
-        } else if s == "UInt64".to_string() {
-            return FieldDataType::UInt64;
-        } else if s == "F32".to_string() {
-            return FieldDataType::F32;
-        } else if s == "F64".to_string() {
-            return FieldDataType::F64;
-        } else if s == "Range".to_string() {
-            return FieldDataType::Range;
-        } else if s == "String".to_string() {
-            return FieldDataType::String;
-        } else if s == "List".to_string() {
-            return FieldDataType::List;
-        } else if s == "Bytes".to_string() {
-            return FieldDataType::Bytes;
-        } else if s == "Map".to_string() {
-            return FieldDataType::Map;
-        } else if s == "Date".to_string() {
-            return FieldDataType::Date;
-        } else if s == "DateTime".to_string() {
-            return FieldDataType::DateTime;
+        if s == *"Bool" {
+            FieldDataType::Bool
+        } else if s == *"Int32" {
+            FieldDataType::Int32
+        } else if s == *"Int64" {
+            FieldDataType::Int64
+        } else if s == *"UInt32" {
+            FieldDataType::UInt32
+        } else if s == *"UInt64" {
+            FieldDataType::UInt64
+        } else if s == *"F32" {
+            FieldDataType::F32
+        } else if s == *"F64" {
+            FieldDataType::F64
+        } else if s == *"Range" {
+            FieldDataType::Range
+        } else if s == *"String" {
+            FieldDataType::String
+        } else if s == *"List" {
+            FieldDataType::List
+        } else if s == *"Bytes" {
+            FieldDataType::Bytes
+        } else if s == *"Map" {
+            FieldDataType::Map
+        } else if s == *"Date" {
+            FieldDataType::Date
+        } else if s == *"DateTime" {
+            FieldDataType::DateTime
         } else {
-            return FieldDataType::None;
+            FieldDataType::None
         }
     }
 }
@@ -129,9 +129,9 @@ impl Display for Language {
 
 impl PropertyField {
     pub fn has_name(&self, name: &String) -> bool {
-        let names: Vec<String> = self.name.values().map(|v| v.clone()).collect();
+        
 
-        names.contains(name)
+        self.name.values().cloned().any(|x| x == *name)
     }
 
     pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
@@ -144,9 +144,9 @@ impl PropertyField {
 
         PropertyField {
             id: *id,
-            name: name,
-            data_type: data_type,
-            removed: removed,
+            name,
+            data_type,
+            removed,
         }
     }
 
@@ -160,10 +160,10 @@ impl PropertyField {
         let removed: bool = doc.get_bool("removed").unwrap();
 
         PropertyField {
-            id: id,
-            name: name,
-            data_type: data_type,
-            removed: removed,
+            id,
+            name,
+            data_type,
+            removed,
         }
     }
 }

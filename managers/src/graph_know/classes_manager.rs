@@ -42,7 +42,7 @@ impl ManagerTrait for ClassesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return CLASSES_MANAGE_ID;
+        CLASSES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

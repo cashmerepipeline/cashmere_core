@@ -45,7 +45,7 @@ impl ManagerTrait for DepartmentsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return DEPARTMENTS_MANAGE_ID;
+        DEPARTMENTS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

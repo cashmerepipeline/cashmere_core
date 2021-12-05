@@ -42,7 +42,7 @@ impl ManagerTrait for PointsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return POINTS_MANAGE_ID;
+        POINTS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

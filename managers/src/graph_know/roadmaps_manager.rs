@@ -41,7 +41,7 @@ impl ManagerTrait for RoadmapsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return ROADMAPS_MANAGE_ID;
+        ROADMAPS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

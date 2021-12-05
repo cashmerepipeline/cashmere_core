@@ -42,7 +42,7 @@ impl ManagerTrait for GraphsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return GRAPHS_MANAGE_ID;
+        GRAPHS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

@@ -44,7 +44,7 @@ impl ManagerTrait for QuestionsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return QUESTIONS_MANAGE_ID;
+        QUESTIONS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

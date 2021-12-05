@@ -45,7 +45,7 @@ impl ManagerTrait for DatasManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return DATAS_MANAGE_ID;
+        DATAS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

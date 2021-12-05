@@ -18,7 +18,7 @@ use super::{Manager, ManagerInner, ManagerTrait};
 use cash_core::Manage;
 use cash_result::*;
 use manage_define::manage_ids::*;
-use database;
+
 
 use crate::{declare_get_manager};
 use bson::Document;
@@ -45,7 +45,7 @@ impl ManagerTrait for AnswersManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return ANSWERS_MANAGE_ID;
+        ANSWERS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

@@ -39,8 +39,8 @@ impl EventQueue {
 pub fn extract_queue_handle_ids(queue_doc: &Document) -> Option<HashMap<i64, Vec<i64>>> {
     let handles_field_id = 1008; // TODO: 使用属性名字？
                                  // 事件处理器id使用整数作为编号
-    let id = entity::get_entity_id(&queue_doc);
-    let b = entity::get_entity_field(&queue_doc, &handles_field_id.to_string()).unwrap();
+    let _id = entity::get_entity_id(queue_doc);
+    let b = entity::get_entity_field(queue_doc, &handles_field_id.to_string()).unwrap();
     // 直接转换??
     // event_id:[handle_id...]
     let result: HashMap<i64, Vec<i64>> = bson::from_bson(b).unwrap();
@@ -51,15 +51,15 @@ pub fn extract_queue_handle_ids(queue_doc: &Document) -> Option<HashMap<i64, Vec
 pub async fn get_queue_handles(queue_id: &i64) -> QueueHandlesMap {
     let queues_map_arc = get_event_queues_map().await;
     let queues_map_lock = queues_map_arc.read();
-    let queue = queues_map_lock.get(&queue_id).unwrap();
+    let queue = queues_map_lock.get(queue_id).unwrap();
     queue.handles.clone()
 }
 
 /// 启动接收端
 pub async fn spawn_recieve_task(
-    id: i64,
-    mut receiver: Receiver<Event>,
-    handles_map: QueueHandlesMap,
+    _id: i64,
+    _receiver: Receiver<Event>,
+    _handles_map: QueueHandlesMap,
 ) -> Result<OperationResult, OperationResult> {
     // let handle = get_runtime_handle();
     // // let queue_handles_map = get_queue_handles(&id).await;
@@ -98,7 +98,7 @@ pub async fn spawn_recieve_task(
 
 /// 发送事件到处理器
 async fn send_event_to_handle(event: Event, handle_id: i64) -> Result<(), OperationResult> {
-    let mut sender = match get_handle_sender_by_id(handle_id).await {
+    let sender = match get_handle_sender_by_id(handle_id).await {
         Ok(s) => s,
         Err(e) => {
             return Err(add_call_name_to_chain(

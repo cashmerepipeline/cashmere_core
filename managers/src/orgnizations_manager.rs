@@ -45,7 +45,7 @@ impl ManagerTrait for OrgnizationsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return ORGANIZATIONS_MANAGE_ID;
+        ORGANIZATIONS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

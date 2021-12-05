@@ -41,7 +41,7 @@ impl ManagerTrait for TagTypesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return TAG_TYPES_MANAGE_ID;
+        TAG_TYPES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

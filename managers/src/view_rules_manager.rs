@@ -45,7 +45,7 @@ impl ManagerTrait for ViewRulesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return VIEW_RULES_MANAGE_ID;
+        VIEW_RULES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

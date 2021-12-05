@@ -40,9 +40,9 @@ mod tests {
     fn it_works() {
         use futures;
 
-        let root_passwd =
+        let _root_passwd =
             futures::executor::block_on(jwt::hash_password(&"root".to_string())).unwrap();
-        let user_passwd =
+        let _user_passwd =
             futures::executor::block_on(jwt::hash_password(&"user".to_string())).unwrap();
         // println!("{}", root_passwd);
         // println!("{}", user_passwd);

@@ -12,7 +12,6 @@ use chrono::Utc;
 use tonic::{Request, Response, Status};
 
 use crate::account_service::*;
-use auth;
 
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
 use manage_define::manage_ids::PERSONS_MANAGE_ID;
@@ -66,10 +65,7 @@ pub trait HandleLogin {
             Some(d) => d,
             None => return Err(Status::data_loss("取得账户密码错误")),
         };
-        let pw_ok = match auth::jwt::verify_passwd(password, &password_hash).await {
-            Some(ok) => ok,
-            None => false,
-        };
+        let pw_ok = (auth::jwt::verify_passwd(password, &password_hash).await).unwrap_or(false);
         if !pw_ok {
             return Err(Status::permission_denied("用户名或者密码错误"));
         }
@@ -130,7 +126,7 @@ pub trait HandleLogin {
         // 返回
         Ok(Response::new(LoginResponse {
             person: person_bytes,
-            token: token,
+            token,
         }))
     }
 }
@@ -139,7 +135,7 @@ pub trait HandleLogin {
 trait HandleNewAccount {
     async fn new_account(
         &self,
-        request: Request<NewAccountRequest>,
+        _request: Request<NewAccountRequest>,
     ) -> UnaryResponseResult<NewAccountResponse> {
         unimplemented!()
     }

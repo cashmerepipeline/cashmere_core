@@ -14,7 +14,7 @@ use chrono::{Utc};
 pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
     // token检查
     let auth_meta = request.metadata();
-    let auth_token = match super::get_auth_token(&auth_meta) {
+    let auth_token = match super::get_auth_token(auth_meta) {
         Some(token) => token,
         None => return Err(Status::unauthenticated("请先登录")),
     };
@@ -24,7 +24,7 @@ pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
         return Err(Status::unauthenticated("权限验证错误，请重新登录"));
     }
 
-    let (account_id, groups) = match super::get_claims_account_and_roles(&auth_token) {
+    let (_account_id, _groups) = match super::get_claims_account_and_roles(&auth_token) {
         Some(r) => r,
         None => return Err(Status::unauthenticated("请先登录")),
     };

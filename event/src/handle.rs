@@ -21,7 +21,7 @@ pub struct EventHandle {
 pub const EVENT_ID_FIELD_ID: i64 = 1008;
 
 /// 启动接收端
-pub async fn spawn_recieve_task(id: i64, mut receiver: Receiver<Event>) -> Result<OperationResult, OperationResult> {
+pub async fn spawn_recieve_task(_id: i64, _receiver: Receiver<Event>) -> Result<OperationResult, OperationResult> {
     // let handle = get_runtime_handle();
     // let result = handle.spawn(async move {
     //     while let Some(event) = receiver.recv().await {

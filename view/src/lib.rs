@@ -6,8 +6,8 @@ pub mod view_rule;
 use bson::Document;
 use serde::{Deserialize, Serialize};
 
-use cash_result::OperationResult;
-use view_rule::{ReadRule, WriteRule};
+
+use view_rule::{WriteRule};
 
 pub enum ViewLevel {
     Manage,
@@ -67,18 +67,18 @@ pub async fn validate_view_token() -> bool {
 }
 
 /// 验证是否主人
-pub fn validate_is_owner(entity_doc: &Document, account_id: &String) -> bool {
+pub fn validate_is_owner(_entity_doc: &Document, _account_id: &String) -> bool {
     unimplemented!()
 }
 
 /// 是否在组中
-pub fn validate_is_in_group(entity_doc: &Document, group_ids: &Vec<String>) -> bool {
+pub fn validate_is_in_group(_entity_doc: &Document, _group_ids: &Vec<String>) -> bool {
     unimplemented!()
 }
 
 /// 管理是否可写, 管理的字段定义添加删除
 pub async fn can_manage_write(
-    account: &String, 
+    _account: &String, 
     groups: &Vec<String>, 
     manage_id: &String
 ) -> bool {
@@ -106,7 +106,7 @@ pub async fn can_manage_write(
 
 /// 集合是否可写，向集合添加或者删除实体
 pub async fn can_collection_write(
-    account: &String, 
+    _account: &String, 
     groups: &Vec<String>, 
     manage_id: &String
 ) -> bool {
@@ -134,7 +134,7 @@ pub async fn can_collection_write(
 
 /// 实体的可写性，可否修改实体的字段
 pub async fn can_entity_write(
-    account: &String,
+    _account: &String,
     groups: &Vec<String>,
     manage_id: &String,
     field: &String,

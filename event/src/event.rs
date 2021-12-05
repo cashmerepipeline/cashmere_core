@@ -7,13 +7,13 @@ Modified: !date!
 */
 
 use bson::{self, doc, Bson, Document};
-use parking_lot::RwLock;
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use std::sync::Arc;
-use futures::stream::StreamExt;
 
-use cash_core;
+use serde::{Deserialize, Serialize};
+
+
+
+
+
 use  manage_define::manage_ids::EVENTS_MANAGE_ID;
 use cash_result::*;
 use entity;
@@ -140,7 +140,7 @@ pub async fn get_event_new_id() -> i64 {
 /// 更新事件目标队列
 pub async fn push_event_target_queue(
     event_id: &String,
-    event_name: &String,
+    _event_name: &String,
     target_que: &EventTargetQueue,
     account_id: &String
 ) -> Result<OperationResult, OperationResult> {

@@ -40,7 +40,7 @@ pub async fn hash_password(passwd: &String) -> Option<String> {
     let now = Utc::now().to_rfc3339();
     let salt = now.as_bytes();
 
-    match argon2::hash_encoded(password, &salt, &Config::default()) {
+    match argon2::hash_encoded(password, salt, &Config::default()) {
         Ok(h) => Some(h),
         Err(_) => None,
     }
@@ -49,7 +49,7 @@ pub async fn hash_password(passwd: &String) -> Option<String> {
 // 校验密码
 pub async fn verify_passwd(passwd: &String, hash: &String) -> Option<bool> {
     let passwd = passwd.as_bytes();
-    match argon2::verify_encoded(hash, &passwd) {
+    match argon2::verify_encoded(hash, passwd) {
         Ok(r) => Some(r),
         Err(_) => None,
     }
@@ -67,7 +67,7 @@ pub async fn gen_jwt_token(
     let secret_code = configs.server.secret_code.as_bytes();
 
     let mut header = Header::new(Algorithm::HS512);
-    header.kid = Some(phone.clone().to_owned());
+    header.kid = Some(phone.clone());
     let claims: Claims = Claims {
         aud: phone.clone(),
         name: name.clone(),
@@ -96,7 +96,7 @@ pub fn validate_jwt_token(token: &String) -> bool {
     let result = verify(
         signature,
         &message,
-        &DecodingKey::from_secret(secret_code.as_ref()),
+        &DecodingKey::from_secret(secret_code),
         Algorithm::HS512,
     )
     .unwrap();
@@ -170,7 +170,7 @@ pub fn get_claims(token: &String) -> Option<Claims> {
     let secret_code = configs.server.secret_code.as_bytes();
 
     match jsonwebtoken::decode::<Claims>(
-        &token,
+        token,
         &DecodingKey::from_secret(secret_code),
         &Validation::new(Algorithm::HS512),
     ) {

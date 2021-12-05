@@ -41,7 +41,7 @@ impl ManagerTrait for ShowSettingsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return SHOW_SETTINGS_MANAGE_ID;
+        SHOW_SETTINGS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

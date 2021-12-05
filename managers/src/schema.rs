@@ -9,9 +9,9 @@ Modified: !date!
 use property_field::PropertyField;
 
 pub fn schema_field_exists(field_id: i32, schema: &Vec<PropertyField>) -> bool{
-    let field_ids: Vec<i32> = schema.iter().map(|x| x.id.clone()).collect();
+    
 
-    field_ids.contains(&field_id)
+    schema.iter().map(|x| x.id).any(|x| x == field_id)
 }
 
 pub fn new_schema_field_update_cache(){}

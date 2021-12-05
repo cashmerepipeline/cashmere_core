@@ -170,7 +170,7 @@ impl ManagerTrait for ManagerInner {
     }
 
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
-        self.manager.get_entity_by_id(&entity_id).await
+        self.manager.get_entity_by_id(entity_id).await
     }
 
     async fn get_entities_by_filter(

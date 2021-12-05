@@ -69,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // 文件列表
     let mut toml_pathes: Vec<String> = vec![];
-    print!("------开始读取定义文件------\n");
+    println!("------开始读取定义文件------\n");
     // 添加单文件
     if let Some(path) = matches.value_of("file") {
         toml_pathes.push(path.to_string());
@@ -82,7 +82,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // 读入所有文件并构造toml映射
     let tomls = utils::get_tomls_from_pathes(&toml_pathes).unwrap();
-    print!("------读取定义文件完成-----\n\n");
+    println!("------读取定义文件完成-----\n\n");
 
 
     // 使用root用户和root组初始化管理数据库

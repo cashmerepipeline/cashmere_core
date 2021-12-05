@@ -1,17 +1,17 @@
 use glob::glob;
 
 use linked_hash_map::LinkedHashMap;
-use bson;
-use bson::{Document, Bson};
-use toml;
 
-use std::{path::Path};
+use bson::{Document, Bson};
+
+
+
 use std::io::prelude::*;
-use std::io::Error;
-use std::fs::File;
-use std::{fmt::{Display, Formatter}};
-use toml::Value;
-use toml::map::Map;
+
+
+
+
+
 
 use property_field::*;
 
@@ -53,10 +53,7 @@ pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::V
 /// 取得管理id
 pub fn get_id(toml_map: &toml::map::Map<String, toml::Value>) -> Option<i32> {
     let result = toml_map.get("id");
-    match result {
-        Some(v) => Some(v.as_integer().unwrap() as i32),
-        None => None,
-    }
+    result.map(|v| v.as_integer().unwrap() as i32)
 }
 
 /// 取得管理名
