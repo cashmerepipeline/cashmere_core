@@ -8,9 +8,9 @@ Introduction:
 // pub mod database;
 // mod entity;
 
-use database;
-use entity;
-use configs;
+
+
+
 
 use clap::{App, Arg};
 use bson::{ doc};
@@ -97,16 +97,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("------创建管理-------");
     for map in &tomls {
-        let manage_id = match utils::get_id(&map) {
+        let manage_id = match utils::get_id(map) {
             Some(m) => m.to_string(),
             None => continue,
         };
         // println!("开始创建管理：{}", manage_id);
-        let manage_name = match utils::get_name(&map) {
+        let manage_name = match utils::get_name(map) {
             Some(m) => m,
             None => continue,
         };
-        let manage_schema = match utils::get_schema(&map) {
+        let manage_schema = match utils::get_schema(map) {
             Some(s) => s,
             None => continue,
         };
@@ -125,7 +125,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         match entity::insert_entity(
             &MANAGES_MANAGE_ID.to_string(),
             &mut manage_doc,
-            &root_id,
+            root_id,
             root_group_id,
         ).await {
             Ok(r) => {
@@ -154,7 +154,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 2. 创建队列集合
     println!("------创建队列-------");
     for map in &tomls {
-        let queues = match utils::get_queues(&map) {
+        let queues = match utils::get_queues(map) {
             Some(q) => q,
             None => continue,
         };
@@ -168,9 +168,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 3. 添加初始实体数据
     println!("------开始插入初始数据-------");
     for map in &tomls {
-        let manage_id = utils::get_id(&map).unwrap();
+        let manage_id = utils::get_id(map).unwrap();
         // let collection = db.collection(&id.to_string());
-        if let Some(items) = utils::get_init_items(&map) {
+        if let Some(items) = utils::get_init_items(map) {
             for mut item in items {
                 if let Ok(_r) =
                     entity::insert_entity(&manage_id.to_string(), &mut item, root_id, root_group_id).await
@@ -187,14 +187,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 4. 添加映像规则
     println!("------开始添加映像规则-------");
     for map in &tomls {
-        let rule_id = utils::get_id(&map).unwrap();
+        let rule_id = utils::get_id(map).unwrap();
         let rule_name = 
-            match utils::get_name(&map){
+            match utils::get_name(map){
             Some(m) => m,
             None => continue,
         };
 
-        let view_rules = match utils::get_init_view_rules(&map) {
+        let view_rules = match utils::get_init_view_rules(map) {
             Some(m) => m,
             None => continue,
         };
