@@ -25,6 +25,8 @@ pub struct RenameRequest {
     #[prost(string, tag = "4")]
     pub new_name: ::prost::alloc::string::String,
 }
+///*
+///@returns 成功返回新名字, 其他情况返回其他
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameResponse {
     #[prost(string, tag = "1")]

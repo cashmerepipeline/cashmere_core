@@ -1,17 +1,17 @@
 #
-# 衣物
+# 产品
 # 衣物成品,描述衣物的使用特征和物理特征
 #
 
 id = 50019
-name = { Cn = "衣物", En = "clothes" }
+name = { Cn = "产品", En = "productions" }
 
 # 数据描写 或者 模式
 schema = [
     { data_type = "String", name = { Cn = "品牌编号", En = "brand_id"}, removed = false },
     { data_type = "String", name = { Cn = "供货商编号", En = "supplier_id"}, removed = false },
 
-    { data_type = "String", name = { Cn = "款式", En = "styles_id"}, removed = false },
+    { data_type = "List", name = { Cn = "款式表", En = "styles_id"}, removed = false },
 
     # {使用类型:"xxx", 使用编号:xxx}
     { data_type = "String", name = { Cn = "使用方法", En = "uses_id"}, removed = false },

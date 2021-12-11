@@ -53,7 +53,6 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
 
         schema_vec.push(temp_doc);
     }
-    // toml::from_str(&value.to_string()).expect("转换描写列表失败");
 
     match bson::to_bson(&schema_vec) {
         Ok(r) => Some(r),

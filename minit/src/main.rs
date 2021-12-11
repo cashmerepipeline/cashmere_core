@@ -5,15 +5,8 @@ Create time: 2020-10-16 10:45
 Introduction:
 */
 
-// pub mod database;
-// mod entity;
-
-
-
-
-
 use clap::{App, Arg};
-use bson::{ doc};
+use bson::{doc};
 use manage_define::manage_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::field_ids::*;
@@ -58,7 +51,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         panic!("需要指定项目配置文件、定义文件或者包含定义文件的目录");
     }
 
-    if let Some(cfg_path) = matches.value_of("configs"){
+    if let Some(cfg_path) = matches.value_of("configs") {
         configs::init_configs_path(cfg_path.to_string()).expect("初始化设置文件路径失败");
     }
 
@@ -84,13 +77,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let tomls = utils::get_tomls_from_pathes(&toml_pathes).unwrap();
     println!("------读取定义文件完成-----\n\n");
 
-
     // 使用root用户和root组初始化管理数据库
     let root_id = &"86100000000000".to_string();
     let root_group_id = &"1000000".to_string();
 
     // 1. 创建管理集合
-    match db.create_collection(&MANAGES_MANAGE_ID.to_string(), None).await{
+    match db.create_collection(&MANAGES_MANAGE_ID.to_string(), None).await {
         Err(e) => println!("创建管理集合失败: {} {:?}", MANAGES_MANAGE_ID, e),
         _ => println!("创建管理成功 {}", MANAGES_MANAGE_ID),
     }
@@ -140,11 +132,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         // 管理集合已经创建
         if manage_id == MANAGES_MANAGE_ID.to_string() {
-            continue
+            continue;
         }
 
         // 创建集合
-        match db.create_collection(&manage_id.clone(), None).await{
+        match db.create_collection(&manage_id.clone(), None).await {
             Err(e) => println!("创建管理集合失败: {} {:?}", manage_id, e),
             _ => println!("创建管理成功 {}", manage_id),
         }
@@ -173,7 +165,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if let Some(items) = utils::get_init_items(map) {
             for mut item in items {
                 if let Ok(_r) =
-                    entity::insert_entity(&manage_id.to_string(), &mut item, root_id, root_group_id).await
+                entity::insert_entity(&manage_id.to_string(), &mut item, root_id, root_group_id).await
                 {
                     continue;
                 } else {
@@ -188,11 +180,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("------开始添加映像规则-------");
     for map in &tomls {
         let rule_id = utils::get_id(map).unwrap();
-        let rule_name = 
-            match utils::get_name(map){
-            Some(m) => m,
-            None => continue,
-        };
+        let rule_name =
+            match utils::get_name(map) {
+                Some(m) => m,
+                None => continue,
+            };
 
         let view_rules = match utils::get_init_view_rules(map) {
             Some(m) => m,
@@ -213,7 +205,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             &mut rulse_doc,
             root_id,
             root_group_id,
-        ).await{
+        ).await {
             Ok(_r) => continue,
             Err(e) => println!("{} {}", e.operation(), e.details()),
         }

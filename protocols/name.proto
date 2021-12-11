@@ -27,6 +27,9 @@ message RenameRequest {
   string language = 3;
   string new_name = 4;
 }
+/**
+  @returns 成功返回新名字, 其他情况返回其他
+ */
 message RenameResponse {
   string result = 1;
 }
