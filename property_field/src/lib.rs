@@ -11,9 +11,6 @@ use std::fmt::{Display, Formatter};
 use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
 
-
-
-
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub enum FieldDataType {
     None,
@@ -31,18 +28,6 @@ pub enum FieldDataType {
     Map,
     Date,
     DateTime,
-}
-
-#[derive(Debug, Serialize, Deserialize, Hash, Eq, PartialEq)]
-pub enum Language {
-    Cn,
-    En,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Name {
-    language: Language,
-    name: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -114,15 +99,6 @@ impl From<String> for FieldDataType {
             FieldDataType::DateTime
         } else {
             FieldDataType::None
-        }
-    }
-}
-
-impl Display for Language {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Language::Cn => write!(f, "Cn"),
-            Language::En => write!(f, "En"),
         }
     }
 }

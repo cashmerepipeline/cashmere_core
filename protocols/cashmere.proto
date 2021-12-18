@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package cashmere;
 
+import "property_type.proto";
 import "name.proto";
 import "area.proto";
 import "entity.proto";
@@ -26,6 +27,7 @@ import "tag_map.proto";
 import "comment.proto";
 import "question.proto";
 import "answer.proto";
+import "season.proto";
 
 service CashmereGrpc{
   // // =====管理=====

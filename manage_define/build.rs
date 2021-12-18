@@ -1,18 +1,8 @@
 use glob::glob;
 
 use linked_hash_map::LinkedHashMap;
-
 use bson::{Document, Bson};
-
-
-
 use std::io::prelude::*;
-
-
-
-
-
-
 use property_field::*;
 
 /// 读取文件为toml_map
@@ -117,7 +107,7 @@ fn main() {
     let mut manage_ids_map: LinkedHashMap<String, i32> = LinkedHashMap::new();
     let mut manage_field_ids_map: LinkedHashMap<String, Vec<(String, i32)>> = LinkedHashMap::new();
 
-    for entry in glob("../manage_define/defines/**/*.toml").expect("读取tmol文件失败") {
+    for entry in glob("../manage_define/defines/**/**/*.toml").expect("读取tmol文件失败") {
         match entry {
             Ok(path) => {
                 let toml_path = path.to_str().unwrap();

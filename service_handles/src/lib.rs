@@ -12,6 +12,7 @@ extern crate log;
 pub mod area_service_handles;
 pub mod cashmere;
 pub mod name_handle_service;
+pub mod name_utils;
 
 use tonic::{Response, Status};
 

@@ -1,5 +1,50 @@
-/// 名
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int32Range {
+    #[prost(int32, tag = "1")]
+    pub min: i32,
+    #[prost(int32, tag = "2")]
+    pub max: i32,
+    #[prost(int32, tag = "3")]
+    pub value: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int64Range {
+    #[prost(int64, tag = "1")]
+    pub min: i64,
+    #[prost(int64, tag = "2")]
+    pub max: i64,
+    #[prost(int64, tag = "3")]
+    pub value: i64,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UInt32Range {
+    #[prost(uint32, tag = "1")]
+    pub min: u32,
+    #[prost(uint32, tag = "2")]
+    pub max: u32,
+    #[prost(uint32, tag = "3")]
+    pub value: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FloatRange {
+    #[prost(float, tag = "1")]
+    pub min: f32,
+    #[prost(float, tag = "2")]
+    pub max: f32,
+    #[prost(float, tag = "3")]
+    pub value: f32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DoubleRange {
+    #[prost(double, tag = "1")]
+    pub min: f64,
+    #[prost(double, tag = "2")]
+    pub max: f64,
+    #[prost(double, tag = "3")]
+    pub value: f64,
+}
+/// 名
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct Name {
     #[prost(string, tag = "1")]
     pub language: ::prost::alloc::string::String,
@@ -847,6 +892,14 @@ pub struct RemoveAnswerResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Season {
+    Spring = 0,
+    Summer = 1,
+    Autumn = 2,
+    Winter = 3,
+}
 #[doc = r" Generated server implementations."]
 pub mod cashmere_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
@@ -881,7 +934,7 @@ pub mod cashmere_grpc_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for CashmereGrpcServer<T>
     where
         T: CashmereGrpc,
-        B: Body + Send + Sync + 'static,
+        B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
         type Response = http::Response<tonic::body::BoxBody>;

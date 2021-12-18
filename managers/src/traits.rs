@@ -87,8 +87,8 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 取得描写模式bson
     async fn get_schema_document(&self) -> Result<Bson, OperationResult> {
         let manage_doc_arc = self.get_manage_document().await;
-        let manage_doc = manage_doc_arc.read();
-        Ok(manage_doc
+        let manage_doc_rlock = manage_doc_arc.read();
+        Ok(manage_doc_rlock
             .get(&MANAGES_SCHEMA_FIELD_ID.to_string())
             .unwrap()
             .clone())
@@ -117,7 +117,6 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
         // 检查是否在描写中
         let schema = self.get_manage_schema().await.unwrap();
-        
 
         if schema.iter().map(|x| x.id).any(|x| x == ks[0]) {
             Ok(operation_succeed("ok"))
@@ -153,6 +152,29 @@ pub trait ManagerTrait: Any + Send + Sync {
 
             data_keys.push(ks[0]);
         }
+        // 检查是否在描写中
+        let schema = self.get_manage_schema().await.unwrap();
+        
+        for k in data_keys {
+            if schema.iter().map(|x| x.id).any(|x| x == k) {
+                continue;
+            } else {
+                return Err(operation_failed(
+                    "validate_data_fields",
+                    format!("属性不在描写中 {}", k),
+                ));
+            }
+        }
+        Ok(operation_succeed("ok"))
+    }
+
+    async fn validate_data_fields_doc(
+        &self,
+        fields_doc: &Document,
+    ) -> Result<OperationResult, OperationResult> {
+        // 取出ids
+        let data_keys: Vec<i32> = fields_doc.iter().map(|x| x.0.parse::<i32>().unwrap()).collect();
+        
         // 检查是否在描写中
         let schema = self.get_manage_schema().await.unwrap();
         

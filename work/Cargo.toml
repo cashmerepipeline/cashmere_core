@@ -15,5 +15,5 @@ procedure = {path = "../procedure"}
 manage_define = {path = "../manage_define"}
 
 bson = "2.0.1"
-serde = "1.0.117"
-serde_derive = "1.0.117"
+serde = "1.0.131"
+serde_derive = "1.0.131"

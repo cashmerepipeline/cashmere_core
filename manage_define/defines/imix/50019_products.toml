@@ -4,7 +4,7 @@
 #
 
 id = 50019
-name = { Cn = "产品", En = "productions" }
+name = { Cn = "产品", En = "products" }
 
 # 数据描写 或者 模式
 schema = [
@@ -12,12 +12,16 @@ schema = [
     { data_type = "String", name = { Cn = "供货商编号", En = "supplier_id"}, removed = false },
 
     { data_type = "List", name = { Cn = "款式表", En = "styles_id"}, removed = false },
+    { data_type = "Map", name = { Cn = "年龄段", En = "suitable_age_range"}, removed = false },
+    { data_type = "List", name = { Cn = "人群", En = "suitable_crow"}, removed = false },
+    { data_type = "String", name = { Cn = "性别", En = "suitable_gender"}, removed = false },
+    { data_type = "String", name = { Cn = "季节", En = "suitable_seasons"}, removed = false },
 
-    # {使用类型:"xxx", 使用编号:xxx}
-    { data_type = "String", name = { Cn = "使用方法", En = "uses_id"}, removed = false },
+    { data_type = "List", name = { Cn = "穿戴位置", En = "wear_location"}, removed = false },
+    { data_type = "List", name = { Cn = "穿戴层", En = "wear_layer"}, removed = false },
 
     # {保养类型:"xxx", 保养编号:xxx}
-    { data_type = "String", name = { Cn = "洗护方法", En = "maintains_id"}, removed = false },
+    { data_type = "Map", name = { Cn = "洗护方法", En = "maintain_methods"}, removed = false },
 ]
 
 
