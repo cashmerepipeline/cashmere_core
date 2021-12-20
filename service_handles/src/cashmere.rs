@@ -94,6 +94,19 @@ pub struct NewLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct Color {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(uint32, tag = "2")]
+    pub red: u32,
+    #[prost(uint32, tag = "3")]
+    pub green: u32,
+    #[prost(uint32, tag = "4")]
+    pub blue: u32,
+    #[prost(uint32, tag = "5")]
+    pub alpha: u32,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaRequest {
     #[prost(string, tag = "1")]

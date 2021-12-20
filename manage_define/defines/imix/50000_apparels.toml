@@ -9,9 +9,9 @@ name = { Cn = "单品", En = "apparels" }
 # 数据描写 或者 模式
 schema = [
     # 对应产品
-    { data_type = "String", name = { Cn = "产品编号", En = "clothes_id"}, removed = false },
-    { data_type = "String", name = { Cn = "店铺编号", En = "store_id"}, removed = false },
+    { data_type = "String", name = { Cn = "产品编号", En = "product_id"}, removed = false },
     { data_type = "String", name = { Cn = "款式编号", En = "styles_id"}, removed = false },
+    { data_type = "String", name = { Cn = "店铺编号", En = "store_id"}, removed = false },
 
     { data_type = "String", name = { Cn = "状态", En = "status"}, removed = false },
     { data_type = "String", name = { Cn = "使用成员", En = "family_member_id"}, removed = false },

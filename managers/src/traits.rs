@@ -578,7 +578,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
-                "pop_entity_array_field".to_string(),
+                "pull_entity_array_field".to_string(),
             )),
         }
     }
