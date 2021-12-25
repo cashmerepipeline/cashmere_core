@@ -913,6 +913,13 @@ pub enum Season {
     Autumn = 2,
     Winter = 3,
 }
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct Position {
+    #[prost(int32, tag = "1")]
+    pub x: i32,
+    #[prost(int32, tag = "2")]
+    pub y: i32,
+}
 #[doc = r" Generated server implementations."]
 pub mod cashmere_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]

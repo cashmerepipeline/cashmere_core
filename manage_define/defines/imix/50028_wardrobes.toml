@@ -7,11 +7,9 @@ id = 50028
 name = { Cn = "衣柜", En = "wardrobes" }
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name = { Cn = "物主编号", En = "owner_id"}, removed = false },
     { data_type = "List", name = { Cn = "搭配", En = "mix_ids"}, removed = false },
     { data_type = "List", name = { Cn = "单品", En = "apparel_ids"}, removed = false },
 ]
-
 
 # 事件队列和消息队列表
 [queues]

@@ -1,0 +1,16 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+position.proto (c) 2021
+Desc: 位置
+Created:  2021-12-23T00:58:31.923Z
+Modified: !date!
+*/
+
+
+syntax = "proto3";
+package cashmere;
+
+message Position {
+  int32 x = 1;
+  int32 y = 2;
+}
