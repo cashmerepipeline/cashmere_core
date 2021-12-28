@@ -104,6 +104,7 @@ pub async fn can_manage_write(
     result
 }
 
+
 /// 集合是否可写，向集合添加或者删除实体
 pub async fn can_collection_write(
     _account: &String, 

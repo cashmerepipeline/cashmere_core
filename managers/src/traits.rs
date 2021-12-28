@@ -225,7 +225,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         Ok(m_docs_op.unwrap())
     }
 
-    // 新建管理描写属性
+    /// 新建管理描写属性
     async fn new_schema_field(
         &self,
         new_field: PropertyField,
@@ -460,7 +460,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         result
     }
 
-    // 通过id取得实体
+    /// 通过id取得实体
     async fn get_entity_by_id(
         &self,
         entity_id: &String
@@ -472,7 +472,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-    // 通过过滤取得实体
+    /// 通过过滤取得实体
     async fn get_entities_by_filter(
         &self,
         filter: &Option<Document>,
@@ -481,6 +481,24 @@ pub trait ManagerTrait: Any + Send + Sync {
         match entity::get_entities(&manage_id, filter).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
+        }
+    }
+
+    /// 取得条件排序分页
+    async fn get_entities_by_page(
+        &self,
+        page_index: u32,
+        conditions: &Document,
+    ) -> Result<Vec<Document>, OperationResult> {
+        let manage_id = self.get_manager_id().to_string();
+        
+        match entity::get_entities_by_page(
+            &manage_id,
+            page_index,
+            conditions,
+        ).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(e, "get_entities_by_page".to_string())),
         }
     }
 

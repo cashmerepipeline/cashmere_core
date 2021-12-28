@@ -56,8 +56,8 @@ pub async fn get_new_entity_id(
 
 pub async fn entity_exists(
     manage_id: &String,
-    query_doc: Document
-) -> bool{
+    query_doc: Document,
+) -> bool {
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
@@ -79,7 +79,7 @@ pub async fn entity_exists(
 
 /// 根据名字判断条目是否存在
 pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
-    let query_doc = doc!{
+    let query_doc = doc! {
         "name": entity_name.clone()
     };
 
@@ -88,9 +88,9 @@ pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
 
 pub async fn exists_by_id(
     manage_id: &String,
-    entity_id: &String
+    entity_id: &String,
 ) -> bool {
-    let query_doc = doc!{
+    let query_doc = doc! {
         "_id": entity_id.clone()
     };
 
@@ -623,6 +623,39 @@ pub async fn get_entities(
     }
 }
 
+/// 取得条件排序分页
+pub async fn get_entities_by_page(
+    collection_name: &String,
+    page_index: u32,
+    conditions: &Document,
+) -> Result<Vec<Document>, OperationResult> {
+    let collection = match database::get_collection_by_id(collection_name).await {
+        Some(c) => c,
+        None => return Err(collection_not_exists("get_entities")),
+    };
+    let mut pipeline: Vec<Document> = vec![];
+    pipeline.push(doc! {"$sort": conditions.clone()});
+    pipeline.push(doc! {"$limit": 20});
+    let cursor = collection.aggregate(pipeline, None).await;
+
+    let mut result: Vec<Document> = Vec::new();
+    match cursor {
+        Ok(mut r) => {
+            while let Some(d) = r.next().await {
+                match d {
+                    Ok(dc) => result.push(dc),
+                    _ => continue,
+                }
+            }
+            Ok(result)
+        }
+        Err(_e) => Err(operation_failed(
+            "get_entities_by_page",
+            format!("获取分页失败{}-{}", page_index, conditions),
+        )),
+    }
+}
+
 /// 取得实体属性
 pub fn get_entity_field(entity_doc: &Document, field_name: impl Into<String>) -> Option<Bson> {
     entity_doc.get(field_name.into().as_str()).cloned()
@@ -674,7 +707,7 @@ pub fn get_entity_name(entity_doc: &Document) -> Option<String> {
             //     name_b = x.1.clone();
             //     break;
             // }
-            if let Some(first_name) = n.into_iter().next(){
+            if let Some(first_name) = n.into_iter().next() {
                 name_b = first_name.1.clone();
             }
             Some(name_b.as_str().unwrap().to_string())
@@ -717,3 +750,4 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
+

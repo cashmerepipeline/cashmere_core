@@ -1,14 +1,17 @@
 #
-# 家庭
-# 家庭
+# 家庭成员
+# 家庭成员
 #
 
-id = 50008
-name = { Cn = "家庭", En = "families" }
+id = 50003
+name = { Cn = "家庭成员", En = "family_members" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "成员表", En = "member_ids"}, removed = false },
+    { data_type = "String", name = { Cn = "家庭", En = "family_id"}, removed = false },
+    { data_type = "Int32", name = { Cn = "类型", En = "member_type"}, removed = false },
+    { data_type = "String", name = { Cn = "编号", En = "member_id"}, removed = false },
+    { data_type = "String", name = { Cn = "昵称", En = "pet_name"}, removed = false },
 ]
 
 # 事件队列和消息队列表
