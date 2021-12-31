@@ -7,7 +7,10 @@ id = 50007
 name = { Cn = "顾客", En = "customers" }
 
 # 数据描写 或者 模式
-schema = []
+schema = [
+    { data_type = "String", name = { Cn = "店铺编号", En = "store_id"}, removed = false },
+    { data_type = "List", name = { Cn = "消费表", En = "consumptions"}, removed = false },
+]
 
 # 事件队列和消息队列表
 [queues]
