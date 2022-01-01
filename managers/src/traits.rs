@@ -557,7 +557,8 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     //-------------------------
-//  数组属性操作
+    //  数组属性操作
+    /// 添加数组元素
     async fn push_entity_array_field(
         &self,
         query_doc: Document,
@@ -578,7 +579,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-
+    /// 移除数组元素
     async fn pull_entity_array_field(
         &self,
         query_doc: Document,
@@ -602,7 +603,8 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     //-------------------------
-//  数组属性操作
+    //  映射属性操作
+    /// 添加映射字段
     async fn insert_entity_map_field(
         &self,
         query_doc: Document,
@@ -626,6 +628,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
+    /// 更新映射字段
     async fn update_entity_map_field(
         &self,
         query_doc: Document,

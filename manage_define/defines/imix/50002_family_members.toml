@@ -25,7 +25,6 @@ massage_queue = []
 # 初始实体
 [items]
 
-
 [view_rules]
 
 [view_rules.manage]
