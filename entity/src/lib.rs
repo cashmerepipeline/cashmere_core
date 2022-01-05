@@ -18,35 +18,30 @@ use std::collections::BTreeMap;
 // use tokio::stream::StreamExt;
 use futures::stream::StreamExt;
 
-use manage_define::general_field_ids::*;
 use cash_result::*;
-
+use manage_define::general_field_ids::*;
 
 use database::get_cashmere_database;
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 
 /// 取得新连续id
-pub async fn get_new_entity_id(
-    manage_id: &String,
-    account_id: &String,
-) -> Option<i64> {
+pub async fn get_new_entity_id(manage_id: &String, account_id: &String) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
-    let result =
-        ids_collection
-            .find_one_and_update(
-                doc! {
+    let result = ids_collection
+        .find_one_and_update(
+            doc! {
                 "_id": manage_id.clone()
             },
-                doc! {
+            doc! {
                 "$inc": {"id_count":1},
                 "$set": {
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
                 }
             },
-                Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
-            )
-            .await;
+            Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
+        )
+        .await;
 
     match result {
         Ok(r) => Some(r.unwrap().get_i32("id_count").unwrap() as i64),
@@ -54,21 +49,13 @@ pub async fn get_new_entity_id(
     }
 }
 
-pub async fn entity_exists(
-    manage_id: &String,
-    query_doc: Document,
-) -> bool {
+pub async fn entity_exists(manage_id: &String, query_doc: Document) -> bool {
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
         None => return false,
     };
-    let result = collection
-        .find_one(
-            query_doc,
-            None,
-        )
-        .await;
+    let result = collection.find_one(query_doc, None).await;
 
     match result {
         Ok(Some(_r)) => true,
@@ -86,10 +73,7 @@ pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
     entity_exists(manage_id, query_doc).await
 }
 
-pub async fn exists_by_id(
-    manage_id: &String,
-    entity_id: &String,
-) -> bool {
+pub async fn exists_by_id(manage_id: &String, entity_id: &String) -> bool {
     let query_doc = doc! {
         "_id": entity_id.clone()
     };
@@ -160,12 +144,7 @@ pub async fn change_entity_owner(
     let query_doc = doc! {"_id":entity_id.clone()};
     let modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
 
-    let result = update_entity_field(
-        manage_id,
-        query_doc,
-        modify_doc,
-        account_id,
-    ).await;
+    let result = update_entity_field(manage_id, query_doc, modify_doc, account_id).await;
 
     result
 }
@@ -191,11 +170,7 @@ pub async fn update_entity_groups(
         GROUPS_FIELD_ID.to_string(): { "$each":new_groups}
     };
 
-    push_entity_array_field(
-        manage_id,
-        query_doc,
-        modify_doc,
-        account_id).await
+    push_entity_array_field(manage_id, query_doc, modify_doc, account_id).await
 }
 
 /// 更新实体单个属性
@@ -520,12 +495,7 @@ pub async fn update_entity_map_field(
     modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
-    insert_entity_map_field(
-        manage_id,
-        query_doc,
-        modify_doc,
-        account_id,
-    ).await
+    insert_entity_map_field(manage_id, query_doc, modify_doc, account_id).await
 }
 
 /// 取得 实体
@@ -627,13 +597,18 @@ pub async fn get_entities(
 pub async fn get_entities_by_page(
     collection_name: &String,
     page_index: u32,
+    matches: &Option<Document>,
     conditions: &Document,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("get_entities")),
+        None => return Err(collection_not_exists("get_entities_by_page")),
     };
+
     let mut pipeline: Vec<Document> = vec![];
+    if matches.is_some() {
+        pipeline.push(doc! {"$match": matches});
+    }
     pipeline.push(doc! {"$sort": conditions.clone()});
     pipeline.push(doc! {"$limit": 20});
     let cursor = collection.aggregate(pipeline, None).await;
@@ -750,4 +725,3 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
-

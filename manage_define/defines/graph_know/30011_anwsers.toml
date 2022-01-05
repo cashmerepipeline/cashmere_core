@@ -1,13 +1,15 @@
 #
-# 标签
-# 
+# 资产库, 收集分类资产，资产可以存放在本库路径下，也可以存放到其他位置
 #
 
-id = 50027
-name = { Cn = "标签", En = "tags" }
+id = 10022
+name = { Cn = "回答", En = "answers" }
 
 # 数据描写 或者 模式
-schema = []
+schema = [
+    { data_type = "String", name = { Cn = "问题", En = "question"}, removed = false },
+    { data_type = "String", name = { Cn = "内容", En = "contents"}, removed = false },
+]
 
 
 
@@ -57,5 +59,8 @@ massage_queue = []
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
 [view_rules.schema.1008]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+[view_rules.schema.1009]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }

@@ -35,21 +35,21 @@ pub mod persons_manager;
 pub mod view_rules_manager;
 pub mod templates_manager;
 
-pub mod orgnizations_manager;
-pub mod departments_manager;
-pub mod questions_manager;
+// pub mod orgnizations_manager;
+// pub mod departments_manager;
+// pub mod questions_manager;
 pub mod comments_manager;
-pub mod answers_manager;
+// pub mod answers_manager;
 
-pub mod graph_know;
-pub mod imix;
-pub mod knitter;
+// pub mod graph_know;
+// pub mod imix;
+// pub mod knitter;
 
 pub mod traits;
 mod macros;
 pub(crate) mod schema;
-pub mod tag_types_manager;
-pub mod show_settings_manager;
+// pub mod tag_types_manager;
+// pub mod show_settings_manager;
 
 // use log::{info};
 

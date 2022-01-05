@@ -488,6 +488,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn get_entities_by_page(
         &self,
         page_index: u32,
+        matches: &Option<Document>,
         conditions: &Document,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
@@ -495,6 +496,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         match entity::get_entities_by_page(
             &manage_id,
             page_index,
+            matches,
             conditions,
         ).await {
             Ok(r) => Ok(r),

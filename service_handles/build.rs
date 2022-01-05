@@ -1,3 +1,5 @@
+use manage_define;
+
 fn main() {
     tonic_build::configure()
         .out_dir("src")
@@ -11,4 +13,9 @@ fn main() {
         )
         .compile(&["../protocols/cashmere.proto"], &["../protocols"])
         .unwrap();
+
+    manage_define::generate_manage_defines(
+        &vec!["../manage_define/defines/core"],
+        "../manage_define/src",
+    );
 }
