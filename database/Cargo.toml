@@ -15,7 +15,7 @@ cash_core = {path="../cash_core"}
 cash_result = {path="../cash_result"}
 manage_define = {path="../manage_define"}
 
-mongodb = {version="2.0.1", default_features=false, features=["async-std-runtime"]}
+mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
 tokio = "1.4.0"
 toml = {version = "0.5.7", features=["preserve_order"]}
 linked-hash-map="0.5.3"

@@ -21,7 +21,7 @@ chrono = "0.4.19"
 tokio = "1.14.0"
 clap = "3.1.18"
 
-bson = "2.0.1"
-mongodb = {version="2.0.1", default_features=false, features=["async-std-runtime"]}
+bson = "2.2.0"
+mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
 
 
