@@ -5,7 +5,7 @@ Create time: 2020-10-16 10:45
 Introduction:
 */
 
-use clap::{App, Arg};
+use clap::{Arg, Command};
 use bson::{doc};
 use manage_define::manage_ids::*;
 use manage_define::general_field_ids::*;
@@ -15,28 +15,28 @@ use define_utils as utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let matches = App::new("Manager Init")
+    let matches = Command::new("Manager Init")
         .arg(
             Arg::new("debug")
-                .about("turn on debugging information")
+                .help("turn on debugging information")
                 .short('d'),
         )
         .args(&[
             // 数据库地址
             Arg::new("configs")
-                .about("configs file path")
+                .help("configs file path")
                 .takes_value(true)
                 .short('c')
                 .long("configs"),
             // 指定单个文件
             Arg::new("file")
-                .about("manage toml file")
+                .help("manage toml file")
                 .takes_value(true)
                 .short('f')
                 .long("file"),
             // 指定目录
             Arg::new("directory")
-                .about("toml files directory")
+                .help("toml files directory")
                 .takes_value(true)
                 .short('r')
                 .long("directory"),
