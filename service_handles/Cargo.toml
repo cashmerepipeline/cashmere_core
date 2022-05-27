@@ -11,8 +11,8 @@ linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
 async-trait = "0.1.48"
 futures = "0.3.13"
 tokio = { version = "1.4.0" }
-tonic = { version = "0.6.2", features = ["tls"] }
-prost = "0.9.0"
+tonic = { version = "0.7.2", features = ["tls"] }
+prost = "0.10.4"
 chrono = "0.4.19"
 bson = "2.0.1"
 serde = "1.0.131"
@@ -34,5 +34,5 @@ property_field = { path = "../property_field" }
 view = { path = "../view" }
 
 [build-dependencies]
-tonic-build = "0.6.2"
+tonic-build = "0.7.2"
 manage_define = { path = "../manage_define" }

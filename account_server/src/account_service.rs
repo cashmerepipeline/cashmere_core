@@ -1,127 +1,128 @@
 /// 使用手机号码 密码登录
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub country_code: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginResponse {
-    #[prost(bytes = "vec", tag = "1")]
+    #[prost(bytes="vec", tag="1")]
     pub person: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub token: ::prost::alloc::string::String,
 }
 /// 登出
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LogoutRequest {}
+pub struct LogoutRequest {
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogoutResponse {
-    #[prost(enumeration = "LoginStatus", tag = "1")]
+    #[prost(enumeration="LoginStatus", tag="1")]
     pub result: i32,
 }
 /// 使用校验码登录
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginWithValidCodeRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub valid_code: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginWithValidCodeResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 取得校验码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetValidateCodeRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub phone: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetValidateCodeResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 添加账号, 需要手工添加账号的情景
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAccountRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub organization_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub department_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub group_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "5")]
+    #[prost(string, tag="5")]
     pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAccountResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 注册账号, 用户需要自己注册账号的情景
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub organization_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub department_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "5")]
+    #[prost(string, tag="5")]
     pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 自己修改手机号码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPhoneRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub old_phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub new_phone: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangePhoneOwnResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 修改自己的密码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPasswordRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub old_password: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub new_password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPasswordResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 重置密码, 管理员操作或者后台操作
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResetPasswordRequest {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub account_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub new_password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResetPasswordResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -136,7 +137,7 @@ pub enum AccountStatus {
     Stopped = 0,
     Actived = 1,
 }
-#[doc = r" Generated client implementations."]
+/// Generated client implementations.
 pub mod account_grpc_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
@@ -145,7 +146,7 @@ pub mod account_grpc_client {
         inner: tonic::client::Grpc<T>,
     }
     impl AccountGrpcClient<tonic::transport::Channel> {
-        #[doc = r" Attempt to create a new client by connecting to a given endpoint."]
+        /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
             D: std::convert::TryInto<tonic::transport::Endpoint>,
@@ -158,8 +159,8 @@ pub mod account_grpc_client {
     impl<T> AccountGrpcClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + Send + 'static,
         T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
         <T::ResponseBody as Body>::Error: Into<StdError> + Send,
     {
         pub fn new(inner: T) -> Self {
@@ -172,55 +173,64 @@ pub mod account_grpc_client {
         ) -> AccountGrpcClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
             T: tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
                 Response = http::Response<
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
         {
             AccountGrpcClient::new(InterceptedService::new(inner, interceptor))
         }
-        #[doc = r" Compress requests with `gzip`."]
-        #[doc = r""]
-        #[doc = r" This requires the server to support it otherwise it might respond with an"]
-        #[doc = r" error."]
+        /// Compress requests with `gzip`.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
         pub fn send_gzip(mut self) -> Self {
             self.inner = self.inner.send_gzip();
             self
         }
-        #[doc = r" Enable decompressing responses with `gzip`."]
+        /// Enable decompressing responses with `gzip`.
+        #[must_use]
         pub fn accept_gzip(mut self) -> Self {
             self.inner = self.inner.accept_gzip();
             self
         }
-        #[doc = " 登录"]
+        /// 登录
         pub async fn login(
             &mut self,
             request: impl tonic::IntoRequest<super::LoginRequest>,
         ) -> Result<tonic::Response<super::LoginResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/account_service.AccountGrpc/Login");
+            let path = http::uri::PathAndQuery::from_static(
+                "/account_service.AccountGrpc/Login",
+            );
             self.inner.unary(request.into_request(), path, codec).await
         }
     }
 }
-#[doc = r" Generated server implementations."]
+/// Generated server implementations.
 pub mod account_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    #[doc = "Generated trait containing gRPC methods that should be implemented for use with AccountGrpcServer."]
+    ///Generated trait containing gRPC methods that should be implemented for use with AccountGrpcServer.
     #[async_trait]
     pub trait AccountGrpc: Send + Sync + 'static {
-        #[doc = " 登录"]
+        /// 登录
         async fn login(
             &self,
             request: tonic::Request<super::LoginRequest>,
@@ -235,7 +245,9 @@ pub mod account_grpc_server {
     struct _Inner<T>(Arc<T>);
     impl<T: AccountGrpc> AccountGrpcServer<T> {
         pub fn new(inner: T) -> Self {
-            let inner = Arc::new(inner);
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
             let inner = _Inner(inner);
             Self {
                 inner,
@@ -243,7 +255,10 @@ pub mod account_grpc_server {
                 send_compression_encodings: Default::default(),
             }
         }
-        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
         {
@@ -257,9 +272,12 @@ pub mod account_grpc_server {
         B::Error: Into<StdError> + Send + 'static,
     {
         type Response = http::Response<tonic::body::BoxBody>;
-        type Error = Never;
+        type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -268,9 +286,13 @@ pub mod account_grpc_server {
                 "/account_service.AccountGrpc/Login" => {
                     #[allow(non_camel_case_types)]
                     struct LoginSvc<T: AccountGrpc>(pub Arc<T>);
-                    impl<T: AccountGrpc> tonic::server::UnaryService<super::LoginRequest> for LoginSvc<T> {
+                    impl<T: AccountGrpc> tonic::server::UnaryService<super::LoginRequest>
+                    for LoginSvc<T> {
                         type Response = super::LoginResponse;
-                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::LoginRequest>,
@@ -287,23 +309,28 @@ pub mod account_grpc_server {
                         let inner = inner.0;
                         let method = LoginSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
-                            accept_compression_encodings,
-                            send_compression_encodings,
-                        );
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)
                 }
-                _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
-                }),
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", "12")
+                                .header("content-type", "application/grpc")
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
             }
         }
     }

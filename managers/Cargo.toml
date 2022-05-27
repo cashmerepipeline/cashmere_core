@@ -17,7 +17,7 @@ manage_define = {path="../manage_define"}
 property_field = {path="../property_field"}
 
 async-trait = "0.1.48"
-parking_lot = "0.11.0"
+parking_lot = "0.12.0"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 linked-hash-map = { version = "0.5.3", feature = ["serde_impl"] }
