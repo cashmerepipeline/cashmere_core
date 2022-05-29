@@ -10,6 +10,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
 use view;
 
 #[async_trait]
@@ -39,8 +40,6 @@ pub trait HandleNewArea {
                 None => return Err(Status::unauthenticated("用户不具有可写权限")),
             };
 
-        let mut new_entity_doc = Document::new();
-
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
             .get_manager_by_id(AREAS_MANAGE_ID)
@@ -61,25 +60,29 @@ pub trait HandleNewArea {
             return Err(Status::aborted("区域已经存在"));
         }
 
-        new_entity_doc.insert("_id", code);
-        new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
-        new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
-        new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
-        new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
+        if let mut new_entity_doc = make_new_entity_document(&manager).await.unwrap() {
+            new_entity_doc.insert("_id", code);
+            new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
+            new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
+            new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
+            new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
 
-        let result = manager
-            .sink_entity(&mut new_entity_doc, &account_id, &group_id)
-            .await;
+            let result = manager
+                .sink_entity(&mut new_entity_doc, &account_id, &group_id)
+                .await;
 
-        match result {
-            Ok(_r) => Ok(Response::new(NewAreaResponse {
-                result: "ok".to_string(),
-            })),
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
+            match result {
+                Ok(_r) => Ok(Response::new(NewAreaResponse {
+                    result: "ok".to_string(),
+                })),
+                Err(e) => Err(Status::aborted(format!(
+                    "{} {}",
+                    e.operation(),
+                    e.details()
+                ))),
+            }
+        } else {
+            Err(Status::aborted("创建新区域失败"))
         }
     }
 
