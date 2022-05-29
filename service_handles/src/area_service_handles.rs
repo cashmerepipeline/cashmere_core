@@ -68,7 +68,7 @@ pub trait HandleNewArea {
         new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
 
         let result = manager
-            .new_entity(&mut new_entity_doc, &account_id, &group_id)
+            .sink_entity(&mut new_entity_doc, &account_id, &group_id)
             .await;
 
         match result {

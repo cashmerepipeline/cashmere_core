@@ -21,6 +21,7 @@ use async_trait::async_trait;
 use bson::{Bson, Document};
 use parking_lot::RwLock;
 use std::{any::Any, sync::Arc};
+use entity::get_new_entity_id;
 
 
 use crate::schema::schema_field_exists;
@@ -428,14 +429,14 @@ pub trait ManagerTrait: Any + Send + Sync {
         ))
     }
 
-    // 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
+    /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
     async fn get_new_entity_id(&self) -> Option<i64> {
         let manage_id = self.get_manager_id().to_string();
         entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
     }
 
     // 新建实体
-    async fn new_entity(
+    async fn sink_entity(
         &self,
         new_entity_doc: &mut Document,
         account_id: &String,

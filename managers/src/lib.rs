@@ -34,8 +34,8 @@ pub mod message_handles_manager;
 pub mod persons_manager;
 pub mod view_rules_manager;
 pub mod templates_manager;
-
 pub mod comments_manager;
+pub mod utils;
 
 pub mod traits;
 mod macros;
@@ -70,13 +70,13 @@ impl ManagerTrait for Manager {
         self.inner.get_schema_document().await
     }
 
-    async fn new_entity(
+    async fn sink_entity(
         &self,
         new_entity_doc: &mut Document,
         account_id: &String,
         group_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        self.inner.new_entity(new_entity_doc, account_id, group_id).await
+        self.inner.sink_entity(new_entity_doc, account_id, group_id).await
     }
 
     async fn entity_exists(
@@ -152,13 +152,13 @@ impl ManagerTrait for ManagerInner {
         self.manager.get_schema_document().await
     }
 
-    async fn new_entity(
+    async fn sink_entity(
         &self,
         new_entity_doc: &mut Document,
         account_id: &String,
         group_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        self.manager.new_entity(new_entity_doc, account_id, group_id).await
+        self.manager.sink_entity(new_entity_doc, account_id, group_id).await
     }
 
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
