@@ -11,8 +11,9 @@ syntax = "proto3";
 package account_service;
 
 enum LoginStatus{
-  Login = 0;
-  Out = 1;
+  LoggedIn = 0;
+  LoggedOut = 1;
+  LogginFailed = 2;
 }
 
 enum AccountStatus{

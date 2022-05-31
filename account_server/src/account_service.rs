@@ -128,8 +128,9 @@ pub struct ResetPasswordResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum LoginStatus {
-    Login = 0,
-    Out = 1,
+    LoggedIn = 0,
+    LoggedOut = 1,
+    LogginFailed = 2,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
