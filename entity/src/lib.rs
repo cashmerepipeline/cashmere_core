@@ -598,7 +598,7 @@ pub async fn get_entities_by_page(
     collection_name: &String,
     page_index: u32,
     matches: &Option<Document>,
-    conditions: &Document,
+    conditions: &Option<Document>,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
@@ -609,8 +609,12 @@ pub async fn get_entities_by_page(
     if matches.is_some() {
         pipeline.push(doc! {"$match": matches});
     }
-    pipeline.push(doc! {"$sort": conditions.clone()});
-    pipeline.push(doc! {"$limit": 20});
+
+    if conditions.is_some() {
+        pipeline.push(doc! {"$sort": conditions.clone().unwrap()});
+    }
+
+    pipeline.push(doc! {"$limit": 20 as u32});
     let cursor = collection.aggregate(pipeline, None).await;
 
     let mut result: Vec<Document> = Vec::new();
@@ -626,7 +630,7 @@ pub async fn get_entities_by_page(
         }
         Err(_e) => Err(operation_failed(
             "get_entities_by_page",
-            format!("获取分页失败{}-{}", page_index, conditions),
+            format!("获取分页失败{}-{}", page_index, conditions.clone().unwrap()),
         )),
     }
 }

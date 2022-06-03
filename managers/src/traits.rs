@@ -490,7 +490,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         page_index: u32,
         matches: &Option<Document>,
-        conditions: &Document,
+        conditions: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
         

@@ -111,9 +111,17 @@ fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson> {
     }
 }
 
-pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str) {
-    let manage_ids_path = format!("{}/manage_ids.rs", target_dir);
-    let manage_field_ids_path = format!("{}/field_ids.rs", target_dir);
+pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir: Option<&str>) {
+    let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);
+    let manage_field_ids_path_rust = format!("{}/field_ids.rs", target_dir);
+
+    let mut manage_ids_path_dart = format!("{}/manage_ids.dart", target_dir);
+    let mut manage_field_ids_path_dart = format!("{}/field_ids.dart", target_dir);
+    if let dart_out = dart_dir.unwrap() {
+        manage_ids_path_dart = format!("{}/manage_ids.dart", dart_out);
+        manage_field_ids_path_dart = format!("{}/field_ids.dart", dart_out);
+    }
+
 
     let mut manage_ids_map: LinkedHashMap<String, i32> = LinkedHashMap::new();
     let mut manage_field_ids_map: LinkedHashMap<String, Vec<(String, i32)>> = LinkedHashMap::new();
@@ -168,18 +176,27 @@ pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str) {
         }
     }
 
-    let mut manage_ids_file =
-        std::fs::File::create(manage_ids_path).expect("打开管理编号文件失败");
-    let mut manage_field_ids_file =
-        std::fs::File::create(manage_field_ids_path).expect("打开属性编号文件失败");
+    let mut manage_ids_file_rust =
+        std::fs::File::create(manage_ids_path_rust).expect("打开管理编号rust文件失败");
+    let mut manage_field_ids_file_rust =
+        std::fs::File::create(manage_field_ids_path_rust).expect("打开属性编号rust文件失败");
+
+    let mut manage_ids_file_dart =
+        std::fs::File::create(manage_ids_path_dart).expect("打开管理编号dart文件失败");
+    let mut manage_field_ids_file_dart =
+        std::fs::File::create(manage_field_ids_path_dart).expect("打开属性编号dart文件失败");
 
     for (name, id) in manage_ids_map.iter() {
-        manage_ids_file.write_fmt(format_args!("pub const {}_MANAGE_ID:i32 = {}; \n", name.to_uppercase(), id)).expect("写入管理文件编码错误");
+        manage_ids_file_rust.write_fmt(format_args!("pub const {}_MANAGE_ID:i32 = {}; \n", name.to_uppercase(), id)).expect("写入管理rust文件编码错误");
+        manage_ids_file_dart.write_fmt(format_args!("const int {}_MANAGE_ID = {}; \n", name.to_uppercase(), id)).expect("写入管理dart文件编码错误");
     }
 
     for (name, fields) in manage_field_ids_map.iter() {
         for (s_name, s_id) in fields.iter() {
-            manage_field_ids_file.write_fmt(format_args!("pub const {}_{}_FIELD_ID:i32 = {};\n", name.to_uppercase(), s_name.to_uppercase(), s_id)).expect("写入属性编码文件错误")
+            manage_field_ids_file_rust.write_fmt(format_args!("pub const {}_{}_FIELD_ID:i32 = {};\n", name.to_uppercase(), s_name.to_uppercase(), s_id)).expect("写入属性编码rust文件错误");
+            manage_field_ids_file_dart.write_fmt(format_args!("const int {}_{}_FIELD_ID = {};\n", name.to_uppercase(), s_name.to_uppercase(), s_id)).expect("写入属性编码dart文件错误");
         }
     }
+
+
 }

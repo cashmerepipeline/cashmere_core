@@ -17,5 +17,6 @@ fn main() {
     manage_define::generate_manage_defines(
         &vec!["../manage_define/defines/core"],
         "../manage_define/src",
+        Some("../dart_packages/general_id_codes/lib/src"),
     );
 }
