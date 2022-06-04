@@ -8,11 +8,13 @@ Modified: !date!
 
 #[macro_use]
 extern crate log;
+extern crate core;
 
 pub mod area_service_handles;
 pub mod cashmere;
 pub mod name_handle_service;
 pub mod name_utils;
+pub mod manage_service_handle;
 
 use tonic::{Response, Status};
 

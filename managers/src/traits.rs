@@ -429,6 +429,12 @@ pub trait ManagerTrait: Any + Send + Sync {
         ))
     }
 
+    async fn get_entry_counts(&self) -> Result<u64, OperationResult> {
+        let manage_id = self.get_manager_id();
+
+        entity::get_entry_count(&manage_id.to_string()).await
+    }
+
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
     async fn get_new_entity_id(&self) -> Option<i64> {
         let manage_id = self.get_manager_id().to_string();
