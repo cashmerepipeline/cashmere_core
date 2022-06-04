@@ -17,7 +17,7 @@ log = "0.4.14"
 account = { path = "../account" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
-service_handles = { path = "../service_handles" }
+service_common_handles = { path = "../service_common_handles" }
 majordomo = {path = "../majordomo"}
 managers = {path = "../managers"}
 manage_define = {path = "../manage_define"}

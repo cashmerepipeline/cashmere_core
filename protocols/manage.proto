@@ -61,3 +61,12 @@ message EditSchemaFieldNameRequest{
 message EditSchemaFieldNameResponse{
   string result = 1;
 }
+
+
+// 取得记录数量
+message GetManageEntryCountRequest{
+  string manage_id = 1;
+}
+message GetManageEntryCountResponse{
+  uint64 count = 1;
+}

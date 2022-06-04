@@ -311,6 +311,17 @@ pub struct EditSchemaFieldNameResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得记录数量
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetManageEntryCountRequest {
+    #[prost(string, tag="1")]
+    pub manage_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetManageEntryCountResponse {
+    #[prost(uint64, tag="1")]
+    pub count: u64,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Event {
     #[prost(int32, tag="1")]

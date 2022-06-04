@@ -17,7 +17,7 @@ members = [
     "property_field",
     "event",
     #    "server",
-    "service_handles",
+    "service_common_handles",
     "majordomo",
     "manage_define",
     "define_utils",
