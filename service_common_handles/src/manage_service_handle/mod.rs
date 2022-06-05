@@ -13,3 +13,5 @@ mod declare_handle_get_manage_schema;
 mod declare_handle_new_schema_field;
 mod declare_handle_remove_schema_field;
 
+pub use handle_get_manage_entry_count::*;
+

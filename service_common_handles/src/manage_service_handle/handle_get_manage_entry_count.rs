@@ -15,7 +15,7 @@ use managers::utils::make_new_entity_document;
 use view;
 
 #[async_trait]
-pub trait HandleManage {
+pub trait HandleGetManageEntryCount {
     /// 取得管理记录数量
     async fn handle_get_manage_entry_count(
         &self,
