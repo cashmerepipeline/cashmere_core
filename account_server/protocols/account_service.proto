@@ -1,0 +1,22 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+account.proto (c) 2020
+Desc: 账号相关
+Created:  2020-09-24T00:20:32.607Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+
+package account_service;
+
+import "login.proto";
+import "account.proto";
+
+service AccountGrpc{
+  // 登录
+  rpc Login (LoginRequest) returns (LoginResponse);
+  // rpc Logout (LogoutRequest) returns (LogoutResponse);
+  // rpc AddAccount (AddAccountRequest) returns (AddAccountResponse);
+  // rpc Register (RegisterRequest) returns (RegisterResponse);
+}

@@ -1,61 +1,6 @@
-/*
-Author: 闫刚 (yes7rose@sina.com)
-account.proto (c) 2020
-Desc: 账号相关
-Created:  2020-09-24T00:20:32.607Z
-Modified: !date!
-*/
-
 syntax = "proto3";
 
 package account_service;
-
-enum LoginStatus{
-  LoggedIn = 0;
-  LoggedOut = 1;
-  LogginFailed = 2;
-}
-
-enum AccountStatus{
-  Stopped = 0;
-  Actived = 1;
-}
-
-// 使用手机号码 密码登录
-message LoginRequest {
-  string country_code = 1;
-  string phone = 2;
-  string password = 3;
-}
-
-message LoginResponse {
-  bytes person = 1;
-  string token = 2;
-}
-
-// 登出
-message LogoutRequest {
-}
-message LogoutResponse {
-  LoginStatus result = 1;
-}
-
-// 使用校验码登录
-message LoginWithValidCodeRequest {
-  string phone = 1;
-  string valid_code = 2;
-}
-message LoginWithValidCodeResponse {
-  string result = 1;
-}
-
-// 取得校验码
-message GetValidateCodeRequest {
-  string phone = 1;
-}
-message GetValidateCodeResponse {
-  string result = 1;
-}
 
 // 添加账号, 需要手工添加账号的情景
 message NewAccountRequest {
@@ -88,30 +33,4 @@ message ChangeOwnPhoneRequest{
 }
 message ChangePhoneOwnResponse{
   string result = 1;
-}
-
-// 修改自己的密码
-message ChangeOwnPasswordRequest{
-  string old_password = 1;
-  string new_password = 2;
-}
-message ChangeOwnPasswordResponse{
-  string result = 1;
-}
-
-// 重置密码, 管理员操作或者后台操作
-message ResetPasswordRequest{
-  string account_id = 1;
-  string new_password = 2;
-}
-message ResetPasswordResponse{
-  string result = 1;
-}
-
-service AccountGrpc{
-  // 登录
-  rpc Login (LoginRequest) returns (LoginResponse);
-  // rpc Logout (LogoutRequest) returns (LogoutResponse);
-  // rpc AddAccount (AddAccountRequest) returns (AddAccountResponse);
-  // rpc Register (RegisterRequest) returns (RegisterResponse);
 }
