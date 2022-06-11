@@ -1,4 +1,4 @@
-import 'package:imixapp/grpc_generated/account.pbenum.dart';
+import 'package:general_grpc_interface/grpc_generated/status.pbenum.dart';
 
 /// 账号
 class Account {
