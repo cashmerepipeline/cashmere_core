@@ -11,4 +11,7 @@ protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_gen
 protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/position.proto
 protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/season.proto
 protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/color.proto
+protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/data.proto
+protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/entity.proto
+protoc -Iprotocols  --dart_out=dart_packages/general_grpc_interface/lib/grpc_generated  protocols/entity_template.proto
 

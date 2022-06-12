@@ -128,6 +128,8 @@ pub struct NewDataResponse {
 /// 上传文件数据
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DataUploadFileRequest {
+    #[prost(message, optional, tag="6")]
+    pub name: ::core::option::Option<Name>,
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(uint64, tag="2")]
@@ -414,12 +416,10 @@ pub struct MarkEntityRemovedResponse {
 /// 取得实体数据表
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDataListRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDataListResponse {
