@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package cashmere;
+
+message NewEntityTemplateRequest {
+  // 模板对应管理
+  string manage_id = 1;
+  // 属性:值 列表
+  repeated bytes fields = 2;
+}
+
+message NewEntityTemplateResponse {
+  string result = 1;
+}
+
+message EditEntityTemplateRequest {
+  // 模板编号
+  string template_id = 1;
+  // 属性:值 列表
+  repeated bytes fields = 2;
+}
+
+message EditEntityTemplateResponse {
+  string result = 1;
+}
+
+message RemoveEntityTemplateRequest {
+  string template_id = 1;
+}
+
+message RemoveEntityTemplateResponse {
+  string result = 1;
+}

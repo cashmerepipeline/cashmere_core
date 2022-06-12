@@ -7,9 +7,10 @@ name = { Cn = "数据", En = "datas" }
 
 # 描写，模式
 schema = [
+    { data_type = "String", name = { Cn = "类型", En = "data_type"}, removed = false },
     { data_type = "Map", name = { Cn = "数据", En = "data"}, removed = false },
-    { data_type = "List", name = { Cn = "关联管理", En = "manages"}, removed = false },
-    { data_type = "String", name = { Cn = "关联任务", En = "task_id"}, removed = false },
+    { data_type = "String", name = { Cn = "关联管理", En = "manage_id"}, removed = false },
+    { data_type = "String", name = { Cn = "关联实体", En = "entity_id"}, removed = false },
 ]
 
 [queues]

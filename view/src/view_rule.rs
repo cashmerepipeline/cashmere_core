@@ -157,7 +157,7 @@ pub async fn new_view_rules(
     rules: &ViewRules,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     // 创建doc
     let result = new_view_rules_entity_to_database(id, name, rules, account_id, group_id).await;
     // 加入全局列表
@@ -179,7 +179,7 @@ pub async fn new_view_rules_entity_to_database(
     rules: &ViewRules,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     // 创建doc
     let mut view_rules_doc = bson::to_document(rules).unwrap();
     // 指定名

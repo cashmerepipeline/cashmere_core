@@ -37,7 +37,7 @@ pub async fn new_work_node(
     work_name: &String,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     let mut new_node_doc =
         doc! {
             "_id": node_id.clone(),
@@ -60,7 +60,7 @@ pub async fn add_new_task(
     task_name: &String,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     let _new_id = 
         match task::get_new_task_id().await {
             Ok(r) => r,

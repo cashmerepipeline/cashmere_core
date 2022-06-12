@@ -50,7 +50,7 @@ pub async fn new_procedure(
     phase_set_id: &String,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     let work_graphs: Option<LinkedHashMap<String, WorkGraph>> = None;
     let mut new_doc = doc! {
         "work": work_id,
@@ -66,7 +66,6 @@ pub async fn new_procedure(
         group_id,
     )
         .await;
-
 
     result
 }

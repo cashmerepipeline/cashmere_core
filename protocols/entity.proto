@@ -1,7 +1,7 @@
 /*
 Author: 闫刚 (yes7rose@sina.com)
 entity.proto (c) 2020
-Desc: description
+Desc: 实体一般操作
 Created:  2020-09-24T00:51:49.780Z
 Modified: !date!
 */
@@ -31,6 +31,7 @@ message EditEntityResponse {
   string result = 1;
 }
 
+// 标记实体已移除
 message MarkEntityRemovedRequest {
   string manage_id = 1;
   string entity_id = 2;
@@ -39,32 +40,22 @@ message MarkEntityRemovedResponse {
   string result = 1;
 }
 
-message NewEntityTemplateRequest {
-  // 模板对应管理
+// 取得实体数据表
+message GetDataListRequest{
   string manage_id = 1;
-  // 属性:值 列表
-  repeated bytes fields = 2;
+  string entity_id = 2;
+  string data_id = 3;
+}
+message GetDataListResponse{
+  repeated string data_ids = 1;
 }
 
-message NewEntityTemplateResponse {
-  string result = 1;
+// 取得实体已标记移除数据表
+message GetRemovedDataListRequest{
+  string manage_id = 1;
+  string entity_id = 2;
+  string data_id = 3;
 }
-
-message EditEntityTemplateRequest {
-  // 模板编号
-  string template_id = 1;
-  // 属性:值 列表
-  repeated bytes fields = 2;
-}
-
-message EditEntityTemplateResponse {
-  string result = 1;
-}
-
-message RemoveEntityTemplateRequest {
-  string template_id = 1;
-}
-
-message RemoveEntityTemplateResponse {
-  string result = 1;
+message GetRemovedDataListResponse{
+  repeated string data_ids = 1;
 }

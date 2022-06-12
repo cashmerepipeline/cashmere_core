@@ -49,7 +49,7 @@ pub async fn new_task(
     work_name: &String,
     account_id: &String,
     group_id: &String,
-) -> Result<OperationResult, OperationResult> {
+) -> Result<String, OperationResult> {
     let mut new_task_doc =
         doc! {
             "_id": task_id.clone(),

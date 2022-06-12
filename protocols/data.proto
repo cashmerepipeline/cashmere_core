@@ -9,29 +9,142 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 enum DataType{
-    File = 0; // 单个文件
-    Sequence = 1; // 序列文件
-    Set = 2; // 文件集合
-    Message = 3; // 消息
-    Document =4; // 数据库数据
+  File = 0; // 单个文件
+  Sequence = 1; // 序列文件
+  Set = 2; // 文件集合
+  Message = 3; // 消息
+  Document = 4; // 数据库数据
 }
 
 // 新建数据
 message NewDataRequest {
-    string name = 1;
-    DataType data_type = 2;
+  Name name = 1;
+  DataType data_type = 2;
+  int32 manage_id = 3;
+  string entity_id = 4;
 }
 message NewDataResponse {
-    string result = 1;
+  string result = 1;
+}
+
+// 上传文件数据
+message DataUploadFileRequest {
+  string data_id = 1;
+  uint64 total_chuncks = 2;
+  uint64 current_chunck = 3;
+  bytes chunck = 4;
+  string file_name = 5;
+}
+message DataUploadFileResponse {
+  string result = 1;
+}
+// 下载文件数据
+message DataDownloadFileRequest {
+  string data_id = 1;
+}
+message DataDownloadFileResponse {
+  string data_id = 1;
+  uint64 total_chuncks = 2;
+  uint64 current_chunck = 3;
+  bytes chunck = 4;
+  string file_name = 5;
+}
+
+// 上传文件序列
+message DataUploadSequenceRequest {
+  string sequence_name = 1;
+  string serial_pattern = 2;
+  uint32 sequence_length = 3;
+  string current_file = 4;
+  uint64 total_chancks = 5;
+  uint64 current_chunck = 6;
+  bytes chunck = 7;
+  string data_id = 8;
+}
+message DataUploadSequenceResponse {
+  string result = 1;
+}
+
+// 下载文件序列
+message DataDownloadSequenceRequest {
+  string data_id = 1;
+}
+message DataDownloadSequenceResponse {
+  string data_id = 8;
+  string sequence_name = 1;
+  string serial_pattern = 2;
+  uint32 sequence_length = 3;
+  string current_file = 4;
+  uint64 total_chancks = 5;
+  uint64 current_chunck = 6;
+  bytes chunck = 7;
+}
+
+// 上传文件集合
+message DataUploadSetRequest {
+  string data_id = 1;
+  string set_name = 2;
+  uint32 file_counts = 3;
+  string current_file = 4;
+  uint64 total_chancks = 5;
+  uint32 current_chunck = 6;
+  bytes chunck = 7;
+}
+message DataUploadSetResponse {
+  string result = 1;
+}
+
+// 下载文件集合
+message DataDownloadSetRequest {
+  string data_id = 1;
+}
+message DataDownloadSetResponse {
+  string data_id = 1;
+  string set_name = 2;
+  uint32 file_counts = 3;
+  string current_file = 4;
+  uint64 total_chancks = 5;
+  uint32 current_chunck = 6;
+  bytes chunck = 7;
 }
 
 // 关联数据
 message AssociateDataRequest {
-    string data_id = 1;
-    int32 manage_id = 2;
-    string entity_id = 3;
+  string data_id = 1;
+  int32 manage_id = 2;
+  string entity_id = 3;
 }
 message AssociateDataResponse {
-    string result = 1;
+  string result = 1;
+}
+
+// 取消关联数据
+message DisassociateDataRequest {
+  string data_id = 1;
+  int32 manage_id = 2;
+  string entity_id = 3;
+}
+message DisassociateDataResponse {
+  string result = 1;
+}
+
+
+
+// 取得数据信息
+message  GetDataInfoRequest {
+  string data_id = 1;
+}
+message GetDataInfoResponse{
+  bytes data = 1;
+}
+
+// 删除数据
+message MarkDataRemovedRequest {
+  string data_id = 1;
+}
+message MarkDataRemovedResponse {
+  string result = 1;
 }

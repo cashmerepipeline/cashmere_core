@@ -13,6 +13,7 @@ package cashmere;
 import "property_type.proto";
 import "name.proto";
 import "color.proto";
+import "data.proto";
 import "area.proto";
 import "entity.proto";
 import "manage.proto";

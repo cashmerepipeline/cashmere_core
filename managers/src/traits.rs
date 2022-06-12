@@ -447,7 +447,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         new_entity_doc: &mut Document,
         account_id: &String,
         group_id: &String,
-    ) -> Result<OperationResult, OperationResult> {
+    ) -> Result<String, OperationResult> {
         let manage_id_str = self.get_manager_id().to_string();
 
         let result =

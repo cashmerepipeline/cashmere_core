@@ -15,6 +15,7 @@ pub mod cashmere;
 pub mod name_handle_service;
 pub mod name_utils;
 pub mod manage_service_handle;
+pub mod data_service_handles;
 
 use tonic::{Response, Status};
 

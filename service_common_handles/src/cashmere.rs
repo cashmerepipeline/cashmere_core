@@ -108,6 +108,224 @@ pub struct Color {
     #[prost(uint32, tag="5")]
     pub alpha: u32,
 }
+/// 新建数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDataRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(enumeration="DataType", tag="2")]
+    pub data_type: i32,
+    #[prost(int32, tag="3")]
+    pub manage_id: i32,
+    #[prost(string, tag="4")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDataResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 上传文件数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadFileRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub total_chuncks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub file_name: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadFileResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadFileRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadFileResponse {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub total_chuncks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub file_name: ::prost::alloc::string::String,
+}
+/// 上传文件序列
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadSequenceRequest {
+    #[prost(string, tag="1")]
+    pub sequence_name: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub serial_pattern: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub sequence_length: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint64, tag="6")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="8")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadSequenceResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件序列
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadSequenceRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadSequenceResponse {
+    #[prost(string, tag="8")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="1")]
+    pub sequence_name: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub serial_pattern: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub sequence_length: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint64, tag="6")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+}
+/// 上传文件集合
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadSetRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub set_name: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub file_counts: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint32, tag="6")]
+    pub current_chunck: u32,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataUploadSetResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件集合
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadSetRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataDownloadSetResponse {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub set_name: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub file_counts: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint32, tag="6")]
+    pub current_chunck: u32,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+}
+/// 关联数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssociateDataRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="2")]
+    pub manage_id: i32,
+    #[prost(string, tag="3")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssociateDataResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取消关联数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DisassociateDataRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="2")]
+    pub manage_id: i32,
+    #[prost(string, tag="3")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DisassociateDataResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得数据信息
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataInfoRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataInfoResponse {
+    #[prost(bytes="vec", tag="1")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+/// 删除数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkDataRemovedRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkDataRemovedResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum DataType {
+    /// 单个文件
+    File = 0,
+    /// 序列文件
+    Sequence = 1,
+    /// 文件集合
+    Set = 2,
+    /// 消息
+    Message = 3,
+    /// 数据库数据
+    Document = 4,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaRequest {
     #[prost(string, tag="1")]
@@ -180,6 +398,7 @@ pub struct EditEntityResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 标记实体已移除
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedRequest {
     #[prost(string, tag="1")]
@@ -192,43 +411,35 @@ pub struct MarkEntityRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得实体数据表
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateRequest {
-    /// 模板对应管理
+pub struct GetDataListRequest {
     #[prost(string, tag="1")]
     pub manage_id: ::prost::alloc::string::String,
-    /// 属性:值 列表
-    #[prost(bytes="vec", repeated, tag="2")]
-    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateResponse {
+pub struct GetDataListResponse {
+    #[prost(string, repeated, tag="1")]
+    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 取得实体已标记移除数据表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRemovedDataListRequest {
     #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateRequest {
-    /// 模板编号
-    #[prost(string, tag="1")]
-    pub template_id: ::prost::alloc::string::String,
-    /// 属性:值 列表
-    #[prost(bytes="vec", repeated, tag="2")]
-    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateRequest {
-    #[prost(string, tag="1")]
-    pub template_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
+pub struct GetRemovedDataListResponse {
+    #[prost(string, repeated, tag="1")]
+    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 映像请求
 #[derive(Clone, PartialEq, ::prost::Message)]

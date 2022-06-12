@@ -75,7 +75,7 @@ impl ManagerTrait for Manager {
         new_entity_doc: &mut Document,
         account_id: &String,
         group_id: &String,
-    ) -> Result<OperationResult, OperationResult> {
+    ) -> Result<String, OperationResult> {
         self.inner.sink_entity(new_entity_doc, account_id, group_id).await
     }
 
@@ -157,7 +157,7 @@ impl ManagerTrait for ManagerInner {
         new_entity_doc: &mut Document,
         account_id: &String,
         group_id: &String,
-    ) -> Result<OperationResult, OperationResult> {
+    ) -> Result<String, OperationResult> {
         self.manager.sink_entity(new_entity_doc, account_id, group_id).await
     }
 
