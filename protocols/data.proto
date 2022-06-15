@@ -31,7 +31,7 @@ message NewDataResponse {
 }
 
 // 上传文件数据
-message DataUploadFileRequest {
+message FileDataUploadFileRequest {
   Name name = 6;
   string data_id = 1;
   uint64 total_chuncks = 2;
@@ -39,14 +39,15 @@ message DataUploadFileRequest {
   bytes chunck = 4;
   string file_name = 5;
 }
-message DataUploadFileResponse {
+message FileDataUploadFileResponse {
   string result = 1;
 }
+
 // 下载文件数据
-message DataDownloadFileRequest {
+message FileDataDownloadFileRequest {
   string data_id = 1;
 }
-message DataDownloadFileResponse {
+message FileDataDownloadFileResponse {
   string data_id = 1;
   uint64 total_chuncks = 2;
   uint64 current_chunck = 3;
@@ -55,7 +56,7 @@ message DataDownloadFileResponse {
 }
 
 // 上传文件序列
-message DataUploadSequenceRequest {
+message SequenceDataUploadSequenceRequest {
   string sequence_name = 1;
   string serial_pattern = 2;
   uint32 sequence_length = 3;
@@ -65,15 +66,15 @@ message DataUploadSequenceRequest {
   bytes chunck = 7;
   string data_id = 8;
 }
-message DataUploadSequenceResponse {
+message SequenceDataUploadSequenceResponse {
   string result = 1;
 }
 
 // 下载文件序列
-message DataDownloadSequenceRequest {
+message SequenceDataDownloadSequenceRequest {
   string data_id = 1;
 }
-message DataDownloadSequenceResponse {
+message SequenceDataDownloadSequenceResponse {
   string data_id = 8;
   string sequence_name = 1;
   string serial_pattern = 2;
@@ -85,7 +86,7 @@ message DataDownloadSequenceResponse {
 }
 
 // 上传文件集合
-message DataUploadSetRequest {
+message SetDataUploadSetRequest {
   string data_id = 1;
   string set_name = 2;
   uint32 file_counts = 3;
@@ -94,15 +95,15 @@ message DataUploadSetRequest {
   uint32 current_chunck = 6;
   bytes chunck = 7;
 }
-message DataUploadSetResponse {
+message SetDataUploadSetResponse {
   string result = 1;
 }
 
 // 下载文件集合
-message DataDownloadSetRequest {
+message SetDataDownloadSetRequest {
   string data_id = 1;
 }
-message DataDownloadSetResponse {
+message SetDataDownloadSetResponse {
   string data_id = 1;
   string set_name = 2;
   uint32 file_counts = 3;
@@ -144,7 +145,9 @@ message GetDataInfoResponse{
 
 // 删除数据
 message MarkDataRemovedRequest {
-  string data_id = 1;
+  int32 manage_id = 1;
+  string entity_id = 2;
+  string data_id = 3;
 }
 message MarkDataRemovedResponse {
   string result = 1;

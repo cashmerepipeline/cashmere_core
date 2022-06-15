@@ -24,3 +24,5 @@ pub const DATAS_FIELD_ID: i32 = 1008;
 pub const COMMENTS_FIELD_ID: i32 = 1009;
 // 删除标记
 pub const ENTITY_REMOVED_FIELD_ID: i32 = 1200;
+// 删除数据
+pub const DATAS_REMOVED_FIELD_ID: i32 = 1900;

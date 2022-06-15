@@ -127,7 +127,7 @@ pub struct NewDataResponse {
 }
 /// 上传文件数据
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadFileRequest {
+pub struct FileDataUploadFileRequest {
     #[prost(message, optional, tag="6")]
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag="1")]
@@ -142,18 +142,18 @@ pub struct DataUploadFileRequest {
     pub file_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadFileResponse {
+pub struct FileDataUploadFileResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 下载文件数据
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadFileRequest {
+pub struct FileDataDownloadFileRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadFileResponse {
+pub struct FileDataDownloadFileResponse {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(uint64, tag="2")]
@@ -167,7 +167,7 @@ pub struct DataDownloadFileResponse {
 }
 /// 上传文件序列
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadSequenceRequest {
+pub struct SequenceDataUploadSequenceRequest {
     #[prost(string, tag="1")]
     pub sequence_name: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
@@ -186,18 +186,18 @@ pub struct DataUploadSequenceRequest {
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadSequenceResponse {
+pub struct SequenceDataUploadSequenceResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 下载文件序列
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadSequenceRequest {
+pub struct SequenceDataDownloadSequenceRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadSequenceResponse {
+pub struct SequenceDataDownloadSequenceResponse {
     #[prost(string, tag="8")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="1")]
@@ -217,7 +217,7 @@ pub struct DataDownloadSequenceResponse {
 }
 /// 上传文件集合
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadSetRequest {
+pub struct SetDataUploadSetRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
@@ -234,18 +234,18 @@ pub struct DataUploadSetRequest {
     pub chunck: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataUploadSetResponse {
+pub struct SetDataUploadSetResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 下载文件集合
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadSetRequest {
+pub struct SetDataDownloadSetRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataDownloadSetResponse {
+pub struct SetDataDownloadSetResponse {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
@@ -305,7 +305,11 @@ pub struct GetDataInfoResponse {
 /// 删除数据
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkDataRemovedRequest {
-    #[prost(string, tag="1")]
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
