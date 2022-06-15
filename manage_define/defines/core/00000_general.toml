@@ -18,6 +18,7 @@ schema = [
     { data_type = "String", name = { Cn = "主人", En = "owner"}, removed = false },
     { data_type = "String", name = { Cn = "组表", En = "groups"}, removed = false },
     { data_type = "List", name = { Cn = "数据", En = "datas"}, removed = false },
+    { data_type = "List", name = { Cn = "已删除数据", En = "removed_datas"}, removed = false },
     { data_type = "List", name = { Cn = "评论", En = "comments"}, removed = false },
 ]
 
