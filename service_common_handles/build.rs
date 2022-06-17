@@ -8,6 +8,7 @@ fn main() {
         .type_attribute("Name", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Color", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("DataType", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("FileInfo", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute(
             "Position",
             "#[derive(serde::Serialize, serde::Deserialize)]",

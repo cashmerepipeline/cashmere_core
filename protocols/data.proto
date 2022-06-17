@@ -30,9 +30,6 @@ message NewDataResponse {
   string result = 1;
 }
 
-
-
-
 // 关联数据
 message AssociateDataRequest {
   string data_id = 1;
@@ -52,8 +49,6 @@ message DisassociateDataRequest {
 message DisassociateDataResponse {
   string result = 1;
 }
-
-
 
 // 取得数据信息
 message  GetDataInfoRequest {

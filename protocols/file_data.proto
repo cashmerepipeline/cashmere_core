@@ -7,18 +7,19 @@ import "name.proto";
 message FileInfo {
   string file_name = 1;
   string md5 = 2;
-  int64 size = 3;
+  uint64 size = 3;
   int64 last_modified = 4;
 }
 
 // 上传文件数据
 message FileDataUploadFileRequest {
-  Name name = 6;
   string data_id = 1;
   uint64 total_chuncks = 2;
   uint64 current_chunck = 3;
   bytes chunck = 4;
   string file_name = 5;
+  string md5 = 6;
+  int64 last_modified = 7;
 }
 message FileDataUploadFileResponse {
   string result = 1;

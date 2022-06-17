@@ -125,142 +125,6 @@ pub struct NewDataResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 上传文件数据
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataUploadFileRequest {
-    #[prost(message, optional, tag="6")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(uint64, tag="2")]
-    pub total_chuncks: u64,
-    #[prost(uint64, tag="3")]
-    pub current_chunck: u64,
-    #[prost(bytes="vec", tag="4")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="5")]
-    pub file_name: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataUploadFileResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 下载文件数据
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataDownloadFileRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataDownloadFileResponse {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(uint64, tag="2")]
-    pub total_chuncks: u64,
-    #[prost(uint64, tag="3")]
-    pub current_chunck: u64,
-    #[prost(bytes="vec", tag="4")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="5")]
-    pub file_name: ::prost::alloc::string::String,
-}
-/// 上传文件序列
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SequenceDataUploadSequenceRequest {
-    #[prost(string, tag="1")]
-    pub sequence_name: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub serial_pattern: ::prost::alloc::string::String,
-    #[prost(uint32, tag="3")]
-    pub sequence_length: u32,
-    #[prost(string, tag="4")]
-    pub current_file: ::prost::alloc::string::String,
-    #[prost(uint64, tag="5")]
-    pub total_chancks: u64,
-    #[prost(uint64, tag="6")]
-    pub current_chunck: u64,
-    #[prost(bytes="vec", tag="7")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="8")]
-    pub data_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SequenceDataUploadSequenceResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 下载文件序列
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SequenceDataDownloadSequenceRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SequenceDataDownloadSequenceResponse {
-    #[prost(string, tag="8")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="1")]
-    pub sequence_name: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub serial_pattern: ::prost::alloc::string::String,
-    #[prost(uint32, tag="3")]
-    pub sequence_length: u32,
-    #[prost(string, tag="4")]
-    pub current_file: ::prost::alloc::string::String,
-    #[prost(uint64, tag="5")]
-    pub total_chancks: u64,
-    #[prost(uint64, tag="6")]
-    pub current_chunck: u64,
-    #[prost(bytes="vec", tag="7")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-}
-/// 上传文件集合
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataUploadSetRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub set_name: ::prost::alloc::string::String,
-    #[prost(uint32, tag="3")]
-    pub file_counts: u32,
-    #[prost(string, tag="4")]
-    pub current_file: ::prost::alloc::string::String,
-    #[prost(uint64, tag="5")]
-    pub total_chancks: u64,
-    #[prost(uint32, tag="6")]
-    pub current_chunck: u32,
-    #[prost(bytes="vec", tag="7")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataUploadSetResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 下载文件集合
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataDownloadSetRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataDownloadSetResponse {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub set_name: ::prost::alloc::string::String,
-    #[prost(uint32, tag="3")]
-    pub file_counts: u32,
-    #[prost(string, tag="4")]
-    pub current_file: ::prost::alloc::string::String,
-    #[prost(uint64, tag="5")]
-    pub total_chancks: u64,
-    #[prost(uint32, tag="6")]
-    pub current_chunck: u32,
-    #[prost(bytes="vec", tag="7")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
-}
 /// 关联数据
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssociateDataRequest {
@@ -331,6 +195,186 @@ pub enum DataType {
     Message = 3,
     /// 数据库数据
     Document = 4,
+}
+/// 文件信息
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileInfo {
+    #[prost(string, tag="1")]
+    pub file_name: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub md5: ::prost::alloc::string::String,
+    #[prost(uint64, tag="3")]
+    pub size: u64,
+    #[prost(int64, tag="4")]
+    pub last_modified: i64,
+}
+/// 上传文件数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileDataUploadFileRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub total_chuncks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub file_name: ::prost::alloc::string::String,
+    #[prost(string, tag="6")]
+    pub md5: ::prost::alloc::string::String,
+    #[prost(int64, tag="7")]
+    pub last_modified: i64,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileDataUploadFileResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileDataDownloadFileRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileDataDownloadFileResponse {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub total_chuncks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub file_name: ::prost::alloc::string::String,
+}
+/// 序列数据信息
+/// 文件名格式：prefix_name.pattern.type_suffix
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SequenceDataInfo {
+    #[prost(string, tag="1")]
+    pub prefix_name: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub sequence_pattern: u64,
+    #[prost(uint64, tag="3")]
+    pub type_suffix: u64,
+    #[prost(uint64, tag="4")]
+    pub start_index: u64,
+    #[prost(uint64, tag="5")]
+    pub end_index: u64,
+    #[prost(uint64, tag="6")]
+    pub total_size: u64,
+    #[prost(string, tag="7")]
+    pub md5: ::prost::alloc::string::String,
+}
+/// 上传文件序列
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SequenceDataUploadSequenceRequest {
+    #[prost(string, tag="1")]
+    pub sequence_name: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub serial_pattern: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub sequence_length: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint64, tag="6")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="8")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SequenceDataUploadSequenceResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件序列
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SequenceDataDownloadSequenceRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SequenceDataDownloadSequenceResponse {
+    #[prost(string, tag="8")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="1")]
+    pub sequence_name: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub serial_pattern: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub sequence_length: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint64, tag="6")]
+    pub current_chunck: u64,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+}
+/// 集合数据信息
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataInfo {
+    #[prost(string, repeated, tag="1")]
+    pub files: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(uint64, tag="2")]
+    pub total_size: u64,
+    #[prost(string, tag="3")]
+    pub md5: ::prost::alloc::string::String,
+}
+/// 上传文件集合
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadSetRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub set_name: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub file_counts: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint32, tag="6")]
+    pub current_chunck: u32,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadSetResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 下载文件集合
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataDownloadSetRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataDownloadSetResponse {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub set_name: ::prost::alloc::string::String,
+    #[prost(uint32, tag="3")]
+    pub file_counts: u32,
+    #[prost(string, tag="4")]
+    pub current_file: ::prost::alloc::string::String,
+    #[prost(uint64, tag="5")]
+    pub total_chancks: u64,
+    #[prost(uint32, tag="6")]
+    pub current_chunck: u32,
+    #[prost(bytes="vec", tag="7")]
+    pub chunck: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaRequest {
