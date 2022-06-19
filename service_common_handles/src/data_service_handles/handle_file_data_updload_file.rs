@@ -1,3 +1,4 @@
+use std::io::ErrorKind;
 use std::ops::Deref;
 use async_trait::async_trait;
 use bson::{doc, Document};
@@ -16,6 +17,8 @@ use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use view;
 
+use super::utils::{create_recieve_data_file_stream, match_for_io_error};
+
 #[async_trait]
 pub trait HandleFileDataUploadFile {
     async fn handle_file_data_upload_file(
@@ -32,19 +35,14 @@ pub trait HandleFileDataUploadFile {
             .expect("数据流错误")
             .expect("流内部错误");
 
-        let data_id = &first_request.data_id.clone();
-        let md5 = &first_request.md5.clone();
-        let total_chuncks = &first_request.total_chuncks.clone();
-        let current_chunck = &first_request.current_chunck.clone();
-        let chunck = &first_request.chunck.clone();
-        let file_name = &first_request.file_name.clone();
-        let last_modified = &first_request.last_modified.clone();
+        let data_id = first_request.data_id.clone();
+        let md5 = first_request.md5.clone();
+        let total_chuncks = first_request.total_chuncks.clone();
+        let current_chunck = first_request.current_chunck.clone();
+        // let chunck = first_request.chunck.clone();
+        let file_name = first_request.file_name.clone();
+        let last_modified_time = first_request.last_modified_time.clone();
 
-        let name = if name.is_some() {
-            name.as_ref().unwrap()
-        } else {
-            return Err(Status::data_loss("名字必须提供"));
-        };
 
         if !view::can_manage_write(&account_id, &groups, &DATAS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -64,39 +62,60 @@ pub trait HandleFileDataUploadFile {
 
         // 1. 创建文件信息
         let file_info = FileInfo {
-            file_name: String::from(file_name),
-            md5: String::from(md5),
+            file_name: String::from(&file_name),
+            md5: String::from(&md5),
             size: total_chuncks * 128 * 1024,
-            last_modified: *last_modified,
+            last_modified_time: last_modified_time.clone(),
         };
 
         // 3. 开始接收文件，并以流的形式写入文件
-        // 缓存, 最大为500kb = 1024*10*50，满后写入临时文件,缓存长度是50
-        // 每块最大为10kb
-        let mut last_request = None;
-        let mut wav_data: Vec<UploadRequest> = vec![first_request];
-        let mut init_length = 0u8;
-        while let Some(part) = in_stream.next().await {
-            let part = part.unwrap();
-            last_request = Some(part.clone());
-            wave_data.push(part);
-            if wave_data.len() > 50 {
-                // 写入临时文件, 发送到流
+        // 缓存, 最大为640kb = 1024*128*5，满后写入临时文件,缓存长度是50
+        // 每块最大为128kb
+        let ftx = create_recieve_data_file_stream(&data_id, &file_info).await;
+        // if ftx.is_err() {
+        //     return Err(Status::unauthenticated("创建文件流失败"));
+        // }
+        // let ftx = ftx.unwrap();
+        println!("开始接收文件{}{}", &data_id, &file_name);
 
-                // 清空缓存
-                wav_data.clear();
+        // 接收线程 
+        let result = tokio::spawn(async move{
+             let file_name = first_request.file_name.clone();
+             let data_id = first_request.data_id.clone();
+             ftx.send(first_request.chunck).await.unwrap();
+             while let Some(result) = in_stream.next().await {
+                match result {
+                    Ok(v) => {
+                        println!("接收到数据{}{}{}", v.data_id, v.current_chunck, v.chunck.len());
+                        if let r = ftx.send(v.chunck).await{
+                            r.unwrap()
+                        } else {
+                            ()
+                        }
+                    },
+                    Err(err) => {
+                        // if let Some(io_err) = match_for_io_error(&err) {
+                        //     if io_err.kind() == ErrorKind::BrokenPipe {
+                        //         // here you can handle special case when client
+                        //         // disconnected in unexpected way
+                        //         eprintln!("\tclient disconnected: broken pipe");
+                        //         break;
+                        //     }
+                        // }
+                    }
+                }
             }
-        }
-        // 4. 完成后，更新文件信息
-        // 5. 返回文件写入结果
+            println!("接收文件结束{}--{}", data_id, file_name);
+        }).await;
+
+        // 5. 返回结果
         match result {
             Ok(_r) => Ok(Response::new(FileDataUploadFileResponse {
-                result: data_id.unwrap().clone(),
+                result: data_id,
             })),
             Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
+                "{} {}", "创建文件流失败", e.to_string()
+                // "{} {}", "创建文件流失败", "error",
             ))),
         }
     }

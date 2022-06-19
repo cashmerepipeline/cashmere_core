@@ -207,7 +207,7 @@ pub struct FileInfo {
     #[prost(uint64, tag="3")]
     pub size: u64,
     #[prost(int64, tag="4")]
-    pub last_modified: i64,
+    pub last_modified_time: i64,
 }
 /// 上传文件数据
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -225,7 +225,7 @@ pub struct FileDataUploadFileRequest {
     #[prost(string, tag="6")]
     pub md5: ::prost::alloc::string::String,
     #[prost(int64, tag="7")]
-    pub last_modified: i64,
+    pub last_modified_time: i64,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileResponse {
