@@ -2,7 +2,7 @@ use manage_define;
 
 fn main() {
     tonic_build::configure()
-        .out_dir("src")
+        .out_dir("../manage_define/src")
         .build_client(false)
         // .build_server(false)
         .type_attribute("Name", "#[derive(serde::Serialize, serde::Deserialize)]")

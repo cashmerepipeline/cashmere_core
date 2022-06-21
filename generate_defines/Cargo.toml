@@ -1,0 +1,12 @@
+[package]
+name = "generate_defines"
+version = "0.1.0"
+edition = "2021"
+
+# 只用于生成代码，解决build.rs不能调用自身crate问题
+
+[dependencies]
+
+[build-dependencies]
+tonic-build = "0.7.2"
+manage_define = { path = "../manage_define" }

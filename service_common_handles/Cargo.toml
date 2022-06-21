@@ -34,6 +34,3 @@ entity = { path = "../entity" }
 property_field = { path = "../property_field" }
 view = { path = "../view" }
 
-[build-dependencies]
-tonic-build = "0.7.2"
-manage_define = { path = "../manage_define" }
