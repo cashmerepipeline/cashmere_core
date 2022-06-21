@@ -42,11 +42,26 @@ pub struct TlsConfigs {
     pub client_ca_path: String,
 }
 
+#[derive(Deserialize, Clone)]
+pub struct DataConfigs {
+    // 数据根目录
+    pub root: String,
+    // 文件最大大小
+    max_file_size: u64,
+    // 文件集最大数量
+    max_set_file_number: u32,
+    // 文件序列最大数量
+    max_sequence_file_number: u32,
+    // 上传数据块最大数量
+    max_chunk_size: u32,
+}
+
 #[derive(Deserialize)]
 pub struct Configs {
     pub server: ServerConfigs,
     pub database: DatabaseConfigs,
     pub tls: TlsConfigs,
+    pub data: DataConfigs,
 }
 
 static mut CONFIGS_FILE_PATH: Option<Arc<String>> = None;
@@ -113,6 +128,12 @@ pub fn get_database_configs() -> DatabaseConfigs{
 pub fn get_lang_code() -> String {
     let configs = get_configs();
     configs.server.lang_code.clone()
+}
+
+/// 取得数据设置
+pub fn get_data_configs() -> DataConfigs{
+    let configs = get_configs();
+    configs.data.clone()
 }
 
 #[cfg(test)]

@@ -16,8 +16,9 @@ use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use view;
+use crate::data_service_handles::create_recieve_data_file_stream::create_recieve_data_file_stream;
 
-use super::utils::{create_recieve_data_file_stream, match_for_io_error};
+use super::utils::match_for_io_error;
 
 #[async_trait]
 pub trait HandleFileDataUploadFile {
@@ -37,8 +38,8 @@ pub trait HandleFileDataUploadFile {
 
         let data_id = first_request.data_id.clone();
         let md5 = first_request.md5.clone();
-        let total_chuncks = first_request.total_chuncks.clone();
-        let current_chunck = first_request.current_chunck.clone();
+        let total_chucks = first_request.total_chunks.clone();
+        let current_chunk_index = first_request.current_chunk_index.clone();
         // let chunck = first_request.chunck.clone();
         let file_name = first_request.file_name.clone();
         let last_modified_time = first_request.last_modified_time.clone();
@@ -64,30 +65,25 @@ pub trait HandleFileDataUploadFile {
         let file_info = FileInfo {
             file_name: String::from(&file_name),
             md5: String::from(&md5),
-            size: total_chuncks * 128 * 1024,
+            size: total_chucks * 128 * 1024,
             last_modified_time: last_modified_time.clone(),
         };
 
         // 3. 开始接收文件，并以流的形式写入文件
-        // 缓存, 最大为640kb = 1024*128*5，满后写入临时文件,缓存长度是50
-        // 每块最大为128kb
         let ftx = create_recieve_data_file_stream(&data_id, &file_info).await;
-        // if ftx.is_err() {
-        //     return Err(Status::unauthenticated("创建文件流失败"));
-        // }
-        // let ftx = ftx.unwrap();
+
         println!("开始接收文件{}{}", &data_id, &file_name);
 
         // 接收线程 
         let result = tokio::spawn(async move{
              let file_name = first_request.file_name.clone();
              let data_id = first_request.data_id.clone();
-             ftx.send(first_request.chunck).await.unwrap();
+             ftx.send(first_request.chunk).await.unwrap();
              while let Some(result) = in_stream.next().await {
                 match result {
                     Ok(v) => {
-                        println!("接收到数据{}{}{}", v.data_id, v.current_chunck, v.chunck.len());
-                        if let r = ftx.send(v.chunck).await{
+                        println!("接收到数据{}{}{}", v.data_id, v.current_chunk_index, v.chunk.len());
+                        if let r = ftx.send(v.chunk).await{
                             r.unwrap()
                         } else {
                             ()
