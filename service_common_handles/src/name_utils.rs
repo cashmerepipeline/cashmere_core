@@ -1,4 +1,4 @@
-use crate::cashmere::Name;
+use manage_define::cashmere::Name;
 
 /// 验证名称有效性
 pub fn validate_name(name: &Option<Name>) -> Result<bool, bool> {

@@ -6,8 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-fs4 = "0.5.4"
-tokio = {versions="1.18.2", features=["fs"]}
-configs = {path = "../configs"}
-manage_define = {path = "../manage_define"}
-cash_result = {path = "../cash_result"}
+fs4 = { version = "0.5.4", features = ["tokio-async"] }
+tokio = { versions = "1.18.2", features = ["fs"] }
+
+configs = { path = "../configs" }
+manage_define = { path = "../manage_define" }
+cash_result = { path = "../cash_result" }

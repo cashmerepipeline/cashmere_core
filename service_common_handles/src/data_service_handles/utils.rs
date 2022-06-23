@@ -2,7 +2,6 @@ use std::error::Error;
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::Sender;
 use tonic::Status;
-use crate::cashmere::FileInfo;
 
 pub fn match_for_io_error(err_status: &Status) -> Option<&std::io::Error> {
     let mut err: &(dyn Error + 'static) = err_status;

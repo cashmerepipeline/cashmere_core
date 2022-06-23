@@ -1,44 +1,60 @@
+use crate::file_utils::check_space_enough::check_space_enough;
+use cash_result::{operation_failed, OperationResult};
+use fs4::tokio::AsyncFileExt;
+use manage_define::cashmere::FileInfo;
 use std::path;
 use std::path::PathBuf;
-use cash_result::{operation_failed, OperationResult};
-use tokio::sync::mpsc::Sender;
-use tokio::sync::mpsc;
-use tokio::fs::File;
 use tokio::fs;
+use tokio::fs::File;
 use tokio::io::AsyncWriteExt;
-use manage_define::cashmere::FileInfo;
-use crate::file_utils::check_space_enough::check_space_enough;
+use tokio::sync::mpsc;
+use tokio::sync::mpsc::Sender;
 
 // 创建文件数据流，返回流发送端
 pub async fn create_recieve_data_file_stream(
     data_id: &String,
     file_info: &FileInfo,
-) -> Result<Sender<Vec<u8>>, OperationResult>{
+) -> Result<Sender<Vec<u8>>, OperationResult> {
     // 检查文件空间是否足够
-    if check_space_enough(file_info.size).await.is_err() {
-       return Err(operation_failed( "create_recieve_data_file_stream", "存储空间不足。"));
+    if check_space_enough(file_info.size).is_err() {
+        return Err(operation_failed(
+            "create_recieve_data_file_stream",
+            "存储空间不足。",
+        ));
     }
 
     // 创建文件，失败则需要提前返回
     let data_configes = configs::get_data_configs();
 
-    let data_folder:PathBuf = [&data_configes.root, data_id].itor().collect();
+    let data_folder: PathBuf = [&data_configes.root, data_id].iter().collect();
     let file_ext = path::Path::new(&file_info.file_name).extension().unwrap();
-    let mut file_path_buf:PathBuf = [
-        &data_configes.root,
-        &data_id,
-        &file_info.md5].iter().collect();
+    let mut file_path_buf: PathBuf = [&data_configes.root, &data_id, &file_info.md5]
+        .iter()
+        .collect();
     file_path_buf.set_extension(file_ext);
 
-    if fs::create_dir_all(data_folder).await.is_err(){
-        return Err(operation_failed( "create_recieve_data_file_stream", "创建目录失败。"));
+    if fs::create_dir_all(data_folder).await.is_err() {
+        return Err(operation_failed(
+            "create_recieve_data_file_stream",
+            "创建目录失败。",
+        ));
     };
 
-    let mut f = match File::create(&file_path).await {
+    let mut data_file = match File::create(&file_path_buf).await {
         Ok(f) => f,
         Err(e) => {
-            return Err(operation_failed( "create_recieve_data_file_stream", "创建文件失败。"));
+            return Err(operation_failed(
+                "create_recieve_data_file_stream",
+                "创建文件失败。",
+            ));
         }
+    };
+
+    if data_file.allocate(file_info.size).await.is_err() {
+        return Err(operation_failed(
+            "create_recieve_data_file_stream",
+            "分配文件空间失败.",
+        ));
     };
 
     // 使用缓存减少磁盘操作
@@ -57,11 +73,16 @@ pub async fn create_recieve_data_file_stream(
             // 写出缓存
             if cursor >= 4 {
                 while let Some(bpart) = buffer.iter().next() {
-                    if f.write(bpart.unwrap().as_ref()).await.is_err(){
-                        return Err(operation_failed( "create_recieve_data_file_stream", "写入文件错误。"));
+                    if data_file.write(bpart.as_deref().unwrap()).await.is_err() {
+                        return Err(operation_failed(
+                            "create_recieve_data_file_stream",
+                            "写入文件错误。",
+                        ));
                     };
                 }
+                // 重置下标
                 cursor = 0;
+                continue;
             }
 
             cursor = cursor + 1;
@@ -69,8 +90,11 @@ pub async fn create_recieve_data_file_stream(
 
         // 缓存刷出
         while let Some(bpart) = buffer.iter().next() {
-            if f.write(bpart.unwrap().as_ref()).await.is_err(){
-                return Err(operation_failed( "create_recieve_data_file_stream", "写入文件错误。"));
+            if data_file.write(bpart.as_deref().unwrap()).await.is_err() {
+                return Err(operation_failed(
+                    "create_recieve_data_file_stream",
+                    "写入文件错误。",
+                ));
             };
         }
         Ok(())

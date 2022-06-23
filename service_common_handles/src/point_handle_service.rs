@@ -18,7 +18,7 @@ use view;
 use bson::{doc, Document};
 use tonic::{Request, Response, Status};
 
-use crate::cashmere::*;
+use manage_define::cashmere::*;
 
 // trait HandleNewPoint {
 //     fn handle_new_point(

@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use bson::{doc, Document};
 use tonic::{Request, Response, Status};
 
-use crate::cashmere::*;
+use manage_define::cashmere::*;
 use crate::UnaryResponseResult;
 
 use majordomo::{self, get_majordomo};

@@ -6,7 +6,7 @@ use futures::TryFutureExt;
 use tokio::try_join;
 use tonic::{Request, Response, Status};
 
-use crate::cashmere::*;
+use manage_define::cashmere::*;
 use crate::UnaryResponseResult;
 
 use majordomo::{self, get_majordomo};

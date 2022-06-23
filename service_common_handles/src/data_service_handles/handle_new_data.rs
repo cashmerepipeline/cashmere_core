@@ -5,7 +5,7 @@ use chrono::format::parse;
 use futures::TryFutureExt;
 use tonic::{Request, Response, Status};
 
-use crate::cashmere::*;
+use manage_define::cashmere::*;
 use crate::UnaryResponseResult;
 
 use majordomo::{self, get_majordomo};

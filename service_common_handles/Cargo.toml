@@ -20,10 +20,11 @@ serde = "1.0.131"
 serde_derive = "1.0.131"
 log = "0.4.14"
 
+account = { path = "../account" }
 cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
+data_utils = { path = "../data_utils" }
 configs = { path = "../configs" }
-account = { path = "../account" }
 majordomo = { path = "../majordomo" }
 
 managers = { path = "../managers" }
@@ -33,4 +34,3 @@ auth = { path = "../auth" }
 entity = { path = "../entity" }
 property_field = { path = "../property_field" }
 view = { path = "../view" }
-

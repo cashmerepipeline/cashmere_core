@@ -7,11 +7,15 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-trait = "0.1.48"
 toml = "0.5.8"
 glob = "0.3.0"
 bson = "2.0.1"
 linked-hash-map = "0.5.4"
-
+prost = "0.10.4"
+tonic = { version = "0.7.2", features = ["tls"] }
+serde = "1.0.131"
+serde_derive = "1.0.131"
 property_field = {path="../property_field"}
 
 [build-dependencies]
