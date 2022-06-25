@@ -1,17 +1,17 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
+use bson::doc;
 use tonic::{Request, Response, Status};
 
-use manage_define::cashmere::*;
-use crate::UnaryResponseResult;
-
 use majordomo::{self, get_majordomo};
+use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use view;
+
+use crate::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleNewArea {
@@ -60,7 +60,7 @@ pub trait HandleNewArea {
             return Err(Status::aborted("区域已经存在"));
         }
 
-        if let mut new_entity_doc = make_new_entity_document(&manager).await.unwrap() {
+        if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
             new_entity_doc.insert("_id", code);
             new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
             new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
@@ -86,3 +86,4 @@ pub trait HandleNewArea {
         }
     }
 }
+

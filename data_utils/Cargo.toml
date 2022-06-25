@@ -9,6 +9,10 @@ edition = "2021"
 fs4 = { version = "0.5.4", features = ["tokio-async"] }
 tokio = { versions = "1.18.2", features = ["fs"] }
 
+# logging
+log = "0.4.17"
+simplelog = "0.12.0"
+
 configs = { path = "../configs" }
 manage_define = { path = "../manage_define" }
 cash_result = { path = "../cash_result" }
