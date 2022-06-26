@@ -1,7 +1,6 @@
 syntax = "proto3";
 package cashmere;
 
-import "name.proto";
 
 // 序列数据信息
 // 文件名格式：prefix_name.pattern.type_suffix

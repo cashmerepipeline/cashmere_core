@@ -1,23 +1,23 @@
+use crate::{RequestStream, UnaryResponseResult};
 use async_trait::async_trait;
 use bson::{doc, Document};
 use chrono::format::parse;
 use futures::{StreamExt, TryFutureExt};
+use log::{debug, info};
 use std::io::ErrorKind;
 use std::ops::Deref;
 use tonic::{Request, Response, Status, Streaming};
 
-use crate::{RequestStream, UnaryResponseResult};
-
+use super::utils::match_for_io_error;
+use data_utils::file_utils::create_recieve_data_file_stream;
 use majordomo::{self, get_majordomo};
+use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use view;
-use data_utils::file_utils::create_recieve_data_file_stream;
-use super::utils::match_for_io_error;
 
 #[async_trait]
 pub trait HandleFileDataUploadFile {
@@ -38,12 +38,7 @@ pub trait HandleFileDataUploadFile {
             .expect("流内部错误");
 
         let data_id = first_request.data_id.clone();
-        let md5 = first_request.md5.clone();
-        let total_chucks = first_request.total_chunks.clone();
-        let current_chunk_index = first_request.current_chunk_index.clone();
-        // let chunck = first_request.chunck.clone();
-        let file_name = first_request.file_name.clone();
-        let last_modified_time = first_request.last_modified_time.clone();
+        let file_info = first_request.file_info.clone().unwrap();
 
         if !view::can_manage_write(&account_id, &groups, &DATAS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -61,42 +56,42 @@ pub trait HandleFileDataUploadFile {
             .await
             .unwrap();
 
-        // 1. 创建文件信息
-        let file_info = FileInfo {
-            file_name: String::from(&file_name),
-            md5: String::from(&md5),
-            size: total_chucks * 128 * 1024,
-            last_modified_time: last_modified_time.clone(),
-        };
-
-        // 3. 开始接收文件，并以流的形式写入文件
-        let ftx = if let Ok(r) = create_recieve_data_file_stream(&data_id, &file_info).await{
+        // 1. 创建文件流
+        let ftx = if let Ok(r) = create_recieve_data_file_stream(&data_id, &file_info).await {
             r
-        }else {
-            return Err(Status::aborted("创建文件流错误。"))
+        } else {
+            return Err(Status::aborted("创建文件流错误。"));
         };
 
-        println!("开始接收文件{}{}", &data_id, &file_name);
+        info!("开始接收文件{}--{}", &data_id, &file_info.file_name);
 
-        // 接收线程
+        // 2. 接收线程, 等待客户端发送完成后发出关闭信号后结束退出
+        // TODO: 需要设置最大等待时长
         let result = tokio::spawn(async move {
-            let file_name = first_request.file_name.clone();
+            let file_name = file_info.file_name.clone();
             let data_id = first_request.data_id.clone();
+
+            // 发送到文件写入流
             ftx.send(first_request.chunk).await.unwrap();
             while let Some(result) = in_stream.next().await {
                 match result {
                     Ok(v) => {
-                        println!(
+                        debug!(
                             "接收到数据{}{}{}",
                             v.data_id,
                             v.current_chunk_index,
                             v.chunk.len()
                         );
-                        if let r = ftx.send(v.chunk).await {
-                            r.unwrap()
+
+                        // TODO: 数据块校验, 如果失败则重发
+
+                        if let Ok(r) = ftx.send(v.chunk).await {
+                            r
                         } else {
                             ()
                         }
+
+                        // TODO: 下一个数据块编号
                     }
                     Err(err) => {
                         // if let Some(io_err) = match_for_io_error(&err) {
@@ -110,7 +105,7 @@ pub trait HandleFileDataUploadFile {
                     }
                 }
             }
-            println!("接收文件结束{}--{}", data_id, file_name);
+            info!("接收文件结束{}--{}", data_id, file_name);
         })
         .await;
 

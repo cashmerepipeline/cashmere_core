@@ -13,8 +13,10 @@ protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/season.
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/color.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/data.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/file_data.proto
+protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/file_info.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/sequence_data.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/set_data.proto
+protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/set_data_info.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/entity.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/entity_template.proto
 

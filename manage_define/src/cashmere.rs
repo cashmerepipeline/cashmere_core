@@ -220,12 +220,8 @@ pub struct FileDataUploadFileRequest {
     pub current_chunk_index: u64,
     #[prost(bytes="vec", tag="4")]
     pub chunk: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="5")]
-    pub file_name: ::prost::alloc::string::String,
-    #[prost(string, tag="6")]
-    pub md5: ::prost::alloc::string::String,
-    #[prost(int64, tag="7")]
-    pub last_modified_time: i64,
+    #[prost(message, optional, tag="5")]
+    pub file_info: ::core::option::Option<FileInfo>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileResponse {
@@ -323,33 +319,61 @@ pub struct SequenceDataDownloadSequenceResponse {
 /// 集合数据信息
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetDataInfo {
-    #[prost(string, repeated, tag="1")]
-    pub files: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(uint64, tag="2")]
-    pub total_size: u64,
-    #[prost(string, tag="3")]
-    pub md5: ::prost::alloc::string::String,
-}
-/// 上传文件集合
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataUploadSetRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub set_name: ::prost::alloc::string::String,
-    #[prost(uint32, tag="3")]
-    pub file_counts: u32,
-    #[prost(string, tag="4")]
-    pub current_file: ::prost::alloc::string::String,
-    #[prost(uint64, tag="5")]
-    pub total_chancks: u64,
-    #[prost(uint32, tag="6")]
-    pub current_chunck: u32,
-    #[prost(bytes="vec", tag="7")]
-    pub chunck: ::prost::alloc::vec::Vec<u8>,
+    #[prost(uint64, tag="2")]
+    pub total_size: u64,
+    #[prost(message, repeated, tag="3")]
+    pub file_infos: ::prost::alloc::vec::Vec<FileInfo>,
+}
+/// 取得数据集合信息
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSetDataInfoRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataUploadSetResponse {
+pub struct GetSetDataInfoResponse {
+    #[prost(message, optional, tag="1")]
+    pub data_info: ::core::option::Option<SetDataInfo>,
+}
+/// 上传单个文件到集合
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadFileRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub total_chunks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunk_index: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunk: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag="5")]
+    pub file_info: ::core::option::Option<FileInfo>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadFileResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+///上传多个文件到集合, 批量上传可能不是很需要
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadFilesRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(uint64, tag="2")]
+    pub current_total_chunks: u64,
+    #[prost(uint64, tag="3")]
+    pub current_chunk_index: u64,
+    #[prost(bytes="vec", tag="4")]
+    pub chunk: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, repeated, tag="5")]
+    pub file_info: ::prost::alloc::vec::Vec<FileInfo>,
+    #[prost(string, tag="6")]
+    pub current_md5: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataUploadFilesResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }

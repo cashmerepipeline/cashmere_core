@@ -10,94 +10,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class FileInfo extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FileInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileName')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'md5')
-    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'size', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastModifiedTime')
-    ..hasRequiredFields = false
-  ;
-
-  FileInfo._() : super();
-  factory FileInfo({
-    $core.String? fileName,
-    $core.String? md5,
-    $fixnum.Int64? size,
-    $fixnum.Int64? lastModifiedTime,
-  }) {
-    final _result = create();
-    if (fileName != null) {
-      _result.fileName = fileName;
-    }
-    if (md5 != null) {
-      _result.md5 = md5;
-    }
-    if (size != null) {
-      _result.size = size;
-    }
-    if (lastModifiedTime != null) {
-      _result.lastModifiedTime = lastModifiedTime;
-    }
-    return _result;
-  }
-  factory FileInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FileInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FileInfo clone() => FileInfo()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FileInfo copyWith(void Function(FileInfo) updates) => super.copyWith((message) => updates(message as FileInfo)) as FileInfo; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FileInfo create() => FileInfo._();
-  FileInfo createEmptyInstance() => create();
-  static $pb.PbList<FileInfo> createRepeated() => $pb.PbList<FileInfo>();
-  @$core.pragma('dart2js:noInline')
-  static FileInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FileInfo>(create);
-  static FileInfo? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get fileName => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set fileName($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasFileName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearFileName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get md5 => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set md5($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasMd5() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMd5() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $fixnum.Int64 get size => $_getI64(2);
-  @$pb.TagNumber(3)
-  set size($fixnum.Int64 v) { $_setInt64(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSize() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSize() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $fixnum.Int64 get lastModifiedTime => $_getI64(3);
-  @$pb.TagNumber(4)
-  set lastModifiedTime($fixnum.Int64 v) { $_setInt64(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasLastModifiedTime() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearLastModifiedTime() => clearField(4);
-}
+import 'file_info.pb.dart' as $0;
 
 class FileDataUploadFileRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FileDataUploadFileRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
@@ -105,9 +18,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalChunks', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentChunkIndex', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunk', $pb.PbFieldType.OY)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileName')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'md5')
-    ..aInt64(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastModifiedTime')
+    ..aOM<$0.FileInfo>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileInfo', subBuilder: $0.FileInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -117,9 +28,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     $fixnum.Int64? totalChunks,
     $fixnum.Int64? currentChunkIndex,
     $core.List<$core.int>? chunk,
-    $core.String? fileName,
-    $core.String? md5,
-    $fixnum.Int64? lastModifiedTime,
+    $0.FileInfo? fileInfo,
   }) {
     final _result = create();
     if (dataId != null) {
@@ -134,14 +43,8 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     if (chunk != null) {
       _result.chunk = chunk;
     }
-    if (fileName != null) {
-      _result.fileName = fileName;
-    }
-    if (md5 != null) {
-      _result.md5 = md5;
-    }
-    if (lastModifiedTime != null) {
-      _result.lastModifiedTime = lastModifiedTime;
+    if (fileInfo != null) {
+      _result.fileInfo = fileInfo;
     }
     return _result;
   }
@@ -203,31 +106,15 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
   void clearChunk() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get fileName => $_getSZ(4);
+  $0.FileInfo get fileInfo => $_getN(4);
   @$pb.TagNumber(5)
-  set fileName($core.String v) { $_setString(4, v); }
+  set fileInfo($0.FileInfo v) { setField(5, v); }
   @$pb.TagNumber(5)
-  $core.bool hasFileName() => $_has(4);
+  $core.bool hasFileInfo() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFileName() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.String get md5 => $_getSZ(5);
-  @$pb.TagNumber(6)
-  set md5($core.String v) { $_setString(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasMd5() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearMd5() => clearField(6);
-
-  @$pb.TagNumber(7)
-  $fixnum.Int64 get lastModifiedTime => $_getI64(6);
-  @$pb.TagNumber(7)
-  set lastModifiedTime($fixnum.Int64 v) { $_setInt64(6, v); }
-  @$pb.TagNumber(7)
-  $core.bool hasLastModifiedTime() => $_has(6);
-  @$pb.TagNumber(7)
-  void clearLastModifiedTime() => clearField(7);
+  void clearFileInfo() => clearField(5);
+  @$pb.TagNumber(5)
+  $0.FileInfo ensureFileInfo() => $_ensure(4);
 }
 
 class FileDataUploadFileResponse extends $pb.GeneratedMessage {
