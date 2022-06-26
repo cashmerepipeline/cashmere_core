@@ -210,6 +210,7 @@ pub struct FileInfo {
     pub last_modified_time: i64,
 }
 /// 上传文件数据
+/// 第一个包块编号为-1，最后一个包块编号为-1, 即从-1开始，到-1结束
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileRequest {
     #[prost(string, tag="1")]
@@ -220,13 +221,15 @@ pub struct FileDataUploadFileRequest {
     pub current_chunk_index: u64,
     #[prost(bytes="vec", tag="4")]
     pub chunk: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="6")]
+    pub chunk_md5: ::prost::alloc::string::String,
     #[prost(message, optional, tag="5")]
     pub file_info: ::core::option::Option<FileInfo>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
+    #[prost(uint64, tag="1")]
+    pub next_chunk_index: u64,
 }
 /// 下载文件数据
 #[derive(Clone, PartialEq, ::prost::Message)]

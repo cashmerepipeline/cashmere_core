@@ -16,22 +16,23 @@ const FileDataUploadFileRequest$json = const {
     const {'1': 'total_chunks', '3': 2, '4': 1, '5': 4, '10': 'totalChunks'},
     const {'1': 'current_chunk_index', '3': 3, '4': 1, '5': 4, '10': 'currentChunkIndex'},
     const {'1': 'chunk', '3': 4, '4': 1, '5': 12, '10': 'chunk'},
+    const {'1': 'chunk_md5', '3': 6, '4': 1, '5': 9, '10': 'chunkMd5'},
     const {'1': 'file_info', '3': 5, '4': 1, '5': 11, '6': '.cashmere.FileInfo', '10': 'fileInfo'},
   ],
 };
 
 /// Descriptor for `FileDataUploadFileRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fileDataUploadFileRequestDescriptor = $convert.base64Decode('ChlGaWxlRGF0YVVwbG9hZEZpbGVSZXF1ZXN0EhcKB2RhdGFfaWQYASABKAlSBmRhdGFJZBIhCgx0b3RhbF9jaHVua3MYAiABKARSC3RvdGFsQ2h1bmtzEi4KE2N1cnJlbnRfY2h1bmtfaW5kZXgYAyABKARSEWN1cnJlbnRDaHVua0luZGV4EhQKBWNodW5rGAQgASgMUgVjaHVuaxIvCglmaWxlX2luZm8YBSABKAsyEi5jYXNobWVyZS5GaWxlSW5mb1IIZmlsZUluZm8=');
+final $typed_data.Uint8List fileDataUploadFileRequestDescriptor = $convert.base64Decode('ChlGaWxlRGF0YVVwbG9hZEZpbGVSZXF1ZXN0EhcKB2RhdGFfaWQYASABKAlSBmRhdGFJZBIhCgx0b3RhbF9jaHVua3MYAiABKARSC3RvdGFsQ2h1bmtzEi4KE2N1cnJlbnRfY2h1bmtfaW5kZXgYAyABKARSEWN1cnJlbnRDaHVua0luZGV4EhQKBWNodW5rGAQgASgMUgVjaHVuaxIbCgljaHVua19tZDUYBiABKAlSCGNodW5rTWQ1Ei8KCWZpbGVfaW5mbxgFIAEoCzISLmNhc2htZXJlLkZpbGVJbmZvUghmaWxlSW5mbw==');
 @$core.Deprecated('Use fileDataUploadFileResponseDescriptor instead')
 const FileDataUploadFileResponse$json = const {
   '1': 'FileDataUploadFileResponse',
   '2': const [
-    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+    const {'1': 'next_chunk_index', '3': 1, '4': 1, '5': 4, '10': 'nextChunkIndex'},
   ],
 };
 
 /// Descriptor for `FileDataUploadFileResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fileDataUploadFileResponseDescriptor = $convert.base64Decode('ChpGaWxlRGF0YVVwbG9hZEZpbGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+final $typed_data.Uint8List fileDataUploadFileResponseDescriptor = $convert.base64Decode('ChpGaWxlRGF0YVVwbG9hZEZpbGVSZXNwb25zZRIoChBuZXh0X2NodW5rX2luZGV4GAEgASgEUg5uZXh0Q2h1bmtJbmRleA==');
 @$core.Deprecated('Use fileDataDownloadFileRequestDescriptor instead')
 const FileDataDownloadFileRequest$json = const {
   '1': 'FileDataDownloadFileRequest',

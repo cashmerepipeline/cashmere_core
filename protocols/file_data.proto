@@ -4,16 +4,18 @@ package cashmere;
 import "file_info.proto";
 
 // 上传文件数据
+// 第一个包块编号为-1，最后一个包块编号为-1, 即从-1开始，到-1结束
 message FileDataUploadFileRequest {
   string data_id = 1;
   uint64 total_chunks = 2;
   uint64 current_chunk_index = 3;
   bytes chunk = 4;
+  string chunk_md5 = 6;
   FileInfo file_info = 5;
 }
 
 message FileDataUploadFileResponse {
-  string result = 1;
+  uint64 next_chunk_index = 1;
 }
 
 // 下载文件数据

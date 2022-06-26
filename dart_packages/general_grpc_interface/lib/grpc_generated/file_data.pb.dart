@@ -19,6 +19,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentChunkIndex', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunk', $pb.PbFieldType.OY)
     ..aOM<$0.FileInfo>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileInfo', subBuilder: $0.FileInfo.create)
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunkMd5')
     ..hasRequiredFields = false
   ;
 
@@ -29,6 +30,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     $fixnum.Int64? currentChunkIndex,
     $core.List<$core.int>? chunk,
     $0.FileInfo? fileInfo,
+    $core.String? chunkMd5,
   }) {
     final _result = create();
     if (dataId != null) {
@@ -45,6 +47,9 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     }
     if (fileInfo != null) {
       _result.fileInfo = fileInfo;
+    }
+    if (chunkMd5 != null) {
+      _result.chunkMd5 = chunkMd5;
     }
     return _result;
   }
@@ -115,21 +120,30 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
   void clearFileInfo() => clearField(5);
   @$pb.TagNumber(5)
   $0.FileInfo ensureFileInfo() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  $core.String get chunkMd5 => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set chunkMd5($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasChunkMd5() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearChunkMd5() => clearField(6);
 }
 
 class FileDataUploadFileResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FileDataUploadFileResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
+    ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextChunkIndex', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
   FileDataUploadFileResponse._() : super();
   factory FileDataUploadFileResponse({
-    $core.String? result,
+    $fixnum.Int64? nextChunkIndex,
   }) {
     final _result = create();
-    if (result != null) {
-      _result.result = result;
+    if (nextChunkIndex != null) {
+      _result.nextChunkIndex = nextChunkIndex;
     }
     return _result;
   }
@@ -155,13 +169,13 @@ class FileDataUploadFileResponse extends $pb.GeneratedMessage {
   static FileDataUploadFileResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get result => $_getSZ(0);
+  $fixnum.Int64 get nextChunkIndex => $_getI64(0);
   @$pb.TagNumber(1)
-  set result($core.String v) { $_setString(0, v); }
+  set nextChunkIndex($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasResult() => $_has(0);
+  $core.bool hasNextChunkIndex() => $_has(0);
   @$pb.TagNumber(1)
-  void clearResult() => clearField(1);
+  void clearNextChunkIndex() => clearField(1);
 }
 
 class FileDataDownloadFileRequest extends $pb.GeneratedMessage {
