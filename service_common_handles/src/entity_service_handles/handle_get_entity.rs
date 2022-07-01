@@ -15,12 +15,12 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleGetDataList {
+pub trait HandleGetEntity {
     /// 取得管理记录数量
-    async fn handle_get_data_list(
+    async fn handle_get_entity(
         &self,
-        request: Request<GetDataListRequest>,
-    ) -> UnaryResponseResult<GetDataListResponse> {
+        request: Request<GetEntityRequest>,
+    ) -> UnaryResponseResult<GetEntityResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -34,22 +34,14 @@ pub trait HandleGetDataList {
         }
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
-            .get_manager_by_id(*manage_id)
-            .await
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
-        let result = manager
-            .get_entity_by_id(entity_id)
-            .await;
+        let result = manager.get_entity_by_id(entity_id).await;
 
         match result {
-            Ok(r) => {
-                let data_ids = r.get_array(DATAS_FIELD_ID.to_string()).unwrap();
-                Ok(Response::new(GetDataListResponse {
-                    data_ids: data_ids.iter().map(|x| x.to_string()).collect(),
-                }))
-            }
+            Ok(r) => Ok(Response::new(GetEntityResponse {
+                entity: bson::from_document(r).unwrap(),
+            })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),

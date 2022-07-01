@@ -7,13 +7,39 @@ Modified: !date!
 */
 
 syntax = "proto3";
-
 package cashmere;
 
+import "name.proto";
+
 message Entity{
-  bytes data = 1; // bson document {id, name, writeable_fields, readonly_fields}
+  string id = 1;
+  Name name = 2;
+  string creator_id = 3;
+  string create_timestamp = 4;
+  string modifier_id = 5;
+  string modify_timestamp = 6;
+  string owner_id = 7;
+  repeated string groups = 8;
+  repeated string data_ids = 9;
+  repeated string comment_ids=  10;
+  bool removed = 11;
+  repeated string removed_data_ids = 12;
 }
 
+// 变更物主
+message ChangeOwnerRequest
+{
+  int32 manage_id = 1;
+  string entity_id = 2;
+  string old_owner_id = 3;
+  string new_owner_id = 4;
+}
+message ChangeOwnerResponse
+{
+  string result = 1;
+}
+
+// 太通用，不建议开放
 message NewEntityRequest {
   int32 manage_id = 1;
   bytes data = 2;
@@ -22,6 +48,7 @@ message NewEntityResponse {
   string result = 1;
 }
 
+// 不建议开放
 message EditEntityRequest {
   int32 manage_id = 1;
   string entity_id = 2;
@@ -29,6 +56,34 @@ message EditEntityRequest {
 }
 message EditEntityResponse {
   string result = 1;
+}
+
+// 取得实体
+message GetEntityRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+}
+message GetEntityResponse {
+    bytes entity = 1;
+}
+
+// 取得多个实体
+message GetEntitiesRequest {
+    int32 manage_id = 1;
+    repeated string entity_ids = 2;
+}
+message GetEntitiesResponse {
+    repeated bytes entities = 1;
+}
+
+// 取得实体页
+message GetEntitiesPageRequest {
+  int32 manage_id = 1;
+  uint32 page_index = 2;
+  bytes conditions = 3;
+}
+message GetEntitiesPageResponse {
+  repeated bytes entities = 1;
 }
 
 // 标记实体已移除
@@ -58,3 +113,4 @@ message GetRemovedDataListRequest{
 message GetRemovedDataListResponse{
   repeated string data_ids = 1;
 }
+

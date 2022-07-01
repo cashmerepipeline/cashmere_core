@@ -445,10 +445,49 @@ pub enum AreaLevel {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entity {
-    /// bson document {id, name, writeable_fields, readonly_fields}
-    #[prost(bytes="vec", tag="1")]
-    pub data: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="1")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="3")]
+    pub creator_id: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub create_timestamp: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
+    pub modifier_id: ::prost::alloc::string::String,
+    #[prost(string, tag="6")]
+    pub modify_timestamp: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub owner_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="8")]
+    pub groups: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="9")]
+    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="10")]
+    pub comment_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(bool, tag="11")]
+    pub removed: bool,
+    #[prost(string, repeated, tag="12")]
+    pub removed_data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+/// 变更物主
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnerRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub old_owner_id: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub new_owner_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnerResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 太通用，不建议开放
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityRequest {
     #[prost(int32, tag="1")]
@@ -461,6 +500,7 @@ pub struct NewEntityResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 不建议开放
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityRequest {
     #[prost(int32, tag="1")]
@@ -474,6 +514,47 @@ pub struct EditEntityRequest {
 pub struct EditEntityResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得实体
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntityRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntityResponse {
+    #[prost(bytes="vec", tag="1")]
+    pub entity: ::prost::alloc::vec::Vec<u8>,
+}
+/// 取得多个实体
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntitiesRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, repeated, tag="2")]
+    pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntitiesResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得实体页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntitiesPageRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(bytes="vec", tag="3")]
+    pub conditions: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEntitiesPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 标记实体已移除
 #[derive(Clone, PartialEq, ::prost::Message)]

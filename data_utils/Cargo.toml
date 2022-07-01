@@ -8,8 +8,7 @@ edition = "2021"
 [dependencies]
 fs4 = { version = "0.5.4", features = ["tokio-async"] }
 tokio = { versions = "1.18.2", features = ["fs"] }
-
-# logging
+md-5 = "0.10.1"
 log = "0.4.17"
 simplelog = "0.12.0"
 

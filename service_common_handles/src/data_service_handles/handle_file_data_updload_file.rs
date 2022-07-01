@@ -27,11 +27,11 @@ pub trait HandleFileDataUploadFile {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
 
         let mut in_stream = request.into_inner();
-        let first_request = if let Some(in_data) = in_stream.next().await{
+        let first_request = if let Some(in_data) = in_stream.next().await {
             if in_data.is_ok() {
                 in_data.unwrap()
             } else {
-                return Err(Status::data_loss("请求数据错误"))
+                return Err(Status::data_loss("请求数据错误"));
             }
         } else {
             return Err(Status::data_loss("数据流错误"));
@@ -96,8 +96,9 @@ pub trait HandleFileDataUploadFile {
 
                         if v.current_chunk_index == 0 {
                             println!("到达末尾");
-                            // TODO: 数据块校验, 如果失败则重发
+                            // TODO: 文件校验, 失败
                         } else {
+                            // TODO: 数据块校验, 如果失败则重发
                             if let Ok(r) = ftx.send(v.chunk).await {
                                 r
                             } else {
