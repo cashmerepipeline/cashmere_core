@@ -9,11 +9,11 @@ name = { Cn = "管理", En = "manages" }
 schema = [
     { data_type = "Map", name = { Cn = "描写", En = "schema" }, removed = false },
     # 事件，消息
-    { data_type = "List", name = { Cn = "事件表", En = "events" }, removed = false },
-    { data_type = "List", name = { Cn = "消息表", En = "messages" }, removed = false },
+#    { data_type = "List", name = { Cn = "事件表", En = "events" }, removed = false },
+#    { data_type = "List", name = { Cn = "消息表", En = "messages" }, removed = false },
     # 队列
-    { data_type = "List", name = { Cn = "事件队列表", En = "event_queues" }, removed = false },
-    { data_type = "List", name = { Cn = "消息队列表", En = "message_queues" }, removed = false },
+#    { data_type = "List", name = { Cn = "事件队列表", En = "event_queues" }, removed = false },
+#    { data_type = "List", name = { Cn = "消息队列表", En = "message_queues" }, removed = false },
 ]
 
 

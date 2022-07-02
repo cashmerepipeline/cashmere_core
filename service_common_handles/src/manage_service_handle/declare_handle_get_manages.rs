@@ -1,7 +1,20 @@
-#[macro_export]
-macro_rules! declare_handle_get_manages {
-    ($server:ty) => {
-        impl $server {
+use async_trait::async_trait;
+use bson::doc;
+use tonic::{Request, Response, Status};
+
+use crate::UnaryResponseResult;
+
+use majordomo::{self, get_majordomo};
+use manage_define::cashmere::*;
+use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
+use manage_define::manage_ids::*;
+use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
+use view;
+
+#[async_trait]
+pub trait HandleGetManages {
             /// 取得管理
             pub(crate) async fn handle_get_manages(
                 &self,
@@ -29,5 +42,3 @@ macro_rules! declare_handle_get_manages {
                 Ok(Response::new(rx))
             }
         }
-    };
-}

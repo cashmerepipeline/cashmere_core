@@ -597,86 +597,21 @@ pub struct GetRemovedDataListResponse {
     #[prost(string, repeated, tag="1")]
     pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// 映像请求
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageViewRequest {
-    #[prost(string, tag="1")]
-    pub manage_name: ::prost::alloc::string::String,
-}
-/// 映像返回
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageViewResponse {
-    #[prost(string, tag="1")]
-    pub view_token: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Field {
-    #[prost(int32, tag="1")]
-    pub id: i32,
-    #[prost(bytes="vec", tag="2")]
-    pub name: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="3")]
-    pub data_type: ::prost::alloc::string::String,
-    #[prost(bool, tag="4")]
-    pub removed: bool,
+pub struct Manage {
+    #[prost(uint32, tag="1")]
+    pub manage_id: u32,
+    #[prost(message, repeated, tag="2")]
+    pub names: ::prost::alloc::vec::Vec<Name>,
 }
 /// 取得管理列表
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManagesRequest {
 }
-/// 取得管理描写
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageSchemaRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageSchemaResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub schema: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// 添加管理属性
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewSchemaFieldRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="2")]
-    pub field: ::core::option::Option<Field>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewSchemaFieldResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 移除管理属性
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveSchemaFieldRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
-    #[prost(int32, tag="2")]
-    pub field_id: i32,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveSchemaFieldResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 编辑管理属性
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditSchemaFieldNameRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
-    #[prost(int32, tag="2")]
-    pub field_id: i32,
-    #[prost(string, tag="3")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub new_name: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditSchemaFieldNameResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
+pub struct GetManagesResponse {
+    #[prost(message, repeated, tag="1")]
+    pub manages: ::prost::alloc::vec::Vec<Manage>,
 }
 /// 取得记录数量
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -688,6 +623,18 @@ pub struct GetManageEntryCountRequest {
 pub struct GetManageEntryCountResponse {
     #[prost(uint64, tag="1")]
     pub count: u64,
+}
+/// 映像请求
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetManageViewRequest {
+    #[prost(string, tag="1")]
+    pub manage_name: ::prost::alloc::string::String,
+}
+/// 映像返回
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetManageViewResponse {
+    #[prost(string, tag="1")]
+    pub view_token: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Event {
