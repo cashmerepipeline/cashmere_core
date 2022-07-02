@@ -1,12 +1,10 @@
-use std::ops::Deref;
 use async_trait::async_trait;
-use bson::{doc, Document};
-use chrono::format::parse;
+use bson::doc;
 use futures::TryFutureExt;
 use tonic::{Request, Response, Status};
 
-use manage_define::cashmere::*;
 use crate::UnaryResponseResult;
+use manage_define::cashmere::*;
 
 use majordomo::{self, get_majordomo};
 use manage_define::field_ids::*;
@@ -53,10 +51,7 @@ pub trait HandleNewData {
             .get_manager_by_id(DATAS_MANAGE_ID)
             .await
             .unwrap();
-        let associated_manager = majordomo_arc
-            .get_manager_by_id(*manage_id)
-            .await
-            .unwrap();
+        let associated_manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
         let local_name = doc! {
             name.language.clone(): name.name.clone()
@@ -71,15 +66,13 @@ pub trait HandleNewData {
             let mut data_id = None;
             let result = data_manager
                 .sink_entity(&mut new_entity_doc, &account_id, &group_id)
-                .and_then(
-                    |id| {
-                        data_id = Some(id.clone());
-                        let query_doc = doc! {"_id": entity_id.clone()};
-                        let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id.clone()};
+                .and_then(|id| {
+                    data_id = Some(id.clone());
+                    let query_doc = doc! {"_id": entity_id.clone()};
+                    let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id.clone()};
 
-                        associated_manager.push_entity_array_field(query_doc, modify_doc, &account_id)
-                    }
-                )
+                    associated_manager.push_entity_array_field(query_doc, modify_doc, &account_id)
+                })
                 .await;
 
             match result {
@@ -97,3 +90,4 @@ pub trait HandleNewData {
         }
     }
 }
+

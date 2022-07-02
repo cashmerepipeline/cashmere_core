@@ -108,6 +108,21 @@ pub struct Color {
     #[prost(uint32, tag="5")]
     pub alpha: u32,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum DataType {
+    /// 单个文件
+    File = 0,
+    /// 序列文件
+    Sequence = 1,
+    /// 文件集合
+    Set = 2,
+    /// 消息
+    Message = 3,
+    /// 数据库数据
+    Document = 4,
+}
 /// 新建数据
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataRequest {
@@ -180,21 +195,6 @@ pub struct MarkDataRemovedRequest {
 pub struct MarkDataRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum DataType {
-    /// 单个文件
-    File = 0,
-    /// 序列文件
-    Sequence = 1,
-    /// 文件集合
-    Set = 2,
-    /// 消息
-    Message = 3,
-    /// 数据库数据
-    Document = 4,
 }
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]

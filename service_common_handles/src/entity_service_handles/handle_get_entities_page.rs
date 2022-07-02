@@ -1,15 +1,10 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
-use chrono::format::parse;
+use bson::doc;
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
-use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use view;
 
 use crate::UnaryResponseResult;
@@ -30,6 +25,8 @@ pub trait HandleGetEntitiesPage {
         let page_index = &request.get_ref().page_index;
         let conditions = &request.get_ref().conditions;
 
+        // TODO: 可读性检查
+
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
@@ -38,6 +35,8 @@ pub trait HandleGetEntitiesPage {
         let result = manager
             .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
             .await;
+
+        // TODO: 可见性过滤
 
         match result {
             Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {

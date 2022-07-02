@@ -1,6 +1,6 @@
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
 use async_trait::async_trait;
-use log::{debug, info};
+use log::info;
 use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
@@ -8,11 +8,7 @@ use tonic::{Response, Status};
 use data_utils::file_utils::create_recieve_data_file_stream;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use view;
 
 #[async_trait]
@@ -67,19 +63,24 @@ pub trait HandleFileDataUploadFile {
         };
 
         // TODO: 续传检查
+        //  起始数据块编号
         let mut next_chunk_index = 1u64;
         info!("开始接收文件{}--{}", &data_id, &file_info.file_name);
 
-        //  起始数据块编号
-        resp_tx
+        if let Ok(_r) = resp_tx
             .send(Ok(FileDataUploadFileResponse {
                 next_chunk_index: next_chunk_index,
             }))
-            .await;
+            .await
+        {
+            info!("返回起始包编号：{}", &next_chunk_index);
+        } else {
+            return Err(Status::aborted("返回起始包编号失败。"));
+        };
 
         // 2. 接收线程, 等待客户端发送完成后发出关闭信号后结束退出
         // TODO: 需要设置最大等待时长
-        let result = tokio::spawn(async move {
+        tokio::spawn(async move {
             let file_name = file_info.file_name.clone();
             let data_id = first_request.data_id.clone();
 
@@ -95,14 +96,18 @@ pub trait HandleFileDataUploadFile {
                         );
 
                         if v.current_chunk_index == 0 {
-                            println!("到达末尾");
+                            info!("文件传输完，开始校验文件");
                             // TODO: 文件校验, 失败
                         } else {
                             // TODO: 数据块校验, 如果失败则重发
                             if let Ok(r) = ftx.send(v.chunk).await {
                                 r
                             } else {
-                                ()
+                                resp_tx
+                                    .send(Err(Status::data_loss("发送文件流失败。")))
+                                    .await
+                                    .expect("反馈错误失败。");
+                                return Err(Status::data_loss("发送文件流失败。"));
                             }
 
                             // TODO: 下一个数据块编号
@@ -110,28 +115,32 @@ pub trait HandleFileDataUploadFile {
                             if next_chunk_index > v.total_chunks {
                                 next_chunk_index = 0;
                             }
-                            resp_tx
-                                .send(Ok(FileDataUploadFileResponse {
-                                    next_chunk_index: next_chunk_index,
-                                }))
-                                .await;
+                            if resp_tx
+                                .send(Ok(FileDataUploadFileResponse { next_chunk_index }))
+                                .await
+                                .is_err()
+                            {
+                                resp_tx
+                                    .send(Err(Status::data_loss("返回下一个包编号错误。")))
+                                    .await
+                                    .expect("反馈错误失败。");
+                                return Err(Status::data_loss("返回下一个数据包编号失败。"));
+                            };
                         }
 
                         ()
                     }
-                    Err(err) => {
-                        // if let Some(io_err) = match_for_io_error(&err) {
-                        //     if io_err.kind() == ErrorKind::BrokenPipe {
-                        //         // here you can handle special case when client
-                        //         // disconnected in unexpected way
-                        //         eprintln!("\tclient disconnected: broken pipe");
-                        //         break;
-                        //     }
-                        // }
+                    Err(_err) => {
+                        resp_tx
+                            .send(Err(Status::data_loss("接收上传流发生错误。")))
+                            .await
+                            .expect("反馈错误失败。");
+                        return Err(Status::data_loss("接收文件上传错误。"));
                     }
                 }
             }
-            info!("接收文件结束{}--{}", data_id, file_name);
+            info!("接收文件结束{}--{}。", data_id, file_name);
+            Ok(())
         });
 
         let resp_stream = ReceiverStream::new(resp_rx);

@@ -11,7 +11,7 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleGetEnties {
+pub trait HandleGetEntities {
     /// 取得管理记录数量
     async fn handle_get_entities(
         &self,
@@ -25,6 +25,7 @@ pub trait HandleGetEnties {
         let manage_id = &request.get_ref().manage_id;
         let entity_ids = &request.get_ref().entity_ids;
 
+        // TODO: 可读性检查
         if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
@@ -37,6 +38,8 @@ pub trait HandleGetEnties {
         };
 
         let result = manager.get_entities_by_filter(&Some(query_doc)).await;
+
+        // TODO: 可见性过滤
 
         match result {
             Ok(entities) => Ok(Response::new(GetEntitiesResponse {

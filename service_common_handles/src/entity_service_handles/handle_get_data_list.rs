@@ -1,15 +1,11 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
-use chrono::format::parse;
+use bson::doc;
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
-use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use view;
 
 use crate::UnaryResponseResult;
@@ -29,19 +25,17 @@ pub trait HandleGetDataList {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
 
+        // TODO: 可读性检查
         if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
-            .get_manager_by_id(*manage_id)
-            .await
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
-        let result = manager
-            .get_entity_by_id(entity_id)
-            .await;
+        let result = manager.get_entity_by_id(entity_id).await;
+
+        // TODO: 可见性过滤
 
         match result {
             Ok(r) => {
