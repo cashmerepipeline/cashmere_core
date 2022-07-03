@@ -1,6 +1,6 @@
 [package]
 name = "property_field"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["wangrongwen <403271579@qq.com>"]
 edition = "2018"
 
@@ -12,3 +12,4 @@ bson = "2.0.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 toml = "0.5.8"
+
