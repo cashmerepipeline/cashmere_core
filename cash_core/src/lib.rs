@@ -26,7 +26,7 @@ use linked_hash_map::LinkedHashMap;
 pub struct Manage {
     pub _id: String,
     pub id: i32,
-    pub name: LinkedHashMap<String, String>,
+    pub name_map: LinkedHashMap<String, String>,
     pub creator: String,
     pub create_timestamp: i64,
     pub modifier: String,
@@ -41,7 +41,7 @@ pub struct Manage {
 pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationResult> {
     let _id = manage_doc.get_str("_id").unwrap();
     let id: i32 = manage_doc.get_str(&ID_FIELD_ID.to_string()).unwrap().parse().unwrap();
-    let name = bson::from_document(manage_doc.get_document(&NAME_FIELD_ID.to_string()).unwrap().clone()).unwrap();
+    let name_map = bson::from_document(manage_doc.get_document(&NAME_MAP_FIELD_ID.to_string()).unwrap().clone()).unwrap();
     let creator = manage_doc.get_str(&CREATOR_FIELD_ID.to_string()).unwrap();
     let create_timestamp = manage_doc.get_i64(&CREATE_TIMESTAMP_FIELD_ID.to_string()).unwrap();
     let modifier = manage_doc.get_str(&MODIFIER_FIELD_ID.to_string()).unwrap();
@@ -56,7 +56,7 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
     Ok(Manage {
         _id: _id.to_string(),
         id,
-        name,
+        name_map,
         creator: creator.to_string(),
         create_timestamp,
         modifier: modifier.to_string(),

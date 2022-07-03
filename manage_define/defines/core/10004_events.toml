@@ -5,11 +5,11 @@
 # 事件由具体的记录发出，然后加入目标队列
 
 id = 10004
-name = { Cn = "事件", En = "events" }
+name_map = { Cn = "事件", En = "events" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "目标队列", En = "queues" }, removed = false },
+    { data_type = "List", name_map = { Cn = "目标队列", En = "queues" }, removed = false },
 ]
 
 

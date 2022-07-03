@@ -3,19 +3,19 @@
 #
 
 id = 30005
-name = { Cn = "单位组织", En = "organizations" }
+name_map = { Cn = "单位组织", En = "organizations" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "知识图表", En = "graphs" }, removed = false },
-    { data_type = "List", name = { Cn = "路线图表", En = "roadmaps" }, removed = false },
-    { data_type = "List", name = { Cn = "标记图表", En = "tag_maps" }, removed = false },
-    { data_type = "List", name = { Cn = "管理员表", En = "administrators" }, removed = false },
-    { data_type = "List", name = { Cn = "员工表", En = "employees" }, removed = false },
-    { data_type = "List", name = { Cn = "领域表", En = "domains" }, removed = false },
+    { data_type = "List", name_map = { Cn = "知识图表", En = "graphs" }, removed = false },
+    { data_type = "List", name_map = { Cn = "路线图表", En = "roadmaps" }, removed = false },
+    { data_type = "List", name_map = { Cn = "标记图表", En = "tag_maps" }, removed = false },
+    { data_type = "List", name_map = { Cn = "管理员表", En = "administrators" }, removed = false },
+    { data_type = "List", name_map = { Cn = "员工表", En = "employees" }, removed = false },
+    { data_type = "List", name_map = { Cn = "领域表", En = "domains" }, removed = false },
     # 地区编码
-    { data_type = "String", name = { Cn = "地区", En = "location" }, removed = false },
-    { data_type = "String", name = { Cn = "部门表", En = "departments" }, removed = false },
+    { data_type = "String", name_map = { Cn = "地区", En = "location" }, removed = false },
+    { data_type = "String", name_map = { Cn = "部门表", En = "departments" }, removed = false },
 ]
 
 # 事件队列和消息队列表

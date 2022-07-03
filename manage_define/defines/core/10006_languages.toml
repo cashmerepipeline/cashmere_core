@@ -4,12 +4,12 @@
 
 # 管理名, 对应数据库的表或者集合
 id = 10006
-name = { Cn = "语言", En = "languages" }
+name_map = { Cn = "语言", En = "languages" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "Int32", name = { Cn = "编码", En = "code"}, removed = false },
-    { data_type = "String", name = { Cn = "验证正则", En = "regex"}, removed = false },
+    { data_type = "Int32", name_map = { Cn = "编码", En = "code"}, removed = false },
+    { data_type = "String", name_map = { Cn = "验证正则", En = "regex"}, removed = false },
 ]
 
 # 事件队列和消息队列表

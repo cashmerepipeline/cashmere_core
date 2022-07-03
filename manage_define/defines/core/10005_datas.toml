@@ -3,14 +3,14 @@
 #
 
 id = 10005
-name = { Cn = "数据", En = "datas" }
+name_map = { Cn = "数据", En = "datas" }
 
 # 描写，模式
 schema = [
-    { data_type = "String", name = { Cn = "类型", En = "data_type"}, removed = false },
-    { data_type = "Map", name = { Cn = "数据", En = "data"}, removed = false },
-    { data_type = "String", name = { Cn = "关联管理", En = "manage_id"}, removed = false },
-    { data_type = "String", name = { Cn = "关联实体", En = "entity_id"}, removed = false },
+    { data_type = "String", name_map = { Cn = "类型", En = "data_type"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "数据", En = "data"}, removed = false },
+    { data_type = "String", name_map = { Cn = "关联管理", En = "manage_id"}, removed = false },
+    { data_type = "String", name_map = { Cn = "关联实体", En = "entity_id"}, removed = false },
 ]
 
 [queues]

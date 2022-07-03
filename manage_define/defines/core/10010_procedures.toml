@@ -3,15 +3,15 @@
 #
 
 id = 10010
-name = { Cn = "过程", En = "procedures" }
+name_map = { Cn = "过程", En = "procedures" }
 
 # 描写，模式
 schema = [
-    { data_type = "String", name = { Cn = "工作编号", En = "work_id"}, removed = false },
-    { data_type = "Int32", name = { Cn = "阶段", En = "phases_index"}, removed = false },
+    { data_type = "String", name_map = { Cn = "工作编号", En = "work_id"}, removed = false },
+    { data_type = "Int32", name_map = { Cn = "阶段", En = "phases_index"}, removed = false },
     # 每个过程对应一个工作图
-    { data_type = "List", name = { Cn = "工作节点", En = "work_nodes"}, removed = false },
-    { data_type = "List", name = { Cn = "连接表", En = "links"}, removed = false },
+    { data_type = "List", name_map = { Cn = "工作节点", En = "work_nodes"}, removed = false },
+    { data_type = "List", name_map = { Cn = "连接表", En = "links"}, removed = false },
 ]
 
 [queues]
@@ -29,7 +29,7 @@ after_finish = { manage = "procedures", python = "" }
 
 [view_rules]
 id = 10010
-name = { Cn = "过程", En = "procedures" }
+name_map = { Cn = "过程", En = "procedures" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }

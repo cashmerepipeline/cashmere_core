@@ -58,7 +58,7 @@ pub trait HandleNewData {
         };
 
         if let mut new_entity_doc = make_new_entity_document(&data_manager).await.unwrap() {
-            new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
+            new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), local_name);
             new_entity_doc.insert(DATAS_DATA_TYPE_FIELD_ID.to_string(), data_type);
             new_entity_doc.insert(DATAS_MANAGE_ID_FIELD_ID.to_string(), manage_id);
             new_entity_doc.insert(DATAS_ENTITY_ID_FIELD_ID.to_string(), entity_id);

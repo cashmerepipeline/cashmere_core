@@ -36,7 +36,7 @@ pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir:
                             continue;
                         }
                     };
-                    let manage_name = get_name::get_name(&toml_map)
+                    let manage_name = get_name::get_name_map(&toml_map)
                         .unwrap()
                         .get_str("En")
                         .unwrap()

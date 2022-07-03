@@ -108,7 +108,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let mut manage_doc = doc! {
             "_id": manage_id.clone(),
             ID_FIELD_ID.to_string(): manage_id.clone(),
-            NAME_FIELD_ID.to_string(): manage_name.clone(),
+            NAME_MAP_FIELD_ID.to_string(): manage_name.clone(),
             MANAGES_SCHEMA_FIELD_ID.to_string(): manage_schema
         };
 
@@ -194,7 +194,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let mut rulse_doc = doc! {
             "_id": rule_id.to_string(),
             ID_FIELD_ID.to_string(): rule_id.to_string(),
-            NAME_FIELD_ID.to_string(): rule_name.clone(),
+            NAME_MAP_FIELD_ID.to_string(): rule_name.clone(),
             VIEW_RULES_MANAGE_FIELD_ID.to_string(): bson::to_bson(&view_rules.manage).unwrap(),
             VIEW_RULES_COLLECTION_FIELD_ID.to_string(): bson::to_bson(&view_rules.collection).unwrap(),
             VIEW_RULES_ENTITY_FIELD_ID.to_string(): bson::to_bson(&view_rules.schema).unwrap(),

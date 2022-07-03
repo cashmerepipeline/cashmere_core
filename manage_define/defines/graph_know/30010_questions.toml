@@ -3,13 +3,13 @@
 #
 
 id = 30010
-name = { Cn = "问题", En = "questions"}
+name_map = { Cn = "问题", En = "questions"}
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "知识点", En = "points"}, removed = false },
-    { data_type = "List", name = { Cn = "回答", En = "answers"}, removed = false },
-    { data_type = "List", name = { Cn = "回答", En = "contents"}, removed = false },
+    { data_type = "List", name_map = { Cn = "知识点", En = "points"}, removed = false },
+    { data_type = "List", name_map = { Cn = "回答", En = "answers"}, removed = false },
+    { data_type = "List", name_map = { Cn = "回答", En = "contents"}, removed = false },
 ]
 
 

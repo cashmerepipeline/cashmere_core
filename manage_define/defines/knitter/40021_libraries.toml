@@ -3,11 +3,11 @@
 #
 
 id = 40021
-name = { Cn = "资产库", En = "libraries" }
+name_map = { Cn = "资产库", En = "libraries" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name = { Cn = "根路径", En = "root"}, removed = false },
+    { data_type = "String", name_map = { Cn = "根路径", En = "root"}, removed = false },
 ]
 
 

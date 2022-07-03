@@ -3,12 +3,12 @@
 #
 
 id = 40026
-name = { Cn = "镜", En = "cuts" }
+name_map = { Cn = "镜", En = "cuts" }
 
 # 数据描写 或者 模式s
 schema = [
-    { data_type = "Int64", name = { Cn = "场", En = "sequence"}, removed = false },
-    { data_type = "String", name = { Cn = "根目录", En = "root"}, removed = false },
+    { data_type = "Int64", name_map = { Cn = "场", En = "sequence"}, removed = false },
+    { data_type = "String", name_map = { Cn = "根目录", En = "root"}, removed = false },
 ]
 
 

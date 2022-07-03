@@ -39,7 +39,7 @@ pub trait HandleNewLanguageName {
                     "_id":entity_id
                 };
         let modify_doc = doc! {
-                    format!("{}", NAME_FIELD_ID):{language.clone():new_name.clone()}
+                    format!("{}", NAME_MAP_FIELD_ID):{language.clone():new_name.clone()}
                 };
 
         let result = manager

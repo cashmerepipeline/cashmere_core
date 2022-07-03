@@ -3,12 +3,12 @@
 #
 
 id = 40023
-name = { Cn = "景", En = "sets" }
+name_map = { Cn = "景", En = "sets" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "资产表", En = "assets"}, removed = false },
-    { data_type = "Map", name = { Cn = "灯光系统", En = "lights"}, removed = false },
+    { data_type = "List", name_map = { Cn = "资产表", En = "assets"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "灯光系统", En = "lights"}, removed = false },
 ]
 
 

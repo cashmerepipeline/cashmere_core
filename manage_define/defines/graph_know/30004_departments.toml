@@ -3,16 +3,16 @@
 #
 
 id = 30004
-name = { Cn = "部门", En = "departments" }
+name_map = { Cn = "部门", En = "departments" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "知识图表", En = "graphs" }, removed = false },
-    { data_type = "List", name = { Cn = "路线图表", En = "roadmaps" }, removed = false },
-    { data_type = "List", name = { Cn = "标记图表", En = "tag_maps" }, removed = false },
-    { data_type = "List", name = { Cn = "管理员表", En = "administrators" }, removed = false },
-    { data_type = "List", name = { Cn = "员工表", En = "employees" }, removed = false },
-    { data_type = "String", name = { Cn = "组织机构", En = "organization" }, removed = false },
+    { data_type = "List", name_map = { Cn = "知识图表", En = "graphs" }, removed = false },
+    { data_type = "List", name_map = { Cn = "路线图表", En = "roadmaps" }, removed = false },
+    { data_type = "List", name_map = { Cn = "标记图表", En = "tag_maps" }, removed = false },
+    { data_type = "List", name_map = { Cn = "管理员表", En = "administrators" }, removed = false },
+    { data_type = "List", name_map = { Cn = "员工表", En = "employees" }, removed = false },
+    { data_type = "String", name_map = { Cn = "组织机构", En = "organization" }, removed = false },
 ]
 
 # 事件队列和消息队列表

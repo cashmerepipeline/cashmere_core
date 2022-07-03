@@ -3,11 +3,11 @@
 #
 
 id = 19999
-name = { Cn = "编号器", En = "ids" }
+name_map = { Cn = "编号器", En = "ids" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "编号", En = "id_count"}, removed = false },
+    { data_type = "List", name_map = { Cn = "编号", En = "id_count"}, removed = false },
 ]
 
 

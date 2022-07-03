@@ -3,22 +3,22 @@
 #
 
 id = 30001
-name = { Cn = "知识树", En = "graphs" }
+name_map = { Cn = "知识树", En = "graphs" }
 
 # 数据描写 或者 模式
 schema = [
     # {起点:结束点,tags[],...],...},
     # 两个定点之间只有两条有向边，多个标记
-    { data_type = "Map", name = { Cn = "连接", En = "edges"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "连接", En = "edges"}, removed = false },
     # 组织层次，部门层次，个人层次
-    { data_type = "Int64", name = { Cn = "个体层级", En = "individual_level"}, removed = false },
+    { data_type = "Int64", name_map = { Cn = "个体层级", En = "individual_level"}, removed = false },
     # 具体归属
-    { data_type = "String", name = { Cn = "所属", En = "individual_id"}, removed = false },
+    { data_type = "String", name_map = { Cn = "所属", En = "individual_id"}, removed = false },
     # 所在领域
-    { data_type = "List", name = { Cn = "领域", En = "domain_id"}, removed = false },
+    { data_type = "List", name_map = { Cn = "领域", En = "domain_id"}, removed = false },
     # 排版显示方式
-    { data_type = "Int64", name = { Cn = "排版", En = "compose_type"}, removed = false },
-    { data_type = "List", name = { Cn = "问题", En = "questions"}, removed = false },
+    { data_type = "Int64", name_map = { Cn = "排版", En = "compose_type"}, removed = false },
+    { data_type = "List", name_map = { Cn = "问题", En = "questions"}, removed = false },
 ]
 
 # 事件队列和消息队列表

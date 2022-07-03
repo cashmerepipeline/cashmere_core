@@ -4,8 +4,8 @@
 
 // 编号
 pub const ID_FIELD_ID: i32 = 1000;
-// 名字
-pub const NAME_FIELD_ID: i32 = 1001;
+// 名字表
+pub const NAME_MAP_FIELD_ID: i32 = 1001;
 // 创建人
 pub const CREATOR_FIELD_ID: i32 = 1002;
 //创建时间
@@ -26,3 +26,4 @@ pub const COMMENTS_FIELD_ID: i32 = 1009;
 pub const ENTITY_REMOVED_FIELD_ID: i32 = 1200;
 // 删除数据
 pub const DATAS_REMOVED_FIELD_ID: i32 = 1900;
+

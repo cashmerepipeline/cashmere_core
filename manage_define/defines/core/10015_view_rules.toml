@@ -3,7 +3,7 @@
 #
 
 id = 10015
-name = { Cn = "映像规则", En = "view_rules" }
+name_map = { Cn = "映像规则", En = "view_rules" }
 
 # 描写，模式
 schema = [
@@ -24,9 +24,9 @@ schema = [
     # 组 所有       GroupALl,
     # 只有组的       OnlyGroup,
     # 只有主的      OnlyOwner,
-    { data_type = "Map", name = { Cn = "管理级", En = "manage"}, removed = false },
-    { data_type = "Map", name = { Cn = "属性级", En = "collection"}, removed = false },
-    { data_type = "Map", name = { Cn = "实体级", En = "entity"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "管理级", En = "manage"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "属性级", En = "collection"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "实体级", En = "entity"}, removed = false },
 ]
 
 [queues]
@@ -39,7 +39,7 @@ massage_queue = []
 
 [view_rules]
 id = 10015
-name = { Cn = "映像规则", En = "view_rules" }
+name_map = { Cn = "映像规则", En = "view_rules" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }

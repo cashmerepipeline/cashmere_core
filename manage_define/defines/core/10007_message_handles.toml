@@ -6,14 +6,14 @@
 # 处理管理消息队列的事件
 
 id = 10007
-name = { Cn = "消息处理", En = "message_handles" }
+name_map = { Cn = "消息处理", En = "message_handles" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name = { Cn = "管理编号", En = "manage_id" }, removed = false },
-    { data_type = "List", name = { Cn = "来源队列", En = "source_queues" }, removed = false },
+    { data_type = "String", name_map = { Cn = "管理编号", En = "manage_id" }, removed = false },
+    { data_type = "List", name_map = { Cn = "来源队列", En = "source_queues" }, removed = false },
     # 脚本表，按顺序执行的脚本
-    { data_type = "Map", name = { Cn = "脚本表", En = "scripts" }, removed = false },
+    { data_type = "Map", name_map = { Cn = "脚本表", En = "scripts" }, removed = false },
 ]
 
 # 事件队列和消息队列表
@@ -30,7 +30,7 @@ massage_queue = []
 
 [view_rules]
 id = 10007
-name = { Cn = "消息处理", En = "message_handles" }
+name_map = { Cn = "消息处理", En = "message_handles" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }

@@ -3,13 +3,13 @@
 #
 
 id = 30003
-name = { Cn = "个体", En = "individuals" }
+name_map = { Cn = "个体", En = "individuals" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "知识图表", En = "graphs"}, removed = false },
-    { data_type = "List", name = { Cn = "路线图表", En = "roadmaps"}, removed = false },
-    { data_type = "List", name = { Cn = "标记图表", En = "trees"}, removed = false },
+    { data_type = "List", name_map = { Cn = "知识图表", En = "graphs"}, removed = false },
+    { data_type = "List", name_map = { Cn = "路线图表", En = "roadmaps"}, removed = false },
+    { data_type = "List", name_map = { Cn = "标记图表", En = "trees"}, removed = false },
 ]
 
 

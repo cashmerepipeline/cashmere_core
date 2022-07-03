@@ -6,14 +6,14 @@
 # 处理管理事件队列的事件
 
 id = 10003
-name = { Cn = "事件处理", En = "event_handles" }
+name_map = { Cn = "事件处理", En = "event_handles" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name = { Cn = "事件编号", En = "event_id"}, removed = false },
-    { data_type = "List", name = { Cn = "源队列", En = "source_queues"}, removed = false },
+    { data_type = "String", name_map = { Cn = "事件编号", En = "event_id"}, removed = false },
+    { data_type = "List", name_map = { Cn = "源队列", En = "source_queues"}, removed = false },
     # 事件处理脚本
-    { data_type = "Map", name = { Cn = "脚本", En = "scripts"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "脚本", En = "scripts"}, removed = false },
 ]
 
 # 事件队列和消息队列表

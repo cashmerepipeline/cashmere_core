@@ -3,13 +3,13 @@
 #
 
 id = 30012
-name = { Cn = "标记类", En = "tag_types" }
+name_map = { Cn = "标记类", En = "tag_types" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "领域", En = "domain"}, removed = false },
-    { data_type = "List", name = { Cn = "属性", En = "data_fields"}, removed = false },
-    { data_type = "Map", name = { Cn = "描述", En = "descriptions"}, removed = false },
+    { data_type = "List", name_map = { Cn = "领域", En = "domain"}, removed = false },
+    { data_type = "List", name_map = { Cn = "属性", En = "data_fields"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "描述", En = "descriptions"}, removed = false },
 ]
 
 

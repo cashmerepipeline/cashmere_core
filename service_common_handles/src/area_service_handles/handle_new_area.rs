@@ -53,7 +53,7 @@ pub trait HandleNewArea {
         // 区域是否存在，存在则返回
         if manager
             .entity_exists(doc! {
-                NAME_FIELD_ID.to_string():local_name.clone()
+                NAME_MAP_FIELD_ID.to_string():local_name.clone()
             })
             .await
         {
@@ -63,7 +63,7 @@ pub trait HandleNewArea {
         if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
             new_entity_doc.insert("_id", code);
             new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
-            new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
+            new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), local_name);
             new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
             new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
 

@@ -3,14 +3,14 @@
 #
 
 id = 30007
-name = { Cn = "课程", En = "courses" }
+name_map = { Cn = "课程", En = "courses" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name = { Cn = "学员", En = "individuals"}, removed = false },
-    { data_type = "String", name = { Cn = "树", En = "tree"}, removed = false },
-    { data_type = "String", name = { Cn = "路线图", En = "roadmap"}, removed = false },
-    { data_type = "Map", name = { Cn = "问题", En = "questions"}, removed = false },
+    { data_type = "List", name_map = { Cn = "学员", En = "individuals"}, removed = false },
+    { data_type = "String", name_map = { Cn = "树", En = "tree"}, removed = false },
+    { data_type = "String", name_map = { Cn = "路线图", En = "roadmap"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "问题", En = "questions"}, removed = false },
 ]
 
 

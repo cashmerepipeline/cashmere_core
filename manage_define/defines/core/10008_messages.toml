@@ -6,14 +6,14 @@
 # 消息由具体的记录发出，然后加入目标队列
 
 id = 10008
-name = { Cn = "消息", En = "messages" }
+name_map = { Cn = "消息", En = "messages" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name = { Cn = "管理编号", En = "manage"}, removed = false },
-    { data_type = "List", name = { Cn = "目标队列", En = "target_queues"}, removed = false },
-    { data_type = "String", name = { Cn = "发送者", En = "sender"}, removed = false },
-    { data_type = "Map", name = { Cn = "内容", En = "contents"}, removed = false },
+    { data_type = "String", name_map = { Cn = "管理编号", En = "manage"}, removed = false },
+    { data_type = "List", name_map = { Cn = "目标队列", En = "target_queues"}, removed = false },
+    { data_type = "String", name_map = { Cn = "发送者", En = "sender"}, removed = false },
+    { data_type = "Map", name_map = { Cn = "内容", En = "contents"}, removed = false },
 ]
 
 # 事件队列和消息队列表
