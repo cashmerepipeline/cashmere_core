@@ -1,14 +1,14 @@
 use async_trait::async_trait;
 use bson::doc;
-use tokio::sync::mpsc;
-use tonic::{Request, Response};
+
+use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
+use manage_define::general_field_ids::NAME_FIELD_ID;
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use managers::traits::ManagerTrait;
 use view;
-
-use crate::StreamResponseResult;
 
 #[async_trait]
 pub trait HandleGetManages {
@@ -16,7 +16,7 @@ pub trait HandleGetManages {
     async fn handle_get_manages(
         &self,
         request: Request<GetManagesRequest>,
-    ) -> StreamResponseResult<EntityResponseStream> {
+    ) -> Result<Response<GetManagesResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -24,18 +24,25 @@ pub trait HandleGetManages {
 
         let managers_ids: Vec<i32> = get_majordomo().await.get_manager_ids().await;
 
-        let (mut tx, rx) = mpsc::channel(4);
+        // TOTO: 可见性过滤
 
-        tokio::spawn(async move {
-            for id in managers_ids {
-                let manager = get_majordomo().await.get_manager_by_id(id).await.unwrap();
-                let doc = manager.get_manage_document().await.read().clone();
-                let mut data: Vec<u8> = Vec::new();
-                doc.to_writer(&mut data).unwrap();
-                tx.send(Ok(Entity { data: data })).await.unwrap();
-            }
-        });
+        let mut result: Vec<Manage> = Vec::new();
+        for id in managers_ids {
+            let manager = get_majordomo().await.get_manager_by_id(id).await.unwrap();
+            let doc = manager.get_manage_document().await.read().clone();
+            let m = Manage {
+                manage_id: doc
+                    .get_str(MANAGES_MANAGE_ID.to_string())
+                    .unwrap()
+                    .to_string(),
+                name_map: doc
+                    .get_binary_generic(NAME_FIELD_ID.to_string())
+                    .unwrap()
+                    .to_vec(),
+            };
+            result.push(m);
+        }
 
-        Ok(Response::new(rx))
+        Ok(Response::new(GetManagesResponse { manages: result }))
     }
 }

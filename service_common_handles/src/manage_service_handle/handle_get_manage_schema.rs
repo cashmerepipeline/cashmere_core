@@ -6,17 +6,13 @@ use crate::UnaryResponseResult;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
-use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use view;
 
 #[async_trait]
 pub trait HandleGetManageSchema {
     /// 取得管理描写
-    pub(crate) async fn handle_get_manage_schema(
+    async fn handle_get_manage_schema(
         &self,
         request: Request<GetManageSchemaRequest>,
     ) -> Result<Response<GetManageSchemaResponse>, Status> {
@@ -30,6 +26,8 @@ pub trait HandleGetManageSchema {
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();
         let data = manager.get_manage_schema_bytes().await;
+
+        // TODO: 可见性过滤
 
         // let data = majordomo_arc.get_manage_schema_bytes(manage_id).await;
 

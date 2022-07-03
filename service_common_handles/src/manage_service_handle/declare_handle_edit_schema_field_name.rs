@@ -1,3 +1,7 @@
+/*
+宏的形式实现服务组件
+*/
+
 #[macro_export]
 macro_rules! declare_handle_edit_schema_field_name {
     ($server:ty) => {
@@ -44,3 +48,4 @@ macro_rules! declare_handle_edit_schema_field_name {
         }
     };
 }
+

@@ -1,3 +1,7 @@
+/*
+宏的形式实现服务组件
+*/
+
 #[macro_export]
 macro_rules! declare_handle_get_manage_schema {
     ($server:ty) => {

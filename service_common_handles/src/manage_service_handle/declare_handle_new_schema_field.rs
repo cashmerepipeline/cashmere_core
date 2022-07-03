@@ -1,3 +1,7 @@
+/*
+宏的形式实现服务组件
+*/
+
 #[macro_export]
 macro_rules! declare_handle_new_schema_field {
     ($server:ty) => {
@@ -50,3 +54,4 @@ macro_rules! declare_handle_new_schema_field {
         }
     };
 }
+

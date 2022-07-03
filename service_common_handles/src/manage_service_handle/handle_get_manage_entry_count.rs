@@ -3,12 +3,8 @@ use bson::doc;
 use tonic::{Request, Response, Status};
 
 use crate::UnaryResponseResult;
-use manage_define::cashmere::*;
-
 use majordomo::{self, get_majordomo};
-
-
-
+use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
 
 use view;
@@ -53,4 +49,3 @@ pub trait HandleGetManageEntryCount {
         }
     }
 }
-

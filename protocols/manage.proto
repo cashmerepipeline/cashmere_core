@@ -12,7 +12,7 @@ package cashmere;
 import "name.proto";
 
 message Manage{
-  uint32 manage_id = 1;
+  string manage_id = 1;
   bytes name_map = 2;
 }
 
