@@ -36,7 +36,7 @@ pub trait HandleNewSchemaField {
 
         let new_field: PropertyField = PropertyField {
             id: field.id,
-            name: name,
+            name_map: name,
             data_type: FieldDataType::from(field.data_type.clone()),
             removed: false,
         };

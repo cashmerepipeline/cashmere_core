@@ -8,15 +8,15 @@ Modified: !date!
 
 use std::fmt::{Display, Formatter};
 
-use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
+use linked_hash_map::LinkedHashMap;
 
 use crate::field_data_type::FieldDataType;
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct PropertyField {
     pub id: i32,
-    pub name: LinkedHashMap<String, String>,
+    pub name_map: LinkedHashMap<String, String>,
     pub data_type: FieldDataType,
     pub removed: bool,
 }
@@ -45,7 +45,7 @@ impl Display for FieldDataType {
 
 impl PropertyField {
     pub fn has_name(&self, name: &String) -> bool {
-        self.name.values().cloned().any(|x| x == *name)
+        self.name_map.values().cloned().any(|x| x == *name)
     }
 
     pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
@@ -58,7 +58,7 @@ impl PropertyField {
 
         PropertyField {
             id: *id,
-            name: name_map,
+            name_map: name_map,
             data_type,
             removed,
         }
@@ -75,7 +75,7 @@ impl PropertyField {
 
         PropertyField {
             id,
-            name,
+            name_map: name,
             data_type,
             removed,
         }

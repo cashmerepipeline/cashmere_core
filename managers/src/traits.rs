@@ -309,14 +309,14 @@ pub trait ManagerTrait: Any + Send + Sync {
             let field = &mut manage.schema[index];
 
             // 名字已经存在，不需要更新
-            if field.name.contains_key(local) && field.name.get(local).unwrap() == new_name {
+            if field.name_map.contains_key(local) && field.name_map.get(local).unwrap() == new_name {
                 return Err(field_edited_already(
                     "edit_schema_field_name",
                     field_id.to_string(),
                 ));
             }
 
-            field.name.insert(local.clone(), new_name.clone());
+            field.name_map.insert(local.clone(), new_name.clone());
 
             let field = manage.schema.get(index).unwrap().clone();
             new_field.replace(field);

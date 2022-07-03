@@ -27,7 +27,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
         let mut temp_doc = Document::new();
         temp_doc.insert("id", (field_id + 1 + 2000) as i32);
         temp_doc.insert("data_type", field.data_type.to_string());
-        temp_doc.insert("name", bson::to_document(&field.name).unwrap());
+        temp_doc.insert("name", bson::to_document(&field.name_map).unwrap());
         temp_doc.insert("removed", &field.removed);
 
         schema_vec.push(temp_doc);
