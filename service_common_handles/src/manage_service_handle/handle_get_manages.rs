@@ -8,7 +8,7 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::NAME_MAP_FIELD_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use managers::traits::ManagerTrait;
-use view;
+
 
 #[async_trait]
 pub trait HandleGetManages {
@@ -20,7 +20,7 @@ pub trait HandleGetManages {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (_account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
 
         let managers_ids: Vec<i32> = get_majordomo().await.get_manager_ids().await;
 

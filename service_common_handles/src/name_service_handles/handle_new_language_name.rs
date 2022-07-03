@@ -47,7 +47,7 @@ pub trait HandleNewLanguageName {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewLanguageNameResponse {
+            Ok(_r) => Ok(Response::new(NewLanguageNameResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

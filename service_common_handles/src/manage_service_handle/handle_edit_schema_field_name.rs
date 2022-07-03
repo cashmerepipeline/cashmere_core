@@ -39,7 +39,7 @@ pub trait HandleEditSchemaFieldName {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(EditSchemaFieldNameResponse {
+            Ok(_r) => Ok(Response::new(EditSchemaFieldNameResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

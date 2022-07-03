@@ -24,13 +24,13 @@ pub trait HandleGetManageEntryCount {
         let manage_id_str = &request.get_ref().manage_id;
 
         let mut manage_id: i32 = 0;
-        if let id = manage_id_str.parse() {
-            manage_id = id.unwrap()
+        if let Ok(id) = manage_id_str.parse() {
+            manage_id = id
         } else {
             return Err(Status::aborted("请求管理编号不正确。"));
         }
 
-        if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await {
+        if Err(_err) = view::can_manage_write(&account_id, &groups, &manage_id.to_string()){
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 

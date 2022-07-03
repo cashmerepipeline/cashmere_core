@@ -30,7 +30,7 @@ pub trait HandleNewSchemaField {
         let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
         let field: &Field = request.get_ref().field.as_ref().unwrap();
 
-        let mut name_bytes = field.name.clone();
+        let name_bytes = field.name.clone();
         let name_doc = Document::from_reader(&mut name_bytes.as_slice()).unwrap();
         let name: LinkedHashMap<String, String> = bson::from_document(name_doc).unwrap();
 
@@ -46,7 +46,7 @@ pub trait HandleNewSchemaField {
         let result = manager.new_schema_field(new_field, &account_id).await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewSchemaFieldResponse {
+            Ok(_r) => Ok(Response::new(NewSchemaFieldResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
