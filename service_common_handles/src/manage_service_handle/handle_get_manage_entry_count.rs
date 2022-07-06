@@ -30,7 +30,7 @@ pub trait HandleGetManageEntryCount {
             return Err(Status::aborted("请求管理编号不正确。"));
         }
 
-        if Err(_err) = view::can_manage_write(&account_id, &groups, &manage_id.to_string()){
+        if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await{
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 

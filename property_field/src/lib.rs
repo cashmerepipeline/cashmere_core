@@ -10,5 +10,7 @@ mod field_data_type;
 mod property_field;
 mod rang;
 
+pub mod general_field_names;
+
 pub use field_data_type::*;
 pub use property_field::*;

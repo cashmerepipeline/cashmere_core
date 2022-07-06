@@ -9,9 +9,10 @@ Modified: !date!
 use std::fmt::{Display, Formatter};
 
 use serde::{Deserialize, Serialize};
-use linked_hash_map::LinkedHashMap;
+use linked_hash_map::{LinkedHashMap};
 
 use crate::field_data_type::FieldDataType;
+use crate::general_field_names::*;
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct PropertyField {
@@ -20,6 +21,7 @@ pub struct PropertyField {
     pub data_type: FieldDataType,
     pub removed: bool,
 }
+
 
 impl Display for FieldDataType {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -50,11 +52,12 @@ impl PropertyField {
 
     pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
         let name_map: LinkedHashMap<String, String> =
-            toml::from_str(&toml.get("name_map").unwrap().to_string()).unwrap();
-        println!("{:?}", name_map);
+            toml::from_str(&toml.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
+
         let data_type: FieldDataType =
-            toml::from_str(&toml.get("data_type").unwrap().to_string()).unwrap();
-        let removed: bool = toml.get("removed").unwrap().as_bool().unwrap();
+            toml::from_str(&toml.get(DATA_TYPE_FIELD_NAME).unwrap().to_string()).unwrap();
+
+        let removed: bool = toml.get(REMOVED_FIELD_NAME).unwrap().as_bool().unwrap();
 
         PropertyField {
             id: *id,
@@ -65,17 +68,19 @@ impl PropertyField {
     }
 
     pub fn from_bson(doc: &bson::Document) -> PropertyField {
-        let id = doc.get_i32("id").unwrap();
-        let name: LinkedHashMap<String, String> =
-            bson::from_document(doc.get_document("name").unwrap().clone()).unwrap();
-        // println!("{:?}", name);
+        let id = doc.get_i32(ID_FIELD_NAME).unwrap();
+
+        let name_map: LinkedHashMap<String, String> =
+            toml::from_str(&doc.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
+
         let data_type: FieldDataType =
-            bson::from_bson(doc.get("data_type").unwrap().clone()).unwrap();
-        let removed: bool = doc.get_bool("removed").unwrap();
+            bson::from_bson(doc.get(DATA_TYPE_FIELD_NAME).unwrap().clone()).unwrap();
+
+        let removed: bool = doc.get_bool(REMOVED_FIELD_NAME).unwrap();
 
         PropertyField {
             id,
-            name_map: name,
+            name_map,
             data_type,
             removed,
         }
