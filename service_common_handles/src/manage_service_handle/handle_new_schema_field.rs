@@ -28,9 +28,9 @@ pub trait HandleNewSchemaField {
         }
 
         let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
-        let field: &Field = request.get_ref().field.as_ref().unwrap();
+        let field: &SchemaField = request.get_ref().field.as_ref().unwrap();
 
-        let name_bytes = field.name.clone();
+        let name_bytes = field.name_map.clone();
         let name_doc = Document::from_reader(&mut name_bytes.as_slice()).unwrap();
         let name: LinkedHashMap<String, String> = bson::from_document(name_doc).unwrap();
 

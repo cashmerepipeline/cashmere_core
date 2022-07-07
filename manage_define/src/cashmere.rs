@@ -637,11 +637,11 @@ pub struct GetManageViewResponse {
     pub view_token: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Field {
+pub struct SchemaField {
     #[prost(int32, tag="1")]
     pub id: i32,
     #[prost(bytes="vec", tag="2")]
-    pub name: ::prost::alloc::vec::Vec<u8>,
+    pub name_map: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag="3")]
     pub data_type: ::prost::alloc::string::String,
     #[prost(bool, tag="4")]
@@ -664,27 +664,27 @@ pub struct NewSchemaFieldRequest {
     #[prost(string, tag="1")]
     pub manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag="2")]
-    pub field: ::core::option::Option<Field>,
+    pub field: ::core::option::Option<SchemaField>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 移除管理属性
+/// 标记属性移除
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveSchemaFieldRequest {
+pub struct MarkSchemaFieldRemovedRequest {
     #[prost(string, tag="1")]
     pub manage_id: ::prost::alloc::string::String,
     #[prost(int32, tag="2")]
     pub field_id: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveSchemaFieldResponse {
+pub struct MarkSchemaFieldRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 编辑管理属性
+/// 编辑属性名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditSchemaFieldNameRequest {
     #[prost(string, tag="1")]

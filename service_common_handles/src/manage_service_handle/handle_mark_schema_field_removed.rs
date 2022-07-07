@@ -2,20 +2,18 @@ use async_trait::async_trait;
 use bson::doc;
 use tonic::{Request, Response, Status};
 
-
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
 use view;
 
 #[async_trait]
-pub trait HandleRemoveSchemaField {
+pub trait HandleMarkSchemaFieldRemoved {
     /// 移除管理属性
-    async fn handle_remove_schema_field(
+    async fn handle_mark_schema_field_removed(
         &self,
-        request: Request<RemoveSchemaFieldRequest>,
-    ) -> Result<Response<RemoveSchemaFieldResponse>, Status> {
+        request: Request<MarkSchemaFieldRemovedRequest>,
+    ) -> Result<Response<MarkSchemaFieldRemovedResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -35,7 +33,7 @@ pub trait HandleRemoveSchemaField {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(RemoveSchemaFieldResponse {
+            Ok(_r) => Ok(Response::new(MarkSchemaFieldRemovedResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

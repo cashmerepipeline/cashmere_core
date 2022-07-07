@@ -3,7 +3,7 @@
 */
 
 /// id字段, 属性的编号
-pub const ID_FIELD_NAME: &str = "name_map";
+pub const ID_FIELD_NAME: &str = "id";
 
 /// 名字字段
 pub const NAME_MAP_FIELD_NAME: &str = "name_map";

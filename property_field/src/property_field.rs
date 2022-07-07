@@ -8,12 +8,13 @@ Modified: !date!
 
 use std::fmt::{Display, Formatter};
 
+use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
-use linked_hash_map::{LinkedHashMap};
 
 use crate::field_data_type::FieldDataType;
 use crate::general_field_names::*;
 
+/// 实体属性
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct PropertyField {
     pub id: i32,
@@ -21,7 +22,6 @@ pub struct PropertyField {
     pub data_type: FieldDataType,
     pub removed: bool,
 }
-
 
 impl Display for FieldDataType {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -61,7 +61,7 @@ impl PropertyField {
 
         PropertyField {
             id: *id,
-            name_map: name_map,
+            name_map,
             data_type,
             removed,
         }
