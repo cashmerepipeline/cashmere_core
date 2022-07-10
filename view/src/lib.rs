@@ -1,201 +1,22 @@
-#[macro_use]
-extern crate log;
+pub mod view_rules_map;
 
-pub mod view_rule;
+mod enum_write_rule;
+mod validate_is_owner;
+mod enum_filter_rule;
+mod enum_read_rule;
+mod enum_view_rule_result;
+mod validate_view_token;
+mod view_rule;
+mod view_rules;
+mod enum_view_level;
+mod manage_view_claims;
+mod validate_is_in_group;
+mod can_manage_write;
+mod can_entity_write;
+mod get_first_write_group;
+mod can_collection_write;
 
-use bson::Document;
-use serde::{Deserialize, Serialize};
-
-
-use view_rule::{WriteRule};
-
-pub enum ViewLevel {
-    Manage,
-    Collection,
-    Schema,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct ManageViewClaims {
-    // 管理
-    manage: String,
-    // 用户名
-    account_id: String,
-    // Required (validate_exp defaults to true in validation). Expiration time (as UTC timestamp)
-    exp: usize,
-    // Optional. Issued at (as UTC timestamp)
-    iat: usize,
-    // Optional. Issuer
-    iss: String,
-    // Optional. Subject (whom token refers to)
-    sub: String,
-    // 权限
-    // view_map: LinkedHashMap<String, String>,
-}
-
-/// 生成映射token
-// pub async fn gen_manage_view_token(
-//     manange: &String,
-//     account_id: &String,
-//     groups: &Vec<String>
-// ) -> Result<String, OperationResuslt> {
-//     // 1. 取得管理列表
-//     let manages = manage::get_manages(account_id, groups).await;
-
-//     // 3. 取得组合账号映像规则
-//     let account_doc = match account::get_account_by_id(&account_id).await {
-//         Ok(d) => d,
-//         Err(e) => return Err(e)
-//     };
-
-//     let groups = match account::get_account_groups(&account_doc) {
-//         Some(g) => g,
-//         None => return Err(operation_result::operation_failed("gen_manage_view_token", "取得账户组失败"))
-//     };
-//     let account_manage_view_ruls = match account::get_account_manage_view_rules(&account_doc) {};
-//     // 2. 取得组映像规则
-
-//     // 4. 组合映像规则
-
-//     // 3. 生成映像token并返回
-// unimplemented!();
-// }
-
-/// 验证映射token
-pub async fn validate_view_token() -> bool {
-    unimplemented!()
-}
-
-/// 验证是否主人
-pub fn validate_is_owner(_entity_doc: &Document, _account_id: &String) -> bool {
-    unimplemented!()
-}
-
-/// 是否在组中
-pub fn validate_is_in_group(_entity_doc: &Document, _group_ids: &Vec<String>) -> bool {
-    unimplemented!()
-}
-
-/// 管理是否可写, 管理的字段定义添加删除
-pub async fn can_manage_write(
-    _account: &String, 
-    groups: &Vec<String>, 
-    manage_id: &String
-) -> bool {
-    let view_rules_arc = view_rule::get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
-
-    let mut result = false;
-    // println!("查看管理是否可写 {}", manage_id);
-    // TODO: 异常处理完善
-    for group in groups {
-        let rule = &view_rules
-            .get(manage_id)
-            .unwrap()
-            .manage
-            .get(group)
-            .unwrap()
-            .write_rule;
-        result = result
-            || rule == &WriteRule::Write
-            || rule == &WriteRule::OwnerWrite
-            || rule == &WriteRule::GroupWrite;
-    }
-    result
-}
-
-
-/// 集合是否可写，向集合添加或者删除实体
-pub async fn can_collection_write(
-    _account: &String, 
-    groups: &Vec<String>, 
-    manage_id: &String
-) -> bool {
-    let view_rules_arc = view_rule::get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
-
-    for group in groups {
-        let rule = &view_rules
-            .get(manage_id)
-            .unwrap()
-            .collection
-            .get(group)
-            .unwrap()
-            .write_rule;
-        if rule == &WriteRule::Write
-            || rule == &WriteRule::OwnerWrite
-            || rule == &WriteRule::GroupWrite
-        {
-            return true;
-        }
-    }
-    // 不在可写组中
-    false
-}
-
-/// 实体的可写性，可否修改实体的字段
-pub async fn can_entity_write(
-    _account: &String,
-    groups: &Vec<String>,
-    manage_id: &String,
-    field: &String,
-) -> bool {
-    let view_rules_arc = view_rule::get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
-
-    let mut result = false;
-    // TODO: 异常处理
-    for group in groups {
-        // println!("查看实体是否可写 {} {} {} {:?}", manage_id, field, group, view_rules.get(manage_id).unwrap().schema);
-        let rule = &view_rules
-            .get(manage_id)
-            .unwrap()
-            .schema
-            .get(field)
-            .unwrap()
-            .get(group)
-            .unwrap()
-            .write_rule;
-        result = result
-            || rule == &WriteRule::Write
-            || rule == &WriteRule::OwnerWrite
-            || rule == &WriteRule::GroupWrite;
-    }
-    result
-}
-
-
-/// 取得第一个可写组
-pub async fn get_first_write_group(
-    groups: &Vec<String>, 
-    manage_id: &String
-) -> Option<String> {
-    let view_rules_arc = view_rule::get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
-
-    for group in groups {
-        let rule = &view_rules
-            .get(manage_id)
-            .unwrap()
-            .collection
-            .get(group)
-            .unwrap()
-            .write_rule;
-
-        if rule == &WriteRule::Write
-            || rule == &WriteRule::OwnerWrite
-            || rule == &WriteRule::GroupWrite
-        {
-            return Some(group.clone());
-        }
-    }
-    None
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+pub use can_collection_write::*;
+pub use  enum_write_rule::*;
+pub use can_manage_write::*;
+pub use get_first_write_group::*;
