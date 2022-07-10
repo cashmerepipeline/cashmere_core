@@ -5,10 +5,9 @@ use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::general_field_ids::NAME_MAP_FIELD_ID;
+use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use managers::traits::ManagerTrait;
-
 
 #[async_trait]
 pub trait HandleGetManages {
@@ -30,15 +29,13 @@ pub trait HandleGetManages {
         for id in managers_ids {
             let manager = get_majordomo().await.get_manager_by_id(id).await.unwrap();
             let doc = manager.get_manage_document().await.read().clone();
+
+            let mut name_map: Vec<u8> = Vec::new();
+            doc.get_document(NAME_MAP_FIELD_ID.to_string()).unwrap().to_writer(&mut name_map).unwrap();
+
             let m = Manage {
-                manage_id: doc
-                    .get_str(MANAGES_MANAGE_ID.to_string())
-                    .unwrap()
-                    .to_string(),
-                name_map: doc
-                    .get_binary_generic(NAME_MAP_FIELD_ID.to_string())
-                    .unwrap()
-                    .to_vec(),
+                manage_id: doc.get_str(ID_FIELD_ID.to_string()).unwrap().to_string(),
+                name_map,
             };
             result.push(m);
         }
