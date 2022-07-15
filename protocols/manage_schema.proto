@@ -23,9 +23,8 @@ message SchemaField {
 message GetManageSchemaRequest{
   string manage_id = 1;
 }
-
 message GetManageSchemaResponse{
-  repeated bytes schema = 1;
+  repeated SchemaField fields = 1;
 }
 
 // 添加管理属性

@@ -15,14 +15,13 @@ use parking_lot::RwLock;
 
 use super::{Manager, ManagerInner, ManagerTrait};
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-
-use crate::{declare_get_manager};
+use crate::declare_get_manager;
 use bson::Document;
-use  manage_define::manage_ids::MANAGES_MANAGE_ID;
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
 pub struct DatasManager;
@@ -61,13 +60,16 @@ impl ManagerTrait for DatasManager {
             if DATAS_MANAGE.is_some() {
                 DATAS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = DATAS_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = DATAS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+
+                println!("{:}", m_doc);
+
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 DATAS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 DATAS_MANAGE.clone().unwrap()
             }
@@ -90,14 +92,5 @@ impl ManagerTrait for DatasManager {
                 DATAS_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
-    }
-}
-
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
     }
 }

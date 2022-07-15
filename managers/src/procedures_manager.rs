@@ -13,7 +13,7 @@ use bson;
 use parking_lot::RwLock;
 use bson::Document;
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 use crate::{Manager, ManagerInner, traits::ManagerTrait};
@@ -63,7 +63,7 @@ impl ManagerTrait for ProceduresManager {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 PROCEDURES_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 PROCEDURES_MANAGE.clone().unwrap()
             }

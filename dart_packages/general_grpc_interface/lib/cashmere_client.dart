@@ -1,6 +1,7 @@
 import 'package:general_grpc_interface/grpc_generated/account_service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
+// dart不支持直接调用范型类生成实例
 typedef S ClientCreator<S extends Client>(ClientChannel channel);
 
 class CashmereClient<T extends Client> {
@@ -8,6 +9,7 @@ class CashmereClient<T extends Client> {
   final int port;
   final ChannelOptions channelOptions;
   final ClientCreator<T> creator;
+
   T? clientStub;
 
   ClientChannel get _channel => ClientChannel(
@@ -20,7 +22,6 @@ class CashmereClient<T extends Client> {
   AccountGrpcClient get accountStub => AccountGrpcClient(_channel);
 
   // 客户端连接，需要被覆写
-  /* T getClientStub() => Client(_channel) as T; */
   T? getClientStub() {
     if (clientStub != null) {
       return clientStub;

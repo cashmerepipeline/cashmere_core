@@ -15,14 +15,13 @@ use parking_lot::RwLock;
 
 use super::{Manager, ManagerInner, ManagerTrait};
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-
-use crate::{declare_get_manager};
+use crate::declare_get_manager;
 use bson::Document;
-use  manage_define::manage_ids::MANAGES_MANAGE_ID;
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
 pub struct MessageHandlesManager;
@@ -61,13 +60,13 @@ impl ManagerTrait for MessageHandlesManager {
             if MESSAGE_HANDLES_MANAGE.is_some() {
                 MESSAGE_HANDLES_MANAGE.clone().unwrap()
             } else {
-                let collection_name = MESSAGE_HANDLES_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = MESSAGE_HANDLES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 MESSAGE_HANDLES_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 MESSAGE_HANDLES_MANAGE.clone().unwrap()
             }
@@ -92,7 +91,6 @@ impl ManagerTrait for MessageHandlesManager {
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {

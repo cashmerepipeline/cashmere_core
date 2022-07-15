@@ -13,7 +13,7 @@ use async_trait::async_trait;
 use bson;
 use parking_lot::RwLock;
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 use crate::{Manager, ManagerInner, traits::ManagerTrait};
@@ -58,13 +58,13 @@ impl ManagerTrait for PhaseSetsManager {
             if WORK_PHASES_MANAGE.is_some() {
                 WORK_PHASES_MANAGE.clone().unwrap()
             } else {
-                let collection_name = PHASE_SETS_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = PHASE_SETS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 WORK_PHASES_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 WORK_PHASES_MANAGE.clone().unwrap()
             }

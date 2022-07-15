@@ -14,7 +14,7 @@ use bson;
 use parking_lot::RwLock;
 use bson::Document;
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use manage_define::manage_ids::TAG_TYPES_MANAGE_ID;
 use cash_result::*;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
@@ -57,13 +57,13 @@ impl ManagerTrait for TagTypesManager {
             if TAG_TYPES_MANAGE.is_some() {
                 TAG_TYPES_MANAGE.clone().unwrap()
             } else {
-                let collection_name = TAG_TYPES_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = TAG_TYPES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 TAG_TYPES_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 TAG_TYPES_MANAGE.clone().unwrap()
             }

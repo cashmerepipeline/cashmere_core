@@ -64,7 +64,7 @@ impl ManagerTrait for DomainsManager {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap(;
                 DOMAINS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 DOMAINS_MANAGE.clone().unwrap()
             }

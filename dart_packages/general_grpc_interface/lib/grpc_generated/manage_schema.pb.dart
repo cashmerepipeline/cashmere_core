@@ -147,17 +147,17 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
 
 class GetManageSchemaResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageSchemaResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'schema', $pb.PbFieldType.PY)
+    ..pc<SchemaField>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fields', $pb.PbFieldType.PM, subBuilder: SchemaField.create)
     ..hasRequiredFields = false
   ;
 
   GetManageSchemaResponse._() : super();
   factory GetManageSchemaResponse({
-    $core.Iterable<$core.List<$core.int>>? schema,
+    $core.Iterable<SchemaField>? fields,
   }) {
     final _result = create();
-    if (schema != null) {
-      _result.schema.addAll(schema);
+    if (fields != null) {
+      _result.fields.addAll(fields);
     }
     return _result;
   }
@@ -183,7 +183,7 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
   static GetManageSchemaResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get schema => $_getList(0);
+  $core.List<SchemaField> get fields => $_getList(0);
 }
 
 class NewSchemaFieldRequest extends $pb.GeneratedMessage {

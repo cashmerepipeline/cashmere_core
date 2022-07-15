@@ -20,26 +20,26 @@ use cash_result::*;
 use property_field::PropertyField;
 use traits::ManagerTrait;
 
-pub mod manages_manager;
 pub mod accounts_manager;
-pub mod groups_manager;
-pub mod events_manager;
-pub mod event_queues_manager;
-pub mod event_handles_manager;
-pub mod tasks_manager;
-pub mod datas_manager;
 pub mod areas_manager;
-pub mod messages_manager;
-pub mod message_handles_manager;
-pub mod persons_manager;
-pub mod view_rules_manager;
-pub mod templates_manager;
 pub mod comments_manager;
+pub mod datas_manager;
+pub mod event_handles_manager;
+pub mod event_queues_manager;
+pub mod events_manager;
+pub mod groups_manager;
+pub mod manages_manager;
+pub mod message_handles_manager;
+pub mod messages_manager;
+pub mod persons_manager;
+pub mod tasks_manager;
+pub mod templates_manager;
 pub mod utils;
+pub mod view_rules_manager;
 
-pub mod traits;
 mod macros;
 pub(crate) mod schema;
+pub mod traits;
 // pub mod tag_types_manager;
 // pub mod show_settings_manager;
 
@@ -48,17 +48,17 @@ pub(crate) mod schema;
 /// 管理器包装
 #[derive(Clone)]
 pub struct Manager {
-    pub inner: Arc<ManagerInner>
+    pub inner: Arc<ManagerInner>,
 }
 
 #[derive(Clone)]
 pub struct ManagerInner {
-    pub manager: Arc<dyn ManagerTrait>
+    pub manager: Arc<dyn ManagerTrait>,
 }
 
 #[async_trait]
 impl ManagerTrait for Manager {
-    async fn get_manage_schema(&self) -> Option<Vec<PropertyField>> {
+    async fn get_manage_schema(&self) -> Vec<PropertyField> {
         self.inner.get_manage_schema().await
     }
 
@@ -76,26 +76,22 @@ impl ManagerTrait for Manager {
         account_id: &String,
         group_id: &String,
     ) -> Result<String, OperationResult> {
-        self.inner.sink_entity(new_entity_doc, account_id, group_id).await
+        self.inner
+            .sink_entity(new_entity_doc, account_id, group_id)
+            .await
     }
 
-    async fn entity_exists(
-        &self,
-        query_doc: Document
-    ) -> bool {
+    async fn entity_exists(&self, query_doc: Document) -> bool {
         self.inner.entity_exists(query_doc).await
     }
 
-    async fn get_entity_by_id(
-        &self,
-        entity_id: &String
-    ) -> Result<Document, OperationResult> {
+    async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
         self.inner.get_entity_by_id(entity_id).await
     }
 
     async fn get_entities_by_filter(
         &self,
-        filter: &Option<Document>
+        filter: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         self.inner.get_entities_by_filter(filter).await
     }
@@ -137,10 +133,9 @@ impl ManagerTrait for Manager {
     }
 }
 
-
 #[async_trait]
 impl ManagerTrait for ManagerInner {
-    async fn get_manage_schema(&self) -> Option<Vec<PropertyField>> {
+    async fn get_manage_schema(&self) -> Vec<PropertyField> {
         self.manager.get_manage_schema().await
     }
 
@@ -158,7 +153,9 @@ impl ManagerTrait for ManagerInner {
         account_id: &String,
         group_id: &String,
     ) -> Result<String, OperationResult> {
-        self.manager.sink_entity(new_entity_doc, account_id, group_id).await
+        self.manager
+            .sink_entity(new_entity_doc, account_id, group_id)
+            .await
     }
 
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
@@ -177,7 +174,9 @@ impl ManagerTrait for ManagerInner {
         entity_id: &String,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        self.manager.mark_entity_removed(entity_id, account_id).await
+        self.manager
+            .mark_entity_removed(entity_id, account_id)
+            .await
     }
 
     async fn init(&self) -> Result<OperationResult, OperationResult> {
@@ -206,14 +205,5 @@ impl ManagerTrait for ManagerInner {
 
     async fn get_new_entity_id(&self) -> Option<i64> {
         self.manager.get_new_entity_id().await
-    }
-}
-
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
     }
 }

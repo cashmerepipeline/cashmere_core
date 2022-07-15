@@ -19,6 +19,10 @@ fn main() {
             "Position",
             "#[derive(serde::Serialize, serde::Deserialize)]",
         )
+        .type_attribute(
+            "SchemaField",
+            "#[derive(serde::Serialize, serde::Deserialize)]",
+        )
         .compile(&["../protocols/cashmere.proto"], &["../protocols"])
         .unwrap();
 

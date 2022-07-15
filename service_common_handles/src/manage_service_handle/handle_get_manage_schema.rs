@@ -2,12 +2,9 @@ use async_trait::async_trait;
 use bson::doc;
 use tonic::{Request, Response, Status};
 
-
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
-
 
 #[async_trait]
 pub trait HandleGetManageSchema {
@@ -25,19 +22,27 @@ pub trait HandleGetManageSchema {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();
-        let data = manager.get_manage_schema_bytes().await;
+
+        let fields = manager.get_manage_schema().await;
 
         // TODO: 可见性过滤
 
-        // let data = majordomo_arc.get_manage_schema_bytes(manage_id).await;
+        // let fields = majordomo_arc.get_manage_schema_bytes(manage_id).await;
 
-        match data {
-            Ok(r) => Ok(Response::new(GetManageSchemaResponse { schema: r })),
-            Err(e) => Err(Status::data_loss(format!(
-                "取得管理描写失败 {} {} ",
-                e.operation(),
-                e.details()
-            ))),
-        }
+        Ok(Response::new(GetManageSchemaResponse {
+            fields: fields
+                .iter()
+                .map(|f| {
+                    let rf = SchemaField {
+                        id: f.id,
+                        name_map: bson::to_vec(&f.name_map).unwrap(),
+                        data_type: f.data_type.to_string(),
+                        removed: f.removed,
+                    };
+
+                    rf
+                })
+                .collect(),
+        }))
     }
 }

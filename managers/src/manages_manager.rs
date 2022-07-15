@@ -9,17 +9,15 @@ Modified: !date!
 use std::sync::Arc;
 
 // use log::{error, info, warn};
+use async_trait::async_trait;
 use bson::{self, Document};
 use cash_result::*;
 use parking_lot::RwLock;
-use async_trait::async_trait;
 
+use crate::{declare_get_manager, Manager, ManagerInner, ManagerTrait};
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
-use  manage_define::manage_ids::MANAGES_MANAGE_ID;
-use crate::{Manager, ManagerInner, ManagerTrait, declare_get_manager};
-
-use cash_core::{Manage, manage_from_document};
-
+use cash_core::{manage_from_document, Manage};
 
 #[derive(Default)]
 pub struct ManagesManager;
@@ -101,7 +99,6 @@ impl ManagerTrait for ManagesManager {
     //     Err(operation_succeed("ok"))
     // }
 }
-
 
 #[cfg(test)]
 mod tests {

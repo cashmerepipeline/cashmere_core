@@ -61,13 +61,13 @@ impl ManagerTrait for DepartmentsManager {
             if DEPARTMENTS_MANAGE.is_some() {
                 DEPARTMENTS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = DEPARTMENTS_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = DEPARTMENTS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 DEPARTMENTS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 DEPARTMENTS_MANAGE.clone().unwrap()
             }

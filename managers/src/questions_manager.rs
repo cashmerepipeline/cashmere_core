@@ -15,7 +15,7 @@ use parking_lot::RwLock;
 
 use super::{Manager, ManagerInner, ManagerTrait};
 
-use cash_core::Manage;
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
@@ -60,13 +60,13 @@ impl ManagerTrait for QuestionsManager {
             if QUESTIONS_MANAGE.is_some() {
                 QUESTIONS_MANAGE.clone().unwrap()
             } else {
-                let collection_name = QUESTIONS_MANAGE_ID.to_string();
+                let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = QUESTIONS_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap();
                 QUESTIONS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 QUESTIONS_MANAGE.clone().unwrap()
             }

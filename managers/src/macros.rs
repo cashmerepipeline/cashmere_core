@@ -47,7 +47,7 @@ macro_rules! declare_get_manager {
 //                         Ok(r) => r,
 //                         Err(e) => panic!("{} {}", e.operation(), e.details())),
 //                     };
-//                     let manage: Manage = bson::from_document(m_doc).unwrap();
+//                     let manage: Manage = manage_from_document(m_doc).unwrap(;
 //                     $static_manager.replace(Arc::new(RwLock::new(manage)));
 //                     $static_manager.clone().unwrap()
 //                 }
@@ -94,7 +94,7 @@ macro_rules! declare_get_manager {
 //                         Ok(r) => r,
 //                         Err(e) => panic!("{} {}", e.operation(), e.details())),
 //                     };
-//                     let manage: Manage = bson::from_document(m_doc).unwrap();
+//                     let manage: Manage = manage_from_document(m_doc).unwrap(;
 //                     $static_manager.replace(Arc::new(RwLock::new(manage)));
 //                     $static_manager.clone().unwrap()
 //                 }

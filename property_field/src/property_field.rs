@@ -67,11 +67,11 @@ impl PropertyField {
         }
     }
 
-    pub fn from_bson(doc: &bson::Document) -> PropertyField {
+    pub fn from_document(doc: &bson::Document) -> PropertyField {
         let id = doc.get_i32(ID_FIELD_NAME).unwrap();
 
         let name_map: LinkedHashMap<String, String> =
-            toml::from_str(&doc.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
+            bson::from_bson(doc.get(NAME_MAP_FIELD_NAME).unwrap().clone()).unwrap();
 
         let data_type: FieldDataType =
             bson::from_bson(doc.get(DATA_TYPE_FIELD_NAME).unwrap().clone()).unwrap();

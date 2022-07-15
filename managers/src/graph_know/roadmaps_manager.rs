@@ -63,7 +63,7 @@ impl ManagerTrait for RoadmapsManager {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                let manage: Manage = bson::from_document(m_doc).unwrap();
+                let manage: Manage = manage_from_document(m_doc).unwrap(;
                 ROADMAPS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 ROADMAPS_MANAGE.clone().unwrap()
             }

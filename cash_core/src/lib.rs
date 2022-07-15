@@ -12,14 +12,14 @@ pub mod data;
 pub mod macros;
 pub mod message;
 
-use serde::{Serialize, Deserialize};
-use manage_define::general_field_ids::*;
 use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
+use serde::{Deserialize, Serialize};
 
-use property_field::PropertyField;
-use cash_result::OperationResult;
 use bson::Document;
+use cash_result::OperationResult;
 use linked_hash_map::LinkedHashMap;
+use property_field::PropertyField;
 
 /// 管理实体
 #[derive(Debug, Serialize, Deserialize)]
@@ -40,18 +40,42 @@ pub struct Manage {
 /// bson文档-->管理实体
 pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationResult> {
     let _id = manage_doc.get_str("_id").unwrap();
-    let id: i32 = manage_doc.get_str(&ID_FIELD_ID.to_string()).unwrap().parse().unwrap();
-    let name_map = bson::from_document(manage_doc.get_document(&NAME_MAP_FIELD_ID.to_string()).unwrap().clone()).unwrap();
+    let id: i32 = manage_doc
+        .get_str(&ID_FIELD_ID.to_string())
+        .unwrap()
+        .parse()
+        .unwrap();
+    let name_map = bson::from_document(
+        manage_doc
+            .get_document(&NAME_MAP_FIELD_ID.to_string())
+            .unwrap()
+            .clone(),
+    )
+    .unwrap();
     let creator = manage_doc.get_str(&CREATOR_FIELD_ID.to_string()).unwrap();
-    let create_timestamp = manage_doc.get_i64(&CREATE_TIMESTAMP_FIELD_ID.to_string()).unwrap();
+    let create_timestamp = manage_doc
+        .get_i64(&CREATE_TIMESTAMP_FIELD_ID.to_string())
+        .unwrap();
     let modifier = manage_doc.get_str(&MODIFIER_FIELD_ID.to_string()).unwrap();
-    let modify_timestamp = manage_doc.get_i64(&MODIFY_TIMESTAMP_FIELD_ID.to_string()).unwrap();
+    let modify_timestamp = manage_doc
+        .get_i64(&MODIFY_TIMESTAMP_FIELD_ID.to_string())
+        .unwrap();
     let owner = manage_doc.get_str(&OWNER_FIELD_ID.to_string()).unwrap();
-    let groups: Vec<String> = manage_doc.get_array(&GROUPS_FIELD_ID.to_string()).unwrap().iter().map(|x| x.as_str().unwrap().to_string()).collect();
-    let schema = manage_doc.get_array(&MANAGES_SCHEMA_FIELD_ID.to_string()).unwrap().iter().map(|x| {
-        let field: PropertyField = PropertyField::from_bson(x.as_document().unwrap());
-        field
-    }).collect();
+    let groups: Vec<String> = manage_doc
+        .get_array(&GROUPS_FIELD_ID.to_string())
+        .unwrap()
+        .iter()
+        .map(|x| x.as_str().unwrap().to_string())
+        .collect();
+    let schema = manage_doc
+        .get_array(&MANAGES_SCHEMA_FIELD_ID.to_string())
+        .unwrap()
+        .iter()
+        .map(|x| {
+            let field: PropertyField = PropertyField::from_document(x.as_document().unwrap());
+            field
+        })
+        .collect();
 
     Ok(Manage {
         _id: _id.to_string(),
@@ -64,10 +88,8 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         owner: owner.to_string(),
         groups,
         schema,
-    }
-    )
+    })
 }
-
 
 #[cfg(test)]
 mod tests {

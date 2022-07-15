@@ -636,6 +636,7 @@ pub struct GetManageViewResponse {
     #[prost(string, tag="1")]
     pub view_token: ::prost::alloc::string::String,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SchemaField {
     #[prost(int32, tag="1")]
@@ -655,8 +656,8 @@ pub struct GetManageSchemaRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub schema: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(message, repeated, tag="1")]
+    pub fields: ::prost::alloc::vec::Vec<SchemaField>,
 }
 /// 添加管理属性
 #[derive(Clone, PartialEq, ::prost::Message)]
