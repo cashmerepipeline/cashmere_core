@@ -67,8 +67,6 @@ impl ManagerTrait for DatasManager {
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
-                println!("{:}", m_doc);
-
                 let manage: Manage = manage_from_document(m_doc).unwrap();
                 DATAS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 DATAS_MANAGE.clone().unwrap()

@@ -60,7 +60,7 @@ impl ManagerTrait for ManagesManager {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
-                println!("{:?}", m_doc);
+
                 let manage: Manage = manage_from_document(m_doc).unwrap();
                 MANAGES_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 MANAGES_MANAGE.clone().unwrap()

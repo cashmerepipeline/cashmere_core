@@ -29,6 +29,7 @@ pub trait HandleGetManageSchema {
 
         // let fields = majordomo_arc.get_manage_schema_bytes(manage_id).await;
 
+        // 如果为空则返回空表，无异常发生
         Ok(Response::new(GetManageSchemaResponse {
             fields: fields
                 .iter()
