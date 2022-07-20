@@ -63,10 +63,10 @@ vi_VN = { 1000 = "vi_VN", 1002 = "8610000000000", 1001 = "vi_VN", 2008 = 84, 200
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["NoLimit"], write_filters = [] }
 [view_rules.collection]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["GroupALl"], write_filters = [] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = ["NoLimit"], write_filters = [] }
 
 [view_rules.schema.1000]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }

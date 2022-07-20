@@ -41,7 +41,7 @@ massage_queue = []
 ], write_filters = [
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "GroupALl",
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.collection]
@@ -49,7 +49,7 @@ massage_queue = []
 ], write_filters = [
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "GroupALl",
+  "NoLimit",
 ], write_filters = [
 ] }
 
@@ -58,7 +58,7 @@ massage_queue = []
 ], write_filters = [
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "GroupALl",
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1001]
