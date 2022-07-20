@@ -1,12 +1,12 @@
 use crate::view_rules_map::get_view_rules_map;
-use crate::WriteRule;
+use crate::ReadRule;
 
 /// 集合是否可写，向集合添加或者删除实体
-pub async fn can_collection_write(
+pub async fn get_collection_read_rule(
     _account: &String,
     groups: &Vec<String>,
     manage_id: &String,
-) -> bool {
+) -> Vec<String> {
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
@@ -15,16 +15,16 @@ pub async fn can_collection_write(
         .and_then(|rules| Some(&rules.collection))
         .or(None);
 
-    let mut result = false;
+    let mut result = vec![];
     if let Some(field) = field_opt {
         groups.iter().for_each(|group| {
             field
                 .get(group)
                 .and_then(|rule| {
                     result = result
-                        || rule.write_rule == WriteRule::Write
-                        || rule.write_rule == WriteRule::OwnerWrite
-                        || rule.write_rule == WriteRule::GroupWrite;
+                        || rule.read_rule == ReadRule::Read
+                        || rule.read_rule == ReadRule::OwnerRead
+                        || rule.read_rule == ReadRule::GroupRead;
                     Some(())
                 })
                 .or(None);
@@ -33,3 +33,5 @@ pub async fn can_collection_write(
 
     result
 }
+
+

@@ -1,18 +1,19 @@
 use crate::view_rules_map::get_view_rules_map;
 use crate::WriteRule;
 
-/// 集合是否可写，向集合添加或者删除实体
-pub async fn can_collection_write(
+/// 实体的可写性，可否修改实体的字段
+pub async fn can_field_write(
     _account: &String,
     groups: &Vec<String>,
     manage_id: &String,
+    field_id: &String,
 ) -> bool {
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
     let field_opt = &view_rules
         .get(manage_id)
-        .and_then(|rules| Some(&rules.collection))
+        .and_then(|rules| rules.schema.get(field_id))
         .or(None);
 
     let mut result = false;

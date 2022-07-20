@@ -1,7 +1,7 @@
 use cash_result::OperationResult;
 use crate::view_rules::ViewRules;
 use crate::view_rules_map::get_view_rules_map;
-use crate::view_rules_map::new_view_rules_entity_to_database::new_view_rules_entity_to_database;
+use crate::view_rules_map::new_view_rules_entity_to_database;
 
 /// 新建映射
 pub async fn new_view_rules(

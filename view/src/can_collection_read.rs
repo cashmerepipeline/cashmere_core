@@ -1,8 +1,8 @@
 use crate::view_rules_map::get_view_rules_map;
-use crate::WriteRule;
+use crate::ReadRule;
 
 /// 集合是否可写，向集合添加或者删除实体
-pub async fn can_collection_write(
+pub async fn can_collection_read(
     _account: &String,
     groups: &Vec<String>,
     manage_id: &String,
@@ -22,9 +22,9 @@ pub async fn can_collection_write(
                 .get(group)
                 .and_then(|rule| {
                     result = result
-                        || rule.write_rule == WriteRule::Write
-                        || rule.write_rule == WriteRule::OwnerWrite
-                        || rule.write_rule == WriteRule::GroupWrite;
+                        || rule.read_rule == ReadRule::Read
+                        || rule.read_rule == ReadRule::OwnerRead
+                        || rule.read_rule == ReadRule::GroupRead;
                     Some(())
                 })
                 .or(None);
