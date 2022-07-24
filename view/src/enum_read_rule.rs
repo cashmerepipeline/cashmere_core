@@ -7,8 +7,8 @@ pub enum ReadRule {
     InVisible,
     // 全部可读
     Read,
-    // 只组的 可读
+    // 只组的可读
     GroupRead,
-    // 只主的 可读
+    // 只主的可读
     OwnerRead,
 }

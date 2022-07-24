@@ -11,6 +11,7 @@ pub async fn can_manage_write(_account: &String, groups: &Vec<String>, manage_id
         .and_then(|rules| Some(&rules.manage))
         .or(None);
 
+    // 没有指定规则则不能访问
     let mut result = false;
     if let Some(rule) = rule_option {
         groups.iter().for_each(|group| {

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 /// 过滤规则
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub enum FilterRule {
     // 无限制
     NoLimit,

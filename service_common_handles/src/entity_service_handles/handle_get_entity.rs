@@ -1,11 +1,12 @@
 use async_trait::async_trait;
 use bson::doc;
+use tokio_stream::{self as stream, StreamExt};
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
-use view;
+use view::{self, can_field_read};
 
 use crate::UnaryResponseResult;
 
@@ -40,18 +41,23 @@ pub trait HandleGetEntity {
         let result = manager.get_entity_by_id(entity_id).await;
 
         // 实体可读性检查
+        if !view::can_entity_read(&account_id, &groups, &manage_id.to_string()).await {
+            return Err(Status::unauthenticated("用户不具有实体可读权限"));
+        };
 
-        // 属性 可见性过滤
+        // 格可见性过滤
         let mut result_doc = doc!();
-        if let Ok(entity_doc) = result {
-            entity_doc.iter().map(|(k, v)| {
-                if !can_field_read(&account_id, &groups, manage_id, field_id).await {}
-            })
-        }
+        if let Ok(ref entity_doc) = result {
+            while let Some((k, v)) = stream::iter(entity_doc).next().await {
+                if can_field_read(&account_id, &groups, &manage_id.to_string(), &k).await {
+                    result_doc.insert(k, v);
+                }
+            }
+        };
 
         match result {
-            Ok(r) => Ok(Response::new(GetEntityResponse {
-                entity: bson::from_document(r).unwrap(),
+            Ok(_r) => Ok(Response::new(GetEntityResponse {
+                entity: bson::from_document(result_doc).unwrap(),
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

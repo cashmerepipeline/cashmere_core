@@ -9,6 +9,6 @@ pub enum WriteRule {
     Write,
     // 只组的可写
     GroupWrite,
-    // 只主的 可写
+    // 只主的可写
     OwnerWrite,
 }

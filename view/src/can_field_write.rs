@@ -32,5 +32,7 @@ pub async fn can_field_write(
         });
     };
 
+    println!("查看描写格否可写 {}--{}--{}", manage_id, field_id, result);
+
     result
 }
