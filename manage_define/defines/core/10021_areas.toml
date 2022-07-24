@@ -8,9 +8,9 @@ name_map = { Cn = "地区", En = "areas" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name_map = { Cn = "父级地区", En = "parent_id"}, removed = false },
-    # 国家0级，省直辖市1级，
-    { data_type = "Int32", name_map = { Cn = "分级", En = "level"}, removed = false },
+  { data_type = "String", name_map = { Cn = "父级地区", En = "parent_id" }, removed = false },
+  # 国家0级，省直辖市1级，
+  { data_type = "Int32", name_map = { Cn = "分级", En = "level" }, removed = false },
 ]
 
 # 事件队列和消息队列表
@@ -28,44 +28,112 @@ massage_queue = []
 [view_rules]
 
 [view_rules.manage]
-1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["NoLimit"], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
 
 [view_rules.collection]
-1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = ["NoLimit"], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
 
 [view_rules.schema.1000]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1001]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1002]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1003]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1004]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1005]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1006]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1007]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.1008]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 
 [view_rules.schema.2001]
-1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = []}
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
 [view_rules.schema.2002]
-1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [], write_filters = [] }
-1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [], write_filters = [] }
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
