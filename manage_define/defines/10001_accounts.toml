@@ -3,16 +3,16 @@
 #
 
 id = 10001
-name_map = { Cn = "账号", En = "accounts" }
+name_map = { zh = "账号", en = "accounts" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { Cn = "地区码", En = "country_code" }, removed = false },
-  { data_type = "String", name_map = { Cn = "电话", En = "phone" }, removed = false },
-  { data_type = "String", name_map = { Cn = "密码", En = "password" }, removed = false },
-  { data_type = "Bool", name_map = { Cn = "是否停用", En = "stopped" }, removed = false },
+  { data_type = "String", name_map = { zh = "地区码", en = "country_code" }, removed = false },
+  { data_type = "String", name_map = { zh = "电话", en = "phone" }, removed = false },
+  { data_type = "String", name_map = { zh = "密码", en = "password" }, removed = false },
+  { data_type = "Bool", name_map = { zh = "是否停用", en = "stopped" }, removed = false },
   # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期
-  { data_type = "List", name_map = { Cn = "登录时间戳", En = "login_timestamps" }, removed = false },
+  { data_type = "List", name_map = { zh = "登录时间戳", en = "login_timestamps" }, removed = false },
 ]
 
 

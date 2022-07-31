@@ -3,19 +3,19 @@
 #
 
 id = 10009
-name_map = { Cn = "人", En = "persons" }
+name_map = { zh = "人", en = "persons" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { Cn = "性别", En = "gender" }, removed = false },
-  { data_type = "Date", name_map = { Cn = "生日", En = "birthday" }, removed = false },
-  { data_type = "Bytes", name_map = { Cn = "头像", En = "portrait" }, removed = false },
+  { data_type = "String", name_map = { zh = "性别", en = "gender" }, removed = false },
+  { data_type = "Date", name_map = { zh = "生日", en = "birthday" }, removed = false },
+  { data_type = "Bytes", name_map = { zh = "头像", en = "portrait" }, removed = false },
 
-  { data_type = "List", name_map = { Cn = "组织单位表", En = "organizations" }, removed = false },
-  { data_type = "List", name_map = { Cn = "部门表", En = "departments" }, removed = false },
+  { data_type = "List", name_map = { zh = "组织单位表", en = "organizations" }, removed = false },
+  { data_type = "List", name_map = { zh = "部门表", en = "departments" }, removed = false },
 
-  { data_type = "List", name_map = { Cn = "作为老师", En = "classes_as_teacher" }, removed = false },
-  { data_type = "List", name_map = { Cn = "作为学生", En = "classes_as_student" }, removed = false },
+  { data_type = "List", name_map = { zh = "作为老师", en = "classes_as_teacher" }, removed = false },
+  { data_type = "List", name_map = { zh = "作为学生", en = "classes_as_student" }, removed = false },
 ]
 
 [queues]

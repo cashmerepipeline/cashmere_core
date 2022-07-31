@@ -1,17 +1,17 @@
 # 
 # Author: 闫刚 (yes7rose@sina.com)
 # works.toml (c) 2020
-# Desc: 工作
+# Desc: 阶段
 # Created:  2020-11-11T23:22:49.855Z
 # Modified: !date!
 # 
 
 id = 10018
-name_map = { Cn = "阶段集", En = "phase_sets" }
+name_map = { zh = "阶段集", en = "phase_sets" }
 
 # 描写，模式
 schema = [
-  { data_type = "List", name_map = { Cn = "阶段列表", En = "phases" }, removed = false },
+  { data_type = "List", name_map = { zh = "阶段列表", en = "phases" }, removed = false },
 ]
 
 [queues]
@@ -121,7 +121,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
-# { Cn = "阶段表", En = "phases" }
+# { zh = "阶段表", en = "phases" }
 [view_rules.schema.2001]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",

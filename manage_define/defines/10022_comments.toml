@@ -3,13 +3,13 @@
 #
 
 id = 30009
-name_map = { Cn = "评论", En = "comments" }
+name_map = { zh = "评论", en = "comments" }
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "String", name_map = { Cn = "管理", En = "target_manage" }, removed = false },
-  { data_type = "String", name_map = { Cn = "实体", En = "target_entity" }, removed = false },
-  { data_type = "String", name_map = { Cn = "内容", En = "contents" }, removed = false },
+  { data_type = "String", name_map = { zh = "管理", en = "target_manage" }, removed = false },
+  { data_type = "String", name_map = { zh = "实体", en = "target_entity" }, removed = false },
+  { data_type = "String", name_map = { zh = "内容", en = "contents" }, removed = false },
 ]
 
 

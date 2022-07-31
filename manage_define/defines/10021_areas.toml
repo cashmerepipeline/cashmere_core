@@ -4,13 +4,13 @@
 # 地理区域
 
 id = 10021
-name_map = { Cn = "地区", En = "areas" }
+name_map = { zh = "地区", en = "areas" }
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "String", name_map = { Cn = "父级地区", En = "parent_id" }, removed = false },
+  { data_type = "String", name_map = { zh = "父级地区", en = "parent_id" }, removed = false },
   # 国家0级，省直辖市1级，
-  { data_type = "Int32", name_map = { Cn = "分级", En = "level" }, removed = false },
+  { data_type = "Int32", name_map = { zh = "分级", en = "level" }, removed = false },
 ]
 
 # 事件队列和消息队列表
@@ -31,8 +31,9 @@ massage_queue = []
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
-1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -41,8 +42,9 @@ massage_queue = []
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
-1000001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -136,4 +138,3 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
-

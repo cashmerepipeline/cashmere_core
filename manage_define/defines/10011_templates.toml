@@ -3,12 +3,12 @@
 #
 
 id = 10011
-name_map = { Cn = "模板", En = "templates" }
+name_map = { zh = "模板", en = "templates" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { Cn = "管理", En = "manage" }, removed = false },
-  { data_type = "List", name_map = { Cn = "预设表", En = "presets" }, removed = false },
+  { data_type = "String", name_map = { zh = "管理", en = "manage" }, removed = false },
+  { data_type = "List", name_map = { zh = "预设表", en = "presets" }, removed = false },
 ]
 
 [queues]

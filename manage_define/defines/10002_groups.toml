@@ -3,7 +3,7 @@
 #
 
 id = 10002
-name_map = { Cn = "组", En = "groups" }
+name_map = { zh = "组", en = "groups" }
 
 # 描写，模式
 schema = []

@@ -3,14 +3,14 @@
 #
 
 id = 10014
-name_map = { Cn = "任务", En = "tasks" }
+name_map = { zh = "任务", en = "tasks" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { Cn = "工作节点", En = "work_node" }, removed = false },
+  { data_type = "String", name_map = { zh = "工作节点", en = "work_node" }, removed = false },
   # 工作状态：挂起，工作中，已提交，完成
-  { data_type = "Map", name_map = { Cn = "状态", En = "status" }, removed = false },
-  { data_type = "List", name_map = { Cn = "数据", En = "data" }, removed = false },
+  { data_type = "Map", name_map = { zh = "状态", en = "status" }, removed = false },
+  { data_type = "List", name_map = { zh = "数据", en = "data" }, removed = false },
 ]
 
 [queues]
@@ -25,7 +25,7 @@ after_create = { manage = "tasks", python = "" }
 
 [view_rules]
 id = 10014
-name_map = { Cn = "任务", En = "tasks" }
+name_map = { zh = "任务", en = "tasks" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [

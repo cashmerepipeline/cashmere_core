@@ -3,17 +3,17 @@
 #
 
 id = 10000
-name_map = { Cn = "管理", En = "manages" }
+name_map = { zh = "管理", en = "manages" }
 
 schema = [
   # 描写，模式
-  { data_type = "Map", name_map = { Cn = "描写", En = "schema" }, removed = false },
+  { data_type = "Map", name_map = { zh = "描写", en = "schema" }, removed = false },
   # 事件，消息
-  #    { data_type = "List", name_map = { Cn = "事件表", En = "events" }, removed = false },
-  #    { data_type = "List", name_map = { Cn = "消息表", En = "messages" }, removed = false },
+  #    { data_type = "List", name_map = { zh = "事件表", en = "events" }, removed = false },
+  #    { data_type = "List", name_map = { zh = "消息表", en = "messages" }, removed = false },
   # 队列
-  #    { data_type = "List", name_map = { Cn = "事件队列表", En = "event_queues" }, removed = false },
-  #    { data_type = "List", name_map = { Cn = "消息队列表", En = "message_queues" }, removed = false },
+  #    { data_type = "List", name_map = { zh = "事件队列表", en = "event_queues" }, removed = false },
+  #    { data_type = "List", name_map = { zh = "消息队列表", en = "message_queues" }, removed = false },
 ]
 
 

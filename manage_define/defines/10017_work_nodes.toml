@@ -3,17 +3,17 @@
 #
 
 id = 10017
-name_map = { Cn = "工作节点", En = "work_nodes" }
+name_map = { zh = "工作节点", en = "work_nodes" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { Cn = "过程编号", En = "procedure" }, removed = false },
-  { data_type = "List", name_map = { Cn = "任务表", En = "tasks" }, removed = false },
-  { data_type = "String", name_map = { Cn = "工作者", En = "worker" }, removed = false },
-  { data_type = "Map", name_map = { Cn = "参考数据", En = "reference_datas" }, removed = false },
-  { data_type = "Map", name_map = { Cn = "依赖数据", En = "depended_datas" }, removed = false },
-  { data_type = "Map", name_map = { Cn = "工作数据", En = "work_datas" }, removed = false },
-  { data_type = "Map", name_map = { Cn = "输出数据", En = "out_datas" }, removed = false },
+  { data_type = "String", name_map = { zh = "过程编号", en = "procedure" }, removed = false },
+  { data_type = "List", name_map = { zh = "任务表", en = "tasks" }, removed = false },
+  { data_type = "String", name_map = { zh = "工作者", en = "worker" }, removed = false },
+  { data_type = "Map", name_map = { zh = "参考数据", en = "reference_datas" }, removed = false },
+  { data_type = "Map", name_map = { zh = "依赖数据", en = "depended_datas" }, removed = false },
+  { data_type = "Map", name_map = { zh = "工作数据", en = "work_datas" }, removed = false },
+  { data_type = "Map", name_map = { zh = "输出数据", en = "out_datas" }, removed = false },
 ]
 
 [queues]
@@ -26,7 +26,7 @@ massage_queue = []
 
 [view_rules]
 id = 10017
-name_map = { Cn = "工作节点", En = "work_nodes" }
+name_map = { zh = "工作节点", en = "work_nodes" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
