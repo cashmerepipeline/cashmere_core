@@ -1,7 +1,10 @@
-use linked_hash_map::LinkedHashMap;
+use crate::{
+    language_keys::ENGLISH,
+    utils::{get_id, get_name, get_schema, get_toml_map},
+};
 use bson::Document;
+use linked_hash_map::LinkedHashMap;
 use std::io::Write;
-use crate::utils::{get_id, get_name, get_schema, get_toml_map};
 
 pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir: Option<&str>) {
     let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);
@@ -38,7 +41,7 @@ pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir:
                     };
                     let manage_name = get_name::get_name_map(&toml_map)
                         .unwrap()
-                        .get_str("En")
+                        .get_str(ENGLISH)
                         .unwrap()
                         .to_string();
                     let schemas_bson = get_schema::get_schema(&toml_map).unwrap();
@@ -53,7 +56,7 @@ pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir:
                                 panic!("管理定义错误 {} ", manage_name);
                             }
                         };
-                        let s_name = match name_doc.get_str("En") {
+                        let s_name = match name_doc.get_str(ENGLISH) {
                             Ok(r) => r,
                             Err(_) => {
                                 panic!("管理定义错误 {}", name_doc);

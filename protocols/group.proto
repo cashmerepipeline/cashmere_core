@@ -1,0 +1,11 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+message NewGroupRequest {
+    Name name = 1;
+  }
+message NewGroupResponse{
+    string result = 1;
+  }

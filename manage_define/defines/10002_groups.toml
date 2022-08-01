@@ -16,21 +16,12 @@ massage_queues = ["group_message_queue"]
 before_create = { manage = "groups", python = "" }
 after_create = { manage = "groups", python = "" }
 
-[items]
-admin = { 1000 = "1000000", 1001 = "root", 1006 = "8610000000000", 1007 = [
-  "1000000",
-], 1002 = "8610000000000" }
-user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
-  "1000001",
-], 1002 = "8610000000000" }
-
 [view_rules]
-
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
-  "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -41,6 +32,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "OnlyOwner",
@@ -48,7 +40,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ] }
 
 [view_rules.schema.1000]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -56,7 +48,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1001]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -64,7 +56,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1002]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -72,7 +64,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1003]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -80,7 +72,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1004]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -88,7 +80,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1005]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -96,7 +88,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1006]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -104,7 +96,7 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 [view_rules.schema.1007]
-1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -128,3 +120,10 @@ user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
 ], write_filters = [
 ] }
 
+[items]
+admin = { 1000 = "1000000", 1001 = "root", 1006 = "8610000000000", 1007 = [
+  "1000000",
+], 1002 = "8610000000000" }
+user = { 1000 = "1000001", 1001 = "user", 1006 = "8610000000000", 1007 = [
+  "1000001",
+], 1002 = "8610000000000" }

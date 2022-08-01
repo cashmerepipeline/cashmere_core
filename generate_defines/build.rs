@@ -27,7 +27,7 @@ fn main() {
         .unwrap();
 
     manage_define::utils::generate_manage_defines(
-        &vec!["../manage_define/defines/core"],
+        &vec!["../manage_define/defines"],
         "../manage_define/src",
         Some("../dart_packages/general_id_codes/lib/src"),
     );

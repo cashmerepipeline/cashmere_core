@@ -1,48 +1,3 @@
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Int32Range {
-    #[prost(int32, tag="1")]
-    pub min: i32,
-    #[prost(int32, tag="2")]
-    pub max: i32,
-    #[prost(int32, tag="3")]
-    pub value: i32,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Int64Range {
-    #[prost(int64, tag="1")]
-    pub min: i64,
-    #[prost(int64, tag="2")]
-    pub max: i64,
-    #[prost(int64, tag="3")]
-    pub value: i64,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UInt32Range {
-    #[prost(uint32, tag="1")]
-    pub min: u32,
-    #[prost(uint32, tag="2")]
-    pub max: u32,
-    #[prost(uint32, tag="3")]
-    pub value: u32,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FloatRange {
-    #[prost(float, tag="1")]
-    pub min: f32,
-    #[prost(float, tag="2")]
-    pub max: f32,
-    #[prost(float, tag="3")]
-    pub value: f32,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DoubleRange {
-    #[prost(double, tag="1")]
-    pub min: f64,
-    #[prost(double, tag="2")]
-    pub max: f64,
-    #[prost(double, tag="3")]
-    pub value: f64,
-}
 /// 名
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -93,6 +48,61 @@ pub struct NewLanguageNameRequest {
 pub struct NewLanguageNameResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewGroupRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewGroupResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int32Range {
+    #[prost(int32, tag="1")]
+    pub min: i32,
+    #[prost(int32, tag="2")]
+    pub max: i32,
+    #[prost(int32, tag="3")]
+    pub value: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int64Range {
+    #[prost(int64, tag="1")]
+    pub min: i64,
+    #[prost(int64, tag="2")]
+    pub max: i64,
+    #[prost(int64, tag="3")]
+    pub value: i64,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UInt32Range {
+    #[prost(uint32, tag="1")]
+    pub min: u32,
+    #[prost(uint32, tag="2")]
+    pub max: u32,
+    #[prost(uint32, tag="3")]
+    pub value: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FloatRange {
+    #[prost(float, tag="1")]
+    pub min: f32,
+    #[prost(float, tag="2")]
+    pub max: f32,
+    #[prost(float, tag="3")]
+    pub value: f32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DoubleRange {
+    #[prost(double, tag="1")]
+    pub min: f64,
+    #[prost(double, tag="2")]
+    pub max: f64,
+    #[prost(double, tag="3")]
+    pub value: f64,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]

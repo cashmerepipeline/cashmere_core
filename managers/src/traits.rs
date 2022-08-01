@@ -465,6 +465,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 Err(e) => return Err(add_call_name_to_chain(e, "new_entity".to_string())),
             };
 
+        // 如果有缓存则更新缓存
         if self.has_cache() {
             let _result = match self.update_cache(new_entity_doc).await {
                 Err(e) => Err(add_call_name_to_chain(e, "new_entity".to_string())),

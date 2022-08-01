@@ -17,7 +17,7 @@ login_limit = 2
 events_dbs_dir = "events_dbs"
 
 # 默认语音
-lang_code = "Cn"
+lang_code = "zh"
 
 [tls]
 server_key_path = "tls/server.key"
@@ -34,3 +34,4 @@ max_set_file_number = 1000
 max_sequence_file_number = 10000
 # 块最大大小，1024*128=128KB
 max_chunk_size = 131072
+

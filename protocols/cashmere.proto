@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package cashmere;
 
+import "group.proto";
 import "property_type.proto";
 import "name.proto";
 import "color.proto";
