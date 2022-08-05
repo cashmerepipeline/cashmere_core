@@ -1,8 +1,12 @@
 class LanguageCode {
   final String code;
-  final String chinese_name;
-  final String english_name;
+  final String chineseName;
+  final String englishName;
   final String native;
 
-  LanguageCode({required this.code, required this.chinese_name, required this.english_name, required this.native});
+  LanguageCode(
+      {required this.code,
+      required this.chineseName,
+      required this.englishName,
+      required this.native});
 }

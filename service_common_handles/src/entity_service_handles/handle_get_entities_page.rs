@@ -6,7 +6,6 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
 
-
 use crate::UnaryResponseResult;
 
 #[async_trait]
@@ -30,10 +29,11 @@ pub trait HandleGetEntitiesPage {
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
-        let conditions_doc = bson::to_document(conditions).unwrap();
+        // let conditions_doc = bson::to_document(conditions).unwrap();
 
         let result = manager
-            .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
+            // .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
+            .get_entities_by_page(*page_index, &None, &None)
             .await;
 
         // TODO: 可见性过滤
@@ -42,7 +42,11 @@ pub trait HandleGetEntitiesPage {
             Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
                 entities: entities
                     .iter()
-                    .map(|x| bson::from_document(x.clone()).unwrap())
+                    .map(|x| {
+                        let mut bytes: Vec<u8> = Vec::new();
+                        x.to_writer(&mut bytes).expect(&*format!("数据损坏:{}", x));
+                        bytes
+                    })
                     .collect(),
             })),
             Err(e) => Err(Status::aborted(format!(
