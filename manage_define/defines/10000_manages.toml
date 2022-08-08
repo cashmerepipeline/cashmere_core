@@ -40,6 +40,7 @@ massage_queue = []
   "NoLimit",
 ], write_filters = [
 ] }
+
 [view_rules.collection]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
