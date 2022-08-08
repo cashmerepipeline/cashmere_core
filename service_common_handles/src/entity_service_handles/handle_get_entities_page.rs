@@ -45,9 +45,11 @@ pub trait HandleGetEntitiesPage {
         if let Some(filter_doc) =
             add_query_filters(&account_id.to_string(), &groups, &manage_id.to_string()).await
         {
-            filter_doc
-                .iter()
-                .for_each(|(k, v)| {conditions_doc.as_mut().unwrap().insert(k, v);});
+            filter_doc.iter().for_each(|(k, v)| {
+                conditions_doc.as_mut().unwrap().insert(k, v);
+            });
+        } else {
+            return Err(Status::unauthenticated("用户不具有集合可读权限"));
         };
 
         // TODO: 字段可见性过滤
@@ -56,7 +58,6 @@ pub trait HandleGetEntitiesPage {
             // .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
             .get_entities_by_page(*page_index, &None, &conditions_doc)
             .await;
-
 
         match result {
             Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
