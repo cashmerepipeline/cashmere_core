@@ -1,5 +1,4 @@
 import 'package:fixnum/fixnum.dart';
-import 'package:general_grpc_interface/core/name.dart';
 
 mixin EntityBase {
   late final String id;

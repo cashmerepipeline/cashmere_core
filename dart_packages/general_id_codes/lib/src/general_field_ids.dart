@@ -5,7 +5,7 @@
 // 编号
 const int ID_FIELD_ID = 1000;
 // 名字
-const int NAME_FIELD_ID = 1001;
+const int NAME_MAP_FIELD_ID = 1001;
 // 创建人
 const int CREATOR_FIELD_ID = 1002;
 //创建时间

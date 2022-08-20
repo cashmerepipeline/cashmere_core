@@ -502,11 +502,12 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         page_index: u32,
         matches: &Option<Document>,
-        conditions: &Option<Document>,
+        sorts: &Option<Document>,
+        projects: &Option<Document>
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
 
-        match entity::get_entities_by_page(&manage_id, page_index, matches, conditions).await {
+        match entity::get_entities_by_page(&manage_id, page_index, matches, sorts, projects).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,

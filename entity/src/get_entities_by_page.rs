@@ -17,7 +17,8 @@ pub async fn get_entities_by_page(
     collection_name: &String,
     page_index: u32,
     matches: &Option<Document>,
-    conditions: &Option<Document>,
+    sorts: &Option<Document>,
+    projects: &Option<Document>,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
@@ -29,8 +30,12 @@ pub async fn get_entities_by_page(
         pipeline.push(doc! {"$match": matches});
     }
 
-    if conditions.is_some() {
-        pipeline.push(doc! {"$sort": conditions.clone().unwrap()});
+    if sorts.is_some() {
+        pipeline.push(doc! {"$sort": sorts.clone().unwrap()});
+    }
+
+    if projects.is_some() {
+        pipeline.push(doc! {"$project": sorts.clone().unwrap()});
     }
 
     pipeline.push(doc! {"$limit": 20 as u32});
@@ -49,7 +54,7 @@ pub async fn get_entities_by_page(
         }
         Err(_e) => Err(operation_failed(
             "get_entities_by_page",
-            format!("获取分页失败{}-{}", page_index, conditions.clone().unwrap()),
+            format!("获取分页失败{}-{}", page_index, sorts.clone().unwrap()),
         )),
     }
 }

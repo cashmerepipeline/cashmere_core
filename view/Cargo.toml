@@ -15,9 +15,11 @@ entity = { path = "../entity" }
 cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
+property_field = { path = "../property_field" }
 
 #tokio = { version = "1.4.0", features = ["full"] }
 futures = "0.3.13"
+tokio-stream = "0.1.9"
 linked-hash-map = { version = "0.5.6", features = ["serde_impl"] }
 parking_lot = "0.12.1"
 bson = "2.0.1"

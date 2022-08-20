@@ -1,8 +1,6 @@
 // 取得管理描写表
-import 'package:general_grpc_interface/grpc_generated/manage_schema.pb.dart'
-    as s_massge;
-import 'package:general_grpc_interface/name_map_utils.dart';
-import 'package:grpc/grpc.dart';
+import 'package:general_grpc_interface/core/name_map_utils.dart';
+import 'package:general_grpc_interface/grpc_generated/manage_schema.pb.dart' as s_massge;
 
 class SchemaField {
   final int fieldId;
