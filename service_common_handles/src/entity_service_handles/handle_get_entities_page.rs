@@ -55,11 +55,17 @@ pub trait HandleGetEntitiesPage {
 
         // TODO: 字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
-        let mut shcema_projects = get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields);
+        let shcema_projects =
+            get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields).await;
 
         let result = manager
             // .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
-            .get_entities_by_page(*page_index, &Some(matches), &sorts_doc, &Some(shcema_projects))
+            .get_entities_by_page(
+                *page_index,
+                &Some(matches),
+                &sorts_doc,
+                &Some(shcema_projects),
+            )
             .await;
 
         match result {
