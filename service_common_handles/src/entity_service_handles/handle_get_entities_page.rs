@@ -38,7 +38,7 @@ pub trait HandleGetEntitiesPage {
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
-        let mut sorts_doc = bson::to_document(conditions).ok().or(Some(doc! {}));
+        let sorts_doc = bson::to_document(conditions).ok().or(None);
         // TODO: 条件只支持几种固定格式，需要安全性检查
 
         // 加入可读过滤项
@@ -55,17 +55,17 @@ pub trait HandleGetEntitiesPage {
 
         // TODO: 字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
-        let shcema_projects =
+        let schema_projects =
             get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields).await;
 
+        let project_doc = if schema_projects.len() > 0 {
+            Some(schema_projects)
+        } else {
+            None
+        };
+
         let result = manager
-            // .get_entities_by_page(*page_index, &None, &Some(conditions_doc))
-            .get_entities_by_page(
-                *page_index,
-                &Some(matches),
-                &sorts_doc,
-                &Some(shcema_projects),
-            )
+            .get_entities_by_page(*page_index, &Some(matches), &sorts_doc, &project_doc)
             .await;
 
         match result {

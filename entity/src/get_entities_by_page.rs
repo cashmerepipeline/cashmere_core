@@ -35,7 +35,7 @@ pub async fn get_entities_by_page(
     }
 
     if projects.is_some() {
-        pipeline.push(doc! {"$project": sorts.clone().unwrap()});
+        pipeline.push(doc! {"$project": projects.clone().unwrap()});
     }
 
     pipeline.push(doc! {"$limit": 20 as u32});

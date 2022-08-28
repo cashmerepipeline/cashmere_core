@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   grpc: ^3.0.2
   bson: ^1.0.4
+  general_id_codes:
+    path: ../general_id_codes
   
 dev_dependencies:
   flutter_test:
