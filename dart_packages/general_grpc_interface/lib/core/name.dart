@@ -5,4 +5,3 @@ class Name {
 
   Name(this.language, this.name);
 }
-

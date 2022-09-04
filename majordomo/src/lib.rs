@@ -6,6 +6,7 @@ Created:  2020-11-29T04:53:15.516Z
 Modified: !date!
 */
 
+use std::fmt::format;
 use std::sync::Arc;
 use std::{collections::HashMap};
 use log::{info};
@@ -36,7 +37,7 @@ impl Majordomo {
         let managers = managers.read();
         managers
             .get(&id).cloned()
-            .ok_or(operation_failed("get_manager_by_id", "取得管理器失败"))
+            .ok_or(operation_failed(format!("get_manager_by_id {}", id), "取得管理器失败"))
     }
 
     /// 取得管理编号表

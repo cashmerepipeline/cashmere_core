@@ -20,7 +20,7 @@ const int OWNER_FIELD_ID = 1006;
 const int GROUPS_FIELD_ID = 1007;
 // 相关数据
 const int DATAS_FIELD_ID = 1008;
-// 相关数据
+// 移除的相关数据
 const int DATAS_REMOVED_FIELD_ID = 1900;
 // 注释和评论
 const int COMMENTS_FIELD_ID = 1009;

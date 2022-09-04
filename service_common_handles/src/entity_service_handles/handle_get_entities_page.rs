@@ -64,8 +64,16 @@ pub trait HandleGetEntitiesPage {
             None
         };
 
+        // 从0开始，
+        // TODO：需要验证数据库起始编号
+        let index = if *page_index <= 0u32 {
+            0u32
+        } else {
+            *page_index - 1
+        };
+
         let result = manager
-            .get_entities_by_page(*page_index, &Some(matches), &sorts_doc, &project_doc)
+            .get_entities_by_page(index, &Some(matches), &sorts_doc, &project_doc)
             .await;
 
         match result {

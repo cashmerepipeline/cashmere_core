@@ -2,7 +2,7 @@ import 'package:general_grpc_interface/grpc_generated/account_service.pbgrpc.dar
 import 'package:grpc/grpc.dart';
 
 // dart不支持直接调用范型类生成实例
-typedef S ClientCreator<S extends Client>(ClientChannel channel);
+typedef ClientCreator<S extends Client> = S Function(ClientChannel channel);
 
 class CashmereClient<T extends Client> {
   final String host;
