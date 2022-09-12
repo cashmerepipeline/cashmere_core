@@ -50,7 +50,7 @@ pub trait HandleGetEntitiesPage {
                 matches.insert(k, v);
             });
         } else {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
+            return Err(Status::unauthenticated("没有可读描写字段，用户不具有集合可读权限"));
         };
 
         // TODO: 字段可见性过滤, 加入mongodb的project方法

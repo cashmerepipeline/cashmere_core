@@ -1,6 +1,4 @@
-import 'package:general_grpc_interface/grpc_generated/name.pb.dart';
 import 'package:general_id_codes/src/general_field_ids.dart';
-import 'manage/schema_field.dart';
 
 // 通用属性名字映射
 final Map<int, Map<String, String>> generalSchemaFieldsNameMap = {

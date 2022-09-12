@@ -1,4 +1,4 @@
-use bson::{doc, Document};
+use bson::{self, doc, Document};
 use linked_hash_map::LinkedHashMap;
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, OWNER_FIELD_ID};
 
@@ -19,6 +19,9 @@ pub async fn add_query_filters(
         .get(manage_id)
         .and_then(|rules| Some(&rules.collection))
         .or(None);
+
+    println!("{:}--{:?}", manage_id, view_rules.get(manage_id).unwrap());
+    println!("{:}:{:?}:{:}", bson::to_document(rules.unwrap()).unwrap(), groups,manage_id);
 
     // 是否无限制
     if let Some(groups) = get_read_nolimit_groups(rules, groups) {
@@ -127,4 +130,3 @@ fn is_only_owner(rules: &Option<&LinkedHashMap<String, ViewRule>>, groups: &Vec<
     }
     false
 }
-
