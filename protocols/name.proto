@@ -44,3 +44,13 @@ message NewLanguageNameRequest {
 message NewLanguageNameResponse {
   string result = 1;
 }
+
+// 移除语言名
+message RemoveLanguageNameRequest {
+  string manage_id = 1;
+  string entity_id = 2;
+  string language = 3;
+}
+message RemoveLanguageNameResponse {
+  string result = 1;
+}

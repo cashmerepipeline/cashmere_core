@@ -49,6 +49,21 @@ pub struct NewLanguageNameResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 移除语言名
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveLanguageNameRequest {
+    #[prost(string, tag="1")]
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub language: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveLanguageNameResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGroupRequest {
     #[prost(message, optional, tag="1")]
