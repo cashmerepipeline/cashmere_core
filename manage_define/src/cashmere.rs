@@ -65,6 +65,42 @@ pub struct RemoveLanguageNameResponse {
     pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LanguageCode {
+    #[prost(string, tag="1")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="2")]
+    pub name_map: ::prost::alloc::vec::Vec<u8>,
+}
+/// 新语言编码
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLanguageCodeRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="2")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub native_name: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLanguageCodeResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditLanguageCodeRequest {
+    #[prost(string, tag="1")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub new_code: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub new_native: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditLanguageCodeResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGroupRequest {
     #[prost(message, optional, tag="1")]
     pub name: ::core::option::Option<Name>,

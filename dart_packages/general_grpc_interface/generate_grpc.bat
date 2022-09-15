@@ -4,6 +4,7 @@ protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc
 protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/password.proto
 protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/status.proto
 
+protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/language_code.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/manage.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/manage_schema.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/group.proto

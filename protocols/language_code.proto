@@ -1,8 +1,28 @@
-
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 message LanguageCode{
-    string code = 1;
-    bytes nameMap =2;
-  }
+  string code = 1;
+  bytes name_map = 2;
+}
+
+// 新语言编码
+message NewLanguageCodeRequest {
+  Name name = 1;
+  string code = 2;
+  string native_name = 3;
+}
+message NewLanguageCodeResponse {
+  string result = 1;
+}
+
+message EditLanguageCodeRequest {
+  string id = 1;
+  string new_code = 2;
+  string new_native = 3;
+}
+message EditLanguageCodeResponse {
+  string result = 1;
+}

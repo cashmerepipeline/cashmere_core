@@ -47,7 +47,7 @@ pub async fn insert_entity(
         Utc::now().timestamp(),
     );
 
-    // 插入
+    // 插入, 返回插入后的ID
     let result = collection.insert_one(entity_doc.clone(), None).await;
 
     // 结果

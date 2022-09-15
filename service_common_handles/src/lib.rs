@@ -13,6 +13,7 @@ pub mod group_service_handles;
 pub mod manage_service_handle;
 pub mod name_service_handles;
 pub mod name_utils;
+pub mod language_code_handles;
 
 mod types;
 
