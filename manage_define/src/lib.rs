@@ -12,6 +12,7 @@ pub mod general_field_ids;
 pub mod language_keys;
 pub mod manage_ids;
 pub mod utils;
+pub mod general_property_fields;
 
 use cashmere::AreaLevel;
 use cashmere::SlotType;

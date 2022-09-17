@@ -22,6 +22,7 @@ use traits::ManagerTrait;
 
 pub mod accounts_manager;
 pub mod areas_manager;
+pub mod language_codes_manager;
 pub mod comments_manager;
 pub mod datas_manager;
 pub mod event_handles_manager;

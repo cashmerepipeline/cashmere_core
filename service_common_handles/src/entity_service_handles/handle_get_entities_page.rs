@@ -50,7 +50,9 @@ pub trait HandleGetEntitiesPage {
                 matches.insert(k, v);
             });
         } else {
-            return Err(Status::unauthenticated("没有可读描写字段，用户不具有集合可读权限"));
+            return Err(Status::unauthenticated(
+                "没有可读描写字段，用户不具有集合可读权限",
+            ));
         };
 
         // TODO: 字段可见性过滤, 加入mongodb的project方法
@@ -59,7 +61,14 @@ pub trait HandleGetEntitiesPage {
             get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields).await;
 
         let project_doc = if schema_projects.len() > 0 {
-            Some(schema_projects)
+            // 只加入不可见字段
+            let mut no_show_project = Document::new();
+            schema_projects.iter().for_each(|(k, v)| {
+                if v.as_i32().unwrap() == 0 {
+                    no_show_project.insert(k, v);
+                }
+            });
+            Some(no_show_project)
         } else {
             None
         };

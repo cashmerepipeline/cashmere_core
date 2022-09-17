@@ -31,8 +31,10 @@ massage_queue = []
   "NoLimit",
 ], write_filters = [
 ] }
+
 [view_rules.collection]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
@@ -48,6 +50,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1001]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -56,6 +59,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1002]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -64,6 +68,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1003]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -72,6 +77,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1004]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -80,6 +86,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1005]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -88,6 +95,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1006]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -96,6 +104,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1007]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -104,6 +113,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.1008]
 1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -121,6 +131,7 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.2002]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",

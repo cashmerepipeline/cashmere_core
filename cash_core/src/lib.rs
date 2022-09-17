@@ -19,6 +19,7 @@ use serde::{Deserialize, Serialize};
 use bson::Document;
 use cash_result::OperationResult;
 use linked_hash_map::LinkedHashMap;
+use manage_define::general_property_fields::general_property_fields;
 use property_field::PropertyField;
 
 /// 管理实体
@@ -67,15 +68,16 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         .iter()
         .map(|x| x.as_str().unwrap().to_string())
         .collect();
-    let schema = manage_doc
+
+    let mut schema = general_property_fields().clone();
+    manage_doc
         .get_array(&MANAGES_SCHEMA_FIELD_ID.to_string())
         .unwrap()
         .iter()
-        .map(|x| {
+        .for_each(|x| {
             let field: PropertyField = PropertyField::from_document(x.as_document().unwrap());
-            field
-        })
-        .collect();
+            schema.push(field);
+        });
 
     Ok(Manage {
         _id: _id.to_string(),

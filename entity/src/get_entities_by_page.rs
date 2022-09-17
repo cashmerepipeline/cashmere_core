@@ -54,7 +54,7 @@ pub async fn get_entities_by_page(
         }
         Err(_e) => Err(operation_failed(
             "get_entities_by_page",
-            format!("获取分页失败{}-{}", page_index, sorts.clone().unwrap()),
+            format!("获取分页失败{}-{}", collection_name, page_index),
         )),
     }
 }
