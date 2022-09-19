@@ -55,7 +55,7 @@ pub trait HandleGetEntitiesPage {
             ));
         };
 
-        // TODO: 字段可见性过滤, 加入mongodb的project方法
+        // 字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
             get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields).await;

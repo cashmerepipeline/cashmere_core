@@ -78,7 +78,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("------读取定义文件完成-----\n\n");
 
     // 使用root用户和root组初始化管理数据库
-    let root_id = &"86100000000000".to_string();
+    let root_id = &"8610000000000".to_string();
     let root_group_id = &"1000000".to_string();
 
     // 1. 创建管理集合

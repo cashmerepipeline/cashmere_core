@@ -42,6 +42,8 @@ pub async fn insert_entity_map_field(
         )
         .await;
 
+    println!("{:?}-{:?}", manage_id,  result);
+
     // 结果
     match result {
         Ok(r) => match r.modified_count == 1 {
