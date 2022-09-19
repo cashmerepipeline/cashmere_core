@@ -26,17 +26,18 @@ pub async fn insert_entity_map_field(
         Some(c) => c,
         None => return Err(collection_not_exists("update_entity")),
     };
+    
+
+    let mut final_modify_doc = modify_doc.clone();
+    final_modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
+    final_modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
 
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
             doc! {
-                "$set":modify_doc,
-                "$set": {
-                MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-                MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
-                }
+                "$set": final_modify_doc, 
             },
             UpdateOptions::builder().upsert(true).build(),
         )
