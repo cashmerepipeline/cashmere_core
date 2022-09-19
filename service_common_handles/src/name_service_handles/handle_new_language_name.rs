@@ -28,6 +28,9 @@ pub trait HandleNewLanguageName {
         if !view::can_manage_write(&account_id, &groups, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
+        // TODO: 检查集合是否可写
+
+        // TODO: 检查属性是否可写
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc

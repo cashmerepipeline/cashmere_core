@@ -21,5 +21,5 @@ pub async fn update_entity_map_field(
     modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
-    insert_entity_map_field::insert_entity_map_field(manage_id, query_doc, modify_doc, account_id).await
+    insert_entity_map_field(manage_id, query_doc, modify_doc, account_id).await
 }

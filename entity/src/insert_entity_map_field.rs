@@ -12,9 +12,9 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-// --------------------------
-// 映射属性操作
-// --------------------------
+/// --------------------------
+/// 插入或者更新实体的一个Map属性字段
+/// --------------------------
 pub async fn insert_entity_map_field(
     manage_id: &String,
     query_doc: Document,
@@ -48,7 +48,7 @@ pub async fn insert_entity_map_field(
             true => Ok(operation_succeed("ok")),
             false => Err(operation_failed(
                 "insert_entity_map_field",
-                format!("更新了多个实体{}", query_doc),
+                format!("更新了多个实体{}, 更新发生错误, 请检查数据正确性。", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(

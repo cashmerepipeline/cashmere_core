@@ -23,11 +23,15 @@ pub trait HandleRename {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
         let language = &request.get_ref().language;
-        let name = &request.get_ref().new_name;
+        let new_name = &request.get_ref().new_name;
 
         if !view::can_manage_write(&account_id, &groups, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
+        
+        // TODO: 检查集合是否可写
+
+        // TODO: 检查属性是否可写
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
@@ -36,10 +40,10 @@ pub trait HandleRename {
             .unwrap();
 
         let query_doc = doc! {
-                    "_id":entity_id
+                    ID_FIELD_ID.to_string():entity_id
                 };
         let modify_doc = doc! {
-                    format!("{}.{}", NAME_MAP_FIELD_ID, language):name.clone()
+                    format!("{}.{}", NAME_MAP_FIELD_ID, language):new_name.clone()
                 };
 
         let result = manager
