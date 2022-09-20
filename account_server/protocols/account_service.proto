@@ -17,6 +17,6 @@ service AccountGrpc{
   // 登录
   rpc Login (LoginRequest) returns (LoginResponse);
   // rpc Logout (LogoutRequest) returns (LogoutResponse);
-  // rpc AddAccount (AddAccountRequest) returns (AddAccountResponse);
+   rpc NewAccount (NewAccountRequest) returns (NewAccountResponse);
   // rpc Register (RegisterRequest) returns (RegisterResponse);
 }

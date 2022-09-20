@@ -4,11 +4,9 @@ package account_service;
 
 // 添加账号, 需要手工添加账号的情景
 message NewAccountRequest {
-  string organization_id = 1;
-  string department_id = 2;
-  string group_id = 3;
-  string phone = 4;
-  string password = 5;
+  string area_code = 1;
+  string phone = 2;
+  string password = 3;
 }
 message NewAccountResponse {
   string result = 1;

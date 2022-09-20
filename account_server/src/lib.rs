@@ -24,6 +24,7 @@ use account_service_handles::*;
 pub struct AccountServer;
 
 impl HandleLogin for AccountServer {}
+impl HandleNewAccount for AccountServer {}
 
 type UnaryResponseResult<T> = Result<Response<T>, Status>;
 
@@ -31,6 +32,10 @@ type UnaryResponseResult<T> = Result<Response<T>, Status>;
 impl AccountGrpc for AccountServer {
     async fn login(&self, request: Request<LoginRequest>) -> UnaryResponseResult<LoginResponse> {
         self.handle_login(request).await
+    }
+
+    async fn new_account(&self, request: Request<NewAccountRequest>) -> Result<Response<NewAccountResponse>, Status> {
+        self.handle_new_account(request).await
     }
 }
 

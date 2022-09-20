@@ -12,16 +12,14 @@ import 'dart:typed_data' as $typed_data;
 const NewAccountRequest$json = const {
   '1': 'NewAccountRequest',
   '2': const [
-    const {'1': 'organization_id', '3': 1, '4': 1, '5': 9, '10': 'organizationId'},
-    const {'1': 'department_id', '3': 2, '4': 1, '5': 9, '10': 'departmentId'},
-    const {'1': 'group_id', '3': 3, '4': 1, '5': 9, '10': 'groupId'},
-    const {'1': 'phone', '3': 4, '4': 1, '5': 9, '10': 'phone'},
-    const {'1': 'password', '3': 5, '4': 1, '5': 9, '10': 'password'},
+    const {'1': 'area_code', '3': 1, '4': 1, '5': 9, '10': 'areaCode'},
+    const {'1': 'phone', '3': 2, '4': 1, '5': 9, '10': 'phone'},
+    const {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
   ],
 };
 
 /// Descriptor for `NewAccountRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List newAccountRequestDescriptor = $convert.base64Decode('ChFOZXdBY2NvdW50UmVxdWVzdBInCg9vcmdhbml6YXRpb25faWQYASABKAlSDm9yZ2FuaXphdGlvbklkEiMKDWRlcGFydG1lbnRfaWQYAiABKAlSDGRlcGFydG1lbnRJZBIZCghncm91cF9pZBgDIAEoCVIHZ3JvdXBJZBIUCgVwaG9uZRgEIAEoCVIFcGhvbmUSGgoIcGFzc3dvcmQYBSABKAlSCHBhc3N3b3Jk');
+final $typed_data.Uint8List newAccountRequestDescriptor = $convert.base64Decode('ChFOZXdBY2NvdW50UmVxdWVzdBIbCglhcmVhX2NvZGUYASABKAlSCGFyZWFDb2RlEhQKBXBob25lGAIgASgJUgVwaG9uZRIaCghwYXNzd29yZBgDIAEoCVIIcGFzc3dvcmQ=');
 @$core.Deprecated('Use newAccountResponseDescriptor instead')
 const NewAccountResponse$json = const {
   '1': 'NewAccountResponse',

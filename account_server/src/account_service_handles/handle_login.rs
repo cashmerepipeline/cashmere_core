@@ -1,24 +1,11 @@
-/*
-    Author: 闫刚 (yes7rose@sina.com)
-    account_service_handles.rs (c) 2021
-    Desc: 账户管理服务
-    Created:  2021-03-29T05:20:05.474Z
-    Modified: !date!
-*/
-
 use async_trait::async_trait;
+use tonic::{Request, Response, Status};
 use bson::Document;
 use chrono::Utc;
-use tonic::{Request, Response, Status};
-
-use crate::account_service::*;
-
-use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
-use manage_define::manage_ids::PERSONS_MANAGE_ID;
-use managers::traits::ManagerTrait;
-
-use crate::UnaryResponseResult;
 use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIONS_FIELD_ID};
+use manage_define::manage_ids::{ACCOUNTS_MANAGE_ID, PERSONS_MANAGE_ID};
+use managers::traits::ManagerTrait;
+use crate::{LoginRequest, LoginResponse, UnaryResponseResult};
 
 #[async_trait]
 pub trait HandleLogin {
@@ -128,15 +115,5 @@ pub trait HandleLogin {
             person: person_bytes,
             token,
         }))
-    }
-}
-
-#[async_trait]
-trait HandleNewAccount {
-    async fn new_account(
-        &self,
-        _request: Request<NewAccountRequest>,
-    ) -> UnaryResponseResult<NewAccountResponse> {
-        unimplemented!()
     }
 }

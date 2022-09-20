@@ -11,31 +11,21 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class NewAccountRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAccountRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'organizationId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'departmentId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'areaCode')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
     ..hasRequiredFields = false
   ;
 
   NewAccountRequest._() : super();
   factory NewAccountRequest({
-    $core.String? organizationId,
-    $core.String? departmentId,
-    $core.String? groupId,
+    $core.String? areaCode,
     $core.String? phone,
     $core.String? password,
   }) {
     final _result = create();
-    if (organizationId != null) {
-      _result.organizationId = organizationId;
-    }
-    if (departmentId != null) {
-      _result.departmentId = departmentId;
-    }
-    if (groupId != null) {
-      _result.groupId = groupId;
+    if (areaCode != null) {
+      _result.areaCode = areaCode;
     }
     if (phone != null) {
       _result.phone = phone;
@@ -67,49 +57,31 @@ class NewAccountRequest extends $pb.GeneratedMessage {
   static NewAccountRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get organizationId => $_getSZ(0);
+  $core.String get areaCode => $_getSZ(0);
   @$pb.TagNumber(1)
-  set organizationId($core.String v) { $_setString(0, v); }
+  set areaCode($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasOrganizationId() => $_has(0);
+  $core.bool hasAreaCode() => $_has(0);
   @$pb.TagNumber(1)
-  void clearOrganizationId() => clearField(1);
+  void clearAreaCode() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get departmentId => $_getSZ(1);
+  $core.String get phone => $_getSZ(1);
   @$pb.TagNumber(2)
-  set departmentId($core.String v) { $_setString(1, v); }
+  set phone($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasDepartmentId() => $_has(1);
+  $core.bool hasPhone() => $_has(1);
   @$pb.TagNumber(2)
-  void clearDepartmentId() => clearField(2);
+  void clearPhone() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get groupId => $_getSZ(2);
+  $core.String get password => $_getSZ(2);
   @$pb.TagNumber(3)
-  set groupId($core.String v) { $_setString(2, v); }
+  set password($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasGroupId() => $_has(2);
+  $core.bool hasPassword() => $_has(2);
   @$pb.TagNumber(3)
-  void clearGroupId() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get phone => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set phone($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasPhone() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearPhone() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.String get password => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set password($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasPassword() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearPassword() => clearField(5);
+  void clearPassword() => clearField(3);
 }
 
 class NewAccountResponse extends $pb.GeneratedMessage {

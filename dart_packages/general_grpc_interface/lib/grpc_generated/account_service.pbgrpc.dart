@@ -11,6 +11,7 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 import 'login.pb.dart' as $0;
+import 'account.pb.dart' as $1;
 export 'account_service.pb.dart';
 
 class AccountGrpcClient extends $grpc.Client {
@@ -18,6 +19,12 @@ class AccountGrpcClient extends $grpc.Client {
       '/account_service.AccountGrpc/Login',
       ($0.LoginRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.LoginResponse.fromBuffer(value));
+  static final _$newAccount =
+      $grpc.ClientMethod<$1.NewAccountRequest, $1.NewAccountResponse>(
+          '/account_service.AccountGrpc/NewAccount',
+          ($1.NewAccountRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.NewAccountResponse.fromBuffer(value));
 
   AccountGrpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -27,6 +34,12 @@ class AccountGrpcClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.LoginResponse> login($0.LoginRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$login, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.NewAccountResponse> newAccount(
+      $1.NewAccountRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$newAccount, request, options: options);
   }
 }
 
@@ -41,6 +54,13 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.LoginRequest.fromBuffer(value),
         ($0.LoginResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.NewAccountRequest, $1.NewAccountResponse>(
+        'NewAccount',
+        newAccount_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.NewAccountRequest.fromBuffer(value),
+        ($1.NewAccountResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre(
@@ -48,6 +68,13 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
     return login(call, await request);
   }
 
+  $async.Future<$1.NewAccountResponse> newAccount_Pre($grpc.ServiceCall call,
+      $async.Future<$1.NewAccountRequest> request) async {
+    return newAccount(call, await request);
+  }
+
   $async.Future<$0.LoginResponse> login(
       $grpc.ServiceCall call, $0.LoginRequest request);
+  $async.Future<$1.NewAccountResponse> newAccount(
+      $grpc.ServiceCall call, $1.NewAccountRequest request);
 }
