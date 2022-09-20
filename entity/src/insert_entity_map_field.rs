@@ -28,7 +28,7 @@ pub async fn insert_entity_map_field(
     };
     
 
-    let mut final_modify_doc = modify_doc.clone();
+    let mut final_modify_doc = modify_doc;
     final_modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
     final_modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
 
@@ -42,8 +42,6 @@ pub async fn insert_entity_map_field(
             UpdateOptions::builder().upsert(true).build(),
         )
         .await;
-
-    println!("{:?}-{:?}", manage_id,  result);
 
     // 结果
     match result {

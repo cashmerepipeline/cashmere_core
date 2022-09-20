@@ -8,7 +8,6 @@ use manage_define::general_field_ids::*;
 use managers::traits::ManagerTrait;
 use view;
 
-
 #[async_trait]
 pub trait HandleNewLanguageName {
     async fn handle_new_language_name(
@@ -25,12 +24,27 @@ pub trait HandleNewLanguageName {
         let language = &request.get_ref().language;
         let new_name = &request.get_ref().new_name;
 
+        // 管理可写性
         if !view::can_manage_write(&account_id, &groups, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
-        // TODO: 检查集合是否可写
 
-        // TODO: 检查属性是否可写
+        // 集合可写性检查
+        if !view::can_collection_write(&account_id, &groups, &manage_id.to_string()).await {
+            return Err(Status::unauthenticated("用户不具有集合可读权限"));
+        }
+
+        // 检查属性是否可写
+        if !view::can_field_write(
+            &account_id,
+            &groups,
+            manage_id,
+            &NAME_MAP_FIELD_ID.to_string(),
+        )
+        .await
+        {
+            return Err(Status::unauthenticated("用户不具有集合可读权限"));
+        }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
@@ -38,12 +52,22 @@ pub trait HandleNewLanguageName {
             .await
             .unwrap();
 
+        // 检查语言是否已经存在
+        let entity = manager.get_entity_by_id(entity_id).await.unwrap();
+        let lang_name_exists = entity
+            .get_document(NAME_MAP_FIELD_ID.to_string())
+            .unwrap()
+            .contains_key(language);
+        if lang_name_exists {
+            return Err(Status::already_exists("语言已经存在"));
+        };
+
         let query_doc = doc! {
-                    "_id":entity_id
-                };
+        ID_FIELD_ID.to_string():entity_id
+            };
         let modify_doc = doc! {
-                    format!("{}", NAME_MAP_FIELD_ID):{language.clone():new_name.clone()}
-                };
+            format!("{}.{}", NAME_MAP_FIELD_ID, language): new_name.clone()
+        };
 
         let result = manager
             .insert_entity_map_field(query_doc, modify_doc, &account_id)

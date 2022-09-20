@@ -29,7 +29,7 @@ pub trait HandleRename {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
         
-        // 集合可读性检查
+        // 集合可写性检查
         if !view::can_collection_read(&account_id, &groups, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }

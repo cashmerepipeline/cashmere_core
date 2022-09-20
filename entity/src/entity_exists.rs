@@ -18,7 +18,9 @@ pub async fn entity_exists(manage_id: &String, query_doc: Document) -> bool {
         Some(c) => c,
         None => return false,
     };
+
     let result = collection.find_one(query_doc, None).await;
+    print!("{:?}", result);
 
     match result {
         Ok(Some(_r)) => true,
