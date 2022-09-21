@@ -20,4 +20,5 @@ service AccountGrpc{
   rpc NewAccount (NewAccountRequest) returns (NewAccountResponse);
   // rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc AddAccountIntoGroup (AddAccountIntoGroupRequest) returns (AddAccountIntoGroupResponse);
+  rpc RemoveAccountFromGroup (RemoveAccountFromGroupRequest) returns (RemoveAccountFromGroupResponse);
 }

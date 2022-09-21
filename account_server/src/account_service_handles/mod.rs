@@ -28,3 +28,4 @@ mod handle_remove_account_from_group;
 pub use handle_login::HandleLogin;
 pub use handle_new_account::HandleNewAccount;
 pub use handle_add_account_into_group::HandleAddAccountIntoGroup;
+pub use handle_remove_account_from_group::HandleRemoveAccountFromGroup;

@@ -26,6 +26,7 @@ pub struct AccountServer;
 impl HandleLogin for AccountServer {}
 impl HandleNewAccount for AccountServer {}
 impl HandleAddAccountIntoGroup for AccountServer {}
+impl HandleRemoveAccountFromGroup for AccountServer {}
 
 type UnaryResponseResult<T> = Result<Response<T>, Status>;
 
@@ -41,6 +42,10 @@ impl AccountGrpc for AccountServer {
 
     async fn add_account_into_group(&self, request: Request<AddAccountIntoGroupRequest>) -> Result<Response<AddAccountIntoGroupResponse>, Status> {
         self.handle_add_account_into_group(request).await
+    }
+
+    async fn remove_account_from_group(&self, request: Request<RemoveAccountFromGroupRequest>) -> Result<Response<RemoveAccountFromGroupResponse>, Status> {
+        self.handle_remove_account_from_group(request).await
     }
 }
 

@@ -22,7 +22,7 @@ pub async fn pull_entity_array_field(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("push_entity_array_field")),
+        None => return Err(collection_not_exists("pull_entity_array_field")),
     };
 
     // 更新
@@ -45,12 +45,12 @@ pub async fn pull_entity_array_field(
         Ok(r) => match r.modified_count == 1 {
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
-                "pop_entity_array_field",
+                "pull_entity_array_field",
                 format!("更新了多个实体{}", query_doc),
             )),
         },
         Err(_e) => Err(operation_failed(
-            "pop_entity_array_field",
+            "pull_entity_array_field",
             format!("删除操作失败{}", query_doc),
         )),
     }

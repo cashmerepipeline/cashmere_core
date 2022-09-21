@@ -66,6 +66,9 @@ pub trait HandleAddAccountIntoGroup {
             .await
             .unwrap();
 
+        // TODO: 检查组是否存在
+        // TODO: 检查组是否标记为移除
+
         let query_doc = doc!{
             ID_FIELD_ID.to_string():op_account_id.clone()
         }; 

@@ -31,6 +31,12 @@ class AccountGrpcClient extends $grpc.Client {
       ($1.AddAccountIntoGroupRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $1.AddAccountIntoGroupResponse.fromBuffer(value));
+  static final _$removeAccountFromGroup = $grpc.ClientMethod<
+          $1.RemoveAccountFromGroupRequest, $1.RemoveAccountFromGroupResponse>(
+      '/account_service.AccountGrpc/RemoveAccountFromGroup',
+      ($1.RemoveAccountFromGroupRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.RemoveAccountFromGroupResponse.fromBuffer(value));
 
   AccountGrpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -52,6 +58,13 @@ class AccountGrpcClient extends $grpc.Client {
       $1.AddAccountIntoGroupRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$addAccountIntoGroup, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.RemoveAccountFromGroupResponse>
+      removeAccountFromGroup($1.RemoveAccountFromGroupRequest request,
+          {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$removeAccountFromGroup, request,
+        options: options);
   }
 }
 
@@ -82,6 +95,15 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $1.AddAccountIntoGroupRequest.fromBuffer(value),
         ($1.AddAccountIntoGroupResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.RemoveAccountFromGroupRequest,
+            $1.RemoveAccountFromGroupResponse>(
+        'RemoveAccountFromGroup',
+        removeAccountFromGroup_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.RemoveAccountFromGroupRequest.fromBuffer(value),
+        ($1.RemoveAccountFromGroupResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre(
@@ -100,10 +122,18 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
     return addAccountIntoGroup(call, await request);
   }
 
+  $async.Future<$1.RemoveAccountFromGroupResponse> removeAccountFromGroup_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.RemoveAccountFromGroupRequest> request) async {
+    return removeAccountFromGroup(call, await request);
+  }
+
   $async.Future<$0.LoginResponse> login(
       $grpc.ServiceCall call, $0.LoginRequest request);
   $async.Future<$1.NewAccountResponse> newAccount(
       $grpc.ServiceCall call, $1.NewAccountRequest request);
   $async.Future<$1.AddAccountIntoGroupResponse> addAccountIntoGroup(
       $grpc.ServiceCall call, $1.AddAccountIntoGroupRequest request);
+  $async.Future<$1.RemoveAccountFromGroupResponse> removeAccountFromGroup(
+      $grpc.ServiceCall call, $1.RemoveAccountFromGroupRequest request);
 }

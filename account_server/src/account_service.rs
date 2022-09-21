@@ -258,6 +258,28 @@ pub mod account_grpc_client {
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
+        pub async fn remove_account_from_group(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RemoveAccountFromGroupRequest>,
+        ) -> Result<
+            tonic::Response<super::RemoveAccountFromGroupResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/account_service.AccountGrpc/RemoveAccountFromGroup",
+            );
+            self.inner.unary(request.into_request(), path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -282,6 +304,13 @@ pub mod account_grpc_server {
             &self,
             request: tonic::Request<super::AddAccountIntoGroupRequest>,
         ) -> Result<tonic::Response<super::AddAccountIntoGroupResponse>, tonic::Status>;
+        async fn remove_account_from_group(
+            &self,
+            request: tonic::Request<super::RemoveAccountFromGroupRequest>,
+        ) -> Result<
+            tonic::Response<super::RemoveAccountFromGroupResponse>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
     pub struct AccountGrpcServer<T: AccountGrpc> {
@@ -433,6 +462,46 @@ pub mod account_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = AddAccountIntoGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/RemoveAccountFromGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveAccountFromGroupSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::RemoveAccountFromGroupRequest>
+                    for RemoveAccountFromGroupSvc<T> {
+                        type Response = super::RemoveAccountFromGroupResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveAccountFromGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).remove_account_from_group(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RemoveAccountFromGroupSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
