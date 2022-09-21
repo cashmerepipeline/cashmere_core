@@ -25,6 +25,7 @@ pub struct AccountServer;
 
 impl HandleLogin for AccountServer {}
 impl HandleNewAccount for AccountServer {}
+impl HandleAddAccountIntoGroup for AccountServer {}
 
 type UnaryResponseResult<T> = Result<Response<T>, Status>;
 
@@ -36,6 +37,10 @@ impl AccountGrpc for AccountServer {
 
     async fn new_account(&self, request: Request<NewAccountRequest>) -> Result<Response<NewAccountResponse>, Status> {
         self.handle_new_account(request).await
+    }
+
+    async fn add_account_into_group(&self, request: Request<AddAccountIntoGroupRequest>) -> Result<Response<AddAccountIntoGroupResponse>, Status> {
+        self.handle_add_account_into_group(request).await
     }
 }
 

@@ -22,6 +22,9 @@ use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIO
 
 mod handle_login;
 mod handle_new_account;
+mod handle_add_account_into_group;
+mod handle_remove_account_from_group;
 
 pub use handle_login::HandleLogin;
 pub use handle_new_account::HandleNewAccount;
+pub use handle_add_account_into_group::HandleAddAccountIntoGroup;

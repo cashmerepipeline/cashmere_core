@@ -108,6 +108,32 @@ pub struct ChangePhoneOwnResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 加入组
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAccountIntoGroupRequest {
+    #[prost(string, tag="1")]
+    pub account_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddAccountIntoGroupResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 移出组
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAccountFromGroupRequest {
+    #[prost(string, tag="1")]
+    pub account_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveAccountFromGroupResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// Generated client implementations.
 pub mod account_grpc_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
@@ -212,6 +238,26 @@ pub mod account_grpc_client {
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
+        /// rpc Register (RegisterRequest) returns (RegisterResponse);
+        pub async fn add_account_into_group(
+            &mut self,
+            request: impl tonic::IntoRequest<super::AddAccountIntoGroupRequest>,
+        ) -> Result<tonic::Response<super::AddAccountIntoGroupResponse>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/account_service.AccountGrpc/AddAccountIntoGroup",
+            );
+            self.inner.unary(request.into_request(), path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -231,6 +277,11 @@ pub mod account_grpc_server {
             &self,
             request: tonic::Request<super::NewAccountRequest>,
         ) -> Result<tonic::Response<super::NewAccountResponse>, tonic::Status>;
+        /// rpc Register (RegisterRequest) returns (RegisterResponse);
+        async fn add_account_into_group(
+            &self,
+            request: tonic::Request<super::AddAccountIntoGroupRequest>,
+        ) -> Result<tonic::Response<super::AddAccountIntoGroupResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct AccountGrpcServer<T: AccountGrpc> {
@@ -342,6 +393,46 @@ pub mod account_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/AddAccountIntoGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddAccountIntoGroupSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::AddAccountIntoGroupRequest>
+                    for AddAccountIntoGroupSvc<T> {
+                        type Response = super::AddAccountIntoGroupResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddAccountIntoGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).add_account_into_group(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddAccountIntoGroupSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

@@ -75,3 +75,45 @@ const ChangePhoneOwnResponse$json = const {
 
 /// Descriptor for `ChangePhoneOwnResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List changePhoneOwnResponseDescriptor = $convert.base64Decode('ChZDaGFuZ2VQaG9uZU93blJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
+@$core.Deprecated('Use addAccountIntoGroupRequestDescriptor instead')
+const AddAccountIntoGroupRequest$json = const {
+  '1': 'AddAccountIntoGroupRequest',
+  '2': const [
+    const {'1': 'account_id', '3': 1, '4': 1, '5': 9, '10': 'accountId'},
+    const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
+  ],
+};
+
+/// Descriptor for `AddAccountIntoGroupRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addAccountIntoGroupRequestDescriptor = $convert.base64Decode('ChpBZGRBY2NvdW50SW50b0dyb3VwUmVxdWVzdBIdCgphY2NvdW50X2lkGAEgASgJUglhY2NvdW50SWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQ=');
+@$core.Deprecated('Use addAccountIntoGroupResponseDescriptor instead')
+const AddAccountIntoGroupResponse$json = const {
+  '1': 'AddAccountIntoGroupResponse',
+  '2': const [
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+  ],
+};
+
+/// Descriptor for `AddAccountIntoGroupResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addAccountIntoGroupResponseDescriptor = $convert.base64Decode('ChtBZGRBY2NvdW50SW50b0dyb3VwUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+@$core.Deprecated('Use removeAccountFromGroupRequestDescriptor instead')
+const RemoveAccountFromGroupRequest$json = const {
+  '1': 'RemoveAccountFromGroupRequest',
+  '2': const [
+    const {'1': 'account_id', '3': 1, '4': 1, '5': 9, '10': 'accountId'},
+    const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
+  ],
+};
+
+/// Descriptor for `RemoveAccountFromGroupRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List removeAccountFromGroupRequestDescriptor = $convert.base64Decode('Ch1SZW1vdmVBY2NvdW50RnJvbUdyb3VwUmVxdWVzdBIdCgphY2NvdW50X2lkGAEgASgJUglhY2NvdW50SWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQ=');
+@$core.Deprecated('Use removeAccountFromGroupResponseDescriptor instead')
+const RemoveAccountFromGroupResponse$json = const {
+  '1': 'RemoveAccountFromGroupResponse',
+  '2': const [
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+  ],
+};
+
+/// Descriptor for `RemoveAccountFromGroupResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List removeAccountFromGroupResponseDescriptor = $convert.base64Decode('Ch5SZW1vdmVBY2NvdW50RnJvbUdyb3VwUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');

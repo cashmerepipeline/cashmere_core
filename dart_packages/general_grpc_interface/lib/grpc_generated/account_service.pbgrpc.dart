@@ -25,6 +25,12 @@ class AccountGrpcClient extends $grpc.Client {
           ($1.NewAccountRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.NewAccountResponse.fromBuffer(value));
+  static final _$addAccountIntoGroup = $grpc.ClientMethod<
+          $1.AddAccountIntoGroupRequest, $1.AddAccountIntoGroupResponse>(
+      '/account_service.AccountGrpc/AddAccountIntoGroup',
+      ($1.AddAccountIntoGroupRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.AddAccountIntoGroupResponse.fromBuffer(value));
 
   AccountGrpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -40,6 +46,12 @@ class AccountGrpcClient extends $grpc.Client {
       $1.NewAccountRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$newAccount, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.AddAccountIntoGroupResponse> addAccountIntoGroup(
+      $1.AddAccountIntoGroupRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addAccountIntoGroup, request, options: options);
   }
 }
 
@@ -61,6 +73,15 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.NewAccountRequest.fromBuffer(value),
         ($1.NewAccountResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.AddAccountIntoGroupRequest,
+            $1.AddAccountIntoGroupResponse>(
+        'AddAccountIntoGroup',
+        addAccountIntoGroup_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.AddAccountIntoGroupRequest.fromBuffer(value),
+        ($1.AddAccountIntoGroupResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre(
@@ -73,8 +94,16 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
     return newAccount(call, await request);
   }
 
+  $async.Future<$1.AddAccountIntoGroupResponse> addAccountIntoGroup_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.AddAccountIntoGroupRequest> request) async {
+    return addAccountIntoGroup(call, await request);
+  }
+
   $async.Future<$0.LoginResponse> login(
       $grpc.ServiceCall call, $0.LoginRequest request);
   $async.Future<$1.NewAccountResponse> newAccount(
       $grpc.ServiceCall call, $1.NewAccountRequest request);
+  $async.Future<$1.AddAccountIntoGroupResponse> addAccountIntoGroup(
+      $grpc.ServiceCall call, $1.AddAccountIntoGroupRequest request);
 }

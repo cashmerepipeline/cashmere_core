@@ -32,3 +32,21 @@ message ChangeOwnPhoneRequest{
 message ChangePhoneOwnResponse{
   string result = 1;
 }
+
+// 加入组
+message AddAccountIntoGroupRequest {
+  string account_id = 1;
+  string group_id = 2;
+}
+message AddAccountIntoGroupResponse {
+  string result = 1;
+}
+
+// 移出组
+message RemoveAccountFromGroupRequest {
+  string account_id = 1;
+  string group_id = 2;
+}
+message RemoveAccountFromGroupResponse {
+  string result = 1;
+}

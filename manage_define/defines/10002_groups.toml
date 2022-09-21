@@ -43,6 +43,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -51,6 +52,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -59,6 +61,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -75,6 +78,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -99,6 +103,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -107,6 +112,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -115,6 +121,7 @@ after_create = { manage = "groups", python = "" }
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
