@@ -1,1 +1,1 @@
-mod handle_add_group_into_manage_readrule;
+mod handle_add_group_intro_manage_readrule;

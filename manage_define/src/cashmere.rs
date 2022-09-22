@@ -697,6 +697,92 @@ pub struct GetManageViewResponse {
     #[prost(string, tag="1")]
     pub view_token: ::prost::alloc::string::String,
 }
+/// 管理权限
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoManageReadRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoManageReadRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoManageWriteRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoManageWriteRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveGroupFromManageReadRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveGroupFromManageReadRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveGroupFromManageWriteRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveGroupFromManageWriteRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 集合权限 
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoCollectionReadRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoCollectionReadRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoCollectionRuleRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub group_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub read_rule: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddGroupIntoCollectionWriteRuleResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SchemaField {
