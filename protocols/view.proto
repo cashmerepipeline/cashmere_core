@@ -18,3 +18,59 @@ message GetManageViewRequest{
 message GetManageViewResponse{
   string view_token =1;
 }
+
+// 管理权限
+message AddGroupIntoManageReadRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message AddGroupIntoManageReadRuleResponse {
+  string result = 1;
+} 
+
+message AddGroupIntoManageWriteRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message AddGroupIntoManageWriteRuleResponse {
+  string result = 1;
+} 
+
+message RemoveGroupFromManageReadRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message RemoveGroupFromManageReadRuleResponse {
+  string result = 1;
+} 
+
+message RemoveGroupFromManageWriteRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message RemoveGroupFromManageWriteRuleResponse {
+  string result = 1;
+} 
+
+// 集合权限 
+message AddGroupIntoCollectionReadRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message AddGroupIntoCollectionReadRuleResponse {
+  string result = 1;
+} 
+
+message AddGroupIntoCollectionRuleRequest {
+  int32 manage_id = 1;
+  string group_id = 2;
+  string read_rule = 3;
+}
+message AddGroupIntoCollectionWriteRuleResponse {
+  string result = 1;
+} 

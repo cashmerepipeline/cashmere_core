@@ -15,9 +15,9 @@ use managers::traits::ManagerTrait;
 use view;
 
 #[async_trait]
-pub trait HandleNewLanguageCode {
+pub trait HandleAddGroupIntoManageReadrule {
     /// 新建管理属性
-    async fn handle_new_language_code(
+    async fn handle_add_group_into_manage_readrule(
         &self,
         request: Request<NewLanguageCodeRequest>,
     ) -> Result<Response<NewLanguageCodeResponse>, Status> {
@@ -81,3 +81,4 @@ pub trait HandleNewLanguageCode {
         }
     }
 }
+
