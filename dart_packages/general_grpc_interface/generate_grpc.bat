@@ -22,4 +22,5 @@ protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/set_dat
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/set_data_info.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/entity.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/entity_template.proto
+protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/view.proto
 
