@@ -69,7 +69,7 @@ pub trait HandleChangeManageReadrule {
             .unwrap();
 
         let query_doc = doc! {
-            VIEW_RULES_MANAGE_FIELD_ID.to_string():manage_id
+            ID_FIELD_ID.to_string():manage_id
         };
 
         let modify_doc = doc! {

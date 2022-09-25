@@ -68,12 +68,12 @@ message ChangeFieldReadRuleResponse {
   string result = 1;
 } 
 
-message ChangeFieldRuleRequest {
+message ChangeFieldWriteRuleRequest {
   int32 manage_id = 1;
   string group_id = 2;
   string field_id = 3;
   string write_rule = 4;
 }
-message ChangeFieldRuleResponse {
+message ChangeFieldWriteRuleResponse {
   string result = 1;
 } 
