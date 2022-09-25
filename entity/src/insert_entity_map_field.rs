@@ -49,7 +49,7 @@ pub async fn insert_entity_map_field(
             true => Ok(operation_succeed("ok")),
             false => Err(operation_failed(
                 "insert_entity_map_field",
-                format!("更新了多个实体{}, 更新发生错误, 请检查数据正确性。", query_doc),
+                format!("更新了多个实体{}--{}-{}, 更新发生错误, 请检查数据正确性。", manage_id, query_doc, r.modified_count),
             )),
         },
         Err(_e) => Err(operation_failed(

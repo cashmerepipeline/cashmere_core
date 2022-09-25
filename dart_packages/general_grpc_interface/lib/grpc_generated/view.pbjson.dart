@@ -139,9 +139,9 @@ const ChangeFieldReadRuleResponse$json = const {
 
 /// Descriptor for `ChangeFieldReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List changeFieldReadRuleResponseDescriptor = $convert.base64Decode('ChtDaGFuZ2VGaWVsZFJlYWRSdWxlUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
-@$core.Deprecated('Use changeFieldRuleRequestDescriptor instead')
-const ChangeFieldRuleRequest$json = const {
-  '1': 'ChangeFieldRuleRequest',
+@$core.Deprecated('Use changeFieldWriteRuleRequestDescriptor instead')
+const ChangeFieldWriteRuleRequest$json = const {
+  '1': 'ChangeFieldWriteRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
@@ -150,15 +150,15 @@ const ChangeFieldRuleRequest$json = const {
   ],
 };
 
-/// Descriptor for `ChangeFieldRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List changeFieldRuleRequestDescriptor = $convert.base64Decode('ChZDaGFuZ2VGaWVsZFJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGQoIZmllbGRfaWQYAyABKAlSB2ZpZWxkSWQSHQoKd3JpdGVfcnVsZRgEIAEoCVIJd3JpdGVSdWxl');
-@$core.Deprecated('Use changeFieldRuleResponseDescriptor instead')
-const ChangeFieldRuleResponse$json = const {
-  '1': 'ChangeFieldRuleResponse',
+/// Descriptor for `ChangeFieldWriteRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldWriteRuleRequestDescriptor = $convert.base64Decode('ChtDaGFuZ2VGaWVsZFdyaXRlUnVsZVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghncm91cF9pZBgCIAEoCVIHZ3JvdXBJZBIZCghmaWVsZF9pZBgDIAEoCVIHZmllbGRJZBIdCgp3cml0ZV9ydWxlGAQgASgJUgl3cml0ZVJ1bGU=');
+@$core.Deprecated('Use changeFieldWriteRuleResponseDescriptor instead')
+const ChangeFieldWriteRuleResponse$json = const {
+  '1': 'ChangeFieldWriteRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `ChangeFieldRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List changeFieldRuleResponseDescriptor = $convert.base64Decode('ChdDaGFuZ2VGaWVsZFJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+/// Descriptor for `ChangeFieldWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldWriteRuleResponseDescriptor = $convert.base64Decode('ChxDaGFuZ2VGaWVsZFdyaXRlUnVsZVJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');

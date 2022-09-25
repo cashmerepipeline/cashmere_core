@@ -21,7 +21,7 @@ use view::ReadRule;
 #[async_trait]
 pub trait HandleChangeFieldReadrule {
     /// 新建管理属性
-    async fn handle_change_field_readrule(
+    async fn handle_change_field_read_rule(
         &self,
         request: Request<ChangeFieldReadRuleRequest>,
     ) -> Result<Response<ChangeFieldReadRuleResponse>, Status> {
@@ -38,7 +38,7 @@ pub trait HandleChangeFieldReadrule {
         let majordomo_arc = get_majordomo().await;
 
         // 检查管理是否存在
-        if majordomo_arc.get_manager_ids().await.contains(manage_id) {
+        if !majordomo_arc.get_manager_ids().await.contains(manage_id) {
             return Err(Status::data_loss(format!("管理不存在: {}", manage_id)));
         }
 
@@ -84,7 +84,7 @@ pub trait HandleChangeFieldReadrule {
         };
 
         let result = view_rules_manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_map_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

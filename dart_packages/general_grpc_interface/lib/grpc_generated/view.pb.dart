@@ -727,8 +727,8 @@ class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class ChangeFieldRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId')
@@ -736,8 +736,8 @@ class ChangeFieldRuleRequest extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  ChangeFieldRuleRequest._() : super();
-  factory ChangeFieldRuleRequest({
+  ChangeFieldWriteRuleRequest._() : super();
+  factory ChangeFieldWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? fieldId,
@@ -758,26 +758,26 @@ class ChangeFieldRuleRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory ChangeFieldRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChangeFieldRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChangeFieldRuleRequest clone() => ChangeFieldRuleRequest()..mergeFromMessage(this);
+  ChangeFieldWriteRuleRequest clone() => ChangeFieldWriteRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldRuleRequest copyWith(void Function(ChangeFieldRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldRuleRequest)) as ChangeFieldRuleRequest; // ignore: deprecated_member_use
+  ChangeFieldWriteRuleRequest copyWith(void Function(ChangeFieldWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleRequest)) as ChangeFieldWriteRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static ChangeFieldRuleRequest create() => ChangeFieldRuleRequest._();
-  ChangeFieldRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<ChangeFieldRuleRequest> createRepeated() => $pb.PbList<ChangeFieldRuleRequest>();
+  static ChangeFieldWriteRuleRequest create() => ChangeFieldWriteRuleRequest._();
+  ChangeFieldWriteRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldWriteRuleRequest> createRepeated() => $pb.PbList<ChangeFieldWriteRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static ChangeFieldRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldRuleRequest>(create);
-  static ChangeFieldRuleRequest? _defaultInstance;
+  static ChangeFieldWriteRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldWriteRuleRequest>(create);
+  static ChangeFieldWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -816,14 +816,14 @@ class ChangeFieldRuleRequest extends $pb.GeneratedMessage {
   void clearWriteRule() => clearField(4);
 }
 
-class ChangeFieldRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldWriteRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  ChangeFieldRuleResponse._() : super();
-  factory ChangeFieldRuleResponse({
+  ChangeFieldWriteRuleResponse._() : super();
+  factory ChangeFieldWriteRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -832,26 +832,26 @@ class ChangeFieldRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory ChangeFieldRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChangeFieldRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChangeFieldRuleResponse clone() => ChangeFieldRuleResponse()..mergeFromMessage(this);
+  ChangeFieldWriteRuleResponse clone() => ChangeFieldWriteRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldRuleResponse copyWith(void Function(ChangeFieldRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldRuleResponse)) as ChangeFieldRuleResponse; // ignore: deprecated_member_use
+  ChangeFieldWriteRuleResponse copyWith(void Function(ChangeFieldWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleResponse)) as ChangeFieldWriteRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static ChangeFieldRuleResponse create() => ChangeFieldRuleResponse._();
-  ChangeFieldRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<ChangeFieldRuleResponse> createRepeated() => $pb.PbList<ChangeFieldRuleResponse>();
+  static ChangeFieldWriteRuleResponse create() => ChangeFieldWriteRuleResponse._();
+  ChangeFieldWriteRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldWriteRuleResponse> createRepeated() => $pb.PbList<ChangeFieldWriteRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static ChangeFieldRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldRuleResponse>(create);
-  static ChangeFieldRuleResponse? _defaultInstance;
+  static ChangeFieldWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldWriteRuleResponse>(create);
+  static ChangeFieldWriteRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);

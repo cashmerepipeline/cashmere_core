@@ -9,22 +9,22 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::{
     LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID, VIEW_RULES_COLLECTION_FIELD_ID,
-    VIEW_RULES_ENTITY_FIELD_ID, VIEW_RULES_MANAGE_FIELD_ID,
+    VIEW_RULES_MANAGE_FIELD_ID,
 };
 
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 
 use view;
-use view::WriteRule;
+use view::ReadRule;
 
 #[async_trait]
-pub trait HandleChangeFieldWriteRule {
+pub trait HandleChangeCollectionReadrule {
     /// 新建管理属性
-    async fn handle_change_field_writerule(
+    async fn handle_change_collection_read_rule(
         &self,
-        request: Request<ChangeFieldWriteRuleRequest>,
-    ) -> Result<Response<ChangeFieldWriteRuleResponse>, Status> {
+        request: Request<ChangeCollectionReadRuleRequest>,
+    ) -> Result<Response<ChangeCollectionReadRuleResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -32,13 +32,12 @@ pub trait HandleChangeFieldWriteRule {
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;
-        let field_id = &request.get_ref().field_id;
-        let write_rule = &request.get_ref().write_rule;
+        let read_rule = &request.get_ref().read_rule;
 
         let majordomo_arc = get_majordomo().await;
 
         // 检查管理是否存在
-        if majordomo_arc.get_manager_ids().await.contains(manage_id) {
+        if !majordomo_arc.get_manager_ids().await.contains(manage_id) {
             return Err(Status::data_loss(format!("管理不存在: {}", manage_id)));
         }
 
@@ -53,8 +52,8 @@ pub trait HandleChangeFieldWriteRule {
         }
 
         //  检查输入规则
-        if let r = WriteRule::from(write_rule.to_owned()) {
-            if r == WriteRule::Unknown {
+        if let r = ReadRule::from(read_rule.to_owned()) {
+            if r == ReadRule::Unknown {
                 return Err(Status::data_loss("输入读取规则错误"));
             }
         };
@@ -80,15 +79,15 @@ pub trait HandleChangeFieldWriteRule {
         };
 
         let modify_doc = doc! {
-            format!("{}.{}.{}.write_rule",  VIEW_RULES_COLLECTION_FIELD_ID, field_id, group_id): write_rule.to_owned()
+            format!("{}.{}.read_rule", VIEW_RULES_COLLECTION_FIELD_ID, group_id): read_rule.to_owned()
         };
 
         let result = view_rules_manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_map_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(ChangeFieldWriteRuleResponse {
+            Ok(r) => Ok(Response::new(ChangeCollectionReadRuleResponse {
                 result: r.details(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -99,4 +98,3 @@ pub trait HandleChangeFieldWriteRule {
         }
     }
 }
-
