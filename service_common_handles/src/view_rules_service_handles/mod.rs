@@ -1,4 +1,3 @@
-mod handle_add_group_intro_manage_readrule;
-mod handle_remove_group_from_manage_readrule;
+mod change_manage_readrule;
 
-pub use handle_add_group_intro_manage_readrule::*;
+pub use change_manage_readrule::*;

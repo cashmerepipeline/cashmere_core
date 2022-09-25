@@ -103,16 +103,16 @@ class GetManageViewResponse extends $pb.GeneratedMessage {
   void clearViewToken() => clearField(1);
 }
 
-class AddGroupIntoManageReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoManageReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoManageReadRuleRequest._() : super();
-  factory AddGroupIntoManageReadRuleRequest({
+  ChangeManageReadRuleRequest._() : super();
+  factory ChangeManageReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? readRule,
@@ -129,26 +129,26 @@ class AddGroupIntoManageReadRuleRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AddGroupIntoManageReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoManageReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeManageReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeManageReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageReadRuleRequest clone() => AddGroupIntoManageReadRuleRequest()..mergeFromMessage(this);
+  ChangeManageReadRuleRequest clone() => ChangeManageReadRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageReadRuleRequest copyWith(void Function(AddGroupIntoManageReadRuleRequest) updates) => super.copyWith((message) => updates(message as AddGroupIntoManageReadRuleRequest)) as AddGroupIntoManageReadRuleRequest; // ignore: deprecated_member_use
+  ChangeManageReadRuleRequest copyWith(void Function(ChangeManageReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleRequest)) as ChangeManageReadRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageReadRuleRequest create() => AddGroupIntoManageReadRuleRequest._();
-  AddGroupIntoManageReadRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoManageReadRuleRequest> createRepeated() => $pb.PbList<AddGroupIntoManageReadRuleRequest>();
+  static ChangeManageReadRuleRequest create() => ChangeManageReadRuleRequest._();
+  ChangeManageReadRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeManageReadRuleRequest> createRepeated() => $pb.PbList<ChangeManageReadRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoManageReadRuleRequest>(create);
-  static AddGroupIntoManageReadRuleRequest? _defaultInstance;
+  static ChangeManageReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeManageReadRuleRequest>(create);
+  static ChangeManageReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -178,14 +178,14 @@ class AddGroupIntoManageReadRuleRequest extends $pb.GeneratedMessage {
   void clearReadRule() => clearField(3);
 }
 
-class AddGroupIntoManageReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoManageReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeManageReadRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoManageReadRuleResponse._() : super();
-  factory AddGroupIntoManageReadRuleResponse({
+  ChangeManageReadRuleResponse._() : super();
+  factory ChangeManageReadRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -194,26 +194,26 @@ class AddGroupIntoManageReadRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AddGroupIntoManageReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoManageReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeManageReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeManageReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageReadRuleResponse clone() => AddGroupIntoManageReadRuleResponse()..mergeFromMessage(this);
+  ChangeManageReadRuleResponse clone() => ChangeManageReadRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageReadRuleResponse copyWith(void Function(AddGroupIntoManageReadRuleResponse) updates) => super.copyWith((message) => updates(message as AddGroupIntoManageReadRuleResponse)) as AddGroupIntoManageReadRuleResponse; // ignore: deprecated_member_use
+  ChangeManageReadRuleResponse copyWith(void Function(ChangeManageReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleResponse)) as ChangeManageReadRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageReadRuleResponse create() => AddGroupIntoManageReadRuleResponse._();
-  AddGroupIntoManageReadRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoManageReadRuleResponse> createRepeated() => $pb.PbList<AddGroupIntoManageReadRuleResponse>();
+  static ChangeManageReadRuleResponse create() => ChangeManageReadRuleResponse._();
+  ChangeManageReadRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeManageReadRuleResponse> createRepeated() => $pb.PbList<ChangeManageReadRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoManageReadRuleResponse>(create);
-  static AddGroupIntoManageReadRuleResponse? _defaultInstance;
+  static ChangeManageReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeManageReadRuleResponse>(create);
+  static ChangeManageReadRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
@@ -225,19 +225,19 @@ class AddGroupIntoManageReadRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class AddGroupIntoManageWriteRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoManageWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoManageWriteRuleRequest._() : super();
-  factory AddGroupIntoManageWriteRuleRequest({
+  ChangeManageWriteRuleRequest._() : super();
+  factory ChangeManageWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
-    $core.String? readRule,
+    $core.String? writeRule,
   }) {
     final _result = create();
     if (manageId != null) {
@@ -246,31 +246,31 @@ class AddGroupIntoManageWriteRuleRequest extends $pb.GeneratedMessage {
     if (groupId != null) {
       _result.groupId = groupId;
     }
-    if (readRule != null) {
-      _result.readRule = readRule;
+    if (writeRule != null) {
+      _result.writeRule = writeRule;
     }
     return _result;
   }
-  factory AddGroupIntoManageWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoManageWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeManageWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeManageWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageWriteRuleRequest clone() => AddGroupIntoManageWriteRuleRequest()..mergeFromMessage(this);
+  ChangeManageWriteRuleRequest clone() => ChangeManageWriteRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageWriteRuleRequest copyWith(void Function(AddGroupIntoManageWriteRuleRequest) updates) => super.copyWith((message) => updates(message as AddGroupIntoManageWriteRuleRequest)) as AddGroupIntoManageWriteRuleRequest; // ignore: deprecated_member_use
+  ChangeManageWriteRuleRequest copyWith(void Function(ChangeManageWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleRequest)) as ChangeManageWriteRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageWriteRuleRequest create() => AddGroupIntoManageWriteRuleRequest._();
-  AddGroupIntoManageWriteRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoManageWriteRuleRequest> createRepeated() => $pb.PbList<AddGroupIntoManageWriteRuleRequest>();
+  static ChangeManageWriteRuleRequest create() => ChangeManageWriteRuleRequest._();
+  ChangeManageWriteRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeManageWriteRuleRequest> createRepeated() => $pb.PbList<ChangeManageWriteRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageWriteRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoManageWriteRuleRequest>(create);
-  static AddGroupIntoManageWriteRuleRequest? _defaultInstance;
+  static ChangeManageWriteRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeManageWriteRuleRequest>(create);
+  static ChangeManageWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -291,23 +291,23 @@ class AddGroupIntoManageWriteRuleRequest extends $pb.GeneratedMessage {
   void clearGroupId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get readRule => $_getSZ(2);
+  $core.String get writeRule => $_getSZ(2);
   @$pb.TagNumber(3)
-  set readRule($core.String v) { $_setString(2, v); }
+  set writeRule($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasReadRule() => $_has(2);
+  $core.bool hasWriteRule() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReadRule() => clearField(3);
+  void clearWriteRule() => clearField(3);
 }
 
-class AddGroupIntoManageWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoManageWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeManageWriteRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoManageWriteRuleResponse._() : super();
-  factory AddGroupIntoManageWriteRuleResponse({
+  ChangeManageWriteRuleResponse._() : super();
+  factory ChangeManageWriteRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -316,26 +316,26 @@ class AddGroupIntoManageWriteRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AddGroupIntoManageWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoManageWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeManageWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeManageWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageWriteRuleResponse clone() => AddGroupIntoManageWriteRuleResponse()..mergeFromMessage(this);
+  ChangeManageWriteRuleResponse clone() => ChangeManageWriteRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoManageWriteRuleResponse copyWith(void Function(AddGroupIntoManageWriteRuleResponse) updates) => super.copyWith((message) => updates(message as AddGroupIntoManageWriteRuleResponse)) as AddGroupIntoManageWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeManageWriteRuleResponse copyWith(void Function(ChangeManageWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleResponse)) as ChangeManageWriteRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageWriteRuleResponse create() => AddGroupIntoManageWriteRuleResponse._();
-  AddGroupIntoManageWriteRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoManageWriteRuleResponse> createRepeated() => $pb.PbList<AddGroupIntoManageWriteRuleResponse>();
+  static ChangeManageWriteRuleResponse create() => ChangeManageWriteRuleResponse._();
+  ChangeManageWriteRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeManageWriteRuleResponse> createRepeated() => $pb.PbList<ChangeManageWriteRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoManageWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoManageWriteRuleResponse>(create);
-  static AddGroupIntoManageWriteRuleResponse? _defaultInstance;
+  static ChangeManageWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeManageWriteRuleResponse>(create);
+  static ChangeManageWriteRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
@@ -347,16 +347,16 @@ class AddGroupIntoManageWriteRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class RemoveGroupFromManageReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveGroupFromManageReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
     ..hasRequiredFields = false
   ;
 
-  RemoveGroupFromManageReadRuleRequest._() : super();
-  factory RemoveGroupFromManageReadRuleRequest({
+  ChangeCollectionReadRuleRequest._() : super();
+  factory ChangeCollectionReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? readRule,
@@ -373,26 +373,26 @@ class RemoveGroupFromManageReadRuleRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory RemoveGroupFromManageReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RemoveGroupFromManageReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeCollectionReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeCollectionReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageReadRuleRequest clone() => RemoveGroupFromManageReadRuleRequest()..mergeFromMessage(this);
+  ChangeCollectionReadRuleRequest clone() => ChangeCollectionReadRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageReadRuleRequest copyWith(void Function(RemoveGroupFromManageReadRuleRequest) updates) => super.copyWith((message) => updates(message as RemoveGroupFromManageReadRuleRequest)) as RemoveGroupFromManageReadRuleRequest; // ignore: deprecated_member_use
+  ChangeCollectionReadRuleRequest copyWith(void Function(ChangeCollectionReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleRequest)) as ChangeCollectionReadRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageReadRuleRequest create() => RemoveGroupFromManageReadRuleRequest._();
-  RemoveGroupFromManageReadRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<RemoveGroupFromManageReadRuleRequest> createRepeated() => $pb.PbList<RemoveGroupFromManageReadRuleRequest>();
+  static ChangeCollectionReadRuleRequest create() => ChangeCollectionReadRuleRequest._();
+  ChangeCollectionReadRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeCollectionReadRuleRequest> createRepeated() => $pb.PbList<ChangeCollectionReadRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveGroupFromManageReadRuleRequest>(create);
-  static RemoveGroupFromManageReadRuleRequest? _defaultInstance;
+  static ChangeCollectionReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeCollectionReadRuleRequest>(create);
+  static ChangeCollectionReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -422,14 +422,14 @@ class RemoveGroupFromManageReadRuleRequest extends $pb.GeneratedMessage {
   void clearReadRule() => clearField(3);
 }
 
-class RemoveGroupFromManageReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveGroupFromManageReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeCollectionReadRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  RemoveGroupFromManageReadRuleResponse._() : super();
-  factory RemoveGroupFromManageReadRuleResponse({
+  ChangeCollectionReadRuleResponse._() : super();
+  factory ChangeCollectionReadRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -438,26 +438,26 @@ class RemoveGroupFromManageReadRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory RemoveGroupFromManageReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RemoveGroupFromManageReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeCollectionReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeCollectionReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageReadRuleResponse clone() => RemoveGroupFromManageReadRuleResponse()..mergeFromMessage(this);
+  ChangeCollectionReadRuleResponse clone() => ChangeCollectionReadRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageReadRuleResponse copyWith(void Function(RemoveGroupFromManageReadRuleResponse) updates) => super.copyWith((message) => updates(message as RemoveGroupFromManageReadRuleResponse)) as RemoveGroupFromManageReadRuleResponse; // ignore: deprecated_member_use
+  ChangeCollectionReadRuleResponse copyWith(void Function(ChangeCollectionReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleResponse)) as ChangeCollectionReadRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageReadRuleResponse create() => RemoveGroupFromManageReadRuleResponse._();
-  RemoveGroupFromManageReadRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<RemoveGroupFromManageReadRuleResponse> createRepeated() => $pb.PbList<RemoveGroupFromManageReadRuleResponse>();
+  static ChangeCollectionReadRuleResponse create() => ChangeCollectionReadRuleResponse._();
+  ChangeCollectionReadRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeCollectionReadRuleResponse> createRepeated() => $pb.PbList<ChangeCollectionReadRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveGroupFromManageReadRuleResponse>(create);
-  static RemoveGroupFromManageReadRuleResponse? _defaultInstance;
+  static ChangeCollectionReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeCollectionReadRuleResponse>(create);
+  static ChangeCollectionReadRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
@@ -469,19 +469,19 @@ class RemoveGroupFromManageReadRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class RemoveGroupFromManageWriteRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveGroupFromManageWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
     ..hasRequiredFields = false
   ;
 
-  RemoveGroupFromManageWriteRuleRequest._() : super();
-  factory RemoveGroupFromManageWriteRuleRequest({
+  ChangeCollectionWriteRuleRequest._() : super();
+  factory ChangeCollectionWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
-    $core.String? readRule,
+    $core.String? writeRule,
   }) {
     final _result = create();
     if (manageId != null) {
@@ -490,31 +490,31 @@ class RemoveGroupFromManageWriteRuleRequest extends $pb.GeneratedMessage {
     if (groupId != null) {
       _result.groupId = groupId;
     }
-    if (readRule != null) {
-      _result.readRule = readRule;
+    if (writeRule != null) {
+      _result.writeRule = writeRule;
     }
     return _result;
   }
-  factory RemoveGroupFromManageWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RemoveGroupFromManageWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeCollectionWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeCollectionWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageWriteRuleRequest clone() => RemoveGroupFromManageWriteRuleRequest()..mergeFromMessage(this);
+  ChangeCollectionWriteRuleRequest clone() => ChangeCollectionWriteRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageWriteRuleRequest copyWith(void Function(RemoveGroupFromManageWriteRuleRequest) updates) => super.copyWith((message) => updates(message as RemoveGroupFromManageWriteRuleRequest)) as RemoveGroupFromManageWriteRuleRequest; // ignore: deprecated_member_use
+  ChangeCollectionWriteRuleRequest copyWith(void Function(ChangeCollectionWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleRequest)) as ChangeCollectionWriteRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageWriteRuleRequest create() => RemoveGroupFromManageWriteRuleRequest._();
-  RemoveGroupFromManageWriteRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<RemoveGroupFromManageWriteRuleRequest> createRepeated() => $pb.PbList<RemoveGroupFromManageWriteRuleRequest>();
+  static ChangeCollectionWriteRuleRequest create() => ChangeCollectionWriteRuleRequest._();
+  ChangeCollectionWriteRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeCollectionWriteRuleRequest> createRepeated() => $pb.PbList<ChangeCollectionWriteRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageWriteRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveGroupFromManageWriteRuleRequest>(create);
-  static RemoveGroupFromManageWriteRuleRequest? _defaultInstance;
+  static ChangeCollectionWriteRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeCollectionWriteRuleRequest>(create);
+  static ChangeCollectionWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -535,23 +535,23 @@ class RemoveGroupFromManageWriteRuleRequest extends $pb.GeneratedMessage {
   void clearGroupId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get readRule => $_getSZ(2);
+  $core.String get writeRule => $_getSZ(2);
   @$pb.TagNumber(3)
-  set readRule($core.String v) { $_setString(2, v); }
+  set writeRule($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasReadRule() => $_has(2);
+  $core.bool hasWriteRule() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReadRule() => clearField(3);
+  void clearWriteRule() => clearField(3);
 }
 
-class RemoveGroupFromManageWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveGroupFromManageWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeCollectionWriteRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  RemoveGroupFromManageWriteRuleResponse._() : super();
-  factory RemoveGroupFromManageWriteRuleResponse({
+  ChangeCollectionWriteRuleResponse._() : super();
+  factory ChangeCollectionWriteRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -560,26 +560,26 @@ class RemoveGroupFromManageWriteRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory RemoveGroupFromManageWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RemoveGroupFromManageWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeCollectionWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeCollectionWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageWriteRuleResponse clone() => RemoveGroupFromManageWriteRuleResponse()..mergeFromMessage(this);
+  ChangeCollectionWriteRuleResponse clone() => ChangeCollectionWriteRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveGroupFromManageWriteRuleResponse copyWith(void Function(RemoveGroupFromManageWriteRuleResponse) updates) => super.copyWith((message) => updates(message as RemoveGroupFromManageWriteRuleResponse)) as RemoveGroupFromManageWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeCollectionWriteRuleResponse copyWith(void Function(ChangeCollectionWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleResponse)) as ChangeCollectionWriteRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageWriteRuleResponse create() => RemoveGroupFromManageWriteRuleResponse._();
-  RemoveGroupFromManageWriteRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<RemoveGroupFromManageWriteRuleResponse> createRepeated() => $pb.PbList<RemoveGroupFromManageWriteRuleResponse>();
+  static ChangeCollectionWriteRuleResponse create() => ChangeCollectionWriteRuleResponse._();
+  ChangeCollectionWriteRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeCollectionWriteRuleResponse> createRepeated() => $pb.PbList<ChangeCollectionWriteRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static RemoveGroupFromManageWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveGroupFromManageWriteRuleResponse>(create);
-  static RemoveGroupFromManageWriteRuleResponse? _defaultInstance;
+  static ChangeCollectionWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeCollectionWriteRuleResponse>(create);
+  static ChangeCollectionWriteRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
@@ -591,18 +591,20 @@ class RemoveGroupFromManageWriteRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class AddGroupIntoCollectionReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoCollectionReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoCollectionReadRuleRequest._() : super();
-  factory AddGroupIntoCollectionReadRuleRequest({
+  ChangeFieldReadRuleRequest._() : super();
+  factory ChangeFieldReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
+    $core.String? fieldId,
     $core.String? readRule,
   }) {
     final _result = create();
@@ -612,31 +614,34 @@ class AddGroupIntoCollectionReadRuleRequest extends $pb.GeneratedMessage {
     if (groupId != null) {
       _result.groupId = groupId;
     }
+    if (fieldId != null) {
+      _result.fieldId = fieldId;
+    }
     if (readRule != null) {
       _result.readRule = readRule;
     }
     return _result;
   }
-  factory AddGroupIntoCollectionReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoCollectionReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionReadRuleRequest clone() => AddGroupIntoCollectionReadRuleRequest()..mergeFromMessage(this);
+  ChangeFieldReadRuleRequest clone() => ChangeFieldReadRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionReadRuleRequest copyWith(void Function(AddGroupIntoCollectionReadRuleRequest) updates) => super.copyWith((message) => updates(message as AddGroupIntoCollectionReadRuleRequest)) as AddGroupIntoCollectionReadRuleRequest; // ignore: deprecated_member_use
+  ChangeFieldReadRuleRequest copyWith(void Function(ChangeFieldReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleRequest)) as ChangeFieldReadRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionReadRuleRequest create() => AddGroupIntoCollectionReadRuleRequest._();
-  AddGroupIntoCollectionReadRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoCollectionReadRuleRequest> createRepeated() => $pb.PbList<AddGroupIntoCollectionReadRuleRequest>();
+  static ChangeFieldReadRuleRequest create() => ChangeFieldReadRuleRequest._();
+  ChangeFieldReadRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldReadRuleRequest> createRepeated() => $pb.PbList<ChangeFieldReadRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoCollectionReadRuleRequest>(create);
-  static AddGroupIntoCollectionReadRuleRequest? _defaultInstance;
+  static ChangeFieldReadRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldReadRuleRequest>(create);
+  static ChangeFieldReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -657,23 +662,32 @@ class AddGroupIntoCollectionReadRuleRequest extends $pb.GeneratedMessage {
   void clearGroupId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get readRule => $_getSZ(2);
+  $core.String get fieldId => $_getSZ(2);
   @$pb.TagNumber(3)
-  set readRule($core.String v) { $_setString(2, v); }
+  set fieldId($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasReadRule() => $_has(2);
+  $core.bool hasFieldId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReadRule() => clearField(3);
+  void clearFieldId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get readRule => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set readRule($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasReadRule() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearReadRule() => clearField(4);
 }
 
-class AddGroupIntoCollectionReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoCollectionReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoCollectionReadRuleResponse._() : super();
-  factory AddGroupIntoCollectionReadRuleResponse({
+  ChangeFieldReadRuleResponse._() : super();
+  factory ChangeFieldReadRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -682,26 +696,26 @@ class AddGroupIntoCollectionReadRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AddGroupIntoCollectionReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoCollectionReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionReadRuleResponse clone() => AddGroupIntoCollectionReadRuleResponse()..mergeFromMessage(this);
+  ChangeFieldReadRuleResponse clone() => ChangeFieldReadRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionReadRuleResponse copyWith(void Function(AddGroupIntoCollectionReadRuleResponse) updates) => super.copyWith((message) => updates(message as AddGroupIntoCollectionReadRuleResponse)) as AddGroupIntoCollectionReadRuleResponse; // ignore: deprecated_member_use
+  ChangeFieldReadRuleResponse copyWith(void Function(ChangeFieldReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleResponse)) as ChangeFieldReadRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionReadRuleResponse create() => AddGroupIntoCollectionReadRuleResponse._();
-  AddGroupIntoCollectionReadRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoCollectionReadRuleResponse> createRepeated() => $pb.PbList<AddGroupIntoCollectionReadRuleResponse>();
+  static ChangeFieldReadRuleResponse create() => ChangeFieldReadRuleResponse._();
+  ChangeFieldReadRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldReadRuleResponse> createRepeated() => $pb.PbList<ChangeFieldReadRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoCollectionReadRuleResponse>(create);
-  static AddGroupIntoCollectionReadRuleResponse? _defaultInstance;
+  static ChangeFieldReadRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldReadRuleResponse>(create);
+  static ChangeFieldReadRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
@@ -713,19 +727,21 @@ class AddGroupIntoCollectionReadRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class AddGroupIntoCollectionRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoCollectionRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldRuleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoCollectionRuleRequest._() : super();
-  factory AddGroupIntoCollectionRuleRequest({
+  ChangeFieldRuleRequest._() : super();
+  factory ChangeFieldRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
-    $core.String? readRule,
+    $core.String? fieldId,
+    $core.String? writeRule,
   }) {
     final _result = create();
     if (manageId != null) {
@@ -734,31 +750,34 @@ class AddGroupIntoCollectionRuleRequest extends $pb.GeneratedMessage {
     if (groupId != null) {
       _result.groupId = groupId;
     }
-    if (readRule != null) {
-      _result.readRule = readRule;
+    if (fieldId != null) {
+      _result.fieldId = fieldId;
+    }
+    if (writeRule != null) {
+      _result.writeRule = writeRule;
     }
     return _result;
   }
-  factory AddGroupIntoCollectionRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoCollectionRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionRuleRequest clone() => AddGroupIntoCollectionRuleRequest()..mergeFromMessage(this);
+  ChangeFieldRuleRequest clone() => ChangeFieldRuleRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionRuleRequest copyWith(void Function(AddGroupIntoCollectionRuleRequest) updates) => super.copyWith((message) => updates(message as AddGroupIntoCollectionRuleRequest)) as AddGroupIntoCollectionRuleRequest; // ignore: deprecated_member_use
+  ChangeFieldRuleRequest copyWith(void Function(ChangeFieldRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldRuleRequest)) as ChangeFieldRuleRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionRuleRequest create() => AddGroupIntoCollectionRuleRequest._();
-  AddGroupIntoCollectionRuleRequest createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoCollectionRuleRequest> createRepeated() => $pb.PbList<AddGroupIntoCollectionRuleRequest>();
+  static ChangeFieldRuleRequest create() => ChangeFieldRuleRequest._();
+  ChangeFieldRuleRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldRuleRequest> createRepeated() => $pb.PbList<ChangeFieldRuleRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoCollectionRuleRequest>(create);
-  static AddGroupIntoCollectionRuleRequest? _defaultInstance;
+  static ChangeFieldRuleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldRuleRequest>(create);
+  static ChangeFieldRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -779,23 +798,32 @@ class AddGroupIntoCollectionRuleRequest extends $pb.GeneratedMessage {
   void clearGroupId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get readRule => $_getSZ(2);
+  $core.String get fieldId => $_getSZ(2);
   @$pb.TagNumber(3)
-  set readRule($core.String v) { $_setString(2, v); }
+  set fieldId($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasReadRule() => $_has(2);
+  $core.bool hasFieldId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReadRule() => clearField(3);
+  void clearFieldId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get writeRule => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set writeRule($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasWriteRule() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearWriteRule() => clearField(4);
 }
 
-class AddGroupIntoCollectionWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddGroupIntoCollectionWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeFieldRuleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  AddGroupIntoCollectionWriteRuleResponse._() : super();
-  factory AddGroupIntoCollectionWriteRuleResponse({
+  ChangeFieldRuleResponse._() : super();
+  factory ChangeFieldRuleResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -804,26 +832,26 @@ class AddGroupIntoCollectionWriteRuleResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AddGroupIntoCollectionWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AddGroupIntoCollectionWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeFieldRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeFieldRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionWriteRuleResponse clone() => AddGroupIntoCollectionWriteRuleResponse()..mergeFromMessage(this);
+  ChangeFieldRuleResponse clone() => ChangeFieldRuleResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AddGroupIntoCollectionWriteRuleResponse copyWith(void Function(AddGroupIntoCollectionWriteRuleResponse) updates) => super.copyWith((message) => updates(message as AddGroupIntoCollectionWriteRuleResponse)) as AddGroupIntoCollectionWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeFieldRuleResponse copyWith(void Function(ChangeFieldRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldRuleResponse)) as ChangeFieldRuleResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionWriteRuleResponse create() => AddGroupIntoCollectionWriteRuleResponse._();
-  AddGroupIntoCollectionWriteRuleResponse createEmptyInstance() => create();
-  static $pb.PbList<AddGroupIntoCollectionWriteRuleResponse> createRepeated() => $pb.PbList<AddGroupIntoCollectionWriteRuleResponse>();
+  static ChangeFieldRuleResponse create() => ChangeFieldRuleResponse._();
+  ChangeFieldRuleResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeFieldRuleResponse> createRepeated() => $pb.PbList<ChangeFieldRuleResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddGroupIntoCollectionWriteRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddGroupIntoCollectionWriteRuleResponse>(create);
-  static AddGroupIntoCollectionWriteRuleResponse? _defaultInstance;
+  static ChangeFieldRuleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeFieldRuleResponse>(create);
+  static ChangeFieldRuleResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);

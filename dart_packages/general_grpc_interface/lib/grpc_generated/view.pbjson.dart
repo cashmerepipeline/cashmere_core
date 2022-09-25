@@ -28,9 +28,9 @@ const GetManageViewResponse$json = const {
 
 /// Descriptor for `GetManageViewResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getManageViewResponseDescriptor = $convert.base64Decode('ChVHZXRNYW5hZ2VWaWV3UmVzcG9uc2USHQoKdmlld190b2tlbhgBIAEoCVIJdmlld1Rva2Vu');
-@$core.Deprecated('Use addGroupIntoManageReadRuleRequestDescriptor instead')
-const AddGroupIntoManageReadRuleRequest$json = const {
-  '1': 'AddGroupIntoManageReadRuleRequest',
+@$core.Deprecated('Use changeManageReadRuleRequestDescriptor instead')
+const ChangeManageReadRuleRequest$json = const {
+  '1': 'ChangeManageReadRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
@@ -38,21 +38,43 @@ const AddGroupIntoManageReadRuleRequest$json = const {
   ],
 };
 
-/// Descriptor for `AddGroupIntoManageReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoManageReadRuleRequestDescriptor = $convert.base64Decode('CiFBZGRHcm91cEludG9NYW5hZ2VSZWFkUnVsZVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghncm91cF9pZBgCIAEoCVIHZ3JvdXBJZBIbCglyZWFkX3J1bGUYAyABKAlSCHJlYWRSdWxl');
-@$core.Deprecated('Use addGroupIntoManageReadRuleResponseDescriptor instead')
-const AddGroupIntoManageReadRuleResponse$json = const {
-  '1': 'AddGroupIntoManageReadRuleResponse',
+/// Descriptor for `ChangeManageReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeManageReadRuleRequestDescriptor = $convert.base64Decode('ChtDaGFuZ2VNYW5hZ2VSZWFkUnVsZVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghncm91cF9pZBgCIAEoCVIHZ3JvdXBJZBIbCglyZWFkX3J1bGUYAyABKAlSCHJlYWRSdWxl');
+@$core.Deprecated('Use changeManageReadRuleResponseDescriptor instead')
+const ChangeManageReadRuleResponse$json = const {
+  '1': 'ChangeManageReadRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `AddGroupIntoManageReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoManageReadRuleResponseDescriptor = $convert.base64Decode('CiJBZGRHcm91cEludG9NYW5hZ2VSZWFkUnVsZVJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
-@$core.Deprecated('Use addGroupIntoManageWriteRuleRequestDescriptor instead')
-const AddGroupIntoManageWriteRuleRequest$json = const {
-  '1': 'AddGroupIntoManageWriteRuleRequest',
+/// Descriptor for `ChangeManageReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeManageReadRuleResponseDescriptor = $convert.base64Decode('ChxDaGFuZ2VNYW5hZ2VSZWFkUnVsZVJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
+@$core.Deprecated('Use changeManageWriteRuleRequestDescriptor instead')
+const ChangeManageWriteRuleRequest$json = const {
+  '1': 'ChangeManageWriteRuleRequest',
+  '2': const [
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
+    const {'1': 'write_rule', '3': 3, '4': 1, '5': 9, '10': 'writeRule'},
+  ],
+};
+
+/// Descriptor for `ChangeManageWriteRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeManageWriteRuleRequestDescriptor = $convert.base64Decode('ChxDaGFuZ2VNYW5hZ2VXcml0ZVJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSHQoKd3JpdGVfcnVsZRgDIAEoCVIJd3JpdGVSdWxl');
+@$core.Deprecated('Use changeManageWriteRuleResponseDescriptor instead')
+const ChangeManageWriteRuleResponse$json = const {
+  '1': 'ChangeManageWriteRuleResponse',
+  '2': const [
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+  ],
+};
+
+/// Descriptor for `ChangeManageWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeManageWriteRuleResponseDescriptor = $convert.base64Decode('Ch1DaGFuZ2VNYW5hZ2VXcml0ZVJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+@$core.Deprecated('Use changeCollectionReadRuleRequestDescriptor instead')
+const ChangeCollectionReadRuleRequest$json = const {
+  '1': 'ChangeCollectionReadRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
@@ -60,103 +82,83 @@ const AddGroupIntoManageWriteRuleRequest$json = const {
   ],
 };
 
-/// Descriptor for `AddGroupIntoManageWriteRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoManageWriteRuleRequestDescriptor = $convert.base64Decode('CiJBZGRHcm91cEludG9NYW5hZ2VXcml0ZVJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGwoJcmVhZF9ydWxlGAMgASgJUghyZWFkUnVsZQ==');
-@$core.Deprecated('Use addGroupIntoManageWriteRuleResponseDescriptor instead')
-const AddGroupIntoManageWriteRuleResponse$json = const {
-  '1': 'AddGroupIntoManageWriteRuleResponse',
+/// Descriptor for `ChangeCollectionReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeCollectionReadRuleRequestDescriptor = $convert.base64Decode('Ch9DaGFuZ2VDb2xsZWN0aW9uUmVhZFJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGwoJcmVhZF9ydWxlGAMgASgJUghyZWFkUnVsZQ==');
+@$core.Deprecated('Use changeCollectionReadRuleResponseDescriptor instead')
+const ChangeCollectionReadRuleResponse$json = const {
+  '1': 'ChangeCollectionReadRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `AddGroupIntoManageWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoManageWriteRuleResponseDescriptor = $convert.base64Decode('CiNBZGRHcm91cEludG9NYW5hZ2VXcml0ZVJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
-@$core.Deprecated('Use removeGroupFromManageReadRuleRequestDescriptor instead')
-const RemoveGroupFromManageReadRuleRequest$json = const {
-  '1': 'RemoveGroupFromManageReadRuleRequest',
+/// Descriptor for `ChangeCollectionReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeCollectionReadRuleResponseDescriptor = $convert.base64Decode('CiBDaGFuZ2VDb2xsZWN0aW9uUmVhZFJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+@$core.Deprecated('Use changeCollectionWriteRuleRequestDescriptor instead')
+const ChangeCollectionWriteRuleRequest$json = const {
+  '1': 'ChangeCollectionWriteRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
-    const {'1': 'read_rule', '3': 3, '4': 1, '5': 9, '10': 'readRule'},
+    const {'1': 'write_rule', '3': 3, '4': 1, '5': 9, '10': 'writeRule'},
   ],
 };
 
-/// Descriptor for `RemoveGroupFromManageReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List removeGroupFromManageReadRuleRequestDescriptor = $convert.base64Decode('CiRSZW1vdmVHcm91cEZyb21NYW5hZ2VSZWFkUnVsZVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghncm91cF9pZBgCIAEoCVIHZ3JvdXBJZBIbCglyZWFkX3J1bGUYAyABKAlSCHJlYWRSdWxl');
-@$core.Deprecated('Use removeGroupFromManageReadRuleResponseDescriptor instead')
-const RemoveGroupFromManageReadRuleResponse$json = const {
-  '1': 'RemoveGroupFromManageReadRuleResponse',
+/// Descriptor for `ChangeCollectionWriteRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeCollectionWriteRuleRequestDescriptor = $convert.base64Decode('CiBDaGFuZ2VDb2xsZWN0aW9uV3JpdGVSdWxlUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlkEhkKCGdyb3VwX2lkGAIgASgJUgdncm91cElkEh0KCndyaXRlX3J1bGUYAyABKAlSCXdyaXRlUnVsZQ==');
+@$core.Deprecated('Use changeCollectionWriteRuleResponseDescriptor instead')
+const ChangeCollectionWriteRuleResponse$json = const {
+  '1': 'ChangeCollectionWriteRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `RemoveGroupFromManageReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List removeGroupFromManageReadRuleResponseDescriptor = $convert.base64Decode('CiVSZW1vdmVHcm91cEZyb21NYW5hZ2VSZWFkUnVsZVJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
-@$core.Deprecated('Use removeGroupFromManageWriteRuleRequestDescriptor instead')
-const RemoveGroupFromManageWriteRuleRequest$json = const {
-  '1': 'RemoveGroupFromManageWriteRuleRequest',
+/// Descriptor for `ChangeCollectionWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeCollectionWriteRuleResponseDescriptor = $convert.base64Decode('CiFDaGFuZ2VDb2xsZWN0aW9uV3JpdGVSdWxlUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+@$core.Deprecated('Use changeFieldReadRuleRequestDescriptor instead')
+const ChangeFieldReadRuleRequest$json = const {
+  '1': 'ChangeFieldReadRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
-    const {'1': 'read_rule', '3': 3, '4': 1, '5': 9, '10': 'readRule'},
+    const {'1': 'field_id', '3': 3, '4': 1, '5': 9, '10': 'fieldId'},
+    const {'1': 'read_rule', '3': 4, '4': 1, '5': 9, '10': 'readRule'},
   ],
 };
 
-/// Descriptor for `RemoveGroupFromManageWriteRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List removeGroupFromManageWriteRuleRequestDescriptor = $convert.base64Decode('CiVSZW1vdmVHcm91cEZyb21NYW5hZ2VXcml0ZVJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGwoJcmVhZF9ydWxlGAMgASgJUghyZWFkUnVsZQ==');
-@$core.Deprecated('Use removeGroupFromManageWriteRuleResponseDescriptor instead')
-const RemoveGroupFromManageWriteRuleResponse$json = const {
-  '1': 'RemoveGroupFromManageWriteRuleResponse',
+/// Descriptor for `ChangeFieldReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldReadRuleRequestDescriptor = $convert.base64Decode('ChpDaGFuZ2VGaWVsZFJlYWRSdWxlUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlkEhkKCGdyb3VwX2lkGAIgASgJUgdncm91cElkEhkKCGZpZWxkX2lkGAMgASgJUgdmaWVsZElkEhsKCXJlYWRfcnVsZRgEIAEoCVIIcmVhZFJ1bGU=');
+@$core.Deprecated('Use changeFieldReadRuleResponseDescriptor instead')
+const ChangeFieldReadRuleResponse$json = const {
+  '1': 'ChangeFieldReadRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `RemoveGroupFromManageWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List removeGroupFromManageWriteRuleResponseDescriptor = $convert.base64Decode('CiZSZW1vdmVHcm91cEZyb21NYW5hZ2VXcml0ZVJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
-@$core.Deprecated('Use addGroupIntoCollectionReadRuleRequestDescriptor instead')
-const AddGroupIntoCollectionReadRuleRequest$json = const {
-  '1': 'AddGroupIntoCollectionReadRuleRequest',
+/// Descriptor for `ChangeFieldReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldReadRuleResponseDescriptor = $convert.base64Decode('ChtDaGFuZ2VGaWVsZFJlYWRSdWxlUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+@$core.Deprecated('Use changeFieldRuleRequestDescriptor instead')
+const ChangeFieldRuleRequest$json = const {
+  '1': 'ChangeFieldRuleRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
-    const {'1': 'read_rule', '3': 3, '4': 1, '5': 9, '10': 'readRule'},
+    const {'1': 'field_id', '3': 3, '4': 1, '5': 9, '10': 'fieldId'},
+    const {'1': 'write_rule', '3': 4, '4': 1, '5': 9, '10': 'writeRule'},
   ],
 };
 
-/// Descriptor for `AddGroupIntoCollectionReadRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoCollectionReadRuleRequestDescriptor = $convert.base64Decode('CiVBZGRHcm91cEludG9Db2xsZWN0aW9uUmVhZFJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGwoJcmVhZF9ydWxlGAMgASgJUghyZWFkUnVsZQ==');
-@$core.Deprecated('Use addGroupIntoCollectionReadRuleResponseDescriptor instead')
-const AddGroupIntoCollectionReadRuleResponse$json = const {
-  '1': 'AddGroupIntoCollectionReadRuleResponse',
+/// Descriptor for `ChangeFieldRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldRuleRequestDescriptor = $convert.base64Decode('ChZDaGFuZ2VGaWVsZFJ1bGVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQSGQoIZmllbGRfaWQYAyABKAlSB2ZpZWxkSWQSHQoKd3JpdGVfcnVsZRgEIAEoCVIJd3JpdGVSdWxl');
+@$core.Deprecated('Use changeFieldRuleResponseDescriptor instead')
+const ChangeFieldRuleResponse$json = const {
+  '1': 'ChangeFieldRuleResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `AddGroupIntoCollectionReadRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoCollectionReadRuleResponseDescriptor = $convert.base64Decode('CiZBZGRHcm91cEludG9Db2xsZWN0aW9uUmVhZFJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
-@$core.Deprecated('Use addGroupIntoCollectionRuleRequestDescriptor instead')
-const AddGroupIntoCollectionRuleRequest$json = const {
-  '1': 'AddGroupIntoCollectionRuleRequest',
-  '2': const [
-    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
-    const {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
-    const {'1': 'read_rule', '3': 3, '4': 1, '5': 9, '10': 'readRule'},
-  ],
-};
-
-/// Descriptor for `AddGroupIntoCollectionRuleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoCollectionRuleRequestDescriptor = $convert.base64Decode('CiFBZGRHcm91cEludG9Db2xsZWN0aW9uUnVsZVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghncm91cF9pZBgCIAEoCVIHZ3JvdXBJZBIbCglyZWFkX3J1bGUYAyABKAlSCHJlYWRSdWxl');
-@$core.Deprecated('Use addGroupIntoCollectionWriteRuleResponseDescriptor instead')
-const AddGroupIntoCollectionWriteRuleResponse$json = const {
-  '1': 'AddGroupIntoCollectionWriteRuleResponse',
-  '2': const [
-    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
-  ],
-};
-
-/// Descriptor for `AddGroupIntoCollectionWriteRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addGroupIntoCollectionWriteRuleResponseDescriptor = $convert.base64Decode('CidBZGRHcm91cEludG9Db2xsZWN0aW9uV3JpdGVSdWxlUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+/// Descriptor for `ChangeFieldRuleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeFieldRuleResponseDescriptor = $convert.base64Decode('ChdDaGFuZ2VGaWVsZFJ1bGVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
