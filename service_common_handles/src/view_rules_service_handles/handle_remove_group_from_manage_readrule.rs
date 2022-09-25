@@ -16,12 +16,12 @@ use view;
 use view::ReadRule;
 
 #[async_trait]
-pub trait HandleAddGroupIntoManageReadrule {
+pub trait HandleRemoveGroupFromManageReadrule {
     /// 新建管理属性
-    async fn handle_add_group_into_manage_readrule(
+    async fn handle_remove_group_from_manage_readrule(
         &self,
-        request: Request<AddGroupIntoManageReadRuleRequest>,
-    ) -> Result<Response<AddGroupIntoManageReadRuleResponse>, Status> {
+        request: Request<RemoveGroupFromManageReadRuleRequest>,
+    ) -> Result<Response<RemoveGroupFromManageReadRuleResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -29,7 +29,6 @@ pub trait HandleAddGroupIntoManageReadrule {
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;
-        let read_rule = &request.get_ref().read_rule;
 
         let majordomo_arc = get_majordomo().await;
 
@@ -44,13 +43,6 @@ pub trait HandleAddGroupIntoManageReadrule {
         if !group_manager.entity_exists(group_query_doc).await {
             return Err(Status::data_loss(format!("组不存在: {}", manage_id)));
         }
-
-        //  检查输入规则
-        if let r = ReadRule::from(read_rule.to_owned()) {
-            if r == ReadRule::Unknown {
-                return Err(Status::data_loss("输入读取规则错误"));
-            }
-        };
 
         if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -72,14 +64,15 @@ pub trait HandleAddGroupIntoManageReadrule {
             VIEW_RULES_MANAGE_FIELD_ID.to_string():manage_id
         };
 
+        // 将组权限设置为不可见
         let modify_doc = doc! {
-            format!("{}.{}.read_rule", VIEW_RULES_MANAGE_FIELD_ID, group_id): read_rule.to_owned()
+            format!("{}.{}.read_rule", VIEW_RULES_MANAGE_FIELD_ID, group_id):ReadRule::InVisible.to_string()
         };
 
-        let result = view_rules_manager.update_entity_field(query_doc, modify_doc, &account_id).await;
+        let result = view_rules_manager.update_entity_map_field(query_doc, modify_doc, &account_id).await;
 
         match result {
-            Ok(r) => Ok(Response::new(AddGroupIntoManageReadRuleResponse {
+            Ok(r) => Ok(Response::new(RemoveGroupFromManageReadRuleResponse {
                 result: r.details(),
             })),
             Err(e) => Err(Status::aborted(format!(
