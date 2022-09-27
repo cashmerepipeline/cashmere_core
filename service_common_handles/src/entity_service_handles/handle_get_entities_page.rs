@@ -59,7 +59,7 @@ pub trait HandleGetEntitiesPage {
         // 字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
-            get_manage_schema_view(&account_id, &groups, &manage_id.to_string(), &fields).await;
+            get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
 
         let project_doc = if schema_projects.len() > 0 {
             // 只加入不可见字段

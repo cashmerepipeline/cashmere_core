@@ -18,6 +18,7 @@ pub trait HandleNewLanguageName {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
@@ -25,19 +26,19 @@ pub trait HandleNewLanguageName {
         let new_name = &request.get_ref().new_name;
 
         // 管理可写性
-        if !view::can_manage_write(&account_id, &groups, manage_id).await {
+        if !view::can_manage_write(&account_id, &role_group, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
         // 集合可写性检查
-        if !view::can_collection_write(&account_id, &groups, &manage_id.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
         // 检查属性是否可写
         if !view::can_field_write(
             &account_id,
-            &groups,
+            &role_group,
             manage_id,
             &NAME_MAP_FIELD_ID.to_string(),
         )

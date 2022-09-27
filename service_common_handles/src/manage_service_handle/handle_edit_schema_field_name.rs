@@ -18,6 +18,7 @@ pub trait HandleEditSchemaFieldName {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;
         let field_id = request.get_ref().field_id;
@@ -25,7 +26,7 @@ pub trait HandleEditSchemaFieldName {
         let new_name = &request.get_ref().new_name;
 
         // 需要系统管理员权限
-        if !view::can_manage_write(&account_id, &groups, manage_id).await {
+        if !view::can_manage_write(&account_id, &role_group, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 

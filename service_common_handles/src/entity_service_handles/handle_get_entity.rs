@@ -50,7 +50,7 @@ pub trait HandleGetEntity {
         let mut result_doc = doc!();
         if let Ok(ref entity_doc) = result {
             while let Some((k, v)) = stream::iter(entity_doc).next().await {
-                if can_field_read(&account_id, &groups, &manage_id.to_string(), &k).await {
+                if can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
                     result_doc.insert(k, v);
                 }
             }

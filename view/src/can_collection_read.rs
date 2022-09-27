@@ -10,13 +10,11 @@ pub async fn can_collection_read(
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
-    let rules_map_opt = &view_rules
+    let mut result = false;
+    &view_rules
         .get(manage_id)
         .and_then(|rules| Some(&rules.collection))
-        .or(None);
-
-    let mut result = false;
-    if let Some(rules_map) = rules_map_opt {
+        .and_then(|rules_map| {
             rules_map
                 .get(role_group)
                 .and_then(|rule| {
@@ -26,8 +24,9 @@ pub async fn can_collection_read(
                         || rule.read_rule == ReadRule::GroupRead;
                     Some(())
                 })
-                .or(None);
-    };
+                .or(None)
+        })
+        .or(None);
 
     result
 }

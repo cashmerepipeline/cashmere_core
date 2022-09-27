@@ -22,8 +22,9 @@ pub trait HandleNewSchemaField {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
-        if !view::can_manage_write(&account_id, &groups, &MANAGES_MANAGE_ID.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &MANAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 

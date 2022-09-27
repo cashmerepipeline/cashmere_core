@@ -20,6 +20,7 @@ pub trait HandleGetManageSchema {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
 
@@ -35,7 +36,7 @@ pub trait HandleGetManageSchema {
         while let Some(field) = field_stream.next().await {
             if can_field_read(
                 &account_id,
-                &groups,
+                &role_group,
                 &manage_id.to_string(),
                 &field.id.to_string(),
             )

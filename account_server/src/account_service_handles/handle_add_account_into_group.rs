@@ -19,6 +19,7 @@ pub trait HandleAddAccountIntoGroup {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let op_account_id = &request.get_ref().account_id;
         let op_group_id = &request.get_ref().group_id;
@@ -27,23 +28,23 @@ pub trait HandleAddAccountIntoGroup {
         let group_manage_id = GROUPS_MANAGE_ID;
 
         // 管理可写性
-        if !view::can_manage_write(&account_id, &groups, &account_manage_id.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &account_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有帐号可写权限"));
         }
         // 实际不写入到组中
-        if !view::can_manage_write(&account_id, &groups, &group_manage_id.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &group_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有组可写权限"));
         }
 
         // 集合可写性检查
-        if !view::can_collection_write(&account_id, &groups, &account_manage_id.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &account_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可写权限"));
         }
-        if !view::can_collection_write(&account_id, &groups, &group_manage_id.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &group_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可写权限"));
         }
         // 检查帐号组属性字段可写性
-        if !view::can_field_write(&account_id, &groups, &account_manage_id.to_string(), &GROUPS_FIELD_ID.to_string()).await {
+        if !view::can_field_write(&account_id, &role_group, &account_manage_id.to_string(), &GROUPS_FIELD_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有字段可写权限"));
         }
 

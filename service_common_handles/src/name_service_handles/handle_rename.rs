@@ -26,7 +26,7 @@ pub trait HandleRename {
         let language = &request.get_ref().language;
         let new_name = &request.get_ref().new_name;
 
-        if !view::can_manage_write(&account_id, &groups, manage_id).await {
+        if !view::can_manage_write(&account_id, &role_group, manage_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
         
@@ -36,7 +36,7 @@ pub trait HandleRename {
         }
 
         // 检查属性是否可写
-        if !view::can_field_write(&account_id, &groups, manage_id, &NAME_MAP_FIELD_ID.to_string()).await {
+        if !view::can_field_write(&account_id, &role_group, manage_id, &NAME_MAP_FIELD_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
