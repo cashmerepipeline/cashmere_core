@@ -20,18 +20,19 @@ pub trait HandleGetEntitiesPage {
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;
         let page_index = &request.get_ref().page_index;
         let conditions = &request.get_ref().conditions;
 
         // 管理可读性检查
-        if !view::can_manage_read(&account_id, &groups, &manage_id.to_string()).await {
+        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有管理可读权限"));
         }
 
         // 集合可读性检查
-        if !view::can_collection_read(&account_id, &groups, &manage_id.to_string()).await {
+        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
@@ -41,7 +42,7 @@ pub trait HandleGetEntitiesPage {
         let sorts_doc = bson::to_document(conditions).ok().or(None);
         // TODO: 条件只支持几种固定格式，需要安全性检查
 
-        // 加入可读过滤项
+        // TODO: 根据组改写，加入可读过滤项
         let mut matches = doc! {};
         if let Some(filter_doc) =
             add_query_filters(&account_id.to_string(), &groups, &manage_id.to_string()).await

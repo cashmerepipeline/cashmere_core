@@ -19,7 +19,8 @@ pub trait HandleGetManages {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let managers_ids: Vec<i32> = get_majordomo().await.get_manager_ids().await;
 
@@ -40,7 +41,7 @@ pub trait HandleGetManages {
             };
 
             // 可见性过滤，返回可读管理
-            if can_manage_read(&account_id, &groups, &id.to_string()).await {
+            if can_manage_read(&account_id, &role_group, &id.to_string()).await {
                 result.push(m);
             }
         }
