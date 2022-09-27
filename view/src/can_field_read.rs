@@ -5,7 +5,7 @@ use crate::ReadRule;
 /// 实体的可写性，可否修改实体的字段
 pub async fn can_field_read(
     _account: &String,
-    groups: &Vec<String>,
+    group: &String,
     manage_id: &String,
     field_id: &String,
 ) -> bool {
@@ -19,7 +19,6 @@ pub async fn can_field_read(
 
     let mut result = false;
     if let Some(field) = rule_option {
-        groups.iter().for_each(|group| {
             field
                 .get(group)
                 .and_then(|rule| {
@@ -30,12 +29,10 @@ pub async fn can_field_read(
                     Some(())
                 })
                 .or(None);
-        });
     };
 
     // 过滤项
     if let Some(rule) = rule_option {
-        groups.iter().for_each(|group| {
             rule.get(group)
                 .and_then(|rule| {
                     result = rule.read_filters.contains(&FilterRule::NoLimit)
@@ -44,10 +41,8 @@ pub async fn can_field_read(
                     Some(())
                 })
                 .or(None);
-        });
     };
 
-    println!("查看描写格否可读 {}--{}--{}", manage_id, field_id, result);
 
     result
 }

@@ -4,7 +4,7 @@ use crate::WriteRule;
 /// 实体的可写性，可否修改实体的字段
 pub async fn can_field_write(
     _account: &String,
-    groups: &Vec<String>,
+    group: &String,
     manage_id: &String,
     field_id: &String,
 ) -> bool {
@@ -18,7 +18,6 @@ pub async fn can_field_write(
 
     let mut result = false;
     if let Some(field) = field_opt {
-        groups.iter().for_each(|group| {
             field
                 .get(group)
                 .and_then(|rule| {
@@ -29,10 +28,7 @@ pub async fn can_field_write(
                     Some(())
                 })
                 .or(None);
-        });
     };
-
-    println!("查看描写格否可写 {}--{}--{}", manage_id, field_id, result);
 
     result
 }

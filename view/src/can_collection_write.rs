@@ -4,7 +4,7 @@ use crate::WriteRule;
 /// 集合是否可写，向集合添加或者删除实体
 pub async fn can_collection_write(
     _account: &String,
-    groups: &Vec<String>,
+    group: &String,
     manage_id: &String,
 ) -> bool {
     let view_rules_arc = get_view_rules_map().await;
@@ -17,7 +17,6 @@ pub async fn can_collection_write(
 
     let mut result = false;
     if let Some(field) = field_opt {
-        groups.iter().for_each(|group| {
             field
                 .get(group)
                 .and_then(|rule| {
@@ -28,7 +27,6 @@ pub async fn can_collection_write(
                     Some(())
                 })
                 .or(None);
-        });
     };
 
     result
