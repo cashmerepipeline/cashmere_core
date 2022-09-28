@@ -6,15 +6,14 @@ pub async fn can_manage_read(_account: &String, group: &String, manage_id: &Stri
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
+    // 没有指定规则则不能访问
+    let mut result = false;
     let rule_option = &view_rules
         .get(manage_id)
         .and_then(|rules| Some(&rules.manage))
-        .or(None);
-
-    // 没有指定规则则不能访问
-    let mut result = false;
-    if let Some(rule) = rule_option {
-            rule.get(group)
+        .and_then(|rules_map| {
+            rules_map
+                .get(group)
                 .and_then(|rule| {
                     result = result
                         || rule.read_rule == ReadRule::Read
@@ -22,8 +21,9 @@ pub async fn can_manage_read(_account: &String, group: &String, manage_id: &Stri
                         || rule.read_rule == ReadRule::GroupRead;
                     Some(())
                 })
-                .or(None);
-    };
+                .or(None)
+        })
+        .or(None);
 
     result
 }

@@ -11,7 +11,7 @@ pub async fn can_collection_read(
     let view_rules = view_rules_arc.read();
 
     let mut result = false;
-    &view_rules
+    view_rules
         .get(manage_id)
         .and_then(|rules| Some(&rules.collection))
         .and_then(|rules_map| {

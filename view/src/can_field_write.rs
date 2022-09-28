@@ -11,14 +11,12 @@ pub async fn can_field_write(
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
-    let field_opt = &view_rules
+    let mut result = false;
+    view_rules
         .get(manage_id)
         .and_then(|rules| rules.schema.get(field_id))
-        .or(None);
-
-    let mut result = false;
-    if let Some(field) = field_opt {
-            field
+        .and_then(|rules_map| {
+            rules_map
                 .get(group)
                 .and_then(|rule| {
                     result = result
@@ -27,8 +25,9 @@ pub async fn can_field_write(
                         || rule.write_rule == WriteRule::GroupWrite;
                     Some(())
                 })
-                .or(None);
-    };
+                .or(None)
+        })
+        .or(None);
 
     result
 }

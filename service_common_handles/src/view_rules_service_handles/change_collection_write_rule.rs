@@ -53,7 +53,7 @@ pub trait HandleChangeCollectionReadrule {
         }
 
         //  检查输入规则
-        if let r = ReadRule::from(read_rule.to_owned()) {
+        if let Some(r) = ReadRule::from(read_rule.to_owned()) {
             if r == ReadRule::Unknown {
                 return Err(Status::data_loss("输入读取规则错误"));
             }

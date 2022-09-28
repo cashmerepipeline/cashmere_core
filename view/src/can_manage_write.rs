@@ -6,24 +6,24 @@ pub async fn can_manage_write(_account: &String, group: &String, manage_id: &Str
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
 
+    // 没有指定规则则不能访问
+    let mut result = false;
     let rule_option = &view_rules
         .get(manage_id)
         .and_then(|rules| Some(&rules.manage))
+        .and_then(|rules_map| {
+            rules_map
+                .get(group)
+                .and_then(|rule| {
+                    result = result
+                        || rule.write_rule == WriteRule::Write
+                        || rule.write_rule == WriteRule::OwnerWrite
+                        || rule.write_rule == WriteRule::GroupWrite;
+                    Some(())
+                })
+                .or(None)
+        })
         .or(None);
-
-    // 没有指定规则则不能访问
-    let mut result = false;
-    if let Some(rule) = rule_option {
-        rule.get(group)
-            .and_then(|rule| {
-                result = result
-                    || rule.write_rule == WriteRule::Write
-                    || rule.write_rule == WriteRule::OwnerWrite
-                    || rule.write_rule == WriteRule::GroupWrite;
-                Some(())
-            })
-            .or(None);
-    };
 
     result
 }

@@ -52,7 +52,7 @@ pub trait HandleChangeManageWriteRule {
         }
 
         //  检查输入规则
-        if let r = WriteRule::from(write_rule.to_owned()) {
+        if let Some(r) = WriteRule::from(write_rule.to_owned()) {
             if r == WriteRule::Unknown {
                 return Err(Status::data_loss("输入读取规则错误"));
             }
