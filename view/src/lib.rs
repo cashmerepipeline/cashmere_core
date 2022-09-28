@@ -13,7 +13,6 @@ mod enum_read_rule;
 mod enum_view_level;
 mod enum_view_rule_result;
 mod enum_write_rule;
-mod get_first_write_group;
 mod get_manage_schema_view;
 mod manage_view_claims;
 mod validate_is_in_group;
@@ -33,7 +32,6 @@ pub use can_manage_write::*;
 pub use enum_filter_rule::*;
 pub use enum_read_rule::*;
 pub use enum_write_rule::*;
-pub use get_first_write_group::*;
 pub use get_manage_schema_view::*;
 
 mod add_query_filters;

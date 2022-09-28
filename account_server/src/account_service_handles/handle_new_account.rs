@@ -34,13 +34,6 @@ pub trait HandleNewAccount {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
-        // 取得第一个可写组作为组
-        let account_group_id =
-            match view::get_first_write_group(&groups, &manage_id.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
-
         let new_account_id = format!("{}{}", area_code, phone);
 
         let majordomo_arc = get_majordomo().await;
@@ -64,7 +57,7 @@ pub trait HandleNewAccount {
         new_account_doc.insert(ACCOUNTS_PHONE_FIELD_ID.to_string(), phone);
         new_account_doc.insert(ACCOUNTS_PASSWORD_FIELD_ID.to_string(), encrypt_password);
 
-        let result = manager.sink_entity(&mut new_account_doc, &account_id, &account_group_id).await;
+        let result = manager.sink_entity(&mut new_account_doc, &account_id, &role_group).await;
 
         match result {
             Ok(_r) => Ok(Response::new(NewAccountResponse {

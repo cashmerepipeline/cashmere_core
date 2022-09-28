@@ -35,12 +35,6 @@ pub trait HandleGetDataInfo {
         if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
-        // 取得第一个可写组作为组
-        let _group_id =
-            match view::get_first_write_group(&groups, &DATAS_MANAGE_ID.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
 
         let majordomo_arc = get_majordomo().await;
         let data_manager = majordomo_arc

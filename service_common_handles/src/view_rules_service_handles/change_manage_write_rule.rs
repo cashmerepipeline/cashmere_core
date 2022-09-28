@@ -62,13 +62,6 @@ pub trait HandleChangeManageWriteRule {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        // 取得第一个可写组作为组
-        let account_group_id =
-            match view::get_first_write_group(&groups, &manage_id.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
-
         let view_rules_manager = majordomo_arc
             .get_manager_by_id(VIEW_RULES_MANAGE_ID.to_owned())
             .await

@@ -34,13 +34,6 @@ pub trait HandleNewGroup {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        // 取得第一个可写组作为组
-        let account_group_id =
-            match view::get_first_write_group(&groups, &manage_id.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
-
         let majordomo_arc = get_majordomo().await;
         let group_manager = majordomo_arc
             .get_manager_by_id(manage_id.to_owned())
@@ -55,7 +48,7 @@ pub trait HandleNewGroup {
 
             let mut group_id = None;
             let result = group_manager
-                .sink_entity(&mut new_entity_doc, &account_id, &account_group_id)
+                .sink_entity(&mut new_entity_doc, &account_id, &role_group)
                 .await
                 .and_then(|id| {
                     group_id = Some(id.clone());
