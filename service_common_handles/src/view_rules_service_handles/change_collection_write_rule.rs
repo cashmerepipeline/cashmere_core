@@ -53,11 +53,9 @@ pub trait HandleChangeCollectionReadrule {
         }
 
         //  检查输入规则
-        if let Some(r) = ReadRule::from(read_rule.to_owned()) {
-            if r == ReadRule::Unknown {
-                return Err(Status::data_loss("输入读取规则错误"));
-            }
-        };
+        if ReadRule::Unknown == ReadRule::from(read_rule.to_owned()) {
+            return Err(Status::data_loss("输入读取规则错误"));
+        }
 
         if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
