@@ -39,13 +39,14 @@ pub trait HandleGetEntitiesPage {
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
+        // TODO: 排序条件只支持几种固定格式，需要安全性检查
         let sorts_doc = bson::to_document(conditions).ok().or(None);
-        // TODO: 条件只支持几种固定格式，需要安全性检查
 
+        // 可读性过滤, 没有设置过滤即不可读
         // TODO: 根据组改写，加入可读过滤项
         let mut matches = doc! {};
         if let Some(filter_doc) =
-            add_query_filters(&account_id.to_string(), &groups, &manage_id.to_string()).await
+            add_query_filters(&account_id.to_string(), &role_group, &manage_id.to_string()).await
         {
             filter_doc.iter().for_each(|(k, v)| {
                 matches.insert(k, v);
@@ -56,7 +57,7 @@ pub trait HandleGetEntitiesPage {
             ));
         };
 
-        // 字段可见性过滤, 加入mongodb的project方法
+        // 描写字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
             get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
