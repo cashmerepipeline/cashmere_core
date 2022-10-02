@@ -10,7 +10,7 @@ class CashmereClient<T extends Client> {
   final ChannelOptions channelOptions;
   final ClientCreator<T> creator;
 
-  T? clientStub;
+  T? _clientStub;
 
   ClientChannel get _channel => ClientChannel(
         host,
@@ -23,11 +23,11 @@ class CashmereClient<T extends Client> {
 
   // 客户端连接，需要被覆写
   T? getClientStub() {
-    if (clientStub != null) {
-      return clientStub;
+    if (_clientStub != null) {
+      return _clientStub;
     } else {
-      clientStub = creator(_channel);
-      return clientStub;
+      _clientStub = creator(_channel);
+      return _clientStub;
     }
   }
 

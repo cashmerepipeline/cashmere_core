@@ -18,7 +18,7 @@ pub trait HandleRemoveAccountFromGroup {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let op_account_id = &request.get_ref().account_id;
@@ -31,6 +31,7 @@ pub trait HandleRemoveAccountFromGroup {
         if !view::can_manage_write(&account_id, &role_group, &account_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有帐号可写权限"));
         }
+
         // 实际不写入到组中
         if !view::can_manage_write(&account_id, &role_group, &group_manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有组可写权限"));
@@ -51,11 +52,6 @@ pub trait HandleRemoveAccountFromGroup {
         let majordomo_arc = get_majordomo().await;
         let account_manager = majordomo_arc
             .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .await
-            .unwrap();
-
-        let group_manager = majordomo_arc
-            .get_manager_by_id(GROUPS_MANAGE_ID)
             .await
             .unwrap();
 

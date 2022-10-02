@@ -1,10 +1,10 @@
 use async_trait::async_trait;
 use bson::{doc, Document};
-use managers::accounts_manager;
+use managers::{accounts_manager, groups_manager};
 use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::field_ids::{ACCOUNTS_AREA_CODE_FIELD_ID, ACCOUNTS_PASSWORD_FIELD_ID, ACCOUNTS_PHONE_FIELD_ID};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID, GROUPS_FIELD_ID};
+use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID, GROUPS_FIELD_ID, ENTITY_REMOVED_FIELD_ID};
 use manage_define::manage_ids::{ACCOUNTS_MANAGE_ID, GROUPS_MANAGE_ID};
 use managers::traits::ManagerTrait;
 use crate::{NewAccountRequest, NewAccountResponse, UnaryResponseResult, AddAccountIntoGroupRequest, AddAccountIntoGroupResponse};
@@ -59,8 +59,15 @@ pub trait HandleAddAccountIntoGroup {
             .await
             .unwrap();
 
-        // TODO: 检查组是否存在
-        // TODO: 检查组是否标记为移除
+        // 检查组是否存在
+        if !group_manager.entity_exists(doc!{ID_FIELD_ID.to_string():op_group_id.clone()}).await{
+            return Err(Status::data_loss(format!("组不存在:{}", op_group_id)));
+        }
+        // 检查组是否标记为移除
+        let group_entity = group_manager.get_entity_by_id(op_group_id).await.unwrap();
+        if group_entity.get_bool(ENTITY_REMOVED_FIELD_ID.to_string()).unwrap(){
+            return Err(Status::cancelled("组已经被移除"));
+        }
 
         let query_doc = doc!{
             ID_FIELD_ID.to_string():op_account_id.clone()

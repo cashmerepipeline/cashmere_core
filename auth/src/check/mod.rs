@@ -20,7 +20,7 @@ pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
         None => return Err(Status::unauthenticated("请先登录")),
     };
 
-    //  1. token校验
+    // token校验
     if !validate_jwt_token(&auth_token) {
         return Err(Status::unauthenticated("权限验证错误，请重新登录"));
     }
@@ -36,7 +36,7 @@ pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {
         None => return Err(Status::unauthenticated("请先登录")),
     };
 
-    // 2. 过期校验
+    // 过期校验
     let now = Utc::now().timestamp();
     if now > claims.exp as i64 {
         return Err(Status::cancelled("登录已过期，请重新登录"));

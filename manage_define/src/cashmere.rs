@@ -104,6 +104,8 @@ pub struct EditLanguageCodeResponse {
 pub struct NewGroupRequest {
     #[prost(message, optional, tag="1")]
     pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="2")]
+    pub new_group_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGroupResponse {

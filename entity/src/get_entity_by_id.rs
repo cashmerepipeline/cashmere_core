@@ -1,7 +1,6 @@
 use std::collections::BTreeMap;
 
 use chrono::Utc;
-// use tokio::stream::StreamExt;
 use futures::stream::StreamExt;
 use linked_hash_map::LinkedHashMap;
 use mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
@@ -29,7 +28,7 @@ pub async fn get_entity_by_id(
     let result = collection
         .find_one(
             doc! {
-                "_id": id
+                ID_FIELD_ID.to_string(): id
             },
             None,
         )

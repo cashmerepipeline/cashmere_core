@@ -10,6 +10,7 @@ class Account with EntityBase {
   LoginStatus? status;
   String? verificationCode;
   String? jwtToken;
+  String? currentRoleGroup;
 
   Account();
 }
