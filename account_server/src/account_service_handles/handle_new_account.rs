@@ -3,9 +3,10 @@ use bson::{doc, Document};
 use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::field_ids::{ACCOUNTS_AREA_CODE_FIELD_ID, ACCOUNTS_PASSWORD_FIELD_ID, ACCOUNTS_PHONE_FIELD_ID};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::general_field_ids::{COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, ENTITY_REMOVED_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
 use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
 use crate::{NewAccountRequest, NewAccountResponse, UnaryResponseResult};
 
 #[async_trait]
@@ -51,8 +52,14 @@ pub trait HandleNewAccount {
         }
 
         let encrypt_password = auth::jwt::hash_password(password).await.unwrap();
-        let mut new_account_doc = Document::new();
+
+        let mut new_account_doc = doc! {};
+        let empty_vec:Vec<String> = vec![];
         new_account_doc.insert(ID_FIELD_ID.to_string(), new_account_id);
+        new_account_doc.insert(DATAS_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
+        new_account_doc.insert(DATAS_REMOVED_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
+        new_account_doc.insert(COMMENTS_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
+        new_account_doc.insert(ENTITY_REMOVED_FIELD_ID.to_string(), false);
         new_account_doc.insert(ACCOUNTS_AREA_CODE_FIELD_ID.to_string(), area_code);
         new_account_doc.insert(ACCOUNTS_PHONE_FIELD_ID.to_string(), phone);
         new_account_doc.insert(ACCOUNTS_PASSWORD_FIELD_ID.to_string(), encrypt_password);
