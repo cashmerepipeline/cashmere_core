@@ -1,12 +1,14 @@
 syntax = "proto3";
-
 package account_service;
+
+import "name.proto";
 
 // 添加账号, 需要手工添加账号的情景
 message NewAccountRequest {
   string area_code = 1;
   string phone = 2;
   string password = 3;
+  cashmere.Name nick_name = 4;
 }
 message NewAccountResponse {
   string result = 1;

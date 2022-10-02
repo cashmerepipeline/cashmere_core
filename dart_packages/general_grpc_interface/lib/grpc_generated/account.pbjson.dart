@@ -15,11 +15,12 @@ const NewAccountRequest$json = const {
     const {'1': 'area_code', '3': 1, '4': 1, '5': 9, '10': 'areaCode'},
     const {'1': 'phone', '3': 2, '4': 1, '5': 9, '10': 'phone'},
     const {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
+    const {'1': 'nick_name', '3': 4, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'nickName'},
   ],
 };
 
 /// Descriptor for `NewAccountRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List newAccountRequestDescriptor = $convert.base64Decode('ChFOZXdBY2NvdW50UmVxdWVzdBIbCglhcmVhX2NvZGUYASABKAlSCGFyZWFDb2RlEhQKBXBob25lGAIgASgJUgVwaG9uZRIaCghwYXNzd29yZBgDIAEoCVIIcGFzc3dvcmQ=');
+final $typed_data.Uint8List newAccountRequestDescriptor = $convert.base64Decode('ChFOZXdBY2NvdW50UmVxdWVzdBIbCglhcmVhX2NvZGUYASABKAlSCGFyZWFDb2RlEhQKBXBob25lGAIgASgJUgVwaG9uZRIaCghwYXNzd29yZBgDIAEoCVIIcGFzc3dvcmQSKwoJbmlja19uYW1lGAQgASgLMg4uY2FzaG1lcmUuTmFtZVIIbmlja05hbWU=');
 @$core.Deprecated('Use newAccountResponseDescriptor instead')
 const NewAccountResponse$json = const {
   '1': 'NewAccountResponse',

@@ -9,11 +9,14 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'name.pb.dart' as $0;
+
 class NewAccountRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAccountRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'areaCode')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
+    ..aOM<$0.Name>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nickName', subBuilder: $0.Name.create)
     ..hasRequiredFields = false
   ;
 
@@ -22,6 +25,7 @@ class NewAccountRequest extends $pb.GeneratedMessage {
     $core.String? areaCode,
     $core.String? phone,
     $core.String? password,
+    $0.Name? nickName,
   }) {
     final _result = create();
     if (areaCode != null) {
@@ -32,6 +36,9 @@ class NewAccountRequest extends $pb.GeneratedMessage {
     }
     if (password != null) {
       _result.password = password;
+    }
+    if (nickName != null) {
+      _result.nickName = nickName;
     }
     return _result;
   }
@@ -82,6 +89,17 @@ class NewAccountRequest extends $pb.GeneratedMessage {
   $core.bool hasPassword() => $_has(2);
   @$pb.TagNumber(3)
   void clearPassword() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Name get nickName => $_getN(3);
+  @$pb.TagNumber(4)
+  set nickName($0.Name v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasNickName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNickName() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Name ensureNickName() => $_ensure(3);
 }
 
 class NewAccountResponse extends $pb.GeneratedMessage {

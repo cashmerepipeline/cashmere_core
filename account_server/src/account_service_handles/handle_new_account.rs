@@ -2,6 +2,7 @@ use async_trait::async_trait;
 use bson::{doc, Document};
 use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
+use manage_define::cashmere::Name;
 use manage_define::field_ids::{ACCOUNTS_AREA_CODE_FIELD_ID, ACCOUNTS_PASSWORD_FIELD_ID, ACCOUNTS_PHONE_FIELD_ID};
 use manage_define::general_field_ids::{COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, ENTITY_REMOVED_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
@@ -24,6 +25,7 @@ pub trait HandleNewAccount {
         let area_code = &request.get_ref().area_code;
         let phone = &request.get_ref().phone;
         let password = &request.get_ref().password;
+        let nick_name = &request.get_ref().nick_name;
 
         let manage_id = ACCOUNTS_MANAGE_ID;
         // 管理可写性
@@ -55,7 +57,15 @@ pub trait HandleNewAccount {
 
         let mut new_account_doc = doc! {};
         let empty_vec:Vec<String> = vec![];
-        new_account_doc.insert(ID_FIELD_ID.to_string(), new_account_id);
+        let default_name = &Name{language:"zh".to_string(), name: "默认昵称".to_string()};
+        let nick_name = match nick_name {
+            Some(n)=> n,
+            None=> default_name,
+        };
+
+        new_account_doc.insert(ID_FIELD_ID.to_string(), new_account_id.clone());
+        new_account_doc.insert(NAME_MAP_FIELD_ID.to_string(), doc! {nick_name.language.clone():nick_name.name.clone()});
+
         new_account_doc.insert(DATAS_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
         new_account_doc.insert(DATAS_REMOVED_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
         new_account_doc.insert(COMMENTS_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
@@ -67,14 +77,19 @@ pub trait HandleNewAccount {
         let result = manager.sink_entity(&mut new_account_doc, &account_id, &role_group).await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewAccountResponse {
+            Ok(_r) => {
+                info!("创建帐号成功--{}", new_account_id);
+                Ok(Response::new(NewAccountResponse {
                 result: _r,
-            })),
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
+            }))},
+            Err(e) => {
+                error!("创建帐号发生错误--{}", new_account_id);
+                Err(Status::aborted(format!(
+                    "{} {}",
+                    e.operation(),
+                    e.details()
+                )))
+            },
         }
     }
 }

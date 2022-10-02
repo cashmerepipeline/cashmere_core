@@ -7,3 +7,4 @@ target/
 *.log
 *.lock
 manage_define/src/manage_ids.rs
+/account_server/src/cashmere.rs
