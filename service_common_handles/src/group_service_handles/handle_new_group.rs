@@ -43,10 +43,13 @@ pub trait HandleNewGroup {
             .await
             .unwrap();
 
+        //TODO: 组编号是否符合格式
+
         // 组是否已经存在
         if group_manager.entity_exists(doc! {ID_FIELD_ID.to_string():new_group_id}).await{
             return Err(Status::already_exists(format!("组已经存在: {}", new_group_id)));
         }
+        //TODO: 组名是否已经存在
 
         let name = match name {
             Some(n)=>n,

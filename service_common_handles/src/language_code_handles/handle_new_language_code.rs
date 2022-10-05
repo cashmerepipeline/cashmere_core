@@ -43,6 +43,9 @@ pub trait HandleNewLanguageCode {
             .await
             .unwrap();
 
+        // TODO: 检查语言编号是否存在
+        // TODO: 检查语言编码是否存在
+
         if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
             new_entity_doc.insert(
                 NAME_MAP_FIELD_ID.to_string(),
