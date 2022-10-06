@@ -468,15 +468,13 @@ pub struct SetDataDownloadSetResponse {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAreaRequest {
-    #[prost(string, tag="1")]
-    pub language: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
     #[prost(string, tag="2")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
     pub parent_id: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
+    #[prost(string, tag="3")]
     pub code: ::prost::alloc::string::String,
-    #[prost(enumeration="AreaLevel", tag="5")]
+    #[prost(enumeration="AreaLevel", tag="4")]
     pub level: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

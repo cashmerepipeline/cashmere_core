@@ -37,6 +37,7 @@ pub mod tasks_manager;
 pub mod templates_manager;
 pub mod utils;
 pub mod view_rules_manager;
+pub mod phone_area_codes_manager;
 
 mod macros;
 pub(crate) mod schema;

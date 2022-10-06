@@ -9,6 +9,8 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 enum AreaLevel {
     Country = 0;
     Province = 1;
@@ -17,11 +19,10 @@ enum AreaLevel {
 }
 
 message NewAreaRequest {
-    string language = 1;
-    string name = 2;
-    string parent_id = 3;
-    string code = 4;
-    AreaLevel level = 5;
+    Name name = 1;
+    string parent_id = 2;
+    string code = 3;
+    AreaLevel level = 4;
 }
 message NewAreaResponse {
     string result = 1;

@@ -26,7 +26,6 @@ pub trait HandleNewArea {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let parent_id = &request.get_ref().parent_id;
-        let language = &request.get_ref().language;
         let name = &request.get_ref().name;
         let level = &request.get_ref().level;
         let code = &request.get_ref().code;
@@ -40,14 +39,19 @@ pub trait HandleNewArea {
             .await
             .unwrap();
 
-        let local_name = doc! {
-            language.clone(): name.clone()
+        let local_name =match name {
+            Some(n)=>n,
+            None => {
+                return Err(Status::aborted(format!("没有指定名称--{}", code)));
+            }
         };
+
+        let name_doc = doc!{local_name.language.clone():local_name.name.clone()};
 
         // 区域是否存在，存在则返回
         if manager
             .entity_exists(doc! {
-                NAME_MAP_FIELD_ID.to_string():local_name.clone()
+                NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
             })
             .await
         {
@@ -57,7 +61,7 @@ pub trait HandleNewArea {
         if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
             new_entity_doc.insert("_id", code);
             new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
-            new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), local_name);
+            new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
             new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
             new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
 

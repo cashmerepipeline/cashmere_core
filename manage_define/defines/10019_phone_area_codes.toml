@@ -2,7 +2,7 @@
 # 手机区号编码
 #
 
-id = 100019
+id = 10019
 name_map = { zh = "手机区号", en = "phone_area_codes" }
 
 # 数据描写 或者 模式
