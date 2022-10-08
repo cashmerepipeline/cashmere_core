@@ -14,4 +14,8 @@ class SchemaField {
     final nameMap = nameMapFromBytes(message.nameMap);
     return SchemaField(message.id, nameMap, message.dataType, message.removed);
   }
+
+  toString() {
+    return "\{fieldID: $fieldId, dataType: $dataType, nameMap: $nameMap, removed: $removed}";
+  }
 }
