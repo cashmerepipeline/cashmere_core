@@ -51,6 +51,7 @@ impl PropertyField {
     }
 
     pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
+        println!("{:?}", toml);
         let name_map: LinkedHashMap<String, String> =
             toml::from_str(&toml.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
 
