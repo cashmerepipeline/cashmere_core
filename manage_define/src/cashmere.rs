@@ -64,6 +64,25 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 新品牌
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCountryRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="2")]
+    pub native: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub phone_area_code: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="5")]
+    pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCountryResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LanguageCode {
     #[prost(string, tag="1")]

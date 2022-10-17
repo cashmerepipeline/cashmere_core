@@ -8,9 +8,11 @@ name_map = { zh = "国家", en = "countries" }
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "String", name_map = { zh = "国家名", en = "parent_id" }, removed = false },
+  { data_type = "String", name_map = { zh = "母语名", en = "native" }, removed = false },
   # 国家0级，省直辖市1级，
-  { data_type = "Int32", name_map = { zh = "分级", en = "level" }, removed = false },
+  { data_type = "String", name_map = { zh = "编码", en = "code" }, removed = false },
+  { data_type = "String", name_map = { zh = "电话区号", en = "phone_area_code" }, removed = false },
+  { data_type = "List", name_map = { zh = "所用语言", en = "languages" }, removed = false },
 ]
 
 # 事件队列和消息队列表
@@ -21,12 +23,7 @@ schema = [
 event_queue = []
 massage_queue = []
 
-# 初始实体
-[items]
-
-
 [view_rules]
-
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
@@ -138,11 +135,55 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
 [view_rules.schema.2002]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+[view_rules.schema.2003]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.2004]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+# 初始实体
+[items]
+1000 = { 1000 = "1000", 1002 = "8610000000000", 1001 = { zh = "中国", en = "China" }, 1006 = "8610000000000", 1007 = [
+  "1000000",
+], 1008 = [
+], 1900 = [
+], 1200 = false, 2001 = "中国", 2002 = "CN", 2003 = [
+  "86",
+], 2004 = [
+  "zh",
+] }
+
+1001 = { 1000 = "1001", 1002 = "8610000000000", 1001 = { zh = "美国", en = "United States" }, 1006 = "8610000000000", 1007 = [
+  "1000000",
+], 1008 = [
+], 1900 = [
+], 1200 = false, 2001 = "United States", 2002 = "US", 2003 = [
+  "1",
+], 2004 = [
+  "en",
 ] }

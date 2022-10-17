@@ -1,0 +1,18 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+// 新品牌
+message NewCountryRequest
+{
+  Name name = 1;
+  string native = 2;
+  string code = 3;
+  string phone_area_code = 4;
+  repeated string languages = 5;
+}
+message NewCountryResponse
+{
+  string result = 1;
+}
