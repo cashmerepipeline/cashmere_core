@@ -25,16 +25,15 @@ final $typed_data.Uint8List areaLevelDescriptor = $convert.base64Decode('CglBcmV
 const NewAreaRequest$json = const {
   '1': 'NewAreaRequest',
   '2': const [
-    const {'1': 'language', '3': 1, '4': 1, '5': 9, '10': 'language'},
-    const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'parent_id', '3': 3, '4': 1, '5': 9, '10': 'parentId'},
-    const {'1': 'code', '3': 4, '4': 1, '5': 9, '10': 'code'},
-    const {'1': 'level', '3': 5, '4': 1, '5': 14, '6': '.cashmere.AreaLevel', '10': 'level'},
+    const {'1': 'name', '3': 1, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
+    const {'1': 'parent_id', '3': 2, '4': 1, '5': 9, '10': 'parentId'},
+    const {'1': 'code', '3': 3, '4': 1, '5': 9, '10': 'code'},
+    const {'1': 'level', '3': 4, '4': 1, '5': 14, '6': '.cashmere.AreaLevel', '10': 'level'},
   ],
 };
 
 /// Descriptor for `NewAreaRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List newAreaRequestDescriptor = $convert.base64Decode('Cg5OZXdBcmVhUmVxdWVzdBIaCghsYW5ndWFnZRgBIAEoCVIIbGFuZ3VhZ2USEgoEbmFtZRgCIAEoCVIEbmFtZRIbCglwYXJlbnRfaWQYAyABKAlSCHBhcmVudElkEhIKBGNvZGUYBCABKAlSBGNvZGUSKQoFbGV2ZWwYBSABKA4yEy5jYXNobWVyZS5BcmVhTGV2ZWxSBWxldmVs');
+final $typed_data.Uint8List newAreaRequestDescriptor = $convert.base64Decode('Cg5OZXdBcmVhUmVxdWVzdBIiCgRuYW1lGAEgASgLMg4uY2FzaG1lcmUuTmFtZVIEbmFtZRIbCglwYXJlbnRfaWQYAiABKAlSCHBhcmVudElkEhIKBGNvZGUYAyABKAlSBGNvZGUSKQoFbGV2ZWwYBCABKA4yEy5jYXNobWVyZS5BcmVhTGV2ZWxSBWxldmVs');
 @$core.Deprecated('Use newAreaResponseDescriptor instead')
 const NewAreaResponse$json = const {
   '1': 'NewAreaResponse',

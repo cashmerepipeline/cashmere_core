@@ -86,3 +86,25 @@ const NewLanguageNameResponse$json = const {
 
 /// Descriptor for `NewLanguageNameResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newLanguageNameResponseDescriptor = $convert.base64Decode('ChdOZXdMYW5ndWFnZU5hbWVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+@$core.Deprecated('Use removeLanguageNameRequestDescriptor instead')
+const RemoveLanguageNameRequest$json = const {
+  '1': 'RemoveLanguageNameRequest',
+  '2': const [
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
+    const {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
+  ],
+};
+
+/// Descriptor for `RemoveLanguageNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List removeLanguageNameRequestDescriptor = $convert.base64Decode('ChlSZW1vdmVMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2U=');
+@$core.Deprecated('Use removeLanguageNameResponseDescriptor instead')
+const RemoveLanguageNameResponse$json = const {
+  '1': 'RemoveLanguageNameResponse',
+  '2': const [
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+  ],
+};
+
+/// Descriptor for `RemoveLanguageNameResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List removeLanguageNameResponseDescriptor = $convert.base64Decode('ChpSZW1vdmVMYW5ndWFnZU5hbWVSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');

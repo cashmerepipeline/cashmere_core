@@ -383,3 +383,125 @@ class NewLanguageNameResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveLanguageNameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entityId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
+    ..hasRequiredFields = false
+  ;
+
+  RemoveLanguageNameRequest._() : super();
+  factory RemoveLanguageNameRequest({
+    $core.String? manageId,
+    $core.String? entityId,
+    $core.String? language,
+  }) {
+    final _result = create();
+    if (manageId != null) {
+      _result.manageId = manageId;
+    }
+    if (entityId != null) {
+      _result.entityId = entityId;
+    }
+    if (language != null) {
+      _result.language = language;
+    }
+    return _result;
+  }
+  factory RemoveLanguageNameRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RemoveLanguageNameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RemoveLanguageNameRequest clone() => RemoveLanguageNameRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RemoveLanguageNameRequest copyWith(void Function(RemoveLanguageNameRequest) updates) => super.copyWith((message) => updates(message as RemoveLanguageNameRequest)) as RemoveLanguageNameRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RemoveLanguageNameRequest create() => RemoveLanguageNameRequest._();
+  RemoveLanguageNameRequest createEmptyInstance() => create();
+  static $pb.PbList<RemoveLanguageNameRequest> createRepeated() => $pb.PbList<RemoveLanguageNameRequest>();
+  @$core.pragma('dart2js:noInline')
+  static RemoveLanguageNameRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveLanguageNameRequest>(create);
+  static RemoveLanguageNameRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get manageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get entityId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set entityId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasEntityId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEntityId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get language => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set language($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasLanguage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLanguage() => clearField(3);
+}
+
+class RemoveLanguageNameResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveLanguageNameResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
+  RemoveLanguageNameResponse._() : super();
+  factory RemoveLanguageNameResponse({
+    $core.String? result,
+  }) {
+    final _result = create();
+    if (result != null) {
+      _result.result = result;
+    }
+    return _result;
+  }
+  factory RemoveLanguageNameResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RemoveLanguageNameResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RemoveLanguageNameResponse clone() => RemoveLanguageNameResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RemoveLanguageNameResponse copyWith(void Function(RemoveLanguageNameResponse) updates) => super.copyWith((message) => updates(message as RemoveLanguageNameResponse)) as RemoveLanguageNameResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RemoveLanguageNameResponse create() => RemoveLanguageNameResponse._();
+  RemoveLanguageNameResponse createEmptyInstance() => create();
+  static $pb.PbList<RemoveLanguageNameResponse> createRepeated() => $pb.PbList<RemoveLanguageNameResponse>();
+  @$core.pragma('dart2js:noInline')
+  static RemoveLanguageNameResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemoveLanguageNameResponse>(create);
+  static RemoveLanguageNameResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get result => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set result($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResult() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResult() => clearField(1);
+}
+

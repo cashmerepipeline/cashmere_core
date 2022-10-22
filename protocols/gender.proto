@@ -1,0 +1,16 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+product.proto (c) 2021
+Desc: 适宜性别
+Created:  2021-11-14T03:06:02.246Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package io.imix;
+
+enum Gender
+{
+  Male = 0;
+  Female = 1;
+}

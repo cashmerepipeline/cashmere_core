@@ -9,32 +9,29 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'name.pb.dart' as $0;
+
 import 'area.pbenum.dart';
 
 export 'area.pbenum.dart';
 
 class NewAreaRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAreaRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..e<AreaLevel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
+    ..aOM<$0.Name>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name', subBuilder: $0.Name.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..e<AreaLevel>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
     ..hasRequiredFields = false
   ;
 
   NewAreaRequest._() : super();
   factory NewAreaRequest({
-    $core.String? language,
-    $core.String? name,
+    $0.Name? name,
     $core.String? parentId,
     $core.String? code,
     AreaLevel? level,
   }) {
     final _result = create();
-    if (language != null) {
-      _result.language = language;
-    }
     if (name != null) {
       _result.name = name;
     }
@@ -71,49 +68,42 @@ class NewAreaRequest extends $pb.GeneratedMessage {
   static NewAreaRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get language => $_getSZ(0);
+  $0.Name get name => $_getN(0);
   @$pb.TagNumber(1)
-  set language($core.String v) { $_setString(0, v); }
+  set name($0.Name v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasLanguage() => $_has(0);
+  $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLanguage() => clearField(1);
+  void clearName() => clearField(1);
+  @$pb.TagNumber(1)
+  $0.Name ensureName() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $core.String get name => $_getSZ(1);
+  $core.String get parentId => $_getSZ(1);
   @$pb.TagNumber(2)
-  set name($core.String v) { $_setString(1, v); }
+  set parentId($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasName() => $_has(1);
+  $core.bool hasParentId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearParentId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get parentId => $_getSZ(2);
+  $core.String get code => $_getSZ(2);
   @$pb.TagNumber(3)
-  set parentId($core.String v) { $_setString(2, v); }
+  set code($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasParentId() => $_has(2);
+  $core.bool hasCode() => $_has(2);
   @$pb.TagNumber(3)
-  void clearParentId() => clearField(3);
+  void clearCode() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get code => $_getSZ(3);
+  AreaLevel get level => $_getN(3);
   @$pb.TagNumber(4)
-  set code($core.String v) { $_setString(3, v); }
+  set level(AreaLevel v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasCode() => $_has(3);
+  $core.bool hasLevel() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCode() => clearField(4);
-
-  @$pb.TagNumber(5)
-  AreaLevel get level => $_getN(4);
-  @$pb.TagNumber(5)
-  set level(AreaLevel v) { setField(5, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasLevel() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearLevel() => clearField(5);
+  void clearLevel() => clearField(4);
 }
 
 class NewAreaResponse extends $pb.GeneratedMessage {
