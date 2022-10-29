@@ -587,6 +587,7 @@ pub struct EditEntityRequest {
     pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
+    /// {field_id:value, ...}
     #[prost(bytes="vec", tag="3")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
@@ -594,6 +595,102 @@ pub struct EditEntityRequest {
 pub struct EditEntityResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 通用修改实体属性
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityFieldRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub field_id: ::prost::alloc::string::String,
+    /// {field_id:value}
+    #[prost(bytes="vec", tag="4")]
+    pub new_value: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityFieldResponse {
+    /// 成功返回新值
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 通用修改MAP实体属性
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityMapFieldRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub field_id: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub key: ::prost::alloc::string::String,
+    /// {key:value}
+    #[prost(bytes="vec", tag="5")]
+    pub new_value: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityMapFieldResponse {
+    /// 成功返回新值
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 通用修改MAP移除key
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityMapFieldRemoveKeyRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub field_id: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub key: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityMapFieldRemoveKeyResponse {
+    /// 成功返回key
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 通用修改List实体属性, 添加成员
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityListFieldAddItemsRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub field_id: ::prost::alloc::string::String,
+    /// {key:value}
+    #[prost(bytes="vec", tag="4")]
+    pub items: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityListFieldAddItemsResponse {
+    /// 成功返回新值
+    #[prost(bytes="vec", tag="1")]
+    pub result: ::prost::alloc::vec::Vec<u8>,
+}
+/// 通用修改List实体属性, 移除物体
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityListFieldRemoveItemsRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub field_id: ::prost::alloc::string::String,
+    /// {key:value}
+    #[prost(bytes="vec", tag="4")]
+    pub items: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntityListFieldRemoveItemsResponse {
+    /// 成功返回新值
+    #[prost(bytes="vec", tag="1")]
+    pub result: ::prost::alloc::vec::Vec<u8>,
 }
 /// 取得实体
 #[derive(Clone, PartialEq, ::prost::Message)]

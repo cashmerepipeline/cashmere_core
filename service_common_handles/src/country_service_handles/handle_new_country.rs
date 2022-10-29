@@ -50,7 +50,7 @@ pub trait HandleNewCountry {
 
         let name_doc = doc!{local_name.language.clone():local_name.name.clone()};
 
-        // 区域是否存在，存在则返回
+        // 是否存在，存在则返回
         if manager
             .entity_exists(doc! {
                 COUNTRIES_CODE_FIELD_ID.to_string():code.clone(),

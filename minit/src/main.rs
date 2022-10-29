@@ -183,7 +183,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let rule_name =
             match utils::get_name(map) {
                 Some(m) => m,
-                None => continue,
+                None => {
+                    println!("取得映像规则名失败: {} ", rule_id);
+                    continue
+                },
             };
 
         let view_rules = match utils::get_init_view_rules(map) {

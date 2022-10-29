@@ -4,8 +4,8 @@ use chrono::Utc;
 // use tokio::stream::StreamExt;
 use futures::stream::StreamExt;
 use linked_hash_map::LinkedHashMap;
-use mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
+use mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
 
 use cash_result::*;
@@ -25,16 +25,19 @@ pub async fn update_entity_field(
         None => return Err(collection_not_exists("update_entity_field")),
     };
 
+    let mut modify_doc = modify_doc.clone();
+    modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
+    modify_doc.insert(
+        MODIFY_TIMESTAMP_FIELD_ID.to_string(),
+        Utc::now().timestamp(),
+    );
+
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
             doc! {
             "$set": modify_doc,
-                "$set": {
-                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-                    MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
-                }
             },
             None,
         )

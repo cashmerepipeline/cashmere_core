@@ -21,4 +21,5 @@ const int EVENT_QUEUES_MANAGE_ID = 10020;
 const int AREAS_MANAGE_ID = 10021; 
 const int COMMENTS_MANAGE_ID = 10022; 
 const int COUNTRIES_MANAGE_ID = 10023; 
+const int TAGS_MANAGE_ID = 10024; 
 const int IDS_MANAGE_ID = 19999; 

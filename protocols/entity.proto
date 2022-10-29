@@ -52,11 +52,78 @@ message NewEntityResponse {
 message EditEntityRequest {
   int32 manage_id = 1;
   string entity_id = 2;
+  // {field_id:value, ...}
   bytes data = 3;
 }
 message EditEntityResponse {
   string result = 1;
 }
+
+// 通用修改实体属性
+message EditEntityFieldRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    // {field_id:value}
+    bytes new_value = 4;
+  }
+message EditEntityFieldResponse {
+  // 成功返回新值
+  string result = 1;
+}
+
+// 通用修改MAP实体属性
+message EditEntityMapFieldRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    string key = 4;
+    // {key:value}
+    bytes new_value = 5;
+  }
+message EditEntityMapFieldResponse {
+  // 成功返回新值
+  string result = 1;
+}
+
+// 通用修改MAP移除key
+message EditEntityMapFieldRemoveKeyRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    string key = 4;
+  }
+message EditEntityMapFieldRemoveKeyResponse {
+  // 成功返回key
+  string result = 1;
+}
+
+// 通用修改List实体属性, 添加成员
+message EditEntityListFieldAddItemsRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    // {key:value}
+    bytes items = 4;
+  }
+message EditEntityListFieldAddItemsResponse {
+  // 成功返回新值
+  bytes result = 1;
+}
+
+// 通用修改List实体属性, 移除物体
+message EditEntityListFieldRemoveItemsRequest {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    // {key:value}
+    bytes items = 4;
+  }
+message EditEntityListFieldRemoveItemsResponse {
+  // 成功返回新值
+  bytes result = 1;
+}
+
 
 // 取得实体
 message GetEntityRequest {

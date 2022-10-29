@@ -4,8 +4,8 @@ use chrono::Utc;
 // use tokio::stream::StreamExt;
 use futures::stream::StreamExt;
 use linked_hash_map::LinkedHashMap;
-use mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
+use mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
 
 use cash_result::*;
@@ -25,13 +25,14 @@ pub async fn insert_entity(
         None => return Err(collection_not_exists("insert_entity")),
     };
 
-    if entity_doc.contains_key(&ID_FIELD_ID.to_string()) {
-        let v = entity_doc
-            .get_str(&ID_FIELD_ID.to_string())
-            .unwrap()
-            .to_string();
-        entity_doc.insert("_id", v);
+    if !entity_doc.contains_key(&ID_FIELD_ID.to_string()) {
+        return Err(collection_not_exists("实体没有指定ID."));
     }
+
+    let id = entity_doc
+        .get_str(&ID_FIELD_ID.to_string())
+        .unwrap()
+        .to_string();
 
     // 创建标记
     entity_doc.insert(CREATOR_FIELD_ID.to_string(), account_id.clone());
@@ -55,7 +56,7 @@ pub async fn insert_entity(
         Ok(r) => Ok(r.inserted_id.as_str().unwrap().to_string()),
         Err(_e) => Err(operation_failed(
             "insert_entity",
-            format!("插入实体失败 {}", entity_doc),
+            format!("插入实体失败 {}-{}", manage_id, id),
         )),
     }
 }

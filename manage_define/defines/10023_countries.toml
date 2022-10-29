@@ -126,6 +126,24 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+[view_rules.schema.1010]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1011]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
 
 [view_rules.schema.2001]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
@@ -168,21 +186,21 @@ massage_queue = []
 
 # 初始实体
 [items]
-1000 = { 1000 = "1000", 1002 = "8610000000000", 1001 = { zh = "中国", en = "China" }, 1006 = "8610000000000", 1007 = [
+cn = { 1000 = "cn", 1002 = "8610000000000", 1001 = { zh = "中国", en = "China" }, 1006 = "8610000000000", 1007 = [
   "1000000",
 ], 1008 = [
 ], 1900 = [
-], 1200 = false, 2001 = "中国", 2002 = "CN", 2003 = [
+], 1200 = false, 2001 = "中国", 2002 = "cn", 2003 = [
   "86",
 ], 2004 = [
   "zh",
 ] }
 
-1001 = { 1000 = "1001", 1002 = "8610000000000", 1001 = { zh = "美国", en = "United States" }, 1006 = "8610000000000", 1007 = [
+us = { 1000 = "us", 1002 = "8610000000000", 1001 = { zh = "美国", en = "United States" }, 1006 = "8610000000000", 1007 = [
   "1000000",
 ], 1008 = [
 ], 1900 = [
-], 1200 = false, 2001 = "United States", 2002 = "US", 2003 = [
+], 1200 = false, 2001 = "United States", 2002 = "us", 2003 = [
   "1",
 ], 2004 = [
   "en",

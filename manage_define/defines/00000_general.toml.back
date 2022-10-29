@@ -20,7 +20,9 @@ schema = [
   { data_type = "List", name_map = { zh = "数据", en = "datas" }, removed = false },
   { data_type = "List", name_map = { zh = "已删除数据", en = "datas_removed" }, removed = false },
   { data_type = "List", name_map = { zh = "评论", en = "comments" }, removed = false },
-  { data_type = "Bool", name_map = { zh = "评论", en = "entity_removed" }, removed = false },
+  { data_type = "List", name_map = { zh = "标签", en = "tags" }, removed = false },
+  { data_type = "String", name_map = { zh = "描述", en = "descriptions" }, removed = false },
+  { data_type = "Bool", name_map = { zh = "删除", en = "entity_removed" }, removed = false },
 ]
 
 

@@ -120,6 +120,32 @@ massage_queue = []
 1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+[view_rules.schema.1009]
+1000000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1010]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1011]
+1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+1000001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
 
 [view_rules.schema.2001]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
