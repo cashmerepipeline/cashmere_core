@@ -16,8 +16,9 @@ manage_define = {path="../manage_define"}
 async-std = "1.9.0"
 futures = "0.3.13"
 chrono = { version = "0.4.19", features = ["serde"] }
-tokio = {version = "1.4.0"}
-mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
+tokio = {version = "1.21.2"}
+#mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
+mongodb = "2.3.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 linked-hash-map="0.5.3"

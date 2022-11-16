@@ -27,8 +27,8 @@ use manage_define::manage_ids::MANAGES_MANAGE_ID;
 pub struct EventsManager;
 
 /// 事件管理
-static mut EVENTS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut EVENTS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut EVENT_TYPES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut EVENT_TYPES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
 static mut EVENTS_MANAGER: Option<Arc<Manager>> = None;
@@ -44,7 +44,7 @@ impl ManagerTrait for EventsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        EVENTS_MANAGE_ID
+        EVENT_TYPES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {
@@ -57,36 +57,36 @@ impl ManagerTrait for EventsManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if EVENTS_MANAGE.is_some() {
-                EVENTS_MANAGE.clone().unwrap()
+            if EVENT_TYPES_MANAGE.is_some() {
+                EVENT_TYPES_MANAGE.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = EVENTS_MANAGE_ID.to_string();
+                let id_str = EVENT_TYPES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = manage_from_document(m_doc).unwrap();
-                EVENTS_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                EVENTS_MANAGE.clone().unwrap()
+                EVENT_TYPES_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                EVENT_TYPES_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if EVENTS_MANAGE_DOCUMENT.is_some() {
-                EVENTS_MANAGE_DOCUMENT.clone().unwrap()
+            if EVENT_TYPES_MANAGE_DOCUMENT.is_some() {
+                EVENT_TYPES_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = EVENTS_MANAGE_ID.to_string();
+                let id_str = EVENT_TYPES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
-                EVENTS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                EVENTS_MANAGE_DOCUMENT.clone().unwrap()
+                EVENT_TYPES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                EVENT_TYPES_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }

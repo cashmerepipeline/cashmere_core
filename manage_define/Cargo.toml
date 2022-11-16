@@ -10,7 +10,7 @@ edition = "2021"
 async-trait = "0.1.48"
 toml = "0.5.8"
 glob = "0.3.0"
-bson = "2.0.1"
+bson = "2.4.0"
 linked-hash-map = { version = "0.5.6", features = ["serde_impl"] }
 prost = "0.10.4"
 tonic = { version = "0.7.2", features = ["tls"] }

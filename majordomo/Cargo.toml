@@ -7,7 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bson = "2.0.1"
+bson = "2.4.0"
 parking_lot = "0.12.1"
 log = "0.4.14"
 

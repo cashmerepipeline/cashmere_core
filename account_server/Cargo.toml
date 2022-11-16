@@ -8,9 +8,9 @@ edition = "2021"
 [dependencies]
 async-trait = "0.1.48"
 tonic = { version = "0.7.2", features = ["tls"] }
-tokio = { version = "1.4.0" }
+tokio = { version = "1.21.2" }
 prost = "0.10.4"
-bson = "2.0.1"
+bson = "2.4.0"
 chrono = "0.4.19"
 log = "0.4.14"
 

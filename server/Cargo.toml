@@ -9,11 +9,11 @@ edition = "2021"
 [dependencies]
 linked-hash-map = { version = "0.5.6", feature = ["serde_impl"] }
 futures = "0.3.13"
-tokio = { version = "1.4.0" }
+tokio = { version = "1.21.2" }
 tonic = { version = "0.7.2", features = ["tls"] }
 prost = "0.10.4"
 chrono = "0.4.19"
-bson = "2.0.1"
+bson = "2.4.0"
 log = "0.4.14"
 
 cash_core = { path = "../cash_core" }

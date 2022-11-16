@@ -15,10 +15,10 @@ cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 
-bson = "2.0.1"
+bson = "2.4.0"
 sled = "0.34.4"
 futures = "0.3.13"
-tokio = { version = "1.4.0", features = ["sync"]}
+tokio = { version = "1.21.2", features = ["sync"]}
 parking_lot = "0.12.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
