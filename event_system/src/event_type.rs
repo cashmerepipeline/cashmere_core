@@ -11,7 +11,7 @@ use crate::event_message::EventMessageFieldInfo;
 pub struct EventType {
     pub uid: String,
     pub name: String,
-    pub schema: BTreeMap<String, EventMessageFieldInfo>,
+    pub message_schema: BTreeMap<String, EventMessageFieldInfo>,
     pub description: String,
     pub sender: Sender<Event>
 }
@@ -22,7 +22,7 @@ impl EventType {
             uid: uid.or(Some(Uuid::new_v4().urn().to_string())).unwrap(),
             name: new_name,
             description: description.or(Some("".to_string())).unwrap(),
-            schema: schema.or(Some(BTreeMap::new())).unwrap(),
+            message_schema: schema.or(Some(BTreeMap::new())).unwrap(),
             sender: sender
         }
     }

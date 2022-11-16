@@ -20,12 +20,13 @@ pub use event_echo_type::*;
 
 #[cfg(test)]
 mod tests {
-    use crate::event_system::{self, Event, EventEchoType};
+    use crate::{Event, EventEchoType};
+    use crate::event_service::{register_emitter, get_emitter, register_event_type, listen_event_type};
 
     #[test]
     fn register_event_type_test() {
         let id = register_event_type("test".to_string(), Default::default(), "".to_string());
-        let events_vec = get_event_types();
+        let events_vec = crate::event_types_map::get_event_types();
 
         println!("{}", id);
         println!("{:?}", events_vec[0]);

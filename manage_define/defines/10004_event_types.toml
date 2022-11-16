@@ -5,11 +5,12 @@
 # 事件由具体的记录发出，然后加入目标队列
 
 id = 10004
-name_map = { zh = "事件", en = "events" }
+name_map = { zh = "事件类型", en = "event_types" }
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "List", name_map = { zh = "目标队列", en = "queues" }, removed = false },
+  { data_type = "String", name_map = { zh = "编号", en = "uid" }, removed = false },
+  { data_type = "Map", name_map = { zh = "消息描写", en = "message_schema" }, removed = false },
 ]
 
 
