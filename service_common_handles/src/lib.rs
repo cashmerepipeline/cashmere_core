@@ -6,6 +6,8 @@ Created:  2021-02-14T09:31:29.747Z
 Modified: !date!
 */
 
+pub use types::*;
+
 pub mod area_service_handles;
 pub mod data_service_handles;
 pub mod entity_service_handles;
@@ -19,4 +21,3 @@ pub mod country_service_handles;
 
 mod types;
 
-pub use types::*;

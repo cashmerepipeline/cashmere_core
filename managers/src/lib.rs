@@ -26,7 +26,7 @@ pub mod language_codes_manager;
 pub mod comments_manager;
 pub mod datas_manager;
 pub mod event_handles_manager;
-pub mod event_queues_manager;
+// pub mod event_queues_manager;
 pub mod events_manager;
 pub mod groups_manager;
 pub mod manages_manager;

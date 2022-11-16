@@ -30,7 +30,7 @@ majordomo = { path = "../majordomo" }
 
 managers = { path = "../managers" }
 manage_define = { path = "../manage_define" }
-event = { path = "../event_system" }
+event_system = { path = "../event_system" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
 property_field = { path = "../property_field" }

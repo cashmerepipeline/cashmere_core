@@ -5,7 +5,6 @@ use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use property_field::{FieldDataType, PropertyField};

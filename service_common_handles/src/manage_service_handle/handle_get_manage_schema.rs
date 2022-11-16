@@ -1,12 +1,12 @@
 use async_trait::async_trait;
 use bson::doc;
-use property_field::PropertyField;
 use tokio_stream::StreamExt;
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
+use property_field::PropertyField;
 use view::can_field_read;
 
 #[async_trait]

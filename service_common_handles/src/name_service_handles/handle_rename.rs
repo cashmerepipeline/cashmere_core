@@ -8,7 +8,6 @@ use manage_define::general_field_ids::*;
 use managers::traits::ManagerTrait;
 use view;
 
-
 #[async_trait]
 pub trait HandleRename {
     async fn handle_rename(
