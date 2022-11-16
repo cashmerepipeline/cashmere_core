@@ -40,7 +40,7 @@ declare_get_manager!(CommentsManager, COMMENTS_MANAGER);
 #[async_trait]
 impl ManagerTrait for CommentsManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
-        Err(operation_failed("unregister", "账户管理器不能被注销"))
+        Err(operation_failed("unregister", format!("管理器不能被注销{}", COMMENTS_MANAGE_ID))
     }
 
     fn get_manager_id(&self) -> i32 {

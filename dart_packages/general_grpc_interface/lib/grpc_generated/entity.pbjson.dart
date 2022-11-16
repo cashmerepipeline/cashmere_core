@@ -142,6 +142,29 @@ const EditEntityMapFieldResponse$json = const {
 
 /// Descriptor for `EditEntityMapFieldResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List editEntityMapFieldResponseDescriptor = $convert.base64Decode('ChpFZGl0RW50aXR5TWFwRmllbGRSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+@$core.Deprecated('Use editEntityMapFieldRemoveKeyRequestDescriptor instead')
+const EditEntityMapFieldRemoveKeyRequest$json = const {
+  '1': 'EditEntityMapFieldRemoveKeyRequest',
+  '2': const [
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
+    const {'1': 'field_id', '3': 3, '4': 1, '5': 9, '10': 'fieldId'},
+    const {'1': 'key', '3': 4, '4': 1, '5': 9, '10': 'key'},
+  ],
+};
+
+/// Descriptor for `EditEntityMapFieldRemoveKeyRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityMapFieldRemoveKeyRequestDescriptor = $convert.base64Decode('CiJFZGl0RW50aXR5TWFwRmllbGRSZW1vdmVLZXlSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIZCghmaWVsZF9pZBgDIAEoCVIHZmllbGRJZBIQCgNrZXkYBCABKAlSA2tleQ==');
+@$core.Deprecated('Use editEntityMapFieldRemoveKeyResponseDescriptor instead')
+const EditEntityMapFieldRemoveKeyResponse$json = const {
+  '1': 'EditEntityMapFieldRemoveKeyResponse',
+  '2': const [
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+  ],
+};
+
+/// Descriptor for `EditEntityMapFieldRemoveKeyResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityMapFieldRemoveKeyResponseDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5TWFwRmllbGRSZW1vdmVLZXlSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
 @$core.Deprecated('Use editEntityListFieldAddItemsRequestDescriptor instead')
 const EditEntityListFieldAddItemsRequest$json = const {
   '1': 'EditEntityListFieldAddItemsRequest',
@@ -159,12 +182,12 @@ final $typed_data.Uint8List editEntityListFieldAddItemsRequestDescriptor = $conv
 const EditEntityListFieldAddItemsResponse$json = const {
   '1': 'EditEntityListFieldAddItemsResponse',
   '2': const [
-    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
+    const {'1': 'result', '3': 1, '4': 1, '5': 12, '10': 'result'},
   ],
 };
 
 /// Descriptor for `EditEntityListFieldAddItemsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntityListFieldAddItemsResponseDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5TGlzdEZpZWxkQWRkSXRlbXNSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
+final $typed_data.Uint8List editEntityListFieldAddItemsResponseDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5TGlzdEZpZWxkQWRkSXRlbXNSZXNwb25zZRIWCgZyZXN1bHQYASABKAxSBnJlc3VsdA==');
 @$core.Deprecated('Use editEntityListFieldRemoveItemsRequestDescriptor instead')
 const EditEntityListFieldRemoveItemsRequest$json = const {
   '1': 'EditEntityListFieldRemoveItemsRequest',

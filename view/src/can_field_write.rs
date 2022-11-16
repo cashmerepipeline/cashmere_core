@@ -19,6 +19,8 @@ pub async fn can_field_write(
             rules_map
                 .get(group)
                 .and_then(|rule| {
+                    // println!("{:?}", rules_map);
+                    // println!("{:?}", rule);
                     result = result
                         || rule.write_rule == WriteRule::Write
                         || rule.write_rule == WriteRule::OwnerWrite

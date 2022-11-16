@@ -663,7 +663,7 @@ pub struct EditEntityListFieldAddItemsRequest {
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
     pub field_id: ::prost::alloc::string::String,
-    /// {key:value}
+    /// {field_id:\[items\]}
     #[prost(bytes="vec", tag="4")]
     pub items: ::prost::alloc::vec::Vec<u8>,
 }
@@ -682,7 +682,7 @@ pub struct EditEntityListFieldRemoveItemsRequest {
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
     pub field_id: ::prost::alloc::string::String,
-    /// {key:value}
+    /// {field_id:\[items\]}
     #[prost(bytes="vec", tag="4")]
     pub items: ::prost::alloc::vec::Vec<u8>,
 }

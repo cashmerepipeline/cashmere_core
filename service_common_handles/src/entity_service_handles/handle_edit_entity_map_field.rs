@@ -46,7 +46,7 @@ pub trait HandleEditEntityMapField {
         let value =
             match Document::from_reader(new_value.reader()) {
                 Ok(ref v) => {
-                    let t_v = v.get(field_id);
+                    let t_v = v.get(key);
                     if t_v.is_some() {
                         t_v.unwrap().clone()
                     } else {

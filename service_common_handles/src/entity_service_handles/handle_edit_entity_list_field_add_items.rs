@@ -29,7 +29,7 @@ pub trait HandleEditEntityListFieldAddItems {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
         let field_id = &request.get_ref().field_id;
-        // bson bytes {field_id:new_value}
+        // bson bytes {field_id:items}
         let items = &request.get_ref().items;
 
         if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await

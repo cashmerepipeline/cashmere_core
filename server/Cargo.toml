@@ -22,7 +22,7 @@ account = { path = "../account" }
 majordomo = { path = "../majordomo" }
 
 managers = { path = "../managers" }
-event = { path = "../event" }
+event = { path = "../event_system" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
 view = { path = "../view" }

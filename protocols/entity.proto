@@ -103,7 +103,7 @@ message EditEntityListFieldAddItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
-    // {key:value}
+    // {field_id:[items]}
     bytes items = 4;
   }
 message EditEntityListFieldAddItemsResponse {
@@ -116,7 +116,7 @@ message EditEntityListFieldRemoveItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
-    // {key:value}
+    // {field_id:[items]}
     bytes items = 4;
   }
 message EditEntityListFieldRemoveItemsResponse {
