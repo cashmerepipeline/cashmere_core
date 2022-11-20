@@ -32,29 +32,30 @@ macro_rules! declare_get_manager {
     }
 }
 
-// #[macro_export]
-// macro_rules! declare_get_manage {
-//     ($static_manage:ident, $id:ident) => {
-//         // 取得管理器
-//         async fn get_manage(&self) -> Arc<RwLock<Manage>> {
-//             unsafe {
-//                 if $static_manager.is_some() {
-//                     $static_manager.as_ref().unwrap()
-//                 } else {
-//                     let collection_name = $id.to_string();
-//                     let id_str = $id.to_string();
-//                     let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
-//                         Ok(r) => r,
-//                         Err(e) => panic!("{} {}", e.operation(), e.details())),
-//                     };
-//                     let manage: Manage = manage_from_document(m_doc).unwrap(;
-//                     $static_manager.replace(Arc::new(RwLock::new(manage)));
-//                     $static_manager.clone().unwrap()
-//                 }
-//             }
-//         }
-//     }
-// }
+#[macro_export]
+macro_rules! declare_default_get_manage {
+    ($static_manage:ident, $id:ident) => {
+        // 取得管理器
+        async fn get_manage(&self) -> Arc<RwLock<Manage>> {
+            unsafe {
+                if $static_manager.is_some() {
+                    $static_manager.as_ref().unwrap()
+                } else {
+                    let manages_collection_name = MANAGES_MANAGE_ID.to_string();
+                    let id_str = $id.to_string();
+                    let m_doc = match entity::get_entity_by_id(&manages_collection_name, &id_str).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
+
+                    let manage: Manage = manage_from_document(m_doc).unwrap();
+                    $static_manager.replace(Arc::new(RwLock::new(manage)));
+                    $static_manager.clone().unwrap()
+                }
+            }
+        }
+    }
+}
 
 // #[macro_export]
 // macro_rules! declare_get_manage_document {

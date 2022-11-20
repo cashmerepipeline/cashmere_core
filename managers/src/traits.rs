@@ -70,7 +70,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn get_manage_document(&self) -> Arc<RwLock<Document>>;
 
     // ---------------------------
-    //  管理描写
+    //  管理描写模式
     // ---------------------------
     // 取得管理描写, 如果为空则返回空表，无异常发生
     async fn get_manage_schema(&self) -> Vec<PropertyField> {

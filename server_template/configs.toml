@@ -1,12 +1,15 @@
 [database]
-address = "192.168.2.29"
+address = "127.0.0.1"
 port = 27017
-name = "cashmere_db"
+name = "knitter_db"
 
 [server]
 root_dir = "."
-address = "192.168.2.29"
+address = "127.0.0.1"
 port = "8800"
+
+# 管理插件位置
+managers_path = ["target/debug"]
 
 # 加密
 use_tls = false
@@ -34,7 +37,7 @@ max_file_size = 16777216
 # 文件集最大数量, 1000
 max_set_file_number = 1000
 # 文件序列最大数量
-max_sequence_file_number = 10000
+max_sequence_file_number = 7200
 # 块最大大小，1024*128=128KB
 max_chunk_size = 131072
 

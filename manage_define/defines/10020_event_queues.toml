@@ -33,7 +33,6 @@ massage_queue = []
 
 
 [view_rules]
-
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",

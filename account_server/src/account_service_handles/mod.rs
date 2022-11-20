@@ -18,7 +18,6 @@ use manage_define::manage_ids::PERSONS_MANAGE_ID;
 use managers::traits::ManagerTrait;
 
 use crate::UnaryResponseResult;
-use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIONS_FIELD_ID};
 
 mod handle_login;
 mod handle_new_account;

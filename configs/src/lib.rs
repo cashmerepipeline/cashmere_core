@@ -26,6 +26,7 @@ pub struct ServerConfigs {
     // pub managers_path: Vec<String>,
     pub events_dbs_dir: String,
     pub lang_code: String,
+    pub log_dir: String,
 }
 
 #[derive(Deserialize, Clone)]

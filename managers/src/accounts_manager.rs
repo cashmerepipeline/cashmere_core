@@ -20,7 +20,7 @@ use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-use crate::declare_get_manager;
+use crate::{declare_get_manager, declare_default_get_manage};
 use bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
@@ -56,6 +56,7 @@ impl ManagerTrait for AccountsManager {
         false
     }
 
+    // declare_default_get_manage!(ACCOUNTS_MANAGER, ACCOUNTS_MANAGE_ID);
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
             if ACCOUNTS_MANAGE.is_some() {

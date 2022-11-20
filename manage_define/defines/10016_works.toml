@@ -1,10 +1,6 @@
 # 
-# Author: 闫刚 (yes7rose@sina.com)
-# works.toml (c) 2020
-# Desc: 工作
-# Created:  2020-11-11T23:22:49.855Z
-# Modified: !date!
-# 
+#  工作
+#
 
 id = 10016
 name_map = { zh = "工作", en = "works" }
