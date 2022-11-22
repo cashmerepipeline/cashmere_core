@@ -1,0 +1,13 @@
+syntax = "proto3";
+package cashmere;
+
+import "name"
+
+// 新过程
+message NewWorkProcedureRequest {
+  string work_phase_id = 1;
+  Name name = 2;
+}
+message NewWorkProcedureResponse{
+  string result = 1;
+}

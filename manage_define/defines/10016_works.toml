@@ -7,10 +7,10 @@ name_map = { zh = "工作", en = "works" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { zh = "管理", en = "manage" }, removed = false },
+  { data_type = "String", name_map = { zh = "管理编号", en = "manage_id" }, removed = false },
   # 阶段：过程
-  { data_type = "Map", name_map = { zh = "阶段", en = "phase_set" }, removed = false },
-  # 状态 等待开始，正在进行，取消，完成
+  { data_type = "List", name_map = { zh = "阶段", en = "phase_ids" }, removed = false },
+  # 状态 等待开始，挂起，正在进行，取消，完成
   { data_type = "String", name_map = { zh = "状态", en = "status" }, removed = false },
 ]
 

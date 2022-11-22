@@ -9,7 +9,7 @@ name_map = { zh = "工作节点", en = "work_nodes" }
 schema = [
   { data_type = "String", name_map = { zh = "过程编号", en = "procedure" }, removed = false },
   { data_type = "List", name_map = { zh = "任务表", en = "tasks" }, removed = false },
-  { data_type = "String", name_map = { zh = "工作者", en = "worker" }, removed = false },
+  { data_type = "String", name_map = { zh = "工人", en = "worker" }, removed = false },
   { data_type = "Map", name_map = { zh = "参考数据", en = "reference_datas" }, removed = false },
   { data_type = "Map", name_map = { zh = "依赖数据", en = "depended_datas" }, removed = false },
   { data_type = "Map", name_map = { zh = "工作数据", en = "work_datas" }, removed = false },

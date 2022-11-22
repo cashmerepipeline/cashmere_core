@@ -20,6 +20,49 @@ enum SlotType{
   OutData = 3;
 }
 
+// 新工作节点
+message NewWorkNodeRequest{
+  string procedure_id = 1;
+  string node_name = 2;
+}
+message NewWorkNodeResponse{
+  string result = 1;
+}
+
+// 工作流关系
+message CreateWorkNodeLinkRequest{
+  string procedure_id = 1;
+  string start_node_id = 2;
+  string out_slot = 3;
+  string end_node_id = 4;
+  string in_slot = 5;
+}
+message CreateWorkNodeLinkResponse{
+  string result = 1;
+}
+
+message RemoveWorkNodeLinkRequest{
+  string procedure_id = 1;
+  string start_node_id = 2;
+  string out_slot = 3;
+  string end_node_id = 4;
+  string in_slot = 5;
+}
+message RemoveWorkNodeLinkResponse{
+  string result = 1;
+}
+
+// 指派工作任务
+message AssignWorkNodeToWorkerRequest{
+  string work_node_id = 1;
+  string worker_id = 2;
+}
+
+message AssignWorkNodeToWorkerResponse{
+  string result = 1;
+}
+
+// 数据依赖和产出
 message NewDataSlotForWorkNodeRequest{
   string node_id = 1;
   SlotType slot_type = 2;

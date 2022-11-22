@@ -3,11 +3,12 @@
 # 
 
 id = 10018
-name_map = { zh = "阶段集", en = "phase_sets" }
+name_map = { zh = "阶段集", en = "work_phases" }
 
 # 描写，模式
 schema = [
-  { data_type = "List", name_map = { zh = "阶段列表", en = "phases" }, removed = false },
+  { data_type = "String", name_map = { zh = "工作编号", en = "work_id" }, removed = false },
+  { data_type = "List", name_map = { zh = "过程表", en = "procedure_ids" }, removed = false },
 ]
 
 [queues]

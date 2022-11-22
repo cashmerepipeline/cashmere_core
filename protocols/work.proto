@@ -9,62 +9,29 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+// 工作状态
+enum WorkStatus {
+  WaitingStart = 0;
+  Suspending = 1;
+  Finished = 2;
+  Canceled = 4;
+}
+
+// 新工作
 message NewWorkRequest {
   string manage_id = 1;
   string name = 2;
 }
-
 message NewWorkResponse{
   string result = 1;
 }
 
-// 添加
-message NewPhaseForWorkRequest{
+// 标记工作状态
+message MarkWorkStatusRequest {
   string work_id = 1;
-  string phase_name = 2;
+  WorkStatus status = 2;
 }
-
-message NewPhaseForWorkResponse{
-  string result = 1;
-}
-
-message NewWorkNodeForProcedureGraphRequest{
-  string procedure_id = 1;
-  string node_name = 2;
-}
-message NewWorkNodeForProcedureGraphResponse{
-  string result = 1;
-}
-
-
-message CreateWorkNodeLinkRequest{
-  string procedure_id = 1;
-  string start_node_id = 2;
-  string out_slot = 3;
-  string end_node_id = 4;
-  string in_slot = 5;
-}
-message CreateWorkNodeLinkResponse{
-  string result = 1;
-}
-
-message RemoveWorkNodeLinkRequest{
-  string procedure_id = 1;
-  string start_node_id = 2;
-  string out_slot = 3;
-  string end_node_id = 4;
-  string in_slot = 5;
-}
-message RemoveWorkNodeLinkResponse{
-  string result = 1;
-}
-
-message AssignWorkNodeToWorkerRequest{
-  string work_node_id = 1;
-  string worker_id = 2;
-}
-
-message AssignWorkNodeToWorkerResponse{
+message MarkWorkStatusResponse {
   string result = 1;
 }
 

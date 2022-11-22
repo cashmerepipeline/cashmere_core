@@ -27,19 +27,17 @@ macro_rules! declare_handle_new_graph {
                     None => return Err(Status::unauthenticated("用户不具有可写权限")),
                 };
 
-            let mut new_entity_doc = Document::new();
-
             let majordomo_arc = get_majordomo().await;
             let manager = majordomo_arc
                 .get_manager_by_id(GRAPHS_MANAGE_ID)
                 .await
                 .unwrap();
-            let new_id = manager.get_new_entity_id().await.unwrap();
 
             let local_name = doc! {
                 local.clone(): name.clone()
             };
 
+            if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
             new_entity_doc.insert("_id", new_id.to_string());
             new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());
             new_entity_doc.insert(NAME_FIELD_ID.to_string(), local_name);
@@ -64,6 +62,9 @@ macro_rules! declare_handle_new_graph {
                     e.operation(),
                     e.details()
                 ))),
+            }
+            }else {
+            Err(Status::aborted("创建新区域失败"))
             }
         }
     };

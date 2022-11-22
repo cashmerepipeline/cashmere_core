@@ -6,28 +6,16 @@ Created:  2020-11-12T03:01:22.508Z
 Modified: !date!
 */
 
-mod graph;
-mod node;
+mod procedure_graph;
+mod work_node;
 mod task;
-mod procedure;
-mod phases;
-
-
-
+mod work_phases;
 
 use bson::{doc};
 
 
-use serde::{Deserialize, Serialize};
 
-/// 过程阶段
-#[derive(Debug, Deserialize, Serialize)]
-pub struct WorkPhase{
-    pub index: i32,
-    pub name: String,
-}
-
-/// 新建工作，直接添加到数据库，无缓存
+// /// 新建工作，直接添加到数据库，无缓存
 // pub async fn new_work(
 //     manage_id: &String,
 //     account_id: &String,
@@ -51,7 +39,7 @@ pub struct WorkPhase{
 //     .await
 // }
 
-/// 添加过程
+// /// 添加过程
 // pub async fn add_precedure(
 //     work_id: &String,
 //     phase_set_id: &String,
@@ -75,11 +63,3 @@ pub struct WorkPhase{
 //
 //     procedure::get_procedure(&pro_id).await
 // }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}

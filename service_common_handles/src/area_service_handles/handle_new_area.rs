@@ -39,14 +39,14 @@ pub trait HandleNewArea {
             .await
             .unwrap();
 
-        let local_name =match name {
-            Some(n)=>n,
+        let local_name = match name {
+            Some(n) => n,
             None => {
                 return Err(Status::aborted(format!("没有指定名称--{}", code)));
             }
         };
 
-        let name_doc = doc!{local_name.language.clone():local_name.name.clone()};
+        let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
 
         // 区域是否存在，存在则返回
         if manager
@@ -84,4 +84,3 @@ pub trait HandleNewArea {
         }
     }
 }
-

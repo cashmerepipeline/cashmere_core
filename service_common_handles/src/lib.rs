@@ -18,6 +18,10 @@ pub mod name_utils;
 pub mod language_code_handles;
 pub mod view_rules_service_handles;
 pub mod country_service_handles;
+pub mod work_service_handles;
+pub mod work_phase_service_handles;
+pub mod work_procedure_handles;
+pub mod work_node_service_handles;
 
 mod types;
 
