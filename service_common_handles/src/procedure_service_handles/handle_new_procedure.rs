@@ -1,46 +1,42 @@
 use async_trait::async_trait;
 use bson::doc;
-use managers::utils::make_new_entity_document;
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::general_field_ids::*;
 use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
 use view;
 
 #[async_trait]
-pub trait HandleNewWorkNode {
-    async fn handle_new_work_node(
+pub trait HandleNewProcedure {
+    async fn handle_new_procedure(
         &self,
-        request: Request<NewWorkNodeRequest>,
-    ) -> Result<Response<NewWorkNodeResponse>, Status> {
+        request: Request<NewProcedureRequest>,
+    ) -> Result<Response<NewProcedureResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let phase_id = &request.get_ref().phase_id;
+        let template_id = &request.get_ref().template_id;
         let name = &request.get_ref().name;
 
-        if !view::can_collection_write(
-            &account_id,
-            &role_group,
-            &WORK_NODES_MANAGE_ID.to_string(),
-        )
-            .await
-        {
+        if !view::can_collection_write(&account_id, &role_group, &PROCEDURES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(WORK_NODES_MANAGE_ID)
+            .get_manager_by_id(PROCEDURES_MANAGE_ID)
             .await
             .unwrap();
+
+        // TODO: 阶段名是否已经在工作中检查
 
         let local_name = match name {
             Some(n) => n,
@@ -50,6 +46,8 @@ pub trait HandleNewWorkNode {
         };
         let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
 
+
+        // 新过程
         if let Some(mut new_doc) = make_new_entity_document(&manager).await {
             new_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
 
@@ -59,7 +57,7 @@ pub trait HandleNewWorkNode {
 
             match result {
                 Ok(r) => {
-                    Ok(Response::new(NewWorkNodeResponse {
+                    Ok(Response::new(NewProcedureResponse {
                         result: "ok".to_string(),
                     }))
                 }
@@ -74,3 +72,4 @@ pub trait HandleNewWorkNode {
         }
     }
 }
+

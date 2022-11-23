@@ -1,0 +1,13 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+// 新过程
+message NewProcedureRequest {
+  Name name = 1;
+  string template_id = 2;
+}
+message NewProcedureResponse{
+  string result = 1;
+}

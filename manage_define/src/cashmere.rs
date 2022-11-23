@@ -1079,6 +1079,7 @@ pub struct LinkEventQueueRequest {
     #[prost(int32, tag="1")]
     pub queue_id: i32,
 }
+/// 新工作
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewWorkRequest {
     #[prost(string, tag="1")]
@@ -1091,96 +1092,51 @@ pub struct NewWorkResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 添加
+/// 标记工作状态
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewPhaseForWorkRequest {
+pub struct MarkWorkStatusRequest {
     #[prost(string, tag="1")]
     pub work_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub phase_name: ::prost::alloc::string::String,
+    #[prost(enumeration="WorkStatus", tag="2")]
+    pub status: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewPhaseForWorkResponse {
+pub struct MarkWorkStatusResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewWorkNodeForProcedureGraphRequest {
-    #[prost(string, tag="1")]
-    pub procedure_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub node_name: ::prost::alloc::string::String,
+/// 工作状态
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum WorkStatus {
+    WaitingStart = 0,
+    Suspending = 1,
+    Finished = 2,
+    Canceled = 4,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewWorkNodeForProcedureGraphResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateWorkNodeLinkRequest {
-    #[prost(string, tag="1")]
-    pub procedure_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub start_node_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub out_slot: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub end_node_id: ::prost::alloc::string::String,
-    #[prost(string, tag="5")]
-    pub in_slot: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateWorkNodeLinkResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveWorkNodeLinkRequest {
-    #[prost(string, tag="1")]
-    pub procedure_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub start_node_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub out_slot: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub end_node_id: ::prost::alloc::string::String,
-    #[prost(string, tag="5")]
-    pub in_slot: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveWorkNodeLinkResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssignWorkNodeToWorkerRequest {
+pub struct NewTaskRequest {
     #[prost(string, tag="1")]
     pub work_node_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub worker_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<Name>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssignWorkNodeToWorkerResponse {
+pub struct NewTaskResponse {
+    /// id if success
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTaskForWorkNodeRequest {
-    #[prost(string, tag="1")]
-    pub work_node_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTaskForWorkNodeResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewDataForTaskRequest {
+pub struct NewTaskDataRequest {
     #[prost(string, tag="1")]
     pub task_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub data_name: ::core::option::Option<Name>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewDataForTaskResponse {
+pub struct NewTaskDataResponse {
+    /// id if success
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -1220,28 +1176,107 @@ pub struct MarkTaskStatusResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 新阶段
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewWorkPhaseRequest {
+pub struct NewPhaseRequest {
     #[prost(string, tag="1")]
-    pub name: ::prost::alloc::string::String,
+    pub procedure_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<Name>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewWorkPhaseResponse {
+pub struct NewPhaseResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 标记阶段状态
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditWorkPhaseRequest {
+pub struct MarkPhaseStatusRequest {
     #[prost(string, tag="1")]
     pub phase_id: ::prost::alloc::string::String,
-    #[prost(bytes="vec", tag="2")]
-    pub new_phase: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="2")]
+    pub status: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditWorkPhaseResponse {
+pub struct MarkPhaseStatusResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 阶段状态
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum PhaseStatus {
+    PhaseRunning = 0,
+    PhaseSuspending = 1,
+    PhaseCanceled = 2,
+    PhaseEnd = 3,
+}
+/// 新工作节点
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewWorkNodeRequest {
+    #[prost(string, tag="1")]
+    pub phase_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="3")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewWorkNodeResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 工作流关系
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateWorkNodeLinkRequest {
+    #[prost(string, tag="1")]
+    pub phase_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub start_node_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub out_slot: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub end_node_id: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
+    pub in_slot: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateWorkNodeLinkResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveWorkNodeLinkRequest {
+    #[prost(string, tag="1")]
+    pub phase_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub start_node_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub out_slot: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub end_node_id: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
+    pub in_slot: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveWorkNodeLinkResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 指派工作任务
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssignWorkNodeRequest {
+    #[prost(string, tag="1")]
+    pub work_node_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub worker_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssignWorkNodeResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 数据依赖和产出
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataSlotForWorkNodeRequest {
     #[prost(string, tag="1")]
@@ -1293,6 +1328,19 @@ pub enum SlotType {
     WorkData = 2,
     /// 输出
     OutData = 3,
+}
+/// 新过程
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewProcedureRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="2")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewProcedureResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTagTypeRequest {

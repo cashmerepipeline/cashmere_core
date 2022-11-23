@@ -12,19 +12,19 @@ package cashmere;
 import "name.proto";
 
 // 阶段状态
-enum WorkPhaseStatus {
-  Running = 0;
-  Suspending = 1;
-  Canceled = 2;
-  End = 3;
+enum PhaseStatus {
+  PhaseRunning = 0;
+  PhaseSuspending = 1;
+  PhaseCanceled = 2;
+  PhaseEnd = 3;
 }
 
 // 新阶段
-message NewWorkPhaseRequest {
-  string work_id = 1;
+message NewPhaseRequest {
+  string procedure_id = 1;
   Name name = 2;
 }
-message NewWorkPhaseResponse{
+message NewPhaseResponse{
   string result = 1;
 }
 

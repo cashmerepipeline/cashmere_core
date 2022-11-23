@@ -1,38 +1,33 @@
-#
-# 过程定义
+# 
+#  工作
 #
 
-id = 10010
-name_map = { zh = "过程", en = "procedures" }
+id = 10016
+name_map = { zh = "状态集", en = "status_sets" }
 
 # 描写，模式
 schema = [
-  { data_type = "String", name_map = { zh = "工作编号", en = "work_id" }, removed = false },
-  { data_type = "String", name_map = { zh = "阶段", en = "phase_id" }, removed = false },
-  # 每个过程对应一个工作图
-  { data_type = "List", name_map = { zh = "工作节点", en = "work_nodes" }, removed = false },
-  { data_type = "List", name_map = { zh = "连接表", en = "links" }, removed = false },
-  { data_type = "Int64", name_map = { zh = "开始时间", en = "start_time" }, removed = false },
-  { data_type = "Int64", name_map = { zh = "计划时长", en = "plan_duration" }, removed = false },
-  { data_type = "Int64", name_map = { zh = "实际时长", en = "real_duration" }, removed = false },
+  { data_type = "List", name_map = { zh = "状态表", en = "statuses" }, removed = false },
 ]
 
+# 管理id
+manage = "String"
+# 过程id
+procedure = "String"
+
+status = "String"
+
 [queues]
-event_queue = ["procedure_event_queue"]
-massage_queue = ["procedure_message_queue"]
+event_queue = []
+massage_queue = []
 
 [events]
-before_create = { manage = "procedures", python = "" }
-after_create = { manage = "procedures", python = "" }
-before_start = { manage = "procedures", python = "" }
-after_start = { manage = "procedures", python = "" }
-after_finish = { manage = "procedures", python = "" }
 
 [items]
 
 [view_rules]
-id = 10010
-name_map = { zh = "过程", en = "procedures" }
+id = 10016
+name_map = { zh = "工作", en = "works" }
 
 [view_rules.manage]
 1000000 = { read_rule = "Read", write_rule = "Write", read_filters = [

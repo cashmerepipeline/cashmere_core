@@ -26,9 +26,9 @@ members = [
   "data_utils",
   # "minit",
   "message",
-  "procedure",
+  # "procedure",
   "view",
-  "work",
+  # "work",
 ]
 
 exclude = ["server", "minit"]

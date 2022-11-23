@@ -9,18 +9,23 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
 
-message NewTaskForWorkNodeRequest{
+message NewTaskRequest{
     string work_node_id = 1;
+    Name name = 2;
 }
-message NewTaskForWorkNodeResponse{
+message NewTaskResponse{
+    // id if success
     string result = 1;
 }
 
-message NewDataForTaskRequest{
+message NewTaskDataRequest{
     string task_id = 1;
+    Name data_name = 2;
 }
-message NewDataForTaskResponse{
+message NewTaskDataResponse{
+    // id if success
     string result = 1;
 }
 

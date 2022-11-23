@@ -9,6 +9,8 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 enum SlotType{
   // 参考数据
   RefrenceData = 0;
@@ -22,8 +24,9 @@ enum SlotType{
 
 // 新工作节点
 message NewWorkNodeRequest{
-  string procedure_id = 1;
-  string node_name = 2;
+  string phase_id = 1;
+  Name name = 2;
+  string template_id = 3;
 }
 message NewWorkNodeResponse{
   string result = 1;
@@ -31,7 +34,7 @@ message NewWorkNodeResponse{
 
 // 工作流关系
 message CreateWorkNodeLinkRequest{
-  string procedure_id = 1;
+  string phase_id = 1;
   string start_node_id = 2;
   string out_slot = 3;
   string end_node_id = 4;
@@ -42,7 +45,7 @@ message CreateWorkNodeLinkResponse{
 }
 
 message RemoveWorkNodeLinkRequest{
-  string procedure_id = 1;
+  string phase_id = 1;
   string start_node_id = 2;
   string out_slot = 3;
   string end_node_id = 4;
@@ -53,12 +56,12 @@ message RemoveWorkNodeLinkResponse{
 }
 
 // 指派工作任务
-message AssignWorkNodeToWorkerRequest{
+message AssignWorkNodeRequest{
   string work_node_id = 1;
   string worker_id = 2;
 }
 
-message AssignWorkNodeToWorkerResponse{
+message AssignWorkNodeResponse{
   string result = 1;
 }
 
