@@ -25,7 +25,7 @@ members = [
   "managers",
   "data_utils",
   # "minit",
-  "message",
+  "conversation_system",
   # "procedure",
   "view",
   # "work",
