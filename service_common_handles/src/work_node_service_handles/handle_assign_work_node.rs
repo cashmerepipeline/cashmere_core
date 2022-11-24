@@ -45,7 +45,7 @@ pub trait HandleAssignWorkNode{
             "_id":work_node_id
         };
         let modify_doc = doc! {
-             WORK_NODE_WORKER_FIELD_ID.to_string():worker_id
+             WORK_NODES_WORKER_FIELD_ID.to_string():worker_id
         };
 
         let result = node_manager
@@ -53,7 +53,7 @@ pub trait HandleAssignWorkNode{
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(AssignWorkNodeToWorkerResponse {
+            Ok(_r) => Ok(Response::new(AssignWorkNodeResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

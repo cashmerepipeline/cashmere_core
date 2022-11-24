@@ -36,7 +36,6 @@ pub trait HandleMarkTaskStatus {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-
         let majordomo_arc = get_majordomo().await;
         let task_manager = majordomo_arc
             .get_manager_by_id(TASKS_MANAGE_ID)
@@ -44,11 +43,17 @@ pub trait HandleMarkTaskStatus {
             .unwrap();
 
         let new_value = bson::to_bson(&doc! {status_set_id:status_index}).unwrap();
+        let query_doc = doc! {
+            ID_FIELD_ID.to_string(): task_id.clone(),
+        };
+        let modify_doc = doc! {
+            TASKS_STATUS_FIELD_ID.to_string(): new_value,
+        };
+
         let result = task_manager
             .update_entity_field(
-                task_id,
-                &TASKS_STATUS_FIELD_ID.to_string(),
-                new_value,
+                query_doc,
+                modify_doc,
                 &account_id,
             )
             .await;

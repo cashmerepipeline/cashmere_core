@@ -14,6 +14,7 @@ schema = [
   { data_type = "Map", name_map = { zh = "依赖数据", en = "depended_datas" }, removed = false },
   { data_type = "Map", name_map = { zh = "工作数据", en = "work_datas" }, removed = false },
   { data_type = "Map", name_map = { zh = "输出数据", en = "out_datas" }, removed = false },
+  { data_type = "List", name_map = { zh = "连接表", en = "links" }, removed = false },
 ]
 
 [queues]
