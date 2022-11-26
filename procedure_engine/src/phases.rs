@@ -27,10 +27,7 @@ use serde::{Deserialize, Serialize};
 /// 过程阶段
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Phase{
-    pub set_id: String,
+    pub procedure_id: String,
     pub index: u8, 
     pub phase: String,
 }
-
-// 更新当前过程
-

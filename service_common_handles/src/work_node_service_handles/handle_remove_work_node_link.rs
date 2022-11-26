@@ -32,7 +32,7 @@ pub trait HandleRemoveWorkNodeLink {
 
         let end_node_id = &request.get_ref().end_node_id;
 
-        if !view::can_entity_write(&account_id, &role_group, &PROCEDURES_MANAGE_ID.to_string())
+        if !view::can_entity_write(&account_id, &role_group, &WORK_NODES_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -40,7 +40,7 @@ pub trait HandleRemoveWorkNodeLink {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(PROCEDURES_MANAGE_ID)
+            .get_manager_by_id(WORK_NODES_MANAGE_ID)
             .await
             .unwrap();
 
