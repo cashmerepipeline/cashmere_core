@@ -17,7 +17,7 @@ login_limit = 2
 events_dbs_dir = "events_dbs"
 
 # 默认语音
-lang_code = "zh"
+language_code = "zh"
 
 # 日志位置
 log_dir = "log"

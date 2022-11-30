@@ -16,7 +16,7 @@ use crate::get_entity_field;
 
 /// 根据服务器的语言设置取得实体名
 pub fn get_entity_name(entity_doc: &Document) -> Option<String> {
-    let lang_code = configs::get_lang_code();
+    let lang_code = configs::get_language_code();
 
     let name = match get_entity_field::get_entity_field(entity_doc, &NAME_MAP_FIELD_ID.to_string()) {
         Some(b) => b,

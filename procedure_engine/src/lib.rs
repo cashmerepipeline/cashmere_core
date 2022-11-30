@@ -7,7 +7,6 @@ Modified: !date!
 */
 
 mod phases;
-mod work_graph;
 mod work_node;
 mod task;
 

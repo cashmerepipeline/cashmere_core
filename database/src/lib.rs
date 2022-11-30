@@ -1,11 +1,4 @@
 /*
-Project: grpc_server
-Creator: 闫刚
-Create time: 2020-09-24 14:44
-Introduction:
-*/
-
-/*
 使用单例模式创建数据库 client
 所有操作只使用一个client, 需要进一步测试
 */

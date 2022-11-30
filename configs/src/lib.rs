@@ -25,7 +25,7 @@ pub struct ServerConfigs {
     pub login_limit: u8,
     // pub managers_path: Vec<String>,
     pub events_dbs_dir: String,
-    pub lang_code: String,
+    pub language_code: String,
     pub log_dir: String,
 }
 
@@ -126,9 +126,9 @@ pub fn get_database_configs() -> DatabaseConfigs{
 }
 
 /// 取得服务器语言设置
-pub fn get_lang_code() -> String {
+pub fn get_language_code() -> String {
     let configs = get_configs();
-    configs.server.lang_code.clone()
+    configs.server.language_code.clone()
 }
 
 /// 取得数据设置
