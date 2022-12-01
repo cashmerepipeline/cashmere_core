@@ -2,11 +2,6 @@
     可监听事件表
  */
 
-use std::collections::BTreeMap;
-use std::sync::Arc;
-
-use parking_lot::RwLock;
-
 pub use deregister_event_type::*;
 pub use event_types_map::get_event_types_map;
 pub use get_event_type::*;

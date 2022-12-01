@@ -14,7 +14,6 @@ use serde::{Deserialize, Serialize};
 use configs;
 
 mod claims;
-mod hash_password;
 mod verify_passwd;
 mod gen_jwt_token;
 mod validate_jwt_token;
@@ -23,7 +22,7 @@ mod validate_is_root;
 mod get_claims;
 
 pub use claims::Claims;
-pub use hash_password::hash_password;
+pub use crate::hash_password::hash_password;
 pub use verify_passwd::verify_passwd;
 pub use gen_jwt_token::gen_jwt_token;
 pub use validate_jwt_token::validate_jwt_token;

@@ -116,10 +116,3 @@ pub fn add_call_name_to_chain(e: OperationResult, new_operation: String) -> Oper
     })
 }
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}

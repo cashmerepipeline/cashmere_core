@@ -57,8 +57,6 @@ pub fn get_account_groups(doc: &Document) -> Option<Vec<String>> {
 
 /// 取得账号状态
 pub fn is_account_stopped(doc: &Document) -> bool {
-    
-
     match doc.get_bool(&"stopped") {
         Ok(g) => g,
         Err(_e) => false,
@@ -123,13 +121,5 @@ pub async fn update_account_login_timestamps(
             e,
             "update_account_login_timestamps".to_string(),
         )),
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
     }
 }

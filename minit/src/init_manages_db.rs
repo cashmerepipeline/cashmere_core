@@ -45,8 +45,8 @@ pub async fn init_manages_db(db: &Database, tomls: &Vec<Map<String, Value>>, roo
                 println!("添加管理实体 {} {} 成功", manage_id, manage_name);
                 Some(r)
             }
-            Err(_e) => {
-                println!("添加管理实体 {} {} 失败 {}", manage_id, manage_name, _e.details());
+            Err(e) => {
+                println!("添加管理实体 {} {} 失败 {}", manage_id, manage_name, e.details());
                 None
             }
         };

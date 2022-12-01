@@ -48,12 +48,3 @@ impl AccountGrpc for AccountServer {
         self.handle_remove_account_from_group(request).await
     }
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}

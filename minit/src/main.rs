@@ -102,7 +102,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .create_collection(&MANAGES_MANAGE_ID.to_string(), None)
         .await
     {
-        Err(e) => panic!("创建管理集合失败: {} {:?}", MANAGES_MANAGE_ID, e),
+        Err(e) => println!("创建管理集合失败，集合可能已存在: {} {:?}", MANAGES_MANAGE_ID, e),
         _ => println!("创建管理成功 {}", MANAGES_MANAGE_ID),
     }
 

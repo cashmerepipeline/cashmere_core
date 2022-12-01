@@ -1,6 +1,6 @@
 [package]
 name = "define_utils"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["wangrongwen <403271579@qq.com>"]
 edition = "2021"
 

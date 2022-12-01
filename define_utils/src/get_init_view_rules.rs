@@ -9,12 +9,29 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
         None => return None,
     };
 
+    let manage_id = crate::get_id(toml_map).unwrap();
+
     match result {
-        Some(r) => {
-            let manage_str = r.get("manage").unwrap().to_string();
-            let collection_str = r.get("collection").unwrap().to_string();
-            let schema_str = r.get("schema").unwrap().to_string();
-            println!("{} {} {}", manage_str, collection_str, schema_str);
+        Some(rules) => {
+            let manage_str = if let Some(m_str) = rules.get("manage"){
+                m_str.to_string()
+            }else {
+                println!("取得管理权限错误：{}", manage_id);
+                return None;
+            };
+
+            let collection_str = if let Some(c_str) = rules.get("collection"){
+                c_str.to_string()
+            }else {
+                println!("取得集合权限错误：{}", manage_id);
+                return None;
+            };
+            let schema_str = if let Some(s_str) = rules.get("schema"){
+                s_str.to_string()
+            } else {
+                println!("取得模式描写权限错误：{}", manage_id);
+                return None;
+            };
 
             let manage_map: LinkedHashMap<String, ViewRule> =
                 toml::from_str(manage_str.as_str()).unwrap();
