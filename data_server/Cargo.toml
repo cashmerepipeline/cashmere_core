@@ -1,13 +1,13 @@
 [package]
-name = "data_utils"
-version = "0.1.0"
+name = "data_server"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 fs4 = { version = "0.5.4", features = ["tokio-async"] }
-tokio = { versions = "1.18.2", features = ["fs"] }
+tokio = { versions = "1.21.2", features = ["fs"] }
 md-5 = "0.10.1"
 log = "0.4.17"
 simplelog = "0.12.0"

@@ -23,7 +23,7 @@ members = [
   "majordomo",
   "define_utils",
   "managers",
-  "data_utils",
+  "data_server",
   # "minit",
   "conversation_system",
   "procedure_engine",

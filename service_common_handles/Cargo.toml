@@ -24,7 +24,7 @@ log = "0.4.14"
 account = { path = "../account" }
 cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
-data_utils = { path = "../data_utils" }
+data_server = { path = "../data_server" }
 configs = { path = "../configs" }
 majordomo = { path = "../majordomo" }
 

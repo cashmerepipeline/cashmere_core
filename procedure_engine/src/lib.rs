@@ -9,12 +9,8 @@ Modified: !date!
 mod phases;
 mod work_node;
 mod task;
+mod task_status;
 
-use serde::{Deserialize, Serialize};
-
-use phases::Phase;
-
-
-/// 任务图
-#[derive(Debug, Deserialize, Serialize)]
-struct WorkGraph(Vec<WorkNode>);
+pub use phases::Phase;
+pub use task::Task;
+pub use task_status::TaskStatus;

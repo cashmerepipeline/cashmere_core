@@ -6,13 +6,7 @@ Created:  2020-11-15T09:30:04.425Z
 Modified: !date!
 */
 
-use manage_define::manage_ids::WORK_NODES_MANAGE_ID;
-
-
-use cash_result::*;
-use mongodb::bson::{doc};
-
-use super::task;
+use serde::{Serialize, Deserialize};
 
 /// 任务节点
 #[derive(Debug, Deserialize, Serialize)]
