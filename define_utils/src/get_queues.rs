@@ -5,7 +5,7 @@ pub fn get_queues(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Vec<
         Some(r) => {
             let mut queues: Vec<String> = vec![];
             for (_key, value) in r {
-                println!("{:?}", value);
+                // println!("{:?}", value);
                 if let Some(r) = value.as_str() {
                     queues.push(r.to_string());
                 }

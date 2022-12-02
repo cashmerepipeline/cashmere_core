@@ -41,6 +41,7 @@ pub mod phone_area_codes_manager;
 pub mod countries_manager;
 
 mod macros;
+
 pub(crate) mod schema;
 pub mod traits;
 // pub mod tag_types_manager;

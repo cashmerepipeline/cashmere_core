@@ -7,6 +7,8 @@ use mongodb::bson::{doc, Document};
 use mongodb::{options::ClientOptions, options::ServerAddress, Client, Collection, Database};
 use std::sync::Arc;
 
+use log;
+
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use cash_result::{operation_failed, operation_succeed, OperationResult};
 
@@ -160,7 +162,8 @@ pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult,
                 }
             };
         } else {
-            println! {"序号生成器记录已存在 {}", manage_id};
+            log::info! {"序号生成器记录已存在 {}", manage_id};
+            return Ok(operation_succeed("already exits"));
         }
     } else {
         return Err(operation_failed(

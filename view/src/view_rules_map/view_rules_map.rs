@@ -59,7 +59,9 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
         match view_rule {
             Ok(ref d) => {
                 let id = d.get_str("_id").unwrap().to_string();
+
                 info!("初始化管理映像规则表: {}", id);
+
                 let manage_rule = from_document(
                     d.get_document(&VIEW_RULES_MANAGE_FIELD_ID.to_string())
                         .unwrap()

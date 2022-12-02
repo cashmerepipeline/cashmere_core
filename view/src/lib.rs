@@ -25,6 +25,8 @@ mod validate_view_token;
 mod view_rule;
 mod view_rules;
 
+mod init_view_rules;
+
 pub use add_query_filters::*;
 
 pub use can_collection_read::*;
@@ -42,3 +44,5 @@ pub use enum_write_rule::*;
 pub use get_manage_schema_view::*;
 
 pub use validate_group::*;
+
+pub use init_view_rules::init_view_rules;

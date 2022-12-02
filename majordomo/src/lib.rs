@@ -18,6 +18,10 @@ use managers::traits::ManagerTrait;
 
 use cash_result::*;
 
+pub use manager_inits::init_managers;
+
+mod manager_inits;
+
 /// 管理表类型
 pub type ManagersMap = HashMap<i32, Arc<Manager>>;
 

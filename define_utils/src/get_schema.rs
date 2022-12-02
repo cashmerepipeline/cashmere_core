@@ -21,7 +21,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
         };
         let field: PropertyField =
             PropertyField::from_toml(field_toml, &((field_id + 2001) as i32));
-        println!("{:?}", field);
+        // println!("{:?}", field);
         let mut temp_doc = Document::new();
         temp_doc.insert(ID_FIELD_NAME, field.id);
         temp_doc.insert(DATA_TYPE_FIELD_NAME, field.data_type.to_string());
