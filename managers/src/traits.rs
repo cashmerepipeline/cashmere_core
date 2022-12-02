@@ -4,6 +4,12 @@ Creator: 闫刚
 Create time: 2020-11-16 16:20
 Introduction:
 */
+use std::{any::Any, sync::Arc};
+
+use parking_lot::RwLock;
+use async_trait::async_trait;
+use bson::{doc, Bson, Document};
+use log::error;
 
 use cash_core::Manage;
 use cash_result::*;
@@ -13,14 +19,8 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
-use bson::doc;
 use database;
 use entity;
-
-use async_trait::async_trait;
-use bson::{Bson, Document};
-use parking_lot::RwLock;
-use std::{any::Any, sync::Arc};
 
 use crate::schema::schema_field_exists;
 
@@ -30,8 +30,9 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 注册管理器
     async fn init(&self) -> Result<OperationResult, OperationResult> {
         let manage_id = &self.get_manager_id().to_string();
+        log::info!("管理器数据库检查：{}", manage_id);
 
-        // 检查数据库是否存在管理集合，不存在则创建管理集合
+        // 检查数据库是否存在管理集合，不存在则需要创建管理集合
         if !database::collection_exists(manage_id).await {
             return Err(operation_failed(
                 "init",
@@ -47,14 +48,16 @@ pub trait ManagerTrait: Any + Send + Sync {
             ));
         }
 
-        // 检查序列好生成器
+        // 检查序列号生成器
         match database::init_ids_count_field(manage_id).await {
             Err(_e) => return Err(operation_failed("init", "初始化序列号生成器失败")),
             _ => (),
         }
 
+        log::info!("管理器数据库检查完成：{}", manage_id);
         Ok(operation_succeed("ok"))
     }
+
     // 移除管理器
     fn unregister(&self) -> Result<OperationResult, OperationResult>;
 

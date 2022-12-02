@@ -24,7 +24,7 @@ pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir:
         let src_dir = format!("{}/*.toml", dir);
 
         for entry in glob::glob(src_dir.as_ref()).expect("读取tmol文件失败") {
-            println!("{}", entry.as_ref().unwrap().to_str().unwrap());
+            // println!("{}", entry.as_ref().unwrap().to_str().unwrap());
             match entry {
                 Ok(path) => {
                     let toml_path = path.to_str().unwrap();

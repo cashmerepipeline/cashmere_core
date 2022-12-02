@@ -1,4 +1,7 @@
+use std::error;
+
 use bson::{Bson, Document};
+use log;
 
 use property_field::general_field_names::{DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME, REMOVED_FIELD_NAME};
 use property_field::PropertyField;
@@ -14,7 +17,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
     for (field_id, v) in value.as_array().unwrap().iter().enumerate() {
         let field_toml = match v.as_table() {
             None => {
-                println!("错误 {}-{}", manage_id, v.to_string());
+                error!("错误 {}-{}", manage_id, v.to_string());
                 panic!("定义文件错误")
             }
             Some(r) => r,
@@ -37,7 +40,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
     match bson::to_bson(&schema_vec) {
         Ok(r) => Some(r),
         Err(_e) => {
-            println!("转换描写失败");
+            error!("转换描写失败");
             None
         }
     }

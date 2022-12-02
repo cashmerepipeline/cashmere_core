@@ -10,6 +10,7 @@ edition = "2021"
 bson = "2.4.0"
 toml = "0.5.8"
 linked-hash-map = "0.5.4"
+log = "0.4"
 
 cash_core = {path="../cash_core"}
 property_field = {path="../property_field"}

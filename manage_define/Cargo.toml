@@ -16,6 +16,7 @@ prost = "0.10.4"
 tonic = { version = "0.7.2", features = ["tls"] }
 serde = "1.0.131"
 serde_derive = "1.0.131"
+log = "0.4"
 
 property_field = {path="../property_field"}
 

@@ -1,3 +1,4 @@
+use log::error;
 use linked_hash_map::LinkedHashMap;
 
 use cash_core::view_rules::{ViewRule, ViewRules};
@@ -16,20 +17,20 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
             let manage_str = if let Some(m_str) = rules.get("manage"){
                 m_str.to_string()
             }else {
-                println!("取得管理权限错误：{}", manage_id);
+                error!("取得管理权限错误：{}", manage_id);
                 return None;
             };
 
             let collection_str = if let Some(c_str) = rules.get("collection"){
                 c_str.to_string()
             }else {
-                println!("取得集合权限错误：{}", manage_id);
+                error!("取得集合权限错误：{}", manage_id);
                 return None;
             };
             let schema_str = if let Some(s_str) = rules.get("schema"){
                 s_str.to_string()
             } else {
-                println!("取得模式描写权限错误：{}", manage_id);
+                error!("取得模式描写权限错误：{}", manage_id);
                 return None;
             };
 

@@ -1,11 +1,12 @@
 use std::io::Read;
+use log::error;
 
 /// 读取文件为toml_map
 pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::Value>> {
     let mut toml_file = match std::fs::File::open(toml_path) {
         Ok(r) => r,
         Err(_) => {
-            println!("初始化数据库文件不存在: {}", toml_path);
+            error!("初始化数据库文件不存在: {}", toml_path);
             return None;
         }
     };
@@ -14,7 +15,7 @@ pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::V
     match toml_file.read_to_string(&mut toml_string) {
         Ok(_) => {}
         Err(_) => {
-            println!("读取文件错误：{}", toml_path);
+            error!("读取文件错误：{}", toml_path);
             return None;
         }
     }
@@ -22,7 +23,7 @@ pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::V
     let toml_map: toml::map::Map<String, toml::Value> = match toml::from_str(&toml_string) {
         Ok(r) => r,
         Err(_e) => {
-            println!("管理定义文件定义错误: {}", toml_path);
+            error!("管理定义文件定义错误: {}", toml_path);
             return None;
         }
     };
