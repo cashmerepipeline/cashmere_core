@@ -3,6 +3,7 @@ use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
+use manage_define::field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use view;
@@ -40,7 +41,13 @@ pub trait HandleGetDataInfo {
                 r.to_writer(&mut bytes).expect(&*format!("数据损坏:{}", data_id));
 
                 Ok(Response::new(GetDataInfoResponse {
-                    data: bytes
+                    data_info: Some(DataInfo{
+                        data_type: r.get_i32(DATAS_DATA_TYPE_FIELD_ID.to_string()).unwrap(),
+                        owner_manage_id: r.get_i32(DATAS_OWNER_MANAGE_ID_FIELD_ID.to_string()).unwrap(),
+                        owner_entity_id: r.get_str(DATAS_OWNER_ENTITY_ID_FIELD_ID.to_string()).unwrap().to_string(),
+                        version: r.get_str(DATAS_VERSION_FIELD_ID.to_string()).unwrap().to_string(),
+                        data_clue: bson::to_vec(r.get(DATAS_DATA_CLUE_FIELD_ID.to_string()).unwrap()).unwrap(),
+                    }),
                 }))
             }
             Err(e) => Err(Status::aborted(format!(

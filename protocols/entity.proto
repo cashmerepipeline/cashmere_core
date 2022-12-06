@@ -155,7 +155,7 @@ message GetEntitiesPageResponse {
 
 // 标记实体已移除
 message MarkEntityRemovedRequest {
-  string manage_id = 1;
+  int32 manage_id = 1;
   string entity_id = 2;
 }
 message MarkEntityRemovedResponse {

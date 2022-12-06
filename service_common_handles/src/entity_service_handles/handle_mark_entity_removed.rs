@@ -15,8 +15,8 @@ use crate::UnaryResponseResult;
 pub trait HandleMarkDataRemoved {
     async fn handle_mark_data_remved(
         &self,
-        request: Request<MarkDataRemovedRequest>,
-    ) -> UnaryResponseResult<MarkDataRemovedResponse> {
+        request: Request<MarkEntityRemovedRequest>,
+    ) -> UnaryResponseResult<MarkEntityRemovedResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -25,38 +25,21 @@ pub trait HandleMarkDataRemoved {
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
-        let data_id = &request.get_ref().data_id;
 
-        if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
         let data_manager = majordomo_arc
-            .get_manager_by_id(DATAS_MANAGE_ID)
-            .await
-            .unwrap();
-        let associated_manager = majordomo_arc
             .get_manager_by_id(*manage_id)
             .await
             .unwrap();
 
-        let result = tokio::try_join!(
-            data_manager.mark_entity_removed(data_id, &account_id),
-            associated_manager.push_entity_array_field(
-                doc! {"_id": entity_id.clone()},
-                doc! {DATAS_REMOVED_FIELD_ID.to_string(): data_id.clone()},
-                &account_id
-            ),
-            associated_manager.pull_entity_array_field(
-                doc! {"_id": entity_id.clone()},
-                doc! {DATAS_FIELD_ID.to_string(): data_id.clone()},
-                &account_id
-            )
-        );
+        let result = data_manager.mark_entity_removed(entity_id, &account_id).await;
 
         match result {
-            Ok(_r) => Ok(Response::new(MarkDataRemovedResponse {
+            Ok(_r) => Ok(Response::new(MarkEntityRemovedResponse {
                 result: "success".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

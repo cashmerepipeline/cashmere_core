@@ -26,10 +26,10 @@ pub trait HandleNewData {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
+        let manage_id = &request.get_ref().owner_manage_id;
+        let entity_id = &request.get_ref().owner_entity_id;
         let data_type = &request.get_ref().data_type;
         let name = &request.get_ref().name;
-        let manage_id = &request.get_ref().manage_id;
-        let entity_id = &request.get_ref().entity_id;
 
         let name = if name.is_some() {
             name.as_ref().unwrap()
@@ -55,8 +55,8 @@ pub trait HandleNewData {
         if let Some(mut new_entity_doc) = make_new_entity_document(&data_manager).await {
             new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), local_name);
             new_entity_doc.insert(DATAS_DATA_TYPE_FIELD_ID.to_string(), data_type);
-            new_entity_doc.insert(DATAS_MANAGE_ID_FIELD_ID.to_string(), manage_id);
-            new_entity_doc.insert(DATAS_ENTITY_ID_FIELD_ID.to_string(), entity_id);
+            new_entity_doc.insert(DATAS_OWNER_MANAGE_ID_FIELD_ID.to_string(), manage_id);
+            new_entity_doc.insert(DATAS_OWNER_ENTITY_ID_FIELD_ID.to_string(), entity_id);
 
             let mut data_id = None;
             let result = data_manager

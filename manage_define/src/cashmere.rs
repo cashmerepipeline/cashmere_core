@@ -190,20 +190,19 @@ pub struct Color {
     #[prost(uint32, tag="5")]
     pub alpha: u32,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum DataType {
-    /// 单个文件
-    File = 0,
-    /// 序列文件
-    Sequence = 1,
-    /// 文件集合
-    Set = 2,
-    /// 消息
-    Message = 3,
-    /// 数据库数据
-    Document = 4,
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataInfo {
+    #[prost(enumeration="DataType", tag="1")]
+    pub data_type: i32,
+    #[prost(int32, tag="3")]
+    pub owner_manage_id: i32,
+    #[prost(string, tag="4")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
+    pub version: ::prost::alloc::string::String,
+    /// data线索, 取得data的访问指引, 文件为文件路径, 序列为序列信息, json为clue本身, 文档应当为http链接(多人协作文档)
+    #[prost(bytes="vec", tag="6")]
+    pub data_clue: ::prost::alloc::vec::Vec<u8>,
 }
 /// 新建数据
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -213,9 +212,9 @@ pub struct NewDataRequest {
     #[prost(enumeration="DataType", tag="2")]
     pub data_type: i32,
     #[prost(int32, tag="3")]
-    pub manage_id: i32,
+    pub owner_manage_id: i32,
     #[prost(string, tag="4")]
-    pub entity_id: ::prost::alloc::string::String,
+    pub owner_entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataResponse {
@@ -228,9 +227,9 @@ pub struct AssociateDataRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(int32, tag="2")]
-    pub manage_id: i32,
+    pub owner_manage_id: i32,
     #[prost(string, tag="3")]
-    pub entity_id: ::prost::alloc::string::String,
+    pub owner_entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssociateDataResponse {
@@ -243,9 +242,9 @@ pub struct DisassociateDataRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(int32, tag="2")]
-    pub manage_id: i32,
+    pub owner_manage_id: i32,
     #[prost(string, tag="3")]
-    pub entity_id: ::prost::alloc::string::String,
+    pub owner_entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DisassociateDataResponse {
@@ -260,16 +259,16 @@ pub struct GetDataInfoRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDataInfoResponse {
-    #[prost(bytes="vec", tag="1")]
-    pub data: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag="1")]
+    pub data_info: ::core::option::Option<DataInfo>,
 }
 /// 删除数据
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkDataRemovedRequest {
     #[prost(int32, tag="1")]
-    pub manage_id: i32,
+    pub owner_manage_id: i32,
     #[prost(string, tag="2")]
-    pub entity_id: ::prost::alloc::string::String,
+    pub owner_entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
     pub data_id: ::prost::alloc::string::String,
 }
@@ -277,6 +276,19 @@ pub struct MarkDataRemovedRequest {
 pub struct MarkDataRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum DataType {
+    /// 单个文件
+    FileData = 0,
+    /// 序列文件
+    SequenceData = 1,
+    /// 多类型文件集合
+    FileCollectionData = 2,
+    /// 类json格式数据
+    JsonData = 3,
 }
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -736,8 +748,8 @@ pub struct GetEntitiesPageResponse {
 /// 标记实体已移除
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
 }

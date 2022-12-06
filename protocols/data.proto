@@ -10,14 +10,30 @@ syntax = "proto3";
 package cashmere;
 
 import "name.proto";
-import "data_type.proto";
+
+enum DataType{
+  FileData = 0; // 单个文件
+  SequenceData = 1; // 序列文件
+  FileCollectionData = 2; // 多类型文件集合
+  JsonData = 3; // 类json格式数据
+  //  DocumentData = 4; // 文档数据
+}
+
+message DataInfo {
+  DataType data_type = 1;
+  int32 owner_manage_id = 3;
+  string owner_entity_id = 4;
+  string version = 5;
+  // data线索, 取得data的访问指引, 文件为文件路径, 序列为序列信息, json为clue本身, 文档应当为http链接(多人协作文档)
+  bytes data_clue = 6;
+}
 
 // 新建数据
 message NewDataRequest {
   Name name = 1;
   DataType data_type = 2;
-  int32 manage_id = 3;
-  string entity_id = 4;
+  int32 owner_manage_id = 3;
+  string owner_entity_id = 4;
 }
 message NewDataResponse {
   string result = 1;
@@ -26,8 +42,8 @@ message NewDataResponse {
 // 关联数据
 message AssociateDataRequest {
   string data_id = 1;
-  int32 manage_id = 2;
-  string entity_id = 3;
+  int32 owner_manage_id = 2;
+  string owner_entity_id = 3;
 }
 message AssociateDataResponse {
   string result = 1;
@@ -36,8 +52,8 @@ message AssociateDataResponse {
 // 取消关联数据
 message DisassociateDataRequest {
   string data_id = 1;
-  int32 manage_id = 2;
-  string entity_id = 3;
+  int32 owner_manage_id = 2;
+  string owner_entity_id = 3;
 }
 message DisassociateDataResponse {
   string result = 1;
@@ -48,13 +64,13 @@ message  GetDataInfoRequest {
   string data_id = 1;
 }
 message GetDataInfoResponse{
-  bytes data = 1;
+  DataInfo data_info = 1;
 }
 
 // 删除数据
 message MarkDataRemovedRequest {
-  int32 manage_id = 1;
-  string entity_id = 2;
+  int32 owner_manage_id = 1;
+  string owner_entity_id = 2;
   string data_id = 3;
 }
 message MarkDataRemovedResponse {
