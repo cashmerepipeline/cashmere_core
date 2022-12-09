@@ -13,8 +13,8 @@ use view;
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
 
 #[async_trait]
-pub trait HandleFileDataUploadFile {
-    async fn handle_file_data_upload_file(
+pub trait HandleUploadFile {
+    async fn handle_upload_file(
         &self,
         request: RequestStream<FileDataUploadFileRequest>,
     ) -> StreamResponseResult<FileDataUploadFileResponse> {

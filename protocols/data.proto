@@ -14,9 +14,8 @@ import "name.proto";
 enum DataType{
   FileData = 0; // 单个文件
   SequenceData = 1; // 序列文件
-  FileCollectionData = 2; // 多类型文件集合
-  JsonData = 3; // 类json格式数据
-  //  DocumentData = 4; // 文档数据
+  FileSetData = 2; // 多类型文件集合
+  DocumentData = 3; // 类json格式数据
 }
 
 message DataInfo {
@@ -36,26 +35,7 @@ message NewDataRequest {
   string owner_entity_id = 4;
 }
 message NewDataResponse {
-  string result = 1;
-}
-
-// 关联数据
-message AssociateDataRequest {
-  string data_id = 1;
-  int32 owner_manage_id = 2;
-  string owner_entity_id = 3;
-}
-message AssociateDataResponse {
-  string result = 1;
-}
-
-// 取消关联数据
-message DisassociateDataRequest {
-  string data_id = 1;
-  int32 owner_manage_id = 2;
-  string owner_entity_id = 3;
-}
-message DisassociateDataResponse {
+  // 成功返回 "ok"
   string result = 1;
 }
 

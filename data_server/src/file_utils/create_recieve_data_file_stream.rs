@@ -32,11 +32,11 @@ pub async fn create_recieve_data_file_stream(
     }
 
     // 创建文件，失败则需要提前返回
-    let data_configes = configs::get_data_configs();
+    let data_configes = configs::get_data_server_configs();
 
-    let data_folder: PathBuf = [&data_configes.root, &data_id].iter().collect();
+    let data_folder: PathBuf = [&data_configes.root_dir_path, &data_id].iter().collect();
     let file_ext = path::Path::new(&file_info.file_name).extension().unwrap();
-    let mut file_path_buf: PathBuf = [&data_configes.root, &data_id, &file_info.md5]
+    let mut file_path_buf: PathBuf = [&data_configes.root_dir_path, &data_id, &file_info.md5]
         .iter()
         .collect();
     file_path_buf.set_extension(file_ext);

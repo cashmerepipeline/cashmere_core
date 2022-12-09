@@ -218,36 +218,7 @@ pub struct NewDataRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 关联数据
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateDataRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(int32, tag="2")]
-    pub owner_manage_id: i32,
-    #[prost(string, tag="3")]
-    pub owner_entity_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateDataResponse {
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 取消关联数据
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DisassociateDataRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(int32, tag="2")]
-    pub owner_manage_id: i32,
-    #[prost(string, tag="3")]
-    pub owner_entity_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DisassociateDataResponse {
+    /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -286,9 +257,9 @@ pub enum DataType {
     /// 序列文件
     SequenceData = 1,
     /// 多类型文件集合
-    FileCollectionData = 2,
+    FileSetData = 2,
     /// 类json格式数据
-    JsonData = 3,
+    DocumentData = 3,
 }
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]

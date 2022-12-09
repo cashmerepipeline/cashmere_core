@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+parking_lot = "0.12.1"
 fs4 = { version = "0.5.4", features = ["tokio-async"] }
 tokio = { versions = "1.21.2", features = ["fs"] }
 md-5 = "0.10.1"

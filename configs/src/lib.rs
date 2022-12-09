@@ -12,8 +12,8 @@ Modified: !date!
 */
 
 use serde_derive::Deserialize;
-use std::sync::Arc;
 use std::io::Read;
+use std::sync::Arc;
 
 #[derive(Deserialize, Clone)]
 pub struct ServerConfigs {
@@ -44,17 +44,21 @@ pub struct TlsConfigs {
 }
 
 #[derive(Deserialize, Clone)]
-pub struct DataConfigs {
+pub struct DataServerConfigs {
     // 数据根目录
-    pub root: String,
+    pub root_dir_path: String,
     // 文件最大大小
-    max_file_size: u64,
+    pub max_file_size: u128,
     // 文件集最大数量
-    max_set_file_number: u32,
+    pub max_set_size: u32,
     // 文件序列最大数量
-    max_sequence_file_number: u32,
+    pub max_sequence_length: u32,
     // 上传数据块最大数量
-    max_chunk_size: u32,
+    pub max_transfer_chunk_size: u32,
+    // 最大文件上传连接
+    pub max_file_upload_number: u16,
+    // 最大文件下载连接
+    pub max_file_download_number: u16,
 }
 
 #[derive(Deserialize)]
@@ -62,24 +66,24 @@ pub struct Configs {
     pub server: ServerConfigs,
     pub database: DatabaseConfigs,
     pub tls: TlsConfigs,
-    pub data: DataConfigs,
+    pub data_server: DataServerConfigs,
 }
 
 static mut CONFIGS_FILE_PATH: Option<Arc<String>> = None;
 static mut CONFIGS: Option<Arc<Configs>> = None;
 
-pub fn init_configs_path(configs_path: String) -> Result<(), ()>{
+pub fn init_configs_path(configs_path: String) -> Result<(), ()> {
     unsafe {
         if CONFIGS_FILE_PATH.is_none() {
             CONFIGS_FILE_PATH.replace(Arc::new(configs_path));
             Ok(())
-        }else {
-        Err(())
+        } else {
+            Err(())
         }
     }
 }
 
-pub fn get_configs_path() -> &'static String{
+pub fn get_configs_path() -> &'static String {
     unsafe {
         if CONFIGS_FILE_PATH.is_some() {
             CONFIGS_FILE_PATH.as_ref().unwrap()
@@ -101,8 +105,7 @@ pub fn get_configs() -> &'static Configs {
 }
 
 fn read_configs() -> Option<Arc<Configs>> {
-    let mut config_file = std::fs::File::open(get_configs_path())
-        .expect("配置文件不存在");
+    let mut config_file = std::fs::File::open(get_configs_path()).expect("配置文件不存在");
     let mut config_str = "".to_string();
     config_file
         .read_to_string(&mut config_str)
@@ -114,13 +117,13 @@ fn read_configs() -> Option<Arc<Configs>> {
 }
 
 /// 取得服务器设置
-pub fn get_server_configs() -> ServerConfigs{
+pub fn get_server_configs() -> ServerConfigs {
     let configs = get_configs();
     configs.server.clone()
 }
 
 /// 取得数据库设置
-pub fn get_database_configs() -> DatabaseConfigs{
+pub fn get_database_configs() -> DatabaseConfigs {
     let configs = get_configs();
     configs.database.clone()
 }
@@ -132,9 +135,9 @@ pub fn get_language_code() -> String {
 }
 
 /// 取得数据设置
-pub fn get_data_configs() -> DataConfigs{
+pub fn get_data_server_configs() -> &'static DataServerConfigs {
     let configs = get_configs();
-    configs.data.clone()
+    &configs.data_server
 }
 
 #[cfg(test)]
