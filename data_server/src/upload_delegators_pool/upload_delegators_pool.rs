@@ -1,4 +1,3 @@
-use configs::DataServerConfigs;
 use manage_define::cashmere::FileInfo;
 use parking_lot::RwLock;
 use std::sync::Arc;

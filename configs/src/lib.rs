@@ -15,134 +15,31 @@ use serde_derive::Deserialize;
 use std::io::Read;
 use std::sync::Arc;
 
-#[derive(Deserialize, Clone)]
-pub struct ServerConfigs {
-    pub root_dir: String,
-    pub address: String,
-    pub port: String,
-    pub secret_code: String,
-    pub use_tls: bool,
-    pub login_limit: u8,
-    // pub managers_path: Vec<String>,
-    pub events_dbs_dir: String,
-    pub language_code: String,
-    pub log_dir: String,
-}
+mod get_language_code;
+mod database_configs;
+mod server_configs;
+mod data_server_configs;
+mod tls_configs;
+mod configs;
 
-#[derive(Deserialize, Clone)]
-pub struct DatabaseConfigs {
-    pub name: String,
-    pub address: String,
-    pub port: u16,
-}
+mod get_server_configs;
+mod get_database_configs;
+mod get_data_server_configs;
 
-#[derive(Deserialize)]
-pub struct TlsConfigs {
-    pub server_key_path: String,
-    pub server_ca_path: String,
-    pub client_ca_path: String,
-}
+pub use configs::*;
+pub use get_language_code::*;
+pub use database_configs::*;
+pub use server_configs::*;
+pub use data_server_configs::*;
+pub use tls_configs::*;
 
-#[derive(Deserialize, Clone)]
-pub struct DataServerConfigs {
-    // 数据根目录
-    pub root_dir_path: String,
-    // 文件最大大小
-    pub max_file_size: u128,
-    // 文件集最大数量
-    pub max_set_size: u32,
-    // 文件序列最大数量
-    pub max_sequence_length: u32,
-    // 上传数据块最大数量
-    pub max_transfer_chunk_size: u32,
-    // 最大文件上传连接
-    pub max_file_upload_number: u16,
-    // 最大文件下载连接
-    pub max_file_download_number: u16,
-}
-
-#[derive(Deserialize)]
-pub struct Configs {
-    pub server: ServerConfigs,
-    pub database: DatabaseConfigs,
-    pub tls: TlsConfigs,
-    pub data_server: DataServerConfigs,
-}
-
-static mut CONFIGS_FILE_PATH: Option<Arc<String>> = None;
-static mut CONFIGS: Option<Arc<Configs>> = None;
-
-pub fn init_configs_path(configs_path: String) -> Result<(), ()> {
-    unsafe {
-        if CONFIGS_FILE_PATH.is_none() {
-            CONFIGS_FILE_PATH.replace(Arc::new(configs_path));
-            Ok(())
-        } else {
-            Err(())
-        }
-    }
-}
-
-pub fn get_configs_path() -> &'static String {
-    unsafe {
-        if CONFIGS_FILE_PATH.is_some() {
-            CONFIGS_FILE_PATH.as_ref().unwrap()
-        } else {
-            panic!("配置文件不存在")
-        }
-    }
-}
-
-pub fn get_configs() -> &'static Configs {
-    unsafe {
-        if CONFIGS.is_some() {
-            CONFIGS.as_ref().unwrap()
-        } else {
-            CONFIGS.get_or_insert(read_configs().unwrap());
-            CONFIGS.as_ref().unwrap()
-        }
-    }
-}
-
-fn read_configs() -> Option<Arc<Configs>> {
-    let mut config_file = std::fs::File::open(get_configs_path()).expect("配置文件不存在");
-    let mut config_str = "".to_string();
-    config_file
-        .read_to_string(&mut config_str)
-        .expect("配置文件错误");
-
-    let _configs: Configs = toml::from_str(config_str.as_str()).expect("构建toml失败");
-
-    Some(Arc::new(_configs))
-}
-
-/// 取得服务器设置
-pub fn get_server_configs() -> ServerConfigs {
-    let configs = get_configs();
-    configs.server.clone()
-}
-
-/// 取得数据库设置
-pub fn get_database_configs() -> DatabaseConfigs {
-    let configs = get_configs();
-    configs.database.clone()
-}
-
-/// 取得服务器语言设置
-pub fn get_language_code() -> String {
-    let configs = get_configs();
-    configs.server.language_code.clone()
-}
-
-/// 取得数据设置
-pub fn get_data_server_configs() -> &'static DataServerConfigs {
-    let configs = get_configs();
-    &configs.data_server
-}
+pub use get_server_configs::*;
+pub use get_database_configs::*;
+pub use get_data_server_configs::*;
 
 #[cfg(test)]
 mod tests {
-    use crate::get_configs;
+    use crate::configs::get_configs;
 
     #[test]
     fn get_configs_test() {

@@ -25,13 +25,13 @@ pub async fn get_mongodb_client() -> &'static Client {
         if MONGODB_CLIENT.is_some() {
             MONGODB_CLIENT.as_ref().unwrap()
         } else {
-            let configs = configs::get_configs();
+            let database_configs = configs::get_database_configs();
 
             MONGODB_CLIENT.get_or_insert_with(|| {
                 let options = ClientOptions::builder()
                     .hosts(vec![ServerAddress::Tcp {
-                        host: configs.database.address.clone(),
-                        port: Some(configs.database.port),
+                        host: database_configs.address.clone(),
+                        port: Some(database_configs.port),
                     }])
                     .build();
 
@@ -52,13 +52,13 @@ pub async fn get_cashmere_database() -> &'static Database {
         if CASHMERE_DATABASE.is_some() {
             CASHMERE_DATABASE.as_ref().unwrap()
         } else {
-            let configs = configs::get_configs();
+            let database_configs = configs::get_database_configs();
 
             CASHMERE_DATABASE.get_or_insert_with(|| {
                 let options = ClientOptions::builder()
                     .hosts(vec![ServerAddress::Tcp {
-                        host: configs.database.address.clone(),
-                        port: Some(configs.database.port),
+                        host: database_configs.address.clone(),
+                        port: Some(database_configs.port),
                     }])
                     .build();
 
@@ -66,7 +66,7 @@ pub async fn get_cashmere_database() -> &'static Database {
                     Ok(r) => r,
                     Err(_e) => panic!("连接到数据库失败"),
                 };
-                Arc::new(client.database(configs.database.name.as_str()))
+                Arc::new(client.database(database_configs.name.as_str()))
             });
 
             CASHMERE_DATABASE.as_ref().unwrap()

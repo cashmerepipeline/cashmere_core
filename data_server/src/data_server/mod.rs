@@ -1,5 +1,6 @@
 use parking_lot::RwLock;
 use std::sync::Arc;
+
 use configs::DataServerConfigs;
 
 mod get_upload_delegator;
@@ -22,7 +23,7 @@ pub struct DataServer {
 static mut DATA_SERVER: Option<Arc<DataServer>> = None;
 
 pub fn get_data_server() -> Arc<DataServer> {
-    let data_configs = &configs::get_configs().data_server;
+    let data_configs = configs::get_data_server_configs();
     unsafe {
         // 有数据
         if DATA_SERVER.is_none() {

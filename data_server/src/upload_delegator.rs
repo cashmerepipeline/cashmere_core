@@ -11,7 +11,6 @@ use tokio::sync::mpsc;
 use tokio::sync::mpsc::Sender;
 
 use cash_result::{Failed, operation_failed, OperationResult};
-use configs::get_data_server_configs;
 use manage_define::cashmere::FileInfo;
 
 use crate::{file_utils::check_space_enough, upload_delegators_pool::get_upload_delegator_pool};
@@ -29,7 +28,7 @@ impl UploadDelegator {
         file_info: &FileInfo,
         request_size: u64,
     ) -> Result<(PathBuf, PathBuf), OperationResult> {
-        let data_root = &get_data_server_configs().root_dir_path;
+        let data_root = &configs::get_data_server_configs().root_dir_path;
 
         let mut data_dir_path = PathBuf::new();
         data_dir_path.push(data_root);

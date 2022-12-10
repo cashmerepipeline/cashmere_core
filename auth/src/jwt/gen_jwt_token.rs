@@ -10,8 +10,8 @@ pub async fn gen_jwt_token(
     departments: &Vec<String>,
     roles: &Vec<String>,
 ) -> Option<String> {
-    let configs = configs::get_configs();
-    let secret_code = configs.server.secret_code.as_bytes();
+    let server_configs = configs::get_server_configs();
+    let secret_code = server_configs.secret_code.as_bytes();
 
     let mut header = Header::new(Algorithm::HS512);
     header.kid = Some(phone.clone());

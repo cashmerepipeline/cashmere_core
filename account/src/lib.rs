@@ -87,11 +87,11 @@ pub async fn update_account_login_timestamps(
     timestamps: &Vec<i64>,
     new_timestapm: i64,
 ) -> Result<OperationResult, OperationResult> {
-    let configs = configs::get_configs();
+    let configs = configs::get_server_configs();
 
     let mut timestamps = timestamps.clone();
     // 没有超过最大登录限制则加入
-    if timestamps.is_empty() || timestamps.len() < configs.server.login_limit as usize {
+    if timestamps.is_empty() || timestamps.len() < configs.login_limit as usize {
         timestamps.push(new_timestapm);
     } else {
         // 更新最晚登录时间戳
