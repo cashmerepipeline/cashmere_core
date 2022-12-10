@@ -19,9 +19,9 @@ pub struct DataServer {
 }
 
 /// 数据服务器实例
-static mut DATA_SERVER: Option<Arc<RwLock<DataServer>>> = None;
+static mut DATA_SERVER: Option<Arc<DataServer>> = None;
 
-pub fn get_data_server() -> Arc<RwLock<DataServer>> {
+pub fn get_data_server() -> Arc<DataServer> {
     let data_configs = &configs::get_configs().data_server;
     unsafe {
         // 有数据
@@ -34,7 +34,7 @@ pub fn get_data_server() -> Arc<RwLock<DataServer>> {
 
 
 /// 初始化数据服务器
-fn init_data_server(data_server_configs: &DataServerConfigs) -> Arc<RwLock<DataServer>> {
+fn init_data_server(data_server_configs: &DataServerConfigs) -> Arc<DataServer> {
     let data_server = DataServer {
         root_dir_path: data_server_configs.root_dir_path.clone(),
         max_file_size: data_server_configs.max_file_size,
@@ -45,6 +45,6 @@ fn init_data_server(data_server_configs: &DataServerConfigs) -> Arc<RwLock<DataS
         max_file_download_number: data_server_configs.max_file_download_number,
     };
 
-    Arc::new(RwLock::new(data_server))
+    Arc::new(data_server)
 }
 

@@ -1,10 +1,13 @@
 use async_trait::async_trait;
+use data_server::UploadDelegator;
+use data_server::file_utils::create_recieve_data_file_stream;
+use futures::FutureExt;
 use log::info;
+use serde::Serialize;
 use tokio::sync::mpsc;
-use tokio_stream::{StreamExt, wrappers::ReceiverStream};
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
 
-use data_server::file_utils::create_recieve_data_file_stream;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
@@ -41,21 +44,75 @@ pub trait HandleUploadFile {
         if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
-        let majordomo_arc = get_majordomo().await;
-        let _data_manager = majordomo_arc
-            .get_manager_by_id(DATAS_MANAGE_ID)
-            .await
-            .unwrap();
 
         // 交互流
         let (resp_tx, resp_rx) = mpsc::channel(5);
 
-        //  创建文件流
-        let ftx = if let Ok(r) = create_recieve_data_file_stream(&data_id, &file_info).await {
-            r
+        // 请求上传文件代理
+        let data_server_arc = data_server::get_data_server();
+
+        let delegator = if let Some(d) = data_server_arc.get_upload_delegator(&file_info) {
+            d
         } else {
-            return Err(Status::aborted("创建文件流错误。"));
+            return Err(Status::aborted(
+                "获取文件上传代理失败，请重试上传或者等待3分钟后重试。",
+            ));
         };
+
+        let data_pathes =
+            match delegator.check_storage_space(&data_id, &file_info, file_info.size) {
+                Ok(r) => r,
+                Err(e) => {
+                    return Err(Status::aborted(format!(
+                        "{}-{}",
+                        e.details(),
+                        e.operation()
+                    )));
+                }
+            };
+
+        let data_file = match delegator.create_upload_target_file(&data_pathes).await {
+            Ok(f) => f,
+            Err(e) => {
+                return Err(Status::aborted(format!(
+                    "{}-{}",
+                    e.details(),
+                    e.operation()
+                )));
+            }
+        };
+
+        let mut data_file = match delegator.allocate_space(data_file, file_info.size).await {
+            Ok(f) => f,
+            Err(e) => {
+                return Err(Status::aborted(format!(
+                    "{}-{}",
+                    e.details(),
+                    e.operation()
+                )))
+            }
+        };
+
+        let ftx = match delegator
+            .create_receive_file_stream(data_file, data_pathes.1.to_str().unwrap().to_string())
+            .await
+        {
+            Ok(s) => s,
+            Err(e) => {
+                return Err(Status::aborted(format!(
+                    "{}-{}",
+                    e.operation(),
+                    e.details()
+                )))
+            }
+        };
+
+        // // 创建文件流
+        // let ftx = if let Ok(r) = create_recieve_data_file_stream(&data_id, &file_info).await {
+        //     r
+        // } else {
+        //     return Err(Status::aborted("创建文件流错误。"));
+        // };
 
         // TODO: 续传检查
         //  起始数据块编号
@@ -134,6 +191,9 @@ pub trait HandleUploadFile {
                     }
                 }
             }
+
+            // 文件上传结束后必须返还代理，否则将丢失代理
+            data_server_arc.return_back_delegator(delegator);
             info!("接收文件结束{}--{}。", data_id, file_name);
             Ok(())
         });

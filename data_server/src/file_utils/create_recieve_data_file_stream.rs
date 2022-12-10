@@ -23,13 +23,7 @@ pub async fn create_recieve_data_file_stream(
     // TODO:尝试使用其他方式不需要移动，或者
     let data_id = data_id.clone();
 
-    // 检查文件空间是否足够传参不使用引用
-    if check_space_enough(file_info.size).is_err() {
-        return Err(operation_failed(
-            "create_recieve_data_file_stream",
-            "存储空间不足。",
-        ));
-    }
+
 
     // 创建文件，失败则需要提前返回
     let data_configes = configs::get_data_server_configs();
@@ -40,6 +34,14 @@ pub async fn create_recieve_data_file_stream(
         .iter()
         .collect();
     file_path_buf.set_extension(file_ext);
+
+    // 检查文件空间是否足够传参不使用引用
+    if check_space_enough(&data_folder, file_info.size).is_err() {
+        return Err(operation_failed(
+            "create_recieve_data_file_stream",
+            "存储空间不足。",
+        ));
+    }
 
     if fs::create_dir_all(data_folder).await.is_err() {
         return Err(operation_failed(
