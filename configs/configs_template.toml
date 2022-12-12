@@ -40,5 +40,5 @@ max_file_upload_number = 256
 # 最大文件下载连接
 max_file_download_number = 256
 # 块最大大小，1024*128=128KB
-max_transfer_chunk_size = 131072
+transfer_chunk_size = 131072
 

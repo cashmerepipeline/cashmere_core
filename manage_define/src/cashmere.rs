@@ -198,11 +198,11 @@ pub struct DataInfo {
     pub owner_manage_id: i32,
     #[prost(string, tag="4")]
     pub owner_entity_id: ::prost::alloc::string::String,
-    #[prost(string, tag="5")]
-    pub version: ::prost::alloc::string::String,
     /// data线索, 取得data的访问指引, 文件为文件路径, 序列为序列信息, json为clue本身, 文档应当为http链接(多人协作文档)
     #[prost(bytes="vec", tag="6")]
     pub data_clue: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, repeated, tag="7")]
+    pub stages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 新建数据
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -248,6 +248,15 @@ pub struct MarkDataRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得服务器数据块大小设置
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerConfigsRequest {
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerTransferChunkSizeResponse {
+    #[prost(bytes="vec", tag="1")]
+    pub data_server_configs: ::prost::alloc::vec::Vec<u8>,
+}
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -273,6 +282,8 @@ pub struct FileInfo {
     pub size: u64,
     #[prost(int64, tag="4")]
     pub last_modified_time: i64,
+    #[prost(string, tag="5")]
+    pub modifier: ::prost::alloc::string::String,
 }
 /// 上传文件数据
 /// 第一个包块编号为-1，最后一个包块编号为-1, 即从-1开始，到-1结束
@@ -290,6 +301,8 @@ pub struct FileDataUploadFileRequest {
     pub chunk_md5: ::prost::alloc::string::String,
     #[prost(message, optional, tag="5")]
     pub file_info: ::core::option::Option<FileInfo>,
+    #[prost(string, tag="8")]
+    pub phase: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileResponse {
@@ -301,7 +314,16 @@ pub struct FileDataUploadFileResponse {
 pub struct FileDataDownloadFileRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
+    /// 相对数据存储根目录
+    #[prost(string, tag="2")]
+    pub phase: ::prost::alloc::string::String,
+    #[prost(uint64, tag="3")]
+    pub chunk_index: u64,
+    /// 如果给出版本，则下载对应版本的文件，没有则下载阶段软连接指向的文件
+    #[prost(string, tag="4")]
+    pub version: ::prost::alloc::string::String,
 }
+/// 返回文件流
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataDownloadFileResponse {
     #[prost(string, tag="1")]
@@ -309,11 +331,13 @@ pub struct FileDataDownloadFileResponse {
     #[prost(uint64, tag="2")]
     pub total_chunks: u64,
     #[prost(uint64, tag="3")]
-    pub current_chunk: u64,
+    pub chunk_index: u64,
     #[prost(bytes="vec", tag="4")]
     pub chunk: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag="5")]
-    pub file_name: ::prost::alloc::string::String,
+    pub chunk_md5: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="6")]
+    pub file_info: ::core::option::Option<FileInfo>,
 }
 /// 序列数据信息
 /// 文件名格式：prefix_name.pattern.type_suffix

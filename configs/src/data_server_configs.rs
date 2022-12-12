@@ -11,7 +11,7 @@ pub struct DataServerConfigs {
     // 文件序列最大数量
     pub max_sequence_length: u32,
     // 上传数据块最大数量
-    pub max_transfer_chunk_size: u32,
+    pub transfer_chunk_size: u32,
     // 最大文件上传连接
     pub max_file_upload_number: u16,
     // 最大文件下载连接

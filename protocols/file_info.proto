@@ -7,5 +7,5 @@ message FileInfo {
   string md5 = 2;
   uint64 size = 3;
   int64 last_modified_time = 4;
+  string modifier = 5;
 }
-

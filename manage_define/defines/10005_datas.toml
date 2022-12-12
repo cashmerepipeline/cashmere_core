@@ -10,8 +10,8 @@ schema = [
   { data_type = "String", name_map = { zh = "类型", en = "data_type" }, removed = false },
   { data_type = "Int32", name_map = { zh = "主管理", en = "owner_manage_id" }, removed = false },
   { data_type = "String", name_map = { zh = "主实体", en = "owner_entity_id" }, removed = false },
+  { data_type = "List", name_map = { zh = "阶段表", en = "stages" }, removed = false },
   { data_type = "Map", name_map = { zh = "数据线索", en = "data_clue" }, removed = false },
-  { data_type = "String", name_map = { zh = "版本", en = "version" }, removed = false },
 ]
 
 [queues]

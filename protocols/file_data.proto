@@ -3,6 +3,7 @@ package cashmere;
 
 import "file_info.proto";
 
+
 // 上传文件数据
 // 第一个包块编号为-1，最后一个包块编号为-1, 即从-1开始，到-1结束
 message FileDataUploadFileRequest {
@@ -12,6 +13,7 @@ message FileDataUploadFileRequest {
   bytes chunk = 4;
   string chunk_md5 = 6;
   FileInfo file_info = 5;
+  string phase = 8;
 }
 
 message FileDataUploadFileResponse {
@@ -21,11 +23,18 @@ message FileDataUploadFileResponse {
 // 下载文件数据
 message FileDataDownloadFileRequest {
   string data_id = 1;
+  // 相对数据存储根目录
+  string phase = 2;
+  uint64 chunk_index = 3;
+  // 如果给出版本，则下载对应版本的文件，没有则下载阶段软连接指向的文件
+  string version = 4;
 }
+// 返回文件流
 message FileDataDownloadFileResponse {
   string data_id = 1;
   uint64 total_chunks = 2;
-  uint64 current_chunk = 3;
+  uint64 chunk_index = 3;
   bytes chunk = 4;
-  string file_name = 5;
+  string chunk_md5 = 5;
+  FileInfo file_info = 6;
 }

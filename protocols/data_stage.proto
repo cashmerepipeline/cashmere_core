@@ -1,0 +1,44 @@
+syntax = "proto3";
+package cashmere;
+
+// 新阶段
+message NewDataStageRequset {
+  string data_id = 1;
+  string stage_name = 2;
+}
+message NewDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 改变阶段文件连接
+message ChangeDataStageRequest {
+  string data_id = 1;
+  string stage = 2;
+  string target_file = 3;
+}
+message ChangeDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 删除阶段，只删除阶段->数据的文件连接，不删除数据
+message RemoveDataStageRequset {
+  string data_id = 1;
+  string stage = 2;
+}
+message RemoveDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 数据阶段信息
+message DataStageInfo {
+  string stage = 1;
+  // phase目录下的文件列表, 文件为文件列表，集合为集合目录列表
+  repeated string files_or_dirs = 2;
+}
+
+// 取得数据阶段表
+message GetDataStagesRequest { string data_id = 1; }
+message GetDataStagesResponse { repeated DataStageInfo stages = 1; }
