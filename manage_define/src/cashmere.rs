@@ -270,6 +270,70 @@ pub enum DataType {
     /// 类json格式数据
     DocumentData = 3,
 }
+/// 新阶段
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDataStageRequset {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 改变阶段文件连接
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeDataStageRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub target_file: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 删除阶段，只删除阶段->数据的文件连接，不删除数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveDataStageRequset {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 数据阶段信息
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataStageInfo {
+    #[prost(string, tag="1")]
+    pub stage: ::prost::alloc::string::String,
+    /// phase目录下的文件列表, 文件为文件列表，集合为集合目录列表
+    #[prost(string, repeated, tag="2")]
+    pub files_or_dirs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 取得数据阶段表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataStagesRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataStagesResponse {
+    #[prost(message, repeated, tag="1")]
+    pub stages: ::prost::alloc::vec::Vec<DataStageInfo>,
+}
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -302,7 +366,7 @@ pub struct FileDataUploadFileRequest {
     #[prost(message, optional, tag="5")]
     pub file_info: ::core::option::Option<FileInfo>,
     #[prost(string, tag="8")]
-    pub phase: ::prost::alloc::string::String,
+    pub stage: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileDataUploadFileResponse {
@@ -316,12 +380,12 @@ pub struct FileDataDownloadFileRequest {
     pub data_id: ::prost::alloc::string::String,
     /// 相对数据存储根目录
     #[prost(string, tag="2")]
-    pub phase: ::prost::alloc::string::String,
+    pub stage: ::prost::alloc::string::String,
     #[prost(uint64, tag="3")]
     pub chunk_index: u64,
     /// 如果给出版本，则下载对应版本的文件，没有则下载阶段软连接指向的文件
     #[prost(string, tag="4")]
-    pub version: ::prost::alloc::string::String,
+    pub file_name: ::prost::alloc::string::String,
 }
 /// 返回文件流
 #[derive(Clone, PartialEq, ::prost::Message)]

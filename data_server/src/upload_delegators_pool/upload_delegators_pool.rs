@@ -37,7 +37,7 @@ pub fn get_upload_delegator_pool(max_upload_number: Option<u16>) -> Arc<RwLock<U
 
 impl UploadDelegatorsPool {
     // add code here
-    pub fn request_delegator(&self, file_info: &FileInfo) -> Option<Arc<UploadDelegator>> {
+    pub fn request_delegator(&self) -> Option<Arc<UploadDelegator>> {
         let mut delegators = self.delegators.write();
         let r = delegators.pop();
         r

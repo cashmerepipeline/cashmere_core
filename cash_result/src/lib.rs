@@ -72,7 +72,10 @@ pub fn field_not_exists(operation: impl Into<String>, field: impl Into<String>) 
     OperationResult::Failed(result)
 }
 /// 属性不需要更新
-pub fn field_edited_already(operation: impl Into<String>, field: impl Into<String>) -> OperationResult {
+pub fn field_edited_already(
+    operation: impl Into<String>,
+    field: impl Into<String>,
+) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
         details: format!("属性已经是想要的值: {}", field.into()),
@@ -115,4 +118,3 @@ pub fn add_call_name_to_chain(e: OperationResult, new_operation: String) -> Oper
         details: e.details(),
     })
 }
-

@@ -1,4 +1,7 @@
-use std::{path::{Path, PathBuf}, sync::Arc};
+use std::{
+    path::{Path, PathBuf},
+    sync::Arc,
+};
 
 use log::info;
 
@@ -10,7 +13,7 @@ use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::Sender;
 
-use cash_result::{Failed, operation_failed, OperationResult};
+use cash_result::{operation_failed, Failed, OperationResult};
 use manage_define::cashmere::FileInfo;
 
 use crate::{file_utils::check_space_enough, upload_delegators_pool::get_upload_delegator_pool};
@@ -25,6 +28,7 @@ impl UploadDelegator {
     pub fn check_storage_space(
         &self,
         data_id: &String,
+        stage: &String,
         file_info: &FileInfo,
         request_size: u64,
     ) -> Result<(PathBuf, PathBuf), OperationResult> {
@@ -33,24 +37,21 @@ impl UploadDelegator {
         let mut data_dir_path = PathBuf::new();
         data_dir_path.push(data_root);
         data_dir_path.push(data_id);
+        data_dir_path.push(stage);
 
         match check_space_enough(data_dir_path.as_path(), request_size) {
             Ok(_r) => {
                 let file_ext = Path::new(&file_info.file_name).extension().unwrap();
-                let mut file_path_buf: PathBuf = [data_dir_path.to_str().unwrap(), &file_info.md5]
-                    .iter()
-                    .collect();
-                file_path_buf.set_extension(file_ext);
-                Ok((data_dir_path.to_path_buf(), file_path_buf))
+                let mut file_pathbuf = PathBuf::from(data_dir_path.clone());
+                file_pathbuf.push(&file_info.md5);
+                file_pathbuf.set_extension(file_ext);
+
+                Ok((data_dir_path.to_path_buf(), file_pathbuf))
             }
             Err(e) => Err(OperationResult::Failed(Failed {
                 operation: "check_space_enough".to_string(),
 
-                details: format!(
-                    "{}, 存储空间不足: {}",
-                    e,
-                    data_dir_path.to_str().unwrap(),
-                ),
+                details: format!("{}, 存储空间不足: {}", e, data_dir_path.to_str().unwrap(),),
             })),
         }
     }
@@ -163,5 +164,5 @@ impl UploadDelegator {
 
     /// 续传检查
     pub fn check_is_continue(&self) {}
-    
 }
+

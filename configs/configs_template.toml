@@ -41,4 +41,5 @@ max_file_upload_number = 256
 max_file_download_number = 256
 # 块最大大小，1024*128=128KB
 transfer_chunk_size = 131072
-
+# 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
+internal_root_dir_map = {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}

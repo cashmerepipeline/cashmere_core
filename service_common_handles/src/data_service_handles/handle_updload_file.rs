@@ -39,6 +39,7 @@ pub trait HandleUploadFile {
         };
 
         let data_id = first_request.data_id.clone();
+        let stage = first_request.stage.clone();
         let file_info = first_request.file_info.clone().unwrap();
 
         if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
@@ -51,7 +52,7 @@ pub trait HandleUploadFile {
         // 请求上传文件代理
         let data_server_arc = data_server::get_data_server();
 
-        let delegator = if let Some(d) = data_server_arc.get_upload_delegator(&file_info) {
+        let delegator = if let Some(d) = data_server_arc.get_upload_delegator() {
             d
         } else {
             return Err(Status::aborted(
@@ -60,7 +61,7 @@ pub trait HandleUploadFile {
         };
 
         let data_pathes =
-            match delegator.check_storage_space(&data_id, &file_info, file_info.size) {
+            match delegator.check_storage_space(&data_id, &stage, &file_info, file_info.size) {
                 Ok(r) => r,
                 Err(e) => {
                     return Err(Status::aborted(format!(

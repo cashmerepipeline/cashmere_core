@@ -1,6 +1,8 @@
-use serde_derive::Deserialize;
+use std::collections::HashMap;
 
-#[derive(Deserialize, Clone)]
+use serde_derive::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct DataServerConfigs {
     // 数据根目录
     pub root_dir_path: String,
@@ -16,4 +18,5 @@ pub struct DataServerConfigs {
     pub max_file_upload_number: u16,
     // 最大文件下载连接
     pub max_file_download_number: u16,
+    pub internal_root_dir_map: HashMap<String, String>
 }
