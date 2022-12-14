@@ -162,15 +162,6 @@ message MarkEntityRemovedResponse {
   string result = 1;
 }
 
-// 取得实体数据表
-message GetDataListRequest{
-  int32 manage_id = 1;
-  string entity_id = 2;
-}
-message GetDataListResponse{
-  repeated string data_ids = 1;
-}
-
 // 取得实体已标记移除数据表
 message GetRemovedDataListRequest{
   string manage_id = 1;

@@ -9,6 +9,7 @@ import "property_type.proto";
 import "name.proto";
 import "color.proto";
 import "data.proto";
+import "data_server.proto";
 import "data_stage.proto";
 import "file_data.proto";
 import "sequence_data.proto";

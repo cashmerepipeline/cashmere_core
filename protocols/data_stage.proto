@@ -2,9 +2,10 @@ syntax = "proto3";
 package cashmere;
 
 // 新阶段
-message NewDataStageRequset {
+message NewDataStageRequest {
   string data_id = 1;
   string stage_name = 2;
+  string description = 3;
 }
 message NewDataStageResponse {
   // 成功返回 "ok"
@@ -12,12 +13,12 @@ message NewDataStageResponse {
 }
 
 // 改变阶段文件连接
-message ChangeDataStageRequest {
+message SetDataStageCurrentVersionRequest {
   string data_id = 1;
-  string stage = 2;
-  string target_file = 3;
+  string stage_name = 2;
+  string target_version = 3;
 }
-message ChangeDataStageResponse {
+message SetDataStageCurrentVersionResponse {
   // 成功返回 "ok"
   string result = 1;
 }
@@ -34,11 +35,35 @@ message RemoveDataStageResponse {
 
 // 数据阶段信息
 message DataStageInfo {
-  string stage = 1;
+  string name = 1;
   // phase目录下的文件列表, 文件为文件列表，集合为集合目录列表
-  repeated string files_or_dirs = 2;
+  repeated string versions = 2;
+  // 当前连接所指版本
+  string current_version = 3;
 }
 
 // 取得数据阶段表
-message GetDataStagesRequest { string data_id = 1; }
-message GetDataStagesResponse { repeated DataStageInfo stages = 1; }
+message ListDataStagesRequest { string data_id = 1; }
+message ListDataStagesResponse { repeated DataStageInfo stages = 1; }
+
+// 添加数据版本到阶段
+message AddDataStageVersionRequest {
+  string data_id = 1;
+  string stage_name = 2;
+  string version = 3;
+  } 
+message AddDataStageVersionResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 添加数据版本到阶段
+message RemoveDataStageVersionRequest {
+  string data_id = 1;
+  string stage_name = 2;
+  string version = 3;
+  } 
+message RemoveDataStageVersionResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}

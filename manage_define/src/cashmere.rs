@@ -198,10 +198,7 @@ pub struct DataInfo {
     pub owner_manage_id: i32,
     #[prost(string, tag="4")]
     pub owner_entity_id: ::prost::alloc::string::String,
-    /// data线索, 取得data的访问指引, 文件为文件路径, 序列为序列信息, json为clue本身, 文档应当为http链接(多人协作文档)
-    #[prost(bytes="vec", tag="6")]
-    pub data_clue: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, repeated, tag="7")]
+    #[prost(string, repeated, tag="5")]
     pub stages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 新建数据
@@ -248,14 +245,18 @@ pub struct MarkDataRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 取得服务器数据块大小设置
+/// 取得实体数据表
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataServerConfigsRequest {
+pub struct ListDataRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataServerTransferChunkSizeResponse {
-    #[prost(bytes="vec", tag="1")]
-    pub data_server_configs: ::prost::alloc::vec::Vec<u8>,
+pub struct ListDataResponse {
+    #[prost(string, repeated, tag="1")]
+    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -270,13 +271,52 @@ pub enum DataType {
     /// 类json格式数据
     DocumentData = 3,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataServerConfigs {
+    #[prost(string, tag="1")]
+    pub root_dir_path: ::prost::alloc::string::String,
+    /// 文件最大大小, 16MB
+    #[prost(uint64, tag="2")]
+    pub max_file_size: u64,
+    /// 文件集最大数量, 1000
+    #[prost(uint32, tag="3")]
+    pub max_set_size: u32,
+    /// 文件序列最大数量
+    #[prost(uint64, tag="4")]
+    pub max_sequence_length: u64,
+    /// 最大文件上传连接
+    #[prost(uint32, tag="5")]
+    pub max_file_upload_number: u32,
+    /// 最大文件下载连接
+    #[prost(uint32, tag="6")]
+    pub max_file_download_number: u32,
+    /// 块最大大小，1024*128=128KB
+    #[prost(uint32, tag="7")]
+    pub transfer_chunk_size: u32,
+    /// 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
+    /// {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}
+    #[prost(map="string, string", tag="8")]
+    pub internal_root_dir_map: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
+/// 取得数据服务设置
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerConfigsRequest {
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerConfigsResponse {
+    #[prost(message, optional, tag="1")]
+    pub data_server_configs: ::core::option::Option<DataServerConfigs>,
+}
 /// 新阶段
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewDataStageRequset {
+pub struct NewDataStageRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataStageResponse {
@@ -286,16 +326,16 @@ pub struct NewDataStageResponse {
 }
 /// 改变阶段文件连接
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ChangeDataStageRequest {
+pub struct SetDataStageCurrentVersionRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
-    pub stage: ::prost::alloc::string::String,
+    pub stage_name: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
-    pub target_file: ::prost::alloc::string::String,
+    pub target_version: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ChangeDataStageResponse {
+pub struct SetDataStageCurrentVersionResponse {
     /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
@@ -315,24 +355,60 @@ pub struct RemoveDataStageResponse {
     pub result: ::prost::alloc::string::String,
 }
 /// 数据阶段信息
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DataStageInfo {
     #[prost(string, tag="1")]
-    pub stage: ::prost::alloc::string::String,
+    pub name: ::prost::alloc::string::String,
     /// phase目录下的文件列表, 文件为文件列表，集合为集合目录列表
     #[prost(string, repeated, tag="2")]
-    pub files_or_dirs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 当前连接所指版本
+    #[prost(string, tag="3")]
+    pub current_version: ::prost::alloc::string::String,
 }
 /// 取得数据阶段表
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataStagesRequest {
+pub struct ListDataStagesRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataStagesResponse {
+pub struct ListDataStagesResponse {
     #[prost(message, repeated, tag="1")]
     pub stages: ::prost::alloc::vec::Vec<DataStageInfo>,
+}
+/// 添加数据版本到阶段
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddDataStageVersionRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddDataStageVersionResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加数据版本到阶段
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveDataStageVersionRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveDataStageVersionResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
 }
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -816,19 +892,6 @@ pub struct MarkEntityRemovedRequest {
 pub struct MarkEntityRemovedResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
-}
-/// 取得实体数据表
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataListRequest {
-    #[prost(int32, tag="1")]
-    pub manage_id: i32,
-    #[prost(string, tag="2")]
-    pub entity_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataListResponse {
-    #[prost(string, repeated, tag="1")]
-    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 取得实体已标记移除数据表
 #[derive(Clone, PartialEq, ::prost::Message)]

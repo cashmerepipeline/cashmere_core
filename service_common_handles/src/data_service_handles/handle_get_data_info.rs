@@ -57,10 +57,6 @@ pub trait HandleGetDataInfo {
                             .iter()
                             .map(|x| String::from(x.as_str().unwrap()))
                             .collect(),
-                        data_clue: bson::to_vec(
-                            r.get(DATAS_DATA_CLUE_FIELD_ID.to_string()).unwrap(),
-                        )
-                        .unwrap(),
                     }),
                 }))
             }

@@ -22,9 +22,7 @@ message DataInfo {
   DataType data_type = 1;
   int32 owner_manage_id = 3;
   string owner_entity_id = 4;
-  // data线索, 取得data的访问指引, 文件为文件路径, 序列为序列信息, json为clue本身, 文档应当为http链接(多人协作文档)
-  bytes data_clue = 6;
-  repeated string stages = 7;
+  repeated string stages = 5;
 }
 
 // 新建数据
@@ -57,10 +55,11 @@ message MarkDataRemovedResponse {
   string result = 1;
 }
 
-// 取得服务器数据块大小设置
-message GetDataServerConfigsRequest {
+// 取得实体数据表
+message ListDataRequest{
+  int32 manage_id = 1;
+  string entity_id = 2;
 }
-message GetDataServerTransferChunkSizeResponse {
-  bytes data_server_configs = 1;
+message ListDataResponse{
+  repeated string data_ids = 1;
 }
-
