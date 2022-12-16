@@ -15,7 +15,7 @@ pub async fn init_manages_db(db: &Database, tomls: &Vec<Map<String, Value>>, roo
             Some(m) => m.to_string(),
             None => continue,
         };
-        // println!("开始创建管理：{}", manage_id);
+
         let manage_name = match utils::get_name(map) {
             Some(m) => m,
             None => continue,
@@ -25,7 +25,7 @@ pub async fn init_manages_db(db: &Database, tomls: &Vec<Map<String, Value>>, roo
             None => continue,
         };
 
-        println!("开始创建管理：{} {}", manage_id, manage_name);
+        println!("\t开始创建管理：{} {}", manage_id, manage_name);
 
         let mut manage_doc = doc! {
             "_id": manage_id.clone(),
@@ -42,11 +42,11 @@ pub async fn init_manages_db(db: &Database, tomls: &Vec<Map<String, Value>>, roo
             root_group_id,
         ).await {
             Ok(r) => {
-                println!("添加管理实体 {} {} 成功", manage_id, manage_name);
+                println!("\t添加管理实体 {} {} 成功", manage_id, manage_name);
                 Some(r)
             }
             Err(e) => {
-                println!("添加管理实体 {} {} 失败 {}", manage_id, manage_name, e.details());
+                println!("\t添加管理实体 {} {} 失败 {}", manage_id, manage_name, e.details());
                 None
             }
         };
@@ -58,8 +58,8 @@ pub async fn init_manages_db(db: &Database, tomls: &Vec<Map<String, Value>>, roo
 
         // 创建集合
         match db.create_collection(&manage_id.clone(), None).await {
-            Err(e) => println!("创建管理集合失败: {} {:?}", manage_id, e),
-            _ => println!("创建管理集合成功 {}", manage_id),
+            Err(e) => println!("\t创建管理集合失败: {} {:?}", manage_id, e),
+            _ => println!("\t创建管理集合成功 {}", manage_id),
         }
     }
 }

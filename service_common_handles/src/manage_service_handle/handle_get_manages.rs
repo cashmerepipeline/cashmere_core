@@ -35,7 +35,7 @@ pub trait HandleGetManages {
                 .unwrap();
 
             let m = Manage {
-                manage_id: doc.get_str(ID_FIELD_ID.to_string()).unwrap().to_string(),
+                manage_id: doc.get_str(ID_FIELD_ID.to_string()).unwrap().parse::<i32>().unwrap(),
                 name_map,
             };
 

@@ -22,21 +22,14 @@ pub trait HandleGetManageEntryCount {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let manage_id_str = &request.get_ref().manage_id;
+        let manage_id = &request.get_ref().manage_id;
 
-        let mut manage_id: i32 = 0;
-        if let Ok(id) = manage_id_str.parse() {
-            manage_id = id
-        } else {
-            return Err(Status::aborted("请求管理编号不正确。"));
-        }
-
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await{
-            return Err(Status::unauthenticated("用户不具有可写权限"));
+        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await{
+            return Err(Status::unauthenticated("用户不具有可读权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
         let result = manager.get_entry_counts().await;
 

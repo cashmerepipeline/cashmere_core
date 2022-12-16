@@ -14,9 +14,9 @@ pub fn get_init_items(toml_map: &toml::map::Map<String, toml::Value>) -> Option<
                 }
                 // 构造Document
                 let doc = bson::ser::to_document(v_table).unwrap();
-                println!("取得初始化实体 {}", doc);
                 items.push(doc);
             }
+            println!("\t\t取得初始化实体 {} 个", items.len());
             Some(items)
         }
         None => None,

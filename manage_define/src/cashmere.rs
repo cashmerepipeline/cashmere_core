@@ -910,8 +910,8 @@ pub struct GetRemovedDataListResponse {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Manage {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(bytes="vec", tag="2")]
     pub name_map: ::prost::alloc::vec::Vec<u8>,
 }
@@ -927,8 +927,8 @@ pub struct GetManagesResponse {
 /// 取得记录数量
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageEntryCountRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageEntryCountResponse {

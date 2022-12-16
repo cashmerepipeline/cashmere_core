@@ -1,11 +1,11 @@
+use crate::{LoginRequest, LoginResponse, UnaryResponseResult};
 use async_trait::async_trait;
-use tonic::{Request, Response, Status};
-use bson::Document;
+use bson::{doc, Document};
 use chrono::Utc;
 use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIONS_FIELD_ID};
 use manage_define::manage_ids::{ACCOUNTS_MANAGE_ID, PERSONS_MANAGE_ID};
 use managers::traits::ManagerTrait;
-use crate::{LoginRequest, LoginResponse, UnaryResponseResult};
+use tonic::{Request, Response, Status};
 
 #[async_trait]
 pub trait HandleLogin {
@@ -20,7 +20,7 @@ pub trait HandleLogin {
         info!("account try login: {}", phone);
 
         // 取得账户记录
-        let id: String = format!("{}{}", country_code, phone);
+        let account_id: String = format!("{}{}", country_code, phone);
 
         let mut doc_op: Option<Document> = None;
         {
@@ -31,7 +31,7 @@ pub trait HandleLogin {
                 .await
                 .unwrap();
 
-            let account_doc = manager_arc.get_entity_by_id(&id.clone()).await;
+            let account_doc = manager_arc.get_entity_by_id(&account_id).await;
             let account_doc = match account_doc {
                 Ok(d) => d,
                 Err(e) => {
@@ -58,31 +58,25 @@ pub trait HandleLogin {
         }
 
         // 个人信息
-        let mut person_bytes: Vec<u8> = Vec::new();
-        let person_result = entity::get_entity_by_id(&PERSONS_MANAGE_ID.to_string(), &id).await;
-        let person_doc = match person_result {
+        let person_doc = match entity::get_entity_by_id(&PERSONS_MANAGE_ID.to_string(), &account_id).await {
             Ok(p) => p,
-            Err(_e) => return Err(Status::data_loss("取得个人信息失败")),
+            Err(e) => doc! {}, 
         };
 
         let orgnizations: Vec<String> = bson::from_bson(
             person_doc
                 .get(PERSONS_ORGANIZATIONS_FIELD_ID.to_string().as_str())
-                .unwrap()
+                .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
                 .clone(),
         )
         .unwrap();
         let departments: Vec<String> = bson::from_bson(
             person_doc
-                .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string().as_str())
-                .unwrap()
+                .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string())
+                .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
                 .clone(),
         )
         .unwrap();
-
-        person_doc
-            .to_writer(&mut person_bytes)
-            .expect("转换记录到bytes失败");
 
         // 构造token
         let groups = match account::get_account_groups(&account_doc) {
@@ -90,7 +84,7 @@ pub trait HandleLogin {
             None => return Err(Status::data_loss("取得group数据失败")),
         };
 
-        let token = match auth::jwt::gen_jwt_token(&id, phone, &orgnizations, &departments, &groups)
+        let token = match auth::jwt::gen_jwt_token(&account_id, phone, &orgnizations, &departments, &groups)
             .await
         {
             Some(t) => t,
@@ -103,7 +97,7 @@ pub trait HandleLogin {
             Some(r) => r.clone(),
             None => return Err(Status::data_loss("获取时间戳失败")),
         };
-        match account::update_account_login_timestamps(&id, &timestamps, now).await {
+        match account::update_account_login_timestamps(&account_id, &timestamps, now).await {
             Ok(_) => (),
             Err(_e) => return Err(Status::data_loss("更新时间戳失败")),
         };
@@ -112,7 +106,7 @@ pub trait HandleLogin {
 
         // 返回
         Ok(Response::new(LoginResponse {
-            person: person_bytes,
+            person: bson::to_vec(&person_doc).unwrap(),
             token,
         }))
     }

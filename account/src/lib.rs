@@ -101,7 +101,7 @@ pub async fn update_account_login_timestamps(
     }
 
     let query_doc = doc! {
-        "_id": account_id.clone()
+        ID_FIELD_ID.to_string(): account_id.clone()
     };
     let modify_doc = doc! {
         ACCOUNTS_LOGIN_TIMESTAMPS_FIELD_ID.to_string():timestamps

@@ -12,7 +12,7 @@ package cashmere;
 import "name.proto";
 
 message Manage{
-  string manage_id = 1;
+  int32 manage_id = 1;
   bytes name_map = 2;
 }
 
@@ -25,7 +25,7 @@ message GetManagesResponse{
 
 // 取得记录数量
 message GetManageEntryCountRequest{
-  string manage_id = 1;
+  int32 manage_id = 1;
 }
 message GetManageEntryCountResponse{
   uint64 count = 1;

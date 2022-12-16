@@ -103,32 +103,34 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await
     {
         Err(e) => println!("创建管理集合失败，集合可能已存在: {} {:?}", MANAGES_MANAGE_ID, e),
-        _ => println!("创建管理成功 {}", MANAGES_MANAGE_ID),
+        _ => println!("创建管理集合成功: {}", MANAGES_MANAGE_ID),
     }
 
     println!("------开始初始化管理数据库-------");
     init_manages_db::init_manages_db(db, &tomls, root_id, root_group_id).await;
-    println!("------初始化管理数据库完成-------");
+    println!("------初始化管理数据库完成-------\n");
 
     // 2. 初始化事件类型
     println!("------开始初始化事件类型-------");
     init_event_types::init_event_types(db, &tomls).await;
-    println!("------初始化事件类型完成-------");
+    println!("------初始化事件类型完成-------\n");
 
     // 3. 添加初始实体数据
     println!("------开始插入初始数据-------");
     init_basic_items::init_basic_items(&tomls, root_id, root_group_id).await;
-    println!("------插入初始数据结束-------");
+    println!("------插入初始数据结束-------\n");
 
     // 4. 添加映像规则
     println!("------开始添加映像规则-------");
     init_view_rules::init_view_rules(&tomls, root_id, root_group_id).await;
-    println!("------添加映像规则完成-------");
+    println!("------添加映像规则完成-------\n");
 
     // 初始化根用户密码
     println!("------开始初始化根用户密码-------");
     init_root_password::init_root_password(&root_id, &root_password).await;
-    println!("------初始化根用户完成-------");
+    println!("------初始化根用户完成-------\n");
+
+    // tokio::join!(init_manages_db, init_event_types, init_basic_items, init_view_rules, init_root_password);
 
     Ok(())
 }

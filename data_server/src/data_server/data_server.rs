@@ -5,7 +5,7 @@ use std::sync::Arc;
 #[derive(Debug, Default)]
 pub struct DataServer {
     pub root_dir_path: String,
-    pub max_file_size: u128,
+    pub max_file_size: u64,
     pub max_set_size: u32,
     pub max_sequence_length: u32,
     pub max_transfer_chunck_size: u32,

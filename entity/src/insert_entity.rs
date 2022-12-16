@@ -39,21 +39,15 @@ pub async fn insert_entity(
     entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
     entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id.clone());
     entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id.clone()]);
-    entity_doc.insert(
-        MODIFY_TIMESTAMP_FIELD_ID.to_string(),
-        Utc::now().timestamp(),
-    );
-    entity_doc.insert(
-        CREATE_TIMESTAMP_FIELD_ID.to_string(),
-        Utc::now().timestamp(),
-    );
+    entity_doc.insert( MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
+    entity_doc.insert( CREATE_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
 
     // 插入, 返回插入后的ID
     let result = collection.insert_one(entity_doc.clone(), None).await;
 
     // 结果
     match result {
-        Ok(r) => Ok(r.inserted_id.as_str().unwrap().to_string()),
+        Ok(r) => Ok(r.inserted_id.to_string()),
         Err(_e) => Err(operation_failed(
             "insert_entity",
             format!("插入实体失败 {}-{}", manage_id, id),
