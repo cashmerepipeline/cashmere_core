@@ -18,7 +18,7 @@ use manage_define::general_field_ids::*;
 pub async fn insert_entity_map_field(
     manage_id: &String,
     query_doc: Document,
-    modify_doc: Document,
+    mut modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -26,18 +26,16 @@ pub async fn insert_entity_map_field(
         Some(c) => c,
         None => return Err(collection_not_exists("update_entity")),
     };
-    
 
-    let mut final_modify_doc = modify_doc;
-    final_modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
-    final_modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
+    modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
+    modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
 
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
             doc! {
-                "$set": final_modify_doc, 
+                "$set": &modify_doc,
             },
             UpdateOptions::builder().upsert(true).build(),
         )
@@ -49,7 +47,7 @@ pub async fn insert_entity_map_field(
             true => Ok(operation_succeed("ok")),
             false => Err(operation_failed(
                 "insert_entity_map_field",
-                format!("更新了多个实体{}--{}-{}, 更新发生错误, 请检查数据正确性。", manage_id, query_doc, r.modified_count),
+                format!("更新{}--{}-{}-{}, 发生错误, 请检查数据正确性。", manage_id, query_doc, modify_doc, r.modified_count),
             )),
         },
         Err(_e) => Err(operation_failed(

@@ -26,13 +26,13 @@ pub trait HandleEditSchemaFieldName {
         let new_name = &request.get_ref().new_name;
 
         // 需要系统管理员权限
-        if !view::can_manage_write(&account_id, &role_group, manage_id).await {
+        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(manage_id.parse().unwrap())
+            .get_manager_by_id(*manage_id)
             .await
             .unwrap();
         let result = manager

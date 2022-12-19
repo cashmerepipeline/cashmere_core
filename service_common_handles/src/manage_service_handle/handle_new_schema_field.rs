@@ -27,7 +27,7 @@ pub trait HandleNewSchemaField {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
+        let manage_id = request.get_ref().manage_id;
         let field: &SchemaField = request.get_ref().field.as_ref().unwrap();
 
         let name_bytes = field.name_map.clone();

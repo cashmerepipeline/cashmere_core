@@ -6,7 +6,7 @@ import "status.proto";
 
 // 使用手机号码 密码登录
 message LoginRequest {
-  string country_code = 1;
+  string area_code = 1;
   string phone = 2;
   string password = 3;
 }

@@ -16,7 +16,7 @@ use manage_define::general_field_ids::*;
 pub async fn update_entity_array_field(
     manage_id: &String,
     query_doc: Document,
-    modify_doc: Document,
+    mut modify_doc: Document,
     account_id: &String,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
@@ -25,16 +25,15 @@ pub async fn update_entity_array_field(
         None => return Err(collection_not_exists("upate_entity_array_field")),
     };
 
+    modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
+    modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
+
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
             doc! {
                 "$set": modify_doc,
-                "$set": {
-                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-                    MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
-                }
             },
             None,
         )

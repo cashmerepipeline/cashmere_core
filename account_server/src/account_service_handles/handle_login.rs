@@ -13,14 +13,14 @@ pub trait HandleLogin {
         &self,
         request: Request<LoginRequest>,
     ) -> UnaryResponseResult<LoginResponse> {
-        let country_code = &request.get_ref().country_code;
+        let area_code = &request.get_ref().area_code;
         let phone = &request.get_ref().phone;
         let password = &request.get_ref().password;
 
         info!("account try login: {}", phone);
 
         // 取得账户记录
-        let account_id: String = format!("{}{}", country_code, phone);
+        let account_id: String = format!("{}{}", area_code, phone);
 
         let mut doc_op: Option<Document> = None;
         {

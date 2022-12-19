@@ -360,11 +360,12 @@ pub trait ManagerTrait: Any + Send + Sync {
         field_id: i32,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        // 更新管理
         let manage_id = self.get_manager_id();
+
         let mut index: usize = 0;
         let _new_field: Option<PropertyField> = None;
 
+        // 更新管理缓存
         {
             let manage_arc = self.get_manage().await;
             let mut manage = manage_arc.write();
@@ -381,18 +382,21 @@ pub trait ManagerTrait: Any + Send + Sync {
 
             // 已经是removed
             if field.removed {
-                return Err(field_edited_already(
-                    "mark_schema_field_removed",
-                    field_id.to_string(),
-                ));
+                // return Err(field_edited_already(
+                //     "mark_schema_field_removed",
+                //     field_id.to_string(),
+                // ));
+                return Ok(operation_succeed("ok"))
             }
 
             field.removed = true;
         }
 
+        log::info!("update database of manage: {}", manage_id);
+
         // 更新数据库
         let query_doc = doc! {
-            "_id":manage_id.to_string(),
+            ID_FIELD_ID.to_string():manage_id.to_string(),
             format!("{}.id", MANAGES_SCHEMA_FIELD_ID):field_id
         };
         let modify_doc = doc! {

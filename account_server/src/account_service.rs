@@ -15,7 +15,7 @@ pub enum AccountStatus {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
     #[prost(string, tag="1")]
-    pub country_code: ::prost::alloc::string::String,
+    pub area_code: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub phone: ::prost::alloc::string::String,
     #[prost(string, tag="3")]

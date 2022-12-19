@@ -13,24 +13,24 @@ use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use view;
-use view::ReadRule;
+use view::WriteRule;
 
 #[async_trait]
-pub trait HandleChangeCollectionReadrule {
+pub trait HandleChangeCollectionWriteRule {
     /// 新建管理属性
-    async fn handle_change_collection_read_rule(
+    async fn handle_change_collection_write_rule(
         &self,
-        request: Request<ChangeCollectionReadRuleRequest>,
-    ) -> Result<Response<ChangeCollectionReadRuleResponse>, Status> {
+        request: Request<ChangeCollectionWriteRuleRequest>,
+    ) -> Result<Response<ChangeCollectionWriteRuleResponse>, Status> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;
-        let read_rule = &request.get_ref().read_rule;
+        let write_rule = &request.get_ref().write_rule;
 
         let majordomo_arc = get_majordomo().await;
 
@@ -50,7 +50,7 @@ pub trait HandleChangeCollectionReadrule {
         }
 
         //  检查输入规则
-        if ReadRule::Unknown == ReadRule::from(read_rule.to_owned()) {
+        if WriteRule::Unknown == WriteRule::from(write_rule.to_owned()) {
             return Err(Status::data_loss("输入读取规则错误"));
         }
 
@@ -68,7 +68,7 @@ pub trait HandleChangeCollectionReadrule {
         };
 
         let modify_doc = doc! {
-            format!("{}.{}.read_rule", VIEW_RULES_COLLECTION_FIELD_ID, group_id): read_rule.to_owned()
+            format!("{}.{}.write_rule", VIEW_RULES_COLLECTION_FIELD_ID, group_id): write_rule.to_owned()
         };
 
         let result = view_rules_manager
@@ -76,7 +76,7 @@ pub trait HandleChangeCollectionReadrule {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(ChangeCollectionReadRuleResponse {
+            Ok(r) => Ok(Response::new(ChangeCollectionWriteRuleResponse {
                 result: r.details(),
             })),
             Err(e) => Err(Status::aborted(format!(

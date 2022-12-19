@@ -22,7 +22,7 @@ pub trait HandleGetManageSchema {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
+        let manage_id = request.get_ref().manage_id;
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();

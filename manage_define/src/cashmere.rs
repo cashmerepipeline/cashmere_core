@@ -1053,8 +1053,8 @@ pub struct SchemaField {
 /// 取得管理描写
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaResponse {
@@ -1064,8 +1064,8 @@ pub struct GetManageSchemaResponse {
 /// 添加管理属性
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(message, optional, tag="2")]
     pub field: ::core::option::Option<SchemaField>,
 }
@@ -1077,8 +1077,8 @@ pub struct NewSchemaFieldResponse {
 /// 标记属性移除
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkSchemaFieldRemovedRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(int32, tag="2")]
     pub field_id: i32,
 }
@@ -1090,8 +1090,8 @@ pub struct MarkSchemaFieldRemovedResponse {
 /// 编辑属性名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditSchemaFieldNameRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(int32, tag="2")]
     pub field_id: i32,
     #[prost(string, tag="3")]

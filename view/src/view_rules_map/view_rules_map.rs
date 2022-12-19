@@ -12,6 +12,7 @@ use bson::{self, de::from_document, Document};
 
 use futures::stream::StreamExt;
 use linked_hash_map::LinkedHashMap;
+use manage_define::general_field_ids::ID_FIELD_ID;
 use mongodb;
 use parking_lot::RwLock;
 
@@ -58,7 +59,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
     for view_rule in view_rules {
         match view_rule {
             Ok(ref d) => {
-                let id = d.get_str("_id").unwrap().to_string();
+                let id = d.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
 
                 info!("初始化管理映像规则表: {}", id);
 
