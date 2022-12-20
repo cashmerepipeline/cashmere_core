@@ -65,11 +65,11 @@ pub trait HandleChangeFieldReadrule {
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():manage_id
+            ID_FIELD_ID.to_string():manage_id.to_string()
         };
 
         let modify_doc = doc! {
-            format!("{}.{}.{}.read_rule",  VIEW_RULES_COLLECTION_FIELD_ID, field_id, group_id): read_rule.to_owned()
+            format!("{}.{}.{}.read_rule",  VIEW_RULES_ENTITY_FIELD_ID, field_id, group_id): read_rule.to_owned()
         };
 
         let result = view_rules_manager

@@ -65,11 +65,11 @@ pub trait HandleChangeFieldWriteRule {
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():manage_id
+            ID_FIELD_ID.to_string():manage_id.to_string()
         };
 
         let modify_doc = doc! {
-            format!("{}.{}.{}.write_rule",  VIEW_RULES_COLLECTION_FIELD_ID, field_id, group_id): write_rule.to_owned()
+            format!("{}.{}.{}.write_rule",  VIEW_RULES_ENTITY_FIELD_ID, field_id, group_id): write_rule.to_owned()
         };
 
         let result = view_rules_manager

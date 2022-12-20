@@ -63,7 +63,7 @@ pub trait HandleChangeManageWriteRule {
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():manage_id
+            ID_FIELD_ID.to_string():manage_id.to_string()
         };
 
         let modify_doc = doc! {
