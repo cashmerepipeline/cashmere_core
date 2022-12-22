@@ -803,7 +803,7 @@ pub struct EditEntityMapFieldRemoveKeyResponse {
 }
 /// 通用修改List实体属性, 添加成员
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityListFieldAddItemsRequest {
+pub struct EditEntityArrayFieldAddItemsRequest {
     #[prost(int32, tag="1")]
     pub manage_id: i32,
     #[prost(string, tag="2")]
@@ -815,14 +815,14 @@ pub struct EditEntityListFieldAddItemsRequest {
     pub items: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityListFieldAddItemsResponse {
+pub struct EditEntityArrayFieldAddItemsResponse {
     /// 成功返回新值
     #[prost(bytes="vec", tag="1")]
     pub result: ::prost::alloc::vec::Vec<u8>,
 }
 /// 通用修改List实体属性, 移除物体
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityListFieldRemoveItemsRequest {
+pub struct EditEntityArrayFieldRemoveItemsRequest {
     #[prost(int32, tag="1")]
     pub manage_id: i32,
     #[prost(string, tag="2")]
@@ -834,7 +834,7 @@ pub struct EditEntityListFieldRemoveItemsRequest {
     pub items: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityListFieldRemoveItemsResponse {
+pub struct EditEntityArrayFieldRemoveItemsResponse {
     /// 成功返回新值
     #[prost(bytes="vec", tag="1")]
     pub result: ::prost::alloc::vec::Vec<u8>,

@@ -1,7 +1,7 @@
 use crate::view_rules_map::get_view_rules_map;
 use crate::FilterRule;
 
-/// 管理是否可写, 管理的字段定义添加删除
+/// 实体是否可读
 pub async fn can_entity_read(_account: &String, group: &String, manage_id: &String) -> bool {
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
@@ -16,6 +16,7 @@ pub async fn can_entity_read(_account: &String, group: &String, manage_id: &Stri
                 .get(group)
                 .and_then(|rule| {
                     result = result
+                        || rule.read_filters.contains(&FilterRule::NoLimit)
                         || rule.read_filters.contains(&FilterRule::OnlyOwner)
                         || rule.read_filters.contains(&FilterRule::OnlyGroup);
                     Some(())

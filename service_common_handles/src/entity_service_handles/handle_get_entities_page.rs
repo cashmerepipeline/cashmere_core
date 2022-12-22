@@ -92,9 +92,7 @@ pub trait HandleGetEntitiesPage {
                 entities: entities
                     .iter()
                     .map(|x| {
-                        let mut bytes: Vec<u8> = Vec::new();
-                        x.to_writer(&mut bytes).expect(&*format!("数据损坏:{}", x));
-                        bytes
+                        bson::to_vec(x).unwrap()
                     })
                     .collect(),
             })),

@@ -99,27 +99,27 @@ message EditEntityMapFieldRemoveKeyResponse {
 }
 
 // 通用修改List实体属性, 添加成员
-message EditEntityListFieldAddItemsRequest {
+message EditEntityArrayFieldAddItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     // {field_id:[items]}
     bytes items = 4;
   }
-message EditEntityListFieldAddItemsResponse {
+message EditEntityArrayFieldAddItemsResponse {
   // 成功返回新值
   bytes result = 1;
 }
 
 // 通用修改List实体属性, 移除物体
-message EditEntityListFieldRemoveItemsRequest {
+message EditEntityArrayFieldRemoveItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     // {field_id:[items]}
     bytes items = 4;
   }
-message EditEntityListFieldRemoveItemsResponse {
+message EditEntityArrayFieldRemoveItemsResponse {
   // 成功返回新值
   bytes result = 1;
 }

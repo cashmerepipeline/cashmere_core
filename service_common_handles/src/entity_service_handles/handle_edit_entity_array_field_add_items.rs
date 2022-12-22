@@ -14,12 +14,12 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleEditEntityListFieldAddItems {
+pub trait HandleEditEntityArrayFieldAddItems {
     /// 编辑区域
-    async fn handle_edit_entity_list_field_add_items(
+    async fn handle_edit_entity_array_field_add_items(
         &self,
-        request: Request<EditEntityListFieldAddItemsRequest>,
-    ) -> UnaryResponseResult<EditEntityListFieldAddItemsResponse> {
+        request: Request<EditEntityArrayFieldAddItemsRequest>,
+    ) -> UnaryResponseResult<EditEntityArrayFieldAddItemsResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -70,7 +70,7 @@ pub trait HandleEditEntityListFieldAddItems {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(EditEntityListFieldAddItemsResponse {
+            Ok(_r) => Ok(Response::new(EditEntityArrayFieldAddItemsResponse {
                 result: items.clone(),
             })),
             Err(e) => Err(Status::aborted(format!(

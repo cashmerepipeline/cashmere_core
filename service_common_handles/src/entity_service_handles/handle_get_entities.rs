@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use bson::doc;
-use tokio_stream::{self as stream, StreamExt};
+use tokio_stream::{self as stream, Stream, StreamExt};
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
@@ -42,7 +42,8 @@ pub trait HandleGetEntities {
 
         // 实体可见性过滤
         let mut filtered_ids = vec![];
-        while let Some(ref id) = stream::iter(entity_ids).next().await {
+        let mut id_stream = stream::iter(entity_ids);
+        while let Some(ref id) = id_stream.next().await {
             if can_entity_read(&account_id, &role_group, &manage_id.to_string()).await {
                 filtered_ids.push(id.clone());
             }
@@ -58,20 +59,29 @@ pub trait HandleGetEntities {
             Ok(entities) => {
                 // 格可见性过滤
                 let mut result_docs = vec![];
-                while let Some(e) = stream::iter(&entities).next().await {
+
+                let mut entity_iter = entities.iter();
+                while let Some(e) = entity_iter.next() {
                     let mut result_doc = doc!();
-                    while let Some((k, v)) = stream::iter(e).next().await {
-                        if can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
-                            result_doc.insert(k, v);
+                    let mut property_stream= stream::iter(e);
+
+                    while let Some((k, v)) = property_stream.next().await {
+                        if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
+                            if k == &"_id".to_string(){
+                                result_doc.insert(k, v);
+                            }
+                            continue
                         }
+                        result_doc.insert(k, v);
                     }
+
                     result_docs.push(result_doc);
                 }
 
                 Ok(Response::new(GetEntitiesResponse {
                     entities: result_docs
                         .iter()
-                        .map(|x| bson::from_document(x.clone()).unwrap())
+                        .map(|x| bson::to_vec(x).unwrap())
                         .collect(),
                 }))
             }

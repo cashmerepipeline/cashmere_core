@@ -36,30 +36,35 @@ pub trait HandleGetEntity {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
-
-        let result = manager.get_entity_by_id(entity_id).await;
-
         // 实体可读性检查
         if !view::can_entity_read(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有实体可读权限"));
         };
 
-        // 格可见性过滤
-        let mut result_doc = doc!();
-        if let Ok(ref entity_doc) = result {
-            while let Some((k, v)) = stream::iter(entity_doc).next().await {
-                if can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
-                    result_doc.insert(k, v);
-                }
-            }
-        };
+        let majordomo_arc = get_majordomo().await;
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+
+        let result = manager.get_entity_by_id(entity_id).await;
 
         match result {
-            Ok(_r) => Ok(Response::new(GetEntityResponse {
-                entity: bson::from_document(result_doc).unwrap(),
-            })),
+            Ok(r) => {
+                // 字段可见性过滤
+                let mut result_doc = doc!();
+                let mut property_stream = stream::iter(r);
+                while let Some((k, v)) = property_stream.next().await {
+                    if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
+                        if k=="_id".to_string(){
+                            result_doc.insert(k, v);
+                        }
+                        continue
+                    }
+                    result_doc.insert(k, v);
+                }
+
+                Ok(Response::new(GetEntityResponse {
+                    entity: bson::to_vec(&result_doc).unwrap(),
+                }))
+            }
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),
