@@ -45,6 +45,7 @@ massage_queue = []
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit"
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -52,7 +53,7 @@ massage_queue = []
 ] }
 
 [view_rules.schema.1000]
-10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -61,16 +62,17 @@ massage_queue = []
 ], write_filters = [
 ] }
 [view_rules.schema.1001]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit"
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1002]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -118,7 +120,9 @@ massage_queue = []
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit"
 ] }
+
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
@@ -133,6 +137,18 @@ massage_queue = []
   "NoLimit",
 ], write_filters = [
 ] }
+
+[view_rules.schema.1009]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
 [view_rules.schema.1010]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
@@ -143,6 +159,7 @@ massage_queue = []
   "NoLimit",
 ], write_filters = [
 ] }
+
 [view_rules.schema.1011]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
@@ -155,42 +172,6 @@ massage_queue = []
 ] }
 
 [view_rules.schema.2001]
-10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-[view_rules.schema.2002]
-10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-[view_rules.schema.2003]
-10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-[view_rules.schema.2004]
-10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-  "NoLimit",
-], write_filters = [
-] }
-[view_rules.schema.2005]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [

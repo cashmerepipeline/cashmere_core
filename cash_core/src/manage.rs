@@ -32,6 +32,7 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         .unwrap()
         .parse()
         .unwrap();
+
     let name_map = bson::from_document(
         manage_doc
             .get_document(&NAME_MAP_FIELD_ID.to_string())
@@ -39,14 +40,17 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
             .clone(),
     )
         .unwrap();
+
     let creator = manage_doc.get_str(&CREATOR_FIELD_ID.to_string()).unwrap();
     let create_timestamp = manage_doc
         .get_i64(&CREATE_TIMESTAMP_FIELD_ID.to_string())
         .unwrap();
+
     let modifier = manage_doc.get_str(&MODIFIER_FIELD_ID.to_string()).unwrap();
     let modify_timestamp = manage_doc
         .get_i64(&MODIFY_TIMESTAMP_FIELD_ID.to_string())
         .unwrap();
+
     let owner = manage_doc.get_str(&OWNER_FIELD_ID.to_string()).unwrap();
     let groups: Vec<String> = manage_doc
         .get_array(&GROUPS_FIELD_ID.to_string())

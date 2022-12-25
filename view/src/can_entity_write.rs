@@ -1,3 +1,4 @@
+use log::debug;
 use crate::view_rules_map::get_view_rules_map;
 use crate::FilterRule;
 
@@ -15,7 +16,9 @@ pub async fn can_entity_write(_account: &String, group: &String, manage_id: &Str
             rules_map
                 .get(group)
                 .and_then(|rule| {
+                    debug!("{}：{}-{}-{:?}", "检查权限", manage_id, group, rule);
                     result = result
+                        || rule.write_filters.contains(&FilterRule::NoLimit)
                         || rule.write_filters.contains(&FilterRule::OnlyOwner)
                         || rule.write_filters.contains(&FilterRule::OnlyGroup);
                     Some(())

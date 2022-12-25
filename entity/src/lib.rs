@@ -64,16 +64,3 @@ mod get_entity_id;
 mod get_entity_owner;
 mod get_entity_groups;
 mod get_entry_count;
-
-
-// --------------------------
-// 数组属性操作
-// --------------------------
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}

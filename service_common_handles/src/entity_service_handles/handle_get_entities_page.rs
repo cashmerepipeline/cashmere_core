@@ -75,12 +75,11 @@ pub trait HandleGetEntitiesPage {
             None
         };
 
-        // 从0开始，
-        // TODO：需要验证数据库起始编号
+        // 从1开始，
         let index = if *page_index <= 0u32 {
-            0u32
-        } else {
-            *page_index - 1
+            1u32
+        }else {
+            *page_index
         };
 
         let result = manager

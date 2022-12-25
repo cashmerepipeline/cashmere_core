@@ -42,11 +42,12 @@ pub async fn pull_entity_array_field(
 
     // 结果
     match result {
-        Ok(r) => match r.modified_count == 1 {
-            true => Ok(operation_succeed("succeed")),
-            false => Err(operation_failed(
+        Ok(r) => match r.modified_count {
+            0 => Ok(operation_succeed("succeed")),
+            1 => Ok(operation_succeed("succeed")),
+            _ => Err(operation_failed(
                 "pull_entity_array_field",
-                format!("更新了多个实体{}", query_doc),
+                format!("更新了多个实体{}-{}", query_doc, r.modified_count),
             )),
         },
         Err(_e) => Err(operation_failed(

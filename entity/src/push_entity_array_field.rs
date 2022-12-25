@@ -7,6 +7,7 @@ use linked_hash_map::LinkedHashMap;
 use mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use serde::Deserialize;
+use log::{trace, debug};
 
 use cash_result::*;
 use database::get_cashmere_database;
@@ -31,7 +32,7 @@ pub async fn push_entity_array_field(
             query_doc.clone(),
             doc! {
                 // 添加
-                "$addToSet": modify_doc,
+                "$addToSet": modify_doc.clone(),
                 "$set": {
                     MODIFIER_FIELD_ID.to_string(): account_id.clone(),
                     MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
@@ -43,11 +44,15 @@ pub async fn push_entity_array_field(
 
     // 结果
     match result {
-        Ok(r) => match r.modified_count == 1 {
-            true => Ok(operation_succeed("succeed")),
-            false => Err(operation_failed(
+        Ok(r) => match r.modified_count {
+            0 => {
+                trace!("没有实体被更新: {}-{}", query_doc, modify_doc);
+                Ok(operation_succeed("succeed"))
+            },
+            1 => Ok(operation_succeed("succeed")),
+            _ => Err(operation_failed(
                 "push_entity_array_field",
-                format!("更新了多个实体{}", query_doc),
+                format!("更新了多个实体{}-{}", query_doc, r.modified_count),
             )),
         },
         Err(_e) => Err(operation_failed(

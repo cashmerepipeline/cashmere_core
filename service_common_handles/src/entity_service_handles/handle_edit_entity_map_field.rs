@@ -1,3 +1,4 @@
+use std::fmt::format;
 use async_trait::async_trait;
 use bson::{doc, Document};
 use prost::bytes::Buf;
@@ -37,15 +38,18 @@ pub trait HandleEditEntityMapField {
             return Err(Status::permission_denied("用户不具有集合可写权限"));
         }
 
-        // TODO: 属性key是否一致
+        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
+            return Err(Status::permission_denied("用户不具有实体可写权限"));
+        }
 
         if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
+            return Err(Status::permission_denied(format!("用户不具有属性可写权限{}-{}-{}", manage_id, entity_id, field_id)));
         }
 
         let value =
             match Document::from_reader(new_value.reader()) {
                 Ok(ref v) => {
+                    // 属性key一致
                     let t_v = v.get(key);
                     if t_v.is_some() {
                         t_v.unwrap().clone()

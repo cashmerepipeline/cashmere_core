@@ -18,7 +18,7 @@ members = [
   "entity",
   "property_field",
   "event_system",
-  #    "server",
+  #    "server_template",
   "service_common_handles",
   "majordomo",
   "define_utils",
@@ -31,4 +31,4 @@ members = [
   # "work",
 ]
 
-exclude = ["server", "minit"]
+exclude = ["server_template", "minit"]

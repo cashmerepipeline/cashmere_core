@@ -25,8 +25,6 @@ pub struct RenameRequest {
     #[prost(string, tag="4")]
     pub new_name: ::prost::alloc::string::String,
 }
-///*
-///@returns 成功返回新名字, 其他情况返回其他
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameResponse {
     #[prost(string, tag="1")]
@@ -816,9 +814,9 @@ pub struct EditEntityArrayFieldAddItemsRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldAddItemsResponse {
-    /// 成功返回新值
-    #[prost(bytes="vec", tag="1")]
-    pub result: ::prost::alloc::vec::Vec<u8>,
+    /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
 }
 /// 通用修改List实体属性, 移除物体
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -835,9 +833,9 @@ pub struct EditEntityArrayFieldRemoveItemsRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldRemoveItemsResponse {
-    /// 成功返回新值
-    #[prost(bytes="vec", tag="1")]
-    pub result: ::prost::alloc::vec::Vec<u8>,
+    /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
 }
 /// 取得实体
 #[derive(Clone, PartialEq, ::prost::Message)]

@@ -14,13 +14,13 @@ use manage_define::general_field_ids::*;
 
 /// 取得条件排序分页
 pub async fn get_entities_by_page(
-    collection_name: &String,
+    collection_id: &String,
     page_index: u32,
     matches: &Option<Document>,
     sorts: &Option<Document>,
     projects: &Option<Document>,
 ) -> Result<Vec<Document>, OperationResult> {
-    let collection = match database::get_collection_by_id(collection_name).await {
+    let collection = match database::get_collection_by_id(collection_id).await {
         Some(c) => c,
         None => return Err(collection_not_exists("get_entities_by_page")),
     };
@@ -38,7 +38,10 @@ pub async fn get_entities_by_page(
         pipeline.push(doc! {"$project": projects.clone().unwrap()});
     }
 
+    // 注意: skip 需要在limit之前
+    pipeline.push(doc! {"$skip": 20*(page_index-1)});
     pipeline.push(doc! {"$limit": 20 as u32});
+
     let cursor = collection.aggregate(pipeline, None).await;
 
     let mut result: Vec<Document> = Vec::new();
@@ -50,11 +53,12 @@ pub async fn get_entities_by_page(
                     _ => continue,
                 }
             }
+            println!("{}-{}-{}", collection_id, page_index, result.len());
             Ok(result)
         }
         Err(_e) => Err(operation_failed(
             "get_entities_by_page",
-            format!("获取分页失败{}-{}", collection_name, page_index),
+            format!("获取分页失败{}-{}", collection_id, page_index),
         )),
     }
 }

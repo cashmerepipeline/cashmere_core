@@ -36,8 +36,10 @@ pub trait HandleEditEntityArrayFieldAddItems {
         {
             return Err(Status::permission_denied("用户不具有集合可写权限"));
         }
-        
-        // TODO: 描写属性是否存在
+
+        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
+            return Err(Status::permission_denied("用户不具有实体可写权限"));
+        }
 
         if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
         {
@@ -45,6 +47,7 @@ pub trait HandleEditEntityArrayFieldAddItems {
         }
 
         let b_items = if let Ok(v) = Document::from_reader(items.reader()) {
+            // 属性key一致
             let t_v = v.get_array(field_id);
             if t_v.is_ok() {
                 t_v.unwrap().clone()
@@ -71,7 +74,7 @@ pub trait HandleEditEntityArrayFieldAddItems {
 
         match result {
             Ok(_r) => Ok(Response::new(EditEntityArrayFieldAddItemsResponse {
-                result: items.clone(),
+                result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

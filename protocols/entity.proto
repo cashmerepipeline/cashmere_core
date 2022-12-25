@@ -107,8 +107,8 @@ message EditEntityArrayFieldAddItemsRequest {
     bytes items = 4;
   }
 message EditEntityArrayFieldAddItemsResponse {
-  // 成功返回新值
-  bytes result = 1;
+  // 成功返回"ok"
+  string result = 1;
 }
 
 // 通用修改List实体属性, 移除物体
@@ -120,8 +120,8 @@ message EditEntityArrayFieldRemoveItemsRequest {
     bytes items = 4;
   }
 message EditEntityArrayFieldRemoveItemsResponse {
-  // 成功返回新值
-  bytes result = 1;
+  // 成功返回"ok"
+  string result = 1;
 }
 
 
