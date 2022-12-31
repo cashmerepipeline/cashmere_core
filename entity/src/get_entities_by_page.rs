@@ -8,6 +8,8 @@ use mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use serde::Deserialize;
 
+use log::trace;
+
 use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
@@ -38,7 +40,7 @@ pub async fn get_entities_by_page(
         pipeline.push(doc! {"$project": projects.clone().unwrap()});
     }
 
-    // 注意: skip 需要在limit之前
+    // zh: 注意: skip 需要在limit之前
     pipeline.push(doc! {"$skip": 20*(page_index-1)});
     pipeline.push(doc! {"$limit": 20 as u32});
 
@@ -53,7 +55,7 @@ pub async fn get_entities_by_page(
                     _ => continue,
                 }
             }
-            println!("{}-{}-{}", collection_id, page_index, result.len());
+            trace!("{}: {}-{}-{}", t!("成功获取实体分页"), collection_id, page_index, result.len());
             Ok(result)
         }
         Err(_e) => Err(operation_failed(

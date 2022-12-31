@@ -16,8 +16,8 @@ pub struct NameField {
 /// 重命名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
@@ -33,8 +33,8 @@ pub struct RenameResponse {
 /// 新语言名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLanguageNameRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
@@ -50,8 +50,8 @@ pub struct NewLanguageNameResponse {
 /// 移除语言名
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveLanguageNameRequest {
-    #[prost(string, tag="1")]
-    pub manage_id: ::prost::alloc::string::String,
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]

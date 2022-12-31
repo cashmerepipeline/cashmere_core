@@ -26,7 +26,7 @@ pub trait HandleNewLanguageName {
         let new_name = &request.get_ref().new_name;
 
         // 管理可写性
-        if !view::can_manage_write(&account_id, &role_group, manage_id).await {
+        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
@@ -39,7 +39,7 @@ pub trait HandleNewLanguageName {
         if !view::can_field_write(
             &account_id,
             &role_group,
-            manage_id,
+            &manage_id.to_string(),
             &NAME_MAP_FIELD_ID.to_string(),
         )
         .await
@@ -49,7 +49,7 @@ pub trait HandleNewLanguageName {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(manage_id.parse::<i32>().unwrap())
+            .get_manager_by_id(*manage_id)
             .await
             .unwrap();
 

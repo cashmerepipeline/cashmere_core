@@ -57,7 +57,7 @@ pub trait HandleGetEntitiesPage {
             ));
         };
 
-        // 描写字段可见性过滤, 加入mongodb的project方法
+        // zh: 描写字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
             get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
@@ -75,7 +75,7 @@ pub trait HandleGetEntitiesPage {
             None
         };
 
-        // 从1开始，
+        // zh: 从1开始，
         let index = if *page_index <= 0u32 {
             1u32
         }else {

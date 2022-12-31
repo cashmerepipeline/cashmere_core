@@ -8,6 +8,10 @@ Introduction:
 #![allow(unused_imports)]
 #![allow(dead_code)]
 
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
+
 pub use change_entity_owner::*;
 pub use entity_exists::*;
 pub use exists_by_id::*;

@@ -22,21 +22,18 @@ message NameField {
 
 // 重命名
 message RenameRequest {
-  string manage_id = 1;
+  int32 manage_id = 1;
   string entity_id = 2;
   string language = 3;
   string new_name = 4;
 }
-/**
-  @returns 成功返回新名字, 其他情况返回其他
- */
 message RenameResponse {
   string result = 1;
 }
 
 // 新语言名
 message NewLanguageNameRequest {
-  string manage_id = 1;
+  int32 manage_id = 1;
   string entity_id = 2;
   string language = 3;
   string new_name = 4;
@@ -47,7 +44,7 @@ message NewLanguageNameResponse {
 
 // 移除语言名
 message RemoveLanguageNameRequest {
-  string manage_id = 1;
+  int32 manage_id = 1;
   string entity_id = 2;
   string language = 3;
 }
