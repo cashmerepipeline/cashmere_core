@@ -78,9 +78,9 @@ pub trait HandleNewAccount {
 
         match result {
             Ok(_r) => {
-                info!("创建帐号成功--{}", new_account_id);
+                info!("{}: {}", t!("创建帐号成功"), new_account_id);
                 Ok(Response::new(NewAccountResponse {
-                result: _r,
+                result: new_account_id,
             }))},
             Err(e) => {
                 error!("创建帐号发生错误--{}", new_account_id);

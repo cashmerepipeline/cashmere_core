@@ -49,7 +49,7 @@ pub mod traits;
 
 // use log::{info};
 
-/// 管理器包装
+/// 管理器包裹
 #[derive(Clone)]
 pub struct Manager {
     pub inner: Arc<ManagerInner>,

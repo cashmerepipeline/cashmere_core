@@ -30,10 +30,9 @@ pub trait HandleNewGroup {
 
         let manage_id = &GROUPS_MANAGE_ID;
 
-        info!("开始创建新组{}", new_group_id);
         // 检查组可写
         if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有组可写权限"));
+            return Err(Status::unauthenticated(t!("用户不具有组可写权限")));
         }
 
         let majordomo_arc = get_majordomo().await;
@@ -46,7 +45,7 @@ pub trait HandleNewGroup {
 
         // 组是否已经存在
         if group_manager.entity_exists(doc! {ID_FIELD_ID.to_string():new_group_id}).await{
-            return Err(Status::already_exists(format!("组已经存在: {}", new_group_id)));
+            return Err(Status::already_exists(format!("{}: {}", t!("组已经存在"), new_group_id)));
         }
 
         let name = match name {
@@ -64,7 +63,7 @@ pub trait HandleNewGroup {
             new_entity_doc.insert("_id".to_string(), new_group_id);
             new_entity_doc.insert(ID_FIELD_ID.to_string(), new_group_id);
 
-            info!("开始创建新组{}", new_group_id);
+            info!("{}: {}", t!("开始创建新组"), new_group_id);
             let result = group_manager
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)
                 .await

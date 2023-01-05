@@ -6,6 +6,10 @@ Created:  2021-02-14T09:31:29.747Z
 Modified: !date!
 */
 
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
+
 pub use types::*;
 
 pub mod area_service_handles;

@@ -9,6 +9,10 @@ Modified: !date!
 #[macro_use]
 extern crate log;
 
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
+
 mod account_service;
 mod account_service_handles;
 

@@ -103,6 +103,7 @@ pub struct NewLanguageCodeResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// TODO: 可能不需要
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditLanguageCodeRequest {
     #[prost(string, tag="1")]

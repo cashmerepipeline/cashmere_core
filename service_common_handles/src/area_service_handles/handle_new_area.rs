@@ -71,7 +71,7 @@ pub trait HandleNewArea {
 
             match result {
                 Ok(_r) => Ok(Response::new(NewAreaResponse {
-                    result: "ok".to_string(),
+                    result: code.to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",

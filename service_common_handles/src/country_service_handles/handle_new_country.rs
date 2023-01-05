@@ -73,8 +73,8 @@ pub trait HandleNewCountry {
                 .await;
 
             match result {
-                Ok(_r) => Ok(Response::new(NewCountryResponse {
-                    result: "ok".to_string(),
+                Ok(r) => Ok(Response::new(NewCountryResponse {
+                    result: code.to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",

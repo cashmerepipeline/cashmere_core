@@ -18,6 +18,7 @@ message NewLanguageCodeResponse {
   string result = 1;
 }
 
+// TODO: 可能不需要
 message EditLanguageCodeRequest {
   string id = 1;
   string new_code = 2;

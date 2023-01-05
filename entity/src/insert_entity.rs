@@ -47,7 +47,7 @@ pub async fn insert_entity(
 
     // 结果
     match result {
-        Ok(r) => Ok(r.inserted_id.to_string()),
+        Ok(_r) => Ok(id),
         Err(_e) => Err(operation_failed(
             "insert_entity",
             format!("插入实体失败 {}-{}", manage_id, id),

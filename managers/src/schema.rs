@@ -8,13 +8,11 @@ Modified: !date!
 
 use property_field::PropertyField;
 
-pub fn schema_field_exists(field_id: i32, schema: &Vec<PropertyField>) -> bool{
-    
-
+pub fn schema_field_exists(field_id: i32, schema: &Vec<PropertyField>) -> bool {
     schema.iter().map(|x| x.id).any(|x| x == field_id)
 }
 
-pub fn new_schema_field_update_cache(){}
+pub fn new_schema_field_update_cache() {}
 
 pub fn new_shema_field_update_doc_cache() {}
 
