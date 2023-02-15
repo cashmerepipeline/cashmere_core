@@ -3,6 +3,7 @@ use crate::view_rules_map::get_view_rules_map;
 use crate::FilterRule;
 
 /// 检查实体是否可写
+// TODO: 需要独立检查是否为主
 pub async fn can_entity_write(_account: &String, group: &String, manage_id: &String) -> bool {
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();
@@ -16,7 +17,7 @@ pub async fn can_entity_write(_account: &String, group: &String, manage_id: &Str
             rules_map
                 .get(group)
                 .and_then(|rule| {
-                    debug!("{}：{}-{}-{:?}", "检查权限", manage_id, group, rule);
+                    debug!("{}：{}-{}-{:?}", t!("实体可写检查权限"), manage_id, group, rule);
                     result = result
                         || rule.write_filters.contains(&FilterRule::NoLimit)
                         || rule.write_filters.contains(&FilterRule::OnlyOwner)

@@ -12,6 +12,7 @@ package account_service;
 
 import "login.proto";
 import "account.proto";
+import "password.proto";
 
 service AccountGrpc{
   // 登录
@@ -19,6 +20,10 @@ service AccountGrpc{
   // rpc Logout (LogoutRequest) returns (LogoutResponse);
   rpc NewAccount (NewAccountRequest) returns (NewAccountResponse);
   // rpc Register (RegisterRequest) returns (RegisterResponse);
+
   rpc AddAccountIntoGroup (AddAccountIntoGroupRequest) returns (AddAccountIntoGroupResponse);
   rpc RemoveAccountFromGroup (RemoveAccountFromGroupRequest) returns (RemoveAccountFromGroupResponse);
+
+  // 修改自身密码
+  rpc ChangeOwnPassword (ChangeOwnPasswordRequest) returns (ChangeOwnPasswordResponse);
 }

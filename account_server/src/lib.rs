@@ -31,6 +31,7 @@ impl HandleLogin for AccountServer {}
 impl HandleNewAccount for AccountServer {}
 impl HandleAddAccountIntoGroup for AccountServer {}
 impl HandleRemoveAccountFromGroup for AccountServer {}
+impl HandleChangeOwnPassword for AccountServer {}
 
 type UnaryResponseResult<T> = Result<Response<T>, Status>;
 
@@ -50,5 +51,9 @@ impl AccountGrpc for AccountServer {
 
     async fn remove_account_from_group(&self, request: Request<RemoveAccountFromGroupRequest>) -> Result<Response<RemoveAccountFromGroupResponse>, Status> {
         self.handle_remove_account_from_group(request).await
+    }
+
+    async fn change_own_password(&self, request: Request<ChangeOwnPasswordRequest>) -> Result<Response<ChangeOwnPasswordResponse>, Status> {
+       self.handle_change_own_password(request).await
     }
 }

@@ -7,10 +7,15 @@ name_map = { zh = "账号", en = "accounts" }
 
 # 描写，模式
 schema = [
+  # 20001
   { data_type = "String", name_map = { zh = "区号", en = "phone_area_code" }, removed = false },
+  # 20002
   { data_type = "String", name_map = { zh = "电话", en = "phone" }, removed = false },
+  # 20003
   { data_type = "String", name_map = { zh = "密码", en = "password" }, removed = false },
+  # 20004
   { data_type = "Bool", name_map = { zh = "是否停用", en = "stopped" }, removed = false },
+  # 20005
   # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期
   { data_type = "List", name_map = { zh = "登录时间戳", en = "login_timestamps" }, removed = false },
 ]
@@ -44,10 +49,12 @@ after_create = { manage = "account", name = "after_create", target_queues = [
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "OnlyOwner",
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "OnlyOwner",
 ], write_filters = [
+  "OnlyOwner",
 ] }
 
 [view_rules.schema.1000]
@@ -176,10 +183,11 @@ after_create = { manage = "account", name = "after_create", target_queues = [
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
-  "NoLimit",
+  "OnlyOwner",
 ] }
 10001 = { read_rule = "Read", write_rule = "OwnerWrite", read_filters = [
 ], write_filters = [
+  "OnlyOwner",
 ] }
 [view_rules.schema.2004]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [

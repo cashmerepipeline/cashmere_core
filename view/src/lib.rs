@@ -1,3 +1,7 @@
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
+
 pub mod view_rules_map;
 
 mod add_query_filters;

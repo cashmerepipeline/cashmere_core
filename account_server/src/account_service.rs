@@ -136,6 +136,32 @@ pub struct RemoveAccountFromGroupResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 修改自己的密码
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnPasswordRequest {
+    #[prost(string, tag="1")]
+    pub old_password: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub new_password: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeOwnPasswordResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 重置密码, 管理员操作或者后台操作
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResetPasswordRequest {
+    #[prost(string, tag="1")]
+    pub account_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub new_password: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResetPasswordResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// Generated server implementations.
 pub mod account_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
@@ -153,7 +179,6 @@ pub mod account_grpc_server {
             &self,
             request: tonic::Request<super::NewAccountRequest>,
         ) -> Result<tonic::Response<super::NewAccountResponse>, tonic::Status>;
-        /// rpc Register (RegisterRequest) returns (RegisterResponse);
         async fn add_account_into_group(
             &self,
             request: tonic::Request<super::AddAccountIntoGroupRequest>,
@@ -165,6 +190,11 @@ pub mod account_grpc_server {
             tonic::Response<super::RemoveAccountFromGroupResponse>,
             tonic::Status,
         >;
+        /// 修改自身密码
+        async fn change_own_password(
+            &self,
+            request: tonic::Request<super::ChangeOwnPasswordRequest>,
+        ) -> Result<tonic::Response<super::ChangeOwnPasswordResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct AccountGrpcServer<T: AccountGrpc> {
@@ -356,6 +386,46 @@ pub mod account_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = RemoveAccountFromGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/ChangeOwnPassword" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChangeOwnPasswordSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::ChangeOwnPasswordRequest>
+                    for ChangeOwnPasswordSvc<T> {
+                        type Response = super::ChangeOwnPasswordResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ChangeOwnPasswordRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).change_own_password(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChangeOwnPasswordSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

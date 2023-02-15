@@ -24,6 +24,7 @@ majordomo = {path = "../majordomo"}
 managers = {path = "../managers"}
 manage_define = {path = "../manage_define"}
 view = {path = "../view"}
+cash_result = {path = "../cash_result"}
 
 [build-dependencies]
 tonic-build = "0.7.2"
