@@ -17,7 +17,7 @@ pub trait HandleLogin {
         let phone = &request.get_ref().phone;
         let password = &request.get_ref().password;
 
-        info!("account try login: {}", phone);
+        info!("{}: {}", t!("帐号尝试登录"), phone);
 
         // 取得账户记录
         let account_id: String = format!("{}{}", area_code, phone);
@@ -36,7 +36,8 @@ pub trait HandleLogin {
                 Ok(d) => d,
                 Err(e) => {
                     return Err(Status::data_loss(format!(
-                        "取得账户数据错误{} {}",
+                        "{} {} {}",
+                        t!("取得账户数据错误"),
                         e.operation(),
                         e.details()
                     )));
@@ -50,11 +51,11 @@ pub trait HandleLogin {
         // 验证密码
         let password_hash = match account::get_account_passwd_hash(&account_doc) {
             Some(d) => d,
-            None => return Err(Status::data_loss("取得账户密码错误")),
+            None => return Err(Status::data_loss(t!("取得账户密码错误"))),
         };
         let pw_ok = (auth::jwt::verify_passwd(password, &password_hash).await).unwrap_or(false);
         if !pw_ok {
-            return Err(Status::permission_denied("用户名或者密码错误"));
+            return Err(Status::permission_denied(t!("用户名或者密码错误")));
         }
 
         // 个人信息
@@ -81,28 +82,28 @@ pub trait HandleLogin {
         // 构造token
         let groups = match account::get_account_groups(&account_doc) {
             Some(a) => a,
-            None => return Err(Status::data_loss("取得group数据失败")),
+            None => return Err(Status::data_loss(t!("取得group数据失败"))),
         };
 
         let token = match auth::jwt::gen_jwt_token(&account_id, phone, &orgnizations, &departments, &groups)
             .await
         {
             Some(t) => t,
-            None => return Err(Status::data_loss("取得token数据失败")),
+            None => return Err(Status::data_loss(t!("取得token数据失败"))),
         };
 
         // 更新登录时间点
         let now = Utc::now().timestamp();
         let timestamps = match account::get_account_login_timestamps(&account_doc) {
             Some(r) => r.clone(),
-            None => return Err(Status::data_loss("获取时间戳失败")),
+            None => return Err(Status::data_loss(t!("获取时间戳失败"))),
         };
         match account::update_account_login_timestamps(&account_id, &timestamps, now).await {
             Ok(_) => (),
-            Err(_e) => return Err(Status::data_loss("更新时间戳失败")),
+            Err(_e) => return Err(Status::data_loss(t!("更新时间戳失败"))),
         };
 
-        info!("account login succeed: {}", phone);
+        info!("{}: {}", t!("帐号成功登录"), phone);
 
         // 返回
         Ok(Response::new(LoginResponse {

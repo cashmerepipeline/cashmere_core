@@ -19,12 +19,16 @@ use managers::traits::ManagerTrait;
 
 use crate::UnaryResponseResult;
 
+mod get_account_entity_doc;
+
 mod handle_login;
 mod handle_new_account;
 mod handle_add_account_into_group;
 mod handle_remove_account_from_group;
+mod handle_change_own_password;
 
 pub use handle_login::HandleLogin;
 pub use handle_new_account::HandleNewAccount;
 pub use handle_add_account_into_group::HandleAddAccountIntoGroup;
 pub use handle_remove_account_from_group::HandleRemoveAccountFromGroup;
+pub use handle_change_own_password::HandleChangeOwnPassword;
