@@ -58,9 +58,9 @@ pub async fn get_entities_by_page(
             trace!("{}: {}-{}-{}", t!("成功获取实体分页"), collection_id, page_index, result.len());
             Ok(result)
         }
-        Err(_e) => Err(operation_failed(
-            "get_entities_by_page",
-            format!("获取分页失败{}-{}", collection_id, page_index),
+        Err(e) => Err(operation_failed(
+            "entity::get_entities_by_page",
+            format!("获取分页失败{}-{}-{}", collection_id, page_index, e),
         )),
     }
 }

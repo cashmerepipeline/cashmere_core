@@ -61,7 +61,6 @@ pub trait HandleGetEntitiesPage {
         let fields = manager.get_manage_schema().await;
         let schema_projects =
             get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
-
         let project_doc = if schema_projects.len() > 0 {
             // 只加入不可见字段
             let mut no_show_project = Document::new();
