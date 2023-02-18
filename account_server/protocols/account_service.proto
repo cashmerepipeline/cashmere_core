@@ -13,6 +13,7 @@ package account_service;
 import "login.proto";
 import "account.proto";
 import "password.proto";
+import "account_status.proto";
 
 service AccountGrpc{
   // 登录
@@ -26,4 +27,8 @@ service AccountGrpc{
 
   // 修改自身密码
   rpc ChangeOwnPassword (ChangeOwnPasswordRequest) returns (ChangeOwnPasswordResponse);
+  
+  // 修改帐号状态
+  rpc ChangeAccountStatus(ChangeAccountStatusRequest) returns (ChangeAccountStatusResponse);
+  rpc ChangeAccountPassword(ChangeAccountPasswordRequest) returns (ChangeAccountPasswordResponse);
 }

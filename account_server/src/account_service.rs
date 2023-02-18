@@ -8,8 +8,8 @@ pub enum LoginStatus {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum AccountStatus {
-    Stopped = 0,
-    Actived = 1,
+    AccountStopped = 0,
+    AccountActived = 1,
 }
 /// 使用手机号码 密码登录
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -136,6 +136,19 @@ pub struct RemoveAccountFromGroupResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 改变帐号状态
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeAccountStatusRequest {
+    #[prost(string, tag="1")]
+    pub account_id: ::prost::alloc::string::String,
+    #[prost(enumeration="AccountStatus", tag="2")]
+    pub status: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeAccountStatusResponse {
+    #[prost(enumeration="AccountStatus", tag="1")]
+    pub result: i32,
+}
 /// 修改自己的密码
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOwnPasswordRequest {
@@ -151,14 +164,14 @@ pub struct ChangeOwnPasswordResponse {
 }
 /// 重置密码, 管理员操作或者后台操作
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResetPasswordRequest {
+pub struct ChangeAccountPasswordRequest {
     #[prost(string, tag="1")]
     pub account_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub new_password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResetPasswordResponse {
+pub struct ChangeAccountPasswordResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -195,6 +208,18 @@ pub mod account_grpc_server {
             &self,
             request: tonic::Request<super::ChangeOwnPasswordRequest>,
         ) -> Result<tonic::Response<super::ChangeOwnPasswordResponse>, tonic::Status>;
+        /// 修改帐号状态
+        async fn change_account_status(
+            &self,
+            request: tonic::Request<super::ChangeAccountStatusRequest>,
+        ) -> Result<tonic::Response<super::ChangeAccountStatusResponse>, tonic::Status>;
+        async fn change_account_password(
+            &self,
+            request: tonic::Request<super::ChangeAccountPasswordRequest>,
+        ) -> Result<
+            tonic::Response<super::ChangeAccountPasswordResponse>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
     pub struct AccountGrpcServer<T: AccountGrpc> {
@@ -426,6 +451,86 @@ pub mod account_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ChangeOwnPasswordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/ChangeAccountStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChangeAccountStatusSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::ChangeAccountStatusRequest>
+                    for ChangeAccountStatusSvc<T> {
+                        type Response = super::ChangeAccountStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ChangeAccountStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).change_account_status(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChangeAccountStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/ChangeAccountPassword" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChangeAccountPasswordSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::ChangeAccountPasswordRequest>
+                    for ChangeAccountPasswordSvc<T> {
+                        type Response = super::ChangeAccountPasswordResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ChangeAccountPasswordRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).change_account_password(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChangeAccountPasswordSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

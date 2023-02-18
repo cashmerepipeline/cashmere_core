@@ -26,9 +26,13 @@ mod handle_new_account;
 mod handle_add_account_into_group;
 mod handle_remove_account_from_group;
 mod handle_change_own_password;
+mod handle_change_account_status;
+mod handle_change_account_password;
 
 pub use handle_login::HandleLogin;
 pub use handle_new_account::HandleNewAccount;
 pub use handle_add_account_into_group::HandleAddAccountIntoGroup;
 pub use handle_remove_account_from_group::HandleRemoveAccountFromGroup;
 pub use handle_change_own_password::HandleChangeOwnPassword;
+pub use handle_change_account_status::*;
+pub use handle_change_account_password::*;

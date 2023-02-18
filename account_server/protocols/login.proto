@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package account_service;
 
-import "status.proto";
+import "account_status.proto";
 
 // 使用手机号码 密码登录
 message LoginRequest {

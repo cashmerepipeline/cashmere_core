@@ -1,7 +1,9 @@
 syntax = "proto3";
+
 package account_service;
 
 import "name.proto";
+import "account_status.proto";
 
 // 添加账号, 需要手工添加账号的情景
 message NewAccountRequest {
@@ -51,4 +53,13 @@ message RemoveAccountFromGroupRequest {
 }
 message RemoveAccountFromGroupResponse {
   string result = 1;
+}
+
+// 改变帐号状态
+message ChangeAccountStatusRequest {
+  string account_id = 1;
+  AccountStatus status = 2;
+}
+message ChangeAccountStatusResponse {
+  AccountStatus result = 1;
 }
