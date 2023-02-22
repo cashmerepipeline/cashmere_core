@@ -159,6 +159,17 @@ message MarkEntityRemovedRequest {
   string entity_id = 2;
 }
 message MarkEntityRemovedResponse {
+  // 成功返回"ok"
+  string result = 1;
+}
+
+// 恢复标记为已移除的实体
+message RecoverRemovedEntityRequest {
+  int32 manage_id = 1;
+  string entity_id = 2;
+}
+message RecoverRemovedEntityResponse {
+  // 成功返回"ok"
   string result = 1;
 }
 

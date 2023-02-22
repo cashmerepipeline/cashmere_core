@@ -546,7 +546,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id();
         let q_doc = doc! {
-            "_id": entity_id
+            ID_FIELD_ID.to_string(): entity_id
         };
         let m_doc = doc! {
             ENTITY_REMOVED_FIELD_ID.to_string(): true
