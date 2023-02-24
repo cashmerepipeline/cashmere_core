@@ -108,6 +108,14 @@ impl ManagerTrait for Manager {
         self.inner.mark_entity_removed(entity_id, account_id).await
     }
 
+    async fn recover_removed_entity(
+        &self,
+        entity_id: &String,
+        account_id: &String,
+    ) -> Result<OperationResult, OperationResult> {
+        self.inner.recover_removed_entity(entity_id, account_id).await
+    }
+
     async fn init(&self) -> Result<OperationResult, OperationResult> {
         self.inner.init().await
     }

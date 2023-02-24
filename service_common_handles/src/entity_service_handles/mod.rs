@@ -7,7 +7,10 @@ pub use handle_get_data_list::*;
 pub use handle_get_entities::*;
 pub use handle_get_entities_page::*;
 pub use handle_get_entity::*;
+
 pub use handle_mark_entity_removed::*;
+pub use handle_get_removed_entities_page::*;
+pub use handle_recover_removed_entity::*;
 
 mod handle_get_data_list;
 mod handle_get_entities;
@@ -19,4 +22,6 @@ mod handle_edit_entity_array_field_remove_items;
 mod handle_edit_entity_map_field;
 mod handle_edit_entity_map_field_remove_key;
 mod handle_mark_entity_removed;
+mod handle_get_removed_entities_page;
+mod handle_recover_removed_entity;
 

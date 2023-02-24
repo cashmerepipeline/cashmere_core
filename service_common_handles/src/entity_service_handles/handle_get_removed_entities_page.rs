@@ -10,12 +10,12 @@ use view::{add_query_filters, get_manage_schema_view};
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleGetEntitiesPage {
+pub trait HandleGetRemovedEntitiesPage {
     /// 取得产品分页
-    async fn handle_get_entities_page(
+    async fn handle_get_removed_entities_page(
         &self,
-        request: Request<GetEntitiesPageRequest>,
-    ) -> UnaryResponseResult<GetEntitiesPageResponse> {
+        request: Request<GetRemovedEntitiesPageRequest>,
+    ) -> UnaryResponseResult<GetRemovedEntitiesPageResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -56,8 +56,9 @@ pub trait HandleGetEntitiesPage {
                 "没有可读描写字段，用户不具有集合可读权限",
             ));
         };
-
-        matches.insert(ENTITY_REMOVED_FIELD_ID.to_string(), false);
+        
+        // 加入移除标记过滤
+        matches.insert(ENTITY_REMOVED_FIELD_ID.to_string(), true);
 
         // zh: 描写字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
@@ -88,7 +89,7 @@ pub trait HandleGetEntitiesPage {
             .await;
 
         match result {
-            Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
+            Ok(entities) => Ok(Response::new(GetRemovedEntitiesPageResponse {
                 entities: entities
                     .iter()
                     .map(|x| {
@@ -104,3 +105,4 @@ pub trait HandleGetEntitiesPage {
         }
     }
 }
+

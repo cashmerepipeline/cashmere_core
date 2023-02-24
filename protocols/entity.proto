@@ -173,6 +173,16 @@ message RecoverRemovedEntityResponse {
   string result = 1;
 }
 
+// 取得已删除实体页
+message GetRemovedEntitiesPageRequest {
+  int32 manage_id = 1;
+  uint32 page_index = 2;
+  bytes conditions = 3;
+}
+message GetRemovedEntitiesPageResponse {
+  repeated bytes entities = 1;
+}
+
 // 取得实体已标记移除数据表
 message GetRemovedDataListRequest{
   string manage_id = 1;

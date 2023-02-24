@@ -889,8 +889,38 @@ pub struct MarkEntityRemovedRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedResponse {
+    /// 成功返回"ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 恢复标记为已移除的实体
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RecoverRemovedEntityRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RecoverRemovedEntityResponse {
+    /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得已删除实体页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRemovedEntitiesPageRequest {
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(bytes="vec", tag="3")]
+    pub conditions: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRemovedEntitiesPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 取得实体已标记移除数据表
 #[derive(Clone, PartialEq, ::prost::Message)]

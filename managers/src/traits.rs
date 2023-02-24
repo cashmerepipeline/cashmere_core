@@ -557,6 +557,24 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
+    async fn recover_removed_entity(
+        &self,
+        entity_id: &String,
+        account_id: &String
+    )-> Result<OperationResult, OperationResult> {
+        let manage_id = self.get_manager_id();
+        let q_doc = doc! {
+            ID_FIELD_ID.to_string(): entity_id
+        };
+        let m_doc = doc! {
+            ENTITY_REMOVED_FIELD_ID.to_string(): false
+        };
+        match entity::update_entity_field(&manage_id.to_string(), q_doc, m_doc, account_id).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
+        }
+    }
+
     async fn entity_exists(&self, query_doc: Document) -> bool {
         let manage_id = self.get_manager_id();
         entity::entity_exists(&manage_id.to_string(), query_doc).await
