@@ -41,7 +41,6 @@ pub trait HandleChangeOwnPassword {
             return Err(Status::unauthenticated(t!("用户不具有修改密码权限")));
         }
 
-
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
             .get_manager_by_id(ACCOUNTS_MANAGE_ID)

@@ -14,7 +14,8 @@ use manage_define::general_field_ids::*;
 
 /// 取得实体数量
 pub async fn get_entry_count(
-    collection_name: &String
+    collection_name: &String,
+    filter_doc: Document
 ) -> Result<u64, OperationResult> {
     if !database::collection_exists(collection_name).await {
         return Err(collection_not_exists("get_entity_by_id"));
@@ -25,10 +26,20 @@ pub async fn get_entry_count(
         None => return Err(collection_not_exists("get_entity_by_id")),
     };
 
-    let result = collection.estimated_document_count(None).await;
+    let mut pipeline: Vec<Document> = vec![];
+    pipeline.push(doc!{"$match": filter_doc});
+    pipeline.push(doc!{"$count":"count"});
+    let result = collection.aggregate(pipeline, None).await;
+
+    // let result = collection.find(filter_doc, None).await;
 
     match result {
-        Ok(r) => Ok(r),
+        // Ok(r) => Ok(r.count().await as u64),
+        Ok(mut r) => {
+            let d = r.next().await.unwrap().unwrap();
+            let count = d.get_i32("count").unwrap();
+            Ok(count as u64)
+        }
         Err(_e) => Err(operation_failed(
             "get_entity_count",
             format!("获取失败{}", collection_name),

@@ -31,7 +31,7 @@ pub trait HandleGetManageEntryCount {
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
-        let result = manager.get_entry_counts().await;
+        let result = manager.get_entry_counts(doc! {}).await;
 
         match result {
             Ok(r) => Ok(Response::new(GetManageEntryCountResponse { count: r })),
