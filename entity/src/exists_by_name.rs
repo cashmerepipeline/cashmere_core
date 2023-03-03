@@ -18,5 +18,5 @@ pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
         "name": entity_name.clone()
     };
 
-    crate::entity_exists(manage_id, query_doc).await
+    crate::entity_exists(manage_id, &query_doc).await
 }

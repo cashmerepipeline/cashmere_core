@@ -49,7 +49,7 @@ pub trait HandleNewAccount {
         let query_doc = doc!{
             ID_FIELD_ID.to_string():new_account_id.clone()
         };
-        if manager.entity_exists(query_doc).await {
+        if manager.entity_exists(&query_doc).await {
             return Err(Status::already_exists("手机已经注册，请使用没有注册过的手机号。"));
         }
 

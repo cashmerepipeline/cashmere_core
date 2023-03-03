@@ -52,7 +52,7 @@ pub trait HandleNewCountry {
 
         // 是否存在，存在则返回
         if manager
-            .entity_exists(doc! {
+            .entity_exists(&doc! {
                 COUNTRIES_CODE_FIELD_ID.to_string():code.clone(),
             })
             .await

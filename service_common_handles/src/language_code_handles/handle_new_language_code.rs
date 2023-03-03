@@ -42,7 +42,7 @@ pub trait HandleNewLanguageCode {
 
         // TODO: 检查语言编号是否存在
         let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
-        if manager.entity_exists(query_doc).await {
+        if manager.entity_exists(&query_doc).await {
             return Err(Status::already_exists(format!("{}: {}", t!("语言已经存在"), code)));
         }
 

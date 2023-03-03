@@ -60,7 +60,7 @@ pub trait HandleAddAccountIntoGroup {
             .unwrap();
 
         // 检查组是否存在
-        if !group_manager.entity_exists(doc!{ID_FIELD_ID.to_string():op_group_id.clone()}).await{
+        if !group_manager.entity_exists(&doc!{ID_FIELD_ID.to_string():op_group_id.clone()}).await{
             return Err(Status::data_loss(format!("组不存在:{}", op_group_id)));
         }
         // 检查组是否标记为移除

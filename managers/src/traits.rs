@@ -575,7 +575,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-    async fn entity_exists(&self, query_doc: Document) -> bool {
+    async fn entity_exists(&self, query_doc: &Document) -> bool {
         let manage_id = self.get_manager_id();
         entity::entity_exists(&manage_id.to_string(), query_doc).await
     }

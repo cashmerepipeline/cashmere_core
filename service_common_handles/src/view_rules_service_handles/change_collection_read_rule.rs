@@ -45,7 +45,7 @@ pub trait HandleChangeCollectionReadrule {
             .await
             .unwrap();
         let group_query_doc = doc! {ID_FIELD_ID.to_string():group_id.clone()};
-        if !group_manager.entity_exists(group_query_doc).await {
+        if !group_manager.entity_exists(&group_query_doc).await {
             return Err(Status::data_loss(format!("组不存在: {}", manage_id)));
         }
 

@@ -51,7 +51,7 @@ pub trait HandleChangeAccountPassword {
         let query_doc = doc! {
             ID_FIELD_ID.to_string():account_id.clone()
         };
-        if !manager.entity_exists(query_doc).await {
+        if !manager.entity_exists(&query_doc).await {
             return Err(Status::data_loss(format!(
                 "{}: {}",
                 t!("帐号不存在"),

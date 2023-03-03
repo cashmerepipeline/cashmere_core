@@ -50,7 +50,7 @@ pub trait HandleNewArea {
 
         // 区域是否存在，存在则返回
         if manager
-            .entity_exists(doc! {
+            .entity_exists(&doc! {
                 NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
             })
             .await
