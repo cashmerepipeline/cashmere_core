@@ -3,7 +3,7 @@
 //  source: name.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -113,7 +113,7 @@ class NameField extends $pb.GeneratedMessage {
 
 class RenameRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RenameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entityId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newName')
@@ -122,7 +122,7 @@ class RenameRequest extends $pb.GeneratedMessage {
 
   RenameRequest._() : super();
   factory RenameRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.String? entityId,
     $core.String? language,
     $core.String? newName,
@@ -164,9 +164,9 @@ class RenameRequest extends $pb.GeneratedMessage {
   static RenameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -249,7 +249,7 @@ class RenameResponse extends $pb.GeneratedMessage {
 
 class NewLanguageNameRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewLanguageNameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entityId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newName')
@@ -258,7 +258,7 @@ class NewLanguageNameRequest extends $pb.GeneratedMessage {
 
   NewLanguageNameRequest._() : super();
   factory NewLanguageNameRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.String? entityId,
     $core.String? language,
     $core.String? newName,
@@ -300,9 +300,9 @@ class NewLanguageNameRequest extends $pb.GeneratedMessage {
   static NewLanguageNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -385,7 +385,7 @@ class NewLanguageNameResponse extends $pb.GeneratedMessage {
 
 class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveLanguageNameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entityId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
     ..hasRequiredFields = false
@@ -393,7 +393,7 @@ class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
 
   RemoveLanguageNameRequest._() : super();
   factory RemoveLanguageNameRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.String? entityId,
     $core.String? language,
   }) {
@@ -431,9 +431,9 @@ class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
   static RemoveLanguageNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

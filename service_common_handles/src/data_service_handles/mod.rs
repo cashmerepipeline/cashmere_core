@@ -7,6 +7,8 @@ pub use handle_add_data_stage_version::*;
 pub use handle_list_data_stages::*;
 pub use handle_get_data_server_configs::*;
 
+pub use handle_list_entity_data::*;
+
 mod handle_new_data;
 mod handle_mark_data_removed;
 mod handle_get_data_info;
@@ -19,3 +21,4 @@ mod handle_add_data_stage_version;
 mod handle_remove_stage_version;
 mod utils;
 
+mod handle_list_entity_data;

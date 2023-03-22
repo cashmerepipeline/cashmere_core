@@ -20,10 +20,8 @@ pub struct RenameRequest {
     pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub new_name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="3")]
+    pub new_name: ::core::option::Option<Name>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameResponse {
@@ -37,10 +35,8 @@ pub struct NewLanguageNameRequest {
     pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub new_name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="3")]
+    pub new_name: ::core::option::Option<Name>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLanguageNameResponse {
@@ -246,14 +242,14 @@ pub struct MarkDataRemovedResponse {
 }
 /// 取得实体数据表
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListDataRequest {
+pub struct ListEntityDataRequest {
     #[prost(int32, tag="1")]
     pub manage_id: i32,
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListDataResponse {
+pub struct ListEntityDataResponse {
     #[prost(string, repeated, tag="1")]
     pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }

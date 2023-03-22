@@ -11,12 +11,12 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleListData {
+pub trait HandleListEntityData {
     /// 取得管理记录数量
-    async fn handle_list_data(
+    async fn handle_list_entity_data(
         &self,
-        request: Request<ListDataRequest>,
-    ) -> UnaryResponseResult<ListDataResponse> {
+        request: Request<ListEntityDataRequest>,
+    ) -> UnaryResponseResult<ListEntityDataResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -26,8 +26,8 @@ pub trait HandleListData {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
 
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
+        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
+            return Err(Status::unauthenticated("用户不具有可读权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
@@ -38,7 +38,7 @@ pub trait HandleListData {
         match result {
             Ok(r) => {
                 let data_ids = r.get_array(DATAS_FIELD_ID.to_string()).unwrap();
-                Ok(Response::new(ListDataResponse {
+                Ok(Response::new(ListEntityDataResponse {
                     data_ids: data_ids.iter().map(|x| x.to_string()).collect(),
                 }))
             }

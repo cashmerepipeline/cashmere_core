@@ -3,17 +3,17 @@
 //  source: login.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'status.pbenum.dart' as $0;
+import 'account_status.pbenum.dart' as $0;
 
 class LoginRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LoginRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countryCode')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'areaCode')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
     ..hasRequiredFields = false
@@ -21,13 +21,13 @@ class LoginRequest extends $pb.GeneratedMessage {
 
   LoginRequest._() : super();
   factory LoginRequest({
-    $core.String? countryCode,
+    $core.String? areaCode,
     $core.String? phone,
     $core.String? password,
   }) {
     final _result = create();
-    if (countryCode != null) {
-      _result.countryCode = countryCode;
+    if (areaCode != null) {
+      _result.areaCode = areaCode;
     }
     if (phone != null) {
       _result.phone = phone;
@@ -59,13 +59,13 @@ class LoginRequest extends $pb.GeneratedMessage {
   static LoginRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get countryCode => $_getSZ(0);
+  $core.String get areaCode => $_getSZ(0);
   @$pb.TagNumber(1)
-  set countryCode($core.String v) { $_setString(0, v); }
+  set areaCode($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasCountryCode() => $_has(0);
+  $core.bool hasAreaCode() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCountryCode() => clearField(1);
+  void clearAreaCode() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get phone => $_getSZ(1);

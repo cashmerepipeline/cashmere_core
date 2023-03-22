@@ -3,7 +3,7 @@
 //  source: entity.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -165,9 +165,9 @@ const EditEntityMapFieldRemoveKeyResponse$json = const {
 
 /// Descriptor for `EditEntityMapFieldRemoveKeyResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List editEntityMapFieldRemoveKeyResponseDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5TWFwRmllbGRSZW1vdmVLZXlSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
-@$core.Deprecated('Use editEntityListFieldAddItemsRequestDescriptor instead')
-const EditEntityListFieldAddItemsRequest$json = const {
-  '1': 'EditEntityListFieldAddItemsRequest',
+@$core.Deprecated('Use editEntityArrayFieldAddItemsRequestDescriptor instead')
+const EditEntityArrayFieldAddItemsRequest$json = const {
+  '1': 'EditEntityArrayFieldAddItemsRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
@@ -176,21 +176,21 @@ const EditEntityListFieldAddItemsRequest$json = const {
   ],
 };
 
-/// Descriptor for `EditEntityListFieldAddItemsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntityListFieldAddItemsRequestDescriptor = $convert.base64Decode('CiJFZGl0RW50aXR5TGlzdEZpZWxkQWRkSXRlbXNSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIZCghmaWVsZF9pZBgDIAEoCVIHZmllbGRJZBIUCgVpdGVtcxgEIAEoDFIFaXRlbXM=');
-@$core.Deprecated('Use editEntityListFieldAddItemsResponseDescriptor instead')
-const EditEntityListFieldAddItemsResponse$json = const {
-  '1': 'EditEntityListFieldAddItemsResponse',
+/// Descriptor for `EditEntityArrayFieldAddItemsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityArrayFieldAddItemsRequestDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5QXJyYXlGaWVsZEFkZEl0ZW1zUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlkEhsKCWVudGl0eV9pZBgCIAEoCVIIZW50aXR5SWQSGQoIZmllbGRfaWQYAyABKAlSB2ZpZWxkSWQSFAoFaXRlbXMYBCABKAxSBWl0ZW1z');
+@$core.Deprecated('Use editEntityArrayFieldAddItemsResponseDescriptor instead')
+const EditEntityArrayFieldAddItemsResponse$json = const {
+  '1': 'EditEntityArrayFieldAddItemsResponse',
   '2': const [
-    const {'1': 'result', '3': 1, '4': 1, '5': 12, '10': 'result'},
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `EditEntityListFieldAddItemsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntityListFieldAddItemsResponseDescriptor = $convert.base64Decode('CiNFZGl0RW50aXR5TGlzdEZpZWxkQWRkSXRlbXNSZXNwb25zZRIWCgZyZXN1bHQYASABKAxSBnJlc3VsdA==');
-@$core.Deprecated('Use editEntityListFieldRemoveItemsRequestDescriptor instead')
-const EditEntityListFieldRemoveItemsRequest$json = const {
-  '1': 'EditEntityListFieldRemoveItemsRequest',
+/// Descriptor for `EditEntityArrayFieldAddItemsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityArrayFieldAddItemsResponseDescriptor = $convert.base64Decode('CiRFZGl0RW50aXR5QXJyYXlGaWVsZEFkZEl0ZW1zUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+@$core.Deprecated('Use editEntityArrayFieldRemoveItemsRequestDescriptor instead')
+const EditEntityArrayFieldRemoveItemsRequest$json = const {
+  '1': 'EditEntityArrayFieldRemoveItemsRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
@@ -199,18 +199,18 @@ const EditEntityListFieldRemoveItemsRequest$json = const {
   ],
 };
 
-/// Descriptor for `EditEntityListFieldRemoveItemsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntityListFieldRemoveItemsRequestDescriptor = $convert.base64Decode('CiVFZGl0RW50aXR5TGlzdEZpZWxkUmVtb3ZlSXRlbXNSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIZCghmaWVsZF9pZBgDIAEoCVIHZmllbGRJZBIUCgVpdGVtcxgEIAEoDFIFaXRlbXM=');
-@$core.Deprecated('Use editEntityListFieldRemoveItemsResponseDescriptor instead')
-const EditEntityListFieldRemoveItemsResponse$json = const {
-  '1': 'EditEntityListFieldRemoveItemsResponse',
+/// Descriptor for `EditEntityArrayFieldRemoveItemsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityArrayFieldRemoveItemsRequestDescriptor = $convert.base64Decode('CiZFZGl0RW50aXR5QXJyYXlGaWVsZFJlbW92ZUl0ZW1zUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlkEhsKCWVudGl0eV9pZBgCIAEoCVIIZW50aXR5SWQSGQoIZmllbGRfaWQYAyABKAlSB2ZpZWxkSWQSFAoFaXRlbXMYBCABKAxSBWl0ZW1z');
+@$core.Deprecated('Use editEntityArrayFieldRemoveItemsResponseDescriptor instead')
+const EditEntityArrayFieldRemoveItemsResponse$json = const {
+  '1': 'EditEntityArrayFieldRemoveItemsResponse',
   '2': const [
-    const {'1': 'result', '3': 1, '4': 1, '5': 12, '10': 'result'},
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `EditEntityListFieldRemoveItemsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntityListFieldRemoveItemsResponseDescriptor = $convert.base64Decode('CiZFZGl0RW50aXR5TGlzdEZpZWxkUmVtb3ZlSXRlbXNSZXNwb25zZRIWCgZyZXN1bHQYASABKAxSBnJlc3VsdA==');
+/// Descriptor for `EditEntityArrayFieldRemoveItemsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntityArrayFieldRemoveItemsResponseDescriptor = $convert.base64Decode('CidFZGl0RW50aXR5QXJyYXlGaWVsZFJlbW92ZUl0ZW1zUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
 @$core.Deprecated('Use getEntityRequestDescriptor instead')
 const GetEntityRequest$json = const {
   '1': 'GetEntityRequest',
@@ -279,13 +279,13 @@ final $typed_data.Uint8List getEntitiesPageResponseDescriptor = $convert.base64D
 const MarkEntityRemovedRequest$json = const {
   '1': 'MarkEntityRemovedRequest',
   '2': const [
-    const {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
   ],
 };
 
 /// Descriptor for `MarkEntityRemovedRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List markEntityRemovedRequestDescriptor = $convert.base64Decode('ChhNYXJrRW50aXR5UmVtb3ZlZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlk');
+final $typed_data.Uint8List markEntityRemovedRequestDescriptor = $convert.base64Decode('ChhNYXJrRW50aXR5UmVtb3ZlZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlk');
 @$core.Deprecated('Use markEntityRemovedResponseDescriptor instead')
 const MarkEntityRemovedResponse$json = const {
   '1': 'MarkEntityRemovedResponse',
@@ -296,27 +296,49 @@ const MarkEntityRemovedResponse$json = const {
 
 /// Descriptor for `MarkEntityRemovedResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List markEntityRemovedResponseDescriptor = $convert.base64Decode('ChlNYXJrRW50aXR5UmVtb3ZlZFJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
-@$core.Deprecated('Use getDataListRequestDescriptor instead')
-const GetDataListRequest$json = const {
-  '1': 'GetDataListRequest',
+@$core.Deprecated('Use recoverRemovedEntityRequestDescriptor instead')
+const RecoverRemovedEntityRequest$json = const {
+  '1': 'RecoverRemovedEntityRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
   ],
 };
 
-/// Descriptor for `GetDataListRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getDataListRequestDescriptor = $convert.base64Decode('ChJHZXREYXRhTGlzdFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlk');
-@$core.Deprecated('Use getDataListResponseDescriptor instead')
-const GetDataListResponse$json = const {
-  '1': 'GetDataListResponse',
+/// Descriptor for `RecoverRemovedEntityRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List recoverRemovedEntityRequestDescriptor = $convert.base64Decode('ChtSZWNvdmVyUmVtb3ZlZEVudGl0eVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlk');
+@$core.Deprecated('Use recoverRemovedEntityResponseDescriptor instead')
+const RecoverRemovedEntityResponse$json = const {
+  '1': 'RecoverRemovedEntityResponse',
   '2': const [
-    const {'1': 'data_ids', '3': 1, '4': 3, '5': 9, '10': 'dataIds'},
+    const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `GetDataListResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getDataListResponseDescriptor = $convert.base64Decode('ChNHZXREYXRhTGlzdFJlc3BvbnNlEhkKCGRhdGFfaWRzGAEgAygJUgdkYXRhSWRz');
+/// Descriptor for `RecoverRemovedEntityResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List recoverRemovedEntityResponseDescriptor = $convert.base64Decode('ChxSZWNvdmVyUmVtb3ZlZEVudGl0eVJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
+@$core.Deprecated('Use getRemovedEntitiesPageRequestDescriptor instead')
+const GetRemovedEntitiesPageRequest$json = const {
+  '1': 'GetRemovedEntitiesPageRequest',
+  '2': const [
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    const {'1': 'page_index', '3': 2, '4': 1, '5': 13, '10': 'pageIndex'},
+    const {'1': 'conditions', '3': 3, '4': 1, '5': 12, '10': 'conditions'},
+  ],
+};
+
+/// Descriptor for `GetRemovedEntitiesPageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getRemovedEntitiesPageRequestDescriptor = $convert.base64Decode('Ch1HZXRSZW1vdmVkRW50aXRpZXNQYWdlUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlkEh0KCnBhZ2VfaW5kZXgYAiABKA1SCXBhZ2VJbmRleBIeCgpjb25kaXRpb25zGAMgASgMUgpjb25kaXRpb25z');
+@$core.Deprecated('Use getRemovedEntitiesPageResponseDescriptor instead')
+const GetRemovedEntitiesPageResponse$json = const {
+  '1': 'GetRemovedEntitiesPageResponse',
+  '2': const [
+    const {'1': 'entities', '3': 1, '4': 3, '5': 12, '10': 'entities'},
+  ],
+};
+
+/// Descriptor for `GetRemovedEntitiesPageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getRemovedEntitiesPageResponseDescriptor = $convert.base64Decode('Ch5HZXRSZW1vdmVkRW50aXRpZXNQYWdlUmVzcG9uc2USGgoIZW50aXRpZXMYASADKAxSCGVudGl0aWVz');
 @$core.Deprecated('Use getRemovedDataListRequestDescriptor instead')
 const GetRemovedDataListRequest$json = const {
   '1': 'GetRemovedDataListRequest',

@@ -3,7 +3,7 @@
 //  source: account_service.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:async' as $async;
 
@@ -12,6 +12,7 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'login.pb.dart' as $0;
 import 'account.pb.dart' as $1;
+import 'password.pb.dart' as $2;
 export 'account_service.pb.dart';
 
 class AccountGrpcClient extends $grpc.Client {
@@ -37,6 +38,24 @@ class AccountGrpcClient extends $grpc.Client {
       ($1.RemoveAccountFromGroupRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $1.RemoveAccountFromGroupResponse.fromBuffer(value));
+  static final _$changeOwnPassword = $grpc.ClientMethod<
+          $2.ChangeOwnPasswordRequest, $2.ChangeOwnPasswordResponse>(
+      '/account_service.AccountGrpc/ChangeOwnPassword',
+      ($2.ChangeOwnPasswordRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $2.ChangeOwnPasswordResponse.fromBuffer(value));
+  static final _$changeAccountStatus = $grpc.ClientMethod<
+          $1.ChangeAccountStatusRequest, $1.ChangeAccountStatusResponse>(
+      '/account_service.AccountGrpc/ChangeAccountStatus',
+      ($1.ChangeAccountStatusRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.ChangeAccountStatusResponse.fromBuffer(value));
+  static final _$changeAccountPassword = $grpc.ClientMethod<
+          $2.ChangeAccountPasswordRequest, $2.ChangeAccountPasswordResponse>(
+      '/account_service.AccountGrpc/ChangeAccountPassword',
+      ($2.ChangeAccountPasswordRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $2.ChangeAccountPasswordResponse.fromBuffer(value));
 
   AccountGrpcClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -65,6 +84,24 @@ class AccountGrpcClient extends $grpc.Client {
           {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$removeAccountFromGroup, request,
         options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ChangeOwnPasswordResponse> changeOwnPassword(
+      $2.ChangeOwnPasswordRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changeOwnPassword, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.ChangeAccountStatusResponse> changeAccountStatus(
+      $1.ChangeAccountStatusRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changeAccountStatus, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ChangeAccountPasswordResponse> changeAccountPassword(
+      $2.ChangeAccountPasswordRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changeAccountPassword, request, options: options);
   }
 }
 
@@ -104,6 +141,33 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $1.RemoveAccountFromGroupRequest.fromBuffer(value),
         ($1.RemoveAccountFromGroupResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.ChangeOwnPasswordRequest,
+            $2.ChangeOwnPasswordResponse>(
+        'ChangeOwnPassword',
+        changeOwnPassword_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.ChangeOwnPasswordRequest.fromBuffer(value),
+        ($2.ChangeOwnPasswordResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.ChangeAccountStatusRequest,
+            $1.ChangeAccountStatusResponse>(
+        'ChangeAccountStatus',
+        changeAccountStatus_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.ChangeAccountStatusRequest.fromBuffer(value),
+        ($1.ChangeAccountStatusResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.ChangeAccountPasswordRequest,
+            $2.ChangeAccountPasswordResponse>(
+        'ChangeAccountPassword',
+        changeAccountPassword_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.ChangeAccountPasswordRequest.fromBuffer(value),
+        ($2.ChangeAccountPasswordResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre(
@@ -128,6 +192,24 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
     return removeAccountFromGroup(call, await request);
   }
 
+  $async.Future<$2.ChangeOwnPasswordResponse> changeOwnPassword_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$2.ChangeOwnPasswordRequest> request) async {
+    return changeOwnPassword(call, await request);
+  }
+
+  $async.Future<$1.ChangeAccountStatusResponse> changeAccountStatus_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.ChangeAccountStatusRequest> request) async {
+    return changeAccountStatus(call, await request);
+  }
+
+  $async.Future<$2.ChangeAccountPasswordResponse> changeAccountPassword_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$2.ChangeAccountPasswordRequest> request) async {
+    return changeAccountPassword(call, await request);
+  }
+
   $async.Future<$0.LoginResponse> login(
       $grpc.ServiceCall call, $0.LoginRequest request);
   $async.Future<$1.NewAccountResponse> newAccount(
@@ -136,4 +218,10 @@ abstract class AccountGrpcServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.AddAccountIntoGroupRequest request);
   $async.Future<$1.RemoveAccountFromGroupResponse> removeAccountFromGroup(
       $grpc.ServiceCall call, $1.RemoveAccountFromGroupRequest request);
+  $async.Future<$2.ChangeOwnPasswordResponse> changeOwnPassword(
+      $grpc.ServiceCall call, $2.ChangeOwnPasswordRequest request);
+  $async.Future<$1.ChangeAccountStatusResponse> changeAccountStatus(
+      $grpc.ServiceCall call, $1.ChangeAccountStatusRequest request);
+  $async.Future<$2.ChangeAccountPasswordResponse> changeAccountPassword(
+      $grpc.ServiceCall call, $2.ChangeAccountPasswordRequest request);
 }

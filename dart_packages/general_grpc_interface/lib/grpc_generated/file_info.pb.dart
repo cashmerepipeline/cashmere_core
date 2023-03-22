@@ -3,7 +3,7 @@
 //  source: file_info.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -16,6 +16,7 @@ class FileInfo extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'md5')
     ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'size', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastModifiedTime')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'modifier')
     ..hasRequiredFields = false
   ;
 
@@ -25,6 +26,7 @@ class FileInfo extends $pb.GeneratedMessage {
     $core.String? md5,
     $fixnum.Int64? size,
     $fixnum.Int64? lastModifiedTime,
+    $core.String? modifier,
   }) {
     final _result = create();
     if (fileName != null) {
@@ -38,6 +40,9 @@ class FileInfo extends $pb.GeneratedMessage {
     }
     if (lastModifiedTime != null) {
       _result.lastModifiedTime = lastModifiedTime;
+    }
+    if (modifier != null) {
+      _result.modifier = modifier;
     }
     return _result;
   }
@@ -97,5 +102,14 @@ class FileInfo extends $pb.GeneratedMessage {
   $core.bool hasLastModifiedTime() => $_has(3);
   @$pb.TagNumber(4)
   void clearLastModifiedTime() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get modifier => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set modifier($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasModifier() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearModifier() => clearField(5);
 }
 

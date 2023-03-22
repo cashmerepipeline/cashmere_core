@@ -2,7 +2,7 @@ protoc -I../../protocols    -I../../account_server/protocols --dart_out=grpc:lib
 protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/account.proto
 protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/login.proto
 protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/password.proto
-protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/status.proto
+protoc -I../../protocols    -I../../account_server/protocols --dart_out=lib/grpc_generated       ../../account_server/protocols/account_status.proto
 
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/language_code.proto
 protoc -I../../protocols  --dart_out=lib/grpc_generated  ../../protocols/country.proto

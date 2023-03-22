@@ -3,7 +3,7 @@
 //  source: name.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -44,7 +44,7 @@ final $typed_data.Uint8List nameFieldDescriptor = $convert.base64Decode('CglOYW1
 const RenameRequest$json = const {
   '1': 'RenameRequest',
   '2': const [
-    const {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     const {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
     const {'1': 'new_name', '3': 4, '4': 1, '5': 9, '10': 'newName'},
@@ -52,7 +52,7 @@ const RenameRequest$json = const {
 };
 
 /// Descriptor for `RenameRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List renameRequestDescriptor = $convert.base64Decode('Cg1SZW5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2USGQoIbmV3X25hbWUYBCABKAlSB25ld05hbWU=');
+final $typed_data.Uint8List renameRequestDescriptor = $convert.base64Decode('Cg1SZW5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2USGQoIbmV3X25hbWUYBCABKAlSB25ld05hbWU=');
 @$core.Deprecated('Use renameResponseDescriptor instead')
 const RenameResponse$json = const {
   '1': 'RenameResponse',
@@ -67,7 +67,7 @@ final $typed_data.Uint8List renameResponseDescriptor = $convert.base64Decode('Cg
 const NewLanguageNameRequest$json = const {
   '1': 'NewLanguageNameRequest',
   '2': const [
-    const {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     const {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
     const {'1': 'new_name', '3': 4, '4': 1, '5': 9, '10': 'newName'},
@@ -75,7 +75,7 @@ const NewLanguageNameRequest$json = const {
 };
 
 /// Descriptor for `NewLanguageNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List newLanguageNameRequestDescriptor = $convert.base64Decode('ChZOZXdMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2USGQoIbmV3X25hbWUYBCABKAlSB25ld05hbWU=');
+final $typed_data.Uint8List newLanguageNameRequestDescriptor = $convert.base64Decode('ChZOZXdMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2USGQoIbmV3X25hbWUYBCABKAlSB25ld05hbWU=');
 @$core.Deprecated('Use newLanguageNameResponseDescriptor instead')
 const NewLanguageNameResponse$json = const {
   '1': 'NewLanguageNameResponse',
@@ -90,14 +90,14 @@ final $typed_data.Uint8List newLanguageNameResponseDescriptor = $convert.base64D
 const RemoveLanguageNameRequest$json = const {
   '1': 'RemoveLanguageNameRequest',
   '2': const [
-    const {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     const {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
   ],
 };
 
 /// Descriptor for `RemoveLanguageNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List removeLanguageNameRequestDescriptor = $convert.base64Decode('ChlSZW1vdmVMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2U=');
+final $typed_data.Uint8List removeLanguageNameRequestDescriptor = $convert.base64Decode('ChlSZW1vdmVMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3VhZ2U=');
 @$core.Deprecated('Use removeLanguageNameResponseDescriptor instead')
 const RemoveLanguageNameResponse$json = const {
   '1': 'RemoveLanguageNameResponse',

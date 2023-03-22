@@ -24,8 +24,7 @@ message NameField {
 message RenameRequest {
   int32 manage_id = 1;
   string entity_id = 2;
-  string language = 3;
-  string new_name = 4;
+  Name new_name = 3;
 }
 message RenameResponse {
   string result = 1;
@@ -35,8 +34,7 @@ message RenameResponse {
 message NewLanguageNameRequest {
   int32 manage_id = 1;
   string entity_id = 2;
-  string language = 3;
-  string new_name = 4;
+  Name new_name = 3;
 }
 message NewLanguageNameResponse {
   string result = 1;

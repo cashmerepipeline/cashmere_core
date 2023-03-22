@@ -3,7 +3,7 @@
 //  source: login.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -12,14 +12,14 @@ import 'dart:typed_data' as $typed_data;
 const LoginRequest$json = const {
   '1': 'LoginRequest',
   '2': const [
-    const {'1': 'country_code', '3': 1, '4': 1, '5': 9, '10': 'countryCode'},
+    const {'1': 'area_code', '3': 1, '4': 1, '5': 9, '10': 'areaCode'},
     const {'1': 'phone', '3': 2, '4': 1, '5': 9, '10': 'phone'},
     const {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
   ],
 };
 
 /// Descriptor for `LoginRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List loginRequestDescriptor = $convert.base64Decode('CgxMb2dpblJlcXVlc3QSIQoMY291bnRyeV9jb2RlGAEgASgJUgtjb3VudHJ5Q29kZRIUCgVwaG9uZRgCIAEoCVIFcGhvbmUSGgoIcGFzc3dvcmQYAyABKAlSCHBhc3N3b3Jk');
+final $typed_data.Uint8List loginRequestDescriptor = $convert.base64Decode('CgxMb2dpblJlcXVlc3QSGwoJYXJlYV9jb2RlGAEgASgJUghhcmVhQ29kZRIUCgVwaG9uZRgCIAEoCVIFcGhvbmUSGgoIcGFzc3dvcmQYAyABKAlSCHBhc3N3b3Jk');
 @$core.Deprecated('Use loginResponseDescriptor instead')
 const LoginResponse$json = const {
   '1': 'LoginResponse',

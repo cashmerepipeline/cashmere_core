@@ -3,7 +3,7 @@
 //  source: manage_schema.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -100,13 +100,13 @@ class SchemaField extends $pb.GeneratedMessage {
 
 class GetManageSchemaRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageSchemaRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   GetManageSchemaRequest._() : super();
   factory GetManageSchemaRequest({
-    $core.String? manageId,
+    $core.int? manageId,
   }) {
     final _result = create();
     if (manageId != null) {
@@ -136,9 +136,9 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
   static GetManageSchemaRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -188,14 +188,14 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
 
 class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSchemaFieldRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOM<SchemaField>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'field', subBuilder: SchemaField.create)
     ..hasRequiredFields = false
   ;
 
   NewSchemaFieldRequest._() : super();
   factory NewSchemaFieldRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     SchemaField? field_2,
   }) {
     final _result = create();
@@ -229,9 +229,9 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   static NewSchemaFieldRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -298,14 +298,14 @@ class NewSchemaFieldResponse extends $pb.GeneratedMessage {
 
 class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MarkSchemaFieldRemovedRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   MarkSchemaFieldRemovedRequest._() : super();
   factory MarkSchemaFieldRemovedRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.int? fieldId,
   }) {
     final _result = create();
@@ -339,9 +339,9 @@ class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   static MarkSchemaFieldRemovedRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -406,7 +406,7 @@ class MarkSchemaFieldRemovedResponse extends $pb.GeneratedMessage {
 
 class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditSchemaFieldNameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId', $pb.PbFieldType.O3)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newName')
@@ -415,7 +415,7 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
 
   EditSchemaFieldNameRequest._() : super();
   factory EditSchemaFieldNameRequest({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.int? fieldId,
     $core.String? language,
     $core.String? newName,
@@ -457,9 +457,9 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   static EditSchemaFieldNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

@@ -56,10 +56,10 @@ message MarkDataRemovedResponse {
 }
 
 // 取得实体数据表
-message ListDataRequest{
+message ListEntityDataRequest{
   int32 manage_id = 1;
   string entity_id = 2;
 }
-message ListDataResponse{
+message ListEntityDataResponse{
   repeated string data_ids = 1;
 }

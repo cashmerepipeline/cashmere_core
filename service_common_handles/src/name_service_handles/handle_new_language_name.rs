@@ -22,8 +22,13 @@ pub trait HandleNewLanguageName {
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
-        let language = &request.get_ref().language;
         let new_name = &request.get_ref().new_name;
+
+        if(new_name.is_none()){
+            return Err(Status::aborted("名字不能为空"));
+        }
+        let language = &new_name.as_ref().unwrap().language;
+        let new_name = &new_name.as_ref().unwrap().name;
 
         // 管理可写性
         if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {

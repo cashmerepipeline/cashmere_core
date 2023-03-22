@@ -3,7 +3,7 @@
 //  source: file_data.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -20,6 +20,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunk', $pb.PbFieldType.OY)
     ..aOM<$0.FileInfo>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileInfo', subBuilder: $0.FileInfo.create)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunkMd5')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stage')
     ..hasRequiredFields = false
   ;
 
@@ -31,6 +32,7 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     $core.List<$core.int>? chunk,
     $0.FileInfo? fileInfo,
     $core.String? chunkMd5,
+    $core.String? stage,
   }) {
     final _result = create();
     if (dataId != null) {
@@ -50,6 +52,9 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
     }
     if (chunkMd5 != null) {
       _result.chunkMd5 = chunkMd5;
+    }
+    if (stage != null) {
+      _result.stage = stage;
     }
     return _result;
   }
@@ -129,6 +134,15 @@ class FileDataUploadFileRequest extends $pb.GeneratedMessage {
   $core.bool hasChunkMd5() => $_has(5);
   @$pb.TagNumber(6)
   void clearChunkMd5() => clearField(6);
+
+  @$pb.TagNumber(8)
+  $core.String get stage => $_getSZ(6);
+  @$pb.TagNumber(8)
+  set stage($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasStage() => $_has(6);
+  @$pb.TagNumber(8)
+  void clearStage() => clearField(8);
 }
 
 class FileDataUploadFileResponse extends $pb.GeneratedMessage {
@@ -181,16 +195,31 @@ class FileDataUploadFileResponse extends $pb.GeneratedMessage {
 class FileDataDownloadFileRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FileDataDownloadFileRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stage')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunkIndex', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileName')
     ..hasRequiredFields = false
   ;
 
   FileDataDownloadFileRequest._() : super();
   factory FileDataDownloadFileRequest({
     $core.String? dataId,
+    $core.String? stage,
+    $fixnum.Int64? chunkIndex,
+    $core.String? fileName,
   }) {
     final _result = create();
     if (dataId != null) {
       _result.dataId = dataId;
+    }
+    if (stage != null) {
+      _result.stage = stage;
+    }
+    if (chunkIndex != null) {
+      _result.chunkIndex = chunkIndex;
+    }
+    if (fileName != null) {
+      _result.fileName = fileName;
     }
     return _result;
   }
@@ -223,15 +252,43 @@ class FileDataDownloadFileRequest extends $pb.GeneratedMessage {
   $core.bool hasDataId() => $_has(0);
   @$pb.TagNumber(1)
   void clearDataId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get stage => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set stage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasStage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStage() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get chunkIndex => $_getI64(2);
+  @$pb.TagNumber(3)
+  set chunkIndex($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasChunkIndex() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearChunkIndex() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get fileName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set fileName($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFileName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFileName() => clearField(4);
 }
 
 class FileDataDownloadFileResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FileDataDownloadFileResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataId')
     ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalChunks', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentChunk', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunkIndex', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunk', $pb.PbFieldType.OY)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileName')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunkMd5')
+    ..aOM<$0.FileInfo>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileInfo', subBuilder: $0.FileInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -239,9 +296,10 @@ class FileDataDownloadFileResponse extends $pb.GeneratedMessage {
   factory FileDataDownloadFileResponse({
     $core.String? dataId,
     $fixnum.Int64? totalChunks,
-    $fixnum.Int64? currentChunk,
+    $fixnum.Int64? chunkIndex,
     $core.List<$core.int>? chunk,
-    $core.String? fileName,
+    $core.String? chunkMd5,
+    $0.FileInfo? fileInfo,
   }) {
     final _result = create();
     if (dataId != null) {
@@ -250,14 +308,17 @@ class FileDataDownloadFileResponse extends $pb.GeneratedMessage {
     if (totalChunks != null) {
       _result.totalChunks = totalChunks;
     }
-    if (currentChunk != null) {
-      _result.currentChunk = currentChunk;
+    if (chunkIndex != null) {
+      _result.chunkIndex = chunkIndex;
     }
     if (chunk != null) {
       _result.chunk = chunk;
     }
-    if (fileName != null) {
-      _result.fileName = fileName;
+    if (chunkMd5 != null) {
+      _result.chunkMd5 = chunkMd5;
+    }
+    if (fileInfo != null) {
+      _result.fileInfo = fileInfo;
     }
     return _result;
   }
@@ -301,13 +362,13 @@ class FileDataDownloadFileResponse extends $pb.GeneratedMessage {
   void clearTotalChunks() => clearField(2);
 
   @$pb.TagNumber(3)
-  $fixnum.Int64 get currentChunk => $_getI64(2);
+  $fixnum.Int64 get chunkIndex => $_getI64(2);
   @$pb.TagNumber(3)
-  set currentChunk($fixnum.Int64 v) { $_setInt64(2, v); }
+  set chunkIndex($fixnum.Int64 v) { $_setInt64(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasCurrentChunk() => $_has(2);
+  $core.bool hasChunkIndex() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCurrentChunk() => clearField(3);
+  void clearChunkIndex() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.List<$core.int> get chunk => $_getN(3);
@@ -319,12 +380,23 @@ class FileDataDownloadFileResponse extends $pb.GeneratedMessage {
   void clearChunk() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get fileName => $_getSZ(4);
+  $core.String get chunkMd5 => $_getSZ(4);
   @$pb.TagNumber(5)
-  set fileName($core.String v) { $_setString(4, v); }
+  set chunkMd5($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasFileName() => $_has(4);
+  $core.bool hasChunkMd5() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFileName() => clearField(5);
+  void clearChunkMd5() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.FileInfo get fileInfo => $_getN(5);
+  @$pb.TagNumber(6)
+  set fileInfo($0.FileInfo v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasFileInfo() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFileInfo() => clearField(6);
+  @$pb.TagNumber(6)
+  $0.FileInfo ensureFileInfo() => $_ensure(5);
 }
 

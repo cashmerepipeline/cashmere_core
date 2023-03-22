@@ -3,13 +3,15 @@
 //  source: account.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'name.pb.dart' as $0;
+
+import 'account_status.pbenum.dart' as $1;
 
 class NewAccountRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAccountRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
@@ -617,6 +619,114 @@ class RemoveAccountFromGroupResponse extends $pb.GeneratedMessage {
   $core.String get result => $_getSZ(0);
   @$pb.TagNumber(1)
   set result($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResult() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResult() => clearField(1);
+}
+
+class ChangeAccountStatusRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeAccountStatusRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'accountId')
+    ..e<$1.AccountStatus>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $1.AccountStatus.AccountStopped, valueOf: $1.AccountStatus.valueOf, enumValues: $1.AccountStatus.values)
+    ..hasRequiredFields = false
+  ;
+
+  ChangeAccountStatusRequest._() : super();
+  factory ChangeAccountStatusRequest({
+    $core.String? accountId,
+    $1.AccountStatus? status,
+  }) {
+    final _result = create();
+    if (accountId != null) {
+      _result.accountId = accountId;
+    }
+    if (status != null) {
+      _result.status = status;
+    }
+    return _result;
+  }
+  factory ChangeAccountStatusRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeAccountStatusRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChangeAccountStatusRequest clone() => ChangeAccountStatusRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChangeAccountStatusRequest copyWith(void Function(ChangeAccountStatusRequest) updates) => super.copyWith((message) => updates(message as ChangeAccountStatusRequest)) as ChangeAccountStatusRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ChangeAccountStatusRequest create() => ChangeAccountStatusRequest._();
+  ChangeAccountStatusRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeAccountStatusRequest> createRepeated() => $pb.PbList<ChangeAccountStatusRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ChangeAccountStatusRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeAccountStatusRequest>(create);
+  static ChangeAccountStatusRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get accountId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set accountId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAccountId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAccountId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $1.AccountStatus get status => $_getN(1);
+  @$pb.TagNumber(2)
+  set status($1.AccountStatus v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasStatus() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStatus() => clearField(2);
+}
+
+class ChangeAccountStatusResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeAccountStatusResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_service'), createEmptyInstance: create)
+    ..e<$1.AccountStatus>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result', $pb.PbFieldType.OE, defaultOrMaker: $1.AccountStatus.AccountStopped, valueOf: $1.AccountStatus.valueOf, enumValues: $1.AccountStatus.values)
+    ..hasRequiredFields = false
+  ;
+
+  ChangeAccountStatusResponse._() : super();
+  factory ChangeAccountStatusResponse({
+    $1.AccountStatus? result,
+  }) {
+    final _result = create();
+    if (result != null) {
+      _result.result = result;
+    }
+    return _result;
+  }
+  factory ChangeAccountStatusResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeAccountStatusResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChangeAccountStatusResponse clone() => ChangeAccountStatusResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChangeAccountStatusResponse copyWith(void Function(ChangeAccountStatusResponse) updates) => super.copyWith((message) => updates(message as ChangeAccountStatusResponse)) as ChangeAccountStatusResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ChangeAccountStatusResponse create() => ChangeAccountStatusResponse._();
+  ChangeAccountStatusResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeAccountStatusResponse> createRepeated() => $pb.PbList<ChangeAccountStatusResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ChangeAccountStatusResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeAccountStatusResponse>(create);
+  static ChangeAccountStatusResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $1.AccountStatus get result => $_getN(0);
+  @$pb.TagNumber(1)
+  set result($1.AccountStatus v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasResult() => $_has(0);
   @$pb.TagNumber(1)

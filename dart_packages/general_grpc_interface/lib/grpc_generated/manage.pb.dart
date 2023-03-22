@@ -3,7 +3,7 @@
 //  source: manage.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -12,14 +12,14 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class Manage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Manage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
   Manage._() : super();
   factory Manage({
-    $core.String? manageId,
+    $core.int? manageId,
     $core.List<$core.int>? nameMap,
   }) {
     final _result = create();
@@ -53,9 +53,9 @@ class Manage extends $pb.GeneratedMessage {
   static Manage? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -143,13 +143,13 @@ class GetManagesResponse extends $pb.GeneratedMessage {
 
 class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageEntryCountRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId')
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   GetManageEntryCountRequest._() : super();
   factory GetManageEntryCountRequest({
-    $core.String? manageId,
+    $core.int? manageId,
   }) {
     final _result = create();
     if (manageId != null) {
@@ -179,9 +179,9 @@ class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   static GetManageEntryCountRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get manageId => $_getSZ(0);
+  $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.String v) { $_setString(0, v); }
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
