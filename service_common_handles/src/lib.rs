@@ -14,6 +14,7 @@ pub use types::*;
 
 pub mod area_service_handles;
 pub mod data_service_handles;
+pub mod data_stage_service_handles;
 pub mod entity_service_handles;
 pub mod group_service_handles;
 pub mod manage_service_handle;

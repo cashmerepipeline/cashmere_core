@@ -15,7 +15,7 @@ impl DataServer {
         delegator_pool.request_delegator()
     }
 
-    pub fn return_back_delegator (&self, mut delegator: Arc<UploadDelegator>){
+    pub fn return_back_upload_delegator (&self, delegator: Arc<UploadDelegator>){
         let delegator_pool_arc = get_upload_delegator_pool(Some(self.max_upload_connections_number));
         let delegator_pool = delegator_pool_arc.write();
         

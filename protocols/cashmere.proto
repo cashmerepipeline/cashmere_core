@@ -11,7 +11,7 @@ import "color.proto";
 import "data.proto";
 import "data_server.proto";
 import "data_stage.proto";
-import "file_data.proto";
+import "file_transfer.proto";
 import "sequence_data.proto";
 import "set_data.proto";
 import "area.proto";

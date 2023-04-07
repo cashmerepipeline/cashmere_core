@@ -301,13 +301,27 @@ pub struct GetDataServerConfigsRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDataServerConfigsResponse {
     #[prost(message, optional, tag="1")]
-    pub data_server_configs: ::core::option::Option<DataServerConfigs>,
+    pub configs: ::core::option::Option<DataServerConfigs>,
+}
+/// 数据阶段信息
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataStageInfo {
+    #[prost(string, tag="1")]
+    pub name: ::prost::alloc::string::String,
+    /// stage目录下的文件列表, 文件为文件列表，集合为集合目录列表
+    #[prost(bytes="vec", repeated, tag="2")]
+    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    /// 当前连接所指版本
+    #[prost(string, tag="3")]
+    pub current_version: ::prost::alloc::string::String,
 }
 /// 新阶段
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewDataStageRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
+    /// 这里可能因为软件对路径字符集支持的不同只能使用英文作为文件名，比如Maya
     #[prost(string, tag="2")]
     pub stage_name: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
@@ -319,25 +333,9 @@ pub struct NewDataStageResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 改变阶段文件连接
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataStageCurrentVersionRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub target_version: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetDataStageCurrentVersionResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
 /// 删除阶段，只删除阶段->数据的文件连接，不删除数据
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveDataStageRequset {
+pub struct RemoveDataStageRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
@@ -348,19 +346,6 @@ pub struct RemoveDataStageResponse {
     /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
-}
-/// 数据阶段信息
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataStageInfo {
-    #[prost(string, tag="1")]
-    pub name: ::prost::alloc::string::String,
-    /// phase目录下的文件列表, 文件为文件列表，集合为集合目录列表
-    #[prost(string, repeated, tag="2")]
-    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// 当前连接所指版本
-    #[prost(string, tag="3")]
-    pub current_version: ::prost::alloc::string::String,
 }
 /// 取得数据阶段表
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -380,11 +365,41 @@ pub struct AddDataStageVersionRequest {
     pub data_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub stage_name: ::prost::alloc::string::String,
+    /// 版本一般有具体的含义，不只是一个数字，比如"v001", 数据的名应该与版本一致
     #[prost(string, tag="3")]
     pub version: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddDataStageVersionResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得数据阶段版本表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListDataStageVersionsRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListDataStageVersionsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 改变阶段文件连接
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataStageCurrentVersionRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub target_version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetDataStageCurrentVersionResponse {
     /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
@@ -417,13 +432,12 @@ pub struct FileInfo {
     pub size: u64,
     #[prost(int64, tag="4")]
     pub last_modified_time: i64,
-    #[prost(string, tag="5")]
-    pub modifier: ::prost::alloc::string::String,
 }
 /// 上传文件数据
-/// 第一个包块编号为-1，最后一个包块编号为-1, 即从-1开始，到-1结束
+/// 第一个包块编号为0，最后一个包块编号为0, 即从0开始，到0结束
+/// 第一个包和最后一个包不包含文件数据，作为传输标记用
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataUploadFileRequest {
+pub struct UploadFileRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     #[prost(uint64, tag="2")]
@@ -438,15 +452,19 @@ pub struct FileDataUploadFileRequest {
     pub file_info: ::core::option::Option<FileInfo>,
     #[prost(string, tag="8")]
     pub stage: ::prost::alloc::string::String,
+    #[prost(string, tag="9")]
+    pub version: ::prost::alloc::string::String,
 }
+/// 下一个包块编号
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataUploadFileResponse {
+pub struct UploadFileResponse {
     #[prost(uint64, tag="1")]
     pub next_chunk_index: u64,
 }
 /// 下载文件数据
+/// 编号为0请求返回文件信息
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataDownloadFileRequest {
+pub struct DownloadFileRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     /// 相对数据存储根目录
@@ -456,23 +474,23 @@ pub struct FileDataDownloadFileRequest {
     pub chunk_index: u64,
     /// 如果给出版本，则下载对应版本的文件，没有则下载阶段软连接指向的文件
     #[prost(string, tag="4")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
     pub file_name: ::prost::alloc::string::String,
 }
 /// 返回文件流
+/// 最后一个包编号为0, 表示下载完成
+/// 最后一个包不包含文件数据，作为传输标记用
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileDataDownloadFileResponse {
+pub struct DownloadFileResponse {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
-    #[prost(uint64, tag="2")]
-    pub total_chunks: u64,
     #[prost(uint64, tag="3")]
     pub chunk_index: u64,
     #[prost(bytes="vec", tag="4")]
     pub chunk: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag="5")]
     pub chunk_md5: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="6")]
-    pub file_info: ::core::option::Option<FileInfo>,
 }
 /// 序列数据信息
 /// 文件名格式：prefix_name.pattern.type_suffix

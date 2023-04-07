@@ -23,5 +23,5 @@ message DataServerConfigs{
 // 取得数据服务设置
 message GetDataServerConfigsRequest{}
 message GetDataServerConfigsResponse {
-  DataServerConfigs data_server_configs = 1;
+  DataServerConfigs configs = 1;
 }

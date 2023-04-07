@@ -63,7 +63,7 @@ pub trait HandleNewData {
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)
                 .and_then(|id| {
                     data_id = Some(id.clone());
-                    let query_doc = doc! {"_id": entity_id.clone()};
+                    let query_doc = doc! {ID_FIELD_ID.to_string(): entity_id.clone()};
                     let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id.clone()};
 
                     associated_manager.push_entity_array_field(query_doc, modify_doc, &account_id)

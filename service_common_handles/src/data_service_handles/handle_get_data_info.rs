@@ -37,10 +37,6 @@ pub trait HandleGetDataInfo {
         let result = data_manager.get_entity_by_id(data_id).await;
         match result {
             Ok(r) => {
-                let mut bytes: Vec<u8> = Vec::new();
-                r.to_writer(&mut bytes)
-                    .expect(&*format!("数据损坏:{}", data_id));
-
                 Ok(Response::new(GetDataInfoResponse {
                     data_info: Some(DataInfo {
                         data_type: r.get_i32(DATAS_DATA_TYPE_FIELD_ID.to_string()).unwrap(),
@@ -53,7 +49,7 @@ pub trait HandleGetDataInfo {
                             .to_string(),
                         stages: r
                             .get_array(DATAS_STAGES_FIELD_ID.to_string())
-                            .unwrap()
+                            .unwrap_or(&vec![])
                             .iter()
                             .map(|x| String::from(x.as_str().unwrap()))
                             .collect(),

@@ -10,6 +10,7 @@ schema = [
   { data_type = "String", name_map = { zh = "类型", en = "data_type" }, removed = false },
   { data_type = "Int32", name_map = { zh = "主管理", en = "owner_manage_id" }, removed = false },
   { data_type = "String", name_map = { zh = "主实体", en = "owner_entity_id" }, removed = false },
+
   # [{name:stage, versions:[files or dirs], current_version: file or dir},...}
   { data_type = "Map", name_map = { zh = "阶段表", en = "stages" }, removed = false },
 ]

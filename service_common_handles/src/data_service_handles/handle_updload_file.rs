@@ -1,8 +1,8 @@
 use async_trait::async_trait;
+use data_server::file_utils::{create_recieve_data_file_stream, check_chunk_md5};
 use data_server::UploadDelegator;
-use data_server::file_utils::create_recieve_data_file_stream;
 use futures::FutureExt;
-use log::info;
+use log::{debug, info};
 use serde::Serialize;
 use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
@@ -19,8 +19,8 @@ use crate::{RequestStream, ResponseStream, StreamResponseResult};
 pub trait HandleUploadFile {
     async fn handle_upload_file(
         &self,
-        request: RequestStream<FileDataUploadFileRequest>,
-    ) -> StreamResponseResult<FileDataUploadFileResponse> {
+        request: RequestStream<UploadFileRequest>,
+    ) -> StreamResponseResult<UploadFileResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -40,6 +40,7 @@ pub trait HandleUploadFile {
 
         let data_id = first_request.data_id.clone();
         let stage = first_request.stage.clone();
+        let version = first_request.version.clone();
         let file_info = first_request.file_info.clone().unwrap();
 
         if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
@@ -52,7 +53,7 @@ pub trait HandleUploadFile {
         // 请求上传文件代理
         let data_server_arc = data_server::get_data_server();
 
-        let delegator = if let Some(d) = data_server_arc.get_upload_delegator() {
+        let delegator_arc = if let Some(d) = data_server_arc.get_upload_delegator() {
             d
         } else {
             return Err(Status::aborted(
@@ -61,7 +62,7 @@ pub trait HandleUploadFile {
         };
 
         let data_pathes =
-            match delegator.check_storage_space(&data_id, &stage, &file_info, file_info.size) {
+            match delegator_arc.prepare_file_uploading(&data_id, &stage, &version, &file_info, file_info.size) {
                 Ok(r) => r,
                 Err(e) => {
                     return Err(Status::aborted(format!(
@@ -72,7 +73,7 @@ pub trait HandleUploadFile {
                 }
             };
 
-        let data_file = match delegator.create_upload_target_file(&data_pathes).await {
+        let data_file = match delegator_arc.create_upload_target_file(&data_pathes).await {
             Ok(f) => f,
             Err(e) => {
                 return Err(Status::aborted(format!(
@@ -83,7 +84,7 @@ pub trait HandleUploadFile {
             }
         };
 
-        let mut data_file = match delegator.allocate_space(data_file, file_info.size).await {
+        let data_file = match delegator_arc.allocate_space(data_file, file_info.size).await {
             Ok(f) => f,
             Err(e) => {
                 return Err(Status::aborted(format!(
@@ -94,7 +95,7 @@ pub trait HandleUploadFile {
             }
         };
 
-        let ftx = match delegator
+        let ftx = match delegator_arc
             .create_receive_file_stream(data_file, data_pathes.1.to_str().unwrap().to_string())
             .await
         {
@@ -115,13 +116,12 @@ pub trait HandleUploadFile {
         //     return Err(Status::aborted("创建文件流错误。"));
         // };
 
-        // TODO: 续传检查
         //  起始数据块编号
-        let mut next_chunk_index = 1u64;
-        info!("开始接收文件{}--{}", &data_id, &file_info.file_name);
+        let mut next_chunk_index = delegator_arc.check_continue(&data_pathes.1).await;
+        info!("开始接收文件: {}--{}", &data_id, &file_info.file_name);
 
         if let Ok(_r) = resp_tx
-            .send(Ok(FileDataUploadFileResponse {
+            .send(Ok(UploadFileResponse {
                 next_chunk_index: next_chunk_index,
             }))
             .await
@@ -137,13 +137,14 @@ pub trait HandleUploadFile {
             let file_name = file_info.file_name.clone();
             let data_id = first_request.data_id.clone();
 
-            // 发送到文件写入流, 第一个包没有数据，丢弃
+            // 发送到文件写入流
             while let Some(result) = in_stream.next().await {
                 match result {
                     Ok(v) => {
                         info!(
-                            "接收到数据{}-{}-{}",
+                            "接收到数据块：{}-{}-{}-{}",
                             v.data_id,
+                            file_name,
                             v.current_chunk_index,
                             v.chunk.len()
                         );
@@ -151,25 +152,35 @@ pub trait HandleUploadFile {
                         if v.current_chunk_index == 0 {
                             info!("文件传输完，开始校验文件");
                             // TODO: 文件校验, 失败
+                            // 成功退出
+                            break;
                         } else {
-                            // TODO: 数据块校验, 如果失败则重发
-                            if let Ok(r) = ftx.send(v.chunk).await {
-                                r
+                            // 数据块校验, 如果失败则重发
+                            if check_chunk_md5(&v.chunk_md5, &v.chunk) {
+                                debug!("数据块校验成功，发送到文件写入流。");
+                                if let Ok(r) = ftx.send(v.chunk).await {
+                                    r
+                                } else {
+                                    resp_tx
+                                        .send(Err(Status::data_loss("发送文件流失败。")))
+                                        .await
+                                        .expect("反馈错误失败。");
+                                    return Err(Status::data_loss("发送文件流失败。"));
+                                }
+                                // 下一个数据块编号, 如果超过最大值则返回0，标志文件传输完成
+                                next_chunk_index = next_chunk_index + 1;
                             } else {
-                                resp_tx
-                                    .send(Err(Status::data_loss("发送文件流失败。")))
-                                    .await
-                                    .expect("反馈错误失败。");
-                                return Err(Status::data_loss("发送文件流失败。"));
+                                info!("数据块校验失败，重发数据块。");
+                                // 不改变数据块编号
                             }
 
-                            // TODO: 下一个数据块编号
-                            next_chunk_index = next_chunk_index + 1;
                             if next_chunk_index > v.total_chunks {
+                                debug!("文件传输完，返回0，标志文件传输完成。{}", file_name);
                                 next_chunk_index = 0;
                             }
+
                             if resp_tx
-                                .send(Ok(FileDataUploadFileResponse { next_chunk_index }))
+                                .send(Ok(UploadFileResponse { next_chunk_index }))
                                 .await
                                 .is_err()
                             {
@@ -194,15 +205,15 @@ pub trait HandleUploadFile {
             }
 
             // 文件上传结束后必须返还代理，否则将丢失代理
-            data_server_arc.return_back_delegator(delegator);
-            info!("接收文件结束{}--{}。", data_id, file_name);
+            data_server_arc.return_back_upload_delegator(delegator_arc);
+            info!("传输文件结束: {}--{}。", data_id, file_name);
             Ok(())
         });
 
         let resp_stream = ReceiverStream::new(resp_rx);
 
         Ok(Response::new(
-            Box::pin(resp_stream) as ResponseStream<FileDataUploadFileResponse>
+            Box::pin(resp_stream) as ResponseStream<UploadFileResponse>
         ))
     }
 }

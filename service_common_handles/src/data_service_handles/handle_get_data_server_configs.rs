@@ -25,6 +25,6 @@ pub trait HandleGetDataServerConfigs {
 
         let data_server_configs = bson::to_document(&configs::get_data_server_configs()).unwrap();
 
-        Ok(Response::new(GetDataServerConfigsResponse { data_server_configs: bson::from_document(data_server_configs).unwrap()}))
+        Ok(Response::new(GetDataServerConfigsResponse { configs: bson::from_document(data_server_configs).unwrap()}))
     }
 }
