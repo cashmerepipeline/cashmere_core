@@ -420,6 +420,66 @@ pub struct RemoveDataStageVersionResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 添加文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileToDataStageRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub file_path: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileToDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加文件集到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSetToDataStageRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="4")]
+    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSetToDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加序列文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSequenceToDataStageRequest {
+    #[prost(string, tag="1")]
+    pub data_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage_name: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub sequence_dir: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub base_name: ::prost::alloc::string::String,
+    #[prost(int32, tag="5")]
+    pub start: i32,
+    #[prost(int32, tag="6")]
+    pub end: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSequenceToDataStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]

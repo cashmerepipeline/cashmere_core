@@ -96,7 +96,7 @@ pub trait HandleUploadFile {
         };
 
         let ftx = match delegator_arc
-            .create_receive_file_stream(data_file, data_pathes.1.to_str().unwrap().to_string())
+            .get_receive_file_stream_sender(data_file, data_pathes.1.to_str().unwrap().to_string())
             .await
         {
             Ok(s) => s,
@@ -108,13 +108,6 @@ pub trait HandleUploadFile {
                 )))
             }
         };
-
-        // // 创建文件流
-        // let ftx = if let Ok(r) = create_recieve_data_file_stream(&data_id, &file_info).await {
-        //     r
-        // } else {
-        //     return Err(Status::aborted("创建文件流错误。"));
-        // };
 
         //  起始数据块编号
         let mut next_chunk_index = delegator_arc.check_continue(&data_pathes.1).await;
@@ -204,7 +197,7 @@ pub trait HandleUploadFile {
                 }
             }
 
-            // 文件上传结束后必须返还代理，否则将丢失代理
+            // 文件上传结束后必须返还代理，否则代理将丢失
             data_server_arc.return_back_upload_delegator(delegator_arc);
             info!("传输文件结束: {}--{}。", data_id, file_name);
             Ok(())

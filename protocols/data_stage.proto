@@ -79,3 +79,41 @@ message RemoveDataStageVersionResponse {
   string result = 1;
 }
 
+// 添加文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+message AddFileToDataStageRequest {
+  string data_id = 1;
+  string stage_name = 2;
+  string version = 3;
+  string file_path = 4;
+} 
+message AddFileToDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 添加文件集到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+message AddFileSetToDataStageRequest {
+  string data_id = 1;
+  string stage_name = 2;
+  string version = 3;
+  repeated string file_pathes = 4;
+}
+message AddFileSetToDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 添加序列文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
+message AddFileSequenceToDataStageRequest {
+  string data_id = 1;
+  string stage_name = 2;
+  string version = 3;
+  string sequence_dir = 4;
+  string base_name = 7;
+  int32 start = 5;
+  int32 end = 6;
+}
+message AddFileSequenceToDataStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}

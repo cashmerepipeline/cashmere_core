@@ -8,7 +8,7 @@ pub struct DataServer {
     pub max_file_size: u64,
     pub max_set_size: u32,
     pub max_sequence_length: u32,
-    pub max_transfer_chunck_size: u32,
+    pub transfer_chunck_size: u32,
     // 最大文件上传连接
     pub max_upload_connections_number: u16,
     // 最大文件下载连接
@@ -37,7 +37,7 @@ fn init_data_server(data_server_configs: &DataServerConfigs) -> Arc<DataServer> 
         max_file_size: data_server_configs.max_file_size,
         max_set_size: data_server_configs.max_set_size,
         max_sequence_length: data_server_configs.max_sequence_length,
-        max_transfer_chunck_size: data_server_configs.transfer_chunk_size,
+        transfer_chunck_size: data_server_configs.transfer_chunk_size,
         max_upload_connections_number: data_server_configs.max_file_upload_number,
         max_file_download_number: data_server_configs.max_file_download_number,
     };

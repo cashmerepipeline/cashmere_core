@@ -117,7 +117,7 @@ impl UploadDelegator {
         Ok(data_file)
     }
 
-    pub async fn create_receive_file_stream(
+    pub async fn get_receive_file_stream_sender(
         &self,
         mut data_file: File,
         data_file_path: String,

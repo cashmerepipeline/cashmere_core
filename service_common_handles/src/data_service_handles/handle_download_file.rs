@@ -76,7 +76,7 @@ pub trait HandleDownloadFile {
             }
         };
 
-        // 文件流
+        // 绑定文件流
         let (ftx, mut frx) = mpsc::channel(5);
         match delegator.bind_file_stream_sender(file_path, ftx).await {
             Ok(_s) => _s,
@@ -91,7 +91,8 @@ pub trait HandleDownloadFile {
 
         // TODO: 续传检查
         //  起始数据块编号
-        let mut next_chunk_index = 1u64;
+        let mut current_chunk_index = 0u64;
+
         info!(
             "开始发送文件{}--{}--{}--{}",
             &data_id, &stage, &version, &file_name
@@ -101,30 +102,81 @@ pub trait HandleDownloadFile {
             let file_name = file_name.clone();
             let data_id = first_request.data_id.clone();
 
-            // 发送到文件写入流, 第一个包没有数据，丢弃
-            while let Some(chunk) = frx.recv().await {
-                info!("发送数据块{}-{}-{}", data_id, next_chunk_index, chunk.len());
+            let mut current_chunk = vec![];
 
-                let resp = DownloadFileResponse {
-                    data_id: data_id.clone(),
-                    chunk_index: next_chunk_index,
-                    chunk_md5: get_chunk_md5(&chunk),
-                    chunk: chunk,
-                };
+            // TODO: 添加文件信息
+            // 第一个包只包含文件信息，不包含数据
+            let first_resp = DownloadFileResponse {
+                data_id: data_id.clone(),
+                chunk_index: 0,
+                chunk_md5: get_chunk_md5(&current_chunk),
+                chunk: vec![],
+            };
+            resp_tx.send(Ok(first_resp.clone())).await;
 
-                if resp_tx.send(Ok(resp)).await.is_err() {
-                    resp_tx
-                        .send(Err(Status::data_loss("返回下一个包编号错误。")))
-                        .await
-                        .expect("反馈错误失败。");
+            while let Some(request) = in_stream.next().await {
+                match request {
+                    Ok(r) => {
+                        // 如果请求编号为0，表示请求有错误，发送结束标识
+                        if r.chunk_index == 0 {
+                            current_chunk = vec![];
+                            current_chunk_index = 0;
+                        } else {
+                            // 检查数据块编号,如果不是当前编号，发送新数据块
+                            if r.chunk_index != current_chunk_index {
+                                if let Some(chunk) = frx.recv().await {
+                                    current_chunk = chunk;
+                                    current_chunk_index = r.chunk_index;
+                                } else {
+                                    // 到达文件末尾，发送结束标记
+                                    current_chunk = vec![];
+                                    current_chunk_index = 0;
+                                }
+                                info!(
+                                    "发送数据块{}-{}-{}",
+                                    data_id,
+                                    current_chunk_index,
+                                    current_chunk.len()
+                                );
+                            } else {
+                                // 重发数据块
+                                info!(
+                                    "重新发送数据块{}-{}-{}",
+                                    data_id,
+                                    current_chunk_index,
+                                    &current_chunk.len()
+                                );
+                            }
+                        }
 
-                    return Err(Status::data_loss(format!("发送数据包失败。{}", next_chunk_index)));
-                };
+                        let current_resp = DownloadFileResponse {
+                            data_id: data_id.clone(),
+                            chunk_index: current_chunk_index.clone(),
+                            chunk_md5: get_chunk_md5(&current_chunk),
+                            chunk: current_chunk.clone(),
+                        };
+
+                        if resp_tx.send(Ok(current_resp.clone())).await.is_err() {
+                            resp_tx
+                                .send(Err(Status::data_loss("发送下一个块错误。")))
+                                .await
+                                .expect("反馈错误失败。");
+
+                            return Err(Status::data_loss(format!(
+                                "发送数据包失败。{}",
+                                current_chunk_index
+                            )));
+                        };
+                    }
+                    Err(e) => {
+                        return Err(Status::data_loss(format!("下载请求错误。{}", e)));
+                    }
+                }
             }
 
             // 文件上传结束后必须返还代理，否则将丢失代理
             data_server_arc.return_back_download_delegator(delegator);
-            info!("接收文件结束{}--{}。", data_id, file_name);
+            info!("发送文件结束{}--{}。", data_id, file_name);
             Ok(())
         });
 

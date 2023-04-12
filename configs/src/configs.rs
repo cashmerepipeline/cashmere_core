@@ -55,7 +55,8 @@ fn load_configs() -> Option<Arc<Configs>> {
         .read_to_string(&mut config_str)
         .expect("配置文件错误");
 
-    let _configs: Configs = toml::from_str(config_str.as_str()).expect("构建toml失败");
+    let configs: Configs = toml::from_str(config_str.as_str()).expect("构建toml失败");
+    log::info!("加载配置: {:?}", config_str);
 
-    Some(Arc::new(_configs))
+    Some(Arc::new(configs))
 }
