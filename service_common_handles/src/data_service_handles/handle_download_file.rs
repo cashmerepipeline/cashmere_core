@@ -1,6 +1,5 @@
 use async_trait::async_trait;
 use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
-use data_server::UploadDelegator;
 use futures::FutureExt;
 use log::info;
 use serde::Serialize;

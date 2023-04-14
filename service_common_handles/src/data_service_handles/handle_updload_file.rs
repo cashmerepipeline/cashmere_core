@@ -1,13 +1,14 @@
 use async_trait::async_trait;
-use data_server::file_utils::{create_recieve_data_file_stream, check_chunk_md5};
-use data_server::UploadDelegator;
+use data_server::ResumePoint;
 use futures::FutureExt;
 use log::{debug, info};
 use serde::Serialize;
 use tokio::sync::mpsc;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tokio_stream::{StreamExt, wrappers::ReceiverStream};
 use tonic::{Response, Status};
 
+use data_server::file_utils::{check_chunk_md5, create_recieve_data_file_stream};
+use data_server::UploadDelegator;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
@@ -39,9 +40,16 @@ pub trait HandleUploadFile {
         };
 
         let data_id = first_request.data_id.clone();
+        let specs = first_request.specs.clone();
         let stage = first_request.stage.clone();
         let version = first_request.version.clone();
+        let sub_path = first_request.sub_path.clone();
         let file_info = first_request.file_info.clone().unwrap();
+        
+        // 检查必填项
+        if data_id.is_empty() || specs.is_empty() || stage.is_empty() || version.is_empty() {
+            return Err(Status::invalid_argument(t!("必填项为缺失")));
+        }
 
         if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -61,19 +69,29 @@ pub trait HandleUploadFile {
             ));
         };
 
-        let data_pathes =
-            match delegator_arc.prepare_file_uploading(&data_id, &stage, &version, &file_info, file_info.size) {
-                Ok(r) => r,
-                Err(e) => {
-                    return Err(Status::aborted(format!(
-                        "{}-{}",
-                        e.details(),
-                        e.operation()
-                    )));
-                }
-            };
+        let (data_folder, data_file_path) = match delegator_arc.prepare_file_uploading(
+            &data_id,
+            &specs,
+            &stage,
+            &version,
+            &sub_path,
+            &file_info,
+            file_info.size,
+        ) {
+            Ok(r) => r,
+            Err(e) => {
+                return Err(Status::aborted(format!(
+                    "{}-{}",
+                    e.details(),
+                    e.operation()
+                )));
+            }
+        };
 
-        let data_file = match delegator_arc.create_upload_target_file(&data_pathes).await {
+        let data_file = match delegator_arc
+            .get_upload_target_file(&data_folder, &data_file_path)
+            .await
+        {
             Ok(f) => f,
             Err(e) => {
                 return Err(Status::aborted(format!(
@@ -84,19 +102,13 @@ pub trait HandleUploadFile {
             }
         };
 
-        let data_file = match delegator_arc.allocate_space(data_file, file_info.size).await {
-            Ok(f) => f,
-            Err(e) => {
-                return Err(Status::aborted(format!(
-                    "{}-{}",
-                    e.details(),
-                    e.operation()
-                )))
-            }
+        // 磁盘空间是否足够
+        if !delegator_arc.check_disk_space_enough(file_info.size).await {
+            return Err(Status::aborted(format!("磁盘空间不足，无法上传文件。")));
         };
 
         let ftx = match delegator_arc
-            .get_receive_file_stream_sender(data_file, data_pathes.1.to_str().unwrap().to_string())
+            .get_receive_file_stream_sender(data_file, data_file_path.to_str().unwrap().to_string())
             .await
         {
             Ok(s) => s,
@@ -105,17 +117,28 @@ pub trait HandleUploadFile {
                     "{}-{}",
                     e.operation(),
                     e.details()
-                )))
+                )));
             }
         };
 
         //  起始数据块编号
-        let mut next_chunk_index = delegator_arc.check_continue(&data_pathes.1).await;
+        let resume_point = delegator_arc
+            .check_and_read_resume_point(&data_file_path)
+            .await;
+
+        let (mut next_chunk_index, mut resume_chunk_md5) = if let Ok(r) = resume_point {
+            (r.chunk_index+1, r.chunk_md5)
+        } else {
+            // 读取失败，从1开始
+            (1, "".to_string())
+        };
+
+
         info!("开始接收文件: {}--{}", &data_id, &file_info.file_name);
 
         if let Ok(_r) = resp_tx
             .send(Ok(UploadFileResponse {
-                next_chunk_index: next_chunk_index,
+                next_chunk_index: next_chunk_index as u64,
             }))
             .await
         {
@@ -129,6 +152,7 @@ pub trait HandleUploadFile {
         tokio::spawn(async move {
             let file_name = file_info.file_name.clone();
             let data_id = first_request.data_id.clone();
+            let mut retry_count = 0u16;
 
             // 发送到文件写入流
             while let Some(result) = in_stream.next().await {
@@ -162,18 +186,30 @@ pub trait HandleUploadFile {
                                 }
                                 // 下一个数据块编号, 如果超过最大值则返回0，标志文件传输完成
                                 next_chunk_index = next_chunk_index + 1;
+                                resume_chunk_md5 = v.chunk_md5;
+                                retry_count = 0;
                             } else {
                                 info!("数据块校验失败，重发数据块。");
                                 // 不改变数据块编号
+                                
+                                retry_count = retry_count + 1;
+                                // 重试次数超过5次则退出
+                                if retry_count > 5 {
+                                    resp_tx
+                                        .send(Err(Status::data_loss("数据块校验失败，重试次数超过5次。")))
+                                        .await
+                                        .expect("反馈错误失败。");
+                                    return Err(Status::data_loss("数据块校验失败，重试次数超过5次。"));
+                                }
                             }
 
-                            if next_chunk_index > v.total_chunks {
+                            if next_chunk_index as u64 > v.total_chunks {
                                 debug!("文件传输完，返回0，标志文件传输完成。{}", file_name);
                                 next_chunk_index = 0;
                             }
 
                             if resp_tx
-                                .send(Ok(UploadFileResponse { next_chunk_index }))
+                                .send(Ok(UploadFileResponse {next_chunk_index: next_chunk_index as u64}))
                                 .await
                                 .is_err()
                             {
@@ -188,6 +224,14 @@ pub trait HandleUploadFile {
                         ()
                     }
                     Err(_err) => {
+                        // 记录续传点
+                        delegator_arc
+                            .record_resume_point(&data_file_path, ResumePoint {
+                                chunk_index: next_chunk_index-1,
+                                chunk_md5: resume_chunk_md5,
+                            })
+                            .await;
+
                         resp_tx
                             .send(Err(Status::data_loss("接收上传流发生错误。")))
                             .await
@@ -198,6 +242,9 @@ pub trait HandleUploadFile {
             }
 
             // 文件上传结束后必须返还代理，否则代理将丢失
+            delegator_arc
+                .delete_resume_point_file(&data_file_path)
+                .await;
             data_server_arc.return_back_upload_delegator(delegator_arc);
             info!("传输文件结束: {}--{}。", data_id, file_name);
             Ok(())

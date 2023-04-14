@@ -496,6 +496,7 @@ pub struct FileInfo {
 /// 上传文件数据
 /// 第一个包块编号为0，最后一个包块编号为0, 即从0开始，到0结束
 /// 第一个包和最后一个包不包含文件数据，作为传输标记用
+/// 最终路径为：/{data_id}/{specs}/{stage}/{version}/{sub_path}/{file_name}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UploadFileRequest {
     #[prost(string, tag="1")]
@@ -510,10 +511,18 @@ pub struct UploadFileRequest {
     pub chunk_md5: ::prost::alloc::string::String,
     #[prost(message, optional, tag="5")]
     pub file_info: ::core::option::Option<FileInfo>,
+    /// 规格，如：普通款，高级款，豪华款
+    #[prost(string, tag="10")]
+    pub specs: ::prost::alloc::string::String,
+    /// 阶段，如：开发，测试，生产
     #[prost(string, tag="8")]
     pub stage: ::prost::alloc::string::String,
+    /// 版本，如：v01
     #[prost(string, tag="9")]
     pub version: ::prost::alloc::string::String,
+    /// 相对于版本目录的子路径，用于保持文件集的相对良好组织，如：v01/a/b/c
+    #[prost(string, tag="11")]
+    pub sub_path: ::prost::alloc::string::String,
 }
 /// 下一个包块编号
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -528,6 +537,8 @@ pub struct DownloadFileRequest {
     #[prost(string, tag="1")]
     pub data_id: ::prost::alloc::string::String,
     /// 相对数据存储根目录
+    #[prost(string, tag="6")]
+    pub specs: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub stage: ::prost::alloc::string::String,
     #[prost(uint64, tag="3")]
@@ -535,6 +546,8 @@ pub struct DownloadFileRequest {
     /// 如果给出版本，则下载对应版本的文件，没有则下载阶段软连接指向的文件
     #[prost(string, tag="4")]
     pub version: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub sub_path: ::prost::alloc::string::String,
     #[prost(string, tag="5")]
     pub file_name: ::prost::alloc::string::String,
 }

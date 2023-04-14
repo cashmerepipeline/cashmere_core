@@ -4,7 +4,7 @@ use manage_define::cashmere::FileInfo;
 
 use crate::data_server::DataServer;
 use crate::upload_delegators_pool::{get_upload_delegator_pool, UploadDelegatorsPool};
-use crate::UploadDelegator;
+use crate::upload_delegator::UploadDelegator;
 
 impl DataServer {
     pub fn get_upload_delegator (&self) -> Option<Arc<UploadDelegator>>
