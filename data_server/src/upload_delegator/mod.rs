@@ -20,7 +20,11 @@ use manage_define::cashmere::FileInfo;
 use crate::{file_utils::check_space_enough, upload_delegators_pool::get_upload_delegator_pool};
 
 pub use upload_delegator::*;
-pub use resume_point::ResumePoint;
+pub use resume_point::*;
+pub use resume_file::*;
+pub use upload_file::*;
 
 mod resume_point;
 mod upload_delegator;
+mod resume_file;
+mod upload_file;
