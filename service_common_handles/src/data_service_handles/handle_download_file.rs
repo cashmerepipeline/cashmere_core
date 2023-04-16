@@ -1,5 +1,4 @@
 use async_trait::async_trait;
-use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
 use futures::FutureExt;
 use log::info;
 use serde::Serialize;
@@ -7,6 +6,7 @@ use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
 
+use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
@@ -31,20 +31,27 @@ pub trait HandleDownloadFile {
             if in_data.is_ok() {
                 in_data.unwrap()
             } else {
-                return Err(Status::data_loss("请求数据错误"));
+                return Err(Status::data_loss(t!("请求数据错误")));
             }
         } else {
-            return Err(Status::data_loss("数据流错误"));
+            return Err(Status::data_loss(t!("数据流错误")));
         };
 
         let data_id = first_request.data_id.clone();
+        let specs = first_request.specs.clone();
         let stage = first_request.stage.clone();
         let version = first_request.version.clone();
-        let chunk_index = first_request.chunk_index.clone();
+        let sub_path = first_request.sub_path.clone();
         let file_name = first_request.file_name.clone();
+        let chunk_index = first_request.chunk_index.clone();
+
+        // 检查必填项
+        if data_id.is_empty() || specs.is_empty() || stage.is_empty() || version.is_empty() {
+            return Err(Status::invalid_argument(t!("必填项缺失")));
+        }
 
         if !view::can_manage_read(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
+            return Err(Status::unauthenticated(t!("用户不具有可写权限")));
         }
 
         // 交互流
@@ -56,13 +63,13 @@ pub trait HandleDownloadFile {
         let delegator = if let Some(d) = data_server_arc.get_download_delegator() {
             d
         } else {
-            return Err(Status::aborted(
-                "获取文件下载代理失败，请重试或者等待3分钟后重试。",
-            ));
+            return Err(Status::aborted(t!(
+                "获取文件下载代理失败, 请重试或者等待3分钟后重试"
+            )));
         };
 
         let file_path = match delegator
-            .check_request_file_exists(&data_id, &stage, &version, &file_name)
+            .check_request_file_exists(&data_id, &specs, &stage, &version, &sub_path, &file_name)
             .await
         {
             Ok(r) => r,
@@ -77,24 +84,33 @@ pub trait HandleDownloadFile {
 
         // 绑定文件流
         let (ftx, mut frx) = mpsc::channel(5);
-        match delegator.bind_file_stream_sender(file_path, ftx).await {
+        match delegator
+            .bind_file_stream_sender(file_path, chunk_index, ftx)
+            .await
+        {
             Ok(_s) => _s,
             Err(e) => {
                 return Err(Status::aborted(format!(
                     "{}-{}",
                     e.operation(),
                     e.details()
-                )))
+                )));
             }
         };
 
         // TODO: 续传检查
         //  起始数据块编号
-        let mut current_chunk_index = 0u64;
+        let mut current_chunk_index = chunk_index;
 
         info!(
-            "开始发送文件{}--{}--{}--{}",
-            &data_id, &stage, &version, &file_name
+            "{}: {}--{}--{}--{}--{}--{}",
+            t!("开始发送文件"),
+            &data_id,
+            &specs,
+            &stage,
+            &version,
+            &sub_path,
+            &file_name
         );
 
         tokio::spawn(async move {
@@ -132,7 +148,8 @@ pub trait HandleDownloadFile {
                                     current_chunk_index = 0;
                                 }
                                 info!(
-                                    "发送数据块{}-{}-{}",
+                                    "{}: {}-{}-{}",
+                                    t!("发送数据块"),
                                     data_id,
                                     current_chunk_index,
                                     current_chunk.len()
@@ -140,7 +157,8 @@ pub trait HandleDownloadFile {
                             } else {
                                 // 重发数据块
                                 info!(
-                                    "重新发送数据块{}-{}-{}",
+                                    "{}: {}-{}-{}",
+                                    t!("重新发送数据块"),
                                     data_id,
                                     current_chunk_index,
                                     &current_chunk.len()

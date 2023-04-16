@@ -2,7 +2,8 @@ use manage_define::cashmere::FileInfo;
 use parking_lot::RwLock;
 use std::sync::Arc;
 
-use crate::{data_server, DownloadDelegator};
+use crate::data_server;
+use crate::download_delegator::DownloadDelegator;
 
 /// 接收器池表
 static mut DOWNDLOAD_DELEGATORS_POOL: Option<Arc<RwLock<DownloadDelegatorsPool>>> = None;

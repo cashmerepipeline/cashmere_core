@@ -39,14 +39,14 @@ pub async fn create_recieve_data_file_stream(
     if check_space_enough(&data_folder, file_info.size).is_err() {
         return Err(operation_failed(
             "create_recieve_data_file_stream",
-            "存储空间不足。",
+            t!("存储空间不足"),
         ));
     }
 
     if fs::create_dir_all(data_folder).await.is_err() {
         return Err(operation_failed(
             "create_recieve_data_file_stream",
-            "创建目录失败。",
+            t!("创建目录失败"),
         ));
     };
 
@@ -55,7 +55,7 @@ pub async fn create_recieve_data_file_stream(
         Err(_e) => {
             return Err(operation_failed(
                 "create_recieve_data_file_stream",
-                "创建文件失败。",
+                t!("创建文件失败"),
             ));
         }
     };
@@ -64,7 +64,7 @@ pub async fn create_recieve_data_file_stream(
     if data_file.allocate(file_info.size).await.is_err() {
         return Err(operation_failed(
             "create_recieve_data_file_stream",
-            "分配文件空间失败.",
+            t!("分配文件空间失败"),
         ));
     };
 
@@ -91,7 +91,7 @@ pub async fn create_recieve_data_file_stream(
                     {
                         return Err(operation_failed(
                             "create_recieve_data_file_stream",
-                            "写入文件错误。",
+                            t!("写入文件错误"),
                         ));
                     };
                 }
@@ -115,11 +115,11 @@ pub async fn create_recieve_data_file_stream(
             {
                 return Err(operation_failed(
                     "create_recieve_data_file_stream",
-                    "写入文件错误。",
+                    t!("写入文件错误"),
                 ));
             };
         }
-        info!("完成写入文件:{}", data_id);
+        info!("{}: {}", t!("完成写入文件"), data_id);
         Ok(())
     });
 

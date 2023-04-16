@@ -19,8 +19,6 @@ impl DataServer {
         let delegator_pool_arc = get_upload_delegator_pool(Some(self.max_upload_connections_number));
         let delegator_pool = delegator_pool_arc.write();
         
-        // TODO: 重置上传代理
-
         delegator_pool.return_back_delegator(delegator);
     }
 }

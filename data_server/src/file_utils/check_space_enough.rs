@@ -1,4 +1,5 @@
 use std::path::Path;
+
 use fs4::available_space;
 
 /// 检查存储空间是否足够
@@ -8,7 +9,7 @@ pub fn check_space_enough(
 ) -> Result<(), String> {
     let available_space = available_space(data_path).unwrap();
     if available_space < file_size {
-        return Err(format!("需要空间{}, 现有空间: {} ", file_size, available_space));
+        return Err(format!("{}: {}, {}: {} ", t!("需要空间"), t!("现有空间"), file_size, available_space));
     }
 
     Ok(())

@@ -17,7 +17,7 @@ impl DataServer {
             Err(_e) => {
                 return Err(operation_failed(
                     "get_data_stages",
-                    format!("{}: {}", "读取数据目录内容失败", data_id),
+                    format!("{}: {}", t!("读取数据目录内容失败"), data_id),
                 ))
             }
         };

@@ -66,7 +66,7 @@ impl DataStage {
                 {
                     return Err(operation_failed(
                         "change_stage_link_to_version",
-                        "更新阶段版本软连接失败",
+                        t!("更新阶段版本软连接失败"),
                     ));
                 };
             } else {
@@ -76,7 +76,7 @@ impl DataStage {
                 {
                     return Err(operation_failed(
                         "change_stage_link_to_version",
-                        "更新阶段版本软连接失败",
+                        t!("更新阶段版本软连接失败"),
                     ));
                 };
             }

@@ -1,16 +1,19 @@
-use crate::file_utils::check_space_enough;
-use crate::ResumePoint;
-use bytes::BufMut;
-use cash_result::{operation_failed, Failed, OperationResult};
-use log::{debug, info};
-use manage_define::cashmere::FileInfo;
-use serde::Deserialize;
 use std::path::{Path, PathBuf};
+
+use bytes::BufMut;
+use log::{debug, info};
+use serde::Deserialize;
 use tokio::fs;
 use tokio::fs::{File, OpenOptions};
 use tokio::io::{AsyncReadExt, AsyncWriteExt, BufWriter};
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::Sender;
+
+use cash_result::{Failed, operation_failed, OperationResult};
+use manage_define::cashmere::FileInfo;
+
+use crate::file_utils::check_space_enough;
+use crate::ResumePoint;
 
 use super::UploadDelegator;
 
@@ -40,7 +43,8 @@ impl UploadDelegator {
                     return Err(operation_failed(
                         "check_and_read_resume_point",
                         format!(
-                            "打开续传点记录文件失败: {}",
+                            "{}: {}",
+                            t!("打开续传点记录文件失败"),
                             resume_point_file_path.to_str().unwrap()
                         ),
                     ));
@@ -55,7 +59,8 @@ impl UploadDelegator {
                         return Err(operation_failed(
                             "check_and_read_resume_point",
                             format!(
-                                "解析续传点记录文件失败: {}",
+                                "{}: {}",
+                                t!("解析续传点记录文件失败"),
                                 resume_point_file_path.to_str().unwrap()
                             ),
                         ));
@@ -65,7 +70,8 @@ impl UploadDelegator {
                     return Err(operation_failed(
                         "check_and_read_resume_point",
                         format!(
-                            "读取续传点记录文件失败: {}",
+                            "{}: {}",
+                            t!("读取续传点记录文件失败"),
                             resume_point_file_path.to_str().unwrap()
                         ),
                     ));
@@ -73,7 +79,8 @@ impl UploadDelegator {
             };
 
             debug!(
-                "读取续传点记录文件成功:{}",
+                "{}: {}",
+                t!("读取续传点记录文件成功"),
                 resume_point_file_path.to_str().unwrap()
             );
 
@@ -82,7 +89,8 @@ impl UploadDelegator {
             Err(operation_failed(
                 "check_and_read_resume_point",
                 format!(
-                    "续传点记录文件不存在: {}",
+                    "{}: {}",
+                    t!("续传点记录文件不存在"),
                     resume_point_file_path.to_str().unwrap()
                 ),
             ))
@@ -105,7 +113,8 @@ impl UploadDelegator {
                 return Err(operation_failed(
                     "record_resume_point",
                     format!(
-                        "创建续传点记录文件失败: {}",
+                        "{}: {}",
+                        t!("创建续传点记录文件失败"),
                         resume_point_file_path.to_str().unwrap()
                     ),
                 ));
@@ -121,14 +130,16 @@ impl UploadDelegator {
             return Err(operation_failed(
                 "record_resume_point",
                 format!(
-                    "写入续传点记录文件失败: {}",
+                    "{}: {}",
+                    t!("写入续传点记录文件失败"),
                     resume_point_file_path.to_str().unwrap()
                 ),
             ));
         }
 
         debug!(
-            "写入续传点记录文件成功:{}",
+            "{}: {}",
+            t!("写入续传点记录文件成功"),
             resume_point_file_path.to_str().unwrap()
         );
 
@@ -148,14 +159,16 @@ impl UploadDelegator {
                 return Err(operation_failed(
                     "delete_resume_point_file",
                     format!(
-                        "删除续传点记录文件失败: {}",
+                        "{}: {}",
+                        t!("删除续传点记录文件失败"),
                         resume_point_file_path.to_str().unwrap()
                     ),
                 ));
             }
 
             debug!(
-                "删除续传点记录文件成功:{}",
+                "{}: {}",
+                t!("删除续传点记录文件成功"),
                 resume_point_file_path.to_str().unwrap()
             );
         }

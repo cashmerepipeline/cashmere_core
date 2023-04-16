@@ -51,7 +51,7 @@ impl UploadDelegator {
             Err(e) => Err(OperationResult::Failed(Failed {
                 operation: "check_space_enough".to_string(),
 
-                details: format!("{}, 存储空间不足: {}", e, data_dir_path.to_str().unwrap(),),
+                details: format!("{}, {}: {}", e, t!("存储空间不足"), data_dir_path.to_str().unwrap(),),
             })),
         }
     }
@@ -62,12 +62,12 @@ impl UploadDelegator {
         data_folder: &PathBuf,
         data_file_path: &PathBuf,
     ) -> Result<File, OperationResult> {
-        debug!("开始创建文件:{}", data_file_path.to_str().unwrap());
+        debug!("{}: {}", t!("开始创建文件"), data_file_path.to_str().unwrap());
 
         if fs::create_dir_all(data_folder).await.is_err() {
             return Err(operation_failed(
                 "get_upload_target_file",
-                format!("创建目录失败: {}", data_folder.to_str().unwrap()),
+                format!("{}: {}", t!("创建目录失败"), data_folder.to_str().unwrap()),
             ));
         };
 
@@ -77,7 +77,9 @@ impl UploadDelegator {
         if data_file_path.exists() {
             if resume_file_path.exists() {
                 debug!(
-                    "文件已存在:{}, 以追加方式打开文件",
+                    "{}, {}: {}, ",
+                    t!("文件已存在"),
+                    t!("以追加方式打开文件"),
                     data_file_path.to_str().unwrap()
                 );
                 let data_file = match OpenOptions::new().append(true).open(&data_file_path).await {
@@ -85,18 +87,22 @@ impl UploadDelegator {
                     Err(_e) => {
                         return Err(operation_failed(
                             "get_upload_target_file",
-                            format!("打开文件失败: {}", data_file_path.to_str().unwrap()),
+                            format!("{}: {}", t!("打开文件失败"), data_file_path.to_str().unwrap()),
                         ));
                     }
                 };
                 return Err(operation_failed(
                     "get_upload_target_file",
-                    format!("文件已存在: {}", data_file_path.to_str().unwrap()),
+                    format!("{}: {}", t!("文件已存在"), data_file_path.to_str().unwrap()),
                 ));
             } else {
                 // 如果文件已存在，但是没有续传点文件，则截断文件，从头开始写入
                 debug!(
-                    "文件已存在:{}, 但是没有续传点文件，截断文件，从头开始写入",
+                    "{}, {}，{}，{}: {}",
+                    t!("文件已存在"),
+                    t!("没有续传点文件"),
+                    t!("截断文件"),
+                    t!("从头开始写入"),
                     data_file_path.to_str().unwrap()
                 );
                 let data_file = match OpenOptions::new()
@@ -109,7 +115,7 @@ impl UploadDelegator {
                     Err(_e) => {
                         return Err(operation_failed(
                             "get_upload_target_file",
-                            format!("打开文件失败: {}", data_file_path.to_str().unwrap()),
+                            format!("{}: {}", t!("打开文件失败"), data_file_path.to_str().unwrap()),
                         ));
                     }
                 };
@@ -121,12 +127,12 @@ impl UploadDelegator {
                 Err(_e) => {
                     return Err(operation_failed(
                         "get_upload_target_file",
-                        format!("创建文件失败: {}", data_file_path.to_str().unwrap()),
+                        format!("{}: {}", t!{"创建文件失败"}, data_file_path.to_str().unwrap()),
                     ));
                 }
             };
 
-            debug!("创建文件成功:{}", data_file_path.to_str().unwrap());
+            debug!("{}: {}", t!("创建文件成功"), data_file_path.to_str().unwrap());
 
             return Ok(data_file);
         }
@@ -167,14 +173,15 @@ impl UploadDelegator {
         let mut buffer = bytes::BytesMut::with_capacity(capacity * self.transfer_chunk_size);
         let mut writer = BufWriter::new(data_file);
 
-        debug!("创建文件写入流:{}", data_file_path);
+        debug!("{}: {}", t!("创建文件写入流"), data_file_path);
+
         let (ftx, mut frx) = mpsc::channel::<Vec<u8>>(5);
 
         let mut total_size = 0u64;
         // 发出线程后不能等待写入完成，否则会卡死，一直等待数据写入
         tokio::spawn(async move {
             while let Some(part) = frx.recv().await {
-                debug!("文件流接收到数据块到缓存");
+                debug!("{}", t!("文件流接收到数据块到缓存"));
                 total_size = total_size + part.len() as u64;
 
                 // 缓存未满，写入缓存
@@ -186,7 +193,7 @@ impl UploadDelegator {
                     if writer.write_all(&buffer).await.is_err() {
                         return Err(operation_failed(
                             "create_recieve_data_file_stream",
-                            "流数据写入文件错误。",
+                            t!("流数据写入文件错误"),
                         ));
                     };
 
@@ -200,18 +207,18 @@ impl UploadDelegator {
             if writer.write_all(&buffer).await.is_err() {
                 return Err(operation_failed(
                     "create_recieve_data_file_stream",
-                    "流数据写入文件错误。",
+                    t!("流数据写入文件错误"),
                 ));
             };
             // 刷出文件，关闭缓存
             if writer.flush().await.is_err() {
                 return Err(operation_failed(
                     "create_recieve_data_file_stream",
-                    "流数据写入文件错误。",
+                    t!("流数据写入文件错误"),
                 ));
             };
 
-            info!("数据流完成写入文件: {}-{}", data_file_path, total_size);
+            info!("{}: {}-{}", t!("数据流完成写入文件"), data_file_path, total_size);
             Ok(())
         });
 

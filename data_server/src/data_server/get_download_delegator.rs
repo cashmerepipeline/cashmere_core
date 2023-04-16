@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use crate::data_server::DataServer;
 use crate::dowload_delegator_pool::{get_download_delegator_pool, DownloadDelegatorsPool};
-use crate::DownloadDelegator;
+use crate::download_delegator::DownloadDelegator;
 
 impl DataServer {
     pub fn get_download_delegator(&self) -> Option<Arc<DownloadDelegator>> {
@@ -19,8 +19,6 @@ impl DataServer {
         let delegator_pool_arc =
             get_download_delegator_pool(Some(self.max_upload_connections_number));
         let delegator_pool = delegator_pool_arc.write();
-
-        // TODO: 重置上传代理
 
         delegator_pool.return_back_delegator(delegator);
     }
