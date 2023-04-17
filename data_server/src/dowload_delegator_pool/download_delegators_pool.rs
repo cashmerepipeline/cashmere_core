@@ -1,4 +1,3 @@
-use manage_define::cashmere::FileInfo;
 use parking_lot::RwLock;
 use std::sync::Arc;
 
@@ -7,11 +6,10 @@ use crate::download_delegator::DownloadDelegator;
 
 /// 接收器池表
 static mut DOWNDLOAD_DELEGATORS_POOL: Option<Arc<RwLock<DownloadDelegatorsPool>>> = None;
-static mut DELEGATORS: Option<Arc<RwLock<Vec<Arc<RwLock<DownloadDelegator>>>>>> = None;
 
 #[derive(Debug)]
 pub struct DownloadDelegatorsPool {
-    delegators: Arc<RwLock<Vec<Arc<DownloadDelegator>>>>,
+    pub delegators: Arc<RwLock<Vec<Arc<DownloadDelegator>>>>,
 }
 
 pub fn init_download_delegators_pool(
@@ -21,7 +19,9 @@ pub fn init_download_delegators_pool(
     let transfer_chunk_size = data_server::get_data_server().transfer_chunck_size as usize;
 
     for _i in 0..max_download_number {
-        let new_receiver = Arc::new(DownloadDelegator{});
+        let new_receiver = Arc::new(DownloadDelegator{
+            transfer_chunk_size,
+        });
         delegators.push(new_receiver)
     }
 

@@ -1,10 +1,12 @@
+use std::io::Write;
+
+use bson::Document;
+use linked_hash_map::LinkedHashMap;
+
 use crate::{
     language_keys::ENGLISH,
     utils::{get_id, get_name, get_schema, get_toml_map},
 };
-use bson::Document;
-use linked_hash_map::LinkedHashMap;
-use std::io::Write;
 
 pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir: Option<&str>) {
     let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);

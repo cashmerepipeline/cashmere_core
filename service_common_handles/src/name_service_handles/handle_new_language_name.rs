@@ -1,11 +1,10 @@
 use async_trait::async_trait;
 use bson::doc;
-use tonic::{Request, Response, Status};
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use managers::traits::ManagerTrait;
+use tonic::{Request, Response, Status};
 use view;
 
 #[async_trait]
@@ -17,14 +16,14 @@ pub trait HandleNewLanguageName {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
         let new_name = &request.get_ref().new_name;
 
-        if(new_name.is_none()){
+        if new_name.is_none() {
             return Err(Status::aborted("名字不能为空"));
         }
         let language = &new_name.as_ref().unwrap().language;

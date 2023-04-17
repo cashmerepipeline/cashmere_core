@@ -1,8 +1,7 @@
-use std::path::{PathBuf, Path};
+use std::path::PathBuf;
 
-use cash_result::{OperationResult, operation_failed};
-use tokio::fs::{self, create_dir_all};
-use tokio::fs::File;
+use cash_result::{operation_failed, OperationResult};
+use tokio::{fs, fs::File};
 
 use super::DataStage;
 
@@ -18,14 +17,17 @@ pub async fn add_data_stage(
     stage_path.push(new_stage);
 
     // 空文件，用于占位
-    if !stage_path.exists(){
-        if File::create(stage_path.clone()).await.is_err(){
-            return Err(operation_failed("add_data_stage", t!("创建阶段连接文件失败")));
+    if !stage_path.exists() {
+        if File::create(stage_path.clone()).await.is_err() {
+            return Err(operation_failed(
+                "add_data_stage",
+                t!("创建阶段连接文件失败"),
+            ));
         };
     }
     //  数据文件夹
     if !stage_path.exists() {
-        if fs::create_dir_all(stage_path.clone()).await.is_err(){
+        if fs::create_dir_all(stage_path.clone()).await.is_err() {
             return Err(operation_failed("add_data_stage", t!("创建阶段文件夹失败")));
         };
     }

@@ -1,17 +1,16 @@
 use async_trait::async_trait;
+use data_server::file_utils::{check_chunk_md5, create_recieve_data_file_stream};
+use data_server::ResumePoint;
+use data_server::UploadDelegator;
 use futures::FutureExt;
-use log::{debug, info};
+use log::{debug, error, info};
+use majordomo::{self, get_majordomo};
+use manage_define::cashmere::*;
+use manage_define::manage_ids::*;
 use serde::Serialize;
 use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
-
-use data_server::file_utils::{check_chunk_md5, create_recieve_data_file_stream};
-use data_server::ResumePoint;
-use data_server::UploadDelegator;
-use majordomo::{self, get_majordomo};
-use manage_define::cashmere::*;
-use manage_define::manage_ids::*;
 use view;
 
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
@@ -25,7 +24,7 @@ pub trait HandleUploadFile {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let mut in_stream = request.into_inner();
@@ -215,7 +214,7 @@ pub trait HandleUploadFile {
                                             t!("重试次数超过5次")
                                         ))))
                                         .await
-                                        .expect(t!("反馈错误失败"));
+                                        .expect(t!("反馈错误失败").as_ref());
                                     return Err(Status::data_loss(format!(
                                         "{}, {}",
                                         t!("数据块校验失败"),
@@ -244,7 +243,7 @@ pub trait HandleUploadFile {
                                 resp_tx
                                     .send(Err(Status::data_loss(t!("返回下一个包编号错误"))))
                                     .await
-                                    .expect(t!("反馈错误失败"));
+                                    .expect(t!("反馈错误失败").as_ref());
                                 return Err(Status::data_loss(t!("返回下一个数据包编号失败")));
                             };
                         }
@@ -253,7 +252,7 @@ pub trait HandleUploadFile {
                     }
                     Err(_err) => {
                         // 记录续传点
-                        delegator_arc
+                        if let Err(e) = delegator_arc
                             .record_resume_point(
                                 &data_file_path,
                                 ResumePoint {
@@ -261,7 +260,10 @@ pub trait HandleUploadFile {
                                     chunk_md5: resume_chunk_md5,
                                 },
                             )
-                            .await;
+                            .await
+                        {
+                            error!("{}: {}", t!("记录续件文件失败"), e.details());
+                        }
 
                         resp_tx
                             .send(Err(Status::data_loss(t!("接收上传流发生错误"))))
@@ -273,11 +275,20 @@ pub trait HandleUploadFile {
             }
 
             // 文件上传结束后必须返还代理，否则代理将丢失
-            delegator_arc
+            if let Err(e) = delegator_arc
                 .delete_resume_point_file(&data_file_path)
-                .await;
+                .await
+            {
+                error!("{}: {}", t!("删除续件文件失败"), e.details());
+                error!(
+                    "{}: {}",
+                    t!("需要手动删除续传文件"),
+                    &data_file_path.clone().set_extension("resume")
+                );
+            } else {
+                info!("{}: {}--{}。", t!("传输文件结束"), data_id, file_name);
+            }
             data_server_arc.return_back_upload_delegator(delegator_arc);
-            info!("{}: {}--{}。", t!("传输文件结束"), data_id, file_name);
             Ok(())
         });
 

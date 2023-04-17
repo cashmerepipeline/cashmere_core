@@ -3,9 +3,8 @@ use std::path::PathBuf;
 use tokio::fs;
 
 use cash_result::{operation_failed, OperationResult};
-use manage_define::cashmere::DataStageInfo;
 
-use crate::{data_stage::DataStage, DataServer};
+use crate::DataServer;
 
 impl DataServer {
     pub async fn get_data_stages(&self, data_id: &String) -> Result<Vec<String>, OperationResult> {

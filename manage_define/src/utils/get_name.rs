@@ -1,7 +1,6 @@
-use std::collections::HashMap;
-
 use bson::Document;
 use linked_hash_map::LinkedHashMap;
+
 use property_field::general_field_names::NAME_MAP_FIELD_NAME;
 
 /// 取得命名映射表

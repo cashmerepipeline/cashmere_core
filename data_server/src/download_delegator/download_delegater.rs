@@ -3,6 +3,7 @@ use std::path::PathBuf;
 
 use log::info;
 use tokio::fs::File;
+use log::{error};
 use tokio::io::{AsyncReadExt, AsyncSeekExt};
 use tokio::sync::mpsc::Sender;
 
@@ -10,7 +11,9 @@ use cash_result::{Failed, OperationResult};
 
 #[derive(Debug, Default)]
 /// 上传代理
-pub struct DownloadDelegator;
+pub struct DownloadDelegator{
+    pub transfer_chunk_size: usize,
+}
 
 impl DownloadDelegator {
     pub async fn check_request_file_exists(
@@ -64,33 +67,96 @@ impl DownloadDelegator {
         let chunk_size = configs::get_data_server_configs().transfer_chunk_size as usize;
         // 缓存容量, 为 chunk_size*5，满后写入临时文件,缓存长度是5
         let capacity = chunk_size * 5;
-        info!("{}: {}, {}: {}", t!("缓存大小为"), t!("块大小为"), capacity, chunk_size);
+        info!(
+            "{}: {}, {}: {}",
+            t!("缓存大小为"),
+            t!("块大小为"),
+            capacity,
+            chunk_size
+        );
 
         tokio::spawn(async move {
             let mut buffer = bytes::BytesMut::with_capacity(capacity.clone());
             let meta_size = data_file.metadata().await.unwrap().len();
             let mut total_size = 0u64;
 
-            data_file.seek(SeekFrom::Start(chunk_size as u64 * start_index)).await;
+            if let Err(e) = data_file
+                .seek(SeekFrom::Start(chunk_size as u64 * start_index))
+                .await
+            {
+                error!("{}: {}, {}", t!("设置读取位置失败"), file_path_str, e.to_string());
+                error!("{}: {}", t!("发送文件失败"), file_path_str);
+                return ();
+            };
+
+            // let send_buffer = async |buffer: &bytes::BytesMut| {
+            //     for chunk in buffer.chunks(chunk_size).next() {
+            //         match ftx.send(chunk.to_vec()).await {
+            //             Err(e) => log::error!("{}: {}", t!("发送数据块失败"), file_path_str),
+            //             _ => (),
+            //         }
+            //     }
+            // };
 
             while let Ok(n) = data_file.read_buf(&mut buffer).await {
-                info!("{}: {:?}, {}, {}", t!("读取到数据块"), file_path_str, buffer.len(), n);
+                info!(
+                    "{}: {:?}, {}, {}",
+                    t!("读取到数据块"),
+                    file_path_str,
+                    buffer.len(),
+                    n
+                );
+
+                // 缓存满，发送
+                if buffer.len() == capacity {
+                    // send_buffer(&buffer);
+                    // buffer.chunks(chunk_size).by_ref().for_each(|chunk|{
+                    //     match ftx.send(chunk.to_vec()).await {
+                    //         Err(e) => log::error!("{}: {}", t!("发送数据块失败"), file_path_str),
+                    //         _ => (),
+                    //     }
+                    // });
+                    while let Some(chunk) = buffer.chunks(chunk_size).next() {
+                        match ftx.send(chunk.to_vec()).await {
+                            Err(e) => log::error!("{}: {}, {}", t!("发送数据块失败"), file_path_str, e.to_string()),
+                            _ => (),
+                        }
+                    }
+
+                    // for chunk in buffer.chunks(chunk_size).by_ref() {
+                    //     match ftx.send(chunk.to_vec()).await {
+                    //         Err(e) => log::error!("{}: {}", t!("发送数据块失败"), file_path_str),
+                    //         _ => (),
+                    //     }
+                    // }
+                    buffer.clear()
+                }
+
                 // 读取到文件末尾, 退出
                 if n == 0 {
+                    if buffer.len() > 0 {
+                        // send_buffer(&buffer).await;
+                        for chunk in buffer.chunks(chunk_size).by_ref() {
+                            match ftx.send(chunk.to_vec()).await {
+                                Err(e) => log::error!("{}: {}, {}", t!("变送数据失败"), file_path_str, e.to_string()),
+                                _ => (),
+                            }
+                        }
+                    }
+
                     break;
                 }
 
-                for chunk in buffer.chunks(chunk_size).next() {
-                    match ftx.send(chunk.to_vec()).await {
-                        Err(e) => log::error!("{}: {}", t!("发送数据块失败"), file_path_str),
-                        _ => (),
-                    }
-                }
                 total_size += n as u64;
-                buffer.clear()
             }
 
-            info!("{}: {}-{}-{}", t!("发送文件完成"), file_path_str, total_size, meta_size);
+            info!(
+                "{}: {}-{}-{}",
+                t!("发送文件完成"),
+                file_path_str,
+                total_size,
+                meta_size
+            );
         });
 
         Ok(())

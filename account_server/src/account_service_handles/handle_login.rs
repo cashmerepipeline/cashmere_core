@@ -1,11 +1,13 @@
-use crate::{LoginRequest, LoginResponse, UnaryResponseResult};
 use async_trait::async_trait;
 use bson::{doc, Document};
 use chrono::Utc;
+use tonic::{Request, Response, Status};
+
 use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIONS_FIELD_ID};
 use manage_define::manage_ids::{ACCOUNTS_MANAGE_ID, PERSONS_MANAGE_ID};
 use managers::traits::ManagerTrait;
-use tonic::{Request, Response, Status};
+
+use crate::{LoginRequest, LoginResponse, UnaryResponseResult};
 
 #[async_trait]
 pub trait HandleLogin {
@@ -61,7 +63,7 @@ pub trait HandleLogin {
         // 个人信息
         let person_doc = match entity::get_entity_by_id(&PERSONS_MANAGE_ID.to_string(), &account_id).await {
             Ok(p) => p,
-            Err(e) => doc! {}, 
+            Err(_e) => doc! {}, 
         };
 
         let orgnizations: Vec<String> = bson::from_bson(

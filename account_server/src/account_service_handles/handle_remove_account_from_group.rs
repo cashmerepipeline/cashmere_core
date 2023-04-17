@@ -1,13 +1,13 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
-use managers::accounts_manager;
+use bson::doc;
 use tonic::{Request, Response, Status};
+
 use majordomo::get_majordomo;
-use manage_define::field_ids::{ ACCOUNTS_PASSWORD_FIELD_ID, ACCOUNTS_PHONE_FIELD_ID};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID, GROUPS_FIELD_ID};
+use manage_define::general_field_ids::{GROUPS_FIELD_ID, ID_FIELD_ID};
 use manage_define::manage_ids::{ACCOUNTS_MANAGE_ID, GROUPS_MANAGE_ID};
 use managers::traits::ManagerTrait;
-use crate::{NewAccountRequest, NewAccountResponse, UnaryResponseResult, AddAccountIntoGroupRequest, AddAccountIntoGroupResponse, RemoveAccountFromGroupRequest, RemoveAccountFromGroupResponse};
+
+use crate::{RemoveAccountFromGroupRequest, RemoveAccountFromGroupResponse, UnaryResponseResult};
 
 #[async_trait]
 pub trait HandleRemoveAccountFromGroup {
@@ -38,14 +38,24 @@ pub trait HandleRemoveAccountFromGroup {
         }
 
         // 集合可写性检查
-        if !view::can_collection_write(&account_id, &role_group, &account_manage_id.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &account_manage_id.to_string())
+            .await
+        {
             return Err(Status::unauthenticated("用户不具有集合可写权限"));
         }
-        if !view::can_collection_write(&account_id, &role_group, &group_manage_id.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &group_manage_id.to_string()).await
+        {
             return Err(Status::unauthenticated("用户不具有集合可写权限"));
         }
         // 检查帐号组属性字段可写性
-        if !view::can_field_write(&account_id, &role_group, &account_manage_id.to_string(), &GROUPS_FIELD_ID.to_string()).await {
+        if !view::can_field_write(
+            &account_id,
+            &role_group,
+            &account_manage_id.to_string(),
+            &GROUPS_FIELD_ID.to_string(),
+        )
+        .await
+        {
             return Err(Status::unauthenticated("用户不具有字段可写权限"));
         }
 
@@ -55,14 +65,16 @@ pub trait HandleRemoveAccountFromGroup {
             .await
             .unwrap();
 
-        let query_doc = doc!{
+        let query_doc = doc! {
             ID_FIELD_ID.to_string():op_account_id.clone()
-        }; 
-        let modify_doc = doc!{
+        };
+        let modify_doc = doc! {
             GROUPS_FIELD_ID.to_string():op_group_id
         };
-        
-        let result = account_manager.pull_entity_array_field(query_doc, modify_doc, &account_id).await;
+
+        let result = account_manager
+            .pull_entity_array_field(query_doc, modify_doc, &account_id)
+            .await;
 
         match result {
             Ok(_r) => Ok(Response::new(RemoveAccountFromGroupResponse {
@@ -76,5 +88,3 @@ pub trait HandleRemoveAccountFromGroup {
         }
     }
 }
-
-

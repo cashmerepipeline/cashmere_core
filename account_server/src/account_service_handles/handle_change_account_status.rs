@@ -1,20 +1,14 @@
-use crate::account_service_handles::get_account_entity_doc::get_account_entity_doc;
-use crate::{ChangeAccountStatusRequest, ChangeAccountStatusResponse, UnaryResponseResult};
 use async_trait::async_trait;
-use bson::{doc, Document};
+use bson::doc;
+use tonic::{Request, Response, Status};
+
 use majordomo::get_majordomo;
-use manage_define::cashmere::Name;
-use manage_define::field_ids::{
-    ACCOUNTS_PASSWORD_FIELD_ID, ACCOUNTS_PHONE_AREA_CODE_FIELD_ID, ACCOUNTS_PHONE_FIELD_ID, ACCOUNTS_STATUS_FIELD_ID,
-};
-use manage_define::general_field_ids::{
-    COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, ENTITY_REMOVED_FIELD_ID,
-    ID_FIELD_ID, NAME_MAP_FIELD_ID,
-};
+use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
-use tonic::{Request, Response, Status};
+
+use crate::{ChangeAccountStatusRequest, ChangeAccountStatusResponse, UnaryResponseResult};
 
 #[async_trait]
 pub trait HandleChangeAccountStatus {
@@ -25,7 +19,7 @@ pub trait HandleChangeAccountStatus {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let target_account_id = &request.get_ref().account_id;
@@ -37,10 +31,16 @@ pub trait HandleChangeAccountStatus {
             return Err(Status::unauthenticated(t!("用户不具有修改实体权限")));
         }
         // 字段可写检查
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), &ACCOUNTS_PASSWORD_FIELD_ID.to_string()).await {
+        if !view::can_field_write(
+            &account_id,
+            &role_group,
+            &manage_id.to_string(),
+            &ACCOUNTS_PASSWORD_FIELD_ID.to_string(),
+        )
+        .await
+        {
             return Err(Status::unauthenticated(t!("用户不具有修改密码权限")));
         }
-
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
@@ -59,18 +59,6 @@ pub trait HandleChangeAccountStatus {
                 account_id
             )));
         }
-
-        let account_doc = match get_account_entity_doc(&account_id).await {
-            Ok(d) => d,
-            Err(e) => {
-                return Err(Status::data_loss(format!(
-                    "{} {} {}",
-                    t!("取得账户数据错误"),
-                    e.operation(),
-                    e.details()
-                )));
-            }
-        };
 
         let query_doc = doc! {
             ID_FIELD_ID.to_string(): target_account_id.clone()
@@ -100,4 +88,3 @@ pub trait HandleChangeAccountStatus {
         }
     }
 }
-

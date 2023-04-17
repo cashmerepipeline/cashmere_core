@@ -6,10 +6,6 @@ Created:  2020-10-11T02:48:38.636Z
 Modified: !date!
 */
 
-use argon2::{self, Config};
-use chrono::Utc;
-use jsonwebtoken::{Algorithm, crypto::verify, DecodingKey, encode, EncodingKey, Header, Validation};
-use serde::{Deserialize, Serialize};
 
 use configs;
 

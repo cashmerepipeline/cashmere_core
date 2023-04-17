@@ -1,10 +1,9 @@
 use async_trait::async_trait;
 use bson::doc;
-use tonic::{Request, Response, Status};
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
+use tonic::{Request, Response, Status};
 use view;
 
 #[async_trait]
@@ -17,7 +16,7 @@ pub trait HandleEditSchemaFieldName {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let manage_id = &request.get_ref().manage_id;

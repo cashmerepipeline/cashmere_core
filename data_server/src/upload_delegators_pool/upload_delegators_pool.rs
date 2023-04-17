@@ -1,4 +1,3 @@
-use manage_define::cashmere::FileInfo;
 use parking_lot::RwLock;
 use std::sync::Arc;
 
@@ -7,7 +6,6 @@ use crate::upload_delegator::UploadDelegator;
 
 /// 接收器池表
 static mut UPLOAD_DELEGATORS_POOL: Option<Arc<RwLock<UploadDelegatorsPool>>> = None;
-static mut DELEGATORS: Option<Arc<RwLock<Vec<Arc<RwLock<UploadDelegator>>>>>> = None;
 
 #[derive(Debug)]
 pub struct UploadDelegatorsPool {

@@ -1,15 +1,12 @@
 use async_trait::async_trait;
+use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
 use futures::FutureExt;
 use log::info;
-use serde::Serialize;
-use tokio::sync::mpsc;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tonic::{Response, Status};
-
-use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
-use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
+use tokio::sync::mpsc;
+use tokio_stream::{StreamExt, wrappers::ReceiverStream};
+use tonic::{Response, Status};
 use view;
 
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
@@ -103,14 +100,8 @@ pub trait HandleDownloadFile {
         let mut current_chunk_index = chunk_index;
 
         info!(
-            "{}: {}--{}--{}--{}--{}--{}",
+            "{}: {data_id}--{specs}--{stage}--{version}--{sub_path}--{file_name}",
             t!("开始发送文件"),
-            &data_id,
-            &specs,
-            &stage,
-            &version,
-            &sub_path,
-            &file_name
         );
 
         tokio::spawn(async move {
@@ -127,7 +118,10 @@ pub trait HandleDownloadFile {
                 chunk_md5: get_chunk_md5(&current_chunk),
                 chunk: vec![],
             };
-            resp_tx.send(Ok(first_resp.clone())).await;
+            
+            if let Err(e) = resp_tx.send(Ok(first_resp.clone())).await{
+                return Err(Status::aborted(format!("{}: {e}", t!("返回文件信息错误"))));
+            };
 
             while let Some(request) = in_stream.next().await {
                 match request {
@@ -148,10 +142,9 @@ pub trait HandleDownloadFile {
                                     current_chunk_index = 0;
                                 }
                                 info!(
-                                    "{}: {}-{}-{}",
+                                    "{}: {data_id}, {current_chunk_index}, {}, {}",
                                     t!("发送数据块"),
-                                    data_id,
-                                    current_chunk_index,
+                                    t!("块大小"),
                                     current_chunk.len()
                                 );
                             } else {

@@ -1,5 +1,5 @@
-pub use change_collection_write_rule::*;
 pub use change_collection_read_rule::*;
+pub use change_collection_write_rule::*;
 pub use change_field_read_rule::*;
 pub use change_field_write_rule::*;
 pub use change_manage_read_rule::*;

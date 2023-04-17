@@ -1,9 +1,7 @@
-use manage_define::cashmere::FileInfo;
-use parking_lot::RwLock;
 use std::sync::Arc;
 
 use crate::data_server::DataServer;
-use crate::dowload_delegator_pool::{get_download_delegator_pool, DownloadDelegatorsPool};
+use crate::get_download_delegator_pool;
 use crate::download_delegator::DownloadDelegator;
 
 impl DataServer {

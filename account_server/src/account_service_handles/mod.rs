@@ -6,18 +6,13 @@
     Modified: !date!
 */
 
-use async_trait::async_trait;
-use bson::Document;
-use chrono::Utc;
-use tonic::{Request, Response, Status};
-
-use crate::account_service::*;
-
-use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
-use manage_define::manage_ids::PERSONS_MANAGE_ID;
-use managers::traits::ManagerTrait;
-
-use crate::UnaryResponseResult;
+pub use handle_add_account_into_group::HandleAddAccountIntoGroup;
+pub use handle_change_account_password::*;
+pub use handle_change_account_status::*;
+pub use handle_change_own_password::HandleChangeOwnPassword;
+pub use handle_login::HandleLogin;
+pub use handle_new_account::HandleNewAccount;
+pub use handle_remove_account_from_group::HandleRemoveAccountFromGroup;
 
 mod get_account_entity_doc;
 
@@ -29,10 +24,3 @@ mod handle_change_own_password;
 mod handle_change_account_status;
 mod handle_change_account_password;
 
-pub use handle_login::HandleLogin;
-pub use handle_new_account::HandleNewAccount;
-pub use handle_add_account_into_group::HandleAddAccountIntoGroup;
-pub use handle_remove_account_from_group::HandleRemoveAccountFromGroup;
-pub use handle_change_own_password::HandleChangeOwnPassword;
-pub use handle_change_account_status::*;
-pub use handle_change_account_password::*;

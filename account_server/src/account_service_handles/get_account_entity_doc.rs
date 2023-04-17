@@ -1,4 +1,4 @@
-use bson::{doc, Document};
+use bson::Document;
 
 use cash_result::OperationResult;
 use majordomo;

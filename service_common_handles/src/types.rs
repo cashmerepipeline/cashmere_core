@@ -1,6 +1,5 @@
-use std::pin::Pin;
-
 use futures::Stream;
+use std::pin::Pin;
 use tonic::{Request, Response, Status, Streaming};
 
 pub type UnaryResponseResult<T> = Result<Response<T>, Status>;

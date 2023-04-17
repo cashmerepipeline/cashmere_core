@@ -1,18 +1,12 @@
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
-use bytes::BufMut;
-use log::{debug, info};
-use serde::Deserialize;
+use log::debug;
 use tokio::fs;
-use tokio::fs::{File, OpenOptions};
-use tokio::io::{AsyncReadExt, AsyncWriteExt, BufWriter};
-use tokio::sync::mpsc;
-use tokio::sync::mpsc::Sender;
+use tokio::fs::File;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
-use cash_result::{Failed, operation_failed, OperationResult};
-use manage_define::cashmere::FileInfo;
+use cash_result::{operation_failed, OperationResult};
 
-use crate::file_utils::check_space_enough;
 use crate::ResumePoint;
 
 use super::UploadDelegator;

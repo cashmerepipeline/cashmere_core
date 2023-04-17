@@ -1,7 +1,5 @@
-use std::collections::{BTreeMap, VecDeque};
+use std::collections::BTreeMap;
 use std::sync::Arc;
-
-use parking_lot::RwLock;
 
 use crate::{Conversation, TerminalDelegate};
 

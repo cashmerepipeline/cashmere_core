@@ -1,14 +1,12 @@
 use crate::file_utils::check_space_enough;
-use crate::ResumePoint;
 use bytes::BufMut;
 use cash_result::{operation_failed, Failed, OperationResult};
 use log::{debug, info};
 use manage_define::cashmere::FileInfo;
-use serde::Deserialize;
 use std::path::{Path, PathBuf};
 use tokio::fs;
 use tokio::fs::{File, OpenOptions};
-use tokio::io::{AsyncReadExt, AsyncWriteExt, BufWriter};
+use tokio::io::{AsyncWriteExt, BufWriter};
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::Sender;
 
@@ -51,7 +49,12 @@ impl UploadDelegator {
             Err(e) => Err(OperationResult::Failed(Failed {
                 operation: "check_space_enough".to_string(),
 
-                details: format!("{}, {}: {}", e, t!("存储空间不足"), data_dir_path.to_str().unwrap(),),
+                details: format!(
+                    "{}, {}: {}",
+                    e,
+                    t!("存储空间不足"),
+                    data_dir_path.to_str().unwrap(),
+                ),
             })),
         }
     }
@@ -62,7 +65,11 @@ impl UploadDelegator {
         data_folder: &PathBuf,
         data_file_path: &PathBuf,
     ) -> Result<File, OperationResult> {
-        debug!("{}: {}", t!("开始创建文件"), data_file_path.to_str().unwrap());
+        debug!(
+            "{}: {}",
+            t!("开始创建文件"),
+            data_file_path.to_str().unwrap()
+        );
 
         if fs::create_dir_all(data_folder).await.is_err() {
             return Err(operation_failed(
@@ -82,30 +89,32 @@ impl UploadDelegator {
                     t!("以追加方式打开文件"),
                     data_file_path.to_str().unwrap()
                 );
-                let data_file = match OpenOptions::new().append(true).open(&data_file_path).await {
+
+                match OpenOptions::new().append(true).open(&data_file_path).await {
                     Ok(f) => return Ok(f),
                     Err(_e) => {
                         return Err(operation_failed(
                             "get_upload_target_file",
-                            format!("{}: {}", t!("打开文件失败"), data_file_path.to_str().unwrap()),
+                            format!(
+                                "{}: {}",
+                                t!("打开文件失败"),
+                                data_file_path.to_str().unwrap()
+                            ),
                         ));
                     }
                 };
-                return Err(operation_failed(
-                    "get_upload_target_file",
-                    format!("{}: {}", t!("文件已存在"), data_file_path.to_str().unwrap()),
-                ));
             } else {
                 // 如果文件已存在，但是没有续传点文件，则截断文件，从头开始写入
                 debug!(
-                    "{}, {}，{}，{}: {}",
+                    "{}, {}, {}, {}: {}",
                     t!("文件已存在"),
                     t!("没有续传点文件"),
                     t!("截断文件"),
                     t!("从头开始写入"),
                     data_file_path.to_str().unwrap()
                 );
-                let data_file = match OpenOptions::new()
+
+                match OpenOptions::new()
                     .write(true)
                     .truncate(true)
                     .open(&data_file_path)
@@ -115,10 +124,14 @@ impl UploadDelegator {
                     Err(_e) => {
                         return Err(operation_failed(
                             "get_upload_target_file",
-                            format!("{}: {}", t!("打开文件失败"), data_file_path.to_str().unwrap()),
+                            format!(
+                                "{}: {}",
+                                t!("打开文件失败"),
+                                data_file_path.to_str().unwrap()
+                            ),
                         ));
                     }
-                };
+                }
             }
         } else {
             // 如果文件不存在，则创建文件
@@ -127,12 +140,20 @@ impl UploadDelegator {
                 Err(_e) => {
                     return Err(operation_failed(
                         "get_upload_target_file",
-                        format!("{}: {}", t!{"创建文件失败"}, data_file_path.to_str().unwrap()),
+                        format!(
+                            "{}: {}",
+                            t! {"创建文件失败"},
+                            data_file_path.to_str().unwrap()
+                        ),
                     ));
                 }
             };
 
-            debug!("{}: {}", t!("创建文件成功"), data_file_path.to_str().unwrap());
+            debug!(
+                "{}: {}",
+                t!("创建文件成功"),
+                data_file_path.to_str().unwrap()
+            );
 
             return Ok(data_file);
         }
@@ -157,11 +178,9 @@ impl UploadDelegator {
         true
     }
 
-
-
     pub async fn get_receive_file_stream_sender(
         &self,
-        mut data_file: File,
+        data_file: File,
         data_file_path: String,
     ) -> Result<Sender<Vec<u8>>, OperationResult> {
         // 使用缓存减少磁盘操作
@@ -218,7 +237,12 @@ impl UploadDelegator {
                 ));
             };
 
-            info!("{}: {}-{}", t!("数据流完成写入文件"), data_file_path, total_size);
+            info!(
+                "{}: {}-{}",
+                t!("数据流完成写入文件"),
+                data_file_path,
+                total_size
+            );
             Ok(())
         });
 

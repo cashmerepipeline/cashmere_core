@@ -1,15 +1,13 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
-use linked_hash_map::LinkedHashMap;
+use bson::doc;
 use log::info;
-use tonic::{Request, Response, Status};
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
+use tonic::{Request, Response, Status};
 use view;
 
 #[async_trait]
@@ -22,7 +20,7 @@ pub trait HandleNewGroup {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
@@ -44,12 +42,19 @@ pub trait HandleNewGroup {
         //TODO: 组编号是否符合格式
 
         // 组是否已经存在
-        if group_manager.entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id}).await{
-            return Err(Status::already_exists(format!("{}: {}", t!("组已经存在"), new_group_id)));
+        if group_manager
+            .entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id})
+            .await
+        {
+            return Err(Status::already_exists(format!(
+                "{}: {}",
+                t!("组已经存在"),
+                new_group_id
+            )));
         }
 
         let name = match name {
-            Some(n)=>n,
+            Some(n) => n,
             None => {
                 return Err(Status::aborted(format!("没有指定名称--{}", new_group_id)));
             }
@@ -58,7 +63,7 @@ pub trait HandleNewGroup {
         if let Some(mut new_entity_doc) = make_new_entity_document(&group_manager).await {
             new_entity_doc.insert(
                 NAME_MAP_FIELD_ID.to_string(),
-                doc! {name.language.clone():name.name.clone()}
+                doc! {name.language.clone():name.name.clone()},
             );
             new_entity_doc.insert("_id".to_string(), new_group_id);
             new_entity_doc.insert(ID_FIELD_ID.to_string(), new_group_id);
@@ -67,14 +72,10 @@ pub trait HandleNewGroup {
             let result = group_manager
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)
                 .await
-                .and_then(|id| {
-                    Ok(id)
-                });
+                .and_then(|id| Ok(id));
 
             match result {
-                Ok(r) => Ok(Response::new(NewGroupResponse {
-                    result: r,
-                })),
+                Ok(r) => Ok(Response::new(NewGroupResponse { result: r })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",
                     e.operation(),

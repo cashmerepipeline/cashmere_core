@@ -14,8 +14,6 @@ mod test;
 mod hash_password;
 mod constant_names;
 
-use tonic::metadata::MetadataMap;
-
 pub use get_auth_token::get_auth_token;
 pub use get_claims_account_and_roles::get_claims_account_and_roles;
 pub use get_current_role_group::get_current_role;

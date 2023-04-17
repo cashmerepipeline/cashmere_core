@@ -3,7 +3,6 @@ use std::path::PathBuf;
 use tokio::fs;
 
 use cash_result::{operation_failed, OperationResult};
-use tokio::fs::File;
 
 /// data stage
 pub struct DataStage {

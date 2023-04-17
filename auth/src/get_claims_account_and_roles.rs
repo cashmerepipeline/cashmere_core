@@ -1,4 +1,3 @@
-use crate::jwt;
 use crate::jwt::get_claims;
 
 pub fn get_claims_account_and_roles(token: &String) -> Option<(String, Vec<String>)> {

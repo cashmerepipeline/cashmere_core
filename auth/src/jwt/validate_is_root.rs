@@ -1,4 +1,3 @@
-use crate::jwt;
 use crate::jwt::get_claims;
 
 pub async fn validate_is_root(token: &String) -> bool {
