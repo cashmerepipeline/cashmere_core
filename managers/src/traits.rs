@@ -340,7 +340,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             format!("{}.$", MANAGES_SCHEMA_FIELD_ID): value
         };
 
-        match entity::update_entity_array_field(
+        match entity::update_entity_array_element_field(
             &MANAGES_MANAGE_ID.to_string(),
             query_doc,
             modify_doc,
@@ -403,7 +403,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             format!("{}.$.removed", MANAGES_SCHEMA_FIELD_ID): true
         };
 
-        match entity::update_entity_array_field(
+        match entity::update_entity_array_element_field(
             &MANAGES_MANAGE_ID.to_string(),
             query_doc,
             modify_doc,
@@ -623,6 +623,30 @@ pub trait ManagerTrait: Any + Send + Sync {
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "pull_entity_array_field".to_string(),
+            )),
+        }
+    }
+    
+    /// 更新数组元素属性
+    async fn update_array_element_field(
+        &self,
+        query_doc: Document,
+        modify_doc: Document,
+        account_id: &String,
+    ) -> Result<OperationResult, OperationResult> {
+        let manage_id = self.get_manager_id().to_string();
+        match entity::update_entity_array_element_field(
+            &manage_id.to_string(),
+            query_doc,
+            modify_doc,
+            account_id,
+        )
+        .await
+        {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(
+                e,
+                "update_array_element_field".to_string(),
             )),
         }
     }

@@ -11,6 +11,7 @@ use tonic::{Request, Response, Status};
 use view;
 
 use crate::UnaryResponseResult;
+use crate::name_utils::validate_name;
 
 #[async_trait]
 pub trait HandleNewStage {
@@ -24,23 +25,17 @@ pub trait HandleNewStage {
         let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let data_id = &request.get_ref().data_id;
-        let stage_name = &request.get_ref().stage_name;
+        let specs_id = &request.get_ref().specs_id;
+        let name = &request.get_ref().stage_name;
         let description = &request.get_ref().description;
+
+        if validate_name(name).is_err() {
+            return Err(Status::data_loss(format!("{}", t!("名字不能为空"))));
+        }
+        let name = name.as_ref().unwrap();
 
         if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
-        let majordomo_arc = get_majordomo().await;
-        let data_manager = majordomo_arc
-            .get_manager_by_id(STAGES_MANAGE_ID)
-            .await
-            .unwrap();
-
-        if !view::can_field_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string(), &DATAS_SPECS_FIELD_ID.to_string()).await
-        {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
@@ -49,25 +44,27 @@ pub trait HandleNewStage {
             .await
             .unwrap();
 
-        let query_doc = doc! {
-            ID_FIELD_ID.to_string():data_id,
+        // 新建条目
+        let mut new_entity_doc = if let Some(r) = make_new_entity_document(&manager).await{
+            r
+        } else{
+            return Err(Status::aborted(format!("{}: 管理 {}", t!("新建实体文档失败"), SPECSES_MANAGE_ID)));
         };
 
-        let mut modify_doc = bson::Document::new();
-        let new_stage = StageInfo{
-            name: stage_name.to_owned(),
-            versions: vec![],
-            current_version: "".to_string()
-        };
-        modify_doc.insert(DATAS_SPECS_FIELD_ID.to_string(), bson::to_document(&new_stage).unwrap());
+        new_entity_doc.insert(
+            STAGES_SPECS_ID_FIELD_ID.to_string(),
+            specs_id.clone(),
+        );
+        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
+
+        let new_id = new_entity_doc.get_str(ID_FIELD_ID.to_string()).unwrap().to_owned();
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
-            .await;
+            .sink_entity(&mut new_entity_doc, &account_id, &role_group).await;
 
         match result {
             Ok(_r) => Ok(Response::new(NewStageResponse {
-                result: "ok".to_string(),
+                result: new_id,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

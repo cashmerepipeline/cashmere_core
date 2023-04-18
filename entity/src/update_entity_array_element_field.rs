@@ -13,7 +13,7 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 /// 更新元素
-pub async fn update_entity_array_field(
+pub async fn update_entity_array_element_field(
     manage_id: &String,
     query_doc: Document,
     mut modify_doc: Document,

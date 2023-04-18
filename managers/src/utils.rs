@@ -9,6 +9,7 @@ pub async fn make_new_entity_document(manager: &Arc<Manager>) -> Option<Document
         let mut new_entity_doc = Document::new();
         let empty_vec:Vec<String> = vec![];
         new_entity_doc.insert("_id", new_id.to_string());
+
         new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());
         new_entity_doc.insert(DATAS_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());
         new_entity_doc.insert(DATAS_REMOVED_FIELD_ID.to_string(), bson::to_bson(&empty_vec).unwrap());

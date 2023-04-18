@@ -1,0 +1,92 @@
+syntax = "proto3";
+package cashmere;
+
+message Version{
+    string name = 1;
+    // 使用路径列表表示一个文件，不直接使用路径字符串, 形式为["sub_dir", ..., "file_name"]
+    // 文件集为多个文件列表
+    // 文件序列为规则: {base_name:name, start: start, end: end, padding: padding, ext: ext, number_pos: [mid, end]}
+    // 使用bson格式存储
+    repeated bytes files = 2;
+    // 移除标记，文件不删除
+    bool removed = 3;
+  }
+
+// 添加数据版本到阶段
+message AddStageVersionRequest {
+  string stage_id = 1;
+  // 版本一般有具体的含义，不只是一个数字，比如"v001", 数据的名应该与版本一致
+  string version = 3;
+}
+message AddStageVersionResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 取得数据阶段版本表
+message ListStageVersionsRequest {
+  string stage_id = 1;
+}
+message ListStageVersionsResponse {
+  repeated Version versions = 1;
+}
+
+// 改变阶段文件连接
+message SetStageCurrentVersionRequest {
+  string stage_id = 1;
+  string target_version = 3;
+}
+message SetStageCurrentVersionResponse {
+  // 成功返回 当前版本
+  string result = 1;
+}
+
+// 删除数据版本
+message RemoveStageVersionRequest {
+  string stage_id = 1;
+  string version = 3;
+}
+message RemoveStageVersionResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
+// 路径在使用时再拼接
+message AddFileToVersionRequest {
+  string stage_id = 1;
+  string version = 2;
+  repeated string file_path = 3;
+} 
+message AddFileToStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
+// 路径在使用时再拼接
+message AddFileSetToStageRequest {
+  string stage_id = 1;
+  string version = 3;
+  repeated bytes file_pathes = 4;
+}
+message AddFileSetToStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 数据类型为文件序列时, 序列文件直接存储在版本目录下
+// 使用规则解析文件路径[base_name, start, end, padding, ext]，不记录所有文件的路径
+message AddFileSequenceToStageRequest {
+  string stage_id = 1;
+  string version = 3;
+  string base_name = 7;
+  int32 start = 5;
+  int32 end = 6;
+  int32 padding=2;
+  string ext = 8;
+}
+message AddFileSequenceToStageResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}

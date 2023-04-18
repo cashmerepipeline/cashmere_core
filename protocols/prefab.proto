@@ -11,3 +11,11 @@ message NewPrefabRequest{
 message NewPrefabResponse{
     string result = 1;
 }
+
+// 列出预制件
+message ListPrefabRequest{
+    string specs_id = 1;
+}
+message ListPrefabResponse{
+    repeated bytes prefabs = 1;
+}

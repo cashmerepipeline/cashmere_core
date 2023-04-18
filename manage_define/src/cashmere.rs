@@ -185,6 +185,43 @@ pub struct Color {
     #[prost(uint32, tag="5")]
     pub alpha: u32,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataServerConfigs {
+    #[prost(string, tag="1")]
+    pub root_dir_path: ::prost::alloc::string::String,
+    /// 文件最大大小, 16MB
+    #[prost(uint64, tag="2")]
+    pub max_file_size: u64,
+    /// 文件集最大数量, 1000
+    #[prost(uint32, tag="3")]
+    pub max_set_size: u32,
+    /// 文件序列最大数量
+    #[prost(uint64, tag="4")]
+    pub max_sequence_length: u64,
+    /// 最大文件上传连接
+    #[prost(uint32, tag="5")]
+    pub max_file_upload_number: u32,
+    /// 最大文件下载连接
+    #[prost(uint32, tag="6")]
+    pub max_file_download_number: u32,
+    /// 块最大大小，1024*128=128KB
+    #[prost(uint32, tag="7")]
+    pub transfer_chunk_size: u32,
+    /// 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
+    /// {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}
+    #[prost(map="string, string", tag="8")]
+    pub internal_root_dir_map: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
+/// 取得数据服务设置
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerConfigsRequest {
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDataServerConfigsResponse {
+    #[prost(message, optional, tag="1")]
+    pub configs: ::core::option::Option<DataServerConfigs>,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DataInfo {
     #[prost(enumeration="DataType", tag="1")]
@@ -266,220 +303,6 @@ pub enum DataType {
     /// 类json格式数据
     DocumentData = 3,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataServerConfigs {
-    #[prost(string, tag="1")]
-    pub root_dir_path: ::prost::alloc::string::String,
-    /// 文件最大大小, 16MB
-    #[prost(uint64, tag="2")]
-    pub max_file_size: u64,
-    /// 文件集最大数量, 1000
-    #[prost(uint32, tag="3")]
-    pub max_set_size: u32,
-    /// 文件序列最大数量
-    #[prost(uint64, tag="4")]
-    pub max_sequence_length: u64,
-    /// 最大文件上传连接
-    #[prost(uint32, tag="5")]
-    pub max_file_upload_number: u32,
-    /// 最大文件下载连接
-    #[prost(uint32, tag="6")]
-    pub max_file_download_number: u32,
-    /// 块最大大小，1024*128=128KB
-    #[prost(uint32, tag="7")]
-    pub transfer_chunk_size: u32,
-    /// 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
-    /// {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}
-    #[prost(map="string, string", tag="8")]
-    pub internal_root_dir_map: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
-}
-/// 取得数据服务设置
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataServerConfigsRequest {
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDataServerConfigsResponse {
-    #[prost(message, optional, tag="1")]
-    pub configs: ::core::option::Option<DataServerConfigs>,
-}
-/// 数据阶段信息
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StageInfo {
-    #[prost(string, tag="1")]
-    pub name: ::prost::alloc::string::String,
-    /// stage目录下的文件列表, 文件为文件列表，集合为集合目录列表
-    #[prost(bytes="vec", repeated, tag="2")]
-    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-    /// 当前连接所指版本
-    #[prost(string, tag="3")]
-    pub current_version: ::prost::alloc::string::String,
-}
-/// 新阶段
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewStageRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    /// 这里可能因为软件对路径字符集支持的不同只能使用英文作为文件名，比如Maya
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub description: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewStageResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 删除阶段，只删除阶段->数据的文件连接，不删除数据
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveStageRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveStageResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 取得数据阶段表
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStagesRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStagesResponse {
-    #[prost(message, repeated, tag="1")]
-    pub stages: ::prost::alloc::vec::Vec<StageInfo>,
-}
-/// 添加数据版本到阶段
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddStageVersionRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    /// 版本一般有具体的含义，不只是一个数字，比如"v001", 数据的名应该与版本一致
-    #[prost(string, tag="3")]
-    pub version: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddStageVersionResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 取得数据阶段版本表
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStageVersionsRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStageVersionsResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// 改变阶段文件连接
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetStageCurrentVersionRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub target_version: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetStageCurrentVersionResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加数据版本到阶段
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveStageVersionRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub version: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveStageVersionResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileToStageRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub version: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub file_path: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileToStageResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加文件集到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSetToStageRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub version: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag="4")]
-    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSetToStageResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加序列文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSequenceToStageRequest {
-    #[prost(string, tag="1")]
-    pub data_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub stage_name: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
-    pub version: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub sequence_dir: ::prost::alloc::string::String,
-    #[prost(string, tag="7")]
-    pub base_name: ::prost::alloc::string::String,
-    #[prost(int32, tag="5")]
-    pub start: i32,
-    #[prost(int32, tag="6")]
-    pub end: i32,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSequenceToStageResponse {
-    /// 成功返回 "ok"
-    #[prost(string, tag="1")]
-    pub result: ::prost::alloc::string::String,
-}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSpecsRequest {
     #[prost(string, tag="2")]
@@ -514,6 +337,189 @@ pub struct ListSpecsPrefabsResponse {
     #[prost(bytes="vec", repeated, tag="1")]
     pub prefabs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Version {
+    #[prost(string, tag="1")]
+    pub name: ::prost::alloc::string::String,
+    /// 使用路径列表表示一个文件，不直接使用路径字符串, 形式为["sub_dir", ..., "file_name"]
+    /// 文件集为多个文件列表
+    /// 文件序列为规则: {base_name:name, start: start, end: end, padding: padding, ext: ext, number_pos: [mid, end]}
+    /// 使用bson格式存储
+    #[prost(bytes="vec", repeated, tag="2")]
+    pub files: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    /// 移除标记，文件不删除
+    #[prost(bool, tag="3")]
+    pub removed: bool,
+}
+/// 添加数据版本到阶段
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddStageVersionRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    /// 版本一般有具体的含义，不只是一个数字，比如"v001", 数据的名应该与版本一致
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddStageVersionResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得数据阶段版本表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStageVersionsRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStageVersionsResponse {
+    #[prost(message, repeated, tag="1")]
+    pub versions: ::prost::alloc::vec::Vec<Version>,
+}
+/// 改变阶段文件连接
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetStageCurrentVersionRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub target_version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetStageCurrentVersionResponse {
+    /// 成功返回 当前版本
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 删除数据版本
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStageVersionRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStageVersionResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
+/// 路径在使用时再拼接
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileToVersionRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub file_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileToStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
+/// 路径在使用时再拼接
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSetToStageRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(bytes="vec", repeated, tag="4")]
+    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSetToStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 数据类型为文件序列时, 序列文件直接存储在版本目录下
+/// 使用规则解析文件路径[base_name, start, end, padding, ext]，不记录所有文件的路径
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSequenceToStageRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub base_name: ::prost::alloc::string::String,
+    #[prost(int32, tag="5")]
+    pub start: i32,
+    #[prost(int32, tag="6")]
+    pub end: i32,
+    #[prost(int32, tag="2")]
+    pub padding: i32,
+    #[prost(string, tag="8")]
+    pub ext: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddFileSequenceToStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 数据阶段信息
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StageInfo {
+    #[prost(string, tag="1")]
+    pub name: ::prost::alloc::string::String,
+    /// stage目录下的文件列表, 文件为文件列表，集合为集合目录列表
+    #[prost(bytes="vec", repeated, tag="2")]
+    pub versions: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    /// 当前连接所指版本
+    #[prost(string, tag="3")]
+    pub current_version: ::prost::alloc::string::String,
+}
+/// 新阶段
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewStageRequest {
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+    /// 这里可能因为软件对路径字符集支持的不同只能使用英文作为文件名，比如Maya
+    #[prost(message, optional, tag="2")]
+    pub stage_name: ::core::option::Option<Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 删除阶段，只删除阶段->数据的文件连接，不删除数据
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStageRequest {
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub stage: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveStageResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得数据阶段表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStagesRequest {
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStagesResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub stages: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPrefabRequest {
     #[prost(string, tag="1")]
@@ -527,6 +533,17 @@ pub struct NewPrefabRequest {
 pub struct NewPrefabResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 列出预制件
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPrefabRequest {
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPrefabResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub prefabs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 文件信息
 #[derive(serde::Serialize, serde::Deserialize)]

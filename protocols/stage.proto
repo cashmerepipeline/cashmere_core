@@ -1,6 +1,9 @@
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+import "version.proto";
+
 // 数据阶段信息
 message StageInfo {
   string name = 1;
@@ -12,9 +15,9 @@ message StageInfo {
 
 // 新阶段
 message NewStageRequest {
-  string data_id = 1;
+  string specs_id = 1;
   // 这里可能因为软件对路径字符集支持的不同只能使用英文作为文件名，比如Maya
-  string stage_name = 2;
+  Name stage_name = 2;
   string description = 3;
 }
 message NewStageResponse {
@@ -24,7 +27,7 @@ message NewStageResponse {
 
 // 删除阶段，只删除阶段->数据的文件连接，不删除数据
 message RemoveStageRequest {
-  string data_id = 1;
+  string specs_id = 1;
   string stage = 2;
 }
 message RemoveStageResponse {
@@ -33,87 +36,6 @@ message RemoveStageResponse {
 }
 
 // 取得数据阶段表
-message ListStagesRequest {string data_id = 1;}
-message ListStagesResponse {repeated StageInfo stages = 1;}
+message ListStagesRequest {string specs_id = 1;}
+message ListStagesResponse {repeated bytes stages = 1;}
 
-// 添加数据版本到阶段
-message AddStageVersionRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  // 版本一般有具体的含义，不只是一个数字，比如"v001", 数据的名应该与版本一致
-  string version = 3;
-}
-message AddStageVersionResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
-// 取得数据阶段版本表
-message ListStageVersionsRequest {
-  string data_id = 1;
-  string stage_name = 2;
-}
-message ListStageVersionsResponse {
-  repeated bytes versions = 1;
-}
-
-// 改变阶段文件连接
-message SetStageCurrentVersionRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  string target_version = 3;
-}
-message SetStageCurrentVersionResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
-// 添加数据版本到阶段
-message RemoveStageVersionRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  string version = 3;
-}
-message RemoveStageVersionResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
-// 添加文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-message AddFileToStageRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  string version = 3;
-  string file_path = 4;
-} 
-message AddFileToStageResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
-// 添加文件集到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-message AddFileSetToStageRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  string version = 3;
-  repeated string file_pathes = 4;
-}
-message AddFileSetToStageResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
-// 添加序列文件到数据阶段，只适用于内网操作, 文件路径需要是绝对路径，并且符合路径规范
-message AddFileSequenceToStageRequest {
-  string data_id = 1;
-  string stage_name = 2;
-  string version = 3;
-  string sequence_dir = 4;
-  string base_name = 7;
-  int32 start = 5;
-  int32 end = 6;
-}
-message AddFileSequenceToStageResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}

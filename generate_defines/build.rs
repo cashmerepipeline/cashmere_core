@@ -15,6 +15,7 @@ fn main() {
             "StageInfo",
             "#[derive(serde::Serialize, serde::Deserialize)]",
         )
+        .type_attribute("Version", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute(
             "DataType",
             "#[derive(serde::Serialize, serde::Deserialize)]",

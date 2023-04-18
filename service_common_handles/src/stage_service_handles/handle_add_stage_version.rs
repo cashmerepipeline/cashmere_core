@@ -6,7 +6,6 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use tonic::{Request, Response, Status};
 use view;
 
@@ -24,30 +23,29 @@ pub trait HandleAddStageVersion {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let data_id = &request.get_ref().data_id;
-        let stage_name = &request.get_ref().stage_name;
+        let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;
 
-        if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        if !view::can_field_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string(), &DATAS_SPECS_FIELD_ID.to_string()).await
+        if !view::can_field_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string(), &STAGES_VERSIONS_FIELD_ID.to_string()).await
         {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(DATAS_MANAGE_ID)
+            .get_manager_by_id(STAGES_MANAGE_ID)
             .await
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():data_id,
+            ID_FIELD_ID.to_string():stage_id,
         };
 
-        let field_key = format!("{}.versions", DATAS_SPECS_FIELD_ID);
+        let field_key = format!("{}.versions", STAGES_VERSIONS_FIELD_ID);
         let mut modify_doc = bson::Document::new();
         modify_doc.insert(field_key, version);
 
