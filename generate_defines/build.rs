@@ -12,7 +12,7 @@ fn main() {
             "#[derive(serde::Serialize, serde::Deserialize)]",
         )
         .type_attribute(
-            "DataStageInfo",
+            "StageInfo",
             "#[derive(serde::Serialize, serde::Deserialize)]",
         )
         .type_attribute(

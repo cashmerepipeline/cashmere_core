@@ -54,11 +54,12 @@ pub trait HandleUploadFile {
             return Err(Status::unauthenticated(t!("用户不具有可写权限")));
         }
 
-        // 交互流
-        let (resp_tx, resp_rx) = mpsc::channel(5);
 
         // 请求上传文件代理
         let data_server_arc = data_server::get_data_server();
+        
+        // TODO: 查询目标文件md5，如果相等，直接返回成功
+        // 对于大文件生成md5比较耗时，所以客户端可以根据需要优化md5的生成, 一般不需要全文件md5
 
         let delegator_arc = if let Some(d) = data_server_arc.get_upload_delegator() {
             d
@@ -111,6 +112,9 @@ pub trait HandleUploadFile {
                 t!("无法上传文件")
             )));
         };
+
+        // 交互流
+        let (resp_tx, resp_rx) = mpsc::channel(5);
 
         let ftx = match delegator_arc
             .get_receive_file_stream_sender(data_file, data_file_path.to_str().unwrap().to_string())

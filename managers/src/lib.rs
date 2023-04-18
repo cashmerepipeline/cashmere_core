@@ -24,7 +24,12 @@ pub mod accounts_manager;
 pub mod areas_manager;
 pub mod language_codes_manager;
 pub mod comments_manager;
+
 pub mod datas_manager;
+pub mod specses_manager;
+pub mod stages_manager;
+pub mod prefabs_manager;
+
 pub mod event_handles_manager;
 // pub mod event_queues_manager;
 pub mod events_manager;

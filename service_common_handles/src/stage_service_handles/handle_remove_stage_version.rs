@@ -13,15 +13,15 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleAddDataStageVersion {
-    async fn handle_add_data_stage_version(
+pub trait HandleRemoveDataStageVersion {
+    async fn handle_remove_data_stage_version(
         &self,
-        request: Request<AddDataStageVersionRequest>,
-    ) -> UnaryResponseResult<AddDataStageVersionResponse> {
+        request: Request<RemoveStageVersionRequest>,
+    ) -> UnaryResponseResult<RemoveStageVersionResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let data_id = &request.get_ref().data_id;
@@ -32,7 +32,7 @@ pub trait HandleAddDataStageVersion {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        if !view::can_field_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string(), &DATAS_STAGES_FIELD_ID.to_string()).await
+        if !view::can_field_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string(), &DATAS_SPECS_FIELD_ID.to_string()).await
         {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
@@ -47,16 +47,16 @@ pub trait HandleAddDataStageVersion {
             ID_FIELD_ID.to_string():data_id,
         };
 
-        let field_key = format!("{}.versions", DATAS_STAGES_FIELD_ID);
+        let field_key = format!("{}.versions", DATAS_SPECS_FIELD_ID);
         let mut modify_doc = bson::Document::new();
         modify_doc.insert(field_key, version);
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .pull_entity_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(AddDataStageVersionResponse {
+            Ok(_r) => Ok(Response::new(RemoveStageVersionResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -67,4 +67,5 @@ pub trait HandleAddDataStageVersion {
         }
     }
 }
+
 

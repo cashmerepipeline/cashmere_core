@@ -13,11 +13,11 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleRemoveDataStageVersion {
-    async fn handle_remove_data_stage_version(
+pub trait HandleNewStage {
+    async fn handle_new_data_stage(
         &self,
-        request: Request<RemoveDataStageVersionRequest>,
-    ) -> UnaryResponseResult<RemoveDataStageVersionResponse> {
+        request: Request<NewStageRequest>,
+    ) -> UnaryResponseResult<NewStageResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -26,20 +26,26 @@ pub trait HandleRemoveDataStageVersion {
 
         let data_id = &request.get_ref().data_id;
         let stage_name = &request.get_ref().stage_name;
-        let version = &request.get_ref().version;
+        let description = &request.get_ref().description;
 
-        if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
+        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        if !view::can_field_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string(), &DATAS_STAGES_FIELD_ID.to_string()).await
+        let majordomo_arc = get_majordomo().await;
+        let data_manager = majordomo_arc
+            .get_manager_by_id(STAGES_MANAGE_ID)
+            .await
+            .unwrap();
+
+        if !view::can_field_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string(), &DATAS_SPECS_FIELD_ID.to_string()).await
         {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(DATAS_MANAGE_ID)
+            .get_manager_by_id(STAGES_MANAGE_ID)
             .await
             .unwrap();
 
@@ -47,16 +53,20 @@ pub trait HandleRemoveDataStageVersion {
             ID_FIELD_ID.to_string():data_id,
         };
 
-        let field_key = format!("{}.versions", DATAS_STAGES_FIELD_ID);
         let mut modify_doc = bson::Document::new();
-        modify_doc.insert(field_key, version);
+        let new_stage = StageInfo{
+            name: stage_name.to_owned(),
+            versions: vec![],
+            current_version: "".to_string()
+        };
+        modify_doc.insert(DATAS_SPECS_FIELD_ID.to_string(), bson::to_document(&new_stage).unwrap());
 
         let result = manager
-            .pull_entity_array_field(query_doc, modify_doc, &account_id)
+            .push_entity_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(RemoveDataStageVersionResponse {
+            Ok(_r) => Ok(Response::new(NewStageResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -67,5 +77,3 @@ pub trait HandleRemoveDataStageVersion {
         }
     }
 }
-
-

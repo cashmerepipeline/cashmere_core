@@ -14,8 +14,12 @@ pub use types::*;
 i18n!("locales");
 
 pub mod area_service_handles;
+
 pub mod data_service_handles;
-pub mod data_stage_service_handles;
+pub mod stage_service_handles;
+pub mod specses_service_handles;
+pub mod prefab_service_handles;
+
 pub mod entity_service_handles;
 pub mod group_service_handles;
 pub mod manage_service_handle;

@@ -22,4 +22,7 @@ const int AREAS_MANAGE_ID = 10021;
 const int COMMENTS_MANAGE_ID = 10022; 
 const int COUNTRIES_MANAGE_ID = 10023; 
 const int TAGS_MANAGE_ID = 10024; 
+const int SPECSES_MANAGE_ID = 10025; 
+const int STAGES_MANAGE_ID = 10026; 
+const int PREFABS_MANAGE_ID = 10027; 
 const int IDS_MANAGE_ID = 19999; 

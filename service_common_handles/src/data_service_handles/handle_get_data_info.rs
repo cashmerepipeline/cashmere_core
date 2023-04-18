@@ -46,8 +46,8 @@ pub trait HandleGetDataInfo {
                             .get_str(DATAS_OWNER_ENTITY_ID_FIELD_ID.to_string())
                             .unwrap()
                             .to_string(),
-                        stages: r
-                            .get_array(DATAS_STAGES_FIELD_ID.to_string())
+                        specs: r
+                            .get_array(DATAS_SPECS_FIELD_ID.to_string())
                             .unwrap_or(&vec![])
                             .iter()
                             .map(|x| String::from(x.as_str().unwrap()))

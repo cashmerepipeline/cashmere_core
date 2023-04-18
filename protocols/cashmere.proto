@@ -8,9 +8,13 @@ import "group.proto";
 import "property_type.proto";
 import "name.proto";
 import "color.proto";
+
 import "data.proto";
 import "data_server.proto";
-import "data_stage.proto";
+import "stage.proto";
+import "specs.proto";
+import "prefab.proto";
+
 import "file_transfer.proto";
 import "sequence_data.proto";
 import "set_data.proto";

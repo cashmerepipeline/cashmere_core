@@ -1,22 +1,23 @@
 use async_trait::async_trait;
 use bson::Document;
+use tonic::{Request, Response, Status};
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::DATAS_STAGES_FIELD_ID;
+use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use tonic::{Request, Response, Status};
 use view;
 
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleListDataStages {
-    async fn handle_list_data_stages(
+pub trait HandleListStages {
+    async fn handle_list_stages(
         &self,
-        request: Request<ListDataStagesRequest>,
-    ) -> UnaryResponseResult<ListDataStagesResponse> {
+        request: Request<ListStagesRequest>,
+    ) -> UnaryResponseResult<ListStagesResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -42,11 +43,11 @@ pub trait HandleListDataStages {
 
         match result {
             Ok(e) => {
-                let r = e.get_array(DATAS_STAGES_FIELD_ID.to_string()).unwrap().iter().map(|s| {
-                    let stage_info: DataStageInfo = bson::from_bson(s.to_owned()).unwrap();
+                let r = e.get_array(DATAS_SPECS_FIELD_ID.to_string()).unwrap().iter().map(|s| {
+                    let stage_info: StageInfo = bson::from_bson(s.to_owned()).unwrap();
                     stage_info
                 }).collect();
-                Ok(Response::new(ListDataStagesResponse {
+                Ok(Response::new(ListStagesResponse {
                     stages: r
                 }))
             },

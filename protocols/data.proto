@@ -22,7 +22,7 @@ message DataInfo {
   DataType data_type = 1;
   int32 owner_manage_id = 3;
   string owner_entity_id = 4;
-  repeated string stages = 5;
+  repeated string specs = 5;
 }
 
 // 新建数据
