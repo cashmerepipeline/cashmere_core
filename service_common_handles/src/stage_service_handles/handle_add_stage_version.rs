@@ -44,13 +44,15 @@ pub trait HandleAddStageVersion {
         let query_doc = doc! {
             ID_FIELD_ID.to_string():stage_id,
         };
+        
+        // TODO: 检查版本是否已存在，如果已存在则返回已存在
 
         let field_key = format!("{}.versions", STAGES_VERSIONS_FIELD_ID);
         let mut modify_doc = bson::Document::new();
         modify_doc.insert(field_key, version);
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .add_to_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

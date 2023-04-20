@@ -1,23 +1,22 @@
 use async_trait::async_trait;
 use bson::doc;
-use tonic::{Request, Response, Status};
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use tonic::{Request, Response, Status};
 use view;
 
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleAddFileSequenceToVersion {
-    async fn handle_add_file_set_to_version(
+pub trait HandleRemoveFileFromVersion {
+    async fn handle_remove_files_from_version(
         &self,
-        request: Request<AddFileSequenceToVersionRequest>,
-    ) -> UnaryResponseResult<AddFileSequenceToVersionResponse> {
+        request: Request<RemoveFilesFromVersionRequest>,
+    ) -> UnaryResponseResult<RemoveFilesFromVersionResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -26,43 +25,23 @@ pub trait HandleAddFileSequenceToVersion {
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;
-        let base_name = &request.get_ref().base_name;
-        let start = &request.get_ref().start;
-        let end = &request.get_ref().end;
-        let padding = &request.get_ref().padding;
-        let extension = &request.get_ref().extension;
-
-        // 检查参数
-        if stage_id == "" {
-            return Err(Status::invalid_argument("stage_id 不能为空"));
+        let file_pathes = &request.get_ref().file_pathes;
+        
+        // 输入检查
+        if stage_id.is_empty() {
+            return Err(Status::invalid_argument("阶段ID为空"));
         }
-        if version == "" {
-            return Err(Status::invalid_argument("version 不能为空"));
+        if version.is_empty() {
+            return Err(Status::invalid_argument("版本名为空"));
         }
-        if base_name == "" {
-            return Err(Status::invalid_argument("base_name 不能为空"));
-        }
-        if start < 0 {
-            return Err(Status::invalid_argument("start 不能小于 0"));
-        }
-        if end < 0 {
-            return Err(Status::invalid_argument("end 不能小于 0"));
-        }
-        if end < start {
-            return Err(Status::invalid_argument("end 不能小于 start"));
-        }
-        if padding < 0 {
-            return Err(Status::invalid_argument("padding 不能小于 0"));
-        }
-        if extension == "" {
-            return Err(Status::invalid_argument("extension 不能为空"));
+        if file_pathes.len() == 0 {
+            return Err(Status::invalid_argument("文件路径列表为空"));
         }
 
         if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        // 权限检查
         if !view::can_field_write(
             &account_id,
             &role_group,
@@ -85,19 +64,16 @@ pub trait HandleAddFileSequenceToVersion {
             format!("{}.name", STAGES_VERSIONS_FIELD_ID):version,
         };
 
-        // 创建序列list
-        let seq_vec = vec![base_name, start.to_string(), end.to_string(), padding.to_string(), extension];
-
         let field_key = format!("{}.$.files", STAGES_VERSIONS_FIELD_ID);
         let mut modify_doc = bson::Document::new();
-        modify_doc.insert(field_key, seq_vec);
+        modify_doc.insert(field_key, doc!("$each":file_pathes));
 
         let result = manager
-            .add_entity_to_array_field(query_doc, modify_doc, &account_id)
+            .remove_from_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(AddFileSequenceToVersionResponse {
+            Ok(_r) => Ok(Response::new(RemoveFilesFromVersionResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -108,3 +84,4 @@ pub trait HandleAddFileSequenceToVersion {
         }
     }
 }
+

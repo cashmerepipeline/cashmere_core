@@ -418,7 +418,7 @@ pub struct AddFileToVersionRequest {
     pub file_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileToStageResponse {
+pub struct AddFileToVersionResponse {
     /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
@@ -426,24 +426,27 @@ pub struct AddFileToStageResponse {
 /// 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
 /// 路径在使用时再拼接
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSetToStageRequest {
+pub struct AddFileSetToVersionRequest {
     #[prost(string, tag="1")]
     pub stage_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
+    #[prost(string, tag="2")]
     pub version: ::prost::alloc::string::String,
-    #[prost(bytes="vec", repeated, tag="4")]
-    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    /// 因为不支持嵌套repeated，所以使用“,”分隔的字符串, 形式为["sub_dir, ...,file_name"]
+    #[prost(string, repeated, tag="3")]
+    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSetToStageResponse {
+pub struct AddFileSetToVersionResponse {
     /// 成功返回 "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 数据类型为文件序列时, 序列文件直接存储在版本目录下
-/// 使用规则解析文件路径[base_name, start, end, padding, ext]，不记录所有文件的路径
+/// 使用规则解析文件路径[base_name, start, end, padding, extension]，不记录所有文件的路径
+/// 严格使用这个顺序，不使用类似{base_name: name, start: start, end: end, padding: padding, ext: ext, number_pos: [mid, end]}的格式
+/// 文件、文件集、序列存储形式上一致，易于mongodb文件查询
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSequenceToStageRequest {
+pub struct AddFileSequenceToVersionRequest {
     #[prost(string, tag="1")]
     pub stage_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
@@ -457,11 +460,27 @@ pub struct AddFileSequenceToStageRequest {
     #[prost(int32, tag="2")]
     pub padding: i32,
     #[prost(string, tag="8")]
-    pub ext: ::prost::alloc::string::String,
+    pub extension: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddFileSequenceToStageResponse {
+pub struct AddFileSequenceToVersionResponse {
     /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 从版本中移除多个文件，只支持文件、文件集， 不支持文件序列
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveFilesFromVersionRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveFilesFromVersionResponse {
+    /// 成功返回被删除的文件路径
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }

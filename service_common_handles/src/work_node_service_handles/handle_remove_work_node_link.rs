@@ -57,7 +57,7 @@ pub trait HandleRemoveWorkNodeLink {
         modify_doc.insert(WORK_NODES_LINKS_FIELD_ID.to_string(), link);
 
         let result = manager
-            .pull_entity_array_field(query_doc, modify_doc, &account_id)
+            .remove_from_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

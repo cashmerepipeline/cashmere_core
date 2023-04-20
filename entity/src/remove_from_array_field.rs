@@ -13,7 +13,7 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 ///  列表属性 移除元素
-pub async fn pull_entity_array_field(
+pub async fn remove_from_array_field(
     manage_id: &String,
     query_doc: Document,
     modify_doc: Document,
@@ -51,7 +51,7 @@ pub async fn pull_entity_array_field(
             )),
         },
         Err(_e) => Err(operation_failed(
-            "pull_entity_array_field",
+            "entity::remove_from_array_field",
             format!("删除操作失败{}", query_doc),
         )),
     }

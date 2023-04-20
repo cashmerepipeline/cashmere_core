@@ -67,5 +67,3 @@ pub trait HandleRemoveDataStageVersion {
         }
     }
 }
-
-

@@ -73,7 +73,7 @@ pub trait HandleRemoveAccountFromGroup {
         };
 
         let result = account_manager
-            .pull_entity_array_field(query_doc, modify_doc, &account_id)
+            .remove_from_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

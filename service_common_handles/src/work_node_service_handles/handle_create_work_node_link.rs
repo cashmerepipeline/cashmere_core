@@ -52,7 +52,7 @@ pub trait HandleCreateWorkNodeLink{
         modify_doc.insert(WORK_NODES_LINKS_FIELD_ID.to_string(), link);
 
         let result = manager
-            .push_entity_array_field(
+            .add_to_array_field(
                 query_doc,
                 modify_doc,
                 &account_id,

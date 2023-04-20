@@ -93,7 +93,7 @@ pub trait HandleAddAccountIntoGroup {
         };
 
         let result = account_manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .add_to_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

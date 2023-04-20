@@ -58,35 +58,49 @@ message AddFileToVersionRequest {
   string version = 2;
   repeated string file_path = 3;
 } 
-message AddFileToStageResponse {
+message AddFileToVersionResponse {
   // 成功返回 "ok"
   string result = 1;
 }
 
 // 添加文件到数据阶段，文件路径以版本路径为根，<version_root>/["sub_dir", ..., "file_name"]
 // 路径在使用时再拼接
-message AddFileSetToStageRequest {
+message AddFileSetToVersionRequest {
   string stage_id = 1;
-  string version = 3;
-  repeated bytes file_pathes = 4;
+  string version = 2;
+  // 因为不支持嵌套repeated，所以使用“,”分隔的字符串, 形式为["sub_dir, ...,file_name"]
+  repeated string file_pathes = 3;
 }
-message AddFileSetToStageResponse {
+message AddFileSetToVersionResponse {
   // 成功返回 "ok"
   string result = 1;
 }
 
 // 数据类型为文件序列时, 序列文件直接存储在版本目录下
-// 使用规则解析文件路径[base_name, start, end, padding, ext]，不记录所有文件的路径
-message AddFileSequenceToStageRequest {
+// 使用规则解析文件路径[base_name, start, end, padding, extension]，不记录所有文件的路径
+// 严格使用这个顺序，不使用类似{base_name: name, start: start, end: end, padding: padding, ext: ext, number_pos: [mid, end]}的格式
+// 文件、文件集、序列存储形式上一致，易于mongodb文件查询
+message AddFileSequenceToVersionRequest {
   string stage_id = 1;
   string version = 3;
   string base_name = 7;
   int32 start = 5;
   int32 end = 6;
   int32 padding=2;
-  string ext = 8;
+  string extension = 8;
 }
-message AddFileSequenceToStageResponse {
+message AddFileSequenceToVersionResponse {
   // 成功返回 "ok"
+  string result = 1;
+}
+
+// 从版本中移除多个文件，只支持文件、文件集， 不支持文件序列
+message RemoveFilesFromVersionRequest {
+  string stage_id = 1;
+  string version = 2;
+  repeated string file_pathes = 3;
+}
+message RemoveFilesFromVersionResponse {
+  // 成功返回被删除的文件路径
   string result = 1;
 }

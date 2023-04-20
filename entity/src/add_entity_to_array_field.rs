@@ -13,8 +13,9 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-///  添加单个新元素
-pub async fn push_entity_array_field(
+///  添加实体到数组字段
+/// 数组相当于集合，不会重复添加
+pub async fn add_entity_to_array_field(
     manage_id: &String,
     query_doc: Document,
     modify_doc: Document,

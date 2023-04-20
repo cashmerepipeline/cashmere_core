@@ -68,7 +68,7 @@ pub trait HandleEditEntityArrayFieldRemoveItems {
         modify_doc.insert(field_id, doc! {"$in":b_items.clone()});
         
         let result = manager
-            .pull_entity_array_field(query_doc, modify_doc, &account_id)
+            .remove_from_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

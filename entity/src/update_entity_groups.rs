@@ -33,5 +33,5 @@ pub async fn update_entity_groups(
         GROUPS_FIELD_ID.to_string(): { "$each":new_groups}
     };
 
-    crate::push_entity_array_field::push_entity_array_field(manage_id, query_doc, modify_doc, account_id).await
+    crate::add_entity_to_array_field::add_entity_to_array_field(manage_id, query_doc, modify_doc, account_id).await
 }

@@ -65,7 +65,7 @@ pub trait HandleNewData {
                     let query_doc = doc! {ID_FIELD_ID.to_string(): entity_id.clone()};
                     let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id.clone()};
 
-                    associated_manager.push_entity_array_field(query_doc, modify_doc, &account_id)
+                    associated_manager.add_to_array_field(query_doc, modify_doc, &account_id)
                 })
                 .await;
 

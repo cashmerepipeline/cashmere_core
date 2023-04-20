@@ -31,8 +31,8 @@ pub use get_entity_owner::*;
 pub use get_new_entity_id::*;
 pub use insert_entity::*;
 pub use insert_entity_map_field::*;
-pub use pull_entity_array_field::*;
-pub use push_entity_array_field::*;
+pub use remove_from_array_field::*;
+pub use add_entity_to_array_field::*;
 pub use update_entity_array_element_field::*;
 pub use update_entity_array_map_field::*;
 pub use update_entity_field::*;
@@ -51,8 +51,8 @@ mod change_entity_owner;
 mod update_entity_groups;
 mod update_entity_field;
 
-mod push_entity_array_field;
-mod pull_entity_array_field;
+mod add_entity_to_array_field;
+mod remove_from_array_field;
 mod update_entity_array_element_field;
 mod update_entity_array_map_field;
 

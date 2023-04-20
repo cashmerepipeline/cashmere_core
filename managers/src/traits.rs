@@ -272,7 +272,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             MANAGES_SCHEMA_FIELD_ID.to_string():value
         };
 
-        match entity::push_entity_array_field(
+        match entity::add_entity_to_array_field(
             &MANAGES_MANAGE_ID.to_string(),
             query_doc,
             modify_doc,
@@ -582,15 +582,15 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     //-------------------------
     //  数组属性操作
-    /// 添加数组元素
-    async fn push_entity_array_field(
+    /// 添加数组元素, 不重复
+    async fn add_to_array_field(
         &self,
         query_doc: Document,
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
-        match entity::push_entity_array_field(
+        match entity::add_entity_to_array_field(
             &manage_id.to_string(),
             query_doc,
             modify_doc,
@@ -604,14 +604,14 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     /// 移除数组元素
-    async fn pull_entity_array_field(
+    async fn remove_from_array_field(
         &self,
         query_doc: Document,
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
-        match entity::pull_entity_array_field(
+        match entity::remove_from_array_field(
             &manage_id.to_string(),
             query_doc,
             modify_doc,
@@ -622,7 +622,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
-                "pull_entity_array_field".to_string(),
+                "manager::remove_from_array_field".to_string(),
             )),
         }
     }

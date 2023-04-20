@@ -68,7 +68,7 @@ pub trait HandleEditEntityArrayFieldAddItems {
         modify_doc.insert(field_id, doc! {"$each":b_items.clone()});
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .add_to_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
