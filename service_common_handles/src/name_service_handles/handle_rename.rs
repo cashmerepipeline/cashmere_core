@@ -4,6 +4,8 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
@@ -13,17 +15,13 @@ pub trait HandleRename {
         &self,
         request: Request<RenameRequest>,
     ) -> Result<Response<RenameResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) = request_account_context(&request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
         let new_name = &request.get_ref().new_name;
 
-        if new_name.is_none(){
+        if new_name.is_none() {
             return Err(Status::aborted("名字不能为空"));
         }
         let language = &new_name.as_ref().unwrap().language;
@@ -32,29 +30,33 @@ pub trait HandleRename {
         if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
-        
+
         // 集合可写性检查
         if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
         // 检查属性是否可写
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), &NAME_MAP_FIELD_ID.to_string()).await {
+        if !view::can_field_write(
+            &account_id,
+            &role_group,
+            &manage_id.to_string(),
+            &NAME_MAP_FIELD_ID.to_string(),
+        )
+        .await
+        {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
-            .get_manager_by_id(*manage_id)
-            .await
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
         let query_doc = doc! {
-                    ID_FIELD_ID.to_string():entity_id
-                };
+            ID_FIELD_ID.to_string():entity_id
+        };
         let modify_doc = doc! {
-                    format!("{}.{}", NAME_MAP_FIELD_ID, language):new_name.clone()
-                };
+            format!("{}.{}", NAME_MAP_FIELD_ID, language):new_name.clone()
+        };
 
         let result = manager
             .update_entity_map_field(query_doc, modify_doc, &account_id)

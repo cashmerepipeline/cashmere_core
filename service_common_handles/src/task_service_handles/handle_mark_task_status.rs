@@ -6,6 +6,8 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
@@ -15,23 +17,14 @@ pub trait HandleMarkTaskStatus {
         &self,
         request: Request<MarkTaskStatusRequest>,
     ) -> Result<Response<MarkTaskStatusResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let task_id = &request.get_ref().task_id;
         let status_set_id = &request.get_ref().status_set_id;
         let status_index = &request.get_ref().status_index;
 
-        if !view::can_entity_write(
-            &account_id,
-            &role_group,
-            &TASKS_MANAGE_ID.to_string(),
-        )
-        .await
-        {
+        if !view::can_entity_write(&account_id, &role_group, &TASKS_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
@@ -50,11 +43,7 @@ pub trait HandleMarkTaskStatus {
         };
 
         let result = task_manager
-            .update_entity_field(
-                query_doc,
-                modify_doc,
-                &account_id,
-            )
+            .update_entity_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

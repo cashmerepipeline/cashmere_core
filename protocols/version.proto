@@ -104,3 +104,36 @@ message RemoveFilesFromVersionResponse {
   // 成功返回被删除的文件路径
   string result = 1;
 }
+
+// 列出版本文件目录下的文件和文件夹
+message ListVersionFolderRequest {
+  string stage_id = 1;
+  string version = 2;
+}
+message ListVersionFolderResponse {
+  // 文件夹
+  repeated string folders = 1;
+  // 文件
+  repeated string files = 2;
+}
+
+// 清理版本目录下的文件或文件夹，不在版本文件列表中的文件或文件夹将被删除
+message CleanUpVersionFolderRequest {
+  string stage_id = 1;
+  string version = 2;
+}
+message CleanUpVersionFolderResponse {
+  // 成功返回被删除的文件路径
+  repeated string result = 1;
+}
+
+// 删除版本目录下的文件或文件夹，若文件或文件夹在版本文件列表中，否则返回，不做任何操作
+message DeleteVersionFolderEntriesRequest {
+  string stage_id = 1;
+  string version = 2;
+  repeated string file_pathes = 3;
+}
+message DeleteVersionFolderEntriesResponse {
+  // 成功返回被删除的文件路径
+  repeated string result = 1;
+}

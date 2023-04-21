@@ -1,12 +1,14 @@
-use async_trait::async_trait;
-use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
+use tokio::sync::mpsc;
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tonic::{Response, Status};
 use futures::FutureExt;
 use log::info;
+use async_trait::async_trait;
+
+use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
-use tokio::sync::mpsc;
-use tokio_stream::{StreamExt, wrappers::ReceiverStream};
-use tonic::{Response, Status};
+use request_utils::request_account_context;
 use view;
 
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
@@ -17,11 +19,8 @@ pub trait HandleDownloadFile {
         &self,
         request: RequestStream<DownloadFileRequest>,
     ) -> StreamResponseResult<DownloadFileResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
@@ -118,8 +117,8 @@ pub trait HandleDownloadFile {
                 chunk_md5: get_chunk_md5(&current_chunk),
                 chunk: vec![],
             };
-            
-            if let Err(e) = resp_tx.send(Ok(first_resp.clone())).await{
+
+            if let Err(e) = resp_tx.send(Ok(first_resp.clone())).await {
                 return Err(Status::aborted(format!("{}: {e}", t!("返回文件信息错误"))));
             };
 

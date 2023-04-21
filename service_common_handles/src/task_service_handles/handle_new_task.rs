@@ -7,6 +7,8 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
@@ -16,11 +18,8 @@ pub trait HandleNewTask {
         &self,
         request: Request<NewTaskRequest>,
     ) -> Result<Response<NewTaskResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let work_node_id = &request.get_ref().work_node_id;
 
@@ -37,16 +36,17 @@ pub trait HandleNewTask {
 
         let mut new_doc = make_new_entity_document(&task_manager).await.unwrap();
         new_doc.insert(TASKS_WORK_NODE_ID_FIELD_ID.to_string(), work_node_id);
-        let new_id = new_doc.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
+        let new_id = new_doc
+            .get_str(ID_FIELD_ID.to_string())
+            .unwrap()
+            .to_string();
 
         let result = task_manager
             .sink_entity(&mut new_doc, &account_id, &role_group)
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewTaskResponse {
-                result: new_id,
-            })),
+            Ok(r) => Ok(Response::new(NewTaskResponse { result: new_id })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),

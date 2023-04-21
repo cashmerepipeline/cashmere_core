@@ -15,10 +15,10 @@ import "specs.proto";
 import "stage.proto";
 import "version.proto";
 import "prefab.proto";
-
 import "file_transfer.proto";
 import "sequence_data.proto";
 import "set_data.proto";
+
 import "area.proto";
 import "entity.proto";
 import "manage.proto";

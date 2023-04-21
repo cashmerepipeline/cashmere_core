@@ -7,6 +7,8 @@ use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
@@ -17,11 +19,8 @@ pub trait HandleNewLanguageCode {
         &self,
         request: Request<NewLanguageCodeRequest>,
     ) -> Result<Response<NewLanguageCodeResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let name = &request.get_ref().name;
         let code = &request.get_ref().code;
@@ -42,7 +41,11 @@ pub trait HandleNewLanguageCode {
         // TODO: 检查语言编号是否存在
         let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
         if manager.entity_exists(&query_doc).await {
-            return Err(Status::already_exists(format!("{}: {}", t!("语言已经存在"), code)));
+            return Err(Status::already_exists(format!(
+                "{}: {}",
+                t!("语言已经存在"),
+                code
+            )));
         }
 
         if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
@@ -59,9 +62,7 @@ pub trait HandleNewLanguageCode {
                 .await;
 
             match result {
-                Ok(r) => Ok(Response::new(NewLanguageCodeResponse {
-                    result: r,
-                })),
+                Ok(r) => Ok(Response::new(NewLanguageCodeResponse { result: r })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",
                     e.operation(),

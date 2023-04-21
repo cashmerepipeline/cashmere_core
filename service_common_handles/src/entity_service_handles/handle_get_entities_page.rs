@@ -3,7 +3,10 @@ use bson::{doc, Document};
 use majordomo::{self, get_majordomo};
 use manage_define::{cashmere::*, general_field_ids::ENTITY_REMOVED_FIELD_ID};
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
+
 use view::{add_query_filters, get_manage_schema_view};
 
 use crate::UnaryResponseResult;
@@ -15,11 +18,8 @@ pub trait HandleGetEntitiesPage {
         &self,
         request: Request<GetEntitiesPageRequest>,
     ) -> UnaryResponseResult<GetEntitiesPageResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let page_index = &request.get_ref().page_index;
@@ -78,7 +78,7 @@ pub trait HandleGetEntitiesPage {
         // zh: 从1开始，
         let index = if *page_index <= 0u32 {
             1u32
-        }else {
+        } else {
             *page_index
         };
 
@@ -88,12 +88,7 @@ pub trait HandleGetEntitiesPage {
 
         match result {
             Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
-                entities: entities
-                    .iter()
-                    .map(|x| {
-                        bson::to_vec(x).unwrap()
-                    })
-                    .collect(),
+                entities: entities.iter().map(|x| bson::to_vec(x).unwrap()).collect(),
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

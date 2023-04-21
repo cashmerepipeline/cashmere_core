@@ -7,11 +7,13 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
-use crate::UnaryResponseResult;
 use crate::name_utils::validate_name;
+use crate::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleNewStage {
@@ -19,11 +21,8 @@ pub trait HandleNewStage {
         &self,
         request: Request<NewStageRequest>,
     ) -> UnaryResponseResult<NewStageResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let specs_id = &request.get_ref().specs_id;
         let name = &request.get_ref().stage_name;
@@ -45,27 +44,30 @@ pub trait HandleNewStage {
             .unwrap();
 
         // 新建条目
-        let mut new_entity_doc = if let Some(r) = make_new_entity_document(&manager).await{
+        let mut new_entity_doc = if let Some(r) = make_new_entity_document(&manager).await {
             r
-        } else{
-            return Err(Status::aborted(format!("{}: 管理 {}", t!("新建实体文档失败"), SPECSES_MANAGE_ID)));
+        } else {
+            return Err(Status::aborted(format!(
+                "{}: 管理 {}",
+                t!("新建实体文档失败"),
+                SPECSES_MANAGE_ID
+            )));
         };
 
-        new_entity_doc.insert(
-            STAGES_SPECS_ID_FIELD_ID.to_string(),
-            specs_id.clone(),
-        );
+        new_entity_doc.insert(STAGES_SPECS_ID_FIELD_ID.to_string(), specs_id.clone());
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 
-        let new_id = new_entity_doc.get_str(ID_FIELD_ID.to_string()).unwrap().to_owned();
+        let new_id = new_entity_doc
+            .get_str(ID_FIELD_ID.to_string())
+            .unwrap()
+            .to_owned();
 
         let result = manager
-            .sink_entity(&mut new_entity_doc, &account_id, &role_group).await;
+            .sink_entity(&mut new_entity_doc, &account_id, &role_group)
+            .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewStageResponse {
-                result: new_id,
-            })),
+            Ok(_r) => Ok(Response::new(NewStageResponse { result: new_id })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),

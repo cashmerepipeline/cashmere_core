@@ -7,6 +7,8 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
+use request_utils::request_account_context;
+
 use tonic::{Request, Response, Status};
 use view;
 
@@ -16,16 +18,15 @@ pub trait HandleNewProcedure {
         &self,
         request: Request<NewProcedureRequest>,
     ) -> Result<Response<NewProcedureResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let template_id = &request.get_ref().template_id;
         let name = &request.get_ref().name;
 
-        if !view::can_collection_write(&account_id, &role_group, &PROCEDURES_MANAGE_ID.to_string()).await {
+        if !view::can_collection_write(&account_id, &role_group, &PROCEDURES_MANAGE_ID.to_string())
+            .await
+        {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
@@ -40,11 +41,13 @@ pub trait HandleNewProcedure {
         let local_name = match name {
             Some(n) => n,
             None => {
-                return Err(Status::aborted(format!("没有指定名称--{}", PROCEDURES_MANAGE_ID)));
+                return Err(Status::aborted(format!(
+                    "没有指定名称--{}",
+                    PROCEDURES_MANAGE_ID
+                )));
             }
         };
         let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
-
 
         // 新过程
         if let Some(mut new_doc) = make_new_entity_document(&manager).await {
@@ -55,11 +58,9 @@ pub trait HandleNewProcedure {
                 .await;
 
             match result {
-                Ok(r) => {
-                    Ok(Response::new(NewProcedureResponse {
-                        result: "ok".to_string(),
-                    }))
-                }
+                Ok(r) => Ok(Response::new(NewProcedureResponse {
+                    result: "ok".to_string(),
+                })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",
                     e.operation(),
@@ -71,4 +72,3 @@ pub trait HandleNewProcedure {
         }
     }
 }
-

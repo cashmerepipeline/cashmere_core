@@ -6,6 +6,8 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
+
 use prost::bytes::Buf;
 use tonic::{Request, Response, Status};
 use view;
@@ -19,11 +21,8 @@ pub trait HandleEditEntityMapFieldRemoveKey {
         &self,
         request: Request<EditEntityMapFieldRemoveKeyRequest>,
     ) -> UnaryResponseResult<EditEntityMapFieldRemoveKeyResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
@@ -38,15 +37,13 @@ pub trait HandleEditEntityMapFieldRemoveKey {
             return Err(Status::permission_denied("用户不具有实体可写权限"));
         }
 
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await {
+        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
+        {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
-            .get_manager_by_id(*manage_id)
-            .await
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
 
         let query_doc = doc! {
             ID_FIELD_ID.to_string():entity_id,
@@ -70,5 +67,3 @@ pub trait HandleEditEntityMapFieldRemoveKey {
         }
     }
 }
-
-

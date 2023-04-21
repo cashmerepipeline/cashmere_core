@@ -1,16 +1,17 @@
 use async_trait::async_trait;
+use tokio::sync::mpsc;
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tonic::{Response, Status};
+
 use data_server::file_utils::{check_chunk_md5, create_recieve_data_file_stream};
 use data_server::ResumePoint;
-use data_server::UploadDelegator;
-use futures::FutureExt;
 use log::{debug, error, info};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
-use serde::Serialize;
-use tokio::sync::mpsc;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tonic::{Response, Status};
+use request_utils::request_account_context;
+
+
 use view;
 
 use crate::{RequestStream, ResponseStream, StreamResponseResult};
@@ -21,11 +22,8 @@ pub trait HandleUploadFile {
         &self,
         request: RequestStream<UploadFileRequest>,
     ) -> StreamResponseResult<UploadFileResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
@@ -54,10 +52,9 @@ pub trait HandleUploadFile {
             return Err(Status::unauthenticated(t!("用户不具有可写权限")));
         }
 
-
         // 请求上传文件代理
         let data_server_arc = data_server::get_data_server();
-        
+
         // TODO: 查询目标文件md5，如果相等，直接返回成功
         // 对于大文件生成md5比较耗时，所以客户端可以根据需要优化md5的生成, 一般不需要全文件md5
 

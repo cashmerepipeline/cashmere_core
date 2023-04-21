@@ -3,6 +3,8 @@ use bson::doc;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
+
 use tokio_stream::{self as stream, StreamExt};
 use tonic::{Request, Response, Status};
 use view::{self, can_field_read};
@@ -16,11 +18,8 @@ pub trait HandleGetEntity {
         &self,
         request: Request<GetEntityRequest>,
     ) -> UnaryResponseResult<GetEntityResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(&request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
@@ -52,10 +51,10 @@ pub trait HandleGetEntity {
                 let mut property_stream = stream::iter(r);
                 while let Some((k, v)) = property_stream.next().await {
                     if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
-                        if k=="_id".to_string(){
+                        if k == "_id".to_string() {
                             result_doc.insert(k, v);
                         }
-                        continue
+                        continue;
                     }
                     result_doc.insert(k, v);
                 }

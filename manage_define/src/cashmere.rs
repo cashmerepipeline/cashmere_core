@@ -484,6 +484,53 @@ pub struct RemoveFilesFromVersionResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 列出版本文件目录下的文件和文件夹
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListVersionFolderRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListVersionFolderResponse {
+    /// 文件夹
+    #[prost(string, repeated, tag="1")]
+    pub folders: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 文件
+    #[prost(string, repeated, tag="2")]
+    pub files: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 清理版本目录下的文件或文件夹，不在版本文件列表中的文件或文件夹将被删除
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CleanUpVersionFolderRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub version: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CleanUpVersionFolderResponse {
+    /// 成功返回被删除的文件路径
+    #[prost(string, repeated, tag="1")]
+    pub result: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 删除版本目录下的文件或文件夹，若文件或文件夹在版本文件列表中，否则返回，不做任何操作
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteVersionFolderEntriesRequest {
+    #[prost(string, tag="1")]
+    pub stage_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub file_pathes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteVersionFolderEntriesResponse {
+    /// 成功返回被删除的文件路径
+    #[prost(string, repeated, tag="1")]
+    pub result: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
 /// 数据阶段信息
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -543,9 +590,16 @@ pub struct ListStagesResponse {
 pub struct NewPrefabRequest {
     #[prost(string, tag="1")]
     pub specs_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="2")]
-    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag="2")]
+    pub stage_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="4")]
+    pub name: ::core::option::Option<Name>,
+    /// 使用bson格式存储修改信息
+    #[prost(bytes="vec", tag="5")]
+    pub modifies: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="6")]
     pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
