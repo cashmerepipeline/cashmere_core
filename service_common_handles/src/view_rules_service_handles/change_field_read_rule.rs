@@ -3,13 +3,12 @@ use bson::doc;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::{
-    LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID, VIEW_RULES_COLLECTION_FIELD_ID,
-    VIEW_RULES_ENTITY_FIELD_ID, VIEW_RULES_MANAGE_FIELD_ID,
+    VIEW_RULES_ENTITY_FIELD_ID,
 };
 use manage_define::general_field_ids::ID_FIELD_ID;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
+
 use request_utils::request_account_context;
 
 use tonic::{Request, Response, Status};
@@ -24,7 +23,7 @@ pub trait HandleChangeFieldReadrule {
         request: Request<ChangeFieldReadRuleRequest>,
     ) -> Result<Response<ChangeFieldReadRuleResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;

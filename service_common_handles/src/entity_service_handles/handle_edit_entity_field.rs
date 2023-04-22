@@ -5,7 +5,7 @@ use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
+
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
@@ -23,7 +23,7 @@ pub trait HandleEditEntityField {
         request: Request<EditEntityFieldRequest>,
     ) -> UnaryResponseResult<EditEntityFieldResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;

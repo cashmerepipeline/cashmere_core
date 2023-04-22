@@ -5,7 +5,7 @@ use tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
@@ -21,7 +21,7 @@ pub trait HandleListStages {
         request: Request<ListStagesRequest>,
     ) -> UnaryResponseResult<ListStagesResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let specs_id = &request.get_ref().specs_id;
 

@@ -6,7 +6,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::ID_FIELD_ID;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
+
 use request_utils::request_account_context;
 
 use tonic::{Request, Response, Status};
@@ -21,7 +21,7 @@ pub trait HandleChangeManageReadrule {
         request: Request<ChangeManageReadRuleRequest>,
     ) -> Result<Response<ChangeManageReadRuleResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;

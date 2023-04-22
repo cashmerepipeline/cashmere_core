@@ -19,7 +19,7 @@ pub trait HandleGetEntity {
         request: Request<GetEntityRequest>,
     ) -> UnaryResponseResult<GetEntityResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
@@ -51,7 +51,7 @@ pub trait HandleGetEntity {
                 let mut property_stream = stream::iter(r);
                 while let Some((k, v)) = property_stream.next().await {
                     if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
-                        if k == "_id".to_string() {
+                        if k == *"_id" {
                             result_doc.insert(k, v);
                         }
                         continue;

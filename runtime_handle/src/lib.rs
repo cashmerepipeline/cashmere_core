@@ -33,11 +33,3 @@ pub fn get_runtime_handle() -> Handle {
     }
 }
 
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}

@@ -18,7 +18,7 @@ pub trait HandleMarkTaskStatus {
         request: Request<MarkTaskStatusRequest>,
     ) -> Result<Response<MarkTaskStatusResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let task_id = &request.get_ref().task_id;
         let status_set_id = &request.get_ref().status_set_id;

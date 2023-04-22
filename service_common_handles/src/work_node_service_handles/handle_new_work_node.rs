@@ -4,7 +4,7 @@ use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
+
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
@@ -19,9 +19,9 @@ pub trait HandleNewWorkNode {
         request: Request<NewWorkNodeRequest>,
     ) -> Result<Response<NewWorkNodeResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
-        let phase_id = &request.get_ref().phase_id;
+        let _phase_id = &request.get_ref().phase_id;
         let name = &request.get_ref().name;
 
         if !view::can_collection_write(&account_id, &role_group, &WORK_NODES_MANAGE_ID.to_string())
@@ -55,7 +55,7 @@ pub trait HandleNewWorkNode {
                 .await;
 
             match result {
-                Ok(r) => Ok(Response::new(NewWorkNodeResponse {
+                Ok(_r) => Ok(Response::new(NewWorkNodeResponse {
                     result: "ok".to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(

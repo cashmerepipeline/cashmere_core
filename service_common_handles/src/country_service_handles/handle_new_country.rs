@@ -20,7 +20,7 @@ pub trait HandleNewCountry {
         &self,
         request: Request<NewCountryRequest>,
     ) -> UnaryResponseResult<NewCountryResponse> {
-                let (account_id, _groups, role_group ) = request_account_context(&request.metadata());
+                let (account_id, _groups, role_group ) = request_account_context(request.metadata());
 
 
         let name = &request.get_ref().name;
@@ -71,7 +71,7 @@ pub trait HandleNewCountry {
                 .await;
 
             match result {
-                Ok(r) => Ok(Response::new(NewCountryResponse {
+                Ok(_r) => Ok(Response::new(NewCountryResponse {
                     result: code.to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(

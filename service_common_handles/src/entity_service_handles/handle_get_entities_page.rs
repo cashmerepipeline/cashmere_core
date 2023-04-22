@@ -19,7 +19,7 @@ pub trait HandleGetEntitiesPage {
         request: Request<GetEntitiesPageRequest>,
     ) -> UnaryResponseResult<GetEntitiesPageResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let page_index = &request.get_ref().page_index;
@@ -62,7 +62,7 @@ pub trait HandleGetEntitiesPage {
         let fields = manager.get_manage_schema().await;
         let schema_projects =
             get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
-        let project_doc = if schema_projects.len() > 0 {
+        let project_doc = if !schema_projects.is_empty() {
             // 只加入不可见字段
             let mut no_show_project = Document::new();
             schema_projects.iter().for_each(|(k, v)| {

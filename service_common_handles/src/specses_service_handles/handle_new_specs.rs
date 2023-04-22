@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
+use bson::{doc};
 use tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
@@ -22,7 +22,7 @@ pub trait HandleNewSpecs {
         request: Request<NewSpecsRequest>,
     ) -> UnaryResponseResult<NewSpecsResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let data_id = &request.get_ref().data_id;
         let name = &request.get_ref().name;
@@ -31,7 +31,13 @@ pub trait HandleNewSpecs {
         if validate_name(name).is_err() {
             return Err(Status::data_loss(format!("{}", t!("名字不能为空"))));
         }
-        let name = name.as_ref().unwrap();
+        let local_name = match name {
+            Some(n) => n,
+            None => {
+                return Err(Status::aborted(format!("没有指定名称--{}", data_id)));
+            }
+        };
+        let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
 
         if !view::can_collection_write(&account_id, &role_group, &SPECSES_MANAGE_ID.to_string())
             .await
@@ -60,6 +66,7 @@ pub trait HandleNewSpecs {
         };
 
         new_entity_doc.insert(SPECSES_DATA_ID_FIELD_ID.to_string(), data_id.clone());
+        new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 
         let new_specs_result = specs_manager

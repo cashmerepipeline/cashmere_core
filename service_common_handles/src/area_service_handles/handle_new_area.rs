@@ -20,7 +20,7 @@ pub trait HandleNewArea {
         &self,
         request: Request<NewAreaRequest>,
     ) -> UnaryResponseResult<NewAreaResponse> {
-                let (account_id, _groups, role_group ) = request_account_context(&request.metadata());
+                let (account_id, _groups, role_group ) = request_account_context(request.metadata());
 
 
         let parent_id = &request.get_ref().parent_id;

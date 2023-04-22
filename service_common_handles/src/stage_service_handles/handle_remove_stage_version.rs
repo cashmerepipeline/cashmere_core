@@ -6,7 +6,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
+
 use tonic::{Request, Response, Status};
 use view;
 use request_utils::request_account_context;
@@ -20,7 +20,7 @@ pub trait HandleRemoveStageVersion {
         request: Request<RemoveStageVersionRequest>,
     ) -> UnaryResponseResult<RemoveStageVersionResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;

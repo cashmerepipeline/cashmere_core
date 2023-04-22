@@ -8,6 +8,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
 use view;
 
 use crate::UnaryResponseResult;
@@ -18,11 +19,8 @@ pub trait HandleAddFileSequenceToVersion {
         &self,
         request: Request<AddFileSequenceToVersionRequest>,
     ) -> UnaryResponseResult<AddFileSequenceToVersionResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) =
+            request_account_context(request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;
@@ -33,13 +31,13 @@ pub trait HandleAddFileSequenceToVersion {
         let extension = &request.get_ref().extension;
 
         // 检查参数
-        if stage_id == "" {
+        if stage_id.is_empty() {
             return Err(Status::invalid_argument("stage_id 不能为空"));
         }
-        if version == "" {
+        if version.is_empty() {
             return Err(Status::invalid_argument("version 不能为空"));
         }
-        if base_name == "" {
+        if base_name.is_empty() {
             return Err(Status::invalid_argument("base_name 不能为空"));
         }
         if start < &0 {
@@ -54,7 +52,7 @@ pub trait HandleAddFileSequenceToVersion {
         if padding < &0 {
             return Err(Status::invalid_argument("padding 不能小于 0"));
         }
-        if extension == "" {
+        if extension.is_empty() {
             return Err(Status::invalid_argument("extension 不能为空"));
         }
 

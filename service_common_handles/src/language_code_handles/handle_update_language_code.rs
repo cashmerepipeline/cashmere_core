@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use bson::{doc, Document};
+use bson::{doc};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
@@ -18,7 +18,7 @@ pub trait HandleEditLanguageCode {
         request: Request<EditLanguageCodeRequest>,
     ) -> Result<Response<EditLanguageCodeResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let id = &request.get_ref().id;
         let new_code = &request.get_ref().new_code;

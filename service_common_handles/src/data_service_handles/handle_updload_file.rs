@@ -3,10 +3,10 @@ use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
 
-use data_server::file_utils::{check_chunk_md5, create_recieve_data_file_stream};
+use data_server::file_utils::{check_chunk_md5};
 use data_server::ResumePoint;
 use log::{debug, error, info};
-use majordomo::{self, get_majordomo};
+
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
 use request_utils::request_account_context;
@@ -23,7 +23,7 @@ pub trait HandleUploadFile {
         request: RequestStream<UploadFileRequest>,
     ) -> StreamResponseResult<UploadFileResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
@@ -197,7 +197,7 @@ pub trait HandleUploadFile {
                                     return Err(Status::data_loss(t!("发送文件流失败。")));
                                 }
                                 // 下一个数据块编号, 如果超过最大值则返回0，标志文件传输完成
-                                next_chunk_index = next_chunk_index + 1;
+                                next_chunk_index += 1;
                                 resume_chunk_md5 = v.chunk_md5;
                                 retry_count = 0;
                             } else {
@@ -205,7 +205,7 @@ pub trait HandleUploadFile {
 
                                 // 不改变数据块编号
 
-                                retry_count = retry_count + 1;
+                                retry_count += 1;
                                 // 重试次数超过5次则退出
                                 if retry_count > 5 {
                                     resp_tx
@@ -249,7 +249,7 @@ pub trait HandleUploadFile {
                             };
                         }
 
-                        ()
+                        
                     }
                     Err(_err) => {
                         // 记录续传点

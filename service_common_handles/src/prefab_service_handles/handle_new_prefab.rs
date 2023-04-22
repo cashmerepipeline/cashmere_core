@@ -19,12 +19,12 @@ pub trait HandleNewPrefab{
         &self,
         request: Request<NewPrefabRequest>,
     ) -> UnaryResponseResult<NewPrefabResponse> {
-        let (account_id, _groups, role_group ) = request_account_context(&request.metadata());
+        let (account_id, _groups, role_group ) = request_account_context(request.metadata());
 
         let name = &request.get_ref().name;
         let specs_id = &request.get_ref().specs_id;
-        let stage_id = &request.get_ref().stage_id;
-        let modifies = &request.get_ref().modifies;
+        let _stage_id = &request.get_ref().stage_id;
+        let _modifies = &request.get_ref().modifies;
         let description = &request.get_ref().description;
 
         if !view::can_collection_write(&account_id, &role_group, &PREFABS_MANAGE_ID.to_string())

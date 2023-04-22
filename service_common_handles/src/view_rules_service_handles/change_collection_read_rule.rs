@@ -20,7 +20,7 @@ pub trait HandleChangeCollectionReadrule {
         request: Request<ChangeCollectionReadRuleRequest>,
     ) -> Result<Response<ChangeCollectionReadRuleResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;

@@ -19,13 +19,13 @@ pub trait HandleCreateWorkNodeLink {
         request: Request<CreateWorkNodeLinkRequest>,
     ) -> UnaryResponseResult<CreateWorkNodeLinkResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let phase_id = &request.get_ref().phase_id;
         let start_node_id = &request.get_ref().start_node_id;
-        let out_slot = &request.get_ref().out_slot;
-        let end_node_id = &request.get_ref().end_node_id;
-        let in_slot = &request.get_ref().in_slot;
+        let _out_slot = &request.get_ref().out_slot;
+        let _end_node_id = &request.get_ref().end_node_id;
+        let _in_slot = &request.get_ref().in_slot;
 
         if !view::can_entity_write(&account_id, &role_group, &WORK_NODES_MANAGE_ID.to_string())
             .await
@@ -56,7 +56,7 @@ pub trait HandleCreateWorkNodeLink {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(CreateWorkNodeLinkResponse {
+            Ok(_r) => Ok(Response::new(CreateWorkNodeLinkResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

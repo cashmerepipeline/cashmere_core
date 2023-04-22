@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use bson::doc;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
+
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
@@ -19,9 +19,9 @@ pub trait HandleNewProcedure {
         request: Request<NewProcedureRequest>,
     ) -> Result<Response<NewProcedureResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
-        let template_id = &request.get_ref().template_id;
+        let _template_id = &request.get_ref().template_id;
         let name = &request.get_ref().name;
 
         if !view::can_collection_write(&account_id, &role_group, &PROCEDURES_MANAGE_ID.to_string())
@@ -58,7 +58,7 @@ pub trait HandleNewProcedure {
                 .await;
 
             match result {
-                Ok(r) => Ok(Response::new(NewProcedureResponse {
+                Ok(_r) => Ok(Response::new(NewProcedureResponse {
                     result: "ok".to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(

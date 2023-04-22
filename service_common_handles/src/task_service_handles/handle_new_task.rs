@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use bson::doc;
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -19,7 +19,7 @@ pub trait HandleNewTask {
         request: Request<NewTaskRequest>,
     ) -> Result<Response<NewTaskResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let work_node_id = &request.get_ref().work_node_id;
 
@@ -46,7 +46,7 @@ pub trait HandleNewTask {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewTaskResponse { result: new_id })),
+            Ok(_r) => Ok(Response::new(NewTaskResponse { result: new_id })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),

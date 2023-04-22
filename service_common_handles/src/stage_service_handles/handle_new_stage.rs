@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use bson::doc;
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -22,7 +22,7 @@ pub trait HandleNewStage {
         request: Request<NewStageRequest>,
     ) -> UnaryResponseResult<NewStageResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let specs_id = &request.get_ref().specs_id;
         let name = &request.get_ref().stage_name;
@@ -31,7 +31,7 @@ pub trait HandleNewStage {
         if validate_name(name).is_err() {
             return Err(Status::data_loss(format!("{}", t!("名字不能为空"))));
         }
-        let name = name.as_ref().unwrap();
+        let _name = name.as_ref().unwrap();
 
         if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));

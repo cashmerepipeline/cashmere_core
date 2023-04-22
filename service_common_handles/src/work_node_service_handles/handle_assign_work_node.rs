@@ -3,7 +3,7 @@ use bson::doc;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
@@ -17,12 +17,12 @@ pub trait HandleAssignWorkNode {
         &self,
         request: Request<AssignWorkNodeRequest>,
     ) -> Result<Response<AssignWorkNodeResponse>, Status> {
-        let (account_id, _groups, role_group) = request_account_context(&request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let work_node_id = &request.get_ref().work_node_id;
         let worker_id = &request.get_ref().worker_id;
 
-        if !view::can_entity_write(&account_id, &role_group, &worker_id).await {
+        if !view::can_entity_write(&account_id, &role_group, worker_id).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 

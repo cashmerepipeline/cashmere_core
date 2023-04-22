@@ -21,7 +21,7 @@ pub trait HandleNewData {
         &self,
         request: Request<NewDataRequest>,
     ) -> UnaryResponseResult<NewDataResponse> {
-        let (account_id, _groups, role_group) = request_account_context(&request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().owner_manage_id;
         let entity_id = &request.get_ref().owner_entity_id;
@@ -61,7 +61,7 @@ pub trait HandleNewData {
                 .and_then(|id| {
                     data_id = Some(id.clone());
                     let query_doc = doc! {ID_FIELD_ID.to_string(): entity_id.clone()};
-                    let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id.clone()};
+                    let modify_doc = doc! {DATAS_FIELD_ID.to_string(): id};
 
                     associated_manager.add_to_array_field(query_doc, modify_doc, &account_id)
                 })
@@ -69,7 +69,7 @@ pub trait HandleNewData {
 
             match result {
                 Ok(_r) => Ok(Response::new(NewDataResponse {
-                    result: data_id.unwrap().clone(),
+                    result: data_id.unwrap(),
                 })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",

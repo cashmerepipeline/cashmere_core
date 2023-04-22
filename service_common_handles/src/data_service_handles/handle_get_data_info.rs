@@ -18,7 +18,7 @@ pub trait HandleGetDataInfo {
         request: Request<GetDataInfoRequest>,
     ) -> UnaryResponseResult<GetDataInfoResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let data_id = &request.get_ref().data_id;
 

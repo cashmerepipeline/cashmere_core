@@ -14,7 +14,7 @@ pub trait HandleGetDataServerConfigs {
         request: Request<GetDataServerConfigsRequest>,
     ) -> Result<Response<GetDataServerConfigsResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         //TODO: 权限检查可能需要其他管理项
         if !view::can_manage_read(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {

@@ -6,8 +6,8 @@ pub fn validate_name(name: &Option<Name>) -> Result<bool, bool> {
         if name.language.is_empty() || name.name.is_empty() {
             return Err(false);
         }
-        return Ok(true);
+        Ok(true)
     } else {
-        return Err(false);
+        Err(false)
     }
 }

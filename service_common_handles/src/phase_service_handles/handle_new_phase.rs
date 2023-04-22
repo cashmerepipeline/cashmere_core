@@ -19,7 +19,7 @@ pub trait HandleNewWorkPhase {
         request: Request<NewPhaseRequest>,
     ) -> Result<Response<NewPhaseResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let procedure_id = &request.get_ref().procedure_id;
         let name = &request.get_ref().name;
@@ -59,7 +59,7 @@ pub trait HandleNewWorkPhase {
                 .await;
 
             match result {
-                Ok(r) => Ok(Response::new(NewPhaseResponse {
+                Ok(_r) => Ok(Response::new(NewPhaseResponse {
                     result: "ok".to_string(),
                 })),
                 Err(e) => Err(Status::aborted(format!(

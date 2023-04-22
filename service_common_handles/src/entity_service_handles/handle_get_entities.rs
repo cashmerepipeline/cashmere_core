@@ -6,7 +6,7 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use tokio_stream::{self as stream, Stream, StreamExt};
+use tokio_stream::{self as stream, StreamExt};
 use tonic::{Request, Response, Status};
 use view::{self, can_entity_read, can_field_read};
 
@@ -20,7 +20,7 @@ pub trait HandleGetEntities {
         request: Request<GetEntitiesRequest>,
     ) -> UnaryResponseResult<GetEntitiesResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_ids = &request.get_ref().entity_ids;
@@ -58,13 +58,13 @@ pub trait HandleGetEntities {
                 // 格可见性过滤
                 let mut result_docs = vec![];
 
-                let mut entity_iter = entities.iter();
-                while let Some(e) = entity_iter.next() {
+                let entity_iter = entities.iter();
+                for e in entity_iter {
                     let mut result_doc = doc!();
                     let mut property_stream = stream::iter(e);
 
                     while let Some((k, v)) = property_stream.next().await {
-                        if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k)
+                        if !can_field_read(&account_id, &role_group, &manage_id.to_string(), k)
                             .await
                         {
                             if k == &"_id".to_string() {

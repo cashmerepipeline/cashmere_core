@@ -20,7 +20,7 @@ pub trait HandleNewGroup {
         request: Request<NewGroupRequest>,
     ) -> Result<Response<NewGroupResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let name = &request.get_ref().name;
         let new_group_id = &request.get_ref().new_group_id;
@@ -70,8 +70,7 @@ pub trait HandleNewGroup {
             info!("{}: {}", t!("开始创建新组"), new_group_id);
             let result = group_manager
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)
-                .await
-                .and_then(|id| Ok(id));
+                .await;
 
             match result {
                 Ok(r) => Ok(Response::new(NewGroupResponse { result: r })),

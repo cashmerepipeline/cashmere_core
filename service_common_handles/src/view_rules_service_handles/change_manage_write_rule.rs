@@ -3,7 +3,7 @@ use bson::doc;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::general_field_ids::{ID_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
@@ -20,7 +20,7 @@ pub trait HandleChangeManageWriteRule {
         request: Request<ChangeManageWriteRuleRequest>,
     ) -> Result<Response<ChangeManageWriteRuleResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let group_id = &request.get_ref().group_id;

@@ -17,7 +17,7 @@ pub trait HandleGetManages {
         request: Request<GetManagesRequest>,
     ) -> Result<Response<GetManagesResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let managers_ids: Vec<i32> = get_majordomo().await.get_manager_ids().await;
 

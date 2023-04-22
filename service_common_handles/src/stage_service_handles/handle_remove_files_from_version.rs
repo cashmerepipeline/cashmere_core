@@ -7,6 +7,7 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use tonic::{Request, Response, Status};
+use request_utils::request_account_context;
 use view;
 
 use crate::UnaryResponseResult;
@@ -17,11 +18,7 @@ pub trait HandleRemoveFilesFromVersion {
         &self,
         request: Request<RemoveFilesFromVersionRequest>,
     ) -> UnaryResponseResult<RemoveFilesFromVersionResponse> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
-        let role_group = auth::get_current_role(metadata).unwrap();
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;
@@ -34,7 +31,7 @@ pub trait HandleRemoveFilesFromVersion {
         if version.is_empty() {
             return Err(Status::invalid_argument("版本名为空"));
         }
-        if file_pathes.len() == 0 {
+        if file_pathes.is_empty() {
             return Err(Status::invalid_argument("文件路径列表为空"));
         }
 

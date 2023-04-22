@@ -16,7 +16,7 @@ pub trait HandleMarkSchemaFieldRemoved {
         request: Request<MarkSchemaFieldRemovedRequest>,
     ) -> Result<Response<MarkSchemaFieldRemovedResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id: i32 = request.get_ref().manage_id;
         let field_id = request.get_ref().field_id;

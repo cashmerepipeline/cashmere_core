@@ -19,7 +19,7 @@ pub trait HandleEditArea {
         request: Request<EditAreaRequest>,
     ) -> UnaryResponseResult<EditAreaResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let area_id = &request.get_ref().area_id;
         let new_parent_id = &request.get_ref().new_parent_id;

@@ -18,7 +18,7 @@ pub trait HandleGetManageSchema {
         request: Request<GetManageSchemaRequest>,
     ) -> Result<Response<GetManageSchemaResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = request.get_ref().manage_id;
 
@@ -49,14 +49,14 @@ pub trait HandleGetManageSchema {
             fields: result
                 .iter()
                 .map(|f| {
-                    let rf = SchemaField {
+                    
+
+                    SchemaField {
                         id: f.id,
                         name_map: bson::to_vec(&f.name_map).unwrap(),
                         data_type: f.data_type.to_string(),
                         removed: f.removed,
-                    };
-
-                    rf
+                    }
                 })
                 .collect(),
         }))

@@ -18,7 +18,7 @@ pub trait HandleGetManageEntryCount {
         request: Request<GetManageEntryCountRequest>,
     ) -> UnaryResponseResult<GetManageEntryCountResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
 

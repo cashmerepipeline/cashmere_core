@@ -20,7 +20,7 @@ pub trait HandleNewLanguageCode {
         request: Request<NewLanguageCodeRequest>,
     ) -> Result<Response<NewLanguageCodeResponse>, Status> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let name = &request.get_ref().name;
         let code = &request.get_ref().code;

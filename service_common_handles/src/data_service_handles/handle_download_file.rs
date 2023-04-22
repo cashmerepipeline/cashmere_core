@@ -1,11 +1,11 @@
 use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tonic::{Response, Status};
-use futures::FutureExt;
+
 use log::info;
 use async_trait::async_trait;
 
-use data_server::file_utils::{create_recieve_data_file_stream, get_chunk_md5};
+use data_server::file_utils::{get_chunk_md5};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
 use request_utils::request_account_context;
@@ -20,7 +20,7 @@ pub trait HandleDownloadFile {
         request: RequestStream<DownloadFileRequest>,
     ) -> StreamResponseResult<DownloadFileResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
@@ -39,7 +39,7 @@ pub trait HandleDownloadFile {
         let version = first_request.version.clone();
         let sub_path = first_request.sub_path.clone();
         let file_name = first_request.file_name.clone();
-        let chunk_index = first_request.chunk_index.clone();
+        let chunk_index = first_request.chunk_index;
 
         // 检查必填项
         if data_id.is_empty() || specs.is_empty() || stage.is_empty() || version.is_empty() {
@@ -160,7 +160,7 @@ pub trait HandleDownloadFile {
 
                         let current_resp = DownloadFileResponse {
                             data_id: data_id.clone(),
-                            chunk_index: current_chunk_index.clone(),
+                            chunk_index: current_chunk_index,
                             chunk_md5: get_chunk_md5(&current_chunk),
                             chunk: current_chunk.clone(),
                         };
