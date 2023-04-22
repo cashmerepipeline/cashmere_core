@@ -92,7 +92,7 @@ pub trait HandleChangeOwnPassword {
         modify_doc.insert(ACCOUNTS_PASSWORD_FIELD_ID.to_string(), encrypt_password);
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

@@ -42,16 +42,16 @@ pub trait HandleAddFileSequenceToVersion {
         if base_name == "" {
             return Err(Status::invalid_argument("base_name 不能为空"));
         }
-        if start < 0 {
+        if start < &0 {
             return Err(Status::invalid_argument("start 不能小于 0"));
         }
-        if end < 0 {
+        if end < &0 {
             return Err(Status::invalid_argument("end 不能小于 0"));
         }
         if end < start {
             return Err(Status::invalid_argument("end 不能小于 start"));
         }
-        if padding < 0 {
+        if padding < &0 {
             return Err(Status::invalid_argument("padding 不能小于 0"));
         }
         if extension == "" {
@@ -86,14 +86,20 @@ pub trait HandleAddFileSequenceToVersion {
         };
 
         // 创建序列list
-        let seq_vec = vec![base_name, start.to_string(), end.to_string(), padding.to_string(), extension];
+        let seq_vec: Vec<String> = vec![
+            base_name.to_string(),
+            start.to_string(),
+            end.to_string(),
+            padding.to_string(),
+            extension.to_string(),
+        ];
 
         let field_key = format!("{}.$.files", STAGES_VERSIONS_FIELD_ID);
         let mut modify_doc = bson::Document::new();
         modify_doc.insert(field_key, seq_vec);
 
         let result = manager
-            .add_entity_to_array_field(query_doc, modify_doc, &account_id)
+            .add_to_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {

@@ -67,7 +67,7 @@ pub trait HandleChangeAccountStatus {
         modify_doc.insert(ACCOUNTS_STATUS_FIELD_ID.to_string(), account_status);
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

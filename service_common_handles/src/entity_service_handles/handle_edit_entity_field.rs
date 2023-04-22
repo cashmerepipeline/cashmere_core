@@ -43,7 +43,7 @@ pub trait HandleEditEntityField {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
-        let modify_doc = match Document::from_reader(new_value.reader()) {
+        let mut modify_doc = match Document::from_reader(new_value.reader()) {
             Ok(v) => {
                 let t_v = v.get(field_id);
                 if t_v.is_some() {
@@ -63,7 +63,7 @@ pub trait HandleEditEntityField {
         };
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

@@ -12,7 +12,7 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleRemoveFileFromVersion {
+pub trait HandleRemoveFilesFromVersion {
     async fn handle_remove_files_from_version(
         &self,
         request: Request<RemoveFilesFromVersionRequest>,

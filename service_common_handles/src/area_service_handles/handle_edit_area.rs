@@ -38,13 +38,13 @@ pub trait HandleEditArea {
         let query_doc = doc! {
             "_id": area_id
         };
-        let modify_doc = doc! {
+        let mut modify_doc = doc! {
             AREAS_PARENT_ID_FIELD_ID.to_string(): new_parent_id,
             AREAS_LEVEL_FIELD_ID.to_string():new_level
         };
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

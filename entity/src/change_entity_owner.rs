@@ -22,9 +22,9 @@ pub async fn change_entity_owner(
     let _new_value = Bson::from(new_owner);
 
     let query_doc = doc! {"_id":entity_id.clone()};
-    let modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
+    let mut modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
 
-    let result = crate::update_entity_field::update_entity_field(manage_id, query_doc, modify_doc, account_id).await;
+    let result = crate::update_entity_field::update_entity_field(manage_id, query_doc, &mut modify_doc, account_id).await;
 
     result
 }

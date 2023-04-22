@@ -72,7 +72,7 @@ pub trait HandleEditEntityMapField {
         modify_doc.insert(format!("{}.{}", field_id, key), value.clone());
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

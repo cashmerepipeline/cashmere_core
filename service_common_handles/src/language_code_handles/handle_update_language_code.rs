@@ -39,13 +39,13 @@ pub trait HandleEditLanguageCode {
         let query_doc = doc! {
             "_id": id
         };
-        let modify_doc = doc! {
+        let mut modify_doc = doc! {
             LANGUAGES_CODES_CODE_FIELD_ID.to_string(): new_code,
             LANGUAGES_CODES_NATIVE_FIELD_ID.to_string(): new_native
         };
 
         let result = manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

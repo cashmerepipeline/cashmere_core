@@ -6,24 +6,25 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use managers::utils::make_new_entity_document;
 use tonic::{Request, Response, Status};
 use view;
-use request_utils::request_account_context;
 
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleRemoveStageVersion {
-    async fn handle_remove_stage_version(
+pub trait HandleAddStageCurrentVersion {
+    async fn handle_set_stage_current_version(
         &self,
-        request: Request<RemoveStageVersionRequest>,
-    ) -> UnaryResponseResult<RemoveStageVersionResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+        request: Request<SetStageCurrentVersionRequest>,
+    ) -> UnaryResponseResult<SetStageCurrentVersionResponse> {
+        let metadata = request.metadata();
+        // 已检查过，不需要再检查正确性
+        let token = auth::get_auth_token(metadata).unwrap();
+        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
+        let role_group = auth::get_current_role(metadata).unwrap();
 
         let stage_id = &request.get_ref().stage_id;
-        let version = &request.get_ref().version;
+        let target_version = &request.get_ref().target_version;
 
         if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -46,21 +47,42 @@ pub trait HandleRemoveStageVersion {
             .await
             .unwrap();
 
-        let query_doc = doc! {
-            ID_FIELD_ID.to_string():stage_id,
-            format!("{}.name", STAGES_VERSIONS_FIELD_ID):version,
+        let stage_entity = match manager.get_entity_by_id(stage_id).await {
+            Ok(e) => e,
+            Err(e) => {
+                // 不存在
+                return Err(Status::aborted(format!(
+                    "{} {}",
+                    e.operation(),
+                    e.details()
+                )))
+            }
         };
 
-        let field_key = format!("{}.$.removed", STAGES_VERSIONS_FIELD_ID);
+        if stage_entity
+            .get_array(STAGES_VERSIONS_FIELD_ID.to_string())
+            .unwrap()
+            .iter()
+            .map(|v| bson::from_bson::<Version>(v.clone()).unwrap())
+            .find(|v| v.name == *target_version)
+            .is_none()
+        {
+            return Err(Status::invalid_argument("版本不存在"));
+        };
+
+        let query_doc = doc! {
+            ID_FIELD_ID.to_string():stage_id,
+        };
+
         let mut modify_doc = bson::Document::new();
-        modify_doc.insert(field_key, true);
+        modify_doc.insert(STAGES_CURRENT_VERSION_FIELD_ID.to_string(), target_version);
 
         let result = manager
-            .update_array_element_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(RemoveStageVersionResponse {
+            Ok(_r) => Ok(Response::new(SetStageCurrentVersionResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

@@ -342,12 +342,13 @@ pub struct ListSpecsPrefabsResponse {
 pub struct Version {
     #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
-    /// 使用路径列表表示一个文件，不直接使用路径字符串, 形式为["sub_dir", ..., "file_name"]
+    /// protobuf不支持嵌套repeated，所以使用 “,” 分隔的字符串, 形式为["sub_dir, ...,file_name"]
+    /// 路径不允许使用相对路径符号"."和".."
     /// 文件集为多个文件列表
-    /// 文件序列为规则: {base_name:name, start: start, end: end, padding: padding, ext: ext, number_pos: [mid, end]}
+    /// 文件序列为规则: ["base_name, start, end, padding, extension"]
     /// 使用bson格式存储
-    #[prost(bytes="vec", repeated, tag="2")]
-    pub files: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(string, repeated, tag="2")]
+    pub files: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// 移除标记，文件不删除
     #[prost(bool, tag="3")]
     pub removed: bool,
@@ -501,21 +502,8 @@ pub struct ListVersionFolderResponse {
     #[prost(string, repeated, tag="2")]
     pub files: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// 清理版本目录下的文件或文件夹，不在版本文件列表中的文件或文件夹将被删除
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CleanUpVersionFolderRequest {
-    #[prost(string, tag="1")]
-    pub stage_id: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
-    pub version: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CleanUpVersionFolderResponse {
-    /// 成功返回被删除的文件路径
-    #[prost(string, repeated, tag="1")]
-    pub result: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
 /// 删除版本目录下的文件或文件夹，若文件或文件夹在版本文件列表中，否则返回，不做任何操作
+/// 注意路径表示规则
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteVersionFolderEntriesRequest {
     #[prost(string, tag="1")]

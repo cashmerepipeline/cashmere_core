@@ -38,12 +38,12 @@ pub trait HandleMarkTaskStatus {
         let query_doc = doc! {
             ID_FIELD_ID.to_string(): task_id.clone(),
         };
-        let modify_doc = doc! {
+        let mut modify_doc = doc! {
             TASKS_STATUS_FIELD_ID.to_string(): new_value,
         };
 
         let result = task_manager
-            .update_entity_field(query_doc, modify_doc, &account_id)
+            .update_entity_field(query_doc, &mut modify_doc, &account_id)
             .await;
 
         match result {

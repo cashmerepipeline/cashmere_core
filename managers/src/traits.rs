@@ -526,7 +526,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn update_entity_field(
         &self,
         query_doc: Document,
-        modify_doc: Document,
+        modify_doc: &mut Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
@@ -534,7 +534,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             .await
         {
             Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "update_entity_field".to_string())),
+            Err(e) => Err(add_call_name_to_chain(e, "manager::update_entity_field".to_string())),
         }
     }
 
@@ -548,10 +548,10 @@ pub trait ManagerTrait: Any + Send + Sync {
         let q_doc = doc! {
             ID_FIELD_ID.to_string(): entity_id
         };
-        let m_doc = doc! {
+        let mut m_doc = doc! {
             ENTITY_REMOVED_FIELD_ID.to_string(): true
         };
-        match entity::update_entity_field(&manage_id.to_string(), q_doc, m_doc, account_id).await {
+        match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
@@ -566,10 +566,10 @@ pub trait ManagerTrait: Any + Send + Sync {
         let q_doc = doc! {
             ID_FIELD_ID.to_string(): entity_id
         };
-        let m_doc = doc! {
+        let mut m_doc = doc! {
             ENTITY_REMOVED_FIELD_ID.to_string(): false
         };
-        match entity::update_entity_field(&manage_id.to_string(), q_doc, m_doc, account_id).await {
+        match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
