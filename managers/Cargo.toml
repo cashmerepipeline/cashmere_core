@@ -12,7 +12,6 @@ cash_result = {path="../cash_result"}
 database = {path = "../database"}
 entity = {path="../entity"}
 configs = {path="../configs"}
-event_system = {path= "../event_system" }
 manage_define = {path="../manage_define"}
 property_field = {path="../property_field"}
 

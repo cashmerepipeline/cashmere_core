@@ -17,7 +17,6 @@ members = [
   "database",
   "entity",
   "property_field",
-  "event_system",
   #    "server_template",
   "request_utils",
   "service_common_handles",

@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package cashmere;
 
 import "country.proto";
@@ -24,7 +23,6 @@ import "entity.proto";
 import "manage.proto";
 import "manage_schema.proto";
 import "view.proto";
-import "event.proto";
 import "work.proto";
 import "task.proto";
 import "phase.proto";
