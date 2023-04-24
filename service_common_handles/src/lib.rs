@@ -8,10 +8,10 @@ Modified: !date!
 
 #[macro_use]
 extern crate rust_i18n;
+i18n!("locales");
 
 pub use types::*;
 
-i18n!("locales");
 
 pub mod area_service_handles;
 
