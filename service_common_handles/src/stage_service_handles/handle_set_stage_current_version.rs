@@ -13,7 +13,7 @@ use view;
 use crate::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleAddStageCurrentVersion {
+pub trait HandleSetStageCurrentVersion {
     async fn handle_set_stage_current_version(
         &self,
         request: Request<SetStageCurrentVersionRequest>,

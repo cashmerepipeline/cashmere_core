@@ -15,7 +15,7 @@ use crate::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleListVersionFolder {
-    async fn handle_add_file_to_version(
+    async fn handle_list_version_folder(
         &self,
         request: Request<ListVersionFolderRequest>,
     ) -> UnaryResponseResult<ListVersionFolderResponse> {

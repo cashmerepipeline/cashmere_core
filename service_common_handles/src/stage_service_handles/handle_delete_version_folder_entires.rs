@@ -19,8 +19,7 @@ pub trait HandleDeleteVersionFolderEntries {
         &self,
         request: Request<DeleteVersionFolderEntriesRequest>,
     ) -> UnaryResponseResult<DeleteVersionFolderEntriesResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(&request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;
@@ -44,7 +43,7 @@ pub trait HandleDeleteVersionFolderEntries {
             &STAGES_MANAGE_ID.to_string(),
             &STAGES_VERSIONS_FIELD_ID.to_string(),
         )
-            .await
+        .await
         {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
@@ -74,12 +73,14 @@ pub trait HandleDeleteVersionFolderEntries {
             }
         };
 
-        let v = stage_entity.get_array(STAGES_VERSIONS_FIELD_ID.to_string())
-            .unwrap().iter()
+        let v = stage_entity
+            .get_array(STAGES_VERSIONS_FIELD_ID.to_string())
+            .unwrap()
+            .iter()
             .map(|v| bson::from_bson::<Version>(v.clone()).unwrap())
             .find(|v| v.name == *version);
 
-        let version_pathes = if let _r = v.is_none() {
+        let version_pathes = if v.is_none() {
             return Err(Status::not_found(format!(
                 "{}: {}",
                 t!("未找到版本"),
@@ -89,7 +90,11 @@ pub trait HandleDeleteVersionFolderEntries {
             v.unwrap().files
         };
 
-        let tobe_deleted_pathes = file_pathes.iter().filter(|p| !version_pathes.contains(p)).cloned().collect::<Vec<String>>();
+        let tobe_deleted_pathes = file_pathes
+            .iter()
+            .filter(|p| !version_pathes.contains(p))
+            .cloned()
+            .collect::<Vec<String>>();
         if tobe_deleted_pathes.is_empty() {
             return Err(Status::not_found(format!(
                 "{}: {} {}",
@@ -100,7 +105,10 @@ pub trait HandleDeleteVersionFolderEntries {
         }
 
         // 将路径字符串换为路径，即替换分隔符
-        let tobe_deleted_pathes = tobe_deleted_pathes.iter().map(|p| p.replace(',', "/")).collect::<Vec<String>>();
+        let tobe_deleted_pathes = tobe_deleted_pathes
+            .iter()
+            .map(|p| p.replace(',', "/"))
+            .collect::<Vec<String>>();
 
         let specs_id = stage_entity
             .get_str(STAGES_SPECS_ID_FIELD_ID.to_string())
@@ -145,7 +153,9 @@ pub trait HandleDeleteVersionFolderEntries {
         let result = delete_version_folder_entries(&version_foler, &tobe_deleted_pathes).await;
 
         match result {
-            Ok(_r) => Ok(Response::new(DeleteVersionFolderEntriesResponse { result: tobe_deleted_pathes })),
+            Ok(_r) => Ok(Response::new(DeleteVersionFolderEntriesResponse {
+                result: tobe_deleted_pathes,
+            })),
             Err(e) => Err(Status::not_found(format!(
                 "{}: {}",
                 e.operation(),
@@ -154,4 +164,3 @@ pub trait HandleDeleteVersionFolderEntries {
         }
     }
 }
-

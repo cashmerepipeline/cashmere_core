@@ -15,7 +15,7 @@ use crate::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleAddFileSequenceToVersion {
-    async fn handle_add_file_set_to_version(
+    async fn handle_add_file_sequence_to_version(
         &self,
         request: Request<AddFileSequenceToVersionRequest>,
     ) -> UnaryResponseResult<AddFileSequenceToVersionResponse> {

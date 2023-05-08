@@ -17,7 +17,7 @@ use crate::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleNewStage {
-    async fn handle_new_data_stage(
+    async fn handle_new_stage(
         &self,
         request: Request<NewStageRequest>,
     ) -> UnaryResponseResult<NewStageResponse> {

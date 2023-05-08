@@ -18,7 +18,8 @@ use parking_lot::RwLock;
 use cash_core::Manage;
 use cash_result::*;
 use property_field::PropertyField;
-use traits::ManagerTrait;
+
+pub use traits::ManagerTrait;
 
 pub mod accounts_manager;
 pub mod areas_manager;
@@ -32,8 +33,6 @@ pub mod prefabs_manager;
 
 pub mod groups_manager;
 pub mod manages_manager;
-pub mod message_handles_manager;
-pub mod messages_manager;
 pub mod persons_manager;
 pub mod tasks_manager;
 pub mod templates_manager;

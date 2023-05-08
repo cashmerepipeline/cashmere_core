@@ -488,7 +488,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let manage_id = self.get_manager_id().to_string();
         match entity::get_entity_by_id(&manage_id, entity_id).await {
             Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
+            Err(e) => Err(add_call_name_to_chain(e, "manager::get_entity_by_id".to_string())),
         }
     }
 
