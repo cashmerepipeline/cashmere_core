@@ -7,7 +7,6 @@ Modified: !date!
 */
 
 use cashmere::AreaLevel;
-use cashmere::SlotType;
 
 pub mod cashmere;
 pub mod field_ids;
@@ -17,30 +16,6 @@ pub mod manage_ids;
 pub mod utils;
 pub mod general_property_fields;
 
-impl SlotType {
-    // 整数到槽类型
-    // 参考数据
-    // RefrenceData = 0,
-    // 依赖
-    // DepedentData = 1,
-    // 工作输出
-    // WorkData = 2,
-    // 输出
-    // OutData = 3,
-    pub fn from(val: &i32) -> Option<SlotType> {
-        if val == &0i32 {
-            Some(SlotType::RefrenceData)
-        } else if val == &1i32 {
-            Some(SlotType::DepedentData)
-        } else if val == &2i32 {
-            Some(SlotType::WorkData)
-        } else if val == &3i32 {
-            Some(SlotType::OutData)
-        } else {
-            None
-        }
-    }
-}
 
 impl AreaLevel {
     // 整数到区域类型
