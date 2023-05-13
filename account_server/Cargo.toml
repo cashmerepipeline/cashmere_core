@@ -10,7 +10,7 @@ async-trait = "0.1.58"
 tonic = { version = "0.7.2", features = ["tls"] }
 tokio = { version = "1.21.2" }
 prost = "0.10.4"
-bson = "2.4.0"
+bson = "2.6.1"
 chrono = "0.4.19"
 log = "0.4.14"
 rust-i18n= "1.0"

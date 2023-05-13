@@ -16,7 +16,7 @@ h2 = "0.3"
 tonic = { version = "0.7.2", features = ["tls"] }
 prost = "0.10.4"
 chrono = "0.4.19"
-bson = "2.4.0"
+bson = "2.6.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 log = "0.4.14"

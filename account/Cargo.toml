@@ -14,5 +14,5 @@ cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 
-bson = "2.4.0"
+bson = "2.6.1"
 linked-hash-map = "0.5.3"
