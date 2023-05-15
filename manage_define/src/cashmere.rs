@@ -185,6 +185,12 @@ pub struct Color {
     #[prost(uint32, tag="5")]
     pub alpha: u32,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Gender {
+    Male = 0,
+    Female = 1,
+}
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DataServerConfigs {

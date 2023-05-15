@@ -3,11 +3,11 @@ use std::path::PathBuf;
 
 use fs4::tokio::AsyncFileExt;
 use log::info;
-use tokio::fs;
-use tokio::fs::File;
-use tokio::io::AsyncWriteExt;
-use tokio::sync::mpsc;
-use tokio::sync::mpsc::Sender;
+use dependencies_sync::tokio::fs;
+use dependencies_sync::tokio::fs::File;
+use dependencies_sync::tokio::io::AsyncWriteExt;
+use dependencies_sync::tokio::sync::mpsc;
+use dependencies_sync::tokio::sync::mpsc::Sender;
 
 use cash_result::{operation_failed, OperationResult};
 use manage_define::cashmere::FileInfo;
@@ -77,7 +77,7 @@ pub async fn create_recieve_data_file_stream(
     let (ftx, mut frx) = mpsc::channel::<Vec<u8>>(5);
 
     // 发出线程后不能等待写入完成，否则会卡死，一直等待数据写入
-    tokio::spawn(async move {
+    dependencies_sync::tokio::spawn(async move {
         while let Some(part) = frx.recv().await {
             buffer[cursor] = Some(part);
 

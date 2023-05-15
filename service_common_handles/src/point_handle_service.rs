@@ -15,7 +15,7 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use property_field::{FieldDataType, Name, PropertyField};
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
 // trait HandleNewPoint {

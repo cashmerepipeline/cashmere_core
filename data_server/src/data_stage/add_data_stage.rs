@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use cash_result::{operation_failed, OperationResult};
-use tokio::{fs, fs::File};
+use dependencies_sync::tokio::{fs, fs::File};
 
 use super::DataStage;
 

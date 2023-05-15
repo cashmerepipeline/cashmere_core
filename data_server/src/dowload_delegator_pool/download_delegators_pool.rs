@@ -1,4 +1,4 @@
-use parking_lot::RwLock;
+use dependencies_sync::parking_lot::RwLock;
 use std::sync::Arc;
 
 use crate::data_server;

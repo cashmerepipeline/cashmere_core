@@ -15,14 +15,15 @@ configs = {path="../configs"}
 manage_define = {path="../manage_define"}
 property_field = {path="../property_field"}
 
+dependencies_sync = {path="../dependencies_sync"}
+
 async-trait = "0.1.58"
 parking_lot = "0.12.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 linked-hash-map = { version = "0.5.6", feature = ["serde_impl"] }
 bson = "2.6.1"
-tokio = "1.21.1"
+mongodb = "2.5.0"
 
 # logging
 log = "0.4.17"
-simplelog = "0.10.0"

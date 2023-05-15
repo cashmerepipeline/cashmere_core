@@ -4,11 +4,13 @@ use cash_result::{operation_failed, Failed, OperationResult};
 use log::{debug, info};
 use manage_define::cashmere::FileInfo;
 use std::path::{Path, PathBuf};
-use tokio::fs;
-use tokio::fs::{File, OpenOptions};
-use tokio::io::{AsyncWriteExt, BufWriter};
-use tokio::sync::mpsc;
-use tokio::sync::mpsc::Sender;
+
+use dependencies_sync::tokio::fs;
+use dependencies_sync::tokio::fs::{File, OpenOptions};
+use dependencies_sync::tokio::io::{AsyncWriteExt, BufWriter};
+use dependencies_sync::tokio::sync::mpsc;
+use dependencies_sync::tokio::sync::mpsc::Sender;
+use dependencies_sync::tokio;
 
 use super::UploadDelegator;
 

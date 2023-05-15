@@ -2,10 +2,11 @@ use std::io::SeekFrom;
 use std::path::PathBuf;
 
 use log::info;
-use tokio::fs::File;
+use dependencies_sync::tokio::fs::File;
 use log::{error};
-use tokio::io::{AsyncReadExt, AsyncSeekExt};
-use tokio::sync::mpsc::Sender;
+use dependencies_sync::tokio::io::{AsyncReadExt, AsyncSeekExt};
+use dependencies_sync::tokio::sync::mpsc::Sender;
+use dependencies_sync::tokio;
 
 use cash_result::{Failed, OperationResult};
 

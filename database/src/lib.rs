@@ -3,10 +3,10 @@
 所有操作只使用一个client, 需要进一步测试
 */
 
-use mongodb::bson::{doc, Document};
-use mongodb::{options::ClientOptions, options::ServerAddress, Client, Collection, Database};
 use std::sync::Arc;
 
+use dependencies_sync::mongodb::bson::{doc, Document};
+use dependencies_sync::mongodb::{options::ClientOptions, options::ServerAddress, Client, Collection, Database};
 use log;
 
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
@@ -14,7 +14,7 @@ use cash_result::{operation_failed, operation_succeed, OperationResult};
 
 use manage_define::manage_ids::{IDS_MANAGE_ID, MANAGES_MANAGE_ID};
 
-pub type MongodbResult<T> = mongodb::error::Result<T>;
+pub type MongodbResult<T> = dependencies_sync::mongodb::error::Result<T>;
 
 static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
 static mut CASHMERE_DATABASE: Option<Arc<Database>> = None;

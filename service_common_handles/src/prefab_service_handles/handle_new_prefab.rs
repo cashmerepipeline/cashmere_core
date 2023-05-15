@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use bson::{doc, Document};
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;

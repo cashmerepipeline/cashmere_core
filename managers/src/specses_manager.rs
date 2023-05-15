@@ -9,7 +9,7 @@ Modified: !date!
 use std::sync::Arc;
 
 // use log::{error, info, warn};
-use async_trait::async_trait;
+use dependencies_sync::tonic::async_trait;
 use bson;
 use bson::Document;
 use parking_lot::RwLock;

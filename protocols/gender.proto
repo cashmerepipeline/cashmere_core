@@ -7,7 +7,7 @@ Modified: !date!
 */
 
 syntax = "proto3";
-package io.imix;
+package cashmere;
 
 enum Gender
 {

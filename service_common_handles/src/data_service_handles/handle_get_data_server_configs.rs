@@ -4,7 +4,7 @@ use manage_define::cashmere::*;
 use manage_define::manage_ids::DATAS_MANAGE_ID;
 use request_utils::request_account_context;
 
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 #[async_trait]
 pub trait HandleGetDataServerConfigs {

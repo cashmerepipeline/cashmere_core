@@ -7,7 +7,7 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
 use crate::UnaryResponseResult;

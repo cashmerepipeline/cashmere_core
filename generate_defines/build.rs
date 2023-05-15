@@ -7,6 +7,7 @@ fn main() {
         // .build_server(false)
         .type_attribute("Name", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Color", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("Gender", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute(
             "DataServerConfigs",
             "#[derive(serde::Serialize, serde::Deserialize)]",

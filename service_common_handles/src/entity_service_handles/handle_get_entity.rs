@@ -6,7 +6,7 @@ use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
 use tokio_stream::{self as stream, StreamExt};
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view::{self, can_field_read};
 
 use crate::UnaryResponseResult;

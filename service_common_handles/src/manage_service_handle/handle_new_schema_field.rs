@@ -8,7 +8,7 @@ use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 use property_field::{FieldDataType, PropertyField};
 
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
 #[async_trait]

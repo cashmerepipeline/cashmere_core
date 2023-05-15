@@ -1,9 +1,9 @@
 use std::path::PathBuf;
 
 use log::debug;
-use tokio::fs;
-use tokio::fs::File;
-use tokio::io::{AsyncReadExt, AsyncWriteExt};
+use dependencies_sync::tokio::fs;
+use dependencies_sync::tokio::fs::File;
+use dependencies_sync::tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 use cash_result::{operation_failed, OperationResult};
 

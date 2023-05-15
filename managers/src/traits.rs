@@ -7,8 +7,9 @@ Introduction:
 use std::{any::Any, sync::Arc};
 
 use parking_lot::RwLock;
-use async_trait::async_trait;
+use dependencies_sync::tonic::async_trait;
 use bson::{doc, Bson, Document};
+use mongodb::Cursor;
 use log::error;
 
 use cash_core::Manage;
@@ -519,6 +520,22 @@ pub trait ManagerTrait: Any + Send + Sync {
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "get_entities_by_page".to_string(),
+            )),
+        }
+    }
+    
+    async fn get_query_cursor(
+        &self,
+        matches: Document,
+        projects: Option<Document>
+    ) -> Result<Cursor<Document>, OperationResult> {
+        let manage_id = self.get_manager_id().to_string();
+
+        match entity::get_query_cursor(&manage_id, matches, projects).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(
+                e,
+                "get_query_cursor".to_string(),
             )),
         }
     }

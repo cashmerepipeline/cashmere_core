@@ -6,7 +6,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use request_utils::request_account_context;
 use view;
 

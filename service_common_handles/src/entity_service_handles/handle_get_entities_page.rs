@@ -5,7 +5,7 @@ use manage_define::{cashmere::*, general_field_ids::ENTITY_REMOVED_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use view::{add_query_filters, get_manage_schema_view};
 

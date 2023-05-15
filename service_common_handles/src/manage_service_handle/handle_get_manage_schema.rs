@@ -7,7 +7,7 @@ use property_field::PropertyField;
 use request_utils::request_account_context;
 
 use tokio_stream::StreamExt;
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view::can_field_read;
 
 #[async_trait]

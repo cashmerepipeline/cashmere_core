@@ -1,6 +1,7 @@
-use tokio::sync::mpsc;
+use dependencies_sync::{tokio, tokio::sync::mpsc};
+
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tonic::{Response, Status};
+use dependencies_sync::tonic::{Response, Status};
 
 use log::info;
 use async_trait::async_trait;

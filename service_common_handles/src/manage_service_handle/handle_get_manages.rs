@@ -6,7 +6,7 @@ use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 use view::can_manage_read;
 
 #[async_trait]

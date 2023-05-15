@@ -27,7 +27,7 @@ members = [
   # "minit",
   "procedure_engine",
   "view",
-  # "work",
+  "dependencies_sync"
 ]
 
 exclude = ["server_template", "minit"]

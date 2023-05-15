@@ -1,8 +1,8 @@
 use std::path::PathBuf;
-use tokio::fs;
+use dependencies_sync::tokio::fs;
 use cash_result::OperationResult;
 
-/// 使用tokio异步删除指定目录下和指定列表中的文件夹和文件
+/// 使用dependencies_sync::tokio异步删除指定目录下和指定列表中的文件夹和文件
 pub async fn delete_version_folder_entries(
     version_path: &PathBuf,
     entries: &Vec<String>,

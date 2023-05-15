@@ -130,10 +130,4 @@ async fn init_managers_map() -> Arc<RwLock<ManagersMap>> {
 }
 
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+

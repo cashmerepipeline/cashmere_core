@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use data_server::data_stage::{delete_version_folder_entries, get_version_folder};
 use majordomo::{self, get_majordomo};

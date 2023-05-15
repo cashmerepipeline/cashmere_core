@@ -1,5 +1,5 @@
 use std::error::Error;
-use tonic::Status;
+use dependencies_sync::tonic::Status;
 
 pub fn match_for_io_error(err_status: &Status) -> Option<&std::io::Error> {
     let mut err: &(dyn Error + 'static) = err_status;

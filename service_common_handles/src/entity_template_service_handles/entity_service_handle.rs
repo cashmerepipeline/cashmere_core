@@ -12,7 +12,7 @@ use chrono::Utc;
 use majordomo::get_majordomo;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use tonic::{Request, Response, Status};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use crate::CashmereServer;
 use crate::protocol::*;
