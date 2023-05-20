@@ -282,10 +282,8 @@ pub trait ManagerTrait: Any + Send + Sync {
         .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
-            _ => (),
-        };
-
-        Ok(())
+            _ => Ok(()),
+        }
     }
 
     async fn edit_schema_field_name(
@@ -350,10 +348,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
-            _ => (),
-        };
+            _ => Ok(operation_succeed("ok"))
+        }
 
-        Ok(operation_succeed("ok"))
     }
 
     async fn mark_schema_field_removed(

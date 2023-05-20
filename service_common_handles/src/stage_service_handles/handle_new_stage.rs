@@ -12,7 +12,7 @@ use request_utils::request_account_context;
 use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
-use crate::name_utils::validate_name;
+use service_utils::validate_name;
 use crate::UnaryResponseResult;
 
 #[async_trait]

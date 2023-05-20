@@ -76,7 +76,7 @@ pub trait HandleGetRemovedEntitiesPage {
         };
 
         // zh: 从1开始，
-        let index = if *page_index <= 0u32 {
+        let index = if *page_index == 0u32 {
             1u32
         } else {
             *page_index

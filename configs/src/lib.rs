@@ -44,7 +44,7 @@ mod tests {
         assert_eq!(configs.database.port, 27017);
         assert_eq!(configs.server.address, "127.0.0.1");
         assert_eq!(configs.server.port, "8800");
-        assert_eq!(configs.server.use_tls, false);
+        assert!(!configs.server.use_tls);
         assert_eq!(configs.server.login_limit, 2);
     }
 }

@@ -42,7 +42,7 @@ pub async fn get_entities_by_page(
 
     // zh: 注意: skip 需要在limit之前
     pipeline.push(doc! {"$skip": 20*(page_index-1)});
-    pipeline.push(doc! {"$limit": 20 as u32});
+    pipeline.push(doc! {"$limit": 20_u32});
 
     let cursor = collection.aggregate(pipeline, None).await;
 

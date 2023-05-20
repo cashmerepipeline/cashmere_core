@@ -18,7 +18,7 @@ pub fn init_upload_delegators_pool(max_upload_number: u16) -> Arc<RwLock<UploadD
 
     for _i in 0..max_upload_number {
         let new_receiver = Arc::new(UploadDelegator {
-            transfer_chunk_size: transfer_chunk_size,
+            transfer_chunk_size,
         });
         delegators.push(new_receiver)
     }
@@ -43,8 +43,8 @@ pub fn get_upload_delegator_pool(
 impl UploadDelegatorsPool {
     pub fn request_delegator(&self) -> Option<Arc<UploadDelegator>> {
         let mut delegators = self.delegators.write();
-        let r = delegators.pop();
-        r
+        
+        delegators.pop()
     }
 
     pub fn return_back_delegator(&self, receiver: Arc<UploadDelegator>) {

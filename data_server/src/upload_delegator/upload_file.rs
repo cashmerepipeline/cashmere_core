@@ -41,7 +41,7 @@ impl UploadDelegator {
             Ok(_r) => {
                 let file_ext = Path::new(&file_info.file_name).extension().unwrap();
                 let file_name = Path::new(&file_info.file_name).file_name().unwrap();
-                let mut file_pathbuf = PathBuf::from(data_dir_path.clone());
+                let mut file_pathbuf = data_dir_path.clone();
                 file_pathbuf.push(file_name);
                 file_pathbuf.set_extension(file_ext);
 
@@ -93,18 +93,18 @@ impl UploadDelegator {
                 );
 
                 match OpenOptions::new().append(true).open(&data_file_path).await {
-                    Ok(f) => return Ok(f),
+                    Ok(f) => Ok(f),
                     Err(_e) => {
-                        return Err(operation_failed(
+                        Err(operation_failed(
                             "get_upload_target_file",
                             format!(
                                 "{}: {}",
                                 t!("打开文件失败"),
                                 data_file_path.to_str().unwrap()
                             ),
-                        ));
+                        ))
                     }
-                };
+                }
             } else {
                 // 如果文件已存在，但是没有续传点文件，则截断文件，从头开始写入
                 debug!(
@@ -122,16 +122,16 @@ impl UploadDelegator {
                     .open(&data_file_path)
                     .await
                 {
-                    Ok(f) => return Ok(f),
+                    Ok(f) => Ok(f),
                     Err(_e) => {
-                        return Err(operation_failed(
+                        Err(operation_failed(
                             "get_upload_target_file",
                             format!(
                                 "{}: {}",
                                 t!("打开文件失败"),
                                 data_file_path.to_str().unwrap()
                             ),
-                        ));
+                        ))
                     }
                 }
             }
@@ -157,7 +157,7 @@ impl UploadDelegator {
                 data_file_path.to_str().unwrap()
             );
 
-            return Ok(data_file);
+            Ok(data_file)
         }
     }
 
@@ -203,7 +203,7 @@ impl UploadDelegator {
         tokio::spawn(async move {
             while let Some(part) = frx.recv().await {
                 debug!("{}", t!("文件流接收到数据块到缓存"));
-                total_size = total_size + part.len() as u64;
+                total_size += part.len() as u64;
 
                 // 缓存未满，写入缓存
                 if buffer.len() < capacity * chunk_size {

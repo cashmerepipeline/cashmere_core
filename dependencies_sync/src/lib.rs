@@ -9,6 +9,7 @@ pub use mongodb::bson;
 pub use toml;
 
 pub use tonic;
+pub use tonic_build;
 
 pub use serde;
 pub use serde_derive;

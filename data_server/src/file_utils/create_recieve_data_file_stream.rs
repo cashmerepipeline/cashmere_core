@@ -83,7 +83,7 @@ pub async fn create_recieve_data_file_stream(
 
             // 写出缓存
             if cursor >= 4 {
-                while let Some(bpart) = buffer.iter().next() {
+                while let Some(bpart) = buffer.first() {
                     if data_file
                         .write_all(bpart.as_deref().unwrap())
                         .await
@@ -100,7 +100,7 @@ pub async fn create_recieve_data_file_stream(
                 continue;
             }
 
-            cursor = cursor + 1;
+            cursor += 1;
         }
 
         // 缓存刷出

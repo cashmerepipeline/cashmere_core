@@ -38,3 +38,4 @@ entity = { path = "../entity" }
 property_field = { path = "../property_field" }
 view = { path = "../view" }
 request_utils = { path = "../request_utils" }
+service_utils = { path = "../service_utils" }

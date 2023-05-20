@@ -25,7 +25,7 @@ pub async fn insert_entity(
         None => return Err(collection_not_exists("insert_entity")),
     };
 
-    if !entity_doc.contains_key(&ID_FIELD_ID.to_string()) {
+    if !entity_doc.contains_key(ID_FIELD_ID.to_string()) {
         return Err(collection_not_exists("实体没有指定ID."));
     }
 

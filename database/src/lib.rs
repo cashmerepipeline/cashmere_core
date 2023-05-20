@@ -6,8 +6,8 @@
 use std::sync::Arc;
 
 use dependencies_sync::mongodb::bson::{doc, Document};
-use dependencies_sync::mongodb::{options::ClientOptions, options::ServerAddress, Client, Collection, Database};
-use log;
+use dependencies_sync::mongodb::{self, options::ClientOptions, options::ServerAddress, Client, Collection, Database};
+
 
 // use  manage_define::manage_ids::MANAGES_MANAGE_ID;
 use cash_result::{operation_failed, operation_succeed, OperationResult};

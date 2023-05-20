@@ -14,7 +14,7 @@ use super::UploadDelegator;
 impl UploadDelegator {
     /// 检查续传点文件是否存在
     pub async fn check_resume_point_file_exists(&self, data_file_path: PathBuf) -> bool {
-        let mut resume_point_file_path = data_file_path.clone();
+        let mut resume_point_file_path = data_file_path;
         resume_point_file_path.set_extension("resume");
         if resume_point_file_path.exists() {
             return true;

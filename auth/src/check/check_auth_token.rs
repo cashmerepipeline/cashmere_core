@@ -1,4 +1,4 @@
-use crate::{get_auth_token, get_claims_account_and_roles, get_current_role, jwt};
+use crate::{get_auth_token, get_claims_account_and_roles, get_current_role};
 
 use crate::jwt::{get_claims, validate_jwt_token};
 use chrono::Utc;

@@ -30,7 +30,7 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
             NAME_MAP_FIELD_NAME,
             bson::to_document(&field.name_map).unwrap(),
         );
-        temp_doc.insert(REMOVED_FIELD_NAME, &field.removed);
+        temp_doc.insert(REMOVED_FIELD_NAME, field.removed);
 
         schema_vec.push(temp_doc);
     }

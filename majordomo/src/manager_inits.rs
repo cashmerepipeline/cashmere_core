@@ -25,7 +25,7 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
     let mut m_keys = Vec::from_iter(manages_map.keys());
     m_keys.sort();
     for k in m_keys {
-        info!("已加载管理: {} {}", k, manages_map.get(&k).unwrap().get_manager_name());
+        info!("已加载管理: {} {}", k, manages_map.get(k).unwrap().get_manager_name());
     }
 }
 

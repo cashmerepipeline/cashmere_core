@@ -43,7 +43,7 @@ pub trait HandleGetEntities {
         let mut id_stream = stream::iter(entity_ids);
         while let Some(ref id) = id_stream.next().await {
             if can_entity_read(&account_id, &role_group, &manage_id.to_string()).await {
-                filtered_ids.push(id.clone());
+                filtered_ids.push(id.to_owned());
             }
         }
 

@@ -8,7 +8,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
-use crate::name_utils::validate_name;
+use service_utils::validate_name;
 use crate::UnaryResponseResult;
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;

@@ -28,7 +28,6 @@ pub mod manage_service_handle;
 
 pub mod language_code_handles;
 pub mod name_service_handles;
-pub mod name_utils;
 pub mod view_rules_service_handles;
 
 pub mod comment_service_handles;

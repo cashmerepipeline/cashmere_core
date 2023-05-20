@@ -42,7 +42,7 @@ impl DownloadDelegator {
         } else {
             Err(OperationResult::Failed(Failed {
                 operation: "check_request_file_exists".to_string(),
-                details: t!("文件不存在").to_string(),
+                details: t!("文件不存在"),
             }))
         }
     }
@@ -57,7 +57,7 @@ impl DownloadDelegator {
         let file_path_str = String::from(data_file_path.to_str().unwrap());
         let mut data_file = match File::open(data_file_path).await {
             Ok(f) => f,
-            Err(e) => {
+            Err(_e) => {
                 return Err(OperationResult::Failed(Failed {
                     operation: "create_send_file_stream".to_string(),
                     details: format!("{}: {}", t!("打开文件失败"), file_path_str),
@@ -77,7 +77,7 @@ impl DownloadDelegator {
         );
 
         tokio::spawn(async move {
-            let mut buffer = bytes::BytesMut::with_capacity(capacity.clone());
+            let mut buffer = bytes::BytesMut::with_capacity(capacity);
             let meta_size = data_file.metadata().await.unwrap().len();
             let mut total_size = 0u64;
 
@@ -87,7 +87,7 @@ impl DownloadDelegator {
             {
                 error!("{}: {}, {}", t!("设置读取位置失败"), file_path_str, e.to_string());
                 error!("{}: {}", t!("发送文件失败"), file_path_str);
-                return ();
+                return ;
             };
 
             // let send_buffer = async |buffer: &bytes::BytesMut| {
@@ -135,7 +135,7 @@ impl DownloadDelegator {
 
                 // 读取到文件末尾, 退出
                 if n == 0 {
-                    if buffer.len() > 0 {
+                    if !buffer.is_empty() {
                         // send_buffer(&buffer).await;
                         for chunk in buffer.chunks(chunk_size).by_ref() {
                             match ftx.send(chunk.to_vec()).await {

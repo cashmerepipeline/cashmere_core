@@ -28,8 +28,6 @@ import "tag_type.proto";
 import "tag.proto";
 import "tag_map.proto";
 import "comment.proto";
-import "question.proto";
-import "answer.proto";
 import "season.proto";
 import "position.proto";
 

@@ -27,8 +27,8 @@ impl DataStage {
 
         DataStage {
             data_root_dir: root_pathbuf,
-            stage_dir_path: stage_dir_path,
-            stage_link_path: stage_link_path,
+            stage_dir_path,
+            stage_link_path,
         }
     }
 
@@ -39,7 +39,7 @@ impl DataStage {
     /// target_version: 连接目标为文件名或者目录名
     pub async fn change_stage_link_to_version(
         &self,
-        target_version: &String,
+        _target_version: &String,
         data_type: Option<DataType>,
     ) -> Result<(), OperationResult> {
         let mut target_version_path = PathBuf::from(&self.stage_dir_path);
@@ -68,16 +68,14 @@ impl DataStage {
                         t!("更新阶段版本软连接失败"),
                     ));
                 };
-            } else {
-                if fs::symlink_dir(target_version_path, self.stage_link_path.clone())
-                    .await
-                    .is_err()
-                {
-                    return Err(operation_failed(
-                        "change_stage_link_to_version",
-                        t!("更新阶段版本软连接失败"),
-                    ));
-                };
+            } else if fs::symlink_dir(target_version_path, self.stage_link_path.clone())
+                .await
+                .is_err()
+            {
+                return Err(operation_failed(
+                    "change_stage_link_to_version",
+                    t!("更新阶段版本软连接失败"),
+                ));
             }
         }
 

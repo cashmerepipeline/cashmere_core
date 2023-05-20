@@ -16,13 +16,11 @@ pub async fn remove_data_stage(
     stage_path.push(stage);
 
     // 空文件，用于占位
-    if stage_path.exists() {
-        if fs::remove_file(stage_path.clone()).await.is_err() {
-            return Err(operation_failed(
-                "remove_data_stage",
-                t!("删除数据阶段失败"),
-            ));
-        };
+    if stage_path.exists() && fs::remove_file(stage_path.clone()).await.is_err() {
+        return Err(operation_failed(
+            "remove_data_stage",
+            t!("删除数据阶段失败"),
+        ));
     }
 
     Ok(())
