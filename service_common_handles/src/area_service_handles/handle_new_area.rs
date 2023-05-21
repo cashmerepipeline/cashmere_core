@@ -1,5 +1,10 @@
-use async_trait::async_trait;
-use bson::doc;
+use dependencies_sync::{
+    tonic::metadata::MetadataMap;
+    bson,
+    tonic::async_trait,
+    futures::TryFutureExt;
+};
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -20,65 +25,84 @@ pub trait HandleNewArea {
         &self,
         request: Request<NewAreaRequest>,
     ) -> UnaryResponseResult<NewAreaResponse> {
-                let (account_id, _groups, role_group ) = request_account_context(request.metadata());
-
-
-        let parent_id = &request.get_ref().parent_id;
-        let name = &request.get_ref().name;
-        let level = &request.get_ref().level;
-        let code = &request.get_ref().code;
-
-        if !view::can_manage_write(&account_id, &role_group, &AREAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
-            .get_manager_by_id(AREAS_MANAGE_ID)
+        validate_view_rules(request)
+            .and_then(|r| handle_new_area(r))
             .await
-            .unwrap();
+    }
+}
 
-        let local_name = match name {
-            Some(n) => n,
-            None => {
-                return Err(Status::aborted(format!("没有指定名称--{}", code)));
-            }
-        };
+async fn validate_view_rules(
+    request: Request<NewAreaRequest>,
+) -> Result<Request<NewAreaRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    if !view::can_manage_write(
+        &account_id,
+        dataMap & role_grou(),
+        &AREAS_MANAGE_ID.to_string(),
+    )
+    .await
+    {
+        return Err(Status::unauthenticated("用户不具有可写权限"));
+    }
 
-        let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
+    Ok(request)
+}
 
-        // 区域是否存在，存在则返回
-        if manager
-            .entity_exists(&doc! {
-                NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
-            })
-            .await
-        {
-            return Err(Status::aborted("区域已经存在"));
+async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResult<NewAreaResponse> {
+    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+
+    let parent_id = &request.get_ref().parent_id;
+    let name = &request.get_ref().name;
+    let level = &request.get_ref().level;
+    let code = &request.get_ref().code;
+
+    let majordomo_arc = get_majordomo().await;
+    let manager = majordomo_arc
+        .get_manager_by_id(AREAS_MANAGE_ID)
+        .await
+        .unwrap();
+
+    let local_name = match name {
+        Some(n) => n,
+        None => {
+            return Err(Status::aborted(format!("没有指定名称--{}", code)));
         }
+    };
 
-        if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
-            new_entity_doc.insert("_id", code);
-            new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
-            new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
-            new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
-            new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
+    let name_doc = doc! {local_name.language.clone():local_name.name.clone()};
 
-            let result = manager
-                .sink_entity(&mut new_entity_doc, &account_id, &role_group)
-                .await;
+    // 区域是否存在，存在则返回
+    if manager
+        .entity_exists(&doc! {
+            NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
+        })
+        .await
+    {
+        return Err(Status::aborted("区域已经存在"));
+    }
 
-            match result {
-                Ok(_r) => Ok(Response::new(NewAreaResponse {
-                    result: code.to_string(),
-                })),
-                Err(e) => Err(Status::aborted(format!(
-                    "{} {}",
-                    e.operation(),
-                    e.details()
-                ))),
-            }
-        } else {
-            Err(Status::aborted("创建新区域失败"))
+    if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
+        new_entity_doc.insert("_id", code);
+        new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
+        new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
+        new_entity_doc.insert(AREAS_PARENT_ID_FIELD_ID.to_string(), parent_id);
+        new_entity_doc.insert(AREAS_LEVEL_FIELD_ID.to_string(), level);
+
+        let result = manager
+            .sink_entity(&mut new_entity_doc, &account_id, &role_group)
+            .await;
+
+        match result {
+            Ok(_r) => Ok(Response::new(NewAreaResponse {
+                result: code.to_string(),
+            })),
+            Err(e) => Err(Status::aborted(format!(
+                "{} {}",
+                e.operation(),
+                e.details()
+            ))),
         }
+    } else {
+        Err(Status::aborted("创建新区域失败"))
     }
 }

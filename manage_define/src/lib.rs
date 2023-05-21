@@ -16,7 +16,6 @@ pub mod manage_ids;
 pub mod utils;
 pub mod general_property_fields;
 
-
 impl AreaLevel {
     // 整数到区域类型
     // 国家级
