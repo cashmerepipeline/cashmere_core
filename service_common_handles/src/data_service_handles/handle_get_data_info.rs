@@ -1,4 +1,5 @@
-use async_trait::async_trait;
+use dependencies_sync::tonic::async_trait;
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;

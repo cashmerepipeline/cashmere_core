@@ -15,6 +15,6 @@ cash_core = {path="../cash_core"}
 cash_result = {path="../cash_result"}
 manage_define = {path="../manage_define"}
 
-dependencies_sync = {path="../dependencies_sync"}
+dependencies_sync = {path="../dependencies_sync", features=["tokio", "mongodb", "bson"]}
 
 log="0.4.17"

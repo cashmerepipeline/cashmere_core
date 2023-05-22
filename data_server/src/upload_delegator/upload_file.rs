@@ -5,6 +5,7 @@ use log::{debug, info};
 use manage_define::cashmere::FileInfo;
 use std::path::{Path, PathBuf};
 
+use dependencies_sync::fs4;
 use dependencies_sync::tokio::fs;
 use dependencies_sync::tokio::fs::{File, OpenOptions};
 use dependencies_sync::tokio::io::{AsyncWriteExt, BufWriter};

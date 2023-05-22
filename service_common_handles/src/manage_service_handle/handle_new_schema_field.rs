@@ -1,6 +1,7 @@
-use async_trait::async_trait;
-use bson::{doc, Document};
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::tonic::async_trait;
+use dependencies_sync::bson::{self, doc, Document};
+
+use dependencies_sync::linked_hash_map::LinkedHashMap;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;

@@ -1,6 +1,7 @@
-use async_trait::async_trait;
+use dependencies_sync::tonic::async_trait;
+
 use dependencies_sync::{tokio, tokio::sync::mpsc};
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::{Response, Status};
 
 use data_server::file_utils::{check_chunk_md5};

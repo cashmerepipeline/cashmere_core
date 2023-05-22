@@ -6,7 +6,7 @@ Introduction:
 */
 
 use bson::{Bson, doc};
-use bson::Document;
+use dependencies_sync::bson::{self, doc}ument;
 use cash_core::field::ids::*;
 use chrono::Utc;
 use majordomo::get_majordomo;

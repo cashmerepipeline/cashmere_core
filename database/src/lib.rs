@@ -5,7 +5,7 @@
 
 use std::sync::Arc;
 
-use dependencies_sync::mongodb::bson::{doc, Document};
+use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::mongodb::{self, options::ClientOptions, options::ServerAddress, Client, Collection, Database};
 
 
@@ -14,10 +14,10 @@ use cash_result::{operation_failed, operation_succeed, OperationResult};
 
 use manage_define::manage_ids::{IDS_MANAGE_ID, MANAGES_MANAGE_ID};
 
-pub type MongodbResult<T> = dependencies_sync::mongodb::error::Result<T>;
+pub type MongodbResult<T> = mongodb::error::Result<T>;
 
-static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
 static mut CASHMERE_DATABASE: Option<Arc<Database>> = None;
+static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
 
 /// 取得客户端
 pub async fn get_mongodb_client() -> &'static Client {

@@ -1,5 +1,6 @@
-use async_trait::async_trait;
-use bson::doc;
+use dependencies_sync::tonic::async_trait;
+use dependencies_sync::bson::{self, doc};
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;

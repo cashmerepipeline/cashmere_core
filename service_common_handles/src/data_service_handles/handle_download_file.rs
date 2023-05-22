@@ -1,10 +1,11 @@
 use dependencies_sync::{tokio, tokio::sync::mpsc};
 
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::{Response, Status};
 
 use log::info;
-use async_trait::async_trait;
+use dependencies_sync::tonic::async_trait;
+
 
 use data_server::file_utils::{get_chunk_md5};
 use manage_define::cashmere::*;

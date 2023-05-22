@@ -1,8 +1,8 @@
 use dependencies_sync::{
-    tonic::metadata::MetadataMap;
-    bson,
+    tonic::metadata::MetadataMap,
+    bson::{self, doc, Bson, Document},
     tonic::async_trait,
-    futures::TryFutureExt;
+    futures::TryFutureExt
 };
 
 use majordomo::{self, get_majordomo};

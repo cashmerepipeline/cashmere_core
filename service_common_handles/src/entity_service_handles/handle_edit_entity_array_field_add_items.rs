@@ -1,6 +1,7 @@
-use async_trait::async_trait;
-use bson::{doc, Document};
-use prost::bytes::Buf;
+use dependencies_sync::tonic::async_trait;
+use dependencies_sync::bson::{doc, Document};
+
+use dependencies_sync::prost::bytes::Buf;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};

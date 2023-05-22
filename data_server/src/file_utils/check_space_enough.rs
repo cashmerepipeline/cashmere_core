@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use fs4::available_space;
+use dependencies_sync::fs4::available_space;
 
 /// 检查存储空间是否足够
 pub fn check_space_enough(

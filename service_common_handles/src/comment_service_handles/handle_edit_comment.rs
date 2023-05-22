@@ -1,5 +1,5 @@
 use dependencies_sync::{
-    bson::{doc, Document},
+    bson::{doc},
     tokio,
     tonic::{Request, Response, Status},
     tonic::async_trait,
