@@ -13,13 +13,12 @@ pub fn get_readable_groups(
             .map(|id| id.to_owned())
             .filter(|group| {
                 rules
-                    .get(group)
-                    .and_then(|rule| Some(rule.read_filters.contains(&FilterRule::OnlyGroup)))
+                    .get(group).map(|rule| rule.read_filters.contains(&FilterRule::OnlyGroup))
                     .unwrap()
             })
             .collect();
 
-        if result.len() > 0 {
+        if !result.is_empty() {
             return Some(result);
         } else {
             return None;

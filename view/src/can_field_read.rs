@@ -21,12 +21,12 @@ pub async fn can_field_read(
     if let Some(field) = rule_option {
             field
                 .get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     result = result
                         || rule.read_rule == ReadRule::Read
                         || rule.read_rule == ReadRule::OwnerRead
                         || rule.read_rule == ReadRule::GroupRead;
-                    Some(())
+                    
                 })
                 .or(None);
     };
@@ -34,11 +34,11 @@ pub async fn can_field_read(
     // 过滤项
     if let Some(rule) = rule_option {
             rule.get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     result = rule.read_filters.contains(&FilterRule::NoLimit)
                         || rule.read_filters.contains(&FilterRule::OnlyOwner)
                         || rule.read_filters.contains(&FilterRule::OnlyGroup);
-                    Some(())
+                    
                 })
                 .or(None);
     };

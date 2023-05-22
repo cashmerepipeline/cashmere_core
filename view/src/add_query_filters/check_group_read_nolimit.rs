@@ -10,9 +10,9 @@ pub fn check_group_read_nolimit(
     let mut result = false;
     rules.and_then(|rules_map| {
         rules_map.get(group)
-            .and_then(|rule| {
+            .map(|rule| {
                 result = rule.read_filters.contains(&FilterRule::NoLimit);
-                Some(())
+                
             })
     });
     // let result = if let Some(rules) = rules {
@@ -21,5 +21,5 @@ pub fn check_group_read_nolimit(
     //         .or(None)
     // };
 
-    return result;
+    result
 }

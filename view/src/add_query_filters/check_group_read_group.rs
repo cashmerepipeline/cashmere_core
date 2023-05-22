@@ -10,9 +10,9 @@ pub fn check_group_read_group (
     let mut result = false;
     rules.and_then(|rules_map| {
         rules_map.get(group)
-            .and_then(|rule| {
+            .map(|rule| {
                 result = rule.read_filters.contains(&FilterRule::OnlyGroup);
-                Some(())
+                
             })
     });
     // let result = if let Some(rules) = rules {
@@ -21,5 +21,5 @@ pub fn check_group_read_group (
     //         .and_then(|rule| Some(rule.read_filters.contains(&FilterRule::OnlyGroup)))
     // };
 
-    return result;
+    result
 }

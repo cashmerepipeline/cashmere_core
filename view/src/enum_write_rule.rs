@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter, write};
+use std::fmt::{Display, Formatter};
 use serde::{Deserialize, Serialize};
 
 /// 写规则
@@ -31,10 +31,10 @@ impl Display for WriteRule {
 impl From<String> for WriteRule {
     fn from(s: String) -> Self {
         match s {
-            s if s == String::from("InVisible") => WriteRule::InVisible,
-            s if s == String::from("Write") => WriteRule::Write,
-            s if s == String::from("GroupWrite") => WriteRule::GroupWrite,
-            s if s == String::from("OwnerWrite") => WriteRule::OwnerWrite,
+            s if s == *"InVisible" => WriteRule::InVisible,
+            s if s == *"Write" => WriteRule::Write,
+            s if s == *"GroupWrite" => WriteRule::GroupWrite,
+            s if s == *"OwnerWrite" => WriteRule::OwnerWrite,
             _ => WriteRule::Unknown
         }
     }

@@ -22,7 +22,7 @@ pub trait HandleAddFileSetToVersion {
         request: Request<AddFileSetToVersionRequest>,
     ) -> UnaryResponseResult<AddFileSetToVersionResponse> {
         let (account_id, _groups, role_group) =
-            request_account_context(&request.metadata());
+            request_account_context(request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;

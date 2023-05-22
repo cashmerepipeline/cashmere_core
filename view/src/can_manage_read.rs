@@ -9,17 +9,16 @@ pub async fn can_manage_read(_account: &String, group: &String, manage_id: &Stri
     // 没有指定规则则不能访问
     let mut result = false;
     view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.manage))
+        .get(manage_id).map(|rules| &rules.manage)
         .and_then(|rules_map| {
             rules_map
                 .get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     result = result
                         || rule.read_rule == ReadRule::Read
                         || rule.read_rule == ReadRule::OwnerRead
                         || rule.read_rule == ReadRule::GroupRead;
-                    Some(())
+                    
                 })
                 .or(None)
         })

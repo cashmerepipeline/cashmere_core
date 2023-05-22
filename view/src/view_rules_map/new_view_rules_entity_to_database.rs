@@ -17,13 +17,13 @@ pub async fn new_view_rules_entity_to_database(
     view_rules_doc.insert("name", name);
 
     // 入库
-    let result = entity::insert_entity(
+    
+
+    entity::insert_entity(
         &VIEW_RULES_MANAGE_ID.to_string(),
         &mut view_rules_doc,
         account_id,
         group_id,
     )
-        .await;
-
-    result
+        .await
 }

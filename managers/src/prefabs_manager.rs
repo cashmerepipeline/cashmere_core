@@ -42,7 +42,7 @@ impl ManagerTrait for PrefabsManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return PREFABS_MANAGE_ID;
+        PREFABS_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

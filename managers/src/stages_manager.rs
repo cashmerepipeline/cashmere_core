@@ -42,7 +42,7 @@ impl ManagerTrait for StagesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return STAGES_MANAGE_ID;
+        STAGES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

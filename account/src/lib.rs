@@ -30,9 +30,9 @@ pub enum LoginStatus {
 }
 
 pub async fn get_account_by_id(id: &String) -> Result<Document, OperationResult> {
-    let result = entity::get_entity_by_id(&ACCOUNTS_MANAGE_ID.to_string(), id).await;
+    
 
-    result
+    entity::get_entity_by_id(&ACCOUNTS_MANAGE_ID.to_string(), id).await
 }
 
 // 从doc中取得password
@@ -57,7 +57,7 @@ pub fn get_account_groups(doc: &Document) -> Option<Vec<String>> {
 
 /// 取得账号状态
 pub fn is_account_stopped(doc: &Document) -> bool {
-    match doc.get_bool(&"stopped") {
+    match doc.get_bool("stopped") {
         Ok(g) => g,
         Err(_e) => false,
     }

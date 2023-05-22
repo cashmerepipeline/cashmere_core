@@ -8,18 +8,17 @@ pub async fn can_manage_write(_account: &String, group: &String, manage_id: &Str
 
     // 没有指定规则则不能访问
     let mut result = false;
-    &view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.manage))
+    let _ = &view_rules
+        .get(manage_id).map(|rules| &rules.manage)
         .and_then(|rules_map| {
             rules_map
                 .get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     result = result
                         || rule.write_rule == WriteRule::Write
                         || rule.write_rule == WriteRule::OwnerWrite
                         || rule.write_rule == WriteRule::GroupWrite;
-                    Some(())
+                    
                 })
                 .or(None)
         })

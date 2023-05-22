@@ -9,11 +9,11 @@ pub async fn get_manage_schema_view(
     manage_id: &String,
     fields: &Vec<PropertyField>,
 ) -> Document {
-    let mut field_stream = fields.iter();
+    let field_stream = fields.iter();
 
     // 可见性过滤
     let mut props = doc! {};
-    while let Some(field) = field_stream.next() {
+    for field in field_stream {
         if can_field_read(account_id, group, manage_id, &field.id.to_string()).await {
             props.insert(field.id.to_string(), 1);
         } else {

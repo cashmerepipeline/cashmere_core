@@ -1,7 +1,7 @@
 use bson::Document;
 
 use cash_result::OperationResult;
-use majordomo;
+
 use manage_define::manage_ids::ACCOUNTS_MANAGE_ID;
 use managers::traits::ManagerTrait;
 
@@ -13,5 +13,5 @@ pub async fn get_account_entity_doc(account_id: &String) -> Result<Document, Ope
         .await
         .unwrap();
 
-    manager_arc.get_entity_by_id(&account_id).await
+    manager_arc.get_entity_by_id(account_id).await
 }

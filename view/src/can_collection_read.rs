@@ -12,17 +12,16 @@ pub async fn can_collection_read(
 
     let mut result = false;
     view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.collection))
+        .get(manage_id).map(|rules| &rules.collection)
         .and_then(|rules_map| {
             rules_map
                 .get(role_group)
-                .and_then(|rule| {
+                .map(|rule| {
                     result = result
                         || rule.read_rule == ReadRule::Read
                         || rule.read_rule == ReadRule::OwnerRead
                         || rule.read_rule == ReadRule::GroupRead;
-                    Some(())
+                    
                 })
                 .or(None)
         })

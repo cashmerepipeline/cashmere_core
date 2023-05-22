@@ -8,15 +8,14 @@ pub async fn can_collection_write(_account: &String, group: &String, manage_id: 
 
     let mut result = false;
     view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.collection))
+        .get(manage_id).map(|rules| &rules.collection)
         .and_then(|rules_map| {
-            rules_map.get(group).and_then(|rule| {
+            rules_map.get(group).map(|rule| {
                 result = result
                     || rule.write_rule == WriteRule::Write
                     || rule.write_rule == WriteRule::OwnerWrite
                     || rule.write_rule == WriteRule::GroupWrite;
-                Some(())
+                
             })
         })
         .or(None);

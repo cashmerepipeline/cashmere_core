@@ -20,7 +20,7 @@ pub trait HandleDeleteVersionFolderEntries {
         &self,
         request: Request<DeleteVersionFolderEntriesRequest>,
     ) -> UnaryResponseResult<DeleteVersionFolderEntriesResponse> {
-        let (account_id, _groups, role_group) = request_account_context(&request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let stage_id = &request.get_ref().stage_id;
         let version = &request.get_ref().version;

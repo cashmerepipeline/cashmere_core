@@ -42,7 +42,7 @@ impl ManagerTrait for SpecsesManager {
     }
 
     fn get_manager_id(&self) -> i32 {
-        return SPECSES_MANAGE_ID;
+        SPECSES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {

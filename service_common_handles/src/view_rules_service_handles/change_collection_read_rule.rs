@@ -1,7 +1,7 @@
 use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
 
-use dependencies_sync::bson::{self, doc};
+use dependencies_sync::bson::{doc};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;

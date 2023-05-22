@@ -10,17 +10,12 @@ pub fn is_only_owner(rules: &Option<&LinkedHashMap<String, ViewRule>>, groups: &
             .map(|id| id.to_owned())
             .filter(|group| {
                 rules
-                    .get(group)
-                    .and_then(|rule| Some(rule.read_filters.contains(&FilterRule::OnlyOwner)))
+                    .get(group).map(|rule| rule.read_filters.contains(&FilterRule::OnlyOwner))
                     .unwrap()
             })
             .collect();
 
-        if result.len() > 0 {
-            return true;
-        } else {
-            return false;
-        }
+        return !result.is_empty()
     }
     false
 }

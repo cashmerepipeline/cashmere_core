@@ -178,7 +178,7 @@ pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult,
 #[cfg(test)]
 mod tests {
     use crate::get_cashmere_database;
-    use mongodb::bson::doc;
+    use dependencies_sync::mongodb::bson::doc;
     use tokio_test::assert_ok;
 
     #[test]

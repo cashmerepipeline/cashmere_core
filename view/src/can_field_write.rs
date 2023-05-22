@@ -18,13 +18,13 @@ pub async fn can_field_write(
         .and_then(|rules_map| {
             rules_map
                 .get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     // println!("{:?}", rule);
                     result = result
                         || rule.write_rule == WriteRule::Write
                         || rule.write_rule == WriteRule::OwnerWrite
                         || rule.write_rule == WriteRule::GroupWrite;
-                    Some(())
+                    
                 })
                 .or(None)
         })

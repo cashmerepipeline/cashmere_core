@@ -11,18 +11,17 @@ pub async fn can_entity_write(_account: &String, group: &String, manage_id: &Str
     // 没有指定规则则不能访问
     let mut result = false;
     view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.collection))
+        .get(manage_id).map(|rules| &rules.collection)
         .and_then(|rules_map| {
             rules_map
                 .get(group)
-                .and_then(|rule| {
+                .map(|rule| {
                     debug!("{}：{}-{}-{:?}", t!("实体可写检查权限"), manage_id, group, rule);
                     result = result
                         || rule.write_filters.contains(&FilterRule::NoLimit)
                         || rule.write_filters.contains(&FilterRule::OnlyOwner)
                         || rule.write_filters.contains(&FilterRule::OnlyGroup);
-                    Some(())
+                    
                 })
                 .or(None)
         })

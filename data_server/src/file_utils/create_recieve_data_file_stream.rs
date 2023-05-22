@@ -4,7 +4,7 @@ use std::path::PathBuf;
 use log::info;
 
 use dependencies_sync::fs4::tokio::AsyncFileExt;
-use dependencies_sync::tokio;
+
 use dependencies_sync::tokio::fs;
 use dependencies_sync::tokio::fs::File;
 use dependencies_sync::tokio::io::AsyncWriteExt;

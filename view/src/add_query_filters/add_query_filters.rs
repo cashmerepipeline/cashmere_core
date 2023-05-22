@@ -1,6 +1,6 @@
 use bson::{doc, Document};
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, OWNER_FIELD_ID};
-use crate::add_query_filters::{get_read_nolimit_groups, get_readable_groups, is_only_owner};
+
 use crate::add_query_filters::check_group_read_group::check_group_read_group;
 use crate::add_query_filters::check_group_read_nolimit::check_group_read_nolimit;
 use crate::add_query_filters::check_group_read_only_owner::check_group_read_only_owner;
@@ -16,8 +16,7 @@ pub async fn add_query_filters(
     let view_rules = view_rules_arc.read();
 
     let rules = &view_rules
-        .get(manage_id)
-        .and_then(|rules| Some(&rules.collection))
+        .get(manage_id).map(|rules| &rules.collection)
         .or(None);
 
     // 是否无限制

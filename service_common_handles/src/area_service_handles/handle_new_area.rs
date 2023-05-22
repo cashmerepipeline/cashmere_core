@@ -1,6 +1,5 @@
 use dependencies_sync::{
-    tonic::metadata::MetadataMap,
-    bson::{self, doc, Bson, Document},
+    bson::{doc},
     tonic::async_trait,
     futures::TryFutureExt
 };
@@ -15,7 +14,7 @@ use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view;
+
 
 use crate::UnaryResponseResult;
 
@@ -26,7 +25,7 @@ pub trait HandleNewArea {
         request: Request<NewAreaRequest>,
     ) -> UnaryResponseResult<NewAreaResponse> {
         validate_view_rules(request)
-            .and_then(|r| handle_new_area(r))
+            .and_then(handle_new_area)
             .await
     }
 }
