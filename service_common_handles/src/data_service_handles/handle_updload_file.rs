@@ -28,8 +28,8 @@ pub trait HandleUploadFile {
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
-            if in_data.is_ok() {
-                in_data.unwrap()
+            if let Ok(r) = in_data {
+                r
             } else {
                 return Err(Status::data_loss(t!("请求数据错误")));
             }

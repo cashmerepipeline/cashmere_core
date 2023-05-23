@@ -9,10 +9,14 @@ Modified: !date!
 // 异步线程限制
 #![recursion_limit = "256"]
 
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
+
 use std::sync::Arc;
 
 use dependencies_sync::tonic::async_trait;
-use bson::Document;
+use dependencies_sync::bson::Document;
 use parking_lot::RwLock;
 
 use cash_core::Manage;
@@ -71,7 +75,7 @@ impl ManagerTrait for Manager {
         self.inner.get_manage_document().await
     }
 
-    async fn get_schema_document(&self) -> Result<bson::Bson, OperationResult> {
+    async fn get_schema_document(&self) -> Result<Document, OperationResult> {
         self.inner.get_schema_document().await
     }
 
@@ -156,7 +160,7 @@ impl ManagerTrait for ManagerInner {
         self.manager.get_manage_document().await
     }
 
-    async fn get_schema_document(&self) -> Result<bson::Bson, OperationResult> {
+    async fn get_schema_document(&self) -> Result<Document, OperationResult> {
         self.manager.get_schema_document().await
     }
 

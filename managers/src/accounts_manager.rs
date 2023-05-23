@@ -9,8 +9,9 @@ Modified: !date!
 use std::sync::Arc;
 
 // use log::{error, info, warn};
+use dependencies_sync::bson;
+use dependencies_sync::bson::Document;
 use dependencies_sync::tonic::async_trait;
-use bson;
 
 use parking_lot::RwLock;
 
@@ -20,8 +21,7 @@ use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-use crate::{declare_get_manager };
-use bson::Document;
+use crate::declare_get_manager;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
@@ -97,4 +97,3 @@ impl ManagerTrait for AccountsManager {
         return None;
     }
 }
-

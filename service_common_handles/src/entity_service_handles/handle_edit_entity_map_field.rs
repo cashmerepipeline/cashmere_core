@@ -54,8 +54,8 @@ pub trait HandleEditEntityMapField {
             Ok(ref v) => {
                 // 属性key一致
                 let t_v = v.get(key);
-                if t_v.is_some() {
-                    t_v.unwrap().clone()
+                if let Some(r) = t_v {
+                    r.clone()
                 } else {
                     return Err(Status::data_loss("新值不能为空"));
                 }

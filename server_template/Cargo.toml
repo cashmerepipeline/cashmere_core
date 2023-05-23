@@ -1,5 +1,5 @@
 [package]
-name = "knitter"
+name = "server_template"
 version = "0.1.0"
 authors = ["闫刚 <yes7rose@sina.com>"]
 edition = "2021"

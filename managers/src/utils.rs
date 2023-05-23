@@ -1,5 +1,6 @@
 use crate::{Manager, ManagerTrait};
-use bson::Document;
+use dependencies_sync::bson;
+use dependencies_sync::bson::Document;
 use manage_define::general_field_ids::{COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, ENTITY_REMOVED_FIELD_ID, ID_FIELD_ID};
 use std::sync::Arc;
 

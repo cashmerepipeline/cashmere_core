@@ -1,5 +1,5 @@
+use dependencies_sync::bson::doc;
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::bson::{doc};
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
@@ -9,8 +9,8 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
-use service_utils::validate_name;
 use service_utils::types::UnaryResponseResult;
+use service_utils::validate_name;
 
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
@@ -23,15 +23,18 @@ pub trait HandleNewSpecs {
         &self,
         request: Request<NewSpecsRequest>,
     ) -> UnaryResponseResult<NewSpecsResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let data_id = &request.get_ref().data_id;
         let name = &request.get_ref().name;
         let description = &request.get_ref().description;
 
         if validate_name(name).is_err() {
-            return Err(Status::data_loss(format!("{}", t!("名字不能为空"))));
+            return Err(Status::data_loss(format!(
+                "{}: {}",
+                t!("名字不能为空"),
+                data_id
+            )));
         }
         let local_name = match name {
             Some(n) => n,
@@ -45,8 +48,9 @@ pub trait HandleNewSpecs {
             .await
         {
             return Err(Status::unauthenticated(format!(
-                "{}",
-                t!("用户不具有可写权限")
+                "{}: {}",
+                t!("用户不具有可写权限"),
+                data_id
             )));
         }
 

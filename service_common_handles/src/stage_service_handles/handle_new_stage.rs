@@ -30,7 +30,7 @@ pub trait HandleNewStage {
         let description = &request.get_ref().description;
 
         if validate_name(name).is_err() {
-            return Err(Status::data_loss(format!("{}", t!("名字不能为空"))));
+            return Err(Status::data_loss(format!("{}: {}", t!("名字不能为空"), specs_id)));
         }
         let _name = name.as_ref().unwrap();
 

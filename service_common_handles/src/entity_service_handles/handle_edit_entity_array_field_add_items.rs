@@ -48,8 +48,8 @@ pub trait HandleEditEntityArrayFieldAddItems {
         let b_items = if let Ok(v) = Document::from_reader(items.reader()) {
             // 属性key一致
             let t_v = v.get_array(field_id);
-            if t_v.is_ok() {
-                t_v.unwrap().clone()
+            if let Ok(r) = t_v {
+                r.clone()
             } else {
                 return Err(Status::data_loss("数据格式不正确"));
             }

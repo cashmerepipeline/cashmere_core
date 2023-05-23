@@ -81,14 +81,14 @@ pub trait HandleDeleteVersionFolderEntries {
             .map(|v| bson::from_bson::<Version>(v.clone()).unwrap())
             .find(|v| v.name == *version);
 
-        let version_pathes = if v.is_none() {
+        let version_pathes = if let Some(r) = v {
+            r.files
+        } else {
             return Err(Status::not_found(format!(
                 "{}: {}",
                 t!("未找到版本"),
                 version
             )));
-        } else {
-            v.unwrap().files
         };
 
         let tobe_deleted_pathes = file_pathes

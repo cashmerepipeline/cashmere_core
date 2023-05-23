@@ -10,7 +10,7 @@ use std::sync::Arc;
 
 // use log::{error, info, warn};
 use dependencies_sync::tonic::async_trait;
-use bson::{self, Document};
+use dependencies_sync::bson::{self, Document};
 use cash_result::*;
 use parking_lot::RwLock;
 

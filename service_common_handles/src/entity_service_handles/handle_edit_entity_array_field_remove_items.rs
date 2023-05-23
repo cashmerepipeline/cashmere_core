@@ -47,8 +47,8 @@ pub trait HandleEditEntityArrayFieldRemoveItems {
         let b_items = match Document::from_reader(items.reader()) {
             Ok(v) => {
                 let t_v = v.get_array(field_id);
-                if t_v.is_ok() {
-                    t_v.unwrap().clone()
+                if let Ok(r) = t_v {
+                    r.clone()
                 } else {
                     return Err(Status::data_loss("新值不能为空"));
                 }

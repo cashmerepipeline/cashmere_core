@@ -3,11 +3,10 @@ use dependencies_sync::{tokio, tokio::sync::mpsc};
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::{Response, Status};
 
-use log::info;
 use dependencies_sync::tonic::async_trait;
+use log::info;
 
-
-use data_server::file_utils::{get_chunk_md5};
+use data_server::file_utils::get_chunk_md5;
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
 use request_utils::request_account_context;
@@ -21,13 +20,12 @@ pub trait HandleDownloadFile {
         &self,
         request: RequestStream<DownloadFileRequest>,
     ) -> StreamResponseResult<DownloadFileResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let mut in_stream = request.into_inner();
         let first_request = if let Some(in_data) = in_stream.next().await {
-            if in_data.is_ok() {
-                in_data.unwrap()
+            if let Ok(r) = in_data {
+                r
             } else {
                 return Err(Status::data_loss(t!("请求数据错误")));
             }
