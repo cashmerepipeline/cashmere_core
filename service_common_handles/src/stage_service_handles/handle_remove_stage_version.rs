@@ -12,7 +12,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 use request_utils::request_account_context;
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleRemoveStageVersion {

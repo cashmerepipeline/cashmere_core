@@ -14,7 +14,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
 use service_utils::validate_name;
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleNewStage {

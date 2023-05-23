@@ -15,7 +15,7 @@ use request_utils::request_account_context;
 
 use view;
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleEditEntityMapField {

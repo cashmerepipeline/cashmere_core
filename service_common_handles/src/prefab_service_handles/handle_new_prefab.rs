@@ -11,7 +11,8 @@ use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 use service_utils::validate_name;
-use crate::UnaryResponseResult;
+
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleNewPrefab{

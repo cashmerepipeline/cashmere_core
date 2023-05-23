@@ -13,7 +13,7 @@ use manage_define::manage_ids::*;
 use request_utils::request_account_context;
 use view;
 
-use crate::{RequestStream, ResponseStream, StreamResponseResult};
+use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
 
 #[async_trait]
 pub trait HandleDownloadFile {

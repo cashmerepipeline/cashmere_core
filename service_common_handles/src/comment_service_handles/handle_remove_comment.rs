@@ -10,7 +10,8 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
-use crate::UnaryResponseResult;
+
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleRemoveComment {

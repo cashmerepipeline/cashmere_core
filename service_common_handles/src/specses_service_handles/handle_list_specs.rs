@@ -3,7 +3,7 @@ use dependencies_sync::bson::{self, doc};
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;

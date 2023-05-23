@@ -10,7 +10,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use view::{add_query_filters, get_manage_schema_view};
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleGetEntitiesPage {

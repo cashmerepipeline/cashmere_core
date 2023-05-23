@@ -10,7 +10,7 @@ use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
 use view::{self, can_field_read};
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleGetEntity {

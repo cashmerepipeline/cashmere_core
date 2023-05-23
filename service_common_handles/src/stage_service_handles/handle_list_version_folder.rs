@@ -12,7 +12,7 @@ use request_utils::request_account_context;
 use view;
 use data_server::data_stage::{get_version_folder, list_version_foler};
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleListVersionFolder {

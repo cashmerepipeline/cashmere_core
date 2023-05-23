@@ -1,6 +1,7 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, doc};
+use dependencies_sync::tonic::async_trait;
 
+use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -8,10 +9,9 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-use dependencies_sync::tonic::{Request, Response, Status};
 use view;
 
-use crate::UnaryResponseResult;
+use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleSetStageCurrentVersion {
@@ -61,7 +61,8 @@ pub trait HandleSetStageCurrentVersion {
             .get_array(STAGES_VERSIONS_FIELD_ID.to_string())
             .unwrap()
             .iter()
-            .map(|v| bson::from_bson::<Version>(v.clone()).unwrap()).any(|v| v.name == *target_version)
+            .map(|v| bson::from_bson::<Version>(v.clone()).unwrap())
+            .any(|v| v.name == *target_version)
         {
             return Err(Status::invalid_argument("版本不存在"));
         };
