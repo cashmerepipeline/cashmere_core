@@ -1,3 +1,5 @@
+use dependencies_sync::toml;
+
 /// 拷贝自 utils
 /// 取得管理id
 pub fn get_id(toml_map: &toml::map::Map<String, toml::Value>) -> Option<i32> {

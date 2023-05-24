@@ -1,4 +1,4 @@
-use tonic::metadata::MetadataMap;
+use dependencies_sync::tonic::metadata::MetadataMap;
 
 use crate::ROLE_GROUP_NAME;
 

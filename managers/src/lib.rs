@@ -17,7 +17,7 @@ use std::sync::Arc;
 
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::Document;
-use parking_lot::RwLock;
+use dependencies_sync::parking_lot::RwLock;
 
 use cash_core::Manage;
 use cash_result::*;
@@ -25,7 +25,7 @@ use property_field::PropertyField;
 
 pub use traits::ManagerTrait;
 
-pub mod accounts_manager;
+pub mod groups_manager;
 pub mod areas_manager;
 pub mod language_codes_manager;
 pub mod comments_manager;
@@ -35,7 +35,6 @@ pub mod specses_manager;
 pub mod stages_manager;
 pub mod prefabs_manager;
 
-pub mod groups_manager;
 pub mod manages_manager;
 pub mod persons_manager;
 pub mod tasks_manager;

@@ -7,10 +7,10 @@ Introduction:
 use std::{any::Any, sync::Arc};
 
 use dependencies_sync::bson;
-use dependencies_sync::bson::{doc, Bson, Document};
+use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::mongodb::Cursor;
-use parking_lot::RwLock;
+use dependencies_sync::parking_lot::RwLock;
 
 use cash_core::Manage;
 use cash_result::*;
@@ -50,7 +50,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
 
         // 检查序列号生成器
-        if let Err(e) = database::init_ids_count_field(manage_id).await {
+        if let Err(_e) = database::init_ids_count_field(manage_id).await {
             return Err(operation_failed(
                 "ManagerTrait::init",
                 t!("初始化序列号生成器失败"),

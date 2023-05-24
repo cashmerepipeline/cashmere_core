@@ -11,7 +11,7 @@ use std::sync::Arc;
 // use log::{error, info, warn};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, Document};
-use parking_lot::RwLock;
+use dependencies_sync::parking_lot::RwLock;
 
 use super::{Manager, ManagerInner, ManagerTrait};
 

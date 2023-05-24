@@ -8,10 +8,10 @@ edition = "2021"
 
 [dependencies]
 configs = {path="../configs"}
+dependencies_sync = {path="../dependencies_sync", features=["tonic"]}
 
 futures = "0.3.13"
 tokio = "1.21.1"
-tonic = "0.7.2"
 rust-argon2 = "1.0.0"
 chrono = "0.4.19"
 jsonwebtoken = "7.2"

@@ -2,7 +2,7 @@ use crate::{get_auth_token, get_claims_account_and_roles, get_current_role};
 
 use crate::jwt::{get_claims, validate_jwt_token};
 use chrono::Utc;
-use tonic::{Request, Status};
+use dependencies_sync::tonic::{Request, Status};
 
 ///检查授权token
 pub fn check_auth_token(request: Request<()>) -> Result<Request<()>, Status> {

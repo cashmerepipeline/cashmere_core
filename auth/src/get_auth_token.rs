@@ -1,4 +1,4 @@
-use tonic::metadata::MetadataMap;
+use dependencies_sync::tonic::metadata::MetadataMap;
 
 pub fn get_auth_token(metadata: &MetadataMap) -> Option<String> {
     match metadata.get("authorization") {

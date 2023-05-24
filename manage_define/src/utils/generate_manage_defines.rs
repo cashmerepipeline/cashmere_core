@@ -1,7 +1,7 @@
 use std::io::Write;
 
-use bson::Document;
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::bson::{self, Document};
+use dependencies_sync::linked_hash_map::LinkedHashMap;
 
 use crate::{
     language_keys::ENGLISH,

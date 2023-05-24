@@ -9,7 +9,7 @@ edition = "2021"
 # proc-macro = true
 
 [dependencies]
-tonic = "0.7.2"
+dependencies_sync = { path = "../dependencies_sync", features = ["tonic"] }
 # quote = "1.0.9"
 # syn = "1.0.72"
 

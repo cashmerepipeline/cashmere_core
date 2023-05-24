@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::linked_hash_map::LinkedHashMap;
 
 use property_field::{FieldDataType, PropertyField};
 

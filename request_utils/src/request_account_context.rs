@@ -1,4 +1,4 @@
-use tonic::metadata::MetadataMap;
+use dependencies_sync::tonic::metadata::MetadataMap;
 
 /// 获取请求上下文，包括：account_id, groups, role_group
 pub fn request_account_context(metadata: &MetadataMap) -> (String, Vec<String>, String) {
