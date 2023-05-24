@@ -28,6 +28,9 @@ pub use toml;
 #[cfg(feature="prost")]
 pub use prost;
 
+#[cfg(feature="tower")]
+pub use tower;
+
 #[cfg(feature="tonic")]
 pub use tonic;
 
@@ -45,3 +48,6 @@ pub use serde_derive;
 
 #[cfg(feature="log")]
 pub use log;
+
+#[cfg(feature="simplelog")]
+pub use simplelog;
