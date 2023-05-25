@@ -29,17 +29,16 @@ pub trait HandleChangeFieldWriteRule {
         let field_id = &request.get_ref().field_id;
         let write_rule = &request.get_ref().write_rule;
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
 
         // 检查管理是否存在
-        if !majordomo_arc.get_manager_ids().await.contains(manage_id) {
+        if !majordomo_arc.get_manager_ids().contains(manage_id) {
             return Err(Status::data_loss(format!("管理不存在: {}", manage_id)));
         }
 
         // 检查组是否存在
         let group_manager = majordomo_arc
             .get_manager_by_id(GROUPS_MANAGE_ID)
-            .await
             .unwrap();
         let group_query_doc = doc! {ID_FIELD_ID.to_string():group_id.clone()};
         if !group_manager.entity_exists(&group_query_doc).await {
@@ -57,7 +56,6 @@ pub trait HandleChangeFieldWriteRule {
 
         let view_rules_manager = majordomo_arc
             .get_manager_by_id(VIEW_RULES_MANAGE_ID.to_owned())
-            .await
             .unwrap();
 
         let query_doc = doc! {

@@ -63,8 +63,8 @@ pub trait HandleEditEntityMapField {
             Err(_) => return Err(Status::data_loss("新值不能为空")),
         };
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         let query_doc = doc! {
             ID_FIELD_ID.to_string():entity_id,

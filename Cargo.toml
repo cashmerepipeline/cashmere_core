@@ -6,8 +6,6 @@
 
 [workspace]
 members = [
-#  "account",
-#  "account_server",
   "auth",
   "generate_defines",
   "manage_define",

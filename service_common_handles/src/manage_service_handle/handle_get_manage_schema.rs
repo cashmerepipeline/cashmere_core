@@ -24,8 +24,8 @@ pub trait HandleGetManageSchema {
 
         let manage_id = request.get_ref().manage_id;
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
         let fields = manager.get_manage_schema().await;
 

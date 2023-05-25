@@ -54,10 +54,9 @@ pub trait HandleNewSpecs {
             )));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let specs_manager = majordomo_arc
             .get_manager_by_id(SPECSES_MANAGE_ID)
-            .await
             .unwrap();
 
         // 新建条目

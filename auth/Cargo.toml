@@ -1,19 +1,24 @@
 [package]
 name = "auth"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-configs = {path="../configs"}
-dependencies_sync = {path="../dependencies_sync", features=["tonic"]}
+configs = { path = "../configs" }
+dependencies_sync = { path = "../dependencies_sync", features = [
+  "tonic",
+  "tokio",
+  "rust-i18n",
+  "once_cell",
+  "futures",
+  "chrono",
+  "serde",
+  "rust-i18n",
+] }
 
-futures = "0.3.13"
-tokio = "1.21.1"
-rust-argon2 = "1.0.0"
-chrono = "0.4.19"
+rust-argon2 = "1.0"
 jsonwebtoken = "7.2"
-serde = "1.0.116"
-serde_derive = "1.0.116"
+serde = { version = "1.0", features = ["derive"]}

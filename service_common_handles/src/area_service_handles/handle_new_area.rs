@@ -54,10 +54,9 @@ async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResul
     let level = &request.get_ref().level;
     let code = &request.get_ref().code;
 
-    let majordomo_arc = get_majordomo().await;
+    let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
         .get_manager_by_id(AREAS_MANAGE_ID)
-        .await
         .unwrap();
 
     let local_name = match name {

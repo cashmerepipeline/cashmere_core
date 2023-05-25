@@ -27,8 +27,8 @@ pub trait HandleGetManageEntryCount {
             return Err(Status::unauthenticated("用户不具有可读权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         let result = manager.get_entry_counts(doc! {}).await;
 

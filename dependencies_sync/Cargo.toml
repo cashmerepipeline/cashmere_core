@@ -9,26 +9,26 @@ edition = "2021"
 
 [dependencies]
 futures = { version = "0.3.13", optional = true }
-tokio = { version = "1.21.2", features= ["full"], optional = true }
-tokio-stream = {version = "0.1.11", optional = true }
-parking_lot = {version =  "0.12.1", optional = true }
+tokio = { version = "1.21.2", features = ["full"], optional = true }
+tokio-stream = { version = "0.1.11", optional = true }
+parking_lot = { version = "0.12.1", optional = true }
 
 fs4 = { version = "0.5.4", features = ["tokio-async"], optional = true }
 
-chrono = {version = "0.4.19", optional = true }
+chrono = { version = "0.4.19", optional = true }
 
 mongodb = { version = "2.5.0", optional = true }
-bson = {version = "2.6.1", optional = true}
+bson = { version = "2.6.1", optional = true }
 toml = { version = "0.5.8", features = ["preserve_order"], optional = true }
 
 bytes = { verion = "1.4", optional = true }
 hex = { version = "0.4.3", optional = true }
 linked-hash-map = { version = "0.5.3", optional = true }
 
-serde_derive = { version = "1.0.131", optional = true }
-serde = { version = "1.0.131", optional = true }
+serde = { version = "1.0", features = ["derive"], optional = true }
+serde_derive = { version = "1.0", optional = true }
 
-tower ={ version = "0.4.13", optional = true }
+tower = { version = "0.4.13", optional = true }
 prost = { version = "0.11", optional = true }
 tonic = { version = "0.9.2", features = ["tls", "gzip"], optional = true }
 tonic-build = { version = "0.9.2", optional = true }
@@ -38,7 +38,9 @@ md-5 = { version = "0.10.1", optional = true }
 log = { version = "0.4.17", optional = true }
 simplelog = { version = "0.12.1", optional = true }
 
+once_cell = {version = "1.10", optional = true}
 
+rust-i18n = { version = "1.2", optional = true }
 [features]
 futures = ["dep:futures"]
 tokio = ["dep:tokio"]
@@ -52,7 +54,7 @@ bson = ["dep:bson"]
 toml = ["dep:toml"]
 
 linked-hash-map = ["dep:linked-hash-map"]
-serde = ["dep:serde"]
+serde = ["dep:serde", "dep:serde_derive"]
 serde_derive = ["dep:serde_derive"]
 
 tower = ["dep:tower"]
@@ -64,3 +66,6 @@ fs4 = ["dep:fs4"]
 
 log = ["dep:log"]
 simplelog = ["dep:simplelog"]
+
+rust-i18n = ["dep:rust-i18n", "dep:once_cell"]
+once_cell = ["dep:once_cell"]

@@ -33,10 +33,9 @@ pub trait HandleNewLanguageCode {
             return Err(Status::unauthenticated(t!("用户不具有可写权限")));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(manage_id.to_owned())
-            .await
             .unwrap();
 
         // TODO: 检查语言编号是否存在

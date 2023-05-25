@@ -25,10 +25,9 @@ macro_rules! declare_handle_edit_schema_field_name {
                     return Err(Status::unauthenticated("用户不具有可写权限"));
                 }
 
-                let majordomo_arc = get_majordomo().await;
+                let majordomo_arc = get_majordomo();
                 let manager = majordomo_arc
                     .get_manager_by_id(manage_id.parse().unwrap())
-                    .await
                     .unwrap();
                 let result = manager
                     .edit_schema_field_name(field_id, language, new_name, &account_id)

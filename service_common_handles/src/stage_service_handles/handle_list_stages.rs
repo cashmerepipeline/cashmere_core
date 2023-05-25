@@ -30,10 +30,9 @@ pub trait HandleListStages {
             return Err(Status::unauthenticated("用户不具有可读权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(STAGES_MANAGE_ID)
-            .await
             .unwrap();
 
         let mut filter_doc = Document::new();

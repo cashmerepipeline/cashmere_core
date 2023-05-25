@@ -30,8 +30,8 @@ pub trait HandleMarkDataRemoved {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
-        let data_manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let data_manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         let result = data_manager
             .mark_entity_removed(entity_id, &account_id)

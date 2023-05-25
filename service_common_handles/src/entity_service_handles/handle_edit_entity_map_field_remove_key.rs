@@ -43,8 +43,8 @@ pub trait HandleEditEntityMapFieldRemoveKey {
             return Err(Status::permission_denied("用户不具有属性可写权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         let query_doc = doc! {
             ID_FIELD_ID.to_string():entity_id,

@@ -40,8 +40,8 @@ pub trait HandleGetEntity {
             return Err(Status::unauthenticated("用户不具有实体可读权限"));
         };
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         let result = manager.get_entity_by_id(entity_id).await;
 

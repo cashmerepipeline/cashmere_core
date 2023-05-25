@@ -37,7 +37,7 @@ impl KnitterServer {
 
         // 显示加载的管理
         info!("初始化主管");
-        let majordomo_lock = majordomo::get_majordomo().await;
+        let majordomo_lock = majordomo::get_majordomo();
         info!("初始化管理映射表");
         let managers_map_lock = majordomo_lock.get_managers_map().await;
         let mut manages_map = managers_map_lock.write();

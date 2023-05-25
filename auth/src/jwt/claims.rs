@@ -1,4 +1,5 @@
-use serde::{Serialize, Deserialize};
+
+use dependencies_sync::serde::{Serialize, Deserialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Claims {

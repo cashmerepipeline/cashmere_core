@@ -35,10 +35,9 @@ pub trait HandleNewComment {
 
         let mut new_entity_doc = Document::new();
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(COMMENTS_MANAGE_ID)
-            .await
             .unwrap();
         let new_id = manager.get_new_entity_id().await.unwrap();
 

@@ -27,10 +27,9 @@ pub trait HandleGetDataInfo {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let data_manager = majordomo_arc
             .get_manager_by_id(DATAS_MANAGE_ID)
-            .await
             .unwrap();
 
         let result = data_manager.get_entity_by_id(data_id).await;

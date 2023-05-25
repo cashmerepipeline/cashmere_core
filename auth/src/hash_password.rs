@@ -1,4 +1,4 @@
-use chrono::Utc;
+use dependencies_sync::chrono::Utc;
 use argon2::Config;
 
 // 加密密码

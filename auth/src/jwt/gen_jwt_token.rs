@@ -1,5 +1,5 @@
 use jsonwebtoken::{Algorithm, encode, EncodingKey, Header};
-use chrono::Utc;
+use dependencies_sync::chrono::Utc;
 use crate::jwt::Claims;
 
 // 生成jwt token

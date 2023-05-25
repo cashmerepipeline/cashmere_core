@@ -51,3 +51,9 @@ pub use log;
 
 #[cfg(feature="simplelog")]
 pub use simplelog;
+
+#[cfg(feature="rust-i18n")]
+pub use rust_i18n;
+
+#[cfg(feature="once_cell")]
+pub use once_cell;

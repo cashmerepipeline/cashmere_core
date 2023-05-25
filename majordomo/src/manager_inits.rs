@@ -4,30 +4,38 @@
 
 use std::sync::Arc;
 
-use log::info;
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::log::info;
 
 use managers::traits::ManagerTrait;
 use managers::Manager;
-use crate::get_majordomo;
 
-pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
-    // 显示加载的管理
+use crate::majordomo_arc::get_majordomo;
+
+pub fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
     info!("初始化主管");
-    let majordomo_lock = get_majordomo().await;
+    let majordomo_lock = get_majordomo();
 
     info!("初始化管理映射表");
-    let managers_map_lock = majordomo_lock.get_managers_map().await;
+    let managers_map_lock = majordomo_lock.get_managers_map();
     let mut manages_map = managers_map_lock.write();
     for m in manager_arcs {
-        manages_map.insert(m.get_manager_id(), m.clone());
+        let manager_id = m.get_manager_id();
+        // 管理编号不能相同
+        if manages_map.contains_key(&manager_id) {
+            panic!(
+                "{}: {}, {}",
+                t!("管理编号重复"),
+                t!("请检查管理编号指定"),
+                manager_id
+            );
+        }
+
+        manages_map.insert(manager_id, m.clone());
     }
 
-    let mut m_keys = Vec::from_iter(manages_map.keys());
-    m_keys.sort();
-    for k in m_keys {
-        info!("已加载管理: {} {}", k, manages_map.get(k).unwrap().get_manager_name());
+    // 显示加载的管理
+    for (k, m) in manages_map.iter() {
+        info!("已加载管理: {} {}", k, m.get_manager_name())
     }
 }
-
-
-

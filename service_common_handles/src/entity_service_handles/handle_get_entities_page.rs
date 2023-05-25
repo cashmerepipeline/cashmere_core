@@ -36,8 +36,8 @@ pub trait HandleGetEntitiesPage {
             return Err(Status::unauthenticated("用户不具有集合可读权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
         // TODO: 排序条件只支持几种固定格式，需要安全性检查
         let sorts_doc = bson::to_document(conditions).ok().or(None);

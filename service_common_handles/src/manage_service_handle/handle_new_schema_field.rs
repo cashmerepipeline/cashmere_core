@@ -40,8 +40,8 @@ pub trait HandleNewSchemaField {
             removed: false,
         };
 
-        let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc.get_manager_by_id(manage_id).await.unwrap();
+        let majordomo_arc = get_majordomo();
+        let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
         let result = manager.new_schema_field(new_field, &account_id).await;
 
         match result {

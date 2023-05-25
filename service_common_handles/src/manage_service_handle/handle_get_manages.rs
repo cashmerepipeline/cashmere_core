@@ -1,13 +1,11 @@
+use dependencies_sync::bson::doc;
+use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::bson::{doc};
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-
-use dependencies_sync::tonic::{Request, Response, Status};
 use view::can_manage_read;
 
 #[async_trait]
@@ -20,11 +18,11 @@ pub trait HandleGetManages {
         let (account_id, _groups, role_group) =
             request_account_context(request.metadata());
 
-        let managers_ids: Vec<i32> = get_majordomo().await.get_manager_ids().await;
+        let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
 
         let mut result: Vec<Manage> = Vec::new();
         for id in managers_ids {
-            let manager = get_majordomo().await.get_manager_by_id(id).await.unwrap();
+            let manager = get_majordomo().get_manager_by_id(id).unwrap();
             let doc = manager.get_manage_document().await.read().clone();
 
             let mut name_map: Vec<u8> = Vec::new();

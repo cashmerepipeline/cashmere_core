@@ -4,7 +4,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        use futures;
+        use dependencies_sync::futures;
         use crate::jwt::hash_password;
 
         let _root_passwd =

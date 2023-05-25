@@ -33,10 +33,9 @@ pub trait HandleNewGroup {
             return Err(Status::unauthenticated(t!("用户不具有组可写权限")));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let group_manager = majordomo_arc
             .get_manager_by_id(manage_id.to_owned())
-            .await
             .unwrap();
 
         //TODO: 组编号是否符合格式

@@ -33,14 +33,12 @@ pub trait HandleRemoveComment {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let target_manager = majordomo_arc
             .get_manager_by_id(target_manage_id.parse::<i32>().unwrap())
-            .await
             .unwrap();
         let comment_manager = majordomo_arc
             .get_manager_by_id(COMMENTS_MANAGE_ID)
-            .await
             .unwrap();
 
         let query_doc = doc! {

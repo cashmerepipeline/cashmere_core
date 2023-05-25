@@ -7,14 +7,19 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bson = "2.6.1"
-parking_lot = "0.12.1"
-log = "0.4.14"
+once_cell = "1.10"
 
-cash_core = {path = "../cash_core"}
-cash_result = {path = "../cash_result"}
-configs = {path = "../configs"}
-managers = {path = "../managers"}
-manage_define = {path="../manage_define"}
-entity = {path = "../entity"}
-property_field = {path = "../property_field"}
+dependencies_sync = { path = "../dependencies_sync", features = [
+  "bson",
+  "parking_lot",
+  "log",
+  "rust-i18n",
+] }
+
+cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
+configs = { path = "../configs" }
+managers = { path = "../managers" }
+manage_define = { path = "../manage_define" }
+entity = { path = "../entity" }
+property_field = { path = "../property_field" }
