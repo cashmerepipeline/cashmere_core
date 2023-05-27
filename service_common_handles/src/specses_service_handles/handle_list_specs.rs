@@ -29,15 +29,6 @@ pub trait HandleListSpecs {
         let data_id = &request.get_ref().data_id;
 
         let manage_id = SPECSES_MANAGE_ID;
-        // 管理可读性检查
-        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
-
-        // 集合可读性检查
-        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();

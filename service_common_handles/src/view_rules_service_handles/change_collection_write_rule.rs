@@ -48,9 +48,7 @@ pub trait HandleChangeCollectionWriteRule {
             return Err(Status::data_loss("输入读取规则错误"));
         }
 
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
+        
 
         let view_rules_manager = majordomo_arc
             .get_manager_by_id(VIEW_RULES_MANAGE_ID.to_owned())

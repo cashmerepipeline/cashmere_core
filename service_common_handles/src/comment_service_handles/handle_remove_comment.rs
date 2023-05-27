@@ -29,10 +29,6 @@ pub trait HandleRemoveComment {
         let target_entity_id = &request.get_ref().target_entity_id;
         let comment_id = &request.get_ref().comment_id;
 
-        if !view::can_manage_write(&account_id, &role_group, target_manage_id).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let target_manager = majordomo_arc
             .get_manager_by_id(target_manage_id.parse::<i32>().unwrap())

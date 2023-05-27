@@ -23,10 +23,6 @@ pub trait HandleGetDataInfo {
 
         let data_id = &request.get_ref().data_id;
 
-        if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let data_manager = majordomo_arc
             .get_manager_by_id(DATAS_MANAGE_ID)

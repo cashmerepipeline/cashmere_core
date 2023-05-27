@@ -29,37 +29,28 @@ async fn validate_view_rules(
 ) -> Result<Request<NewLanguageNameRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
+        let manage_id = LANGUAGES_CODES_MANAGE_ID;
         let (account_id, _groups, role_group) = request_account_context(request.metadata());
-
-        // 检查是否有权限
-        if !view::can_collection_write(
-            &account_id,
-            dataMap & role_grou(),
-            &LANGUAGES_CODES_MANAGE_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated(
-                format! {"{}: {}, {}", t!("用户不具有集合可写权限"), LANGUAGES_CODES_MANAGE_ID, role_group},
-            ));
+        if Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
         }
 
-        // 检查属性是否可写
-        if !view::can_field_write(
-            &account_id,
-            &role_group,
-            &manage_id.to_string(),
-            &NAME_MAP_FIELD_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated(format!(
-                "{}: {}, {}",
-                t!("用户不具有属性可写权限"),
-                manage_id,
-                role_group
-            )));
-        }
+        // // 检查属性是否可写
+        // if !view::can_field_write(
+        //     &account_id,
+        //     &role_group,
+        //     &manage_id.to_string(),
+        //     &NAME_MAP_FIELD_ID.to_string(),
+        // )
+        // .await
+        // {
+        //     return Err(Status::unauthenticated(format!(
+        //         "{}: {}, {}",
+        //         t!("用户不具有属性可写权限"),
+        //         manage_id,
+        //         role_group
+        //     )));
+        // }
     }
 
     Ok(request)

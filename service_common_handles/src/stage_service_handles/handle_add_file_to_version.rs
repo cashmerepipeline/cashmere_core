@@ -26,9 +26,7 @@ pub trait HandleAddFileToVersion {
         let version = &request.get_ref().version;
         let file_path = &request.get_ref().file_path;
 
-        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
+        
 
         if !view::can_field_write(
             &account_id,

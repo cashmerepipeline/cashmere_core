@@ -39,11 +39,6 @@ pub trait HandleGetManages {
                     .unwrap(),
                 name_map,
             };
-
-            // 可见性过滤，返回可读管理
-            if can_manage_read(&account_id, &role_group, &id.to_string()).await {
-                result.push(m);
-            }
         }
 
         Ok(Response::new(GetManagesResponse { manages: result }))

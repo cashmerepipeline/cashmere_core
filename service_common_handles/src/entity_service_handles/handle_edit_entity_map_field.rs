@@ -34,13 +34,9 @@ pub trait HandleEditEntityMapField {
         // bson bytes {key:new_value}
         let new_value = &request.get_ref().new_value;
 
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有集合可写权限"));
-        }
+        
 
-        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有实体可写权限"));
-        }
+        
 
         if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
         {

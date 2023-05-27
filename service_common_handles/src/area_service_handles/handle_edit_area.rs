@@ -26,10 +26,6 @@ pub trait HandleEditArea {
         let new_parent_id = &request.get_ref().new_parent_id;
         let new_level = &request.get_ref().new_level;
 
-        if !view::can_manage_write(&account_id, &role_group, &AREAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(AREAS_MANAGE_ID)

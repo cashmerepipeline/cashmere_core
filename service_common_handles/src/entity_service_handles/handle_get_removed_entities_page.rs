@@ -1,5 +1,5 @@
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::bson::{self,doc, Document};
 
 use majordomo::{self, get_majordomo};
 use manage_define::{cashmere::*, general_field_ids::ENTITY_REMOVED_FIELD_ID};
@@ -18,22 +18,11 @@ pub trait HandleGetRemovedEntitiesPage {
         &self,
         request: Request<GetRemovedEntitiesPageRequest>,
     ) -> UnaryResponseResult<GetRemovedEntitiesPageResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let page_index = &request.get_ref().page_index;
         let conditions = &request.get_ref().conditions;
-
-        // 管理可读性检查
-        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
-
-        // 集合可读性检查
-        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
@@ -62,7 +51,7 @@ pub trait HandleGetRemovedEntitiesPage {
         // zh: 描写字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
-            get_manage_schema_view(&account_id, &role_group, &manage_id.to_string(), &fields).await;
+            get_manage_schema_view(&manage_id.to_string(), &role_group, &fields).await;
         let project_doc = if !schema_projects.is_empty() {
             // 只加入不可见字段
             let mut no_show_project = Document::new();

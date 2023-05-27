@@ -21,10 +21,6 @@ macro_rules! declare_handle_edit_schema_field_name {
                 let language = &request.get_ref().language;
                 let new_name = &request.get_ref().new_name;
 
-                if !view::can_manage_write(&account_id, &groups, manage_id).await {
-                    return Err(Status::unauthenticated("用户不具有可写权限"));
-                }
-
                 let majordomo_arc = get_majordomo();
                 let manager = majordomo_arc
                     .get_manager_by_id(manage_id.parse().unwrap())

@@ -16,6 +16,8 @@ cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 property_field = { path = "../property_field" }
 
+dependencies_sync = { path = "../dependencies_sync", features = ["tonic"]}
+
 #tokio = { version = "1.21.2", features = ["full"] }
 futures = "0.3.13"
 tokio-stream = "0.1.11"

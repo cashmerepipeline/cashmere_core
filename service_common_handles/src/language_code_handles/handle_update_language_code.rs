@@ -27,10 +27,6 @@ pub trait HandleEditLanguageCode {
 
         let manage_id = &LANGUAGES_CODES_MANAGE_ID;
 
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(manage_id.to_owned())

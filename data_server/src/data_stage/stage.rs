@@ -46,7 +46,7 @@ impl DataStage {
         target_version_path.push(target_version_path.clone());
 
         #[cfg(not(target_os = "windows"))]
-        if fs::symlink(&self.stage_path, &target_version_path)
+        if fs::symlink(&self.stage_dir_path, &target_version_path)
             .await
             .is_err()
         {

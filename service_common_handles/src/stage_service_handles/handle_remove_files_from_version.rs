@@ -36,9 +36,7 @@ pub trait HandleRemoveFilesFromVersion {
             return Err(Status::invalid_argument("文件路径列表为空"));
         }
 
-        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
+        
 
         if !view::can_field_write(
             &account_id,

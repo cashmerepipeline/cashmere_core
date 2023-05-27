@@ -46,10 +46,6 @@ pub trait HandleDownloadFile {
             return Err(Status::invalid_argument(t!("必填项缺失")));
         }
 
-        if !view::can_manage_read(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated(t!("用户不具有可写权限")));
-        }
-
         // 交互流
         let (resp_tx, resp_rx) = mpsc::channel(5);
 

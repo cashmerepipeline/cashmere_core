@@ -24,13 +24,9 @@ pub trait HandleRecoverRemovedEntity {
         let entity_id = &request.get_ref().entity_id;
 
         // 集合可写检查
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
+        
         // 实体可写检查
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
+        
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
