@@ -15,14 +15,6 @@ schema = [
   { data_type = "Int64", name_map = { zh = "实际时长", en = "real_duration" }, removed = false },
 ]
 
-[queues]
-event_queue = ["task_event_queue"]
-massage_queue = ["task_message_queue"]
-
-[events]
-before_create = { manage = "tasks", python = "" }
-after_create = { manage = "tasks", python = "" }
-
 [items]
 
 [view_rules]

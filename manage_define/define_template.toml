@@ -27,16 +27,6 @@ phone = "UInt64"
 include_views_rules = "List"
 exclude_views_rules = "List"
 
-# 事件队列和消息队列表
-[queues]
-event_queue = ["account_event_queue"]
-massage_queue = ["account_message_queue"]
-
-# 事件定义, 不是必须
-[events]
-before_create = { name = "before_create", sender_id = "" }
-after_create = { name = "after_create", sender_id = "" }
-deactivate = { name = "deactivate", sender_id = "" }
 
 # 初始记录
 # 每个记录都需要指定 _id owner_id

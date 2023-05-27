@@ -13,14 +13,6 @@ schema = [
   { data_type = "Int32", name_map = { zh = "分级", en = "level" }, removed = false },
 ]
 
-# 事件队列和消息队列表
-[queues]
-
-# 事件定义, 不是必须
-[events]
-event_queue = []
-massage_queue = []
-
 # 初始实体
 [items]
 

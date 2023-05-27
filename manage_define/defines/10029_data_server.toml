@@ -11,14 +11,6 @@ schema = [
   # { data_type = "String", name_map = { zh = "事件", en = "event_id" }, removed = false },
 ]
 
-# 事件队列和消息队列表
-[queues]
-event_queue = []
-massage_queue = []
-
-# 事件定义, 不是必须
-[events]
-
 # 初始实体
 [items]
 

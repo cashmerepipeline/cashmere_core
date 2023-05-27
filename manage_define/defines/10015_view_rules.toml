@@ -30,12 +30,6 @@ schema = [
   { data_type = "Map", name_map = { zh = "实体级", en = "entity" }, removed = false },
 ]
 
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [items]
 
 [view_rules]

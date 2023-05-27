@@ -11,12 +11,6 @@ schema = [
   { data_type = "List", name_map = { zh = "预设表", en = "presets" }, removed = false },
 ]
 
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [items]
 
 [view_rules]

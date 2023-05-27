@@ -10,19 +10,6 @@ schema = [
   { data_type = "List", name_map = { zh = "状态表", en = "statuses" }, removed = false },
 ]
 
-# 管理id
-manage = "String"
-# 过程id
-procedure = "String"
-
-status = "String"
-
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [items]
 
 [view_rules]

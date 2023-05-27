@@ -3,7 +3,7 @@
 #
 
 id = 00000
-name_map = { zh = "一般属性", en = "general" }
+name_map = { zh = "管理模板", en = "general" }
 
 # 描写，模式
 schema = [
@@ -22,15 +22,6 @@ schema = [
   { data_type = "String", name_map = { zh = "描述", en = "descriptions" }, removed = false },
   { data_type = "Bool", name_map = { zh = "删除", en = "entity_removed" }, removed = false },
 ]
-
-
-# 事件定义
-[events]
-
-# 队列定义
-[queues]
-event_queue = []
-massage_queue = []
 
 # 初始实体
 [items]

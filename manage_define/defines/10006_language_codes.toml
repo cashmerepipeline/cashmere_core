@@ -12,14 +12,6 @@ schema = [
   { data_type = "String", name_map = { zh = "母语名", en = "native" }, removed = false },
 ]
 
-# 事件队列和消息队列表
-[queues]
-event_queue = []
-massage_queue = []
-
-# 事件定义, 不是必须
-[events]
-
 [view_rules]
 
 [view_rules.manage]

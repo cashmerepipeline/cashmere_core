@@ -12,16 +12,6 @@ schema = [
   { data_type = "List", name_map = { zh = "隐藏属性", en = "hidden_schemas" }, removed = false },
 ]
 
-manage = "String"
-settings = "Map"
-hidden_schemas = "List"
-
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [items]
 
 [view_rules]

@@ -8,14 +8,6 @@ name_map = { zh = "组", en = "groups" }
 # 描写，模式
 schema = []
 
-[queues]
-event_queues = ["group_event_queue"]
-massage_queues = ["group_message_queue"]
-
-[events]
-before_create = { manage = "groups", python = "" }
-after_create = { manage = "groups", python = "" }
-
 [view_rules]
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [

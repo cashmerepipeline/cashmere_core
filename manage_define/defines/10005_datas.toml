@@ -15,10 +15,6 @@ schema = [
   { data_type = "Map", name_map = { zh = "阶段表", en = "specs" }, removed = false },
 ]
 
-[queues]
-
-[events]
-
 [items]
 
 [view_rules]

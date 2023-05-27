@@ -15,12 +15,6 @@ schema = [
   { data_type = "List", name_map = { zh = "部门表", en = "departments" }, removed = false },
 ]
 
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [view_rules]
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [

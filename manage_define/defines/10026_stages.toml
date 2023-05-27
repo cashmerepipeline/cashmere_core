@@ -22,19 +22,8 @@ schema = [
     { data_type = "String", name_map = { zh = "当前版本", en = "current_version"}, removed = false },
 ]
 
-# 特有属性
-
-# 事件队列和消息队列表
-[queues]
-
-# 事件定义, 不是必须
-[events]
-event_queue = []
-massage_queue = []
-
 # 初始实体
 [items]
-
 
 [view_rules]
 

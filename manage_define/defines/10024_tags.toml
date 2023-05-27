@@ -11,14 +11,6 @@ schema = [
   { data_type = "List", name_map = { zh = "可标管理表", en = "target_manages" }, removed = false },
 ]
 
-# 事件队列和消息队列表
-[queues]
-
-# 事件定义, 不是必须
-[events]
-event_queue = []
-massage_queue = []
-
 [view_rules]
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [

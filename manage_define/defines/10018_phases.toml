@@ -14,12 +14,6 @@ schema = [
   { data_type = "Int64", name_map = { zh = "实际时长", en = "real_duration" }, removed = false }
 ]
 
-[queues]
-event_queue = []
-massage_queue = []
-
-[events]
-
 [items]
 3dasset = { 1000 = "1001", 1002 = "8610000000000", 1001 = "3dasset", 1006 = "8610000000000", 1007 = [
   "10000",
