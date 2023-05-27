@@ -28,27 +28,6 @@ pub trait HandleRename {
         let language = &new_name.as_ref().unwrap().language;
         let new_name = &new_name.as_ref().unwrap().name;
 
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
-        // 集合可写性检查
-        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
-
-        // 检查属性是否可写
-        if !view::can_field_write(
-            &account_id,
-            &role_group,
-            &manage_id.to_string(),
-            &NAME_MAP_FIELD_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 

@@ -23,9 +23,6 @@ mod enum_write_rule;
 mod get_manage_schema_view;
 mod manage_view_claims;
 
-mod validate_group;
-mod validate_is_owner;
-mod validate_view_token;
 mod view_rule;
 mod view_rules;
 
@@ -48,5 +45,9 @@ pub use enum_write_rule::*;
 pub use get_manage_schema_view::*;
 
 pub use validate_group::*;
+pub mod validates;
+mod validate_group;
+mod validate_is_owner;
+mod validate_view_token;
 
 pub use init_view_rules::init_view_rules;

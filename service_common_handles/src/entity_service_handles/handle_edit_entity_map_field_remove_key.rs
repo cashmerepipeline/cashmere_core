@@ -30,19 +30,6 @@ pub trait HandleEditEntityMapFieldRemoveKey {
         let field_id = &request.get_ref().field_id;
         let key = &request.get_ref().key;
 
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有集合可写权限"));
-        }
-
-        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有实体可写权限"));
-        }
-
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
-        {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 

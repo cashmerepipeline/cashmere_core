@@ -33,14 +33,10 @@ async fn validate_view_rules(
 ) -> Result<Request<NewCountryRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        if !view::can_collection_write(
-            &account_id,
-            dataMap & role_grou(),
-            &COUNTRIES_MANAGE_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated(t!("用户不具有集合可写权限")));
+        manage_id = COUNTRIES_MANAGE_ID;
+        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        if Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
         }
     }
 

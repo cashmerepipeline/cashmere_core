@@ -53,10 +53,6 @@ impl CashmereServer {
         let manage_id = &request.get_ref().manage_id;
         let fields = &request.get_ref().fields;
 
-        if !view::can_manage_write(&account_id, &groups, &TEMPLATES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         // 取得第一个可写组作为组
         let group_id =
             match view::get_first_write_group(&groups, &TEMPLATES_MANAGE_ID.to_string()).await {

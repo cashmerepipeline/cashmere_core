@@ -17,11 +17,6 @@ pub trait HandleGetDataServerConfigs {
         let (account_id, _groups, role_group) =
             request_account_context(request.metadata());
 
-        //TODO: 权限检查可能需要其他管理项
-        if !view::can_manage_read(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
-            return Err(Status::data_loss("没有管理读取权限"));
-        }
-
         let data_server_configs = bson::to_document(&configs::get_data_server_configs()).unwrap();
 
         Ok(Response::new(GetDataServerConfigsResponse {

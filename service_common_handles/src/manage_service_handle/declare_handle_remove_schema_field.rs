@@ -19,10 +19,6 @@ macro_rules! declare_handle_remove_schema_field {
                 let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
                 let field_id = request.get_ref().field_id;
 
-                if !view::can_manage_write(&account_id, &groups, &manage_id.to_string()).await {
-                    return Err(Status::unauthenticated("用户不具有可写权限"));
-                }
-
                 let majordomo_arc = get_majordomo();
                 let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
                 let result = manager

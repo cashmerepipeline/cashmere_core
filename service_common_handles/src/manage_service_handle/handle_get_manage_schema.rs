@@ -35,10 +35,9 @@ pub trait HandleGetManageSchema {
         let mut result: Vec<PropertyField> = vec![];
         while let Some(field) = field_stream.next().await {
             if can_field_read(
-                &account_id,
-                &role_group,
                 &manage_id.to_string(),
                 &field.id.to_string(),
+                &role_group,
             )
             .await
             {

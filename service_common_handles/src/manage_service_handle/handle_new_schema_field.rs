@@ -22,9 +22,7 @@ pub trait HandleNewSchemaField {
         let (account_id, _groups, role_group) =
             request_account_context(request.metadata());
 
-        if !view::can_manage_write(&account_id, &role_group, &MANAGES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
+        
 
         let manage_id = request.get_ref().manage_id;
         let field: &SchemaField = request.get_ref().field.as_ref().unwrap();

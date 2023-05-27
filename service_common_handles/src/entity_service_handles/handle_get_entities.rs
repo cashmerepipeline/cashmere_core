@@ -1,5 +1,5 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, doc};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -20,21 +20,10 @@ pub trait HandleGetEntities {
         &self,
         request: Request<GetEntitiesRequest>,
     ) -> UnaryResponseResult<GetEntitiesResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_ids = &request.get_ref().entity_ids;
-
-        // 管理可读性检查
-        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
-
-        // 集合可读性检查
-        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
@@ -43,7 +32,7 @@ pub trait HandleGetEntities {
         let mut filtered_ids = vec![];
         let mut id_stream = stream::iter(entity_ids);
         while let Some(ref id) = id_stream.next().await {
-            if can_entity_read(&account_id, &role_group, &manage_id.to_string()).await {
+            if can_entity_read(&manage_id.to_string(), &role_group).await {
                 filtered_ids.push(id.to_owned());
             }
         }
@@ -65,7 +54,7 @@ pub trait HandleGetEntities {
                     let mut property_stream = stream::iter(e);
 
                     while let Some((k, v)) = property_stream.next().await {
-                        if !can_field_read(&account_id, &role_group, &manage_id.to_string(), k)
+                        if !can_field_read(  &manage_id.to_string(), k, &role_group)
                             .await
                         {
                             if k == &"_id".to_string() {

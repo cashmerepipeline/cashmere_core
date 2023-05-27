@@ -25,10 +25,6 @@ pub trait HandleListEntityData {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
 
-        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可读权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 

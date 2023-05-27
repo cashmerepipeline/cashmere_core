@@ -24,21 +24,6 @@ pub trait HandleSetStageCurrentVersion {
         let stage_id = &request.get_ref().stage_id;
         let target_version = &request.get_ref().target_version;
 
-        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
-        if !view::can_field_write(
-            &account_id,
-            &role_group,
-            &STAGES_MANAGE_ID.to_string(),
-            &STAGES_VERSIONS_FIELD_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(STAGES_MANAGE_ID)

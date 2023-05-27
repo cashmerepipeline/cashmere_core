@@ -1,5 +1,5 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, doc};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -19,26 +19,10 @@ pub trait HandleGetEntity {
         &self,
         request: Request<GetEntityRequest>,
     ) -> UnaryResponseResult<GetEntityResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
-
-        // 管理可读性检查
-        if !view::can_manage_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有管理可读权限"));
-        }
-
-        // 集合可读性检查
-        if !view::can_collection_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
-
-        // 实体可读性检查
-        if !view::can_entity_read(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有实体可读权限"));
-        };
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
@@ -51,7 +35,7 @@ pub trait HandleGetEntity {
                 let mut result_doc = doc!();
                 let mut property_stream = stream::iter(r);
                 while let Some((k, v)) = property_stream.next().await {
-                    if !can_field_read(&account_id, &role_group, &manage_id.to_string(), &k).await {
+                    if !can_field_read(&manage_id.to_string(), &k, &role_group).await {
                         if k == *"_id" {
                             result_doc.insert(k, v);
                         }

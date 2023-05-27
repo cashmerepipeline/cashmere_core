@@ -28,14 +28,10 @@ async fn validate_view_rules(
 ) -> Result<Request<NewAreaRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        if !view::can_collection_write(
-            &account_id,
-            dataMap & role_grou(),
-            &AREAS_MANAGE_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated(t!("用户不具有集合可写权限")));
+        let manage_id = AREAS_MANAGE_ID;
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        if Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
         }
     }
 

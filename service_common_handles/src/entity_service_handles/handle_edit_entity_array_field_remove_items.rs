@@ -32,18 +32,6 @@ pub trait HandleEditEntityArrayFieldRemoveItems {
         // bson bytes {field_id:[items]}
         let items = &request.get_ref().items;
 
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有集合可写权限"));
-        }
-
-        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::permission_denied("用户不具有实体可写权限"));
-        }
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
-        {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
-        }
-
         let b_items = match Document::from_reader(items.reader()) {
             Ok(v) => {
                 let t_v = v.get_array(field_id);

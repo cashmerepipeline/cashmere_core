@@ -49,10 +49,6 @@ pub trait HandleUploadFile {
             return Err(Status::invalid_argument(t!("必填项为缺失")));
         }
 
-        if !view::can_manage_write(&account_id, &role_group, &DATAS_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated(t!("用户不具有可写权限")));
-        }
-
         // 请求上传文件代理
         let data_server_arc = data_server::get_data_server();
 

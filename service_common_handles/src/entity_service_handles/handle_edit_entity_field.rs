@@ -32,17 +32,7 @@ pub trait HandleEditEntityField {
         // bson bytes {field_id:new_value}
         let new_value = &request.get_ref().new_value;
 
-        if !view::can_collection_write(&account_id, &role_group, &AREAS_MANAGE_ID.to_string()).await
-        {
-            return Err(Status::permission_denied("用户不具有集合可写权限"));
-        }
-
         // TODO: 描写属性是否存在
-
-        if !view::can_field_write(&account_id, &role_group, &manage_id.to_string(), field_id).await
-        {
-            return Err(Status::permission_denied("用户不具有属性可写权限"));
-        }
 
         let mut modify_doc = match Document::from_reader(new_value.reader()) {
             Ok(v) => {

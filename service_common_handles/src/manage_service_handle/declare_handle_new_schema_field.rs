@@ -16,12 +16,6 @@ macro_rules! declare_handle_new_schema_field {
                 let token = auth::get_auth_token(metadata).unwrap();
                 let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
 
-                if !view::can_manage_write(&account_id, &groups, &MANAGES_MANAGE_ID.to_string())
-                    .await
-                {
-                    return Err(Status::unauthenticated("用户不具有可写权限"));
-                }
-
                 let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
                 let field: &Field = request.get_ref().field.as_ref().unwrap();
 
