@@ -1,5 +1,6 @@
+use dependencies_sync::bson::doc;
+use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::bson::{doc};
 
 use log::info;
 use majordomo::{self, get_majordomo};
@@ -20,68 +21,89 @@ pub trait HandleNewGroup {
         &self,
         request: Request<NewGroupRequest>,
     ) -> Result<Response<NewGroupResponse>, Status> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
-
-        let name = &request.get_ref().name;
-        let new_group_id = &request.get_ref().new_group_id;
-
-        let manage_id = &GROUPS_MANAGE_ID;
-
-        // 检查组可写
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated(t!("用户不具有组可写权限")));
-        }
-
-        let majordomo_arc = get_majordomo();
-        let group_manager = majordomo_arc
-            .get_manager_by_id(manage_id.to_owned())
-            .unwrap();
-
-        //TODO: 组编号是否符合格式
-
-        // 组是否已经存在
-        if group_manager
-            .entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id})
+        validate_view_rules(request)
+            .and_then(handle_new_group)
             .await
+    }
+}
+
+async fn validate_view_rules(
+    request: Request<NewGroupRequest>,
+) -> Result<Request<NewGroupRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        if !view::can_collection_write(
+            &account_id,
+            dataMap & role_grou(),
+            &GROUPS_MANAGE_ID.to_string(),
+        )
+        .await
         {
-            return Err(Status::already_exists(format!(
-                "{}: {}",
-                t!("组已经存在"),
-                new_group_id
-            )));
+            return Err(Status::unauthenticated(t!("用户不具有集合可写权限")));
         }
+    }
 
-        let name = match name {
-            Some(n) => n,
-            None => {
-                return Err(Status::aborted(format!("没有指定名称--{}", new_group_id)));
-            }
-        };
+    Ok(request)
+}
 
-        if let Some(mut new_entity_doc) = make_new_entity_document(&group_manager).await {
-            new_entity_doc.insert(
-                NAME_MAP_FIELD_ID.to_string(),
-                doc! {name.language.clone():name.name.clone()},
-            );
-            new_entity_doc.insert("_id".to_string(), new_group_id);
-            new_entity_doc.insert(ID_FIELD_ID.to_string(), new_group_id);
+async fn handle_new_group(
+    request: Request<NewGroupRequest>,
+) -> Result<Response<NewGroupResponse>, Status> {
+    let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
-            info!("{}: {}", t!("开始创建新组"), new_group_id);
-            let result = group_manager
-                .sink_entity(&mut new_entity_doc, &account_id, &role_group)
-                .await;
+    let name = &request.get_ref().name;
+    let new_group_id = &request.get_ref().new_group_id;
 
-            match result {
-                Ok(r) => Ok(Response::new(NewGroupResponse { result: r })),
-                Err(e) => Err(Status::aborted(format!(
-                    "{} {}",
-                    e.operation(),
-                    e.details()
-                ))),
-            }
-        } else {
-            Err(Status::aborted("新增组失败。"))
+    let manage_id = &GROUPS_MANAGE_ID;
+
+    let majordomo_arc = get_majordomo();
+    let group_manager = majordomo_arc
+        .get_manager_by_id(manage_id.to_owned())
+        .unwrap();
+
+    //TODO: 组编号是否符合格式
+
+    // 组是否已经存在
+    if group_manager
+        .entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id})
+        .await
+    {
+        return Err(Status::already_exists(format!(
+            "{}: {}",
+            t!("组已经存在"),
+            new_group_id
+        )));
+    }
+
+    let name = match name {
+        Some(n) => n,
+        None => {
+            return Err(Status::aborted(format!("没有指定名称--{}", new_group_id)));
         }
+    };
+
+    if let Some(mut new_entity_doc) = make_new_entity_document(&group_manager).await {
+        new_entity_doc.insert(
+            NAME_MAP_FIELD_ID.to_string(),
+            doc! {name.language.clone():name.name.clone()},
+        );
+        new_entity_doc.insert("_id".to_string(), new_group_id);
+        new_entity_doc.insert(ID_FIELD_ID.to_string(), new_group_id);
+
+        info!("{}: {}", t!("开始创建新组"), new_group_id);
+        let result = group_manager
+            .sink_entity(&mut new_entity_doc, &account_id, &role_group)
+            .await;
+
+        match result {
+            Ok(r) => Ok(Response::new(NewGroupResponse { result: r })),
+            Err(e) => Err(Status::aborted(format!(
+                "{} {}",
+                e.operation(),
+                e.details()
+            ))),
+        }
+    } else {
+        Err(Status::aborted("新增组失败。"))
     }
 }

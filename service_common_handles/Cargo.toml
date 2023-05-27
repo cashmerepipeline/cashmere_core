@@ -1,6 +1,6 @@
 [package]
 name = "service_common_handles"
-version = "0.4.1"
+version = "0.4.2"
 authors = ["yangang <7470718@qq.com>"]
 edition = "2021"
 

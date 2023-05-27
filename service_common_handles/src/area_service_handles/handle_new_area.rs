@@ -1,8 +1,4 @@
-use dependencies_sync::{
-    bson::{doc},
-    tonic::async_trait,
-    futures::TryFutureExt
-};
+use dependencies_sync::{bson::doc, futures::TryFutureExt, tonic::async_trait};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -23,9 +19,7 @@ pub trait HandleNewArea {
         &self,
         request: Request<NewAreaRequest>,
     ) -> UnaryResponseResult<NewAreaResponse> {
-        validate_view_rules(request)
-            .and_then(handle_new_area)
-            .await
+        validate_view_rules(request).and_then(handle_new_area).await
     }
 }
 
@@ -33,14 +27,16 @@ async fn validate_view_rules(
     request: Request<NewAreaRequest>,
 ) -> Result<Request<NewAreaRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
-    if !view::can_manage_write(
-        &account_id,
-        dataMap & role_grou(),
-        &AREAS_MANAGE_ID.to_string(),
-    )
-    .await
     {
-        return Err(Status::unauthenticated("用户不具有可写权限"));
+        if !view::can_collection_write(
+            &account_id,
+            dataMap & role_grou(),
+            &AREAS_MANAGE_ID.to_string(),
+        )
+        .await
+        {
+            return Err(Status::unauthenticated(t!("用户不具有集合可写权限")));
+        }
     }
 
     Ok(request)
@@ -55,9 +51,7 @@ async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResul
     let code = &request.get_ref().code;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc
-        .get_manager_by_id(AREAS_MANAGE_ID)
-        .unwrap();
+    let manager = majordomo_arc.get_manager_by_id(AREAS_MANAGE_ID).unwrap();
 
     let local_name = match name {
         Some(n) => n,

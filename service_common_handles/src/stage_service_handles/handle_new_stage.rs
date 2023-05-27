@@ -1,4 +1,5 @@
 use dependencies_sync::tonic::async_trait;
+use dependencies_sync::futures::TryFutureExt;
 
 
 use majordomo::{self, get_majordomo};
@@ -22,6 +23,34 @@ pub trait HandleNewStage {
         &self,
         request: Request<NewStageRequest>,
     ) -> UnaryResponseResult<NewStageResponse> {
+        validate_view_rules(request)
+            .and_then(handle_new_stage)
+            .await
+    }
+}
+
+async fn validate_view_rules(
+    request: Request<NewStageRequest>
+)->  Result<Request<NewStageRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        if !view::can_collection_write(
+            &account_id,
+            dataMap & role_grou(),
+            &STAGES_MANAGE_ID.to_string(),
+        )
+        .await
+        {
+            return Err(Status::unauthenticated(t!("用户不具有集合可写权限")));
+        }
+    }
+
+    Ok(request)
+}
+
+async fn handle_new_stage(
+    request: Request<NewStageRequest>
+)-> Result<Response<NewStageResponse>, Status> {
         let (account_id, _groups, role_group) =
             request_account_context(request.metadata());
 
@@ -33,10 +62,6 @@ pub trait HandleNewStage {
             return Err(Status::data_loss(format!("{}: {}", t!("名字不能为空"), specs_id)));
         }
         let _name = name.as_ref().unwrap();
-
-        if !view::can_manage_write(&account_id, &role_group, &STAGES_MANAGE_ID.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
@@ -74,5 +99,4 @@ pub trait HandleNewStage {
                 e.details()
             ))),
         }
-    }
 }
