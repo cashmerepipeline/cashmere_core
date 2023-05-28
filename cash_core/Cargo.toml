@@ -7,15 +7,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-linked-hash-map = { version = "0.5.6", feature = ["serde_impl"] }
-bson = "2.6.1"
-serde = "1.0.131"
-serde_derive = "1.0.131"
-parking_lot = "0.12.1"
-toml = "0.5.7"
-futures = "0.3.13"
-bytes = "1.0.0"
+serde = "1.0"
+serde_derive = "1.0"
 
-manage_define = {path="../manage_define"}
-cash_result = {path="../cash_result"}
-property_field = {path="../property_field"}
+dependencies_sync = { path = "../dependencies_sync", features = [
+    "bson",
+    "parking_lot",
+    "toml",
+    "futures",
+    "bytes",
+] }
+
+manage_define = { path = "../manage_define" }
+cash_result = { path = "../cash_result" }
+property_field = { path = "../property_field" }

@@ -1,7 +1,7 @@
 use std::path;
 use std::path::PathBuf;
 
-use log::info;
+use dependencies_sync::log::info;
 
 use dependencies_sync::fs4::tokio::AsyncFileExt;
 

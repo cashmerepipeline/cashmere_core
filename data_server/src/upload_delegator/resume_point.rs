@@ -1,5 +1,5 @@
 use serde_derive::{Deserialize, Serialize};
-
+use dependencies_sync::toml;
 
 ///续传点，包含chunk_index和md5
 #[derive(Debug, Clone, Serialize, Deserialize)]

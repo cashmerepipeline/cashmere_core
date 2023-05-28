@@ -1,4 +1,4 @@
-use log::error;
+use dependencies_sync::log::error;
 use linked_hash_map::LinkedHashMap;
 
 use cash_core::view_rules::{ViewRule, ViewRules};

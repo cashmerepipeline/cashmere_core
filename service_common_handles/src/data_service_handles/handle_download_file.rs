@@ -4,7 +4,7 @@ use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::{Response, Status};
 
 use dependencies_sync::tonic::async_trait;
-use log::info;
+use dependencies_sync::log::info;
 
 use data_server::file_utils::get_chunk_md5;
 use manage_define::cashmere::*;

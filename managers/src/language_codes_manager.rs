@@ -8,7 +8,7 @@ Modified: !date!
 
 use std::sync::Arc;
 
-// use log::{error, info, warn};
+// use dependencies_sync::log::{error, info, warn};
 use dependencies_sync::tonic::async_trait;
 
 use dependencies_sync::parking_lot::RwLock;

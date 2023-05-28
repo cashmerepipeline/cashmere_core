@@ -1,5 +1,5 @@
 use bson::{Bson, Document};
-use log::error;
+use dependencies_sync::log::error;
 
 use property_field::general_field_names::{DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME, REMOVED_FIELD_NAME};
 use property_field::PropertyField;

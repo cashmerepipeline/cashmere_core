@@ -51,7 +51,7 @@ pub mod traits;
 // pub mod tag_types_manager;
 // pub mod show_settings_manager;
 
-// use log::{info};
+// use dependencies_sync::log::{info};
 
 /// 管理器包裹
 #[derive(Clone)]

@@ -6,9 +6,9 @@ Introduction:
 */
 
 use bson::{Bson, doc};
-use dependencies_sync::bson::{self, doc}ument;
+use dependencies_sync::bson::{self, document};
 use cash_core::field::ids::*;
-use chrono::Utc;
+use dependencies_sync::chrono::Utc;
 use majordomo::get_majordomo;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;

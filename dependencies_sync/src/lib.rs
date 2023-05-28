@@ -13,6 +13,15 @@ pub use parking_lot;
 #[cfg(feature="linked-hash-map")]
 pub use linked_hash_map;
 
+#[cfg(feature="md-5")]
+pub use md5;
+
+#[cfg(feature="hex")]
+pub use hex;
+
+#[cfg(feature="bytes")]
+pub use bytes;
+
 #[cfg(feature="chrono")]
 pub use chrono;
 

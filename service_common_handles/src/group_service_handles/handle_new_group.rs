@@ -2,7 +2,7 @@ use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tonic::async_trait;
 
-use log::info;
+use dependencies_sync::log::info;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};

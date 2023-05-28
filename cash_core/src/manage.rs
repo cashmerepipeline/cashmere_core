@@ -2,9 +2,10 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use serde::{Deserialize, Serialize};
 
-use bson::Document;
+use dependencies_sync::bson::{self, Document};
+use dependencies_sync::linked_hash_map::LinkedHashMap;
+
 use cash_result::OperationResult;
-use linked_hash_map::LinkedHashMap;
 use manage_define::general_property_fields::general_property_fields;
 use property_field::PropertyField;
 

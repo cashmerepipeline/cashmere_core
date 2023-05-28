@@ -7,7 +7,7 @@ mod services;
 use std::fs::File;
 
 // 日志相关
-use log::info;
+use dependencies_sync::log::info;
 use simplelog::{ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger};
 
 // 终止相关

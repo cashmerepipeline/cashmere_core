@@ -1,5 +1,5 @@
-use chrono::Utc;
-use mongodb::{bson::doc, bson::Document, Collection};
+use dependencies_sync::chrono::Utc;
+use dependencies_sync::mongodb::{bson::doc, bson::Document, Collection};
 
 use manage_define::general_field_ids::*;
 

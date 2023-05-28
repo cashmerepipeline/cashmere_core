@@ -1,4 +1,4 @@
-use log::debug;
+use dependencies_sync::log::debug;
 use crate::view_rules_map::get_view_rules_map;
 use crate::FilterRule;
 

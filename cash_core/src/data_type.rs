@@ -6,10 +6,10 @@ Created:  2020-11-25T02:58:16.832Z
 Modified: !date!
 */
 
-use bson::Bson;
+use dependencies_sync::bson::Bson;
 use std::{sync::Arc};
-use futures::Stream;
-use bytes::Bytes;
+use dependencies_sync::futures::Stream;
+use dependencies_sync::bytes::Bytes;
 
 enum ManageDataType {
     File(String),

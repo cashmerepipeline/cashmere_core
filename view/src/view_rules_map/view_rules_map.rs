@@ -16,7 +16,7 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 use mongodb;
 use parking_lot::RwLock;
 
-use log::{info};
+use dependencies_sync::log::{info};
 
 use manage_define::field_ids::VIEW_RULES_COLLECTION_FIELD_ID;
 use manage_define::field_ids::VIEW_RULES_ENTITY_FIELD_ID;

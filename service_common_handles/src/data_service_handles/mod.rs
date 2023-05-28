@@ -13,6 +13,5 @@ mod handle_updload_file;
 mod handle_download_file;
 
 mod handle_get_data_server_configs;
-mod utils;
 
 mod handle_list_entity_data;

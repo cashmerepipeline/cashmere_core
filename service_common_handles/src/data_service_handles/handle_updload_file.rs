@@ -6,7 +6,7 @@ use dependencies_sync::tonic::{Response, Status};
 
 use data_server::file_utils::{check_chunk_md5};
 use data_server::ResumePoint;
-use log::{debug, error, info};
+use dependencies_sync::log::{debug, error, info};
 
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;

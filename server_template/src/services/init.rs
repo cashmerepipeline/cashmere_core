@@ -3,7 +3,7 @@
 */
 
 use cash_core::view_rules;
-use log::info;
+use dependencies_sync::log::info;
 use managers::{
     countries_manager,
     language_codes_manager,

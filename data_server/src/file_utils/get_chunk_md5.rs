@@ -1,4 +1,5 @@
-use md5::{Digest, Md5};
+use dependencies_sync::md5::{Digest, Md5};
+use dependencies_sync::hex;
 
 pub fn get_chunk_md5(chunk: &Vec<u8>) -> String {
     let mut hasher = Md5::new();

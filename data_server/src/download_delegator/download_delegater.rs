@@ -1,8 +1,9 @@
 use std::io::SeekFrom;
 use std::path::PathBuf;
 
-use log::info;
-use log::{error};
+use dependencies_sync::log::info;
+use dependencies_sync::log::{error};
+use dependencies_sync::bytes;
 
 use dependencies_sync::tokio::fs::File;
 use dependencies_sync::tokio::io::{AsyncReadExt, AsyncSeekExt};
@@ -120,7 +121,7 @@ impl DownloadDelegator {
                     // });
                     while let Some(chunk) = buffer.chunks(chunk_size).next() {
                         match ftx.send(chunk.to_vec()).await {
-                            Err(e) => log::error!("{}: {}, {}", t!("发送数据块失败"), file_path_str, e.to_string()),
+                            Err(e) => error!("{}: {}, {}", t!("发送数据块失败"), file_path_str, e.to_string()),
                             _ => (),
                         }
                     }
@@ -140,7 +141,7 @@ impl DownloadDelegator {
                         // send_buffer(&buffer).await;
                         for chunk in buffer.chunks(chunk_size).by_ref() {
                             match ftx.send(chunk.to_vec()).await {
-                                Err(e) => log::error!("{}: {}, {}", t!("变送数据失败"), file_path_str, e.to_string()),
+                                Err(e) => error!("{}: {}, {}", t!("变送数据失败"), file_path_str, e.to_string()),
                                 _ => (),
                             }
                         }

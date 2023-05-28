@@ -1,7 +1,7 @@
 use crate::file_utils::check_space_enough;
-use bytes::BufMut;
+use dependencies_sync::bytes::{self, BufMut};
 use cash_result::{operation_failed, Failed, OperationResult};
-use log::{debug, info};
+use dependencies_sync::log::{debug, info};
 use manage_define::cashmere::FileInfo;
 use std::path::{Path, PathBuf};
 
