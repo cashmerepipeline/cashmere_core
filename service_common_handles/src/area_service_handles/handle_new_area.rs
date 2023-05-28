@@ -38,6 +38,13 @@ async fn validate_view_rules(
     Ok(request)
 }
 
+async fn validate_request_params(
+    request: Request<NewAreaRequest>,
+) -> Result<Request<NewAreaRequest>, Status> {
+    Ok(request)
+}
+
+
 async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResult<NewAreaResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 

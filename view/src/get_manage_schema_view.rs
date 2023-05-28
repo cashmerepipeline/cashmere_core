@@ -5,8 +5,8 @@ use crate::can_field_read;
 
 pub async fn get_manage_schema_view(
     manage_id: &String,
-    role_group: &String,
     fields: &Vec<PropertyField>,
+    role_group: &String,
 ) -> Document {
     let field_stream = fields.iter();
 

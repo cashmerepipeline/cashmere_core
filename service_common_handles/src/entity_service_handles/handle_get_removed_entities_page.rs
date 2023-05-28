@@ -51,7 +51,7 @@ pub trait HandleGetRemovedEntitiesPage {
         // zh: 描写字段可见性过滤, 加入mongodb的project方法
         let fields = manager.get_manage_schema().await;
         let schema_projects =
-            get_manage_schema_view(&manage_id.to_string(), &role_group, &fields).await;
+            get_manage_schema_view(&manage_id.to_string(), &fields, &role_group,).await;
         let project_doc = if !schema_projects.is_empty() {
             // 只加入不可见字段
             let mut no_show_project = Document::new();

@@ -54,8 +54,8 @@ pub trait HandleGetEntitiesPage {
         let schema_projects =
             get_manage_schema_view(
                 &manage_id.to_string(), 
-                &role_group, 
                 &fields,
+                &role_group, 
             ).await;
         let project_doc = if !schema_projects.is_empty() {
             // 只加入不可见字段
