@@ -45,6 +45,12 @@ async fn validate_view_rules(
     Ok(request)
 }
 
+async fn validate_request_params(
+    request: Request<NewSpecsRequest>,
+) -> Result<Request<NewSpecsRequest>, Status> {
+    Ok(request)
+}
+
 async fn handle_new_specs(
     request: Request<NewSpecsRequest>,
 ) -> Result<Response<NewSpecsResponse>, Status> {
@@ -100,3 +106,4 @@ async fn handle_new_specs(
         ))),
     }
 }
+

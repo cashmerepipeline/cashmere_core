@@ -1,4 +1,4 @@
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::tonic::{async_trait, Request};
 
 use dependencies_sync::{tokio, tokio::sync::mpsc};
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
@@ -296,4 +296,26 @@ pub trait HandleUploadFile {
             Box::pin(resp_stream) as ResponseStream<UploadFileResponse>
         ))
     }
+}
+
+
+async fn validate_view_rules(
+    request: Request<UploadFileRequest>,
+) -> Result<Request<UploadFileRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        let manage_id = DATAS_MANAGE_ID;
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
+        }
+    }
+
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<UploadFileRequest>,
+) -> Result<Request<UploadFileRequest>, Status> {
+    Ok(request)
 }

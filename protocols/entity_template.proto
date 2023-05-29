@@ -4,7 +4,7 @@ package cashmere;
 
 message NewEntityTemplateRequest {
   // 模板对应管理
-  string manage_id = 1;
+  int32 manage_id = 1;
   // 属性:值 列表
   repeated bytes fields = 2;
 }

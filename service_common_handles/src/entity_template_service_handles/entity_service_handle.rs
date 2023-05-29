@@ -40,70 +40,7 @@ impl CashmereServer {
         Err(Status::unimplemented("unimplemented"))
     }
 
-    // 实体模板
-    pub(crate) async fn handle_new_entity_template(
-        &self,
-        request: Request<NewEntityTemplateRequest>,
-    ) -> Result<Response<NewEntityTemplateResponse>, Status> {
-        let metadata = request.metadata();
-        // 已检查过，不需要再检查正确性
-        let token = auth::get_auth_token(metadata).unwrap();
-        let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
-
-        let manage_id = &request.get_ref().manage_id;
-        let fields = &request.get_ref().fields;
-
-        // 取得第一个可写组作为组
-        let group_id =
-            match view::get_first_write_group(&groups, &TEMPLATES_MANAGE_ID.to_string()).await {
-                Some(r) => r,
-                None => return Err(Status::unauthenticated("用户不具有可写权限")),
-            };
-
-        let majordomo_arc = get_majordomo();
-        let template_manager = majordomo_arc
-            .get_manager_by_id(TEMPLATES_MANAGE_ID)
-            .unwrap();
-
-        if let Err(e) = template_manager.validate_data_fields(fields).await {
-            return Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            )));
-        }
-
-        let fields: Vec<Bson> = fields
-            .iter()
-            .map(|x| {
-                let b = x.clone();
-                let d = Document::from_reader(&mut b.as_slice()).unwrap();
-                bson::to_bson(&d).unwrap()
-            })
-            .collect();
-
-        let new_id = template_manager.get_new_entity_id().await.unwrap();
-        let mut new_doc = Document::new();
-        new_doc.insert("_id", new_id);
-        new_doc.insert(ID_FIELD_ID.to_string(), new_id);
-        new_doc.insert(TEMPLATES_MANAGE_FIELD_ID.to_string(), manage_id);
-        new_doc.insert(TEMPLATES_PRESETS_FIELD_ID.to_string(), fields);
-
-        let result = template_manager
-            .new_entity(&mut new_doc, &account_id.to_string(), &group_id.to_string())
-            .await;
-
-        match result {
-            Ok(r) => Ok(Response::new(NewEntityTemplateResponse {
-                result: "ok".to_string(),
-            })),
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
-        }
-    }
+    
 
     pub(crate) async fn handle_edit_entity_template(
         &self,
@@ -119,3 +56,5 @@ impl CashmereServer {
         Err(Status::unimplemented("unimplemented"))
     }
 }
+
+

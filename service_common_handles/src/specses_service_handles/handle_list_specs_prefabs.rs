@@ -9,6 +9,7 @@ use manage_define::field_ids::*;
 
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
+use request_utils::request_account_context;
 use view::{add_query_filters};
 use service_utils::types::UnaryResponseResult;
 
@@ -64,4 +65,26 @@ pub trait HandleListSpecsPrefabs {
             ))),
         }
     }
+}
+
+
+async fn validate_view_rules(
+    request: Request<ListSpecsPrefabsRequest>,
+) -> Result<Request<ListSpecsPrefabsRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        let manage_id = SPECSES_MANAGE_ID;
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
+        }
+    }
+
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<ListSpecsPrefabsRequest>,
+) -> Result<Request<ListSpecsPrefabsRequest>, Status> {
+    Ok(request)
 }

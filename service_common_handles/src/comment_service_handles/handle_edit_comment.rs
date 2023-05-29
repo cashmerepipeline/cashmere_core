@@ -10,6 +10,7 @@ use manage_define::field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 
+use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
@@ -54,4 +55,27 @@ pub trait HandleEditComment {
             ))),
         }
     }
+}
+
+
+
+async fn validate_view_rules(
+    request: Request<EditCommentRequest>,
+) -> Result<Request<EditCommentRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        let manage_id = COMMENTS_MANAGE_ID;
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
+        }
+    }
+
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<EditCommentRequest>,
+) -> Result<Request<EditCommentRequest>, Status> {
+    Ok(request)
 }

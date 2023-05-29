@@ -93,3 +93,25 @@ pub trait HandleGetEntitiesPage {
         }
     }
 }
+
+
+async fn validate_view_rules(
+    request: Request<GetEntitiesPageRequest>,
+) -> Result<Request<GetEntitiesPageRequest>, Status> {
+    #[cfg(feature = "view_rules_validate")]
+    {
+        let manage_id = &request.get_ref().manage_id;
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+            return Err(e);
+        }
+    }
+
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<GetEntitiesPageRequest>,
+) -> Result<Request<GetEntitiesPageRequest>, Status> {
+    Ok(request)
+}
