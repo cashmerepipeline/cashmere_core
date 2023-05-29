@@ -2,7 +2,7 @@ use dependencies_sync::tonic::Status;
 
 use crate::can_collection_read;
 
-async fn validate_collection_can_read(
+pub async fn validate_collection_can_read(
     manage_id: &i32,
     role_group: &String,
 ) -> Result<(), Status> {

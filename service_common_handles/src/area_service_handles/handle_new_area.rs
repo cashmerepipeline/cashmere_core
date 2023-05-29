@@ -19,7 +19,9 @@ pub trait HandleNewArea {
         &self,
         request: Request<NewAreaRequest>,
     ) -> UnaryResponseResult<NewAreaResponse> {
-        validate_view_rules(request).and_then(handle_new_area).await
+        validate_view_rules(request)
+        .and_then(validate_request_params)
+        .and_then(handle_new_area).await
     }
 }
 
@@ -30,7 +32,7 @@ async fn validate_view_rules(
     {
         let manage_id = AREAS_MANAGE_ID;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
-        if Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
             return Err(e);
         }
     }

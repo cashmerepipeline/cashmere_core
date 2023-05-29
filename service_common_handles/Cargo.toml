@@ -40,4 +40,4 @@ request_utils = { path = "../request_utils" }
 service_utils = { path = "../service_utils" }
 
 [features]
-view_rules_valedate = []
+view_rules_validate = []

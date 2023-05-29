@@ -11,6 +11,7 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::mongodb::Cursor;
 use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::log;
 
 use cash_core::Manage;
 use cash_result::*;

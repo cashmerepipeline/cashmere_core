@@ -2,7 +2,7 @@ use dependencies_sync::tonic::Status;
 
 use crate::can_collection_write;
 
-async fn validate_collection_can_write(
+pub async fn validate_collection_can_write(
     manage_id: &i32,
     role_group: &String,
 ) -> Result<(), Status>{
