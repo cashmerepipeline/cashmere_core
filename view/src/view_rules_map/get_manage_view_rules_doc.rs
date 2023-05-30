@@ -1,4 +1,4 @@
-use bson::{doc, Document};
+use dependencies_sync::bson::{doc, Document};
 use cash_result::{collection_not_exists, operation_failed, OperationResult};
 use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
 

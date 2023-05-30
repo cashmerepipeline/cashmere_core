@@ -1,4 +1,4 @@
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
 
 use super::view_rule::ViewRule;

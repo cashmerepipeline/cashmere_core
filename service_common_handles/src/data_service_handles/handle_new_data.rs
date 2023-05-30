@@ -23,6 +23,7 @@ pub trait HandleNewData {
         request: Request<NewDataRequest>,
     ) -> UnaryResponseResult<NewDataResponse> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_data)
             .await
     }
@@ -40,6 +41,12 @@ async fn validate_view_rules(
         }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewDataRequest>,
+) -> Result<Request<NewDataRequest>, Status> {
     Ok(request)
 }
 

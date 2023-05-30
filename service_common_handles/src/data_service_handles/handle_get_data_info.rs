@@ -1,4 +1,5 @@
 use dependencies_sync::tonic::async_trait;
+use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -18,43 +19,11 @@ pub trait HandleGetDataInfo {
         &self,
         request: Request<GetDataInfoRequest>,
     ) -> UnaryResponseResult<GetDataInfoResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
-
-        let data_id = &request.get_ref().data_id;
-
-        let majordomo_arc = get_majordomo();
-        let data_manager = majordomo_arc
-            .get_manager_by_id(DATAS_MANAGE_ID)
-            .unwrap();
-
-        let result = data_manager.get_entity_by_id(data_id).await;
-        match result {
-            Ok(r) => Ok(Response::new(GetDataInfoResponse {
-                data_info: Some(DataInfo {
-                    data_type: r.get_i32(DATAS_DATA_TYPE_FIELD_ID.to_string()).unwrap(),
-                    owner_manage_id: r
-                        .get_i32(DATAS_OWNER_MANAGE_ID_FIELD_ID.to_string())
-                        .unwrap(),
-                    owner_entity_id: r
-                        .get_str(DATAS_OWNER_ENTITY_ID_FIELD_ID.to_string())
-                        .unwrap()
-                        .to_string(),
-                    specs: r
-                        .get_array(DATAS_SPECS_FIELD_ID.to_string())
-                        .unwrap_or(&vec![])
-                        .iter()
-                        .map(|x| String::from(x.as_str().unwrap()))
-                        .collect(),
-                }),
-            })),
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
+        validate_view_rules(request)
+            .and_then(validate_request_params)
+            .and_then(handle_get_data_info)
+            .await
         }
-    }
 }
 
 
@@ -63,7 +32,7 @@ async fn validate_view_rules(
 ) -> Result<Request<GetDataInfoRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        let manage_id = AREAS_MANAGE_ID;
+        let manage_id = DATAS_MANAGE_ID;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
         if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
             return Err(e);
@@ -77,4 +46,44 @@ async fn validate_request_params(
     request: Request<GetDataInfoRequest>,
 ) -> Result<Request<GetDataInfoRequest>, Status> {
     Ok(request)
+}
+
+async fn handle_get_data_info(
+    request: Request<GetDataInfoRequest>,
+) -> Result<Response<GetDataInfoResponse>, Status> {
+    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+
+    let data_id = &request.get_ref().data_id;
+
+    let majordomo_arc = get_majordomo();
+    let data_manager = majordomo_arc
+        .get_manager_by_id(DATAS_MANAGE_ID)
+        .unwrap();
+
+    let result = data_manager.get_entity_by_id(data_id).await;
+    match result {
+        Ok(r) => Ok(Response::new(GetDataInfoResponse {
+            data_info: Some(DataInfo {
+                data_type: r.get_i32(DATAS_DATA_TYPE_FIELD_ID.to_string()).unwrap(),
+                owner_manage_id: r
+                    .get_i32(DATAS_OWNER_MANAGE_ID_FIELD_ID.to_string())
+                    .unwrap(),
+                owner_entity_id: r
+                    .get_str(DATAS_OWNER_ENTITY_ID_FIELD_ID.to_string())
+                    .unwrap()
+                    .to_string(),
+                specs: r
+                    .get_array(DATAS_SPECS_FIELD_ID.to_string())
+                    .unwrap_or(&vec![])
+                    .iter()
+                    .map(|x| String::from(x.as_str().unwrap()))
+                    .collect(),
+            }),
+        })),
+        Err(e) => Err(Status::aborted(format!(
+            "{} {}",
+            e.operation(),
+            e.details()
+        ))),
+    }
 }

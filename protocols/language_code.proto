@@ -19,11 +19,11 @@ message NewLanguageCodeResponse {
 }
 
 // TODO: 可能不需要
-message EditLanguageCodeRequest {
+message UpdateLanguageCodeRequest {
   string id = 1;
   string new_code = 2;
   string new_native = 3;
 }
-message EditLanguageCodeResponse {
+message UpdateLanguageCodeResponse {
   string result = 1;
 }

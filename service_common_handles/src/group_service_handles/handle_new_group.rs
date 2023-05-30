@@ -22,6 +22,7 @@ pub trait HandleNewGroup {
         request: Request<NewGroupRequest>,
     ) -> Result<Response<NewGroupResponse>, Status> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_group)
             .await
     }
@@ -34,11 +35,19 @@ async fn validate_view_rules(
     {
         let manage_id = GROUPS_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata());
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewGroupRequest>,
+) -> Result<Request<NewGroupRequest>, Status> {
     Ok(request)
 }
 

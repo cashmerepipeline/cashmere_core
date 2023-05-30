@@ -1,4 +1,4 @@
-use bson::{doc, Document};
+use  dependencies_sync::bson::{doc, Document};
 use property_field::PropertyField;
 
 use crate::can_field_read;

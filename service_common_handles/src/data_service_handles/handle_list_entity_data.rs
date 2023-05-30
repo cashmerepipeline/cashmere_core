@@ -1,5 +1,6 @@
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{doc};
+use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -19,30 +20,10 @@ pub trait HandleListEntityData {
         &self,
         request: Request<ListEntityDataRequest>,
     ) -> UnaryResponseResult<ListEntityDataResponse> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
-
-        let manage_id = &request.get_ref().manage_id;
-        let entity_id = &request.get_ref().entity_id;
-
-        let majordomo_arc = get_majordomo();
-        let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
-
-        let result = manager.get_entity_by_id(entity_id).await;
-
-        match result {
-            Ok(r) => {
-                let data_ids = r.get_array(DATAS_FIELD_ID.to_string()).unwrap();
-                Ok(Response::new(ListEntityDataResponse {
-                    data_ids: data_ids.iter().map(|x| x.to_string()).collect(),
-                }))
-            }
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
-        }
+        validate_view_rules(request)
+            .and_then(validate_request_params)
+            .and_then(handle_list_entity_data)
+            .await
     }
 }
 
@@ -66,4 +47,32 @@ async fn validate_request_params(
     request: Request<ListEntityDataRequest>,
 ) -> Result<Request<ListEntityDataRequest>, Status> {
     Ok(request)
+}
+
+async fn handle_list_entity_data(
+    request: Request<ListEntityDataRequest>,
+) -> Result<Response<ListEntityDataResponse>, Status> {
+    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+
+    let manage_id = &request.get_ref().manage_id;
+    let entity_id = &request.get_ref().entity_id;
+
+    let majordomo_arc = get_majordomo();
+    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+
+    let result = manager.get_entity_by_id(entity_id).await;
+
+    match result {
+        Ok(r) => {
+            let data_ids = r.get_array(DATAS_FIELD_ID.to_string()).unwrap();
+            Ok(Response::new(ListEntityDataResponse {
+                data_ids: data_ids.iter().map(|x| x.to_string()).collect(),
+            }))
+        }
+        Err(e) => Err(Status::aborted(format!(
+            "{} {}",
+            e.operation(),
+            e.details()
+        ))),
+    }
 }

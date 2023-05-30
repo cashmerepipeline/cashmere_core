@@ -23,6 +23,7 @@ pub trait HandleNewCountry {
         request: Request<NewCountryRequest>,
     ) -> UnaryResponseResult<NewCountryResponse> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_country)
             .await
     }
@@ -40,6 +41,12 @@ async fn validate_view_rules(
         }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewCountryRequest>,
+) -> Result<Request<NewCountryRequest>, Status> {
     Ok(request)
 }
 

@@ -25,6 +25,7 @@ pub trait HandleNewSpecs {
         request: Request<NewSpecsRequest>,
     ) -> UnaryResponseResult<NewSpecsResponse> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_specs)
             .await
     }

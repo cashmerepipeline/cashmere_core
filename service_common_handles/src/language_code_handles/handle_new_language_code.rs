@@ -22,6 +22,7 @@ pub trait HandleNewLanguageCode {
         request: Request<NewLanguageCodeRequest>,
     ) -> Result<Response<NewLanguageCodeResponse>, Status> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_language_code)
             .await
     }
@@ -39,6 +40,12 @@ async fn validate_view_rules(
         }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewLanguageCodeRequest>,
+) -> Result<Request<NewLanguageCodeRequest>, Status> {
     Ok(request)
 }
 

@@ -23,6 +23,7 @@ pub trait HandleNewStage {
         request: Request<NewStageRequest>,
     ) -> UnaryResponseResult<NewStageResponse> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_stage)
             .await
     }
@@ -40,6 +41,12 @@ async fn validate_view_rules(
         }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewStageRequest>,
+) -> Result<Request<NewStageRequest>, Status> {
     Ok(request)
 }
 

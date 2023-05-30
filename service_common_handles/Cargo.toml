@@ -39,5 +39,5 @@ view = { path = "../view" }
 request_utils = { path = "../request_utils" }
 service_utils = { path = "../service_utils" }
 
-[features]
-view_rules_validate = []
+# [features]
+# view_rules_validate = ["view/view_rules_validate"]

@@ -1,14 +1,16 @@
 use dependencies_sync::tonic::Status;
 
-use crate::can_manage_read;
+use crate::can_field_read;
 
-pub async fn validate_manage_can_read(
+pub async fn validate_field_can_read(
     manage_id: &i32,
+    field_id: &String,
     role_group: &String,
 ) -> Result<(), Status>{
 
-    if !can_manage_read(
+    if !can_field_read(
         &manage_id.to_string(),
+        field_id,
         role_group,
     )
     .await

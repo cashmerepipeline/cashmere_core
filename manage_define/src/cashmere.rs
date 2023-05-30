@@ -118,7 +118,7 @@ pub struct NewLanguageCodeResponse {
 /// TODO: 可能不需要
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditLanguageCodeRequest {
+pub struct UpdateLanguageCodeRequest {
     #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -128,7 +128,7 @@ pub struct EditLanguageCodeRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditLanguageCodeResponse {
+pub struct UpdateLanguageCodeResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }

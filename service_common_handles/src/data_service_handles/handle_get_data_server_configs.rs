@@ -1,5 +1,6 @@
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, doc};
+use dependencies_sync::futures::TryFutureExt;
 
 use manage_define::cashmere::*;
 use manage_define::manage_ids::{DATAS_MANAGE_ID, DATA_SERVER_MANAGE_ID};
@@ -14,14 +15,10 @@ pub trait HandleGetDataServerConfigs {
         &self,
         request: Request<GetDataServerConfigsRequest>,
     ) -> Result<Response<GetDataServerConfigsResponse>, Status> {
-        let (account_id, _groups, role_group) =
-            request_account_context(request.metadata());
-
-        let data_server_configs = bson::to_document(&configs::get_data_server_configs()).unwrap();
-
-        Ok(Response::new(GetDataServerConfigsResponse {
-            configs: bson::from_document(data_server_configs).unwrap(),
-        }))
+        validate_view_rules(request)
+            .and_then(validate_request_params)
+            .and_then(handle_get_data_server_configs)
+            .await
     }
 }
 
@@ -33,7 +30,7 @@ async fn validate_view_rules(
     {
         let manage_id = DATA_SERVER_MANAGE_ID;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) = view::validates::validate_collection_can_read(&manage_id, &role_group).await {
             return Err(e);
         }
     }
@@ -45,4 +42,16 @@ async fn validate_request_params(
     request: Request<GetDataServerConfigsRequest>,
 ) -> Result<Request<GetDataServerConfigsRequest>, Status> {
     Ok(request)
+}
+
+async fn handle_get_data_server_configs(
+    request: Request<GetDataServerConfigsRequest>,
+) -> Result<Response<GetDataServerConfigsResponse>, Status> {
+    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+
+    let data_server_configs = bson::to_document(&configs::get_data_server_configs()).unwrap();
+
+    Ok(Response::new(GetDataServerConfigsResponse {
+        configs: bson::from_document(data_server_configs).unwrap(),
+    }))
 }

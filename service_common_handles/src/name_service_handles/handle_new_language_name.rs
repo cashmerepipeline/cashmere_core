@@ -19,6 +19,7 @@ pub trait HandleNewLanguageName {
         request: Request<NewLanguageNameRequest>,
     ) -> Result<Response<NewLanguageNameResponse>, Status> {
         validate_view_rules(request)
+            .and_then(validate_request_params)
             .and_then(handle_new_language_name)
             .await
     }
@@ -53,6 +54,12 @@ async fn validate_view_rules(
         // }
     }
 
+    Ok(request)
+}
+
+async fn validate_request_params(
+    request: Request<NewLanguageNameRequest>,
+) -> Result<Request<NewLanguageNameRequest>, Status> {
     Ok(request)
 }
 

@@ -1,4 +1,4 @@
-use bson::{doc, Document};
+use dependencies_sync::bson::{doc, Document};
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, OWNER_FIELD_ID};
 
 use crate::add_query_filters::check_group_read_group::check_group_read_group;

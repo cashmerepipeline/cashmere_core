@@ -1,3 +1,5 @@
+use dependencies_sync::bson;
+
 use cash_result::OperationResult;
 use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
 use crate::view_rules::ViewRules;
