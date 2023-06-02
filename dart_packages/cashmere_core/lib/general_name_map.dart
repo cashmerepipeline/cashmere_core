@@ -1,4 +1,4 @@
-import 'package:core_id_codes/general_field_ids.dart';
+import 'ids/general_field_ids.dart';
 
 // 通用属性名字映射
 final Map<int, Map<String, String>> generalSchemaFieldsNameMap = {

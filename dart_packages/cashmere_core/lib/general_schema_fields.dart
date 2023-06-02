@@ -1,5 +1,6 @@
-import 'package:core_id_codes/general_field_ids.dart';
 import 'package:cashmere_core/manage/schema_field.dart';
+
+import 'ids/general_field_ids.dart';
 
 final List<SchemaField> generalSchemaFields = [
 // 编号
