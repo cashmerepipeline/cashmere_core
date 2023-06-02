@@ -16,15 +16,4 @@ configs = { path = "../configs" }
 auth = { path = "../auth" }
 cash_result = { path = "../cash_result" }
 
-linked-hash-map = { version = "0.5.6", features = ["serde_impl"] }
-toml = "0.5.7"
-futures = "0.3.13"
-chrono = "0.4.19"
-tokio = "1.21.2"
-clap = "3.2.22"
-
-bson = "2.2.0"
-#mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
-mongodb = "2.5.0"
-
-
+dependencies_sync = { path = "../dependencies_sync", features = ["mongodb", "linked-hash-map", "toml", "futures", "chrono", "tokio", "clap"] }

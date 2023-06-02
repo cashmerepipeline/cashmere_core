@@ -1,7 +1,7 @@
-use mongodb::Database;
-use toml::map::Map;
-use toml::Value;
-use bson::doc;
+use dependencies_sync::mongodb::Database;
+use dependencies_sync::toml::map::Map;
+use dependencies_sync::toml::Value;
+use dependencies_sync::bson::doc;
 
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;

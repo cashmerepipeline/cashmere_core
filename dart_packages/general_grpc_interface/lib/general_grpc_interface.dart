@@ -1,1 +1,0 @@
-library general_grpc_interface;

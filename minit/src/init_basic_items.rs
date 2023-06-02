@@ -1,5 +1,5 @@
-use toml::map::Map;
-use toml::Value;
+use dependencies_sync::toml::map::Map;
+use dependencies_sync::toml::Value;
 
 use define_utils as utils;
 

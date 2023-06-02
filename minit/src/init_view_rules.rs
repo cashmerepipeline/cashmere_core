@@ -1,6 +1,6 @@
-use bson::doc;
-use toml::map::Map;
-use toml::Value;
+use dependencies_sync::bson::doc;
+use dependencies_sync::toml::map::Map;
+use dependencies_sync::toml::Value;
 
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;

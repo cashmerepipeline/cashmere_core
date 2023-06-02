@@ -66,3 +66,6 @@ pub use rust_i18n;
 
 #[cfg(feature="once_cell")]
 pub use once_cell;
+
+#[cfg(feature="clap")]
+pub use clap;

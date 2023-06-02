@@ -1,4 +1,4 @@
-use bson::Document;
+use dependencies_sync::bson::Document;
 
 use auth::jwt::hash_password;
 use manage_define::field_ids::ACCOUNTS_PASSWORD_FIELD_ID;
