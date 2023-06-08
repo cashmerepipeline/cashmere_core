@@ -6,11 +6,11 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-use manage_define::manage_ids::DATAS_MANAGE_ID;
+
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use view;
+
 
 use service_utils::types::UnaryResponseResult;
 
@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_mark_data_remved(
     request: Request<MarkDataRemovedRequest>,
 ) -> Result<Response<MarkDataRemovedResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let manage_id = &request.get_ref().owner_manage_id;
     let entity_id = &request.get_ref().owner_entity_id;

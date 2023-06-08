@@ -10,7 +10,7 @@ use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view;
+
 
 #[async_trait]
 pub trait HandleUpdateLanguageCode {
@@ -52,7 +52,7 @@ async fn validate_request_params(
 async fn handle_update_language_code(
     request: Request<UpdateLanguageCodeRequest>,
 ) -> Result<Response<UpdateLanguageCodeResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let id = &request.get_ref().id;
     let new_code = &request.get_ref().new_code;

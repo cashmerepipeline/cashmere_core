@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_edit_comment(
     request: Request<EditCommentRequest>,
 ) -> Result<Response<EditCommentResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let comment_id = &request.get_ref().comment_id;
     let new_contents = &request.get_ref().new_contents;

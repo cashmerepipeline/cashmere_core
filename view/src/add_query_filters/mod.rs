@@ -1,4 +1,3 @@
-mod get_readable_groups;
 mod get_read_nolimit_groups;
 mod is_only_owner;
 mod add_query_filters;

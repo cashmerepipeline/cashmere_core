@@ -1,13 +1,13 @@
-use dependencies_sync::{tokio, tokio::sync::mpsc};
-use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use dependencies_sync::tonic::{Response, Status, Request};
-use dependencies_sync::bson::{self, doc, Bson, Document};
 
-use dependencies_sync::log::{info, error};
+use dependencies_sync::futures::TryFutureExt;
+
+use dependencies_sync::tonic::{Response, Status, Request};
+use dependencies_sync::bson::{self, doc};
+
+use dependencies_sync::log::{error};
 use dependencies_sync::tonic::async_trait;
 
-use data_server::file_utils::get_chunk_md5;
+
 use majordomo::get_majordomo;
 use manage_define::cashmere::*;
 use manage_define::manage_ids::*;
@@ -15,9 +15,9 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use managers::ManagerTrait;
 use request_utils::request_account_context;
-use view;
 
-use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
+
+
 
 #[async_trait]
 pub trait HandleEditEntityTemplate {
@@ -56,7 +56,7 @@ async fn validate_request_params(
 async fn handle_edit_entity_template(
     request: Request<EditEntityTemplateRequest>,
 ) -> Result<Response<EditEntityTemplateResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let template_id = &request.get_ref().template_id;
     let fields = &request.get_ref().fields;

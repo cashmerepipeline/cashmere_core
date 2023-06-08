@@ -8,7 +8,6 @@ Modified: !date!
 
 mod filter_rule;
 mod read_rule;
-mod types;
 mod view_rule;
 mod view_rule_level;
 mod view_rule_result;

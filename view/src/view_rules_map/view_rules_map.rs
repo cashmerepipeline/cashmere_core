@@ -8,7 +8,7 @@ Modified: !date!
 
 use std::sync::Arc;
 
-use dependencies_sync::bson::{self, de::from_document, Document};
+use dependencies_sync::bson::{de::from_document, Document};
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::log::info;

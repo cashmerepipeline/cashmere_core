@@ -3,7 +3,7 @@ use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 
 use manage_define::cashmere::*;
-use manage_define::manage_ids::{DATAS_MANAGE_ID, DATA_SERVER_MANAGE_ID};
+
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -47,7 +47,7 @@ async fn validate_request_params(
 async fn handle_get_data_server_configs(
     request: Request<GetDataServerConfigsRequest>,
 ) -> Result<Response<GetDataServerConfigsResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let data_server_configs = bson::to_document(&configs::get_data_server_configs()).unwrap();
 

@@ -9,7 +9,7 @@ use manage_define::field_ids::*;
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-use view;
+
 
 use service_utils::types::UnaryResponseResult;
 
@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_edit_area(
     request: Request<EditAreaRequest>,
 ) -> Result<Response<EditAreaResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let area_id = &request.get_ref().area_id;
     let new_parent_id = &request.get_ref().new_parent_id;

@@ -7,11 +7,6 @@ Modified: !date!
 */
 
 pub mod view_rules;
-// pub mod results;
-pub mod data_type;
-pub mod macros;
-pub mod message;
-
 mod manage;
 
 pub use manage::*;

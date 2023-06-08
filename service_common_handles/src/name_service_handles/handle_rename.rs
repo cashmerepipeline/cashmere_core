@@ -9,7 +9,7 @@ use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view;
+
 
 #[async_trait]
 pub trait HandleRename {
@@ -50,7 +50,7 @@ async fn validate_request_params(
 async fn handle_rename(
     request: Request<RenameRequest>,
 ) -> Result<Response<RenameResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;

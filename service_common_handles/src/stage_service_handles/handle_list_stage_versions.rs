@@ -11,7 +11,7 @@ use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use view;
+
 
 use service_utils::types::UnaryResponseResult;
 
@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_list_stage_versions(
     request: Request<ListStageVersionsRequest>,
 ) -> Result<Response<ListStageVersionsResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let stage_id = &request.get_ref().stage_id;
 

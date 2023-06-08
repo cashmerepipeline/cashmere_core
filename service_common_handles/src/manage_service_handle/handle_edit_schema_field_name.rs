@@ -8,7 +8,7 @@ use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view;
+
 
 #[async_trait]
 pub trait HandleEditSchemaFieldName {
@@ -49,7 +49,7 @@ async fn validate_request_params(
 async fn handle_edit_schema_field_name(
     request: Request<EditSchemaFieldNameRequest>,
 ) -> Result<Response<EditSchemaFieldNameResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let manage_id = &request.get_ref().manage_id;
     let field_id = request.get_ref().field_id;

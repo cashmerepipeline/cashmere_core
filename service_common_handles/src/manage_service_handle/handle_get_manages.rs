@@ -8,7 +8,7 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-use view::can_manage_read;
+
 
 #[async_trait]
 pub trait HandleGetManages {
@@ -52,7 +52,7 @@ async fn validate_request_params(
 async fn handle_get_manages(
     request: Request<GetManagesRequest>,
 ) -> Result<Response<GetManagesResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
 

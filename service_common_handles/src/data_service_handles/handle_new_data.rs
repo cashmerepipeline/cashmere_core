@@ -12,7 +12,7 @@ use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view;
+
 
 use service_utils::types::UnaryResponseResult;
 

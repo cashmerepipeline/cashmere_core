@@ -1,14 +1,14 @@
-use dependencies_sync::bson::{self, doc, Bson, Document};
-use dependencies_sync::{tokio, tokio::sync::mpsc};
+use dependencies_sync::bson::{self, Bson, Document};
+
 use dependencies_sync::futures::TryFutureExt;
 
-use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use dependencies_sync::tokio_stream::{StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use dependencies_sync::log::info;
+
 use dependencies_sync::tonic::async_trait;
 
-use data_server::file_utils::get_chunk_md5;
+
 use majordomo::get_majordomo;
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -16,9 +16,9 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::ManagerTrait;
 use request_utils::request_account_context;
-use view;
 
-use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
+
+
 
 #[async_trait]
 pub trait HandleNewEntityTemplate {
@@ -99,7 +99,7 @@ async fn handle_new_entity_template(
         .await;
 
     match result {
-        Ok(r) => Ok(Response::new(NewEntityTemplateResponse {
+        Ok(_r) => Ok(Response::new(NewEntityTemplateResponse {
             result: "ok".to_string(),
         })),
         Err(e) => Err(Status::aborted(format!(

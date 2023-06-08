@@ -1,4 +1,4 @@
-use dependencies_sync::tonic::{async_trait, Request};
+use dependencies_sync::tonic::{async_trait};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::{Response, Status};
@@ -9,10 +9,10 @@ use data_server::ResumePoint;
 use dependencies_sync::log::{debug, error, info};
 
 use manage_define::cashmere::*;
-use manage_define::manage_ids::*;
+
 use request_utils::request_account_context;
 
-use view;
+
 
 use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
 
@@ -55,7 +55,7 @@ async fn validate_request_params(
 async fn handle_upload_file(
     request: RequestStream<UploadFileRequest>,
 ) -> StreamResponseResult<UploadFileResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let mut in_stream = request.into_inner();
     let first_request = if let Some(in_data) = in_stream.next().await {

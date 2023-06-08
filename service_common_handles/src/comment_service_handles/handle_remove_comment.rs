@@ -54,7 +54,7 @@ async fn validate_request_params(
 async fn handle_remove_comment(
     request: Request<RemoveCommentRequest>,
 ) -> Result<Response<RemoveCommentResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let target_manage_id = &request.get_ref().target_manage_id;
     let target_entity_id = &request.get_ref().target_entity_id;

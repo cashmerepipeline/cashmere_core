@@ -10,7 +10,7 @@ use data_server::data_stage::{get_version_folder, list_version_foler};
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-use view;
+
 
 use service_utils::types::UnaryResponseResult;
 
@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_list_version_folder(
     request: Request<ListVersionFolderRequest>,
 ) -> Result<Response<ListVersionFolderResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let stage_id = &request.get_ref().stage_id;
     let version = &request.get_ref().version;

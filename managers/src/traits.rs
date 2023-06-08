@@ -298,7 +298,6 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<OperationResult, OperationResult> {
         // 更新管理
         let manage_id = self.get_manager_id();
-        let mut index: usize = 0;
         let mut new_field: Option<PropertyField> = None;
         {
             let manage_arc = self.get_manage().await;
@@ -312,7 +311,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 ));
             }
 
-            index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
+            let index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
             let field = &mut manage.schema[index];
 
             // 名字已经存在，不需要更新
@@ -362,7 +361,6 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id();
 
-        let mut index: usize = 0;
         let _new_field: Option<PropertyField> = None;
 
         // 更新管理缓存
@@ -377,7 +375,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 ));
             }
 
-            index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
+            let index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
             let mut field = &mut manage.schema[index];
 
             // 已经是removed
