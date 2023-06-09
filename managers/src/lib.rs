@@ -30,19 +30,14 @@ pub mod areas_manager;
 pub mod language_codes_manager;
 pub mod comments_manager;
 
-pub mod datas_manager;
-pub mod specses_manager;
-pub mod stages_manager;
-pub mod prefabs_manager;
-
 pub mod manages_manager;
-pub mod persons_manager;
-pub mod tasks_manager;
 pub mod templates_manager;
 pub mod utils;
 pub mod view_rules_manager;
 pub mod phone_area_codes_manager;
 pub mod countries_manager;
+
+pub mod persons_manager;
 
 mod macros;
 

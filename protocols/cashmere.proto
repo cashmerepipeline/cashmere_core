@@ -9,16 +9,6 @@ import "name.proto";
 import "color.proto";
 import "gender.proto";
 
-import "data_server.proto";
-import "data.proto";
-import "specs.proto";
-import "stage.proto";
-import "version.proto";
-import "prefab.proto";
-import "file_transfer.proto";
-import "sequence_data.proto";
-import "set_data.proto";
-
 import "area.proto";
 import "entity.proto";
 import "entity_template.proto";

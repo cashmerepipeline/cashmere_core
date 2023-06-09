@@ -21,9 +21,7 @@ members = [
   "majordomo",
   "define_utils",
   "managers",
-  "data_server",
   # "minit",
-  "procedure_engine",
   "view",
   "dependencies_sync"
 ]
