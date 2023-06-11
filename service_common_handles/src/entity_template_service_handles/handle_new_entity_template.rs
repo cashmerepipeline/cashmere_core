@@ -2,7 +2,6 @@ use dependencies_sync::bson::{self, Bson, Document};
 
 use dependencies_sync::futures::TryFutureExt;
 
-use dependencies_sync::tokio_stream::{StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
 
 

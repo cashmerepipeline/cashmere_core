@@ -8,8 +8,12 @@ Modified: !date!
 
 /*
 使用单例模式创建数据库 configs
-所有操作只使用一个 configs, 需要进一步测试
+所有操作只使用一个 configs
 */
+
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n};
+i18n!("locales");
 
 mod get_language_code;
 mod database_configs;
@@ -17,6 +21,7 @@ mod server_configs;
 mod data_server_configs;
 mod tls_configs;
 mod configs;
+mod read_configs_file_path;
 
 mod get_server_configs;
 mod get_database_configs;
@@ -32,6 +37,8 @@ pub use tls_configs::*;
 pub use get_server_configs::*;
 pub use get_database_configs::*;
 pub use get_data_server_configs::*;
+
+pub use read_configs_file_path::*;
 
 #[cfg(test)]
 mod tests {

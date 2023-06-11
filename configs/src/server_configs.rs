@@ -12,4 +12,5 @@ pub struct ServerConfigs {
     pub events_dbs_dir: String,
     pub language_code: String,
     pub log_dir: String,
+    pub log_level: String,
 }
