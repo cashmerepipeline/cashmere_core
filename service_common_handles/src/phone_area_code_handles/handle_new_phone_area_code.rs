@@ -5,7 +5,7 @@ use dependencies_sync::rust_i18n::{self, t};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
+use manage_define::field_ids::{PHONE_AREA_CODES_AREAS_FIELD_ID, PHONE_AREA_CODES_CODE_FIELD_ID};
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::traits::ManagerTrait;
@@ -16,12 +16,12 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 
 #[async_trait]
-pub trait HandleNewLanguageCode {
+pub trait HandleNewPhoneAreaCode {
     /// 新建管理属性
-    async fn handle_new_language_code(
+    async fn handle_new_phone_area_code(
         &self,
-        request: Request<NewLanguageCodeRequest>,
-    ) -> Result<Response<NewLanguageCodeResponse>, Status> {
+        request: Request<NewPhoneAreaCodeRequest>,
+    ) -> Result<Response<NewPhoneAreaCodeResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_new_language_code)
@@ -30,8 +30,8 @@ pub trait HandleNewLanguageCode {
 }
 
 async fn validate_view_rules(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<NewPhoneAreaCodeRequest>,
+) -> Result<Request<NewPhoneAreaCodeRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
@@ -45,33 +45,32 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<NewPhoneAreaCodeRequest>,
+) -> Result<Request<NewPhoneAreaCodeRequest>, Status> {
     Ok(request)
 }
 
 async fn handle_new_language_code(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Response<NewLanguageCodeResponse>, Status> {
+    request: Request<NewPhoneAreaCodeRequest>,
+) -> Result<Response<NewPhoneAreaCodeResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let name = &request.get_ref().name;
     let code = &request.get_ref().code;
-    let native_name = &request.get_ref().native_name;
+    let areas = &request.get_ref().areas;
 
-    let manage_id = &LANGUAGES_CODES_MANAGE_ID;
+    let manage_id = &PHONE_AREA_CODES_MANAGE_ID;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
         .get_manager_by_id(manage_id.to_owned())
         .unwrap();
 
-    // TODO: 检查语言编号是否存在
     let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
     if manager.entity_exists(&query_doc).await {
         return Err(Status::already_exists(format!(
             "{}: {}",
-            t!("语言已经存在"),
+            t!("区号已经存在"),
             code
         )));
     }
@@ -82,15 +81,15 @@ async fn handle_new_language_code(
             NAME_MAP_FIELD_ID.to_string(),
             bson::to_document(name).unwrap(),
         );
-        new_entity_doc.insert(LANGUAGES_CODES_CODE_FIELD_ID.to_string(), code);
-        new_entity_doc.insert(LANGUAGES_CODES_NATIVE_FIELD_ID.to_string(), native_name);
+        new_entity_doc.insert(PHONE_AREA_CODES_CODE_FIELD_ID.to_string(), code);
+        new_entity_doc.insert(PHONE_AREA_CODES_AREAS_FIELD_ID.to_string(), areas);
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewLanguageCodeResponse { result: r })),
+            Ok(r) => Ok(Response::new(NewPhoneAreaCodeResponse { result: r })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),
@@ -98,6 +97,7 @@ async fn handle_new_language_code(
             ))),
         }
     } else {
-        Err(Status::aborted("新增语言编码失败。"))
+        Err(Status::aborted("新增区号失败。"))
     }
 }
+

@@ -134,6 +134,100 @@ pub struct UpdateLanguageCodeResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub parent_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "4")]
+    pub level: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaRequest {
+    #[prost(string, tag = "1")]
+    pub area_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub new_parent_id: ::prost::alloc::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "4")]
+    pub new_level: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AreaLevel {
+    Country = 0,
+    Province = 1,
+    City = 2,
+    Area = 3,
+}
+impl AreaLevel {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            AreaLevel::Country => "Country",
+            AreaLevel::Province => "Province",
+            AreaLevel::City => "City",
+            AreaLevel::Area => "Area",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Country" => Some(Self::Country),
+            "Province" => Some(Self::Province),
+            "City" => Some(Self::City),
+            "Area" => Some(Self::Area),
+            _ => None,
+        }
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PhoneAreaCode {
+    #[prost(string, tag = "1")]
+    pub code: ::prost::alloc::string::String,
+    /// 使用地区
+    #[prost(string, repeated, tag = "2")]
+    pub areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 新区号编码
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewPhoneAreaCodeRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub code: ::prost::alloc::string::String,
+    /// 使用地区
+    #[prost(string, repeated, tag = "3")]
+    pub areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewPhoneAreaCodeResponse {
+    /// 成功返回新区号编码
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewGroupRequest {
     #[prost(message, optional, tag = "1")]
     pub name: ::core::option::Option<Name>,
@@ -234,72 +328,6 @@ impl Gender {
         match value {
             "Male" => Some(Self::Male),
             "Female" => Some(Self::Female),
-            _ => None,
-        }
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewAreaRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub parent_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub code: ::prost::alloc::string::String,
-    #[prost(enumeration = "AreaLevel", tag = "4")]
-    pub level: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewAreaResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditAreaRequest {
-    #[prost(string, tag = "1")]
-    pub area_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub new_parent_id: ::prost::alloc::string::String,
-    #[prost(enumeration = "AreaLevel", tag = "4")]
-    pub new_level: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditAreaResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum AreaLevel {
-    Country = 0,
-    Province = 1,
-    City = 2,
-    Area = 3,
-}
-impl AreaLevel {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            AreaLevel::Country => "Country",
-            AreaLevel::Province => "Province",
-            AreaLevel::City => "City",
-            AreaLevel::Area => "Area",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Country" => Some(Self::Country),
-            "Province" => Some(Self::Province),
-            "City" => Some(Self::City),
-            "Area" => Some(Self::Area),
             _ => None,
         }
     }

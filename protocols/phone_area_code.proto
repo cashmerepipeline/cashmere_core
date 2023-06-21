@@ -1,8 +1,26 @@
-
+/*
+    电话区号编码
+*/
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 message PhoneAreaCode{
     string code = 1;
-    bytes area=2;
+    // 使用地区
+    repeated string areas=2;
     }
+
+
+// 新区号编码
+message NewPhoneAreaCodeRequest {
+      Name name = 1;
+      string code = 2;
+    // 使用地区
+    repeated string areas = 3;
+}
+message NewPhoneAreaCodeResponse {
+    // 成功返回新区号编码
+  string result = 1;
+}

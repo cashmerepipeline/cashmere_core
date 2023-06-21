@@ -13,12 +13,7 @@ schema = [
   { data_type = "Int32", name_map = { zh = "分级", en = "level" }, removed = false },
 ]
 
-# 初始实体
-[items]
-
-
 [view_rules]
-
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
@@ -157,3 +152,6 @@ schema = [
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
+# 初始实体
+[items]

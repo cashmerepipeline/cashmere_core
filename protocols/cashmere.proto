@@ -3,13 +3,15 @@ package cashmere;
 
 import "country.proto";
 import "language_code.proto";
+import "area.proto";
+import "phone_area_code.proto";
+
 import "group.proto";
 import "property_type.proto";
 import "name.proto";
 import "color.proto";
 import "gender.proto";
 
-import "area.proto";
 import "entity.proto";
 import "entity_template.proto";
 import "manage.proto";

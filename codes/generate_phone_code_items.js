@@ -7,7 +7,7 @@ const codes_map = new Map();
 area_codes.forEach((area) => {
   let item = codes_map.get(area.code);
   if (item) {
-    item[2002].push({ "zh": area.name, "en": area.enName });
+    item[2002].push(area.shortName.toLowerCase());
     codes_map.set(area.code, item);
   } else {
     codes_map.set(area.code, {
@@ -15,7 +15,7 @@ area_codes.forEach((area) => {
       1002: "8610000000000",
       1001: area.code,
       2001: parseInt(area.code),
-      2002: [{ "zh": area.name, "en": area.enName }],
+      2002: [area.shortName.toLowerCase()],
       1006: "8610000000000",
       1007: ["1000000",],
     });

@@ -4,8 +4,6 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:imixapp/client/protocols/file_info.pb.dart';
-import 'package:imixapp/client/protocols/file_transfer.pb.dart';
 
 const ChuckSize = 1024 * 128 * 1;
 

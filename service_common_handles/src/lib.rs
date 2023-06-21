@@ -6,12 +6,13 @@ Created:  2021-02-14T09:31:29.747Z
 Modified: !date!
 */
 
-#[macro_use]
-extern crate rust_i18n;
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n, t};
 i18n!("locales");
 
 pub mod area_service_handles;
 pub mod country_service_handles;
+pub mod phone_area_code_handles;
 
 pub mod group_service_handles;
 

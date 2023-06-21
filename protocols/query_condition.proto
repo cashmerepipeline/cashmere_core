@@ -1,0 +1,13 @@
+
+syntax = "proto3";
+package cashmere;
+
+// 查询条件
+// 只支持固定的几种条件, 对应
+message QueryCondition{
+  // 排序条件
+  map <string, bool> order_by = 1; // key: 字段名, value: true: 升序, false: 降序
+  // 实体过滤条件
+  map <string, string> filter = 2; // key: 字段名, value: 字段值
+  // 字段过滤条件
+}

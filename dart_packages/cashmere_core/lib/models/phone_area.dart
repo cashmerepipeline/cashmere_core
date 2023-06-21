@@ -1,8 +1,8 @@
 import 'package:cashmere_core/entity/entity_base.dart';
 
-class AreaCode with EntityBase {
+class PhoneAreaCode with EntityBase {
   final String name;
   final String code;
 
-  AreaCode({required this.name, required this.code});
+  PhoneAreaCode({required this.name, required this.code});
 }
