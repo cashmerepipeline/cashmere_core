@@ -1,7 +1,7 @@
 syntax = "proto3";
 package cashmere;
 
-import "country.proto";
+import "country_code.proto";
 import "language_code.proto";
 import "area.proto";
 import "phone_area_code.proto";

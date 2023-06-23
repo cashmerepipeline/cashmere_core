@@ -1,4 +1,6 @@
 use dependencies_sync::bson::{self, doc};
+use dependencies_sync::log::debug;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio_stream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
@@ -69,6 +71,10 @@ async fn handle_get_manage_schema(
     while let Some(field) = field_stream.next().await {
         if can_field_read(&manage_id.to_string(), &field.id.to_string(), &role_group).await {
             result.push(field.to_owned());
+        }
+        else{
+            debug!("{}: {}, {}", t!("属性不可见"), &field.id.to_string(), role_group);
+            continue
         }
     }
 

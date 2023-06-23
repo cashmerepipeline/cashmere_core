@@ -1,30 +1,15 @@
-use crate::view_rules_map::get_view_rules_map;
+use crate::view_rules_map::{get_view_rules_map, query_collection_view_rules};
 use crate::ReadRule;
 
 /// 集合是否可写，向集合添加或者删除实体
-pub async fn can_collection_read(
-    manage_id: &String,
-    role_group: &String,
-) -> bool {
-    let view_rules_arc = get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
+pub async fn can_collection_read(manage_id: &String, role_group: &String) -> bool {
+    let view_rules = if let Some(r) = query_collection_view_rules(manage_id, role_group).await {
+        r
+    } else {
+        return false;
+    };
 
-    let mut result = false;
-    view_rules
-        .get(manage_id).map(|rules| &rules.collection)
-        .and_then(|rules_map| {
-            rules_map
-                .get(role_group)
-                .map(|rule| {
-                    result = result
-                        || rule.read_rule == ReadRule::Read
-                        || rule.read_rule == ReadRule::OwnerRead
-                        || rule.read_rule == ReadRule::GroupRead;
-                    
-                })
-                .or(None)
-        })
-        .or(None);
-
-    result
+    view_rules.read_rule == ReadRule::Read
+        || view_rules.read_rule == ReadRule::OwnerRead
+        || view_rules.read_rule == ReadRule::GroupRead
 }

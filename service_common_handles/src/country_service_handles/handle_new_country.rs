@@ -17,11 +17,11 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
-pub trait HandleNewCountry {
-    async fn handle_new_country(
+pub trait HandleNewCountryCode {
+    async fn handle_new_country_code(
         &self,
-        request: Request<NewCountryRequest>,
-    ) -> UnaryResponseResult<NewCountryResponse> {
+        request: Request<NewCountryCodeRequest>,
+    ) -> UnaryResponseResult<NewCountryCodeResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_new_country)
@@ -30,8 +30,8 @@ pub trait HandleNewCountry {
 }
 
 async fn validate_view_rules(
-    request: Request<NewCountryRequest>,
-) -> Result<Request<NewCountryRequest>, Status> {
+    request: Request<NewCountryCodeRequest>,
+) -> Result<Request<NewCountryCodeRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = COUNTRIES_MANAGE_ID;
@@ -45,19 +45,19 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewCountryRequest>,
-) -> Result<Request<NewCountryRequest>, Status> {
+    request: Request<NewCountryCodeRequest>,
+) -> Result<Request<NewCountryCodeRequest>, Status> {
     Ok(request)
 }
 
 async fn handle_new_country(
-    request: Request<NewCountryRequest>,
-) -> UnaryResponseResult<NewCountryResponse> {
+    request: Request<NewCountryCodeRequest>,
+) -> UnaryResponseResult<NewCountryCodeResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let name = &request.get_ref().name;
-    let native = &request.get_ref().native;
     let code = &request.get_ref().code;
+    let native = &request.get_ref().native;
     let phone_area_code = &request.get_ref().phone_area_code;
     let languages = &request.get_ref().languages;
 
@@ -101,7 +101,7 @@ async fn handle_new_country(
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewCountryResponse {
+            Ok(_r) => Ok(Response::new(NewCountryCodeResponse {
                 result: code.to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

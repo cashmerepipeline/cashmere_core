@@ -1,4 +1,6 @@
 use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::log::debug;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 
@@ -66,7 +68,6 @@ async fn handle_get_entities_page(
     let sorts_doc = bson::to_document(conditions).ok().or(None);
 
     // 可读性过滤, 没有设置过滤即不可读
-    // TODO: 根据组改写，加入可读过滤项
     let mut matches = doc! {};
     if let Some(filter_doc) =
         add_query_filters(&account_id.to_string(), &role_group, &manage_id.to_string()).await
@@ -75,6 +76,7 @@ async fn handle_get_entities_page(
             matches.insert(k, v);
         });
     } else {
+        debug!("{}", t!("没有可读描写字段，用户不具有集合可读权限"));
         return Err(Status::unauthenticated(
             "没有可读描写字段，用户不具有集合可读权限",
         ));
@@ -105,7 +107,7 @@ async fn handle_get_entities_page(
     } else {
         *page_index
     };
-
+    
     let result = manager
         .get_entities_by_page(index, &Some(matches), &sorts_doc, &project_doc)
         .await;

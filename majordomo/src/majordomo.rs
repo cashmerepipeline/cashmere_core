@@ -1,7 +1,8 @@
 
 use std::sync::Arc;
 
-
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 
 use cash_result::{operation_failed, OperationResult};
@@ -24,6 +25,9 @@ impl Majordomo {
     pub fn get_manager_by_id(&self, id: i32) -> Result<Arc<Manager>, OperationResult> {
         let managers = get_managers_map();
         let managers = managers.read();
+
+        debug!("{}: {}", t!("成功获取管理器"), id);
+
         managers
             .get(&id).cloned()
             .ok_or(operation_failed(format!("get_manager_by_id {}", id), "取得管理器失败"))

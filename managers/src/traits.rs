@@ -516,7 +516,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
-                "get_entities_by_page".to_string(),
+                "manager::get_entities_by_page".to_string(),
             )),
         }
     }

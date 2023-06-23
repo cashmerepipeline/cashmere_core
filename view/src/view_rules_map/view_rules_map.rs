@@ -24,7 +24,7 @@ use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
 
 type MongodbResult<T> = mongodb::error::Result<T>;
 
-pub type ViewRulesMap = LinkedHashMap<String, ViewRules>;
+pub type ViewRulesMap = LinkedHashMap<String, Arc<RwLock<ViewRules>>>;
 
 /// 全局映像规则缓存, {id:rules}
 static mut VIEW_RULES_MAP: Option<Arc<RwLock<ViewRulesMap>>> = None;
@@ -85,7 +85,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
                     collection: collection_rule,
                     schema: schema_rule,
                 };
-                result.insert(id, view_rules);
+                result.insert(id, Arc::new(RwLock::new(view_rules)));
             }
             Err(_e) => continue,
         }

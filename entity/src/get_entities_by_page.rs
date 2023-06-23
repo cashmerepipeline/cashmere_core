@@ -8,7 +8,7 @@ use dependencies_sync::mongodb::{bson, bson::Bson, bson::doc, bson::Document, Co
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use serde::Deserialize;
 
-use dependencies_sync::log::trace;
+use dependencies_sync::log::{trace, debug};
 
 use cash_result::*;
 use database::get_cashmere_database;
@@ -43,7 +43,7 @@ pub async fn get_entities_by_page(
     // zh: 注意: skip 需要在limit之前
     pipeline.push(doc! {"$skip": 20*(page_index-1)});
     pipeline.push(doc! {"$limit": 20_u32});
-
+    
     let cursor = collection.aggregate(pipeline, None).await;
 
     let mut result: Vec<Document> = Vec::new();
@@ -52,10 +52,13 @@ pub async fn get_entities_by_page(
             while let Some(d) = r.next().await {
                 match d {
                     Ok(dc) => result.push(dc),
-                    _ => continue,
+                    Err(e) => {
+                        debug!("{}: {}-{}-{}", t!("获取实体失败"), collection_id, page_index, e);
+                        continue
+                    },
                 }
             }
-            trace!("{}: {}-{}-{}", t!("成功获取实体分页"), collection_id, page_index, result.len());
+            debug!("{}: {}-{}-{}", t!("成功获取实体分页"), collection_id, page_index, result.len());
             Ok(result)
         }
         Err(e) => Err(operation_failed(

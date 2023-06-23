@@ -72,21 +72,21 @@ pub struct RemoveLanguageNameResponse {
 /// 新品牌
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCountryRequest {
+pub struct NewCountryCodeRequest {
     #[prost(message, optional, tag = "1")]
     pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub native: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub code: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub phone_area_code: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub native: ::prost::alloc::string::String,
+    #[prost(uint32, tag = "4")]
+    pub phone_area_code: u32,
     #[prost(string, repeated, tag = "5")]
     pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCountryResponse {
+pub struct NewCountryCodeResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }

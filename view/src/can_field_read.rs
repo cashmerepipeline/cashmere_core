@@ -1,47 +1,29 @@
 use crate::view_rules_map::get_view_rules_map;
+use crate::view_rules_map::query_collection_view_rules;
+use crate::view_rules_map::query_field_view_rules;
 use crate::FilterRule;
 use crate::ReadRule;
 
 /// 实体的可写性，可否修改实体的字段
-pub async fn can_field_read(
-    manage_id: &String,
-    field_id: &String,
-    role_group: &String,
-) -> bool {
-    let view_rules_arc = get_view_rules_map().await;
-    let view_rules = view_rules_arc.read();
+pub async fn can_field_read(manage_id: &String, field_id: &String, role_group: &String) -> bool {
+    let collection_view_rules =
+        if let Some(r) = query_collection_view_rules(manage_id, role_group).await {
+            r
+        } else {
+            return false;
+        };
 
-    let rule_option = &view_rules
-        .get(manage_id)
-        .and_then(|rules| rules.schema.get(field_id))
-        .or(None);
+    let field_view_rules =
+        if let Some(r) = query_field_view_rules(manage_id, field_id, role_group).await {
+            r
+        } else {
+            return false;
+        };
 
-    let mut result = false;
-    if let Some(field) = rule_option {
-            field
-                .get(role_group)
-                .map(|rule| {
-                    result = result
-                        || rule.read_rule == ReadRule::Read
-                        || rule.read_rule == ReadRule::OwnerRead
-                        || rule.read_rule == ReadRule::GroupRead;
-                    
-                })
-                .or(None);
-    };
-
-    // 过滤项
-    if let Some(rule) = rule_option {
-            rule.get(role_group)
-                .map(|rule| {
-                    result = rule.read_filters.contains(&FilterRule::NoLimit)
-                        || rule.read_filters.contains(&FilterRule::OnlyOwner)
-                        || rule.read_filters.contains(&FilterRule::OnlyGroup);
-                    
-                })
-                .or(None);
-    };
-
-
-    result
+    collection_view_rules.read_rule == ReadRule::Read
+        || collection_view_rules.read_rule == ReadRule::OwnerRead
+        || collection_view_rules.read_rule == ReadRule::GroupRead
+            && field_view_rules.read_filters.contains(&FilterRule::NoLimit)
+        || field_view_rules.read_filters.contains(&FilterRule::OnlyOwner)
+        || field_view_rules.read_filters.contains(&FilterRule::OnlyGroup)
 }

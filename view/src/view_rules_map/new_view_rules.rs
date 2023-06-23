@@ -1,7 +1,10 @@
-use cash_result::OperationResult;
+use std::sync::Arc;
+use dependencies_sync::parking_lot::RwLock;
+
 use crate::view_rules::ViewRules;
 use crate::view_rules_map::get_view_rules_map;
 use crate::view_rules_map::new_view_rules_entity_to_database;
+use cash_result::OperationResult;
 
 /// 新建映射
 pub async fn new_view_rules(
@@ -18,10 +21,9 @@ pub async fn new_view_rules(
         Ok(r) => {
             let view_rules_arc = get_view_rules_map().await;
             let mut view_rules_map = view_rules_arc.write();
-            view_rules_map.insert(name.clone(), rules.clone());
+            view_rules_map.insert(name.clone(), Arc::new(RwLock::new(rules.clone())));
             Ok(r)
         }
         Err(e) => Err(e),
     }
 }
-
