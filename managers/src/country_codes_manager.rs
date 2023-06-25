@@ -24,31 +24,31 @@ use dependencies_sync::bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
-pub struct CountriesManager;
+pub struct CountryCodesManager;
 
 /// 缓存
-static mut COUNTRIES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut COUNTRIES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut COUNTRY_CODES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
+static mut COUNTRY_CODES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
 
 /// 管理器
-static mut COUNTRIES_MANAGER: Option<Arc<Manager>> = None;
+static mut COUNTRY_CODES_MANAGER: Option<Arc<Manager>> = None;
 
 // 声明管理器取得函数
-declare_get_manager!(CountriesManager, COUNTRIES_MANAGER);
+declare_get_manager!(CountryCodesManager, COUNTRY_CODES_MANAGER);
 
 // 实现接口
 #[async_trait]
-impl ManagerTrait for CountriesManager {
+impl ManagerTrait for CountryCodesManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
         Err(operation_failed("unregister", "账户管理器不能被注销"))
     }
 
     fn get_manager_id(&self) -> i32 {
-        COUNTRIES_MANAGE_ID
+        COUNTRY_CODES_MANAGE_ID
     }
 
     fn get_manager_name(&self) -> String {
-        "CountriesManager".to_string()
+        "CountryCodesManager".to_string()
     }
 
     fn has_cache(&self) -> bool {
@@ -57,36 +57,36 @@ impl ManagerTrait for CountriesManager {
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
-            if COUNTRIES_MANAGE.is_some() {
-                COUNTRIES_MANAGE.clone().unwrap()
+            if COUNTRY_CODES_MANAGE.is_some() {
+                COUNTRY_CODES_MANAGE.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = COUNTRIES_MANAGE_ID.to_string();
+                let id_str = COUNTRY_CODES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
                 let manage: Manage = manage_from_document(m_doc).unwrap();
-                COUNTRIES_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                COUNTRIES_MANAGE.clone().unwrap()
+                COUNTRY_CODES_MANAGE.replace(Arc::new(RwLock::new(manage)));
+                COUNTRY_CODES_MANAGE.clone().unwrap()
             }
         }
     }
 
     async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
         unsafe {
-            if COUNTRIES_MANAGE_DOCUMENT.is_some() {
-                COUNTRIES_MANAGE_DOCUMENT.clone().unwrap()
+            if COUNTRY_CODES_MANAGE_DOCUMENT.is_some() {
+                COUNTRY_CODES_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = COUNTRIES_MANAGE_ID.to_string();
+                let id_str = COUNTRY_CODES_MANAGE_ID.to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
 
-                COUNTRIES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                COUNTRIES_MANAGE_DOCUMENT.clone().unwrap()
+                COUNTRY_CODES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
+                COUNTRY_CODES_MANAGE_DOCUMENT.clone().unwrap()
             }
         }
     }

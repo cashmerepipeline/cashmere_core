@@ -14,21 +14,26 @@ import 'name.pb.dart' as $0;
 class LanguageCode extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LanguageCode', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', $pb.PbFieldType.OY)
+    ..m<$core.String, $core.String>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', entryClassName: 'LanguageCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nativeName')
     ..hasRequiredFields = false
   ;
 
   LanguageCode._() : super();
   factory LanguageCode({
     $core.String? code,
-    $core.List<$core.int>? nameMap,
+    $core.Map<$core.String, $core.String>? nameMap,
+    $core.String? nativeName,
   }) {
     final _result = create();
     if (code != null) {
       _result.code = code;
     }
     if (nameMap != null) {
-      _result.nameMap = nameMap;
+      _result.nameMap.addAll(nameMap);
+    }
+    if (nativeName != null) {
+      _result.nativeName = nativeName;
     }
     return _result;
   }
@@ -63,13 +68,16 @@ class LanguageCode extends $pb.GeneratedMessage {
   void clearCode() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get nameMap => $_getN(1);
-  @$pb.TagNumber(2)
-  set nameMap($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasNameMap() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearNameMap() => clearField(2);
+  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
+
+  @$pb.TagNumber(3)
+  $core.String get nativeName => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set nativeName($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasNativeName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNativeName() => clearField(3);
 }
 
 class NewLanguageCodeRequest extends $pb.GeneratedMessage {

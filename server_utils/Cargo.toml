@@ -6,4 +6,11 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dependencies_sync = {path = "../dependencies_sync", features = ["tokio", "log", "rust-i18n", "once_cell"]}
+dependencies_sync = { path = "../dependencies_sync", features = [
+  "tokio",
+  "log",
+  "rust-i18n",
+  "once_cell",
+] }
+
+configs = { path = "../configs" }

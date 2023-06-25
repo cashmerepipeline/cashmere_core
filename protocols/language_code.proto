@@ -5,7 +5,8 @@ import "name.proto";
 
 message LanguageCode{
   string code = 1;
-  bytes name_map = 2;
+  map<string, string> name_map = 2;
+  string native_name = 3;
 }
 
 // 新语言编码

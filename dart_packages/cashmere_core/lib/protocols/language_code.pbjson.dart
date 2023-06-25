@@ -13,12 +13,24 @@ const LanguageCode$json = const {
   '1': 'LanguageCode',
   '2': const [
     const {'1': 'code', '3': 1, '4': 1, '5': 9, '10': 'code'},
-    const {'1': 'name_map', '3': 2, '4': 1, '5': 12, '10': 'nameMap'},
+    const {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.LanguageCode.NameMapEntry', '10': 'nameMap'},
+    const {'1': 'native_name', '3': 3, '4': 1, '5': 9, '10': 'nativeName'},
   ],
+  '3': const [LanguageCode_NameMapEntry$json],
+};
+
+@$core.Deprecated('Use languageCodeDescriptor instead')
+const LanguageCode_NameMapEntry$json = const {
+  '1': 'NameMapEntry',
+  '2': const [
+    const {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    const {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+  ],
+  '7': const {'7': true},
 };
 
 /// Descriptor for `LanguageCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List languageCodeDescriptor = $convert.base64Decode('CgxMYW5ndWFnZUNvZGUSEgoEY29kZRgBIAEoCVIEY29kZRIZCghuYW1lX21hcBgCIAEoDFIHbmFtZU1hcA==');
+final $typed_data.Uint8List languageCodeDescriptor = $convert.base64Decode('CgxMYW5ndWFnZUNvZGUSEgoEY29kZRgBIAEoCVIEY29kZRI+CghuYW1lX21hcBgCIAMoCzIjLmNhc2htZXJlLkxhbmd1YWdlQ29kZS5OYW1lTWFwRW50cnlSB25hbWVNYXASHwoLbmF0aXZlX25hbWUYAyABKAlSCm5hdGl2ZU5hbWUaOgoMTmFtZU1hcEVudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAE=');
 @$core.Deprecated('Use newLanguageCodeRequestDescriptor instead')
 const NewLanguageCodeRequest$json = const {
   '1': 'NewLanguageCodeRequest',

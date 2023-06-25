@@ -35,7 +35,7 @@ pub mod templates_manager;
 pub mod utils;
 pub mod view_rules_manager;
 pub mod phone_area_codes_manager;
-pub mod countries_manager;
+pub mod country_codes_manager;
 
 pub mod persons_manager;
 

@@ -63,7 +63,7 @@ async fn handle_new_country(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
-        .get_manager_by_id(COUNTRIES_MANAGE_ID)
+        .get_manager_by_id(COUNTRY_CODES_MANAGE_ID)
         .unwrap();
 
     let local_name = match name {
@@ -78,7 +78,7 @@ async fn handle_new_country(
     // 是否存在，存在则返回
     if manager
         .entity_exists(&doc! {
-            COUNTRIES_CODE_FIELD_ID.to_string():code.clone(),
+            COUNTRY_CODES_CODE_FIELD_ID.to_string():code.clone(),
         })
         .await
     {
@@ -88,13 +88,13 @@ async fn handle_new_country(
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
         new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
-        new_entity_doc.insert(COUNTRIES_NATIVE_FIELD_ID.to_string(), native.clone());
-        new_entity_doc.insert(COUNTRIES_CODE_FIELD_ID.to_string(), code);
+        new_entity_doc.insert(COUNTRY_CODES_NATIVE_FIELD_ID.to_string(), native.clone());
+        new_entity_doc.insert(COUNTRY_CODES_CODE_FIELD_ID.to_string(), code);
         new_entity_doc.insert(
-            COUNTRIES_PHONE_AREA_CODE_FIELD_ID.to_string(),
+            COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID.to_string(),
             phone_area_code,
         );
-        new_entity_doc.insert(COUNTRIES_LANGUAGES_FIELD_ID.to_string(), languages);
+        new_entity_doc.insert(COUNTRY_CODES_LANGUAGES_FIELD_ID.to_string(), languages);
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

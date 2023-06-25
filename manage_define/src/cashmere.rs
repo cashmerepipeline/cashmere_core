@@ -69,7 +69,28 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 新品牌
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CountryCode {
+    #[prost(string, tag = "1")]
+    pub code: ::prost::alloc::string::String,
+    /// 名称
+    #[prost(map = "string, string", tag = "2")]
+    pub name_map: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// 母语名
+    #[prost(string, tag = "3")]
+    pub native: ::prost::alloc::string::String,
+    /// 手机区号
+    #[prost(uint32, tag = "4")]
+    pub phone_area_code: u32,
+    /// 所用语言
+    #[prost(string, repeated, tag = "5")]
+    pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 新国家编码
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCountryCodeRequest {
@@ -77,6 +98,7 @@ pub struct NewCountryCodeRequest {
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "3")]
     pub code: ::prost::alloc::string::String,
+    /// 母语名
     #[prost(string, tag = "2")]
     pub native: ::prost::alloc::string::String,
     #[prost(uint32, tag = "4")]
@@ -95,8 +117,13 @@ pub struct NewCountryCodeResponse {
 pub struct LanguageCode {
     #[prost(string, tag = "1")]
     pub code: ::prost::alloc::string::String,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
+    #[prost(map = "string, string", tag = "2")]
+    pub name_map: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(string, tag = "3")]
+    pub native_name: ::prost::alloc::string::String,
 }
 /// 新语言编码
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -205,7 +232,7 @@ pub struct PhoneAreaCode {
     pub code: ::prost::alloc::string::String,
     /// 使用地区
     #[prost(string, repeated, tag = "2")]
-    pub areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    pub using_areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 新区号编码
 #[allow(clippy::derive_partial_eq_without_eq)]

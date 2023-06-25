@@ -7,10 +7,10 @@ package cashmere;
 import "name.proto";
 
 message PhoneAreaCode{
-    string code = 1;
-    // 使用地区
-    repeated string areas=2;
-    }
+  string code = 1;
+  // 使用地区
+  repeated string using_areas=2;
+}
 
 
 // 新区号编码

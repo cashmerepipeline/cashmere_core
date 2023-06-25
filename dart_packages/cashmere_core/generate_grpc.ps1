@@ -1,5 +1,5 @@
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/language_code.proto
-protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/country.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/country_code.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/manage.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/manage_schema.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/group.proto
