@@ -13,12 +13,24 @@ const PhoneAreaCode$json = const {
   '1': 'PhoneAreaCode',
   '2': const [
     const {'1': 'code', '3': 1, '4': 1, '5': 9, '10': 'code'},
-    const {'1': 'using_areas', '3': 2, '4': 3, '5': 9, '10': 'usingAreas'},
+    const {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.PhoneAreaCode.NameMapEntry', '10': 'nameMap'},
+    const {'1': 'using_areas', '3': 3, '4': 3, '5': 9, '10': 'usingAreas'},
   ],
+  '3': const [PhoneAreaCode_NameMapEntry$json],
+};
+
+@$core.Deprecated('Use phoneAreaCodeDescriptor instead')
+const PhoneAreaCode_NameMapEntry$json = const {
+  '1': 'NameMapEntry',
+  '2': const [
+    const {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    const {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+  ],
+  '7': const {'7': true},
 };
 
 /// Descriptor for `PhoneAreaCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List phoneAreaCodeDescriptor = $convert.base64Decode('Cg1QaG9uZUFyZWFDb2RlEhIKBGNvZGUYASABKAlSBGNvZGUSHwoLdXNpbmdfYXJlYXMYAiADKAlSCnVzaW5nQXJlYXM=');
+final $typed_data.Uint8List phoneAreaCodeDescriptor = $convert.base64Decode('Cg1QaG9uZUFyZWFDb2RlEhIKBGNvZGUYASABKAlSBGNvZGUSPwoIbmFtZV9tYXAYAiADKAsyJC5jYXNobWVyZS5QaG9uZUFyZWFDb2RlLk5hbWVNYXBFbnRyeVIHbmFtZU1hcBIfCgt1c2luZ19hcmVhcxgDIAMoCVIKdXNpbmdBcmVhcxo6CgxOYW1lTWFwRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AQ==');
 @$core.Deprecated('Use newPhoneAreaCodeRequestDescriptor instead')
 const NewPhoneAreaCodeRequest$json = const {
   '1': 'NewPhoneAreaCodeRequest',
@@ -41,3 +53,20 @@ const NewPhoneAreaCodeResponse$json = const {
 
 /// Descriptor for `NewPhoneAreaCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newPhoneAreaCodeResponseDescriptor = $convert.base64Decode('ChhOZXdQaG9uZUFyZWFDb2RlUmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+@$core.Deprecated('Use getPhoneAreaCodesRequestDescriptor instead')
+const GetPhoneAreaCodesRequest$json = const {
+  '1': 'GetPhoneAreaCodesRequest',
+};
+
+/// Descriptor for `GetPhoneAreaCodesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPhoneAreaCodesRequestDescriptor = $convert.base64Decode('ChhHZXRQaG9uZUFyZWFDb2Rlc1JlcXVlc3Q=');
+@$core.Deprecated('Use getPhoneAreaCodesResponseDescriptor instead')
+const GetPhoneAreaCodesResponse$json = const {
+  '1': 'GetPhoneAreaCodesResponse',
+  '2': const [
+    const {'1': 'phone_area_codes', '3': 1, '4': 3, '5': 11, '6': '.cashmere.PhoneAreaCode', '10': 'phoneAreaCodes'},
+  ],
+};
+
+/// Descriptor for `GetPhoneAreaCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPhoneAreaCodesResponseDescriptor = $convert.base64Decode('ChlHZXRQaG9uZUFyZWFDb2Rlc1Jlc3BvbnNlEkEKEHBob25lX2FyZWFfY29kZXMYASADKAsyFy5jYXNobWVyZS5QaG9uZUFyZWFDb2RlUg5waG9uZUFyZWFDb2Rlcw==');

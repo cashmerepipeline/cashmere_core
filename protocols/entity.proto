@@ -27,14 +27,14 @@ message Entity{
 }
 
 // 变更物主
-message ChangeOwnerRequest
+message ChangeEntityOwnerRequest
 {
   int32 manage_id = 1;
   string entity_id = 2;
   string old_owner_id = 3;
   string new_owner_id = 4;
 }
-message ChangeOwnerResponse
+message ChangeEntityOwnerResponse
 {
   string result = 1;
 }
@@ -125,7 +125,7 @@ message EditEntityArrayFieldRemoveItemsResponse {
 }
 
 
-// 取得实体
+// 依据id取得单个实体
 message GetEntityRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -134,7 +134,7 @@ message GetEntityResponse {
     bytes entity = 1;
 }
 
-// 取得多个实体
+// 依据id列表取得多个实体
 message GetEntitiesRequest {
     int32 manage_id = 1;
     repeated string entity_ids = 2;
@@ -143,7 +143,8 @@ message GetEntitiesResponse {
     repeated bytes entities = 1;
 }
 
-// 取得实体页
+// 依据页码取得实体页列表，页码从1开始
+// 需要先取得实体总数，然后计算页数
 message GetEntitiesPageRequest {
   int32 manage_id = 1;
   uint32 page_index = 2;

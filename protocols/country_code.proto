@@ -27,3 +27,11 @@ message NewCountryCodeRequest {
 message NewCountryCodeResponse {
   string result = 1;
 }
+
+// 取得编码列表, 读取不需要权限
+// 客户端应该缓存这个列表
+message GetCountryCodesRequest {
+}
+message GetCountryCodesResponse {
+  repeated CountryCode country_codes = 1;
+}

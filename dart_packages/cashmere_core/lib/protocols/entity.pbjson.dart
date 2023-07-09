@@ -29,9 +29,9 @@ const Entity$json = const {
 
 /// Descriptor for `Entity`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List entityDescriptor = $convert.base64Decode('CgZFbnRpdHkSDgoCaWQYASABKAlSAmlkEiIKBG5hbWUYAiABKAsyDi5jYXNobWVyZS5OYW1lUgRuYW1lEh0KCmNyZWF0b3JfaWQYAyABKAlSCWNyZWF0b3JJZBIpChBjcmVhdGVfdGltZXN0YW1wGAQgASgJUg9jcmVhdGVUaW1lc3RhbXASHwoLbW9kaWZpZXJfaWQYBSABKAlSCm1vZGlmaWVySWQSKQoQbW9kaWZ5X3RpbWVzdGFtcBgGIAEoCVIPbW9kaWZ5VGltZXN0YW1wEhkKCG93bmVyX2lkGAcgASgJUgdvd25lcklkEhYKBmdyb3VwcxgIIAMoCVIGZ3JvdXBzEhkKCGRhdGFfaWRzGAkgAygJUgdkYXRhSWRzEh8KC2NvbW1lbnRfaWRzGAogAygJUgpjb21tZW50SWRzEhgKB3JlbW92ZWQYCyABKAhSB3JlbW92ZWQSKAoQcmVtb3ZlZF9kYXRhX2lkcxgMIAMoCVIOcmVtb3ZlZERhdGFJZHM=');
-@$core.Deprecated('Use changeOwnerRequestDescriptor instead')
-const ChangeOwnerRequest$json = const {
-  '1': 'ChangeOwnerRequest',
+@$core.Deprecated('Use changeEntityOwnerRequestDescriptor instead')
+const ChangeEntityOwnerRequest$json = const {
+  '1': 'ChangeEntityOwnerRequest',
   '2': const [
     const {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     const {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
@@ -40,18 +40,18 @@ const ChangeOwnerRequest$json = const {
   ],
 };
 
-/// Descriptor for `ChangeOwnerRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List changeOwnerRequestDescriptor = $convert.base64Decode('ChJDaGFuZ2VPd25lclJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlkEiAKDG9sZF9vd25lcl9pZBgDIAEoCVIKb2xkT3duZXJJZBIgCgxuZXdfb3duZXJfaWQYBCABKAlSCm5ld093bmVySWQ=');
-@$core.Deprecated('Use changeOwnerResponseDescriptor instead')
-const ChangeOwnerResponse$json = const {
-  '1': 'ChangeOwnerResponse',
+/// Descriptor for `ChangeEntityOwnerRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeEntityOwnerRequestDescriptor = $convert.base64Decode('ChhDaGFuZ2VFbnRpdHlPd25lclJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdHlfaWQYAiABKAlSCGVudGl0eUlkEiAKDG9sZF9vd25lcl9pZBgDIAEoCVIKb2xkT3duZXJJZBIgCgxuZXdfb3duZXJfaWQYBCABKAlSCm5ld093bmVySWQ=');
+@$core.Deprecated('Use changeEntityOwnerResponseDescriptor instead')
+const ChangeEntityOwnerResponse$json = const {
+  '1': 'ChangeEntityOwnerResponse',
   '2': const [
     const {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `ChangeOwnerResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List changeOwnerResponseDescriptor = $convert.base64Decode('ChNDaGFuZ2VPd25lclJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
+/// Descriptor for `ChangeEntityOwnerResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeEntityOwnerResponseDescriptor = $convert.base64Decode('ChlDaGFuZ2VFbnRpdHlPd25lclJlc3BvbnNlEhYKBnJlc3VsdBgBIAEoCVIGcmVzdWx0');
 @$core.Deprecated('Use newEntityRequestDescriptor instead')
 const NewEntityRequest$json = const {
   '1': 'NewEntityRequest',

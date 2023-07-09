@@ -17,7 +17,7 @@ members = [
   "property_field",
   #    "server_template",
   "request_utils",
-  "service_common_handles",
+  "core_service_handles",
   "majordomo",
   "define_utils",
   "managers",

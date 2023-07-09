@@ -190,8 +190,8 @@ class Entity extends $pb.GeneratedMessage {
   $core.List<$core.String> get removedDataIds => $_getList(11);
 }
 
-class ChangeOwnerRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeOwnerRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeEntityOwnerRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeEntityOwnerRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entityId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'oldOwnerId')
@@ -199,8 +199,8 @@ class ChangeOwnerRequest extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  ChangeOwnerRequest._() : super();
-  factory ChangeOwnerRequest({
+  ChangeEntityOwnerRequest._() : super();
+  factory ChangeEntityOwnerRequest({
     $core.int? manageId,
     $core.String? entityId,
     $core.String? oldOwnerId,
@@ -221,26 +221,26 @@ class ChangeOwnerRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory ChangeOwnerRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChangeOwnerRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeEntityOwnerRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeEntityOwnerRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChangeOwnerRequest clone() => ChangeOwnerRequest()..mergeFromMessage(this);
+  ChangeEntityOwnerRequest clone() => ChangeEntityOwnerRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeOwnerRequest copyWith(void Function(ChangeOwnerRequest) updates) => super.copyWith((message) => updates(message as ChangeOwnerRequest)) as ChangeOwnerRequest; // ignore: deprecated_member_use
+  ChangeEntityOwnerRequest copyWith(void Function(ChangeEntityOwnerRequest) updates) => super.copyWith((message) => updates(message as ChangeEntityOwnerRequest)) as ChangeEntityOwnerRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static ChangeOwnerRequest create() => ChangeOwnerRequest._();
-  ChangeOwnerRequest createEmptyInstance() => create();
-  static $pb.PbList<ChangeOwnerRequest> createRepeated() => $pb.PbList<ChangeOwnerRequest>();
+  static ChangeEntityOwnerRequest create() => ChangeEntityOwnerRequest._();
+  ChangeEntityOwnerRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeEntityOwnerRequest> createRepeated() => $pb.PbList<ChangeEntityOwnerRequest>();
   @$core.pragma('dart2js:noInline')
-  static ChangeOwnerRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeOwnerRequest>(create);
-  static ChangeOwnerRequest? _defaultInstance;
+  static ChangeEntityOwnerRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeEntityOwnerRequest>(create);
+  static ChangeEntityOwnerRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
@@ -279,14 +279,14 @@ class ChangeOwnerRequest extends $pb.GeneratedMessage {
   void clearNewOwnerId() => clearField(4);
 }
 
-class ChangeOwnerResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeOwnerResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+class ChangeEntityOwnerResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeEntityOwnerResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
-  ChangeOwnerResponse._() : super();
-  factory ChangeOwnerResponse({
+  ChangeEntityOwnerResponse._() : super();
+  factory ChangeEntityOwnerResponse({
     $core.String? result,
   }) {
     final _result = create();
@@ -295,26 +295,26 @@ class ChangeOwnerResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory ChangeOwnerResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChangeOwnerResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory ChangeEntityOwnerResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeEntityOwnerResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChangeOwnerResponse clone() => ChangeOwnerResponse()..mergeFromMessage(this);
+  ChangeEntityOwnerResponse clone() => ChangeEntityOwnerResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeOwnerResponse copyWith(void Function(ChangeOwnerResponse) updates) => super.copyWith((message) => updates(message as ChangeOwnerResponse)) as ChangeOwnerResponse; // ignore: deprecated_member_use
+  ChangeEntityOwnerResponse copyWith(void Function(ChangeEntityOwnerResponse) updates) => super.copyWith((message) => updates(message as ChangeEntityOwnerResponse)) as ChangeEntityOwnerResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static ChangeOwnerResponse create() => ChangeOwnerResponse._();
-  ChangeOwnerResponse createEmptyInstance() => create();
-  static $pb.PbList<ChangeOwnerResponse> createRepeated() => $pb.PbList<ChangeOwnerResponse>();
+  static ChangeEntityOwnerResponse create() => ChangeEntityOwnerResponse._();
+  ChangeEntityOwnerResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeEntityOwnerResponse> createRepeated() => $pb.PbList<ChangeEntityOwnerResponse>();
   @$core.pragma('dart2js:noInline')
-  static ChangeOwnerResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeOwnerResponse>(create);
-  static ChangeOwnerResponse? _defaultInstance;
+  static ChangeEntityOwnerResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeEntityOwnerResponse>(create);
+  static ChangeEntityOwnerResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);

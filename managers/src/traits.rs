@@ -530,7 +530,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 
         match entity::get_query_cursor(&manage_id, matches, projects).await {
             Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "get_query_cursor".to_string())),
+            Err(e) => Err(add_call_name_to_chain(e, "manager::get_query_cursor".to_string())),
         }
     }
 

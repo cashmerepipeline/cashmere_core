@@ -9,8 +9,7 @@ edition = "2021"
 # proc-macro = true
 
 [dependencies]
-dependencies_sync = { path = "../dependencies_sync", features = ["tonic"] }
-# quote = "1.0.9"
-# syn = "1.0.72"
-
 auth ={ path = "../auth" }
+manage_define = { path = "../manage_define" }
+
+dependencies_sync = { path = "../dependencies_sync", features = ["tonic", "rust-i18n", "once_cell"] }

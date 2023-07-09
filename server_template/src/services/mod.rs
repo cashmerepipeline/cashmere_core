@@ -8,12 +8,12 @@ Modified: !date!
 use tonic::{Request, Response, Status, Streaming};
 use manage_define::cashmere::*;
 
-use service_common_handles::view_rules_service_handles::{
+use core_service_handles::view_rules_service_handles::{
     HandleChangeCollectionReadrule, HandleChangeCollectionWriteRule, HandleChangeFieldReadrule,
     HandleChangeFieldWriteRule, HandleChangeManageWriteRule,
 };
-use service_common_handles::ResponseStream;
-use service_common_handles::{
+use core_service_handles::ResponseStream;
+use core_service_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,

@@ -14,18 +14,23 @@ import 'name.pb.dart' as $0;
 class PhoneAreaCode extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'PhoneAreaCode', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'usingAreas')
+    ..m<$core.String, $core.String>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', entryClassName: 'PhoneAreaCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
+    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'usingAreas')
     ..hasRequiredFields = false
   ;
 
   PhoneAreaCode._() : super();
   factory PhoneAreaCode({
     $core.String? code,
+    $core.Map<$core.String, $core.String>? nameMap,
     $core.Iterable<$core.String>? usingAreas,
   }) {
     final _result = create();
     if (code != null) {
       _result.code = code;
+    }
+    if (nameMap != null) {
+      _result.nameMap.addAll(nameMap);
     }
     if (usingAreas != null) {
       _result.usingAreas.addAll(usingAreas);
@@ -63,7 +68,10 @@ class PhoneAreaCode extends $pb.GeneratedMessage {
   void clearCode() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.String> get usingAreas => $_getList(1);
+  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get usingAreas => $_getList(2);
 }
 
 class NewPhoneAreaCodeRequest extends $pb.GeneratedMessage {
@@ -182,5 +190,75 @@ class NewPhoneAreaCodeResponse extends $pb.GeneratedMessage {
   $core.bool hasResult() => $_has(0);
   @$pb.TagNumber(1)
   void clearResult() => clearField(1);
+}
+
+class GetPhoneAreaCodesRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPhoneAreaCodesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  GetPhoneAreaCodesRequest._() : super();
+  factory GetPhoneAreaCodesRequest() => create();
+  factory GetPhoneAreaCodesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPhoneAreaCodesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPhoneAreaCodesRequest clone() => GetPhoneAreaCodesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPhoneAreaCodesRequest copyWith(void Function(GetPhoneAreaCodesRequest) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesRequest)) as GetPhoneAreaCodesRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetPhoneAreaCodesRequest create() => GetPhoneAreaCodesRequest._();
+  GetPhoneAreaCodesRequest createEmptyInstance() => create();
+  static $pb.PbList<GetPhoneAreaCodesRequest> createRepeated() => $pb.PbList<GetPhoneAreaCodesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetPhoneAreaCodesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPhoneAreaCodesRequest>(create);
+  static GetPhoneAreaCodesRequest? _defaultInstance;
+}
+
+class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPhoneAreaCodesResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pc<PhoneAreaCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phoneAreaCodes', $pb.PbFieldType.PM, subBuilder: PhoneAreaCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetPhoneAreaCodesResponse._() : super();
+  factory GetPhoneAreaCodesResponse({
+    $core.Iterable<PhoneAreaCode>? phoneAreaCodes,
+  }) {
+    final _result = create();
+    if (phoneAreaCodes != null) {
+      _result.phoneAreaCodes.addAll(phoneAreaCodes);
+    }
+    return _result;
+  }
+  factory GetPhoneAreaCodesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPhoneAreaCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPhoneAreaCodesResponse clone() => GetPhoneAreaCodesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPhoneAreaCodesResponse copyWith(void Function(GetPhoneAreaCodesResponse) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesResponse)) as GetPhoneAreaCodesResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetPhoneAreaCodesResponse create() => GetPhoneAreaCodesResponse._();
+  GetPhoneAreaCodesResponse createEmptyInstance() => create();
+  static $pb.PbList<GetPhoneAreaCodesResponse> createRepeated() => $pb.PbList<GetPhoneAreaCodesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetPhoneAreaCodesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPhoneAreaCodesResponse>(create);
+  static GetPhoneAreaCodesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<PhoneAreaCode> get phoneAreaCodes => $_getList(0);
 }
 

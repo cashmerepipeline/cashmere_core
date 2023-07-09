@@ -9,7 +9,6 @@ use dependencies_sync::once_cell;
 
 rust_i18n::i18n!("locales");
 
-pub mod check;
 pub mod jwt;
 mod get_auth_token;
 mod get_claims_account_and_roles;

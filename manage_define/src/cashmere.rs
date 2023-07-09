@@ -84,8 +84,8 @@ pub struct CountryCode {
     #[prost(string, tag = "3")]
     pub native: ::prost::alloc::string::String,
     /// 手机区号
-    #[prost(uint32, tag = "4")]
-    pub phone_area_code: u32,
+    #[prost(string, tag = "4")]
+    pub phone_area_code: ::prost::alloc::string::String,
     /// 所用语言
     #[prost(string, repeated, tag = "5")]
     pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -101,8 +101,8 @@ pub struct NewCountryCodeRequest {
     /// 母语名
     #[prost(string, tag = "2")]
     pub native: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "4")]
-    pub phone_area_code: u32,
+    #[prost(string, tag = "4")]
+    pub phone_area_code: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "5")]
     pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
@@ -111,6 +111,17 @@ pub struct NewCountryCodeRequest {
 pub struct NewCountryCodeResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCountryCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCountryCodesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub country_codes: ::prost::alloc::vec::Vec<CountryCode>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -141,6 +152,17 @@ pub struct NewLanguageCodeRequest {
 pub struct NewLanguageCodeResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetLanguageCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetLanguageCodesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub language_codes: ::prost::alloc::vec::Vec<LanguageCode>,
 }
 /// TODO: 可能不需要
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -225,13 +247,19 @@ impl AreaLevel {
         }
     }
 }
+#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PhoneAreaCode {
     #[prost(string, tag = "1")]
     pub code: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "2")]
+    pub name_map: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// 使用地区
-    #[prost(string, repeated, tag = "2")]
+    #[prost(string, repeated, tag = "3")]
     pub using_areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 新区号编码
@@ -252,6 +280,17 @@ pub struct NewPhoneAreaCodeResponse {
     /// 成功返回新区号编码
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得区号编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPhoneAreaCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPhoneAreaCodesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub phone_area_codes: ::prost::alloc::vec::Vec<PhoneAreaCode>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -390,7 +429,7 @@ pub struct Entity {
 /// 变更物主
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ChangeOwnerRequest {
+pub struct ChangeEntityOwnerRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(string, tag = "2")]
@@ -402,7 +441,7 @@ pub struct ChangeOwnerRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ChangeOwnerResponse {
+pub struct ChangeEntityOwnerResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -545,7 +584,7 @@ pub struct EditEntityArrayFieldRemoveItemsResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 取得实体
+/// 依据id取得单个实体
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntityRequest {
@@ -560,7 +599,7 @@ pub struct GetEntityResponse {
     #[prost(bytes = "vec", tag = "1")]
     pub entity: ::prost::alloc::vec::Vec<u8>,
 }
-/// 取得多个实体
+/// 依据id列表取得多个实体
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesRequest {
@@ -575,7 +614,8 @@ pub struct GetEntitiesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
     pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
-/// 取得实体页
+/// 依据页码取得实体页列表，页码从1开始
+/// 需要先取得实体总数，然后计算页数
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesPageRequest {
@@ -850,7 +890,6 @@ pub struct ChangeFieldWriteRuleResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SchemaField {

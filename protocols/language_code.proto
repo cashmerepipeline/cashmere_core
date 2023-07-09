@@ -19,6 +19,16 @@ message NewLanguageCodeResponse {
   string result = 1;
 }
 
+// 取得编码列表, 读取不需要权限
+// 客户端应该缓存这个列表
+message GetLanguageCodesRequest {
+}
+message GetLanguageCodesResponse {
+  repeated LanguageCode language_codes = 1;
+}
+
+
+
 // TODO: 可能不需要
 message UpdateLanguageCodeRequest {
   string id = 1;
