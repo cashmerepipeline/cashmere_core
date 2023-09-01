@@ -10,6 +10,7 @@ fn main() {
         .type_attribute("Gender", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Position", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("PhoneAreaCode", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("FieldDataType", "#[derive(serde::Serialize, serde::Deserialize)]")
         .compile(&["../protocols/cashmere.proto"], &["../protocols"])
         .unwrap();
 

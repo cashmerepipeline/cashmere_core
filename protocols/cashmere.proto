@@ -7,6 +7,7 @@ import "area.proto";
 import "phone_area_code.proto";
 
 import "group.proto";
+import "field_data_type.proto";
 import "property_type.proto";
 import "name.proto";
 import "color.proto";

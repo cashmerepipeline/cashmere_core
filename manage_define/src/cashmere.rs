@@ -306,6 +306,75 @@ pub struct NewGroupResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FieldDataType {
+    FieldDataytypeUnknown = 0,
+    FieldDatatypeDouble = 1,
+    FieldDatatypeFloat = 2,
+    FieldDatatypeInt32 = 3,
+    FieldDatatypeInt64 = 4,
+    FieldDatatypeUint32 = 5,
+    FieldDatatypeUint64 = 6,
+    FieldDatatypeSint32 = 7,
+    FieldDatatypeSint64 = 8,
+    FieldDatatypeFixed32 = 9,
+    FieldDatatypeFixed64 = 10,
+    FieldDatatypeSfixed32 = 11,
+    FieldDatatypeSfixed64 = 12,
+    FieldDatatypeBool = 13,
+    FieldDatatypeString = 14,
+    FieldDatatypeBytes = 15,
+}
+impl FieldDataType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            FieldDataType::FieldDataytypeUnknown => "FIELD_DATAYTYPE_UNKNOWN",
+            FieldDataType::FieldDatatypeDouble => "FIELD_DATATYPE_DOUBLE",
+            FieldDataType::FieldDatatypeFloat => "FIELD_DATATYPE_FLOAT",
+            FieldDataType::FieldDatatypeInt32 => "FIELD_DATATYPE_INT32",
+            FieldDataType::FieldDatatypeInt64 => "FIELD_DATATYPE_INT64",
+            FieldDataType::FieldDatatypeUint32 => "FIELD_DATATYPE_UINT32",
+            FieldDataType::FieldDatatypeUint64 => "FIELD_DATATYPE_UINT64",
+            FieldDataType::FieldDatatypeSint32 => "FIELD_DATATYPE_SINT32",
+            FieldDataType::FieldDatatypeSint64 => "FIELD_DATATYPE_SINT64",
+            FieldDataType::FieldDatatypeFixed32 => "FIELD_DATATYPE_FIXED32",
+            FieldDataType::FieldDatatypeFixed64 => "FIELD_DATATYPE_FIXED64",
+            FieldDataType::FieldDatatypeSfixed32 => "FIELD_DATATYPE_SFIXED32",
+            FieldDataType::FieldDatatypeSfixed64 => "FIELD_DATATYPE_SFIXED64",
+            FieldDataType::FieldDatatypeBool => "FIELD_DATATYPE_BOOL",
+            FieldDataType::FieldDatatypeString => "FIELD_DATATYPE_STRING",
+            FieldDataType::FieldDatatypeBytes => "FIELD_DATATYPE_BYTES",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FIELD_DATAYTYPE_UNKNOWN" => Some(Self::FieldDataytypeUnknown),
+            "FIELD_DATATYPE_DOUBLE" => Some(Self::FieldDatatypeDouble),
+            "FIELD_DATATYPE_FLOAT" => Some(Self::FieldDatatypeFloat),
+            "FIELD_DATATYPE_INT32" => Some(Self::FieldDatatypeInt32),
+            "FIELD_DATATYPE_INT64" => Some(Self::FieldDatatypeInt64),
+            "FIELD_DATATYPE_UINT32" => Some(Self::FieldDatatypeUint32),
+            "FIELD_DATATYPE_UINT64" => Some(Self::FieldDatatypeUint64),
+            "FIELD_DATATYPE_SINT32" => Some(Self::FieldDatatypeSint32),
+            "FIELD_DATATYPE_SINT64" => Some(Self::FieldDatatypeSint64),
+            "FIELD_DATATYPE_FIXED32" => Some(Self::FieldDatatypeFixed32),
+            "FIELD_DATATYPE_FIXED64" => Some(Self::FieldDatatypeFixed64),
+            "FIELD_DATATYPE_SFIXED32" => Some(Self::FieldDatatypeSfixed32),
+            "FIELD_DATATYPE_SFIXED64" => Some(Self::FieldDatatypeSfixed64),
+            "FIELD_DATATYPE_BOOL" => Some(Self::FieldDatatypeBool),
+            "FIELD_DATATYPE_STRING" => Some(Self::FieldDatatypeString),
+            "FIELD_DATATYPE_BYTES" => Some(Self::FieldDatatypeBytes),
+            _ => None,
+        }
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Int32Range {
