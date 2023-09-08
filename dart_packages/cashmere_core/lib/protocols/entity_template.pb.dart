@@ -1,37 +1,42 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: entity_template.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class NewEntityTemplateRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewEntityTemplateRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..p<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fields', $pb.PbFieldType.PY)
-    ..hasRequiredFields = false
-  ;
-
-  NewEntityTemplateRequest._() : super();
   factory NewEntityTemplateRequest({
     $core.int? manageId,
     $core.Iterable<$core.List<$core.int>>? fields,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (fields != null) {
-      _result.fields.addAll(fields);
+      $result.fields.addAll(fields);
     }
-    return _result;
+    return $result;
   }
+  NewEntityTemplateRequest._() : super();
   factory NewEntityTemplateRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewEntityTemplateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewEntityTemplateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'fields', $pb.PbFieldType.PY)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -41,8 +46,10 @@ class NewEntityTemplateRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewEntityTemplateRequest copyWith(void Function(NewEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as NewEntityTemplateRequest)) as NewEntityTemplateRequest; // ignore: deprecated_member_use
+  NewEntityTemplateRequest copyWith(void Function(NewEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as NewEntityTemplateRequest)) as NewEntityTemplateRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewEntityTemplateRequest create() => NewEntityTemplateRequest._();
   NewEntityTemplateRequest createEmptyInstance() => create();
@@ -51,6 +58,7 @@ class NewEntityTemplateRequest extends $pb.GeneratedMessage {
   static NewEntityTemplateRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewEntityTemplateRequest>(create);
   static NewEntityTemplateRequest? _defaultInstance;
 
+  /// 模板对应管理
   @$pb.TagNumber(1)
   $core.int get manageId => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -60,28 +68,30 @@ class NewEntityTemplateRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearManageId() => clearField(1);
 
+  /// 属性:值 列表
   @$pb.TagNumber(2)
   $core.List<$core.List<$core.int>> get fields => $_getList(1);
 }
 
 class NewEntityTemplateResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewEntityTemplateResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewEntityTemplateResponse._() : super();
   factory NewEntityTemplateResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewEntityTemplateResponse._() : super();
   factory NewEntityTemplateResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewEntityTemplateResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewEntityTemplateResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -91,8 +101,10 @@ class NewEntityTemplateResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewEntityTemplateResponse copyWith(void Function(NewEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as NewEntityTemplateResponse)) as NewEntityTemplateResponse; // ignore: deprecated_member_use
+  NewEntityTemplateResponse copyWith(void Function(NewEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as NewEntityTemplateResponse)) as NewEntityTemplateResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewEntityTemplateResponse create() => NewEntityTemplateResponse._();
   NewEntityTemplateResponse createEmptyInstance() => create();
@@ -112,28 +124,29 @@ class NewEntityTemplateResponse extends $pb.GeneratedMessage {
 }
 
 class EditEntityTemplateRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditEntityTemplateRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'templateId')
-    ..p<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fields', $pb.PbFieldType.PY)
-    ..hasRequiredFields = false
-  ;
-
-  EditEntityTemplateRequest._() : super();
   factory EditEntityTemplateRequest({
     $core.String? templateId,
     $core.Iterable<$core.List<$core.int>>? fields,
   }) {
-    final _result = create();
+    final $result = create();
     if (templateId != null) {
-      _result.templateId = templateId;
+      $result.templateId = templateId;
     }
     if (fields != null) {
-      _result.fields.addAll(fields);
+      $result.fields.addAll(fields);
     }
-    return _result;
+    return $result;
   }
+  EditEntityTemplateRequest._() : super();
   factory EditEntityTemplateRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditEntityTemplateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityTemplateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'templateId')
+    ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'fields', $pb.PbFieldType.PY)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -143,8 +156,10 @@ class EditEntityTemplateRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntityTemplateRequest copyWith(void Function(EditEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as EditEntityTemplateRequest)) as EditEntityTemplateRequest; // ignore: deprecated_member_use
+  EditEntityTemplateRequest copyWith(void Function(EditEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as EditEntityTemplateRequest)) as EditEntityTemplateRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditEntityTemplateRequest create() => EditEntityTemplateRequest._();
   EditEntityTemplateRequest createEmptyInstance() => create();
@@ -153,6 +168,7 @@ class EditEntityTemplateRequest extends $pb.GeneratedMessage {
   static EditEntityTemplateRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEntityTemplateRequest>(create);
   static EditEntityTemplateRequest? _defaultInstance;
 
+  /// 模板编号
   @$pb.TagNumber(1)
   $core.String get templateId => $_getSZ(0);
   @$pb.TagNumber(1)
@@ -162,28 +178,30 @@ class EditEntityTemplateRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearTemplateId() => clearField(1);
 
+  /// 属性:值 列表
   @$pb.TagNumber(2)
   $core.List<$core.List<$core.int>> get fields => $_getList(1);
 }
 
 class EditEntityTemplateResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditEntityTemplateResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  EditEntityTemplateResponse._() : super();
   factory EditEntityTemplateResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  EditEntityTemplateResponse._() : super();
   factory EditEntityTemplateResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditEntityTemplateResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityTemplateResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -193,8 +211,10 @@ class EditEntityTemplateResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntityTemplateResponse copyWith(void Function(EditEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as EditEntityTemplateResponse)) as EditEntityTemplateResponse; // ignore: deprecated_member_use
+  EditEntityTemplateResponse copyWith(void Function(EditEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as EditEntityTemplateResponse)) as EditEntityTemplateResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditEntityTemplateResponse create() => EditEntityTemplateResponse._();
   EditEntityTemplateResponse createEmptyInstance() => create();
@@ -214,23 +234,24 @@ class EditEntityTemplateResponse extends $pb.GeneratedMessage {
 }
 
 class RemoveEntityTemplateRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveEntityTemplateRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'templateId')
-    ..hasRequiredFields = false
-  ;
-
-  RemoveEntityTemplateRequest._() : super();
   factory RemoveEntityTemplateRequest({
     $core.String? templateId,
   }) {
-    final _result = create();
+    final $result = create();
     if (templateId != null) {
-      _result.templateId = templateId;
+      $result.templateId = templateId;
     }
-    return _result;
+    return $result;
   }
+  RemoveEntityTemplateRequest._() : super();
   factory RemoveEntityTemplateRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RemoveEntityTemplateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveEntityTemplateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'templateId')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -240,8 +261,10 @@ class RemoveEntityTemplateRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveEntityTemplateRequest copyWith(void Function(RemoveEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as RemoveEntityTemplateRequest)) as RemoveEntityTemplateRequest; // ignore: deprecated_member_use
+  RemoveEntityTemplateRequest copyWith(void Function(RemoveEntityTemplateRequest) updates) => super.copyWith((message) => updates(message as RemoveEntityTemplateRequest)) as RemoveEntityTemplateRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static RemoveEntityTemplateRequest create() => RemoveEntityTemplateRequest._();
   RemoveEntityTemplateRequest createEmptyInstance() => create();
@@ -261,23 +284,24 @@ class RemoveEntityTemplateRequest extends $pb.GeneratedMessage {
 }
 
 class RemoveEntityTemplateResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveEntityTemplateResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  RemoveEntityTemplateResponse._() : super();
   factory RemoveEntityTemplateResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  RemoveEntityTemplateResponse._() : super();
   factory RemoveEntityTemplateResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RemoveEntityTemplateResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveEntityTemplateResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -287,8 +311,10 @@ class RemoveEntityTemplateResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveEntityTemplateResponse copyWith(void Function(RemoveEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as RemoveEntityTemplateResponse)) as RemoveEntityTemplateResponse; // ignore: deprecated_member_use
+  RemoveEntityTemplateResponse copyWith(void Function(RemoveEntityTemplateResponse) updates) => super.copyWith((message) => updates(message as RemoveEntityTemplateResponse)) as RemoveEntityTemplateResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static RemoveEntityTemplateResponse create() => RemoveEntityTemplateResponse._();
   RemoveEntityTemplateResponse createEmptyInstance() => create();
@@ -307,3 +333,6 @@ class RemoveEntityTemplateResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

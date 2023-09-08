@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: manage.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -11,28 +15,29 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Manage extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Manage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', $pb.PbFieldType.OY)
-    ..hasRequiredFields = false
-  ;
-
-  Manage._() : super();
   factory Manage({
     $core.int? manageId,
     $core.List<$core.int>? nameMap,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (nameMap != null) {
-      _result.nameMap = nameMap;
+      $result.nameMap = nameMap;
     }
-    return _result;
+    return $result;
   }
+  Manage._() : super();
   factory Manage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Manage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Manage', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'nameMap', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -42,8 +47,10 @@ class Manage extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Manage copyWith(void Function(Manage) updates) => super.copyWith((message) => updates(message as Manage)) as Manage; // ignore: deprecated_member_use
+  Manage copyWith(void Function(Manage) updates) => super.copyWith((message) => updates(message as Manage)) as Manage;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Manage create() => Manage._();
   Manage createEmptyInstance() => create();
@@ -71,15 +78,17 @@ class Manage extends $pb.GeneratedMessage {
   void clearNameMap() => clearField(2);
 }
 
+/// 取得管理列表
 class GetManagesRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManagesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+  factory GetManagesRequest() => create();
+  GetManagesRequest._() : super();
+  factory GetManagesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetManagesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManagesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
-  GetManagesRequest._() : super();
-  factory GetManagesRequest() => create();
-  factory GetManagesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory GetManagesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -89,8 +98,10 @@ class GetManagesRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManagesRequest copyWith(void Function(GetManagesRequest) updates) => super.copyWith((message) => updates(message as GetManagesRequest)) as GetManagesRequest; // ignore: deprecated_member_use
+  GetManagesRequest copyWith(void Function(GetManagesRequest) updates) => super.copyWith((message) => updates(message as GetManagesRequest)) as GetManagesRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManagesRequest create() => GetManagesRequest._();
   GetManagesRequest createEmptyInstance() => create();
@@ -101,23 +112,24 @@ class GetManagesRequest extends $pb.GeneratedMessage {
 }
 
 class GetManagesResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManagesResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<Manage>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manages', $pb.PbFieldType.PM, subBuilder: Manage.create)
-    ..hasRequiredFields = false
-  ;
-
-  GetManagesResponse._() : super();
   factory GetManagesResponse({
     $core.Iterable<Manage>? manages,
   }) {
-    final _result = create();
+    final $result = create();
     if (manages != null) {
-      _result.manages.addAll(manages);
+      $result.manages.addAll(manages);
     }
-    return _result;
+    return $result;
   }
+  GetManagesResponse._() : super();
   factory GetManagesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManagesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManagesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pc<Manage>(1, _omitFieldNames ? '' : 'manages', $pb.PbFieldType.PM, subBuilder: Manage.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -127,8 +139,10 @@ class GetManagesResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManagesResponse copyWith(void Function(GetManagesResponse) updates) => super.copyWith((message) => updates(message as GetManagesResponse)) as GetManagesResponse; // ignore: deprecated_member_use
+  GetManagesResponse copyWith(void Function(GetManagesResponse) updates) => super.copyWith((message) => updates(message as GetManagesResponse)) as GetManagesResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManagesResponse create() => GetManagesResponse._();
   GetManagesResponse createEmptyInstance() => create();
@@ -141,24 +155,26 @@ class GetManagesResponse extends $pb.GeneratedMessage {
   $core.List<Manage> get manages => $_getList(0);
 }
 
+/// 取得记录数量
 class GetManageEntryCountRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageEntryCountRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..hasRequiredFields = false
-  ;
-
-  GetManageEntryCountRequest._() : super();
   factory GetManageEntryCountRequest({
     $core.int? manageId,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
-    return _result;
+    return $result;
   }
+  GetManageEntryCountRequest._() : super();
   factory GetManageEntryCountRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageEntryCountRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageEntryCountRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -168,8 +184,10 @@ class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageEntryCountRequest copyWith(void Function(GetManageEntryCountRequest) updates) => super.copyWith((message) => updates(message as GetManageEntryCountRequest)) as GetManageEntryCountRequest; // ignore: deprecated_member_use
+  GetManageEntryCountRequest copyWith(void Function(GetManageEntryCountRequest) updates) => super.copyWith((message) => updates(message as GetManageEntryCountRequest)) as GetManageEntryCountRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageEntryCountRequest create() => GetManageEntryCountRequest._();
   GetManageEntryCountRequest createEmptyInstance() => create();
@@ -189,23 +207,24 @@ class GetManageEntryCountRequest extends $pb.GeneratedMessage {
 }
 
 class GetManageEntryCountResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageEntryCountResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..hasRequiredFields = false
-  ;
-
-  GetManageEntryCountResponse._() : super();
   factory GetManageEntryCountResponse({
     $fixnum.Int64? count,
   }) {
-    final _result = create();
+    final $result = create();
     if (count != null) {
-      _result.count = count;
+      $result.count = count;
     }
-    return _result;
+    return $result;
   }
+  GetManageEntryCountResponse._() : super();
   factory GetManageEntryCountResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageEntryCountResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageEntryCountResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$fixnum.Int64>(1, _omitFieldNames ? '' : 'count', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -215,8 +234,10 @@ class GetManageEntryCountResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageEntryCountResponse copyWith(void Function(GetManageEntryCountResponse) updates) => super.copyWith((message) => updates(message as GetManageEntryCountResponse)) as GetManageEntryCountResponse; // ignore: deprecated_member_use
+  GetManageEntryCountResponse copyWith(void Function(GetManageEntryCountResponse) updates) => super.copyWith((message) => updates(message as GetManageEntryCountResponse)) as GetManageEntryCountResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageEntryCountResponse create() => GetManageEntryCountResponse._();
   GetManageEntryCountResponse createEmptyInstance() => create();
@@ -235,3 +256,6 @@ class GetManageEntryCountResponse extends $pb.GeneratedMessage {
   void clearCount() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

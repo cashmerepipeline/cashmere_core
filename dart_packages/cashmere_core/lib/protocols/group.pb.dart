@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: group.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -12,28 +16,29 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'name.pb.dart' as $0;
 
 class NewGroupRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewGroupRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOM<$0.Name>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name', subBuilder: $0.Name.create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newGroupId')
-    ..hasRequiredFields = false
-  ;
-
-  NewGroupRequest._() : super();
   factory NewGroupRequest({
     $0.Name? name,
     $core.String? newGroupId,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (newGroupId != null) {
-      _result.newGroupId = newGroupId;
+      $result.newGroupId = newGroupId;
     }
-    return _result;
+    return $result;
   }
+  NewGroupRequest._() : super();
   factory NewGroupRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewGroupRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewGroupRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..aOS(2, _omitFieldNames ? '' : 'newGroupId')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -43,8 +48,10 @@ class NewGroupRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewGroupRequest copyWith(void Function(NewGroupRequest) updates) => super.copyWith((message) => updates(message as NewGroupRequest)) as NewGroupRequest; // ignore: deprecated_member_use
+  NewGroupRequest copyWith(void Function(NewGroupRequest) updates) => super.copyWith((message) => updates(message as NewGroupRequest)) as NewGroupRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewGroupRequest create() => NewGroupRequest._();
   NewGroupRequest createEmptyInstance() => create();
@@ -75,23 +82,24 @@ class NewGroupRequest extends $pb.GeneratedMessage {
 }
 
 class NewGroupResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewGroupResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewGroupResponse._() : super();
   factory NewGroupResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewGroupResponse._() : super();
   factory NewGroupResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewGroupResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewGroupResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -101,8 +109,10 @@ class NewGroupResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewGroupResponse copyWith(void Function(NewGroupResponse) updates) => super.copyWith((message) => updates(message as NewGroupResponse)) as NewGroupResponse; // ignore: deprecated_member_use
+  NewGroupResponse copyWith(void Function(NewGroupResponse) updates) => super.copyWith((message) => updates(message as NewGroupResponse)) as NewGroupResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewGroupResponse create() => NewGroupResponse._();
   NewGroupResponse createEmptyInstance() => create();
@@ -121,3 +131,6 @@ class NewGroupResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

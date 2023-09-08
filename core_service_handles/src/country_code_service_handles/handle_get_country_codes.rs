@@ -1,15 +1,17 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::log::{error, info, debug};
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::log::{info, error};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{COUNTRY_CODES_CODE_FIELD_ID, COUNTRY_CODES_LANGUAGES_FIELD_ID, COUNTRY_CODES_NATIVE_FIELD_ID, COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID
+use manage_define::field_ids::{
+    COUNTRY_CODES_CODE_FIELD_ID, COUNTRY_CODES_LANGUAGES_FIELD_ID, COUNTRY_CODES_NATIVE_FIELD_ID,
+    COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID,
 };
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
-use manage_define::manage_ids::{PHONE_AREA_CODES_MANAGE_ID, COUNTRY_CODES_MANAGE_ID};
+use manage_define::manage_ids::{COUNTRY_CODES_MANAGE_ID, PHONE_AREA_CODES_MANAGE_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
@@ -66,16 +68,22 @@ async fn handle_get_country_codes(
                 let d = if let Ok(d) = r {
                     d
                 } else {
-                    error!("{}", t!("获取手机区号失败"));
+                    error!("{}", t!("获取国家编码失败"));
                     continue;
                 };
-
-                let code = d
-                    .get_str(COUNTRY_CODES_CODE_FIELD_ID.to_string())
+                
+                let code = d.get_str(COUNTRY_CODES_CODE_FIELD_ID.to_string()).unwrap();
+                let name_map = d
+                    .get_document(NAME_MAP_FIELD_ID.to_string())
+                    .unwrap()
+                    .to_owned();
+                let native = d
+                    .get_str(COUNTRY_CODES_NATIVE_FIELD_ID.to_string())
+                    .unwrap()
+                    .to_owned();
+                let phone_area_code = d
+                    .get_i64(COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID.to_string())
                     .unwrap();
-                let name_map = d.get_document(NAME_MAP_FIELD_ID.to_string()).unwrap().to_owned();
-                let native = d.get_str(COUNTRY_CODES_NATIVE_FIELD_ID.to_string()).unwrap().to_owned();
-                let phone_area_code = d.get_str(COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID.to_string()).unwrap().to_owned();
                 let languages = d
                     .get_array(COUNTRY_CODES_LANGUAGES_FIELD_ID.to_string())
                     .unwrap_or(&vec![])
@@ -83,19 +91,19 @@ async fn handle_get_country_codes(
                     .map(|x| x.as_str().unwrap().to_string())
                     .collect();
 
-                let phone_code = CountryCode {
+                let code = CountryCode {
                     code: code.to_string(),
                     name_map: bson::from_document(name_map).unwrap(),
                     native: native,
-                    phone_area_code: phone_area_code,
+                    phone_area_code: phone_area_code.to_string(),
                     languages: languages,
                 };
 
-                result_codes.push(phone_code);
+                result_codes.push(code);
             }
 
             Ok(Response::new(GetCountryCodesResponse {
-                country_codes: result_codes
+                country_codes: result_codes,
             }))
         }
         Err(e) => Err(Status::aborted(format!(

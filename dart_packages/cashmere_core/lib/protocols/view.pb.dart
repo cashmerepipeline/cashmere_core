@@ -1,32 +1,38 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: view.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+/// 映像请求
 class GetManageViewRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageViewRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageName')
-    ..hasRequiredFields = false
-  ;
-
-  GetManageViewRequest._() : super();
   factory GetManageViewRequest({
     $core.String? manageName,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageName != null) {
-      _result.manageName = manageName;
+      $result.manageName = manageName;
     }
-    return _result;
+    return $result;
   }
+  GetManageViewRequest._() : super();
   factory GetManageViewRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageViewRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageViewRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'manageName')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -36,8 +42,10 @@ class GetManageViewRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageViewRequest copyWith(void Function(GetManageViewRequest) updates) => super.copyWith((message) => updates(message as GetManageViewRequest)) as GetManageViewRequest; // ignore: deprecated_member_use
+  GetManageViewRequest copyWith(void Function(GetManageViewRequest) updates) => super.copyWith((message) => updates(message as GetManageViewRequest)) as GetManageViewRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageViewRequest create() => GetManageViewRequest._();
   GetManageViewRequest createEmptyInstance() => create();
@@ -56,24 +64,26 @@ class GetManageViewRequest extends $pb.GeneratedMessage {
   void clearManageName() => clearField(1);
 }
 
+/// 映像返回
 class GetManageViewResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageViewResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'viewToken')
-    ..hasRequiredFields = false
-  ;
-
-  GetManageViewResponse._() : super();
   factory GetManageViewResponse({
     $core.String? viewToken,
   }) {
-    final _result = create();
+    final $result = create();
     if (viewToken != null) {
-      _result.viewToken = viewToken;
+      $result.viewToken = viewToken;
     }
-    return _result;
+    return $result;
   }
+  GetManageViewResponse._() : super();
   factory GetManageViewResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageViewResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageViewResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'viewToken')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -83,8 +93,10 @@ class GetManageViewResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageViewResponse copyWith(void Function(GetManageViewResponse) updates) => super.copyWith((message) => updates(message as GetManageViewResponse)) as GetManageViewResponse; // ignore: deprecated_member_use
+  GetManageViewResponse copyWith(void Function(GetManageViewResponse) updates) => super.copyWith((message) => updates(message as GetManageViewResponse)) as GetManageViewResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageViewResponse create() => GetManageViewResponse._();
   GetManageViewResponse createEmptyInstance() => create();
@@ -103,34 +115,36 @@ class GetManageViewResponse extends $pb.GeneratedMessage {
   void clearViewToken() => clearField(1);
 }
 
+/// 管理权限
 class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeManageReadRuleRequest._() : super();
   factory ChangeManageReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? readRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (readRule != null) {
-      _result.readRule = readRule;
+      $result.readRule = readRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeManageReadRuleRequest._() : super();
   factory ChangeManageReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeManageReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'readRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -140,8 +154,10 @@ class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeManageReadRuleRequest copyWith(void Function(ChangeManageReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleRequest)) as ChangeManageReadRuleRequest; // ignore: deprecated_member_use
+  ChangeManageReadRuleRequest copyWith(void Function(ChangeManageReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleRequest)) as ChangeManageReadRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeManageReadRuleRequest create() => ChangeManageReadRuleRequest._();
   ChangeManageReadRuleRequest createEmptyInstance() => create();
@@ -179,23 +195,24 @@ class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeManageReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeManageReadRuleResponse._() : super();
   factory ChangeManageReadRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeManageReadRuleResponse._() : super();
   factory ChangeManageReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeManageReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageReadRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -205,8 +222,10 @@ class ChangeManageReadRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeManageReadRuleResponse copyWith(void Function(ChangeManageReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleResponse)) as ChangeManageReadRuleResponse; // ignore: deprecated_member_use
+  ChangeManageReadRuleResponse copyWith(void Function(ChangeManageReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageReadRuleResponse)) as ChangeManageReadRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeManageReadRuleResponse create() => ChangeManageReadRuleResponse._();
   ChangeManageReadRuleResponse createEmptyInstance() => create();
@@ -226,33 +245,34 @@ class ChangeManageReadRuleResponse extends $pb.GeneratedMessage {
 }
 
 class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeManageWriteRuleRequest._() : super();
   factory ChangeManageWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? writeRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (writeRule != null) {
-      _result.writeRule = writeRule;
+      $result.writeRule = writeRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeManageWriteRuleRequest._() : super();
   factory ChangeManageWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeManageWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'writeRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -262,8 +282,10 @@ class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeManageWriteRuleRequest copyWith(void Function(ChangeManageWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleRequest)) as ChangeManageWriteRuleRequest; // ignore: deprecated_member_use
+  ChangeManageWriteRuleRequest copyWith(void Function(ChangeManageWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleRequest)) as ChangeManageWriteRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeManageWriteRuleRequest create() => ChangeManageWriteRuleRequest._();
   ChangeManageWriteRuleRequest createEmptyInstance() => create();
@@ -301,23 +323,24 @@ class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeManageWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeManageWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeManageWriteRuleResponse._() : super();
   factory ChangeManageWriteRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeManageWriteRuleResponse._() : super();
   factory ChangeManageWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeManageWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageWriteRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -327,8 +350,10 @@ class ChangeManageWriteRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeManageWriteRuleResponse copyWith(void Function(ChangeManageWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleResponse)) as ChangeManageWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeManageWriteRuleResponse copyWith(void Function(ChangeManageWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeManageWriteRuleResponse)) as ChangeManageWriteRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeManageWriteRuleResponse create() => ChangeManageWriteRuleResponse._();
   ChangeManageWriteRuleResponse createEmptyInstance() => create();
@@ -347,34 +372,36 @@ class ChangeManageWriteRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+/// 集合权限
 class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeCollectionReadRuleRequest._() : super();
   factory ChangeCollectionReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? readRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (readRule != null) {
-      _result.readRule = readRule;
+      $result.readRule = readRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeCollectionReadRuleRequest._() : super();
   factory ChangeCollectionReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeCollectionReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'readRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -384,8 +411,10 @@ class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeCollectionReadRuleRequest copyWith(void Function(ChangeCollectionReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleRequest)) as ChangeCollectionReadRuleRequest; // ignore: deprecated_member_use
+  ChangeCollectionReadRuleRequest copyWith(void Function(ChangeCollectionReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleRequest)) as ChangeCollectionReadRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeCollectionReadRuleRequest create() => ChangeCollectionReadRuleRequest._();
   ChangeCollectionReadRuleRequest createEmptyInstance() => create();
@@ -423,23 +452,24 @@ class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeCollectionReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeCollectionReadRuleResponse._() : super();
   factory ChangeCollectionReadRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeCollectionReadRuleResponse._() : super();
   factory ChangeCollectionReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeCollectionReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionReadRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -449,8 +479,10 @@ class ChangeCollectionReadRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeCollectionReadRuleResponse copyWith(void Function(ChangeCollectionReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleResponse)) as ChangeCollectionReadRuleResponse; // ignore: deprecated_member_use
+  ChangeCollectionReadRuleResponse copyWith(void Function(ChangeCollectionReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionReadRuleResponse)) as ChangeCollectionReadRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeCollectionReadRuleResponse create() => ChangeCollectionReadRuleResponse._();
   ChangeCollectionReadRuleResponse createEmptyInstance() => create();
@@ -470,33 +502,34 @@ class ChangeCollectionReadRuleResponse extends $pb.GeneratedMessage {
 }
 
 class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeCollectionWriteRuleRequest._() : super();
   factory ChangeCollectionWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? writeRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (writeRule != null) {
-      _result.writeRule = writeRule;
+      $result.writeRule = writeRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeCollectionWriteRuleRequest._() : super();
   factory ChangeCollectionWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeCollectionWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'writeRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -506,8 +539,10 @@ class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeCollectionWriteRuleRequest copyWith(void Function(ChangeCollectionWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleRequest)) as ChangeCollectionWriteRuleRequest; // ignore: deprecated_member_use
+  ChangeCollectionWriteRuleRequest copyWith(void Function(ChangeCollectionWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleRequest)) as ChangeCollectionWriteRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeCollectionWriteRuleRequest create() => ChangeCollectionWriteRuleRequest._();
   ChangeCollectionWriteRuleRequest createEmptyInstance() => create();
@@ -545,23 +580,24 @@ class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeCollectionWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeCollectionWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeCollectionWriteRuleResponse._() : super();
   factory ChangeCollectionWriteRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeCollectionWriteRuleResponse._() : super();
   factory ChangeCollectionWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeCollectionWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionWriteRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -571,8 +607,10 @@ class ChangeCollectionWriteRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeCollectionWriteRuleResponse copyWith(void Function(ChangeCollectionWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleResponse)) as ChangeCollectionWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeCollectionWriteRuleResponse copyWith(void Function(ChangeCollectionWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeCollectionWriteRuleResponse)) as ChangeCollectionWriteRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeCollectionWriteRuleResponse create() => ChangeCollectionWriteRuleResponse._();
   ChangeCollectionWriteRuleResponse createEmptyInstance() => create();
@@ -591,39 +629,41 @@ class ChangeCollectionWriteRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+/// 描写字段权限
 class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldReadRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'readRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeFieldReadRuleRequest._() : super();
   factory ChangeFieldReadRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? fieldId,
     $core.String? readRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (fieldId != null) {
-      _result.fieldId = fieldId;
+      $result.fieldId = fieldId;
     }
     if (readRule != null) {
-      _result.readRule = readRule;
+      $result.readRule = readRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeFieldReadRuleRequest._() : super();
   factory ChangeFieldReadRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeFieldReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'fieldId')
+    ..aOS(4, _omitFieldNames ? '' : 'readRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -633,8 +673,10 @@ class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldReadRuleRequest copyWith(void Function(ChangeFieldReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleRequest)) as ChangeFieldReadRuleRequest; // ignore: deprecated_member_use
+  ChangeFieldReadRuleRequest copyWith(void Function(ChangeFieldReadRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleRequest)) as ChangeFieldReadRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeFieldReadRuleRequest create() => ChangeFieldReadRuleRequest._();
   ChangeFieldReadRuleRequest createEmptyInstance() => create();
@@ -681,23 +723,24 @@ class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldReadRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeFieldReadRuleResponse._() : super();
   factory ChangeFieldReadRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeFieldReadRuleResponse._() : super();
   factory ChangeFieldReadRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeFieldReadRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldReadRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -707,8 +750,10 @@ class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldReadRuleResponse copyWith(void Function(ChangeFieldReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleResponse)) as ChangeFieldReadRuleResponse; // ignore: deprecated_member_use
+  ChangeFieldReadRuleResponse copyWith(void Function(ChangeFieldReadRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldReadRuleResponse)) as ChangeFieldReadRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeFieldReadRuleResponse create() => ChangeFieldReadRuleResponse._();
   ChangeFieldReadRuleResponse createEmptyInstance() => create();
@@ -728,38 +773,39 @@ class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
 }
 
 class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldWriteRuleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'writeRule')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeFieldWriteRuleRequest._() : super();
   factory ChangeFieldWriteRuleRequest({
     $core.int? manageId,
     $core.String? groupId,
     $core.String? fieldId,
     $core.String? writeRule,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (groupId != null) {
-      _result.groupId = groupId;
+      $result.groupId = groupId;
     }
     if (fieldId != null) {
-      _result.fieldId = fieldId;
+      $result.fieldId = fieldId;
     }
     if (writeRule != null) {
-      _result.writeRule = writeRule;
+      $result.writeRule = writeRule;
     }
-    return _result;
+    return $result;
   }
+  ChangeFieldWriteRuleRequest._() : super();
   factory ChangeFieldWriteRuleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeFieldWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(3, _omitFieldNames ? '' : 'fieldId')
+    ..aOS(4, _omitFieldNames ? '' : 'writeRule')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -769,8 +815,10 @@ class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldWriteRuleRequest copyWith(void Function(ChangeFieldWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleRequest)) as ChangeFieldWriteRuleRequest; // ignore: deprecated_member_use
+  ChangeFieldWriteRuleRequest copyWith(void Function(ChangeFieldWriteRuleRequest) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleRequest)) as ChangeFieldWriteRuleRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeFieldWriteRuleRequest create() => ChangeFieldWriteRuleRequest._();
   ChangeFieldWriteRuleRequest createEmptyInstance() => create();
@@ -817,23 +865,24 @@ class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
 }
 
 class ChangeFieldWriteRuleResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChangeFieldWriteRuleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  ChangeFieldWriteRuleResponse._() : super();
   factory ChangeFieldWriteRuleResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  ChangeFieldWriteRuleResponse._() : super();
   factory ChangeFieldWriteRuleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ChangeFieldWriteRuleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldWriteRuleResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -843,8 +892,10 @@ class ChangeFieldWriteRuleResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChangeFieldWriteRuleResponse copyWith(void Function(ChangeFieldWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleResponse)) as ChangeFieldWriteRuleResponse; // ignore: deprecated_member_use
+  ChangeFieldWriteRuleResponse copyWith(void Function(ChangeFieldWriteRuleResponse) updates) => super.copyWith((message) => updates(message as ChangeFieldWriteRuleResponse)) as ChangeFieldWriteRuleResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ChangeFieldWriteRuleResponse create() => ChangeFieldWriteRuleResponse._();
   ChangeFieldWriteRuleResponse createEmptyInstance() => create();
@@ -863,3 +914,6 @@ class ChangeFieldWriteRuleResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

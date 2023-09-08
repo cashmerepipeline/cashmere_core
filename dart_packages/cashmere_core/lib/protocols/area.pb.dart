@@ -1,53 +1,57 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: area.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'name.pb.dart' as $0;
-
 import 'area.pbenum.dart';
+import 'name.pb.dart' as $0;
 
 export 'area.pbenum.dart';
 
 class NewAreaRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAreaRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOM<$0.Name>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name', subBuilder: $0.Name.create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..e<AreaLevel>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
-    ..hasRequiredFields = false
-  ;
-
-  NewAreaRequest._() : super();
   factory NewAreaRequest({
     $0.Name? name,
     $core.String? parentId,
     $core.String? code,
     AreaLevel? level,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (parentId != null) {
-      _result.parentId = parentId;
+      $result.parentId = parentId;
     }
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (level != null) {
-      _result.level = level;
+      $result.level = level;
     }
-    return _result;
+    return $result;
   }
+  NewAreaRequest._() : super();
   factory NewAreaRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewAreaRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewAreaRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..aOS(2, _omitFieldNames ? '' : 'parentId')
+    ..aOS(3, _omitFieldNames ? '' : 'code')
+    ..e<AreaLevel>(4, _omitFieldNames ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -57,8 +61,10 @@ class NewAreaRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewAreaRequest copyWith(void Function(NewAreaRequest) updates) => super.copyWith((message) => updates(message as NewAreaRequest)) as NewAreaRequest; // ignore: deprecated_member_use
+  NewAreaRequest copyWith(void Function(NewAreaRequest) updates) => super.copyWith((message) => updates(message as NewAreaRequest)) as NewAreaRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewAreaRequest create() => NewAreaRequest._();
   NewAreaRequest createEmptyInstance() => create();
@@ -107,23 +113,24 @@ class NewAreaRequest extends $pb.GeneratedMessage {
 }
 
 class NewAreaResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewAreaResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewAreaResponse._() : super();
   factory NewAreaResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewAreaResponse._() : super();
   factory NewAreaResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewAreaResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewAreaResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -133,8 +140,10 @@ class NewAreaResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewAreaResponse copyWith(void Function(NewAreaResponse) updates) => super.copyWith((message) => updates(message as NewAreaResponse)) as NewAreaResponse; // ignore: deprecated_member_use
+  NewAreaResponse copyWith(void Function(NewAreaResponse) updates) => super.copyWith((message) => updates(message as NewAreaResponse)) as NewAreaResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewAreaResponse create() => NewAreaResponse._();
   NewAreaResponse createEmptyInstance() => create();
@@ -154,33 +163,34 @@ class NewAreaResponse extends $pb.GeneratedMessage {
 }
 
 class EditAreaRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditAreaRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'areaId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newParentId')
-    ..e<AreaLevel>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newLevel', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
-    ..hasRequiredFields = false
-  ;
-
-  EditAreaRequest._() : super();
   factory EditAreaRequest({
     $core.String? areaId,
     $core.String? newParentId,
     AreaLevel? newLevel,
   }) {
-    final _result = create();
+    final $result = create();
     if (areaId != null) {
-      _result.areaId = areaId;
+      $result.areaId = areaId;
     }
     if (newParentId != null) {
-      _result.newParentId = newParentId;
+      $result.newParentId = newParentId;
     }
     if (newLevel != null) {
-      _result.newLevel = newLevel;
+      $result.newLevel = newLevel;
     }
-    return _result;
+    return $result;
   }
+  EditAreaRequest._() : super();
   factory EditAreaRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditAreaRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditAreaRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'areaId')
+    ..aOS(3, _omitFieldNames ? '' : 'newParentId')
+    ..e<AreaLevel>(4, _omitFieldNames ? '' : 'newLevel', $pb.PbFieldType.OE, defaultOrMaker: AreaLevel.Country, valueOf: AreaLevel.valueOf, enumValues: AreaLevel.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -190,8 +200,10 @@ class EditAreaRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditAreaRequest copyWith(void Function(EditAreaRequest) updates) => super.copyWith((message) => updates(message as EditAreaRequest)) as EditAreaRequest; // ignore: deprecated_member_use
+  EditAreaRequest copyWith(void Function(EditAreaRequest) updates) => super.copyWith((message) => updates(message as EditAreaRequest)) as EditAreaRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditAreaRequest create() => EditAreaRequest._();
   EditAreaRequest createEmptyInstance() => create();
@@ -229,23 +241,24 @@ class EditAreaRequest extends $pb.GeneratedMessage {
 }
 
 class EditAreaResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditAreaResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  EditAreaResponse._() : super();
   factory EditAreaResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  EditAreaResponse._() : super();
   factory EditAreaResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditAreaResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditAreaResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -255,8 +268,10 @@ class EditAreaResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditAreaResponse copyWith(void Function(EditAreaResponse) updates) => super.copyWith((message) => updates(message as EditAreaResponse)) as EditAreaResponse; // ignore: deprecated_member_use
+  EditAreaResponse copyWith(void Function(EditAreaResponse) updates) => super.copyWith((message) => updates(message as EditAreaResponse)) as EditAreaResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditAreaResponse create() => EditAreaResponse._();
   EditAreaResponse createEmptyInstance() => create();
@@ -275,3 +290,6 @@ class EditAreaResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

@@ -1,47 +1,52 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: manage_schema.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class SchemaField extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SchemaField', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
-    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', $pb.PbFieldType.OY)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataType')
-    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'removed')
-    ..hasRequiredFields = false
-  ;
-
-  SchemaField._() : super();
   factory SchemaField({
     $core.int? id,
     $core.List<$core.int>? nameMap,
     $core.String? dataType,
     $core.bool? removed,
   }) {
-    final _result = create();
+    final $result = create();
     if (id != null) {
-      _result.id = id;
+      $result.id = id;
     }
     if (nameMap != null) {
-      _result.nameMap = nameMap;
+      $result.nameMap = nameMap;
     }
     if (dataType != null) {
-      _result.dataType = dataType;
+      $result.dataType = dataType;
     }
     if (removed != null) {
-      _result.removed = removed;
+      $result.removed = removed;
     }
-    return _result;
+    return $result;
   }
+  SchemaField._() : super();
   factory SchemaField.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SchemaField.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SchemaField', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'nameMap', $pb.PbFieldType.OY)
+    ..aOS(3, _omitFieldNames ? '' : 'dataType')
+    ..aOB(4, _omitFieldNames ? '' : 'removed')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -51,8 +56,10 @@ class SchemaField extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SchemaField copyWith(void Function(SchemaField) updates) => super.copyWith((message) => updates(message as SchemaField)) as SchemaField; // ignore: deprecated_member_use
+  SchemaField copyWith(void Function(SchemaField) updates) => super.copyWith((message) => updates(message as SchemaField)) as SchemaField;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SchemaField create() => SchemaField._();
   SchemaField createEmptyInstance() => create();
@@ -98,24 +105,26 @@ class SchemaField extends $pb.GeneratedMessage {
   void clearRemoved() => clearField(4);
 }
 
+/// 取得管理描写
 class GetManageSchemaRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageSchemaRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..hasRequiredFields = false
-  ;
-
-  GetManageSchemaRequest._() : super();
   factory GetManageSchemaRequest({
     $core.int? manageId,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
-    return _result;
+    return $result;
   }
+  GetManageSchemaRequest._() : super();
   factory GetManageSchemaRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageSchemaRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageSchemaRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -125,8 +134,10 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageSchemaRequest copyWith(void Function(GetManageSchemaRequest) updates) => super.copyWith((message) => updates(message as GetManageSchemaRequest)) as GetManageSchemaRequest; // ignore: deprecated_member_use
+  GetManageSchemaRequest copyWith(void Function(GetManageSchemaRequest) updates) => super.copyWith((message) => updates(message as GetManageSchemaRequest)) as GetManageSchemaRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageSchemaRequest create() => GetManageSchemaRequest._();
   GetManageSchemaRequest createEmptyInstance() => create();
@@ -146,23 +157,24 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
 }
 
 class GetManageSchemaResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetManageSchemaResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<SchemaField>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fields', $pb.PbFieldType.PM, subBuilder: SchemaField.create)
-    ..hasRequiredFields = false
-  ;
-
-  GetManageSchemaResponse._() : super();
   factory GetManageSchemaResponse({
     $core.Iterable<SchemaField>? fields,
   }) {
-    final _result = create();
+    final $result = create();
     if (fields != null) {
-      _result.fields.addAll(fields);
+      $result.fields.addAll(fields);
     }
-    return _result;
+    return $result;
   }
+  GetManageSchemaResponse._() : super();
   factory GetManageSchemaResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetManageSchemaResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageSchemaResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pc<SchemaField>(1, _omitFieldNames ? '' : 'fields', $pb.PbFieldType.PM, subBuilder: SchemaField.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -172,8 +184,10 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetManageSchemaResponse copyWith(void Function(GetManageSchemaResponse) updates) => super.copyWith((message) => updates(message as GetManageSchemaResponse)) as GetManageSchemaResponse; // ignore: deprecated_member_use
+  GetManageSchemaResponse copyWith(void Function(GetManageSchemaResponse) updates) => super.copyWith((message) => updates(message as GetManageSchemaResponse)) as GetManageSchemaResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetManageSchemaResponse create() => GetManageSchemaResponse._();
   GetManageSchemaResponse createEmptyInstance() => create();
@@ -186,29 +200,31 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
   $core.List<SchemaField> get fields => $_getList(0);
 }
 
+/// 添加管理属性
 class NewSchemaFieldRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSchemaFieldRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOM<SchemaField>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'field', subBuilder: SchemaField.create)
-    ..hasRequiredFields = false
-  ;
-
-  NewSchemaFieldRequest._() : super();
   factory NewSchemaFieldRequest({
     $core.int? manageId,
     SchemaField? field_2,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (field_2 != null) {
-      _result.field_2 = field_2;
+      $result.field_2 = field_2;
     }
-    return _result;
+    return $result;
   }
+  NewSchemaFieldRequest._() : super();
   factory NewSchemaFieldRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSchemaFieldRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewSchemaFieldRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOM<SchemaField>(2, _omitFieldNames ? '' : 'field', subBuilder: SchemaField.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -218,8 +234,10 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewSchemaFieldRequest copyWith(void Function(NewSchemaFieldRequest) updates) => super.copyWith((message) => updates(message as NewSchemaFieldRequest)) as NewSchemaFieldRequest; // ignore: deprecated_member_use
+  NewSchemaFieldRequest copyWith(void Function(NewSchemaFieldRequest) updates) => super.copyWith((message) => updates(message as NewSchemaFieldRequest)) as NewSchemaFieldRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewSchemaFieldRequest create() => NewSchemaFieldRequest._();
   NewSchemaFieldRequest createEmptyInstance() => create();
@@ -250,23 +268,24 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
 }
 
 class NewSchemaFieldResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewSchemaFieldResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewSchemaFieldResponse._() : super();
   factory NewSchemaFieldResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewSchemaFieldResponse._() : super();
   factory NewSchemaFieldResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewSchemaFieldResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewSchemaFieldResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -276,8 +295,10 @@ class NewSchemaFieldResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewSchemaFieldResponse copyWith(void Function(NewSchemaFieldResponse) updates) => super.copyWith((message) => updates(message as NewSchemaFieldResponse)) as NewSchemaFieldResponse; // ignore: deprecated_member_use
+  NewSchemaFieldResponse copyWith(void Function(NewSchemaFieldResponse) updates) => super.copyWith((message) => updates(message as NewSchemaFieldResponse)) as NewSchemaFieldResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewSchemaFieldResponse create() => NewSchemaFieldResponse._();
   NewSchemaFieldResponse createEmptyInstance() => create();
@@ -296,29 +317,31 @@ class NewSchemaFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+/// 标记属性移除
 class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MarkSchemaFieldRemovedRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId', $pb.PbFieldType.O3)
-    ..hasRequiredFields = false
-  ;
-
-  MarkSchemaFieldRemovedRequest._() : super();
   factory MarkSchemaFieldRemovedRequest({
     $core.int? manageId,
     $core.int? fieldId,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (fieldId != null) {
-      _result.fieldId = fieldId;
+      $result.fieldId = fieldId;
     }
-    return _result;
+    return $result;
   }
+  MarkSchemaFieldRemovedRequest._() : super();
   factory MarkSchemaFieldRemovedRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MarkSchemaFieldRemovedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MarkSchemaFieldRemovedRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'fieldId', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -328,8 +351,10 @@ class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MarkSchemaFieldRemovedRequest copyWith(void Function(MarkSchemaFieldRemovedRequest) updates) => super.copyWith((message) => updates(message as MarkSchemaFieldRemovedRequest)) as MarkSchemaFieldRemovedRequest; // ignore: deprecated_member_use
+  MarkSchemaFieldRemovedRequest copyWith(void Function(MarkSchemaFieldRemovedRequest) updates) => super.copyWith((message) => updates(message as MarkSchemaFieldRemovedRequest)) as MarkSchemaFieldRemovedRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static MarkSchemaFieldRemovedRequest create() => MarkSchemaFieldRemovedRequest._();
   MarkSchemaFieldRemovedRequest createEmptyInstance() => create();
@@ -358,23 +383,24 @@ class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
 }
 
 class MarkSchemaFieldRemovedResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MarkSchemaFieldRemovedResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  MarkSchemaFieldRemovedResponse._() : super();
   factory MarkSchemaFieldRemovedResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  MarkSchemaFieldRemovedResponse._() : super();
   factory MarkSchemaFieldRemovedResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MarkSchemaFieldRemovedResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MarkSchemaFieldRemovedResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -384,8 +410,10 @@ class MarkSchemaFieldRemovedResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MarkSchemaFieldRemovedResponse copyWith(void Function(MarkSchemaFieldRemovedResponse) updates) => super.copyWith((message) => updates(message as MarkSchemaFieldRemovedResponse)) as MarkSchemaFieldRemovedResponse; // ignore: deprecated_member_use
+  MarkSchemaFieldRemovedResponse copyWith(void Function(MarkSchemaFieldRemovedResponse) updates) => super.copyWith((message) => updates(message as MarkSchemaFieldRemovedResponse)) as MarkSchemaFieldRemovedResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static MarkSchemaFieldRemovedResponse create() => MarkSchemaFieldRemovedResponse._();
   MarkSchemaFieldRemovedResponse createEmptyInstance() => create();
@@ -404,39 +432,41 @@ class MarkSchemaFieldRemovedResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+/// 编辑属性名
 class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditSchemaFieldNameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldId', $pb.PbFieldType.O3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'language')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newName')
-    ..hasRequiredFields = false
-  ;
-
-  EditSchemaFieldNameRequest._() : super();
   factory EditSchemaFieldNameRequest({
     $core.int? manageId,
     $core.int? fieldId,
     $core.String? language,
     $core.String? newName,
   }) {
-    final _result = create();
+    final $result = create();
     if (manageId != null) {
-      _result.manageId = manageId;
+      $result.manageId = manageId;
     }
     if (fieldId != null) {
-      _result.fieldId = fieldId;
+      $result.fieldId = fieldId;
     }
     if (language != null) {
-      _result.language = language;
+      $result.language = language;
     }
     if (newName != null) {
-      _result.newName = newName;
+      $result.newName = newName;
     }
-    return _result;
+    return $result;
   }
+  EditSchemaFieldNameRequest._() : super();
   factory EditSchemaFieldNameRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditSchemaFieldNameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditSchemaFieldNameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'fieldId', $pb.PbFieldType.O3)
+    ..aOS(3, _omitFieldNames ? '' : 'language')
+    ..aOS(4, _omitFieldNames ? '' : 'newName')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -446,8 +476,10 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditSchemaFieldNameRequest copyWith(void Function(EditSchemaFieldNameRequest) updates) => super.copyWith((message) => updates(message as EditSchemaFieldNameRequest)) as EditSchemaFieldNameRequest; // ignore: deprecated_member_use
+  EditSchemaFieldNameRequest copyWith(void Function(EditSchemaFieldNameRequest) updates) => super.copyWith((message) => updates(message as EditSchemaFieldNameRequest)) as EditSchemaFieldNameRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditSchemaFieldNameRequest create() => EditSchemaFieldNameRequest._();
   EditSchemaFieldNameRequest createEmptyInstance() => create();
@@ -494,23 +526,24 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
 }
 
 class EditSchemaFieldNameResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditSchemaFieldNameResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  EditSchemaFieldNameResponse._() : super();
   factory EditSchemaFieldNameResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  EditSchemaFieldNameResponse._() : super();
   factory EditSchemaFieldNameResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditSchemaFieldNameResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditSchemaFieldNameResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -520,8 +553,10 @@ class EditSchemaFieldNameResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditSchemaFieldNameResponse copyWith(void Function(EditSchemaFieldNameResponse) updates) => super.copyWith((message) => updates(message as EditSchemaFieldNameResponse)) as EditSchemaFieldNameResponse; // ignore: deprecated_member_use
+  EditSchemaFieldNameResponse copyWith(void Function(EditSchemaFieldNameResponse) updates) => super.copyWith((message) => updates(message as EditSchemaFieldNameResponse)) as EditSchemaFieldNameResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditSchemaFieldNameResponse create() => EditSchemaFieldNameResponse._();
   EditSchemaFieldNameResponse createEmptyInstance() => create();
@@ -540,3 +575,6 @@ class EditSchemaFieldNameResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

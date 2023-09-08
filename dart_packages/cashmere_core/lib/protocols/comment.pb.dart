@@ -1,42 +1,47 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: comment.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class NewCommentRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewCommentRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetManageId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetEntityId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
-    ..hasRequiredFields = false
-  ;
-
-  NewCommentRequest._() : super();
   factory NewCommentRequest({
     $core.String? targetManageId,
     $core.String? targetEntityId,
     $core.String? contents,
   }) {
-    final _result = create();
+    final $result = create();
     if (targetManageId != null) {
-      _result.targetManageId = targetManageId;
+      $result.targetManageId = targetManageId;
     }
     if (targetEntityId != null) {
-      _result.targetEntityId = targetEntityId;
+      $result.targetEntityId = targetEntityId;
     }
     if (contents != null) {
-      _result.contents = contents;
+      $result.contents = contents;
     }
-    return _result;
+    return $result;
   }
+  NewCommentRequest._() : super();
   factory NewCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewCommentRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
+    ..aOS(2, _omitFieldNames ? '' : 'targetEntityId')
+    ..aOS(3, _omitFieldNames ? '' : 'contents')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -46,8 +51,10 @@ class NewCommentRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewCommentRequest copyWith(void Function(NewCommentRequest) updates) => super.copyWith((message) => updates(message as NewCommentRequest)) as NewCommentRequest; // ignore: deprecated_member_use
+  NewCommentRequest copyWith(void Function(NewCommentRequest) updates) => super.copyWith((message) => updates(message as NewCommentRequest)) as NewCommentRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewCommentRequest create() => NewCommentRequest._();
   NewCommentRequest createEmptyInstance() => create();
@@ -85,23 +92,24 @@ class NewCommentRequest extends $pb.GeneratedMessage {
 }
 
 class NewCommentResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewCommentResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewCommentResponse._() : super();
   factory NewCommentResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewCommentResponse._() : super();
   factory NewCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewCommentResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -111,8 +119,10 @@ class NewCommentResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewCommentResponse copyWith(void Function(NewCommentResponse) updates) => super.copyWith((message) => updates(message as NewCommentResponse)) as NewCommentResponse; // ignore: deprecated_member_use
+  NewCommentResponse copyWith(void Function(NewCommentResponse) updates) => super.copyWith((message) => updates(message as NewCommentResponse)) as NewCommentResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewCommentResponse create() => NewCommentResponse._();
   NewCommentResponse createEmptyInstance() => create();
@@ -132,28 +142,29 @@ class NewCommentResponse extends $pb.GeneratedMessage {
 }
 
 class EditCommentRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditCommentRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'commentId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newContents')
-    ..hasRequiredFields = false
-  ;
-
-  EditCommentRequest._() : super();
   factory EditCommentRequest({
     $core.String? commentId,
     $core.String? newContents,
   }) {
-    final _result = create();
+    final $result = create();
     if (commentId != null) {
-      _result.commentId = commentId;
+      $result.commentId = commentId;
     }
     if (newContents != null) {
-      _result.newContents = newContents;
+      $result.newContents = newContents;
     }
-    return _result;
+    return $result;
   }
+  EditCommentRequest._() : super();
   factory EditCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditCommentRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'commentId')
+    ..aOS(2, _omitFieldNames ? '' : 'newContents')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -163,8 +174,10 @@ class EditCommentRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditCommentRequest copyWith(void Function(EditCommentRequest) updates) => super.copyWith((message) => updates(message as EditCommentRequest)) as EditCommentRequest; // ignore: deprecated_member_use
+  EditCommentRequest copyWith(void Function(EditCommentRequest) updates) => super.copyWith((message) => updates(message as EditCommentRequest)) as EditCommentRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditCommentRequest create() => EditCommentRequest._();
   EditCommentRequest createEmptyInstance() => create();
@@ -193,23 +206,24 @@ class EditCommentRequest extends $pb.GeneratedMessage {
 }
 
 class EditCommentResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditCommentResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  EditCommentResponse._() : super();
   factory EditCommentResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  EditCommentResponse._() : super();
   factory EditCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EditCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditCommentResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -219,8 +233,10 @@ class EditCommentResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditCommentResponse copyWith(void Function(EditCommentResponse) updates) => super.copyWith((message) => updates(message as EditCommentResponse)) as EditCommentResponse; // ignore: deprecated_member_use
+  EditCommentResponse copyWith(void Function(EditCommentResponse) updates) => super.copyWith((message) => updates(message as EditCommentResponse)) as EditCommentResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static EditCommentResponse create() => EditCommentResponse._();
   EditCommentResponse createEmptyInstance() => create();
@@ -240,33 +256,34 @@ class EditCommentResponse extends $pb.GeneratedMessage {
 }
 
 class RemoveCommentRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveCommentRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetManageId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetEntityId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'commentId')
-    ..hasRequiredFields = false
-  ;
-
-  RemoveCommentRequest._() : super();
   factory RemoveCommentRequest({
     $core.String? targetManageId,
     $core.String? targetEntityId,
     $core.String? commentId,
   }) {
-    final _result = create();
+    final $result = create();
     if (targetManageId != null) {
-      _result.targetManageId = targetManageId;
+      $result.targetManageId = targetManageId;
     }
     if (targetEntityId != null) {
-      _result.targetEntityId = targetEntityId;
+      $result.targetEntityId = targetEntityId;
     }
     if (commentId != null) {
-      _result.commentId = commentId;
+      $result.commentId = commentId;
     }
-    return _result;
+    return $result;
   }
+  RemoveCommentRequest._() : super();
   factory RemoveCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RemoveCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveCommentRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
+    ..aOS(2, _omitFieldNames ? '' : 'targetEntityId')
+    ..aOS(3, _omitFieldNames ? '' : 'commentId')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -276,8 +293,10 @@ class RemoveCommentRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveCommentRequest copyWith(void Function(RemoveCommentRequest) updates) => super.copyWith((message) => updates(message as RemoveCommentRequest)) as RemoveCommentRequest; // ignore: deprecated_member_use
+  RemoveCommentRequest copyWith(void Function(RemoveCommentRequest) updates) => super.copyWith((message) => updates(message as RemoveCommentRequest)) as RemoveCommentRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static RemoveCommentRequest create() => RemoveCommentRequest._();
   RemoveCommentRequest createEmptyInstance() => create();
@@ -315,23 +334,24 @@ class RemoveCommentRequest extends $pb.GeneratedMessage {
 }
 
 class RemoveCommentResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RemoveCommentResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  RemoveCommentResponse._() : super();
   factory RemoveCommentResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  RemoveCommentResponse._() : super();
   factory RemoveCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RemoveCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveCommentResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -341,8 +361,10 @@ class RemoveCommentResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemoveCommentResponse copyWith(void Function(RemoveCommentResponse) updates) => super.copyWith((message) => updates(message as RemoveCommentResponse)) as RemoveCommentResponse; // ignore: deprecated_member_use
+  RemoveCommentResponse copyWith(void Function(RemoveCommentResponse) updates) => super.copyWith((message) => updates(message as RemoveCommentResponse)) as RemoveCommentResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static RemoveCommentResponse create() => RemoveCommentResponse._();
   RemoveCommentResponse createEmptyInstance() => create();
@@ -361,3 +383,6 @@ class RemoveCommentResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

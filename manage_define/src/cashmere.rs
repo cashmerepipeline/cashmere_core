@@ -310,6 +310,7 @@ pub struct NewGroupResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum FieldDataType {
+    /// protobuf 类型
     FieldDataytypeUnknown = 0,
     FieldDatatypeDouble = 1,
     FieldDatatypeFloat = 2,
@@ -326,6 +327,17 @@ pub enum FieldDataType {
     FieldDatatypeBool = 13,
     FieldDatatypeString = 14,
     FieldDatatypeBytes = 15,
+    /// 自定义类型
+    /// 范围
+    FieldDatatypeRange = 16,
+    /// vec2
+    FieldDatatypeVec2 = 17,
+    /// vec3
+    FieldDatatypeVec3 = 18,
+    /// vec4
+    FieldDatatypeVec4 = 19,
+    /// 时间
+    FieldDatatypeTime = 20,
 }
 impl FieldDataType {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -350,6 +362,11 @@ impl FieldDataType {
             FieldDataType::FieldDatatypeBool => "FIELD_DATATYPE_BOOL",
             FieldDataType::FieldDatatypeString => "FIELD_DATATYPE_STRING",
             FieldDataType::FieldDatatypeBytes => "FIELD_DATATYPE_BYTES",
+            FieldDataType::FieldDatatypeRange => "FIELD_DATATYPE_RANGE",
+            FieldDataType::FieldDatatypeVec2 => "FIELD_DATATYPE_VEC2",
+            FieldDataType::FieldDatatypeVec3 => "FIELD_DATATYPE_VEC3",
+            FieldDataType::FieldDatatypeVec4 => "FIELD_DATATYPE_VEC4",
+            FieldDataType::FieldDatatypeTime => "FIELD_DATATYPE_TIME",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -371,6 +388,11 @@ impl FieldDataType {
             "FIELD_DATATYPE_BOOL" => Some(Self::FieldDatatypeBool),
             "FIELD_DATATYPE_STRING" => Some(Self::FieldDatatypeString),
             "FIELD_DATATYPE_BYTES" => Some(Self::FieldDatatypeBytes),
+            "FIELD_DATATYPE_RANGE" => Some(Self::FieldDatatypeRange),
+            "FIELD_DATATYPE_VEC2" => Some(Self::FieldDatatypeVec2),
+            "FIELD_DATATYPE_VEC3" => Some(Self::FieldDatatypeVec3),
+            "FIELD_DATATYPE_VEC4" => Some(Self::FieldDatatypeVec4),
+            "FIELD_DATATYPE_TIME" => Some(Self::FieldDatatypeTime),
             _ => None,
         }
     }

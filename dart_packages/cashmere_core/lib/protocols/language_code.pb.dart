@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: language_code.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -12,33 +16,34 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'name.pb.dart' as $0;
 
 class LanguageCode extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LanguageCode', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..m<$core.String, $core.String>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', entryClassName: 'LanguageCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nativeName')
-    ..hasRequiredFields = false
-  ;
-
-  LanguageCode._() : super();
   factory LanguageCode({
     $core.String? code,
     $core.Map<$core.String, $core.String>? nameMap,
     $core.String? nativeName,
   }) {
-    final _result = create();
+    final $result = create();
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (nameMap != null) {
-      _result.nameMap.addAll(nameMap);
+      $result.nameMap.addAll(nameMap);
     }
     if (nativeName != null) {
-      _result.nativeName = nativeName;
+      $result.nativeName = nativeName;
     }
-    return _result;
+    return $result;
   }
+  LanguageCode._() : super();
   factory LanguageCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LanguageCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LanguageCode', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'code')
+    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'LanguageCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
+    ..aOS(3, _omitFieldNames ? '' : 'nativeName')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -48,8 +53,10 @@ class LanguageCode extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  LanguageCode copyWith(void Function(LanguageCode) updates) => super.copyWith((message) => updates(message as LanguageCode)) as LanguageCode; // ignore: deprecated_member_use
+  LanguageCode copyWith(void Function(LanguageCode) updates) => super.copyWith((message) => updates(message as LanguageCode)) as LanguageCode;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static LanguageCode create() => LanguageCode._();
   LanguageCode createEmptyInstance() => create();
@@ -80,34 +87,36 @@ class LanguageCode extends $pb.GeneratedMessage {
   void clearNativeName() => clearField(3);
 }
 
+/// 新语言编码
 class NewLanguageCodeRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewLanguageCodeRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOM<$0.Name>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name', subBuilder: $0.Name.create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nativeName')
-    ..hasRequiredFields = false
-  ;
-
-  NewLanguageCodeRequest._() : super();
   factory NewLanguageCodeRequest({
     $0.Name? name,
     $core.String? code,
     $core.String? nativeName,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (nativeName != null) {
-      _result.nativeName = nativeName;
+      $result.nativeName = nativeName;
     }
-    return _result;
+    return $result;
   }
+  NewLanguageCodeRequest._() : super();
   factory NewLanguageCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewLanguageCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewLanguageCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..aOS(2, _omitFieldNames ? '' : 'code')
+    ..aOS(3, _omitFieldNames ? '' : 'nativeName')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -117,8 +126,10 @@ class NewLanguageCodeRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewLanguageCodeRequest copyWith(void Function(NewLanguageCodeRequest) updates) => super.copyWith((message) => updates(message as NewLanguageCodeRequest)) as NewLanguageCodeRequest; // ignore: deprecated_member_use
+  NewLanguageCodeRequest copyWith(void Function(NewLanguageCodeRequest) updates) => super.copyWith((message) => updates(message as NewLanguageCodeRequest)) as NewLanguageCodeRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewLanguageCodeRequest create() => NewLanguageCodeRequest._();
   NewLanguageCodeRequest createEmptyInstance() => create();
@@ -158,23 +169,24 @@ class NewLanguageCodeRequest extends $pb.GeneratedMessage {
 }
 
 class NewLanguageCodeResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewLanguageCodeResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewLanguageCodeResponse._() : super();
   factory NewLanguageCodeResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewLanguageCodeResponse._() : super();
   factory NewLanguageCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewLanguageCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewLanguageCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -184,8 +196,10 @@ class NewLanguageCodeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewLanguageCodeResponse copyWith(void Function(NewLanguageCodeResponse) updates) => super.copyWith((message) => updates(message as NewLanguageCodeResponse)) as NewLanguageCodeResponse; // ignore: deprecated_member_use
+  NewLanguageCodeResponse copyWith(void Function(NewLanguageCodeResponse) updates) => super.copyWith((message) => updates(message as NewLanguageCodeResponse)) as NewLanguageCodeResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewLanguageCodeResponse create() => NewLanguageCodeResponse._();
   NewLanguageCodeResponse createEmptyInstance() => create();
@@ -204,34 +218,114 @@ class NewLanguageCodeResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-class UpdateLanguageCodeRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateLanguageCodeRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newCode')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newNative')
+/// 取得编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+class GetLanguageCodesRequest extends $pb.GeneratedMessage {
+  factory GetLanguageCodesRequest() => create();
+  GetLanguageCodesRequest._() : super();
+  factory GetLanguageCodesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetLanguageCodesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetLanguageCodesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
-  UpdateLanguageCodeRequest._() : super();
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetLanguageCodesRequest clone() => GetLanguageCodesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetLanguageCodesRequest copyWith(void Function(GetLanguageCodesRequest) updates) => super.copyWith((message) => updates(message as GetLanguageCodesRequest)) as GetLanguageCodesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetLanguageCodesRequest create() => GetLanguageCodesRequest._();
+  GetLanguageCodesRequest createEmptyInstance() => create();
+  static $pb.PbList<GetLanguageCodesRequest> createRepeated() => $pb.PbList<GetLanguageCodesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetLanguageCodesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetLanguageCodesRequest>(create);
+  static GetLanguageCodesRequest? _defaultInstance;
+}
+
+class GetLanguageCodesResponse extends $pb.GeneratedMessage {
+  factory GetLanguageCodesResponse({
+    $core.Iterable<LanguageCode>? languageCodes,
+  }) {
+    final $result = create();
+    if (languageCodes != null) {
+      $result.languageCodes.addAll(languageCodes);
+    }
+    return $result;
+  }
+  GetLanguageCodesResponse._() : super();
+  factory GetLanguageCodesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetLanguageCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetLanguageCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pc<LanguageCode>(1, _omitFieldNames ? '' : 'languageCodes', $pb.PbFieldType.PM, subBuilder: LanguageCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetLanguageCodesResponse clone() => GetLanguageCodesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetLanguageCodesResponse copyWith(void Function(GetLanguageCodesResponse) updates) => super.copyWith((message) => updates(message as GetLanguageCodesResponse)) as GetLanguageCodesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetLanguageCodesResponse create() => GetLanguageCodesResponse._();
+  GetLanguageCodesResponse createEmptyInstance() => create();
+  static $pb.PbList<GetLanguageCodesResponse> createRepeated() => $pb.PbList<GetLanguageCodesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetLanguageCodesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetLanguageCodesResponse>(create);
+  static GetLanguageCodesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<LanguageCode> get languageCodes => $_getList(0);
+}
+
+/// TODO: 可能不需要
+class UpdateLanguageCodeRequest extends $pb.GeneratedMessage {
   factory UpdateLanguageCodeRequest({
     $core.String? id,
     $core.String? newCode,
     $core.String? newNative,
   }) {
-    final _result = create();
+    final $result = create();
     if (id != null) {
-      _result.id = id;
+      $result.id = id;
     }
     if (newCode != null) {
-      _result.newCode = newCode;
+      $result.newCode = newCode;
     }
     if (newNative != null) {
-      _result.newNative = newNative;
+      $result.newNative = newNative;
     }
-    return _result;
+    return $result;
   }
+  UpdateLanguageCodeRequest._() : super();
   factory UpdateLanguageCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateLanguageCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateLanguageCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'newCode')
+    ..aOS(3, _omitFieldNames ? '' : 'newNative')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -241,8 +335,10 @@ class UpdateLanguageCodeRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UpdateLanguageCodeRequest copyWith(void Function(UpdateLanguageCodeRequest) updates) => super.copyWith((message) => updates(message as UpdateLanguageCodeRequest)) as UpdateLanguageCodeRequest; // ignore: deprecated_member_use
+  UpdateLanguageCodeRequest copyWith(void Function(UpdateLanguageCodeRequest) updates) => super.copyWith((message) => updates(message as UpdateLanguageCodeRequest)) as UpdateLanguageCodeRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static UpdateLanguageCodeRequest create() => UpdateLanguageCodeRequest._();
   UpdateLanguageCodeRequest createEmptyInstance() => create();
@@ -280,23 +376,24 @@ class UpdateLanguageCodeRequest extends $pb.GeneratedMessage {
 }
 
 class UpdateLanguageCodeResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateLanguageCodeResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  UpdateLanguageCodeResponse._() : super();
   factory UpdateLanguageCodeResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  UpdateLanguageCodeResponse._() : super();
   factory UpdateLanguageCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateLanguageCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateLanguageCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -306,8 +403,10 @@ class UpdateLanguageCodeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UpdateLanguageCodeResponse copyWith(void Function(UpdateLanguageCodeResponse) updates) => super.copyWith((message) => updates(message as UpdateLanguageCodeResponse)) as UpdateLanguageCodeResponse; // ignore: deprecated_member_use
+  UpdateLanguageCodeResponse copyWith(void Function(UpdateLanguageCodeResponse) updates) => super.copyWith((message) => updates(message as UpdateLanguageCodeResponse)) as UpdateLanguageCodeResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static UpdateLanguageCodeResponse create() => UpdateLanguageCodeResponse._();
   UpdateLanguageCodeResponse createEmptyInstance() => create();
@@ -326,3 +425,6 @@ class UpdateLanguageCodeResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

@@ -27,8 +27,7 @@ message NewPhoneAreaCodeResponse {
 
 // 取得区号编码列表, 读取不需要权限
 // 客户端应该缓存这个列表
-message GetPhoneAreaCodesRequest {
-}
+message GetPhoneAreaCodesRequest {}
 message GetPhoneAreaCodesResponse {
   repeated PhoneAreaCode phone_area_codes = 1;
 }

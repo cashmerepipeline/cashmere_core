@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: phone_area_code.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -12,33 +16,34 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'name.pb.dart' as $0;
 
 class PhoneAreaCode extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'PhoneAreaCode', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..m<$core.String, $core.String>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameMap', entryClassName: 'PhoneAreaCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'usingAreas')
-    ..hasRequiredFields = false
-  ;
-
-  PhoneAreaCode._() : super();
   factory PhoneAreaCode({
     $core.String? code,
     $core.Map<$core.String, $core.String>? nameMap,
     $core.Iterable<$core.String>? usingAreas,
   }) {
-    final _result = create();
+    final $result = create();
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (nameMap != null) {
-      _result.nameMap.addAll(nameMap);
+      $result.nameMap.addAll(nameMap);
     }
     if (usingAreas != null) {
-      _result.usingAreas.addAll(usingAreas);
+      $result.usingAreas.addAll(usingAreas);
     }
-    return _result;
+    return $result;
   }
+  PhoneAreaCode._() : super();
   factory PhoneAreaCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PhoneAreaCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PhoneAreaCode', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'code')
+    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'PhoneAreaCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
+    ..pPS(3, _omitFieldNames ? '' : 'usingAreas')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -48,8 +53,10 @@ class PhoneAreaCode extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PhoneAreaCode copyWith(void Function(PhoneAreaCode) updates) => super.copyWith((message) => updates(message as PhoneAreaCode)) as PhoneAreaCode; // ignore: deprecated_member_use
+  PhoneAreaCode copyWith(void Function(PhoneAreaCode) updates) => super.copyWith((message) => updates(message as PhoneAreaCode)) as PhoneAreaCode;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static PhoneAreaCode create() => PhoneAreaCode._();
   PhoneAreaCode createEmptyInstance() => create();
@@ -70,38 +77,41 @@ class PhoneAreaCode extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
 
+  /// 使用地区
   @$pb.TagNumber(3)
   $core.List<$core.String> get usingAreas => $_getList(2);
 }
 
+/// 新区号编码
 class NewPhoneAreaCodeRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewPhoneAreaCodeRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOM<$0.Name>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name', subBuilder: $0.Name.create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'areas')
-    ..hasRequiredFields = false
-  ;
-
-  NewPhoneAreaCodeRequest._() : super();
   factory NewPhoneAreaCodeRequest({
     $0.Name? name,
     $core.String? code,
     $core.Iterable<$core.String>? areas,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (areas != null) {
-      _result.areas.addAll(areas);
+      $result.areas.addAll(areas);
     }
-    return _result;
+    return $result;
   }
+  NewPhoneAreaCodeRequest._() : super();
   factory NewPhoneAreaCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewPhoneAreaCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewPhoneAreaCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..aOS(2, _omitFieldNames ? '' : 'code')
+    ..pPS(3, _omitFieldNames ? '' : 'areas')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -111,8 +121,10 @@ class NewPhoneAreaCodeRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewPhoneAreaCodeRequest copyWith(void Function(NewPhoneAreaCodeRequest) updates) => super.copyWith((message) => updates(message as NewPhoneAreaCodeRequest)) as NewPhoneAreaCodeRequest; // ignore: deprecated_member_use
+  NewPhoneAreaCodeRequest copyWith(void Function(NewPhoneAreaCodeRequest) updates) => super.copyWith((message) => updates(message as NewPhoneAreaCodeRequest)) as NewPhoneAreaCodeRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewPhoneAreaCodeRequest create() => NewPhoneAreaCodeRequest._();
   NewPhoneAreaCodeRequest createEmptyInstance() => create();
@@ -141,28 +153,30 @@ class NewPhoneAreaCodeRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCode() => clearField(2);
 
+  /// 使用地区
   @$pb.TagNumber(3)
   $core.List<$core.String> get areas => $_getList(2);
 }
 
 class NewPhoneAreaCodeResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewPhoneAreaCodeResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'result')
-    ..hasRequiredFields = false
-  ;
-
-  NewPhoneAreaCodeResponse._() : super();
   factory NewPhoneAreaCodeResponse({
     $core.String? result,
   }) {
-    final _result = create();
+    final $result = create();
     if (result != null) {
-      _result.result = result;
+      $result.result = result;
     }
-    return _result;
+    return $result;
   }
+  NewPhoneAreaCodeResponse._() : super();
   factory NewPhoneAreaCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory NewPhoneAreaCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewPhoneAreaCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -172,8 +186,10 @@ class NewPhoneAreaCodeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  NewPhoneAreaCodeResponse copyWith(void Function(NewPhoneAreaCodeResponse) updates) => super.copyWith((message) => updates(message as NewPhoneAreaCodeResponse)) as NewPhoneAreaCodeResponse; // ignore: deprecated_member_use
+  NewPhoneAreaCodeResponse copyWith(void Function(NewPhoneAreaCodeResponse) updates) => super.copyWith((message) => updates(message as NewPhoneAreaCodeResponse)) as NewPhoneAreaCodeResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static NewPhoneAreaCodeResponse create() => NewPhoneAreaCodeResponse._();
   NewPhoneAreaCodeResponse createEmptyInstance() => create();
@@ -182,6 +198,7 @@ class NewPhoneAreaCodeResponse extends $pb.GeneratedMessage {
   static NewPhoneAreaCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewPhoneAreaCodeResponse>(create);
   static NewPhoneAreaCodeResponse? _defaultInstance;
 
+  /// 成功返回新区号编码
   @$pb.TagNumber(1)
   $core.String get result => $_getSZ(0);
   @$pb.TagNumber(1)
@@ -192,15 +209,18 @@ class NewPhoneAreaCodeResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
+/// 取得区号编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
 class GetPhoneAreaCodesRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPhoneAreaCodesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
+  factory GetPhoneAreaCodesRequest() => create();
+  GetPhoneAreaCodesRequest._() : super();
+  factory GetPhoneAreaCodesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPhoneAreaCodesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPhoneAreaCodesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
-  GetPhoneAreaCodesRequest._() : super();
-  factory GetPhoneAreaCodesRequest() => create();
-  factory GetPhoneAreaCodesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory GetPhoneAreaCodesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -210,8 +230,10 @@ class GetPhoneAreaCodesRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetPhoneAreaCodesRequest copyWith(void Function(GetPhoneAreaCodesRequest) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesRequest)) as GetPhoneAreaCodesRequest; // ignore: deprecated_member_use
+  GetPhoneAreaCodesRequest copyWith(void Function(GetPhoneAreaCodesRequest) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesRequest)) as GetPhoneAreaCodesRequest;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetPhoneAreaCodesRequest create() => GetPhoneAreaCodesRequest._();
   GetPhoneAreaCodesRequest createEmptyInstance() => create();
@@ -222,23 +244,24 @@ class GetPhoneAreaCodesRequest extends $pb.GeneratedMessage {
 }
 
 class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPhoneAreaCodesResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<PhoneAreaCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phoneAreaCodes', $pb.PbFieldType.PM, subBuilder: PhoneAreaCode.create)
-    ..hasRequiredFields = false
-  ;
-
-  GetPhoneAreaCodesResponse._() : super();
   factory GetPhoneAreaCodesResponse({
     $core.Iterable<PhoneAreaCode>? phoneAreaCodes,
   }) {
-    final _result = create();
+    final $result = create();
     if (phoneAreaCodes != null) {
-      _result.phoneAreaCodes.addAll(phoneAreaCodes);
+      $result.phoneAreaCodes.addAll(phoneAreaCodes);
     }
-    return _result;
+    return $result;
   }
+  GetPhoneAreaCodesResponse._() : super();
   factory GetPhoneAreaCodesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPhoneAreaCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPhoneAreaCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pc<PhoneAreaCode>(1, _omitFieldNames ? '' : 'phoneAreaCodes', $pb.PbFieldType.PM, subBuilder: PhoneAreaCode.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -248,8 +271,10 @@ class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetPhoneAreaCodesResponse copyWith(void Function(GetPhoneAreaCodesResponse) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesResponse)) as GetPhoneAreaCodesResponse; // ignore: deprecated_member_use
+  GetPhoneAreaCodesResponse copyWith(void Function(GetPhoneAreaCodesResponse) updates) => super.copyWith((message) => updates(message as GetPhoneAreaCodesResponse)) as GetPhoneAreaCodesResponse;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GetPhoneAreaCodesResponse create() => GetPhoneAreaCodesResponse._();
   GetPhoneAreaCodesResponse createEmptyInstance() => create();
@@ -262,3 +287,6 @@ class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
   $core.List<PhoneAreaCode> get phoneAreaCodes => $_getList(0);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

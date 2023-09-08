@@ -11,7 +11,7 @@ schema = [
   { data_type = "Date", name_map = { zh = "生日", en = "birthday" }, removed = false },
   { data_type = "Bytes", name_map = { zh = "头像", en = "portrait" }, removed = false },
 
-  { data_type = "List", name_map = { zh = "组织单位表", en = "organizations" }, removed = false },
+  { data_type = "List", name_map = { zh = "组织表", en = "organizations" }, removed = false },
   { data_type = "List", name_map = { zh = "部门表", en = "departments" }, removed = false },
 ]
 

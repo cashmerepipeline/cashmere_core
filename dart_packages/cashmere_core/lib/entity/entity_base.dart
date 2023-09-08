@@ -1,7 +1,7 @@
 import 'package:fixnum/fixnum.dart';
 
-mixin EntityBase {
-  late final String id;
+class EntityBase {
+  final String id;
   late final Map<String, String> nameMap;
   late final String creator;
   late final Int64 createTimestamp;
@@ -13,4 +13,6 @@ mixin EntityBase {
   late final List<String>? datasRemoved;
   late final List<String>? comments;
   late final bool removed;
+
+  EntityBase(this.id);
 }
