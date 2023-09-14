@@ -25,3 +25,5 @@ pub mod name_service_handles;
 pub mod view_rules_service_handles;
 
 pub mod comment_service_handles;
+
+pub mod tag_service_handles;

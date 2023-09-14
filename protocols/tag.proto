@@ -9,36 +9,32 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-message Tag{
-  string name = 1;
-  float ammount = 2;
-}
+import "name.proto";
 
-// 添加标签
-message AddTagRequest {
-  string tag_map_id = 1;
-  string point_id = 2;
-  string tag_type_id = 3;
-  bytes tag_value = 4;
+message NewTagRequest{
+  int32 target_manage_id = 1;
+  Name name = 2;
+  string description = 3;
 }
-message AddTagResponse {
+message NewTagResponse{
+  // 成功返回id, 失败返回错误信息
   string result = 1;
 }
 
-// 设置标签值
-message SetTagValueRequest {
-  string tag_map_id = 1;
-  string point_id = 2;
-  string tag_type_id = 3;
-  bytes tag_value = 4;
+// 添加标签到某个实体
+message AddTagsToEntityRequest {
+  repeated string tag_ids = 1;
+  int32 target_manage_id = 2;
+  string target_entity_id = 3;
 }
-message SetTagValueResponse {
+message AddTagsToEntityResponse {
+  // 成功返回“ok”, 失败返回错误信息
   string result = 1;
 }
 
 
 // 移除标签
-message RemoveTagRequest {
+message RemoveTagsFromEntityRequest {
   string tag_map_id = 1;
   string point_id = 2;
   string tag_type_id = 3;

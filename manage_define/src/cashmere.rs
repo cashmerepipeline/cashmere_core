@@ -1057,175 +1057,43 @@ pub struct EditSchemaFieldNameResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTagTypeRequest {
-    #[prost(string, tag = "1")]
-    pub domain_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub language: ::prost::alloc::string::String,
+pub struct NewTagRequest {
+    #[prost(int32, tag = "1")]
+    pub target_manage_id: i32,
+    #[prost(message, optional, tag = "2")]
+    pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "3")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
     pub description: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTagTypeResponse {
+pub struct NewTagResponse {
+    /// 成功返回id, 失败返回错误信息
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 添加标签到某个实体
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddDataFieldToTagTypeRequest {
-    #[prost(string, tag = "1")]
-    pub tag_type_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub language: ::prost::alloc::string::String,
+pub struct AddTagsToEntityRequest {
+    #[prost(string, repeated, tag = "1")]
+    pub tag_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(int32, tag = "2")]
+    pub target_manage_id: i32,
     #[prost(string, tag = "3")]
-    pub field_name: ::prost::alloc::string::String,
-    #[prost(enumeration = "TagDataType", tag = "4")]
-    pub data_type: i32,
-    #[prost(bytes = "vec", tag = "5")]
-    pub default_value: ::prost::alloc::vec::Vec<u8>,
+    pub target_entity_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddDataFieldToTagTypeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveDataFieldFromTagTypeRequest {
-    #[prost(string, tag = "1")]
-    pub tag_type_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub field_name: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveDataFieldFromTagTypeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-///
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditDataFieldForTagTypeRequest {
-    #[prost(string, tag = "1")]
-    pub tag_type_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub old_field_name: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub new_field_name: ::prost::alloc::string::String,
-    #[prost(enumeration = "TagDataType", tag = "5")]
-    pub new_data_type: i32,
-    #[prost(bytes = "vec", tag = "6")]
-    pub new_default_value: ::prost::alloc::vec::Vec<u8>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditDataFieldForTagTypeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum TagDataType {
-    /// 选项
-    Option = 0,
-    /// 文字
-    Text = 1,
-    /// 时长
-    Dueration = 2,
-    /// 日期
-    Date = 3,
-    /// 日期时间
-    DateTime = 4,
-    /// 量, 带有单位
-    Quantity = 5,
-}
-impl TagDataType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            TagDataType::Option => "Option",
-            TagDataType::Text => "Text",
-            TagDataType::Dueration => "Dueration",
-            TagDataType::Date => "Date",
-            TagDataType::DateTime => "DateTime",
-            TagDataType::Quantity => "Quantity",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Option" => Some(Self::Option),
-            "Text" => Some(Self::Text),
-            "Dueration" => Some(Self::Dueration),
-            "Date" => Some(Self::Date),
-            "DateTime" => Some(Self::DateTime),
-            "Quantity" => Some(Self::Quantity),
-            _ => None,
-        }
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Tag {
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(float, tag = "2")]
-    pub ammount: f32,
-}
-/// 添加标签
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddTagRequest {
-    #[prost(string, tag = "1")]
-    pub tag_map_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub point_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub tag_type_id: ::prost::alloc::string::String,
-    #[prost(bytes = "vec", tag = "4")]
-    pub tag_value: ::prost::alloc::vec::Vec<u8>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddTagResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 设置标签值
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetTagValueRequest {
-    #[prost(string, tag = "1")]
-    pub tag_map_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub point_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub tag_type_id: ::prost::alloc::string::String,
-    #[prost(bytes = "vec", tag = "4")]
-    pub tag_value: ::prost::alloc::vec::Vec<u8>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SetTagValueResponse {
+pub struct AddTagsToEntityResponse {
+    /// 成功返回“ok”, 失败返回错误信息
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 移除标签
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveTagRequest {
+pub struct RemoveTagsFromEntityRequest {
     #[prost(string, tag = "1")]
     pub tag_map_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -1236,22 +1104,6 @@ pub struct RemoveTagRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateTagMapRequest {
-    #[prost(string, tag = "1")]
-    pub roadmap_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub language: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub name: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateTagMapResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }

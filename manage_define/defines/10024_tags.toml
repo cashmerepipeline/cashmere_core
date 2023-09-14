@@ -7,8 +7,7 @@ name_map = { zh = "标签", en = "tags" }
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "List", name_map = { zh = "标文", en = "text" }, removed = false },
-  { data_type = "List", name_map = { zh = "可标管理表", en = "target_manages" }, removed = false },
+    { data_type = "List", name_map = { zh = "可标管理表", en = "target_manages" }, removed = false },
 ]
 
 [view_rules]

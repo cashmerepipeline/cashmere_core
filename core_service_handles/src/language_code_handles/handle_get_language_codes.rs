@@ -79,7 +79,7 @@ async fn handle_language_codes(
                 let language_code = LanguageCode {
                     code: code.to_string(),
                     name_map: bson::from_document(name_map).unwrap(),
-                    native_name: todo!(),
+                    native_name: native,
                 };
 
                 result_codes.push(language_code);

@@ -7,12 +7,15 @@ name_map = { zh = "人", en = "persons" }
 
 # 描写，模式
 schema = [
+  # 2001
   { data_type = "String", name_map = { zh = "性别", en = "gender" }, removed = false },
+
+  # 2002
   { data_type = "Date", name_map = { zh = "生日", en = "birthday" }, removed = false },
+  
+  # 2003
   { data_type = "Bytes", name_map = { zh = "头像", en = "portrait" }, removed = false },
 
-  { data_type = "List", name_map = { zh = "组织表", en = "organizations" }, removed = false },
-  { data_type = "List", name_map = { zh = "部门表", en = "departments" }, removed = false },
 ]
 
 [view_rules]
