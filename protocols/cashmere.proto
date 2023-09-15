@@ -18,10 +18,12 @@ import "entity_template.proto";
 import "manage.proto";
 import "manage_schema.proto";
 import "view.proto";
-import "tag.proto";
 import "comment.proto";
 import "season.proto";
 import "position.proto";
+
+import "category.proto";
+import "tag.proto";
 
 service CashmereGrpc{
   // // =====管理=====

@@ -1,0 +1,45 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+message NewCategoryRequest{
+  int32 manage_id = 1;
+  Name name = 2;
+  string description = 3;
+}
+message NewCategoryResponse{
+  // 成功返回id, 失败返回错误信息
+  string result = 1;
+}
+
+message GetCategoriesRequest{
+    int32 manage_id = 1;
+  }
+message GetCategoriesResponse{
+    // bson bytes
+    repeated bytes categories = 1;
+  }
+
+// 标记实体到类, 将品类编号添加到实体的品类列表中
+message MarkEntityCategoriesRequest {
+  int32 manage_id = 2;
+  string entity_id = 3;
+  repeated string category_ids = 4;
+}
+message MarkEntityCategoriesResponse {
+  // 成功返回“ok”, 失败返回错误信息
+  string result = 1;
+}
+
+// 取消标记品类，将品类从实体品类列表中删除
+message UnmarkEntityCategoriesRequest {
+  int32 manage_id = 2;
+  string entity_id = 3;
+  repeated string category_ids = 4;
+}
+message UnmarkEntityCategoriesResponse {
+  // 成功返回“ok”, 失败返回错误信息
+  string result = 1;
+}
+

@@ -1057,58 +1057,6 @@ pub struct EditSchemaFieldNameResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTagRequest {
-    #[prost(int32, tag = "1")]
-    pub target_manage_id: i32,
-    #[prost(message, optional, tag = "2")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewTagResponse {
-    /// 成功返回id, 失败返回错误信息
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加标签到某个实体
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddTagsToEntityRequest {
-    #[prost(string, repeated, tag = "1")]
-    pub tag_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(int32, tag = "2")]
-    pub target_manage_id: i32,
-    #[prost(string, tag = "3")]
-    pub target_entity_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddTagsToEntityResponse {
-    /// 成功返回“ok”, 失败返回错误信息
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 移除标签
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveTagsFromEntityRequest {
-    #[prost(string, tag = "1")]
-    pub tag_map_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub point_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub tag_type_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveTagResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCommentRequest {
     #[prost(string, tag = "1")]
     pub target_manage_id: ::prost::alloc::string::String,
@@ -1193,4 +1141,135 @@ pub struct Position {
     pub x: i32,
     #[prost(int32, tag = "2")]
     pub y: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCategoryRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(message, optional, tag = "2")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCategoryResponse {
+    /// 成功返回id, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCategoriesRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCategoriesResponse {
+    /// bson bytes
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub categories: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 标记实体到类, 将品类编号添加到实体的品类列表中
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkEntityCategoriesRequest {
+    #[prost(int32, tag = "2")]
+    pub manage_id: i32,
+    #[prost(string, tag = "3")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkEntityCategoriesResponse {
+    /// 成功返回“ok”, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取消标记品类，将品类从实体品类列表中删除
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UnmarkEntityCategoriesRequest {
+    #[prost(int32, tag = "2")]
+    pub manage_id: i32,
+    #[prost(string, tag = "3")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UnmarkEntityCategoriesResponse {
+    /// 成功返回“ok”, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewTagRequest {
+    #[prost(int32, tag = "1")]
+    pub target_manage_id: i32,
+    #[prost(message, optional, tag = "2")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewTagResponse {
+    /// 成功返回id, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加标签到某个实体
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddTagsToEntityRequest {
+    #[prost(string, repeated, tag = "1")]
+    pub tag_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(int32, tag = "2")]
+    pub target_manage_id: i32,
+    #[prost(string, tag = "3")]
+    pub target_entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddTagsToEntityResponse {
+    /// 成功返回“ok”, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTagsRequest {
+    #[prost(int32, tag = "1")]
+    pub target_manage_id: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTagsResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub tags: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 移除标签
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTagsFromEntityRequest {
+    #[prost(int32, tag = "1")]
+    pub target_manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub target_entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "3")]
+    pub tag_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTagsFromEntityResponse {
+    /// 成功返回“ok”, 失败返回错误信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
 }

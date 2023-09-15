@@ -13,21 +13,21 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use crate::tag_service_handles;
 
 #[async_trait]
-pub trait HandleRemoveTagsFromEntity {
-    async fn handle_remove_tags_from_entity(
+pub trait HandleUnmarkEntityCategories {
+    async fn handle_unmark_entity_categories(
         &self,
-        request: Request<RemoveTagsFromEntityRequest>,
-    ) -> Result<Response<RemoveTagsFromEntityResponse>, Status> {
+        request: Request<UnmarkEntityCategoriesRequest>,
+    ) -> Result<Response<UnmarkEntityCategoriesResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_remove_tags_from_entity)
+            .and_then(handle_unmark_entity_categories)
             .await
     }
 }
 
 async fn validate_view_rules(
-    request: Request<RemoveTagsFromEntityRequest>,
-) -> Result<Request<RemoveTagsFromEntityRequest>, Status> {
+    request: Request<UnmarkEntityCategoriesRequest>,
+) -> Result<Request<UnmarkEntityCategoriesRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().target_manage_id;
@@ -44,19 +44,19 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<RemoveTagsFromEntityRequest>,
-) -> Result<Request<RemoveTagsFromEntityRequest>, Status> {
+    request: Request<UnmarkEntityCategoriesRequest>,
+) -> Result<Request<UnmarkEntityCategoriesRequest>, Status> {
     Ok(request)
 }
 
-async fn handle_remove_tags_from_entity(
-    request: Request<RemoveTagsFromEntityRequest>,
-) -> Result<Response<RemoveTagsFromEntityResponse>, Status> {
+async fn handle_unmark_entity_categories(
+    request: Request<UnmarkEntityCategoriesRequest>,
+) -> Result<Response<UnmarkEntityCategoriesResponse>, Status> {
     let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
-    let target_manage_id = &request.get_ref().target_manage_id;
-    let target_entity_id = &request.get_ref().target_entity_id;
-    let tag_ids = &request.get_ref().tag_ids;
+    let target_manage_id = &request.get_ref().manage_id;
+    let target_entity_id = &request.get_ref().entity_id;
+    let tag_ids = &request.get_ref().category_ids;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*target_manage_id).unwrap();
@@ -73,7 +73,7 @@ async fn handle_remove_tags_from_entity(
         .await;
 
     match result {
-        Ok(_r) => Ok(Response::new(RemoveTagsFromEntityResponse {
+        Ok(_r) => Ok(Response::new(UnmarkEntityCategoriesResponse {
             result: "ok".to_string(),
         })),
         Err(e) => Err(Status::aborted(format!(
@@ -83,4 +83,5 @@ async fn handle_remove_tags_from_entity(
         ))),
     }
 }
+
 

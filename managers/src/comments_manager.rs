@@ -9,6 +9,7 @@ Modified: !date!
 use std::sync::Arc;
 
 // use dependencies_sync::log::{error, info, warn};
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
 use dependencies_sync::parking_lot::RwLock;
@@ -40,7 +41,15 @@ declare_get_manager!(CommentsManager, COMMENTS_MANAGER);
 #[async_trait]
 impl ManagerTrait for CommentsManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
-        Err(operation_failed("unregister", format!("管理器不能被注销{}", COMMENTS_MANAGE_ID)))
+        Err(operation_failed(
+            "unregister",
+            format!(
+                "{}-{}-{}",
+                t!("管理器不能被注销"),
+                self.get_manager_id(),
+                self.get_manager_name()
+            ),
+        ))
     }
 
     fn get_manager_id(&self) -> i32 {
@@ -91,5 +100,3 @@ impl ManagerTrait for CommentsManager {
         }
     }
 }
-
-

@@ -24,9 +24,16 @@ pub const DATAS_FIELD_ID: i32 = 1008;
 pub const COMMENTS_FIELD_ID: i32 = 1009;
 // 标签
 pub const TAGS_FIELD_ID: i32 = 1010;
-// 标签
+// 描述
 pub const DESCRIPTIONS_FIELD_ID: i32 = 1011;
 // 删除标记
 pub const ENTITY_REMOVED_FIELD_ID: i32 = 1200;
 // 删除数据
 pub const DATAS_REMOVED_FIELD_ID: i32 = 1900;
+
+// --------
+// 非必须属性
+// --------
+
+// 分类
+pub const CATEGORIES_FIELD_ID: i32 = 1012;

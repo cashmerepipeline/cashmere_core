@@ -1,7 +1,7 @@
 use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -18,21 +18,21 @@ use service_utils::types::UnaryResponseResult;
 use service_utils::validate_name;
 
 #[async_trait]
-pub trait HandleNewTag {
-    async fn handle_new_tag(
+pub trait HandleNewCategory {
+    async fn handle_new_category(
         &self,
-        request: Request<NewTagRequest>,
-    ) -> UnaryResponseResult<NewTagResponse> {
+        request: Request<NewCategoryRequest>,
+    ) -> UnaryResponseResult<NewCategoryResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_new_tag)
+            .and_then(handle_new_category)
             .await
     }
 }
 
 async fn validate_view_rules(
-    request: Request<NewTagRequest>,
-) -> Result<Request<NewTagRequest>, Status> {
+    request: Request<NewCategoryRequest>,
+) -> Result<Request<NewCategoryRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = TAGS_MANAGE_ID;
@@ -49,44 +49,43 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewTagRequest>,
-) -> Result<Request<NewTagRequest>, Status> {
+    request: Request<NewCategoryRequest>,
+) -> Result<Request<NewCategoryRequest>, Status> {
     let name = &request.get_ref().name;
-    let target_manage_id = &request.get_ref().target_manage_id;
-    
+    let manage_id = &request.get_ref().manage_id;
+
     if !validate_name(name) {
         return Err(Status::invalid_argument(format!(
             "{}-{}",
             t!("名字不能为空"),
-            "new_tag"
+            "new_category"
         )));
     }
-    
+
     // 目标管理不能为空
-    if *target_manage_id == 0i32 {
+    if *manage_id == 0i32 {
         return Err(Status::invalid_argument(format!(
             "{}-{}",
             t!("目标管理不能为0"),
-            "new_tag"
+            "new_category"
         )));
     }
 
     Ok(request)
 }
 
-async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<NewTagResponse> {
+async fn handle_new_category(
+    request: Request<NewCategoryRequest>,
+) -> UnaryResponseResult<NewCategoryResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
-    let manager_id = TAGS_MANAGE_ID;
+    let manager_id = CATEGORIES_MANAGE_ID;
 
     let name = &request.get_ref().name;
-    let target_manage_id = &request.get_ref().target_manage_id;
+    let manage_id = &request.get_ref().manage_id;
     let description = &request.get_ref().description;
-    
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc
-        .get_manager_by_id(manager_id)
-        .unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manager_id).unwrap();
 
     let name = name.to_owned().unwrap();
     let name_doc = doc! {name.language.clone():name.name.clone()};
@@ -94,7 +93,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
     // 是否存在，存在则返回
     if manager
         .entity_exists(&doc! {
-            TAGS_TARGET_MANAGES_FIELD_ID.to_string(): target_manage_id.clone(),
+            CATEGORIES_MANAGE_ID_FIELD_ID.to_string(): manage_id.clone(),
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
         .await
@@ -109,7 +108,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
 
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
-        new_entity_doc.insert(TAGS_TARGET_MANAGES_FIELD_ID.to_string(), target_manage_id);
+        new_entity_doc.insert(CATEGORIES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 
         let result = manager
@@ -119,7 +118,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
         let new_id = new_entity_doc.get_str(ID_FIELD_ID.to_string()).unwrap();
 
         match result {
-            Ok(_r) => Ok(Response::new(NewTagResponse {
+            Ok(_r) => Ok(Response::new(NewCategoryResponse {
                 result: new_id.to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

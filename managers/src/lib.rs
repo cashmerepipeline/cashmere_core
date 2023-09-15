@@ -9,15 +9,15 @@ Modified: !date!
 // 异步线程限制
 #![recursion_limit = "256"]
 
-#[macro_use]
-extern crate rust_i18n;
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n, t};
 i18n!("locales");
 
 use std::sync::Arc;
 
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::tonic::async_trait;
 
 use cash_core::Manage;
 use cash_result::*;
@@ -25,19 +25,21 @@ use property_field::PropertyField;
 
 pub use traits::ManagerTrait;
 
-pub mod groups_manager;
-pub mod areas_manager;
-pub mod language_codes_manager;
-pub mod comments_manager;
-
 pub mod manages_manager;
-pub mod templates_manager;
-pub mod utils;
-pub mod view_rules_manager;
-pub mod phone_area_codes_manager;
-pub mod country_codes_manager;
 
+pub mod areas_manager;
+pub mod categaries_manager;
+pub mod comments_manager;
+pub mod groups_manager;
 pub mod persons_manager;
+pub mod templates_manager;
+pub mod view_rules_manager;
+
+pub mod country_codes_manager;
+pub mod language_codes_manager;
+pub mod phone_area_codes_manager;
+
+pub mod utils;
 
 mod macros;
 
@@ -112,7 +114,9 @@ impl ManagerTrait for Manager {
         entity_id: &String,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        self.inner.recover_removed_entity(entity_id, account_id).await
+        self.inner
+            .recover_removed_entity(entity_id, account_id)
+            .await
     }
 
     async fn init(&self) -> Result<OperationResult, OperationResult> {

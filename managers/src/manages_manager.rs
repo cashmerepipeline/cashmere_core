@@ -9,10 +9,11 @@ Modified: !date!
 use std::sync::Arc;
 
 // use dependencies_sync::log::{error, info, warn};
-use dependencies_sync::tonic::async_trait;
-use dependencies_sync::bson::{Document};
 use cash_result::*;
+use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use crate::{declare_get_manager, Manager, ManagerInner, ManagerTrait};
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
@@ -34,7 +35,15 @@ declare_get_manager!(ManagesManager, MANAGES_MANAGER);
 #[async_trait]
 impl ManagerTrait for ManagesManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
-        Err(operation_failed("unregister", "管理的管理不能被注销"))
+        Err(operation_failed(
+            "unregister",
+            format!(
+                "{}-{}-{}",
+                t!("管理不能被注销"),
+                self.get_manager_id(),
+                self.get_manager_name()
+            ),
+        ))
     }
 
     fn get_manager_id(&self) -> i32 {
@@ -99,5 +108,3 @@ impl ManagerTrait for ManagesManager {
     //     Err(operation_succeed("ok"))
     // }
 }
-
-
