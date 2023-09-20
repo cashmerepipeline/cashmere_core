@@ -795,7 +795,7 @@ pub struct GetRemovedDataListResponse {
 /// ---------
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EntityModifiedTime {
+pub struct EntityTimestamp {
     #[prost(string, tag = "1")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(bytes = "vec", tag = "2")]
@@ -809,7 +809,7 @@ pub struct CheckEntitiesUpdateRequest {
     pub manage_id: i32,
     /// 列表最长不能超过100
     #[prost(message, repeated, tag = "2")]
-    pub entities: ::prost::alloc::vec::Vec<EntityModifiedTime>,
+    pub entities: ::prost::alloc::vec::Vec<EntityTimestamp>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

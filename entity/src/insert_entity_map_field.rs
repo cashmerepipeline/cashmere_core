@@ -12,7 +12,7 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-use crate::utils::get_timestamp_update_doc;
+use crate::utils::{add_modify_update_fields, get_timestamp_update_doc};
 
 /// --------------------------
 /// 插入或者更新实体的一个Map属性字段
@@ -29,18 +29,14 @@ pub async fn insert_entity_map_field(
         None => return Err(collection_not_exists("update_entity")),
     };
 
-    modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
-
-    let pipeline_docs = vec![
-        doc! { "$set": modify_doc.clone()},
-        get_timestamp_update_doc(),
-    ];
+    let mut _modify_doc = doc! { "$set":modify_doc.clone()};
+    let  _modify_doc = add_modify_update_fields(account_id,  &mut _modify_doc);
 
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
-            pipeline_docs,
+            _modify_doc,
             UpdateOptions::builder().upsert(true).build(),
         )
         .await;

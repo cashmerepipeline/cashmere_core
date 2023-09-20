@@ -1493,6 +1493,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearManageId() => clearField(1);
 
+  /// 列表最长100, 根据需要指定长度
   @$pb.TagNumber(2)
   $core.List<$core.String> get entityIds => $_getList(1);
 }
@@ -2141,6 +2142,305 @@ class GetRemovedDataListResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<$core.String> get dataIds => $_getList(0);
+}
+
+/// ---------
+/// 更新检查
+/// ---------
+class EntityTimestamp extends $pb.GeneratedMessage {
+  factory EntityTimestamp({
+    $core.String? entityId,
+    $core.List<$core.int>? modifiedTimestamp,
+  }) {
+    final $result = create();
+    if (entityId != null) {
+      $result.entityId = entityId;
+    }
+    if (modifiedTimestamp != null) {
+      $result.modifiedTimestamp = modifiedTimestamp;
+    }
+    return $result;
+  }
+  EntityTimestamp._() : super();
+  factory EntityTimestamp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EntityTimestamp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EntityTimestamp', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'entityId')
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'modifiedTimestamp', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EntityTimestamp clone() => EntityTimestamp()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EntityTimestamp copyWith(void Function(EntityTimestamp) updates) => super.copyWith((message) => updates(message as EntityTimestamp)) as EntityTimestamp;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EntityTimestamp create() => EntityTimestamp._();
+  EntityTimestamp createEmptyInstance() => create();
+  static $pb.PbList<EntityTimestamp> createRepeated() => $pb.PbList<EntityTimestamp>();
+  @$core.pragma('dart2js:noInline')
+  static EntityTimestamp getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EntityTimestamp>(create);
+  static EntityTimestamp? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get entityId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set entityId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEntityId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEntityId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get modifiedTimestamp => $_getN(1);
+  @$pb.TagNumber(2)
+  set modifiedTimestamp($core.List<$core.int> v) { $_setBytes(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasModifiedTimestamp() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearModifiedTimestamp() => clearField(2);
+}
+
+/// 检查实体是否有更新，返回有更新的实体
+class CheckEntitiesUpdateRequest extends $pb.GeneratedMessage {
+  factory CheckEntitiesUpdateRequest({
+    $core.int? manageId,
+    $core.Iterable<EntityTimestamp>? entities,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    if (entities != null) {
+      $result.entities.addAll(entities);
+    }
+    return $result;
+  }
+  CheckEntitiesUpdateRequest._() : super();
+  factory CheckEntitiesUpdateRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CheckEntitiesUpdateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckEntitiesUpdateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..pc<EntityTimestamp>(2, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PM, subBuilder: EntityTimestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CheckEntitiesUpdateRequest clone() => CheckEntitiesUpdateRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CheckEntitiesUpdateRequest copyWith(void Function(CheckEntitiesUpdateRequest) updates) => super.copyWith((message) => updates(message as CheckEntitiesUpdateRequest)) as CheckEntitiesUpdateRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CheckEntitiesUpdateRequest create() => CheckEntitiesUpdateRequest._();
+  CheckEntitiesUpdateRequest createEmptyInstance() => create();
+  static $pb.PbList<CheckEntitiesUpdateRequest> createRepeated() => $pb.PbList<CheckEntitiesUpdateRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CheckEntitiesUpdateRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CheckEntitiesUpdateRequest>(create);
+  static CheckEntitiesUpdateRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get manageId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  /// 列表最长不能超过100
+  @$pb.TagNumber(2)
+  $core.List<EntityTimestamp> get entities => $_getList(1);
+}
+
+class CheckEntitiesUpdateResponse extends $pb.GeneratedMessage {
+  factory CheckEntitiesUpdateResponse({
+    $core.Iterable<$core.List<$core.int>>? entities,
+  }) {
+    final $result = create();
+    if (entities != null) {
+      $result.entities.addAll(entities);
+    }
+    return $result;
+  }
+  CheckEntitiesUpdateResponse._() : super();
+  factory CheckEntitiesUpdateResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CheckEntitiesUpdateResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckEntitiesUpdateResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CheckEntitiesUpdateResponse clone() => CheckEntitiesUpdateResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CheckEntitiesUpdateResponse copyWith(void Function(CheckEntitiesUpdateResponse) updates) => super.copyWith((message) => updates(message as CheckEntitiesUpdateResponse)) as CheckEntitiesUpdateResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CheckEntitiesUpdateResponse create() => CheckEntitiesUpdateResponse._();
+  CheckEntitiesUpdateResponse createEmptyInstance() => create();
+  static $pb.PbList<CheckEntitiesUpdateResponse> createRepeated() => $pb.PbList<CheckEntitiesUpdateResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CheckEntitiesUpdateResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CheckEntitiesUpdateResponse>(create);
+  static CheckEntitiesUpdateResponse? _defaultInstance;
+
+  /// 如果有则返回bson新实体，否则返回空
+  @$pb.TagNumber(1)
+  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+}
+
+/// 检查迟于指定时间是否有更新
+/// 返回编号列表页流
+class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
+  factory CheckUpdatesLaterThenTimeRequest({
+    $core.int? manageId,
+    $core.List<$core.int>? timestamp,
+    $core.List<$core.int>? sortConditions,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    if (timestamp != null) {
+      $result.timestamp = timestamp;
+    }
+    if (sortConditions != null) {
+      $result.sortConditions = sortConditions;
+    }
+    return $result;
+  }
+  CheckUpdatesLaterThenTimeRequest._() : super();
+  factory CheckUpdatesLaterThenTimeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CheckUpdatesLaterThenTimeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'sortConditions', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CheckUpdatesLaterThenTimeRequest clone() => CheckUpdatesLaterThenTimeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CheckUpdatesLaterThenTimeRequest copyWith(void Function(CheckUpdatesLaterThenTimeRequest) updates) => super.copyWith((message) => updates(message as CheckUpdatesLaterThenTimeRequest)) as CheckUpdatesLaterThenTimeRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CheckUpdatesLaterThenTimeRequest create() => CheckUpdatesLaterThenTimeRequest._();
+  CheckUpdatesLaterThenTimeRequest createEmptyInstance() => create();
+  static $pb.PbList<CheckUpdatesLaterThenTimeRequest> createRepeated() => $pb.PbList<CheckUpdatesLaterThenTimeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CheckUpdatesLaterThenTimeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CheckUpdatesLaterThenTimeRequest>(create);
+  static CheckUpdatesLaterThenTimeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get manageId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get timestamp => $_getN(1);
+  @$pb.TagNumber(2)
+  set timestamp($core.List<$core.int> v) { $_setBytes(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTimestamp() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTimestamp() => clearField(2);
+
+  /// 排序条件，只支持时间正倒序
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get sortConditions => $_getN(2);
+  @$pb.TagNumber(3)
+  set sortConditions($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSortConditions() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSortConditions() => clearField(3);
+}
+
+class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
+  factory CheckUpdatesLaterThenTimeResponse({
+    $core.Iterable<$core.String>? entityIds,
+  }) {
+    final $result = create();
+    if (entityIds != null) {
+      $result.entityIds.addAll(entityIds);
+    }
+    return $result;
+  }
+  CheckUpdatesLaterThenTimeResponse._() : super();
+  factory CheckUpdatesLaterThenTimeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CheckUpdatesLaterThenTimeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..pPS(1, _omitFieldNames ? '' : 'entityIds')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CheckUpdatesLaterThenTimeResponse clone() => CheckUpdatesLaterThenTimeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CheckUpdatesLaterThenTimeResponse copyWith(void Function(CheckUpdatesLaterThenTimeResponse) updates) => super.copyWith((message) => updates(message as CheckUpdatesLaterThenTimeResponse)) as CheckUpdatesLaterThenTimeResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CheckUpdatesLaterThenTimeResponse create() => CheckUpdatesLaterThenTimeResponse._();
+  CheckUpdatesLaterThenTimeResponse createEmptyInstance() => create();
+  static $pb.PbList<CheckUpdatesLaterThenTimeResponse> createRepeated() => $pb.PbList<CheckUpdatesLaterThenTimeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CheckUpdatesLaterThenTimeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CheckUpdatesLaterThenTimeResponse>(create);
+  static CheckUpdatesLaterThenTimeResponse? _defaultInstance;
+
+  /// 分组返回，每组最多20条
+  /// 最多返回1000条
+  @$pb.TagNumber(1)
+  $core.List<$core.String> get entityIds => $_getList(0);
 }
 
 

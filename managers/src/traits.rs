@@ -6,24 +6,21 @@ Introduction:
 */
 use std::{any::Any, sync::Arc};
 
+use cash_core::Manage;
+use cash_result::*;
+use database;
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::log;
 use dependencies_sync::mongodb::Cursor;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::log;
-
-use cash_core::Manage;
-use cash_result::*;
-use property_field::*;
-
+use dependencies_sync::tonic::async_trait;
+use entity;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-
-use database;
-use entity;
+use property_field::*;
 
 use crate::schema::schema_field_exists;
 
@@ -271,19 +268,19 @@ pub trait ManagerTrait: Any + Send + Sync {
         // 更新数据库
         let value = bson::to_bson(&new_field).unwrap();
         let query_doc = doc! {
-            "_id": manage_id.to_string()
+            ID_FIELD_ID.to_string(): manage_id.to_string()
         };
-        let modify_doc = doc! {
+        let mut modify_doc = doc! {
             MANAGES_SCHEMA_FIELD_ID.to_string():value
         };
 
-        match entity::add_entity_to_array_field(
+        match entity::add_to_array_field(
             &MANAGES_MANAGE_ID.to_string(),
             query_doc,
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(()),
@@ -348,7 +345,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(operation_succeed("ok")),
@@ -408,7 +405,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             return Err(add_call_name_to_chain(
                 e,
@@ -609,16 +606,16 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
-        match entity::add_entity_to_array_field(
+        match entity::add_to_array_field(
             &manage_id.to_string(),
             query_doc,
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "update_entity_field".to_string())),
+            Err(e) => Err(add_call_name_to_chain(e, "add_to_array_field".to_string())),
         }
     }
 
@@ -636,7 +633,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -660,7 +657,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(

@@ -463,3 +463,74 @@ final $typed_data.Uint8List getRemovedDataListResponseDescriptor = $convert.base
     'ChpHZXRSZW1vdmVkRGF0YUxpc3RSZXNwb25zZRIZCghkYXRhX2lkcxgBIAMoCVIHZGF0YUlkcw'
     '==');
 
+@$core.Deprecated('Use entityTimestampDescriptor instead')
+const EntityTimestamp$json = {
+  '1': 'EntityTimestamp',
+  '2': [
+    {'1': 'entity_id', '3': 1, '4': 1, '5': 9, '10': 'entityId'},
+    {'1': 'modified_timestamp', '3': 2, '4': 1, '5': 12, '10': 'modifiedTimestamp'},
+  ],
+};
+
+/// Descriptor for `EntityTimestamp`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List entityTimestampDescriptor = $convert.base64Decode(
+    'Cg9FbnRpdHlUaW1lc3RhbXASGwoJZW50aXR5X2lkGAEgASgJUghlbnRpdHlJZBItChJtb2RpZm'
+    'llZF90aW1lc3RhbXAYAiABKAxSEW1vZGlmaWVkVGltZXN0YW1w');
+
+@$core.Deprecated('Use checkEntitiesUpdateRequestDescriptor instead')
+const CheckEntitiesUpdateRequest$json = {
+  '1': 'CheckEntitiesUpdateRequest',
+  '2': [
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'entities', '3': 2, '4': 3, '5': 11, '6': '.cashmere.EntityTimestamp', '10': 'entities'},
+  ],
+};
+
+/// Descriptor for `CheckEntitiesUpdateRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkEntitiesUpdateRequestDescriptor = $convert.base64Decode(
+    'ChpDaGVja0VudGl0aWVzVXBkYXRlUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZU'
+    'lkEjUKCGVudGl0aWVzGAIgAygLMhkuY2FzaG1lcmUuRW50aXR5VGltZXN0YW1wUghlbnRpdGll'
+    'cw==');
+
+@$core.Deprecated('Use checkEntitiesUpdateResponseDescriptor instead')
+const CheckEntitiesUpdateResponse$json = {
+  '1': 'CheckEntitiesUpdateResponse',
+  '2': [
+    {'1': 'entities', '3': 1, '4': 3, '5': 12, '10': 'entities'},
+  ],
+};
+
+/// Descriptor for `CheckEntitiesUpdateResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkEntitiesUpdateResponseDescriptor = $convert.base64Decode(
+    'ChtDaGVja0VudGl0aWVzVXBkYXRlUmVzcG9uc2USGgoIZW50aXRpZXMYASADKAxSCGVudGl0aW'
+    'Vz');
+
+@$core.Deprecated('Use checkUpdatesLaterThenTimeRequestDescriptor instead')
+const CheckUpdatesLaterThenTimeRequest$json = {
+  '1': 'CheckUpdatesLaterThenTimeRequest',
+  '2': [
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'timestamp', '3': 2, '4': 1, '5': 12, '10': 'timestamp'},
+    {'1': 'sort_conditions', '3': 3, '4': 1, '5': 12, '10': 'sortConditions'},
+  ],
+};
+
+/// Descriptor for `CheckUpdatesLaterThenTimeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkUpdatesLaterThenTimeRequestDescriptor = $convert.base64Decode(
+    'CiBDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG'
+    '1hbmFnZUlkEhwKCXRpbWVzdGFtcBgCIAEoDFIJdGltZXN0YW1wEicKD3NvcnRfY29uZGl0aW9u'
+    'cxgDIAEoDFIOc29ydENvbmRpdGlvbnM=');
+
+@$core.Deprecated('Use checkUpdatesLaterThenTimeResponseDescriptor instead')
+const CheckUpdatesLaterThenTimeResponse$json = {
+  '1': 'CheckUpdatesLaterThenTimeResponse',
+  '2': [
+    {'1': 'entity_ids', '3': 1, '4': 3, '5': 9, '10': 'entityIds'},
+  ],
+};
+
+/// Descriptor for `CheckUpdatesLaterThenTimeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkUpdatesLaterThenTimeResponseDescriptor = $convert.base64Decode(
+    'CiFDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVzcG9uc2USHQoKZW50aXR5X2lkcxgBIAMoCV'
+    'IJZW50aXR5SWRz');
+

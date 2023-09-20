@@ -199,7 +199,7 @@ message GetRemovedDataListResponse{
 // ---------
 // 更新检查
 // ---------
-message EntityModifiedTime {
+message EntityTimestamp {
   string entity_id = 1;
   bytes modified_timestamp = 2;
 }
@@ -208,7 +208,7 @@ message EntityModifiedTime {
 message CheckEntitiesUpdateRequest {
   int32 manage_id = 1;
   // 列表最长不能超过100
-  repeated EntityModifiedTime entities = 2;
+  repeated EntityTimestamp entities = 2;
 }
 message CheckEntitiesUpdateResponse {
   // 如果有则返回bson新实体，否则返回空

@@ -1,17 +1,13 @@
 use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
-
-use dependencies_sync::tonic::{Request, Response, Status};
-
-use crate::tag_service_handles;
 
 #[async_trait]
 pub trait HandleMarkEntityCategories {
@@ -91,7 +87,7 @@ async fn handle_mark_entity_categories(
         ID_FIELD_ID.to_string():target_entity_id
     };
     let modify_doc = doc! {
-        CATEGORIES_FIELD_ID.to_string():{ "$addToSet": {"$each": category_ids.clone() }},
+        CATEGORIES_FIELD_ID.to_string(): {"$each": category_ids.clone() },
     };
 
     let result = manager
