@@ -137,6 +137,7 @@ message GetEntityResponse {
 // 依据id列表取得多个实体
 message GetEntitiesRequest {
     int32 manage_id = 1;
+    // 列表最长100, 根据需要指定长度
     repeated string entity_ids = 2;
 }
 message GetEntitiesResponse {
@@ -194,3 +195,36 @@ message GetRemovedDataListResponse{
   repeated string data_ids = 1;
 }
 
+
+// ---------
+// 更新检查
+// ---------
+message EntityModifiedTime {
+  string entity_id = 1;
+  bytes modified_timestamp = 2;
+}
+
+// 检查实体是否有更新，返回有更新的实体
+message CheckEntitiesUpdateRequest {
+  int32 manage_id = 1;
+  // 列表最长不能超过100
+  repeated EntityModifiedTime entities = 2;
+}
+message CheckEntitiesUpdateResponse {
+  // 如果有则返回bson新实体，否则返回空
+  repeated bytes entities = 1;
+}
+
+// 检查迟于指定时间是否有更新
+// 返回编号列表页流
+message CheckUpdatesLaterThenTimeRequest {
+  int32 manage_id = 1;
+  bytes timestamp = 2;
+  // 排序条件，只支持时间正倒序
+  bytes sort_conditions = 3;
+}
+message CheckUpdatesLaterThenTimeResponse {
+  // 分组返回，每组最多20条
+  // 最多返回1000条
+  repeated string entity_ids = 1;
+}

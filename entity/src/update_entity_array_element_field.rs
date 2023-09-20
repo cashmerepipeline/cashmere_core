@@ -4,13 +4,15 @@ use dependencies_sync::chrono::Utc;
 // use dependencies_sync::tokio::stream::StreamExt;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
+use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
 
 use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
+
+use crate::utils::get_timestamp_update_doc;
 
 /// 更新元素
 pub async fn update_entity_array_element_field(
@@ -26,17 +28,17 @@ pub async fn update_entity_array_element_field(
     };
 
     modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
-    modify_doc.insert(MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
+    
+    let pipeline_docs = vec![
+        doc! {
+            "$set": modify_doc,
+        },
+        get_timestamp_update_doc(),
+    ];
 
     // 更新
     let result = collection
-        .update_one(
-            query_doc.clone(),
-            doc! {
-                "$set": modify_doc,
-            },
-            None,
-        )
+        .update_one(query_doc.clone(), pipeline_docs, None)
         .await;
 
     // 结果

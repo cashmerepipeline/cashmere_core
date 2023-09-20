@@ -696,6 +696,7 @@ pub struct GetEntityResponse {
 pub struct GetEntitiesRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
+    /// 列表最长100, 根据需要指定长度
     #[prost(string, repeated, tag = "2")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
@@ -788,6 +789,55 @@ pub struct GetRemovedDataListRequest {
 pub struct GetRemovedDataListResponse {
     #[prost(string, repeated, tag = "1")]
     pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// ---------
+/// 更新检查
+/// ---------
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EntityModifiedTime {
+    #[prost(string, tag = "1")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "2")]
+    pub modified_timestamp: ::prost::alloc::vec::Vec<u8>,
+}
+/// 检查实体是否有更新，返回有更新的实体
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckEntitiesUpdateRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    /// 列表最长不能超过100
+    #[prost(message, repeated, tag = "2")]
+    pub entities: ::prost::alloc::vec::Vec<EntityModifiedTime>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckEntitiesUpdateResponse {
+    /// 如果有则返回bson新实体，否则返回空
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 检查迟于指定时间是否有更新
+/// 返回编号列表页流
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckUpdatesLaterThenTimeRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(bytes = "vec", tag = "2")]
+    pub timestamp: ::prost::alloc::vec::Vec<u8>,
+    /// 排序条件，只支持时间正倒序
+    #[prost(bytes = "vec", tag = "3")]
+    pub sort_conditions: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckUpdatesLaterThenTimeResponse {
+    /// 分组返回，每组最多20条
+    /// 最多返回1000条
+    #[prost(string, repeated, tag = "1")]
+    pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

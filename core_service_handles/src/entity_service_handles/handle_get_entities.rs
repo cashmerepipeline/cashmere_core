@@ -1,6 +1,7 @@
-use dependencies_sync::bson::{self, doc};
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -8,9 +9,9 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
-use dependencies_sync::tokio_stream::{self as stream, StreamExt};
+use dependencies_sync::tokio_stream::{self as stream, iter, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, can_field_read};
+use view::{self, can_entity_read, can_field_read, filter_can_read_fields};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -28,7 +29,6 @@ pub trait HandleGetEntities {
     }
 }
 
-
 async fn validate_view_rules(
     request: Request<GetEntitiesRequest>,
 ) -> Result<Request<GetEntitiesRequest>, Status> {
@@ -36,7 +36,8 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
-        if let Err(e) = view::validates::validate_collection_can_read(&manage_id, &role_group).await {
+        if let Err(e) = view::validates::validate_collection_can_read(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -47,6 +48,36 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<GetEntitiesRequest>,
 ) -> Result<Request<GetEntitiesRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let entity_ids = &request.get_ref().entity_ids;
+
+    // 管理编号不能为0
+    if manage_id == &0 {
+        return Err(Status::invalid_argument(format!(
+            "{}-{}",
+            t!("管理编号不能为0"),
+            "get_entities"
+        )));
+    }
+
+    // 实体编号不能为空
+    if entity_ids.is_empty() {
+        return Err(Status::invalid_argument(format!(
+            "{}-{}",
+            t!("实体编号不能为空"),
+            "get_entities"
+        )));
+    }
+
+    // 实体列表不能超过100
+    if entity_ids.len() > 100 {
+        return Err(Status::invalid_argument(format!(
+            "{}-{}",
+            t!("实体列表不能超过100"),
+            "get_entities"
+        )));
+    }
+
     Ok(request)
 }
 
@@ -78,27 +109,10 @@ async fn handle_get_entities(
 
     match result {
         Ok(entities) => {
-            // 格可见性过滤
             let mut result_docs = vec![];
-
-            let entity_iter = entities.iter();
-            for e in entity_iter {
-                let mut result_doc = doc!();
-                let mut property_stream = stream::iter(e);
-
-                while let Some((k, v)) = property_stream.next().await {
-                    if !can_field_read(  &manage_id.to_string(), k, &role_group)
-                        .await
-                    {
-                        if k == &"_id".to_string() {
-                            result_doc.insert(k, v);
-                        }
-                        continue;
-                    }
-                    result_doc.insert(k, v);
-                }
-
-                result_docs.push(result_doc);
+            while let Some(doc) = iter(&entities).next().await {
+                let entity = filter_can_read_fields(&doc, manage_id, &role_group).await;
+                result_docs.push(entity);
             }
 
             Ok(Response::new(GetEntitiesResponse {

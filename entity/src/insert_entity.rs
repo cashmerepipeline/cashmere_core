@@ -1,9 +1,10 @@
 use std::collections::BTreeMap;
 
 use dependencies_sync::chrono::Utc;
-// use dependencies_sync::tokio::stream::StreamExt;
 use dependencies_sync::futures::stream::StreamExt;
+use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::log::error;
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
@@ -39,18 +40,34 @@ pub async fn insert_entity(
     entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
     entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id.clone());
     entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id.clone()]);
-    entity_doc.insert( MODIFY_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
-    entity_doc.insert( CREATE_TIMESTAMP_FIELD_ID.to_string(), Utc::now().timestamp());
 
     // 插入, 返回插入后的ID
-    let result = collection.insert_one(entity_doc.clone(), None).await;
+    let result = collection
+        .insert_one(entity_doc.clone(), None)
+        .and_then(|r| async {
+            let query_doc = doc! {
+                ID_FIELD_ID.to_string(): id.clone(),
+            };
+
+            let updates = doc! {
+                    "$currentDate": doc!{
+                        MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$type":"timestamp"},
+                    CREATE_TIMESTAMP_FIELD_ID.to_string(): {"$type":"timestamp"},
+                }
+            };
+            collection.update_one(query_doc, updates, None).await
+        })
+        .await;
 
     // 结果
     match result {
         Ok(_r) => Ok(id),
-        Err(_e) => Err(operation_failed(
-            "insert_entity",
-            format!("插入实体失败 {}-{}", manage_id, id),
-        )),
+        Err(_e) => {
+            error!("{}", _e);
+            Err(operation_failed(
+                "insert_entity",
+                format!("插入实体失败 {}-{}: {}", manage_id, id, _e.to_string()),
+            ))
+        }
     }
 }

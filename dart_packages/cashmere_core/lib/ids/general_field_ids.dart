@@ -24,5 +24,16 @@ const int DATAS_FIELD_ID = 1008;
 const int DATAS_REMOVED_FIELD_ID = 1900;
 // 注释和评论
 const int COMMENTS_FIELD_ID = 1009;
+// 标签
+const int TAGS_FIELD_ID = 1010;
+// 描述
+const int DESCRIPTIONS_FIELD_ID = 1011;
 // 删除标记
 const int ENTITY_REMOVED_FIELD_ID = 1200;
+
+// --------
+// 非必须属性
+// --------
+
+// 品类
+const int CATEGORIES_FIELD_ID = 1012;

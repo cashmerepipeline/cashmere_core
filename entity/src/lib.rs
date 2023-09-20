@@ -42,7 +42,6 @@ pub use update_entity_array_element_field::*;
 pub use update_entity_array_map_field::*;
 pub use update_entity_field::*;
 pub use update_entity_fields::*;
-pub use update_entity_groups::*;
 pub use update_entity_map_field::*;
 
 mod utils;
@@ -53,7 +52,6 @@ mod exists_by_id;
 
 mod insert_entity;
 mod change_entity_owner;
-mod update_entity_groups;
 mod update_entity_field;
 
 mod add_entity_to_array_field;

@@ -5,6 +5,8 @@ i18n!("locales");
 pub mod view_rules_map;
 
 mod add_query_filters;
+mod filter_can_read_fields;
+
 mod can_collection_read;
 mod can_collection_write;
 mod can_entity_read;
@@ -29,6 +31,7 @@ mod view_rules;
 mod init_view_rules;
 
 pub use add_query_filters::*;
+pub use filter_can_read_fields::*;
 
 pub use can_collection_read::*;
 pub use can_collection_write::*;

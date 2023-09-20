@@ -14,4 +14,6 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/entity.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/entity_template.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/view.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/gender.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/category.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/tag.proto
 

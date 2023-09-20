@@ -12,6 +12,8 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
+use crate::utils::get_timestamp_update_doc;
+
 /// 更新实体单个属性
 pub async fn update_entity_field(
     manage_id: &String,
@@ -26,18 +28,17 @@ pub async fn update_entity_field(
     };
 
     modify_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
-    modify_doc.insert(
-        MODIFY_TIMESTAMP_FIELD_ID.to_string(),
-        Utc::now().timestamp(),
-    );
+
+    let pipeline_docs = vec![
+        doc! { "$set": modify_doc.clone()},
+        get_timestamp_update_doc(),
+    ];
 
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
-            doc! {
-            "$set": modify_doc.clone(),
-            },
+            pipeline_docs,
             None,
         )
         .await;

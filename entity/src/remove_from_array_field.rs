@@ -4,13 +4,15 @@ use dependencies_sync::chrono::Utc;
 // use dependencies_sync::tokio::stream::StreamExt;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::mongodb::{bson, bson::Bson, bson::doc, bson::Document, Collection};
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
+use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
 
 use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
+
+use crate::utils::get_timestamp_update_doc;
 
 ///  列表属性 移除元素
 pub async fn remove_from_array_field(
@@ -25,17 +27,17 @@ pub async fn remove_from_array_field(
         None => return Err(collection_not_exists("pull_entity_array_field")),
     };
 
+    let pipeline_docs = vec![
+        doc! { "$pull": modify_doc.clone()},
+        doc! {"$set": {MODIFIER_FIELD_ID.to_string(): account_id.clone()}},
+        get_timestamp_update_doc(),
+    ];
+
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
-            doc! {
-                "$pull": modify_doc,
-                "$set": {
-                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-                    MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
-                }
-            },
+            pipeline_docs,
             None,
         )
         .await;

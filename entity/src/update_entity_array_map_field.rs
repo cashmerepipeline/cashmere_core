@@ -12,6 +12,8 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
+use crate::utils::get_timestamp_update_doc;
+
 /// 更新map元素
 pub async fn update_entity_array_map_field(
     manage_id: &String,
@@ -25,17 +27,18 @@ pub async fn update_entity_array_map_field(
         None => return Err(collection_not_exists("upate_entity_array_field")),
     };
 
+
+    let pipeline_docs = vec![
+        doc! { "$set": modify_doc.clone()},
+        doc! {"$set": {MODIFIER_FIELD_ID.to_string(): account_id.clone()}},
+        get_timestamp_update_doc(),
+    ];
+
     // 更新
     let result = collection
         .update_one(
             query_doc.clone(),
-            doc! {
-                "$set": modify_doc,
-                "$set": {
-                    MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-                    MODIFY_TIMESTAMP_FIELD_ID.to_string(): Utc::now().timestamp()
-                }
-            },
+                pipeline_docs,
             None,
         )
         .await;

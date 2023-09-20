@@ -2,7 +2,7 @@
 # 国家
 #
 
-id = 10023
+id = 10003
 name_map = { zh = "国家", en = "country_codes" }
 
 # 数据描写 或者 模式
