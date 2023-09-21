@@ -201,7 +201,8 @@ message GetRemovedDataListResponse{
 // ---------
 message EntityTimestamp {
   string entity_id = 1;
-  bytes modified_timestamp = 2;
+  // 格式二进制 bson Document 形式{"value": Timestamp()}
+  bytes timestamp = 2;
 }
 
 // 检查实体是否有更新，返回有更新的实体
@@ -219,9 +220,10 @@ message CheckEntitiesUpdateResponse {
 // 返回编号列表页流
 message CheckUpdatesLaterThenTimeRequest {
   int32 manage_id = 1;
+  // 格式二进制 bson Document 形式{"value": Timestamp()}
   bytes timestamp = 2;
-  // 排序条件，只支持时间正倒序
-  bytes sort_conditions = 3;
+  // 是否按时间升序排列, 默认降序
+  bool ascending_order = 3;
 }
 message CheckUpdatesLaterThenTimeResponse {
   // 分组返回，每组最多20条

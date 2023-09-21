@@ -1,5 +1,6 @@
-use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::bson::{self, doc, Document, Timestamp};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{self, iter, StreamExt};
@@ -50,6 +51,17 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> Result<Request<CheckUpdatesLaterThenTimeRequest>, Status> {
+    let timestamp = &request.get_ref().timestamp;
+
+    if timestamp.is_empty() {
+        return Err(Status::invalid_argument(format!(
+            "{}: {}",
+            t!("时间戳不能为空"),
+            "check_update_later_then_time"
+        )));
+    }
+    // TODO:深入检查时间戳格式是否正确
+
     Ok(request)
 }
 
@@ -60,31 +72,56 @@ async fn handle_check_updates_later_then_time(
 
     let manage_id = &request.get_ref().manage_id;
     let timestamp = &request.get_ref().timestamp;
-    let sort_conditions = &request.get_ref().sort_conditions;
+    let ascending_order = &request.get_ref().ascending_order;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
+    let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
+    let timestamp = timestamp_doc.get_timestamp("value").unwrap();
+
     let query_doc = doc! {
-        MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": bson::to_bson(timestamp).unwrap().as_timestamp().unwrap_or(bson::Timestamp { time: 0, increment: 0 })},
-    };
-    let project_doc = doc! {
-        ID_FIELD_ID.to_string(): 1,
+    MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
+        };
+
+    let sort_doc = if *ascending_order {
+        doc! {
+            MODIFY_TIMESTAMP_FIELD_ID.to_string(): 1,
+        }
+    } else {
+        doc! {
+            MODIFY_TIMESTAMP_FIELD_ID.to_string(): -1,
+        }
     };
 
-    let mut query_cursor =
-        if let Ok(q) = manager.get_query_cursor(query_doc, Some(project_doc)).await {
-            q
-        } else {
+    let project_doc = doc! {
+        ID_FIELD_ID.to_string(): 1,
+        MODIFY_TIMESTAMP_FIELD_ID.to_string(): 1,
+    };
+
+    let mut query_cursor = match manager
+        .get_query_cursor(query_doc, Some(project_doc), Some(sort_doc))
+        .await
+    {
+        Ok(cursor) => cursor,
+        Err(err) => {
+            error!(
+                "{}-{}: {}",
+                t!("数据库查询更新失败"),
+                manage_id,
+                err.details()
+            );
+
             return Err(Status::data_loss(format!(
                 "{}-{}",
                 t!("数据库查询更新失败"),
                 manage_id
             )));
-        };
+        }
+    };
 
     // 创建返回流
-    let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(4);
+    let (resp_tx, mut resp_rx) = tokio::sync::mpsc::channel(4);
 
     tokio::spawn(async move {
         // 最多获取1000个
@@ -110,13 +147,15 @@ async fn handle_check_updates_later_then_time(
 
             // 最多1000条
             if limit_count >= 1000 {
-                let resp = CheckUpdatesLaterThenTimeResponse { entity_ids: ids };
-                resp_tx.send(Ok(resp)).await.unwrap();
-
                 break;
             }
 
             limit_count += 1;
+        }
+        // 发送最后一批
+        if !ids.is_empty() {
+            let resp = CheckUpdatesLaterThenTimeResponse { entity_ids: ids };
+            resp_tx.send(Ok(resp)).await.unwrap();
         }
     });
 

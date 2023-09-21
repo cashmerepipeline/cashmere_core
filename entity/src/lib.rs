@@ -43,6 +43,7 @@ pub use update_entity_array_map_field::*;
 pub use update_entity_field::*;
 pub use update_entity_fields::*;
 pub use update_entity_map_field::*;
+pub use update_timestamp_field::*;
 
 mod utils;
 mod get_new_entity_id;
@@ -53,6 +54,7 @@ mod exists_by_id;
 mod insert_entity;
 mod change_entity_owner;
 mod update_entity_field;
+mod update_timestamp_field;
 
 mod add_to_array_field;
 mod remove_from_array_field;

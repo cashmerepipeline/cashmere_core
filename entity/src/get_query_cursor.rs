@@ -19,6 +19,7 @@ pub async fn get_query_cursor(
     collection_id: &String,
     matches: Document,
     projects: Option<Document>,
+    sorts: Option<Document>,
 ) -> Result<Cursor<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_id).await {
         Some(c) => c,
@@ -30,6 +31,10 @@ pub async fn get_query_cursor(
 
     if projects.is_some() {
         pipeline.push(doc! {"$project": projects.clone().unwrap()});
+    }
+    
+    if sorts.is_some() {
+        pipeline.push(doc! {"$sort": sorts.clone().unwrap()});
     }
 
     let cursor = collection.aggregate(pipeline, None).await;

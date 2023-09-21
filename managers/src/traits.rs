@@ -523,10 +523,11 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         matches: Document,
         projects: Option<Document>,
+        sorts: Option<Document>,
     ) -> Result<Cursor<Document>, OperationResult> {
         let manage_id = self.get_manager_id().to_string();
 
-        match entity::get_query_cursor(&manage_id, matches, projects).await {
+        match entity::get_query_cursor(&manage_id, matches, projects, sorts).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "manager::get_query_cursor".to_string())),
         }

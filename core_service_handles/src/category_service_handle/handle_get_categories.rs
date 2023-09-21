@@ -60,7 +60,7 @@ async fn handle_get_categories(
         CATEGORIES_MANAGE_ID_FIELD_ID.to_string():manage_id,
     };
 
-    let result = manager.get_query_cursor(query_doc, None).await;
+    let result = manager.get_query_cursor(query_doc, None, None).await;
 
     match result {
         Ok(mut entities_iter) => {

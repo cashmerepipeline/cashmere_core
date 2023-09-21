@@ -798,8 +798,9 @@ pub struct GetRemovedDataListResponse {
 pub struct EntityTimestamp {
     #[prost(string, tag = "1")]
     pub entity_id: ::prost::alloc::string::String,
+    /// 格式二进制 bson Document 形式{"value": Timestamp()}
     #[prost(bytes = "vec", tag = "2")]
-    pub modified_timestamp: ::prost::alloc::vec::Vec<u8>,
+    pub timestamp: ::prost::alloc::vec::Vec<u8>,
 }
 /// 检查实体是否有更新，返回有更新的实体
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -825,11 +826,12 @@ pub struct CheckEntitiesUpdateResponse {
 pub struct CheckUpdatesLaterThenTimeRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
+    /// 格式二进制 bson Document 形式{"value": Timestamp()}
     #[prost(bytes = "vec", tag = "2")]
     pub timestamp: ::prost::alloc::vec::Vec<u8>,
-    /// 排序条件，只支持时间正倒序
-    #[prost(bytes = "vec", tag = "3")]
-    pub sort_conditions: ::prost::alloc::vec::Vec<u8>,
+    /// 是否按时间升序排列, 默认降序
+    #[prost(bool, tag = "3")]
+    pub ascending_order: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

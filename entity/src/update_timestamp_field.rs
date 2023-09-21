@@ -16,7 +16,7 @@ use manage_define::general_field_ids::*;
 use crate::utils::{get_timestamp_update_doc, add_modify_update_fields};
 
 /// 更新实体单个属性
-pub async fn update_entity_field(
+pub async fn update_timestamp_field(
     manage_id: &String,
     query_doc: Document,
     modify_doc: &mut Document,
@@ -28,7 +28,7 @@ pub async fn update_entity_field(
         None => return Err(collection_not_exists("update_entity_field")),
     };
 
-    let mut _modify_doc = doc! {"$set": modify_doc.clone()};
+    let mut _modify_doc = doc! {"$currentDate": modify_doc.clone()};
     let _modify_doc = add_modify_update_fields(account_id, &mut _modify_doc);
 
     // 更新
@@ -46,12 +46,13 @@ pub async fn update_entity_field(
             )),
         },
         Err(_e) => {
-            error!("{}: {}", t!("更新实体属性失败"), _e);
+            error!("{}: {}", t!("更新时间戳属性失败"), _e);
 
             Err(operation_failed(
-                "entity::update_entity",
+                "entity::update_timestamp",
                 format!("{}: {}, {}", t!("更新操作失败"), query_doc, modify_doc),
             ))
         }
     }
 }
+

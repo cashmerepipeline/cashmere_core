@@ -87,7 +87,7 @@ async fn handle_check_entities_update(
                         .iter()
                         .find(|e| e.entity_id == id)
                         .unwrap()
-                        .modified_timestamp;
+                        .timestamp;
 
                     // 如果没有设置时间戳，则为需要更新
                     if c_m_time.is_empty() {

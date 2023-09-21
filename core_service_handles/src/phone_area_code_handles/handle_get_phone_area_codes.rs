@@ -58,7 +58,7 @@ async fn handle_get_phone_area_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_query_cursor(query_doc, None).await;
+    let result = manager.get_query_cursor(query_doc, None, None).await;
 
     match result {
         Ok(mut entities_iter) => {
