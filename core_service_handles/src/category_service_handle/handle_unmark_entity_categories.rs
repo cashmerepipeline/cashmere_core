@@ -10,8 +10,6 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use crate::tag_service_handles;
-
 #[async_trait]
 pub trait HandleUnmarkEntityCategories {
     async fn handle_unmark_entity_categories(

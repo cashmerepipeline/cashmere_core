@@ -17,22 +17,21 @@ use crate::utils::get_timestamp_update_doc;
 /// 取得新连续id
 pub async fn get_new_entity_id(manage_id: &String, account_id: &String) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
-    let update_docs = vec![
-        doc! { "$inc": {"id_count":1}},
-        doc! {
-            "$set": {
-                MODIFIER_FIELD_ID.to_string(): account_id.clone(),
-            }
-        },
-        get_timestamp_update_doc()
-    ];
+
+    let update_doc = doc! {
+     "$inc": {"id_count":1},
+     "$set": { MODIFIER_FIELD_ID.to_string(): account_id.clone()},
+     "$currentDate": {
+         MODIFY_TIMESTAMP_FIELD_ID.to_string(): { "$type": "timestamp" }
+      },
+    };
 
     let result = ids_collection
         .find_one_and_update(
             doc! {
                 "_id": manage_id.clone()
             },
-            update_docs,
+            update_doc,
             Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
         )
         .await;

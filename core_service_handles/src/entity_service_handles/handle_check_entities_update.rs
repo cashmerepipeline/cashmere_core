@@ -106,7 +106,7 @@ async fn handle_check_entities_update(
 
             let mut entities = vec![];
             while let Some(e) = iter(&results).next().await {
-                let entity = filter_can_read_fields(&e, manage_id, &role_group).await;
+                let entity = filter_can_read_fields(e, manage_id, &role_group).await;
                 entities.push(bson::to_vec(&entity).unwrap());
             }
 
@@ -115,11 +115,11 @@ async fn handle_check_entities_update(
             }))
         }
         Err(e) => {
-            return Err(Status::data_loss(format!(
+            Err(Status::data_loss(format!(
                 "{}-{}",
                 t!("检查实体是否更新错误。"),
                 e.details()
-            )));
+            )))
         }
     }
 }

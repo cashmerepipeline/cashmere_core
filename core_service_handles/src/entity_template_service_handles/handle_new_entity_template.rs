@@ -86,7 +86,7 @@ async fn handle_new_entity_template(
         })
         .collect();
 
-    let new_id = template_manager.get_new_entity_id().await.unwrap();
+    let new_id = template_manager.get_new_entity_id(&account_id).await.unwrap();
     let mut new_doc = Document::new();
     new_doc.insert("_id", new_id);
     new_doc.insert(ID_FIELD_ID.to_string(), new_id);

@@ -80,7 +80,7 @@ async fn handle_new_language_code(
         )));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
+    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),

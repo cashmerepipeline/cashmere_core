@@ -59,7 +59,7 @@ async fn handle_new_comment(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(COMMENTS_MANAGE_ID).unwrap();
-    let new_id = manager.get_new_entity_id().await.unwrap();
+    let new_id = manager.get_new_entity_id(&account_id).await.unwrap();
 
     new_entity_doc.insert("_id", new_id.to_string());
     new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());

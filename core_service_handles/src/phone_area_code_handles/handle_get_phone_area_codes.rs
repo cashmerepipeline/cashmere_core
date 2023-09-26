@@ -49,7 +49,7 @@ async fn validate_request_params(
 }
 
 async fn handle_get_phone_area_codes(
-    request: Request<GetPhoneAreaCodesRequest>,
+    _request: Request<GetPhoneAreaCodesRequest>,
 ) -> Result<Response<GetPhoneAreaCodesResponse>, Status> {
     let manage_id = PHONE_AREA_CODES_MANAGE_ID;
 

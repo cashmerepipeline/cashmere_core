@@ -111,7 +111,7 @@ async fn handle_get_entities(
         Ok(entities) => {
             let mut result_docs = vec![];
             while let Some(doc) = iter(&entities).next().await {
-                let entity = filter_can_read_fields(&doc, manage_id, &role_group).await;
+                let entity = filter_can_read_fields(doc, manage_id, &role_group).await;
                 result_docs.push(entity);
             }
 

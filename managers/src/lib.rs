@@ -1,16 +1,8 @@
-/*
-Author: 闫刚
-lib.rs (c) 2020
-Desc: 大管家
-Created:  2020-11-16T11:08:01.884Z
-Modified: !date!
-*/
-
 // 异步线程限制
 #![recursion_limit = "256"]
 
 use dependencies_sync::once_cell;
-use dependencies_sync::rust_i18n::{self, i18n, t};
+use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 
 use std::sync::Arc;
@@ -144,8 +136,8 @@ impl ManagerTrait for Manager {
         self.inner.get_manage().await
     }
 
-    async fn get_new_entity_id(&self) -> Option<i64> {
-        self.inner.get_new_entity_id().await
+    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
+        self.inner.get_new_entity_id(account_id).await
     }
 }
 
@@ -219,7 +211,7 @@ impl ManagerTrait for ManagerInner {
         self.manager.get_manage().await
     }
 
-    async fn get_new_entity_id(&self) -> Option<i64> {
-        self.manager.get_new_entity_id().await
+    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
+        self.manager.get_new_entity_id(account_id).await
     }
 }

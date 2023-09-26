@@ -444,7 +444,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
-    async fn get_new_entity_id(&self) -> Option<i64> {
+    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
         let manage_id = self.get_manager_id().to_string();
         entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
     }

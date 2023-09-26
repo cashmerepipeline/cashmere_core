@@ -85,7 +85,7 @@ async fn handle_new_country(
         return Err(Status::aborted("国家已经存在"));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
+    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(COUNTRY_CODES_NATIVE_FIELD_ID.to_string(), native.clone());

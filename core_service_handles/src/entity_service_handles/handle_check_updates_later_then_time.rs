@@ -68,7 +68,7 @@ async fn validate_request_params(
 async fn handle_check_updates_later_then_time(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
-    let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let manage_id = &request.get_ref().manage_id;
     let timestamp = &request.get_ref().timestamp;
@@ -121,7 +121,7 @@ async fn handle_check_updates_later_then_time(
     };
 
     // 创建返回流
-    let (resp_tx, mut resp_rx) = tokio::sync::mpsc::channel(4);
+    let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(4);
 
     tokio::spawn(async move {
         // 最多获取1000个
@@ -133,7 +133,9 @@ async fn handle_check_updates_later_then_time(
                     let id = d.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
                     ids.push(id);
                 }
-                Err(e) => {}
+                Err(e) => {
+                    error!("{}: {}", t!("取得查询失败"), e);
+                }
             }
 
             // 满20，发送到返回流

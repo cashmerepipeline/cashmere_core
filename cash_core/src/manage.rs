@@ -2,7 +2,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use serde::{Deserialize, Serialize};
 
-use dependencies_sync::bson::{self, Document};
+use dependencies_sync::bson::{self, Timestamp, Document};
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
 use cash_result::OperationResult;
@@ -16,9 +16,9 @@ pub struct Manage {
     pub id: i32,
     pub name_map: LinkedHashMap<String, String>,
     pub creator: String,
-    pub create_timestamp: i64,
+    pub create_timestamp: Timestamp,
     pub modifier: String,
-    pub modify_timestamp: i64,
+    pub modify_timestamp: Timestamp,
     pub owner: String,
     pub groups: Vec<String>,
 
@@ -44,12 +44,12 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
 
     let creator = manage_doc.get_str(&CREATOR_FIELD_ID.to_string()).unwrap();
     let create_timestamp = manage_doc
-        .get_i64(CREATE_TIMESTAMP_FIELD_ID.to_string())
+        .get_timestamp(CREATE_TIMESTAMP_FIELD_ID.to_string())
         .unwrap();
 
     let modifier = manage_doc.get_str(&MODIFIER_FIELD_ID.to_string()).unwrap();
     let modify_timestamp = manage_doc
-        .get_i64(MODIFY_TIMESTAMP_FIELD_ID.to_string())
+        .get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string())
         .unwrap();
 
     let owner = manage_doc.get_str(&OWNER_FIELD_ID.to_string()).unwrap();

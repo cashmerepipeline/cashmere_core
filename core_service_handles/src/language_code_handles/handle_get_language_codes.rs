@@ -48,7 +48,7 @@ async fn validate_request_params(
 }
 
 async fn handle_language_codes(
-    request: Request<GetLanguageCodesRequest>,
+    _request: Request<GetLanguageCodesRequest>,
 ) -> Result<Response<GetLanguageCodesResponse>, Status> {
     let manage_id = LANGUAGES_CODES_MANAGE_ID;
 

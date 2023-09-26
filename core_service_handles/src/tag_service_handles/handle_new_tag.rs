@@ -94,7 +94,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
     // 是否存在，存在则返回
     if manager
         .entity_exists(&doc! {
-            TAGS_TARGET_MANAGES_FIELD_ID.to_string(): target_manage_id.clone(),
+            TAGS_TARGET_MANAGES_FIELD_ID.to_string(): *target_manage_id,
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
         .await
@@ -107,7 +107,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
         )));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
+    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(TAGS_TARGET_MANAGES_FIELD_ID.to_string(), target_manage_id);
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
