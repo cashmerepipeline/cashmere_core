@@ -3,18 +3,6 @@ package cashmere;
 
 import "name.proto";
 
-message CountryCode{
-  string code = 1;
-  // 名称
-  map<string, string> name_map = 2;
-  // 母语名
-  string native = 3;
-  // 手机区号
-  string phone_area_code = 4;
-  // 所用语言
-  repeated string languages = 5;
-}
-
 // 新国家编码
 message NewCountryCodeRequest {
   Name name = 1;
@@ -32,5 +20,5 @@ message NewCountryCodeResponse {
 // 客户端应该缓存这个列表
 message GetCountryCodesRequest {}
 message GetCountryCodesResponse {
-  repeated CountryCode country_codes = 1;
+  repeated bytes country_codes = 1;
 }

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package cashmere;
+
+// 通用常量不需要参数的取得接口，简化api
+// 如果常量需要参数，则需要单独定义接口
+// 每种可能有提供有自己的访问接口
+// 常量一般不需要权限控制
+message GetConstantsRequest {
+  int32 manage_id = 1;
+}
+message GetConstantsResponse {
+  repeated bytes constants = 1;
+}

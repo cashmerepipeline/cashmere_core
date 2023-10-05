@@ -1,10 +1,12 @@
 syntax = "proto3";
 package cashmere;
 
+import "ping.proto";
 import "country_code.proto";
 import "language_code.proto";
 import "area.proto";
 import "phone_area_code.proto";
+import "constant.proto";
 
 import "group.proto";
 import "field_data_type.proto";

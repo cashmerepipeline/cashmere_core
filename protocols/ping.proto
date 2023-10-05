@@ -1,0 +1,14 @@
+syntax = "proto3";
+package cashmere;
+
+// ping 网络是否正常
+// 发送一个时间到服务端，服务端返回相同的时间，判断是否正常和时间间隔
+// 共发送2次，第一次发送0，第二次返回接收到的时间
+message PingRequest{
+    // 使用当前时间作为ping请求
+  uint64 time = 1;
+}
+message PingResponse{
+  // 返回ping请求的时间
+    uint64 time = 1;
+}

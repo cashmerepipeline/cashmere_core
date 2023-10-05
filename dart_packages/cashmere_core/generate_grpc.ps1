@@ -16,4 +16,6 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/view.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/gender.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/category.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/tag.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/ping.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/constant.proto
 

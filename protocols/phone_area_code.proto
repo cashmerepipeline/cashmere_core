@@ -6,13 +6,6 @@ package cashmere;
 
 import "name.proto";
 
-message PhoneAreaCode{
-  string code = 1;
-  map<string, string> name_map = 2;
-  // 使用地区
-  repeated string using_areas=3;
-}
-
 // 新区号编码
 message NewPhoneAreaCodeRequest {
       Name name = 1;
@@ -29,6 +22,6 @@ message NewPhoneAreaCodeResponse {
 // 客户端应该缓存这个列表
 message GetPhoneAreaCodesRequest {}
 message GetPhoneAreaCodesResponse {
-  repeated PhoneAreaCode phone_area_codes = 1;
+  repeated bytes phone_area_codes = 1;
 }
 

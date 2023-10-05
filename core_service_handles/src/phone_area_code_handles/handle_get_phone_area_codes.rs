@@ -71,24 +71,9 @@ async fn handle_get_phone_area_codes(
                     continue;
                 };
 
-                let code = d
-                    .get_str(PHONE_AREA_CODES_CODE_FIELD_ID.to_string())
-                    .unwrap();
-                let name_map = d.get_document(NAME_MAP_FIELD_ID.to_string()).unwrap().to_owned();
-                let using_areas = d
-                    .get_array(PHONE_AREA_CODES_USING_AREAS_FIELD_ID.to_string())
-                    .unwrap_or(&vec![])
-                    .iter()
-                    .map(|x| x.as_str().unwrap().to_string())
-                    .collect();
-
-                let phone_code = PhoneAreaCode {
-                    code: code.to_string(),
-                    using_areas: using_areas,
-                    name_map: bson::from_document(name_map).unwrap(),
-                };
-
-                result_codes.push(phone_code);
+                let code = bson::to_vec(&d).unwrap();
+                
+                result_codes.push(code);
             }
 
             Ok(Response::new(GetPhoneAreaCodesResponse {

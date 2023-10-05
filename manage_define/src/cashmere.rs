@@ -1,3 +1,20 @@
+/// ping 网络是否正常
+/// 发送一个时间到服务端，服务端返回相同的时间，判断是否正常和时间间隔
+/// 共发送2次，第一次发送0，第二次返回接收到的时间
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PingRequest {
+    /// 使用当前时间作为ping请求
+    #[prost(uint64, tag = "1")]
+    pub time: u64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PingResponse {
+    /// 返回ping请求的时间
+    #[prost(uint64, tag = "1")]
+    pub time: u64,
+}
 /// 名
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -69,27 +86,6 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CountryCode {
-    #[prost(string, tag = "1")]
-    pub code: ::prost::alloc::string::String,
-    /// 名称
-    #[prost(map = "string, string", tag = "2")]
-    pub name_map: ::std::collections::HashMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// 母语名
-    #[prost(string, tag = "3")]
-    pub native: ::prost::alloc::string::String,
-    /// 手机区号
-    #[prost(string, tag = "4")]
-    pub phone_area_code: ::prost::alloc::string::String,
-    /// 所用语言
-    #[prost(string, repeated, tag = "5")]
-    pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
 /// 新国家编码
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -120,21 +116,8 @@ pub struct GetCountryCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCountryCodesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub country_codes: ::prost::alloc::vec::Vec<CountryCode>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LanguageCode {
-    #[prost(string, tag = "1")]
-    pub code: ::prost::alloc::string::String,
-    #[prost(map = "string, string", tag = "2")]
-    pub name_map: ::std::collections::HashMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    #[prost(string, tag = "3")]
-    pub native_name: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub country_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 新语言编码
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -161,8 +144,8 @@ pub struct GetLanguageCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLanguageCodesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub language_codes: ::prost::alloc::vec::Vec<LanguageCode>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub language_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// TODO: 可能不需要
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -247,21 +230,6 @@ impl AreaLevel {
         }
     }
 }
-#[derive(serde::Serialize, serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PhoneAreaCode {
-    #[prost(string, tag = "1")]
-    pub code: ::prost::alloc::string::String,
-    #[prost(map = "string, string", tag = "2")]
-    pub name_map: ::std::collections::HashMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// 使用地区
-    #[prost(string, repeated, tag = "3")]
-    pub using_areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
 /// 新区号编码
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -289,8 +257,24 @@ pub struct GetPhoneAreaCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPhoneAreaCodesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub phone_area_codes: ::prost::alloc::vec::Vec<PhoneAreaCode>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub phone_area_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 通用常量不需要参数的取得接口，简化api
+/// 如果常量需要参数，则需要单独定义接口
+/// 每种可能有提供有自己的访问接口
+/// 常量一般不需要权限控制
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetConstantsRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetConstantsResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub constants: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

@@ -3,12 +3,6 @@ package cashmere;
 
 import "name.proto";
 
-message LanguageCode{
-  string code = 1;
-  map<string, string> name_map = 2;
-  string native_name = 3;
-}
-
 // 新语言编码
 message NewLanguageCodeRequest {
   Name name = 1;
@@ -23,10 +17,8 @@ message NewLanguageCodeResponse {
 // 客户端应该缓存这个列表
 message GetLanguageCodesRequest { }
 message GetLanguageCodesResponse {
-  repeated LanguageCode language_codes = 1;
+  repeated bytes language_codes = 1;
 }
-
-
 
 // TODO: 可能不需要
 message UpdateLanguageCodeRequest {
