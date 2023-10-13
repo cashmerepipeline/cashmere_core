@@ -42,11 +42,11 @@ impl KnitterServer {
         let managers_map_lock = majordomo_lock.get_managers_map().await;
         let mut manages_map = managers_map_lock.write();
         for m in manager_arcs {
-            manages_map.insert(m.get_manager_id(), m.clone());
+            manages_map.insert(m.get_id(), m.clone());
         }
 
         for (k, m) in manages_map.iter() {
-            info!("已加载管理: {} {}", k, m.get_manager_name())
+            info!("已加载管理: {} {}", k, m.get_name())
         }
     }
 

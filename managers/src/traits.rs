@@ -29,7 +29,7 @@ use crate::schema::schema_field_exists;
 pub trait ManagerTrait: Any + Send + Sync {
     // 注册管理器
     async fn init(&self) -> Result<OperationResult, OperationResult> {
-        let manage_id = &self.get_manager_id().to_string();
+        let manage_id = &self.get_id().to_string();
         log::info!("{}: {}", t!("管理器数据库检查"), manage_id);
 
         // 检查数据库是否存在管理集合，不存在则需要创建管理集合
@@ -64,9 +64,9 @@ pub trait ManagerTrait: Any + Send + Sync {
     fn unregister(&self) -> Result<OperationResult, OperationResult>;
 
     // 取得管理器id
-    fn get_manager_id(&self) -> i32;
+    fn get_id(&self) -> i32;
     // 取得管理器名
-    fn get_manager_name(&self) -> String;
+    fn get_name(&self) -> String;
 
     // 取得管理实体
     async fn get_manage(&self) -> Arc<RwLock<Manage>>;
@@ -241,7 +241,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let field_id = new_field.id;
 
         // 更新管理
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
         {
             let manage_arc = self.get_manage().await;
             let mut manage = manage_arc.write();
@@ -295,7 +295,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         // 更新管理
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
         let mut new_field: Option<PropertyField> = None;
         {
             let manage_arc = self.get_manage().await;
@@ -357,7 +357,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         field_id: i32,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
 
         let _new_field: Option<PropertyField> = None;
 
@@ -438,14 +438,14 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     async fn get_entry_counts(&self, filter_doc: Document) -> Result<u64, OperationResult> {
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
 
         entity::get_entry_count(&manage_id.to_string(), filter_doc).await
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
     async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
     }
 
@@ -456,7 +456,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &String,
         group_id: &String,
     ) -> Result<String, OperationResult> {
-        let manage_id_str = self.get_manager_id().to_string();
+        let manage_id_str = self.get_id().to_string();
 
         let result =
             match entity::insert_entity(&manage_id_str, new_entity_doc, account_id, group_id).await
@@ -478,7 +478,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     /// 通过id取得实体
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::get_entity_by_id(&manage_id, entity_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -493,7 +493,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         filter: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::get_entities(&manage_id, filter).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
@@ -508,7 +508,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         sorts: &Option<Document>,
         projects: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
 
         match entity::get_entities_by_page(&manage_id, page_index, matches, sorts, projects).await {
             Ok(r) => Ok(r),
@@ -525,7 +525,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         projects: Option<Document>,
         sorts: Option<Document>,
     ) -> Result<Cursor<Document>, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
 
         match entity::get_query_cursor(&manage_id, matches, projects, sorts).await {
             Ok(r) => Ok(r),
@@ -539,7 +539,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: &mut Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::update_entity_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
             .await
         {
@@ -557,7 +557,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         entity_id: &String,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
         let q_doc = doc! {
             ID_FIELD_ID.to_string(): entity_id
         };
@@ -577,7 +577,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         entity_id: &String,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
         let q_doc = doc! {
             ID_FIELD_ID.to_string(): entity_id
         };
@@ -593,7 +593,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     async fn entity_exists(&self, query_doc: &Document) -> bool {
-        let manage_id = self.get_manager_id();
+        let manage_id = self.get_id();
         entity::entity_exists(&manage_id.to_string(), query_doc).await
     }
 
@@ -606,7 +606,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::add_to_array_field(
             &manage_id.to_string(),
             query_doc,
@@ -627,7 +627,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::remove_from_array_field(
             &manage_id.to_string(),
             query_doc,
@@ -651,7 +651,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::update_entity_array_element_field(
             &manage_id.to_string(),
             query_doc,
@@ -677,7 +677,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::insert_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -694,7 +694,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         modify_doc: Document,
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
-        let manage_id = self.get_manager_id().to_string();
+        let manage_id = self.get_id().to_string();
         match entity::update_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(

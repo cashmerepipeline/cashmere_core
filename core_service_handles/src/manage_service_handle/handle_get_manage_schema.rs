@@ -73,7 +73,7 @@ async fn handle_get_manage_schema(
             result.push(field.to_owned());
         }
         else{
-            debug!("{}: {}, {}", t!("属性不可见"), &field.id.to_string(), role_group);
+            debug!("{}:, {}-{}, {}", t!("属性不可见"), &manage_id, &field.id, role_group);
             continue
         }
     }

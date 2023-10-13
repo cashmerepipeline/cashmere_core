@@ -13,37 +13,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use countryCodeDescriptor instead')
-const CountryCode$json = {
-  '1': 'CountryCode',
-  '2': [
-    {'1': 'code', '3': 1, '4': 1, '5': 9, '10': 'code'},
-    {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.CountryCode.NameMapEntry', '10': 'nameMap'},
-    {'1': 'native', '3': 3, '4': 1, '5': 9, '10': 'native'},
-    {'1': 'phone_area_code', '3': 4, '4': 1, '5': 9, '10': 'phoneAreaCode'},
-    {'1': 'languages', '3': 5, '4': 3, '5': 9, '10': 'languages'},
-  ],
-  '3': [CountryCode_NameMapEntry$json],
-};
-
-@$core.Deprecated('Use countryCodeDescriptor instead')
-const CountryCode_NameMapEntry$json = {
-  '1': 'NameMapEntry',
-  '2': [
-    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
-  ],
-  '7': {'7': true},
-};
-
-/// Descriptor for `CountryCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List countryCodeDescriptor = $convert.base64Decode(
-    'CgtDb3VudHJ5Q29kZRISCgRjb2RlGAEgASgJUgRjb2RlEj0KCG5hbWVfbWFwGAIgAygLMiIuY2'
-    'FzaG1lcmUuQ291bnRyeUNvZGUuTmFtZU1hcEVudHJ5UgduYW1lTWFwEhYKBm5hdGl2ZRgDIAEo'
-    'CVIGbmF0aXZlEiYKD3Bob25lX2FyZWFfY29kZRgEIAEoCVINcGhvbmVBcmVhQ29kZRIcCglsYW'
-    '5ndWFnZXMYBSADKAlSCWxhbmd1YWdlcxo6CgxOYW1lTWFwRW50cnkSEAoDa2V5GAEgASgJUgNr'
-    'ZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AQ==');
-
 @$core.Deprecated('Use newCountryCodeRequestDescriptor instead')
 const NewCountryCodeRequest$json = {
   '1': 'NewCountryCodeRequest',
@@ -88,12 +57,12 @@ final $typed_data.Uint8List getCountryCodesRequestDescriptor = $convert.base64De
 const GetCountryCodesResponse$json = {
   '1': 'GetCountryCodesResponse',
   '2': [
-    {'1': 'country_codes', '3': 1, '4': 3, '5': 11, '6': '.cashmere.CountryCode', '10': 'countryCodes'},
+    {'1': 'country_codes', '3': 1, '4': 3, '5': 12, '10': 'countryCodes'},
   ],
 };
 
 /// Descriptor for `GetCountryCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCountryCodesResponseDescriptor = $convert.base64Decode(
-    'ChdHZXRDb3VudHJ5Q29kZXNSZXNwb25zZRI6Cg1jb3VudHJ5X2NvZGVzGAEgAygLMhUuY2FzaG'
-    '1lcmUuQ291bnRyeUNvZGVSDGNvdW50cnlDb2Rlcw==');
+    'ChdHZXRDb3VudHJ5Q29kZXNSZXNwb25zZRIjCg1jb3VudHJ5X2NvZGVzGAEgAygMUgxjb3VudH'
+    'J5Q29kZXM=');
 

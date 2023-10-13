@@ -20,7 +20,7 @@ pub fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
     let managers_map_lock = majordomo_lock.get_managers_map();
     let mut manages_map = managers_map_lock.write();
     for m in manager_arcs {
-        let manager_id = m.get_manager_id();
+        let manager_id = m.get_id();
         // 管理编号不能相同
         if manages_map.contains_key(&manager_id) {
             panic!(
@@ -36,6 +36,6 @@ pub fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
 
     // 显示加载的管理
     for (k, m) in manages_map.iter() {
-        info!("已加载管理: {} {}", k, m.get_manager_name())
+        info!("已加载管理: {} {}", k, m.get_name())
     }
 }

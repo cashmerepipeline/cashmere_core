@@ -1,6 +1,6 @@
 [package]
 name = "core_service_handles"
-version = "0.5.2"
+version = "0.6.1"
 authors = ["yangang <7470718@qq.com>"]
 edition = "2021"
 

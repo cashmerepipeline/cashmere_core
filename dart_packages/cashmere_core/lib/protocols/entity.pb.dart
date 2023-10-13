@@ -2150,14 +2150,14 @@ class GetRemovedDataListResponse extends $pb.GeneratedMessage {
 class EntityTimestamp extends $pb.GeneratedMessage {
   factory EntityTimestamp({
     $core.String? entityId,
-    $core.List<$core.int>? modifiedTimestamp,
+    $core.List<$core.int>? timestamp,
   }) {
     final $result = create();
     if (entityId != null) {
       $result.entityId = entityId;
     }
-    if (modifiedTimestamp != null) {
-      $result.modifiedTimestamp = modifiedTimestamp;
+    if (timestamp != null) {
+      $result.timestamp = timestamp;
     }
     return $result;
   }
@@ -2167,7 +2167,7 @@ class EntityTimestamp extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EntityTimestamp', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'entityId')
-    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'modifiedTimestamp', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -2201,14 +2201,15 @@ class EntityTimestamp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearEntityId() => clearField(1);
 
+  /// 格式二进制 bson Document 形式{"value": Timestamp()}
   @$pb.TagNumber(2)
-  $core.List<$core.int> get modifiedTimestamp => $_getN(1);
+  $core.List<$core.int> get timestamp => $_getN(1);
   @$pb.TagNumber(2)
-  set modifiedTimestamp($core.List<$core.int> v) { $_setBytes(1, v); }
+  set timestamp($core.List<$core.int> v) { $_setBytes(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasModifiedTimestamp() => $_has(1);
+  $core.bool hasTimestamp() => $_has(1);
   @$pb.TagNumber(2)
-  void clearModifiedTimestamp() => clearField(2);
+  void clearTimestamp() => clearField(2);
 }
 
 /// 检查实体是否有更新，返回有更新的实体
@@ -2322,7 +2323,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeRequest({
     $core.int? manageId,
     $core.List<$core.int>? timestamp,
-    $core.List<$core.int>? sortConditions,
+    $core.bool? ascendingOrder,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -2331,8 +2332,8 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
     if (timestamp != null) {
       $result.timestamp = timestamp;
     }
-    if (sortConditions != null) {
-      $result.sortConditions = sortConditions;
+    if (ascendingOrder != null) {
+      $result.ascendingOrder = ascendingOrder;
     }
     return $result;
   }
@@ -2343,7 +2344,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'sortConditions', $pb.PbFieldType.OY)
+    ..aOB(3, _omitFieldNames ? '' : 'ascendingOrder')
     ..hasRequiredFields = false
   ;
 
@@ -2377,6 +2378,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearManageId() => clearField(1);
 
+  /// 格式二进制 bson Document 形式{"value": Timestamp()}
   @$pb.TagNumber(2)
   $core.List<$core.int> get timestamp => $_getN(1);
   @$pb.TagNumber(2)
@@ -2386,15 +2388,15 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearTimestamp() => clearField(2);
 
-  /// 排序条件，只支持时间正倒序
+  /// 是否按时间升序排列, 默认降序
   @$pb.TagNumber(3)
-  $core.List<$core.int> get sortConditions => $_getN(2);
+  $core.bool get ascendingOrder => $_getBF(2);
   @$pb.TagNumber(3)
-  set sortConditions($core.List<$core.int> v) { $_setBytes(2, v); }
+  set ascendingOrder($core.bool v) { $_setBool(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasSortConditions() => $_has(2);
+  $core.bool hasAscendingOrder() => $_has(2);
   @$pb.TagNumber(3)
-  void clearSortConditions() => clearField(3);
+  void clearAscendingOrder() => clearField(3);
 }
 
 class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {

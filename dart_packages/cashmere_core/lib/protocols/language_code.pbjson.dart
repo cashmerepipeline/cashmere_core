@@ -13,34 +13,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use languageCodeDescriptor instead')
-const LanguageCode$json = {
-  '1': 'LanguageCode',
-  '2': [
-    {'1': 'code', '3': 1, '4': 1, '5': 9, '10': 'code'},
-    {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.LanguageCode.NameMapEntry', '10': 'nameMap'},
-    {'1': 'native_name', '3': 3, '4': 1, '5': 9, '10': 'nativeName'},
-  ],
-  '3': [LanguageCode_NameMapEntry$json],
-};
-
-@$core.Deprecated('Use languageCodeDescriptor instead')
-const LanguageCode_NameMapEntry$json = {
-  '1': 'NameMapEntry',
-  '2': [
-    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
-  ],
-  '7': {'7': true},
-};
-
-/// Descriptor for `LanguageCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List languageCodeDescriptor = $convert.base64Decode(
-    'CgxMYW5ndWFnZUNvZGUSEgoEY29kZRgBIAEoCVIEY29kZRI+CghuYW1lX21hcBgCIAMoCzIjLm'
-    'Nhc2htZXJlLkxhbmd1YWdlQ29kZS5OYW1lTWFwRW50cnlSB25hbWVNYXASHwoLbmF0aXZlX25h'
-    'bWUYAyABKAlSCm5hdGl2ZU5hbWUaOgoMTmFtZU1hcEVudHJ5EhAKA2tleRgBIAEoCVIDa2V5Eh'
-    'QKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAE=');
-
 @$core.Deprecated('Use newLanguageCodeRequestDescriptor instead')
 const NewLanguageCodeRequest$json = {
   '1': 'NewLanguageCodeRequest',
@@ -82,14 +54,14 @@ final $typed_data.Uint8List getLanguageCodesRequestDescriptor = $convert.base64D
 const GetLanguageCodesResponse$json = {
   '1': 'GetLanguageCodesResponse',
   '2': [
-    {'1': 'language_codes', '3': 1, '4': 3, '5': 11, '6': '.cashmere.LanguageCode', '10': 'languageCodes'},
+    {'1': 'language_codes', '3': 1, '4': 3, '5': 12, '10': 'languageCodes'},
   ],
 };
 
 /// Descriptor for `GetLanguageCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getLanguageCodesResponseDescriptor = $convert.base64Decode(
-    'ChhHZXRMYW5ndWFnZUNvZGVzUmVzcG9uc2USPQoObGFuZ3VhZ2VfY29kZXMYASADKAsyFi5jYX'
-    'NobWVyZS5MYW5ndWFnZUNvZGVSDWxhbmd1YWdlQ29kZXM=');
+    'ChhHZXRMYW5ndWFnZUNvZGVzUmVzcG9uc2USJQoObGFuZ3VhZ2VfY29kZXMYASADKAxSDWxhbm'
+    'd1YWdlQ29kZXM=');
 
 @$core.Deprecated('Use updateLanguageCodeRequestDescriptor instead')
 const UpdateLanguageCodeRequest$json = {

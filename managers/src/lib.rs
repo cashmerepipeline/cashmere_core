@@ -120,12 +120,12 @@ impl ManagerTrait for Manager {
         self.inner.unregister()
     }
 
-    fn get_manager_id(&self) -> i32 {
-        self.inner.get_manager_id()
+    fn get_id(&self) -> i32 {
+        self.inner.get_id()
     }
 
-    fn get_manager_name(&self) -> String {
-        self.inner.get_manager_name()
+    fn get_name(&self) -> String {
+        self.inner.get_name()
     }
 
     fn has_cache(&self) -> bool {
@@ -195,12 +195,12 @@ impl ManagerTrait for ManagerInner {
         self.manager.unregister()
     }
 
-    fn get_manager_id(&self) -> i32 {
-        self.manager.get_manager_id()
+    fn get_id(&self) -> i32 {
+        self.manager.get_id()
     }
 
-    fn get_manager_name(&self) -> String {
-        self.manager.get_manager_name()
+    fn get_name(&self) -> String {
+        self.manager.get_name()
     }
 
     fn has_cache(&self) -> bool {

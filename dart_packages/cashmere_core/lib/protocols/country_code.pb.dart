@@ -15,104 +15,6 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'name.pb.dart' as $0;
 
-class CountryCode extends $pb.GeneratedMessage {
-  factory CountryCode({
-    $core.String? code,
-    $core.Map<$core.String, $core.String>? nameMap,
-    $core.String? native,
-    $core.String? phoneAreaCode,
-    $core.Iterable<$core.String>? languages,
-  }) {
-    final $result = create();
-    if (code != null) {
-      $result.code = code;
-    }
-    if (nameMap != null) {
-      $result.nameMap.addAll(nameMap);
-    }
-    if (native != null) {
-      $result.native = native;
-    }
-    if (phoneAreaCode != null) {
-      $result.phoneAreaCode = phoneAreaCode;
-    }
-    if (languages != null) {
-      $result.languages.addAll(languages);
-    }
-    return $result;
-  }
-  CountryCode._() : super();
-  factory CountryCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CountryCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CountryCode', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'code')
-    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'CountryCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..aOS(3, _omitFieldNames ? '' : 'native')
-    ..aOS(4, _omitFieldNames ? '' : 'phoneAreaCode')
-    ..pPS(5, _omitFieldNames ? '' : 'languages')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  CountryCode clone() => CountryCode()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  CountryCode copyWith(void Function(CountryCode) updates) => super.copyWith((message) => updates(message as CountryCode)) as CountryCode;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static CountryCode create() => CountryCode._();
-  CountryCode createEmptyInstance() => create();
-  static $pb.PbList<CountryCode> createRepeated() => $pb.PbList<CountryCode>();
-  @$core.pragma('dart2js:noInline')
-  static CountryCode getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CountryCode>(create);
-  static CountryCode? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get code => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set code($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasCode() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearCode() => clearField(1);
-
-  /// 名称
-  @$pb.TagNumber(2)
-  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
-
-  /// 母语名
-  @$pb.TagNumber(3)
-  $core.String get native => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set native($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasNative() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearNative() => clearField(3);
-
-  /// 手机区号
-  @$pb.TagNumber(4)
-  $core.String get phoneAreaCode => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set phoneAreaCode($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasPhoneAreaCode() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearPhoneAreaCode() => clearField(4);
-
-  /// 所用语言
-  @$pb.TagNumber(5)
-  $core.List<$core.String> get languages => $_getList(4);
-}
-
 /// 新国家编码
 class NewCountryCodeRequest extends $pb.GeneratedMessage {
   factory NewCountryCodeRequest({
@@ -303,7 +205,7 @@ class GetCountryCodesRequest extends $pb.GeneratedMessage {
 
 class GetCountryCodesResponse extends $pb.GeneratedMessage {
   factory GetCountryCodesResponse({
-    $core.Iterable<CountryCode>? countryCodes,
+    $core.Iterable<$core.List<$core.int>>? countryCodes,
   }) {
     final $result = create();
     if (countryCodes != null) {
@@ -316,7 +218,7 @@ class GetCountryCodesResponse extends $pb.GeneratedMessage {
   factory GetCountryCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCountryCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<CountryCode>(1, _omitFieldNames ? '' : 'countryCodes', $pb.PbFieldType.PM, subBuilder: CountryCode.create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'countryCodes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -342,7 +244,7 @@ class GetCountryCodesResponse extends $pb.GeneratedMessage {
   static GetCountryCodesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<CountryCode> get countryCodes => $_getList(0);
+  $core.List<$core.List<$core.int>> get countryCodes => $_getList(0);
 }
 
 

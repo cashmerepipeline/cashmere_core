@@ -43,11 +43,11 @@ impl ManagerTrait for EventQueuesManager {
         Err(operation_failed("unregister", "事件队列管理器不能被注销"))
     }
 
-    fn get_manager_id(&self) -> i32 {
+    fn get_id(&self) -> i32 {
         EVENT_QUEUES_MANAGE_ID
     }
 
-    fn get_manager_name(&self) -> String {
+    fn get_name(&self) -> String {
         "EventQueuesManager".to_string()
     }
 

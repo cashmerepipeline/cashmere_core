@@ -15,78 +15,6 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'name.pb.dart' as $0;
 
-class LanguageCode extends $pb.GeneratedMessage {
-  factory LanguageCode({
-    $core.String? code,
-    $core.Map<$core.String, $core.String>? nameMap,
-    $core.String? nativeName,
-  }) {
-    final $result = create();
-    if (code != null) {
-      $result.code = code;
-    }
-    if (nameMap != null) {
-      $result.nameMap.addAll(nameMap);
-    }
-    if (nativeName != null) {
-      $result.nativeName = nativeName;
-    }
-    return $result;
-  }
-  LanguageCode._() : super();
-  factory LanguageCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory LanguageCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LanguageCode', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'code')
-    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'LanguageCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..aOS(3, _omitFieldNames ? '' : 'nativeName')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  LanguageCode clone() => LanguageCode()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  LanguageCode copyWith(void Function(LanguageCode) updates) => super.copyWith((message) => updates(message as LanguageCode)) as LanguageCode;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static LanguageCode create() => LanguageCode._();
-  LanguageCode createEmptyInstance() => create();
-  static $pb.PbList<LanguageCode> createRepeated() => $pb.PbList<LanguageCode>();
-  @$core.pragma('dart2js:noInline')
-  static LanguageCode getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LanguageCode>(create);
-  static LanguageCode? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get code => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set code($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasCode() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearCode() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
-
-  @$pb.TagNumber(3)
-  $core.String get nativeName => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set nativeName($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasNativeName() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearNativeName() => clearField(3);
-}
-
 /// 新语言编码
 class NewLanguageCodeRequest extends $pb.GeneratedMessage {
   factory NewLanguageCodeRequest({
@@ -254,7 +182,7 @@ class GetLanguageCodesRequest extends $pb.GeneratedMessage {
 
 class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   factory GetLanguageCodesResponse({
-    $core.Iterable<LanguageCode>? languageCodes,
+    $core.Iterable<$core.List<$core.int>>? languageCodes,
   }) {
     final $result = create();
     if (languageCodes != null) {
@@ -267,7 +195,7 @@ class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   factory GetLanguageCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetLanguageCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<LanguageCode>(1, _omitFieldNames ? '' : 'languageCodes', $pb.PbFieldType.PM, subBuilder: LanguageCode.create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'languageCodes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -293,7 +221,7 @@ class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   static GetLanguageCodesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<LanguageCode> get languageCodes => $_getList(0);
+  $core.List<$core.List<$core.int>> get languageCodes => $_getList(0);
 }
 
 /// TODO: 可能不需要

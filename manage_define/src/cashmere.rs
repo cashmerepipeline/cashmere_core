@@ -1,11 +1,17 @@
-/// ping 网络是否正常
-/// 发送一个时间到服务端，服务端返回相同的时间，判断是否正常和时间间隔
-/// 共发送2次，第一次发送0，第二次返回接收到的时间
+/// ping 网络是否正常， 双向流
+/// 发送一个时间到服务端，判断是否正常和时间间隔
+/// 第一次发送0，之后返回接收到的时间
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PingRequest {
-    /// 使用当前时间作为ping请求
+    /// 编号
     #[prost(uint64, tag = "1")]
+    pub index: u64,
+    /// 设备id， 用于区分不同设备端，根据情况需要设置，比如使用帐号作为id
+    #[prost(string, tag = "2")]
+    pub device_id: ::prost::alloc::string::String,
+    /// 第一次发送0， 第二次返回服务器时间
+    #[prost(uint64, tag = "3")]
     pub time: u64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -13,6 +19,8 @@ pub struct PingRequest {
 pub struct PingResponse {
     /// 返回ping请求的时间
     #[prost(uint64, tag = "1")]
+    pub index: u64,
+    #[prost(uint64, tag = "2")]
     pub time: u64,
 }
 /// 名

@@ -1,12 +1,10 @@
-
 use std::sync::Arc;
 
-use dependencies_sync::rust_i18n::{self, t};
+use cash_result::{operation_failed, OperationResult};
 use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
-
-use cash_result::{operation_failed, OperationResult};
-use managers::Manager;
+use dependencies_sync::rust_i18n::{self, t};
+use managers::{Manager, ManagerTrait};
 
 use crate::{get_managers_map, ManagersMap};
 use crate::managers_map::add_managers;
@@ -26,20 +24,22 @@ impl Majordomo {
         let managers = get_managers_map();
         let managers = managers.read();
 
-        debug!("{}: {}", t!("成功获取管理器"), id);
-
         managers
-            .get(&id).cloned()
-            .ok_or(operation_failed(format!("get_manager_by_id {}", id), "取得管理器失败"))
+            .get(&id)
+            .cloned()
+            .ok_or(operation_failed(
+                format!("get_manager_by_id {}", id),
+                "取得管理器失败",
+            ))
+            .and_then(|manager| {
+                debug!("{}: {}-{}", t!("成功获取管理器"), id, manager.get_name());
+                Ok(manager)
+            })
     }
 
     /// 取得管理编号表
     pub fn get_manager_ids(&self) -> Vec<i32> {
-        let managers_ids: Vec<i32> =
-            self.get_managers_map()
-                .read()
-                .keys().copied()
-                .collect();
+        let managers_ids: Vec<i32> = self.get_managers_map().read().keys().copied().collect();
         managers_ids
     }
 
@@ -49,7 +49,10 @@ impl Majordomo {
     }
 
     /// 设置管理器表
-    pub async fn add_managers(&self, new_managers: Vec<Arc<Manager>>) -> Result<OperationResult, OperationResult> {
+    pub async fn add_managers(
+        &self,
+        new_managers: Vec<Arc<Manager>>,
+    ) -> Result<OperationResult, OperationResult> {
         add_managers(new_managers)
     }
 

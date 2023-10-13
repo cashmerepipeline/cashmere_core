@@ -46,17 +46,17 @@ impl ManagerTrait for LanguageCodesManager {
             format!(
                 "{}-{}-{}",
                 t!("语言编码管理器不能被注销"),
-                self.get_manager_id(),
-                self.get_manager_name()
+                self.get_id(),
+                self.get_name()
             ),
         ))
     }
 
-    fn get_manager_id(&self) -> i32 {
+    fn get_id(&self) -> i32 {
         LANGUAGES_CODES_MANAGE_ID
     }
 
-    fn get_manager_name(&self) -> String {
+    fn get_name(&self) -> String {
         "LanguageCodesManager".to_string()
     }
 
@@ -70,7 +70,7 @@ impl ManagerTrait for LanguageCodesManager {
                 LANGUAGE_CODES_MANAGE.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = self.get_manager_id().to_string();
+                let id_str = self.get_id().to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
@@ -88,7 +88,7 @@ impl ManagerTrait for LanguageCodesManager {
                 LANGUAGE_CODES_MANAGE_DOCUMENT.clone().unwrap()
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = self.get_manager_id().to_string();
+                let id_str = self.get_id().to_string();
                 let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),

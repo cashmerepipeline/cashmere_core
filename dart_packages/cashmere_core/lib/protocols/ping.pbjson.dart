@@ -17,23 +17,28 @@ import 'dart:typed_data' as $typed_data;
 const PingRequest$json = {
   '1': 'PingRequest',
   '2': [
-    {'1': 'time', '3': 1, '4': 1, '5': 4, '10': 'time'},
+    {'1': 'index', '3': 1, '4': 1, '5': 4, '10': 'index'},
+    {'1': 'device_id', '3': 2, '4': 1, '5': 9, '10': 'deviceId'},
+    {'1': 'time', '3': 3, '4': 1, '5': 4, '10': 'time'},
   ],
 };
 
 /// Descriptor for `PingRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pingRequestDescriptor = $convert.base64Decode(
-    'CgtQaW5nUmVxdWVzdBISCgR0aW1lGAEgASgEUgR0aW1l');
+    'CgtQaW5nUmVxdWVzdBIUCgVpbmRleBgBIAEoBFIFaW5kZXgSGwoJZGV2aWNlX2lkGAIgASgJUg'
+    'hkZXZpY2VJZBISCgR0aW1lGAMgASgEUgR0aW1l');
 
 @$core.Deprecated('Use pingResponseDescriptor instead')
 const PingResponse$json = {
   '1': 'PingResponse',
   '2': [
-    {'1': 'time', '3': 1, '4': 1, '5': 4, '10': 'time'},
+    {'1': 'index', '3': 1, '4': 1, '5': 4, '10': 'index'},
+    {'1': 'time', '3': 2, '4': 1, '5': 4, '10': 'time'},
   ],
 };
 
 /// Descriptor for `PingResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pingResponseDescriptor = $convert.base64Decode(
-    'CgxQaW5nUmVzcG9uc2USEgoEdGltZRgBIAEoBFIEdGltZQ==');
+    'CgxQaW5nUmVzcG9uc2USFAoFaW5kZXgYASABKARSBWluZGV4EhIKBHRpbWUYAiABKARSBHRpbW'
+    'U=');
 

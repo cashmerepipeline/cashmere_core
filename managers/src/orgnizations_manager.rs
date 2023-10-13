@@ -42,14 +42,14 @@ declare_get_manager!(OrgnizationsManager, ORGNIZATIONS_MANAGER);
 #[async_trait]
 impl ManagerTrait for OrgnizationsManager {
     fn unregister(&self) -> Result<OperationResult, OperationResult> {
-        Err(operation_failed("unregister", format!("{}-{}", t!(format!("{}-{}-{}", t!("管理器不能被注销"), self.get_manager_id() , self.get_manager_name())), self.get_manager_id() )))
+        Err(operation_failed("unregister", format!("{}-{}", t!(format!("{}-{}-{}", t!("管理器不能被注销"), self.get_id() , self.get_name())), self.get_id() )))
     }
 
-    fn get_manager_id(&self) -> i32 {
+    fn get_id(&self) -> i32 {
         ORGANIZATIONS_MANAGE_ID
     }
 
-    fn get_manager_name(&self) -> String {
+    fn get_name(&self) -> String {
         "WorksManager".to_string()
     }
 

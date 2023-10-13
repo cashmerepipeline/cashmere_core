@@ -15,73 +15,6 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'name.pb.dart' as $0;
 
-class PhoneAreaCode extends $pb.GeneratedMessage {
-  factory PhoneAreaCode({
-    $core.String? code,
-    $core.Map<$core.String, $core.String>? nameMap,
-    $core.Iterable<$core.String>? usingAreas,
-  }) {
-    final $result = create();
-    if (code != null) {
-      $result.code = code;
-    }
-    if (nameMap != null) {
-      $result.nameMap.addAll(nameMap);
-    }
-    if (usingAreas != null) {
-      $result.usingAreas.addAll(usingAreas);
-    }
-    return $result;
-  }
-  PhoneAreaCode._() : super();
-  factory PhoneAreaCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory PhoneAreaCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PhoneAreaCode', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'code')
-    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'PhoneAreaCode.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..pPS(3, _omitFieldNames ? '' : 'usingAreas')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  PhoneAreaCode clone() => PhoneAreaCode()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PhoneAreaCode copyWith(void Function(PhoneAreaCode) updates) => super.copyWith((message) => updates(message as PhoneAreaCode)) as PhoneAreaCode;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static PhoneAreaCode create() => PhoneAreaCode._();
-  PhoneAreaCode createEmptyInstance() => create();
-  static $pb.PbList<PhoneAreaCode> createRepeated() => $pb.PbList<PhoneAreaCode>();
-  @$core.pragma('dart2js:noInline')
-  static PhoneAreaCode getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PhoneAreaCode>(create);
-  static PhoneAreaCode? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get code => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set code($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasCode() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearCode() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
-
-  /// 使用地区
-  @$pb.TagNumber(3)
-  $core.List<$core.String> get usingAreas => $_getList(2);
-}
-
 /// 新区号编码
 class NewPhoneAreaCodeRequest extends $pb.GeneratedMessage {
   factory NewPhoneAreaCodeRequest({
@@ -245,7 +178,7 @@ class GetPhoneAreaCodesRequest extends $pb.GeneratedMessage {
 
 class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
   factory GetPhoneAreaCodesResponse({
-    $core.Iterable<PhoneAreaCode>? phoneAreaCodes,
+    $core.Iterable<$core.List<$core.int>>? phoneAreaCodes,
   }) {
     final $result = create();
     if (phoneAreaCodes != null) {
@@ -258,7 +191,7 @@ class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
   factory GetPhoneAreaCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPhoneAreaCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<PhoneAreaCode>(1, _omitFieldNames ? '' : 'phoneAreaCodes', $pb.PbFieldType.PM, subBuilder: PhoneAreaCode.create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'phoneAreaCodes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -284,7 +217,7 @@ class GetPhoneAreaCodesResponse extends $pb.GeneratedMessage {
   static GetPhoneAreaCodesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<PhoneAreaCode> get phoneAreaCodes => $_getList(0);
+  $core.List<$core.List<$core.int>> get phoneAreaCodes => $_getList(0);
 }
 
 

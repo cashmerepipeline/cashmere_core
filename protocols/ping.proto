@@ -1,14 +1,19 @@
 syntax = "proto3";
 package cashmere;
 
-// ping 网络是否正常
-// 发送一个时间到服务端，服务端返回相同的时间，判断是否正常和时间间隔
-// 共发送2次，第一次发送0，第二次返回接收到的时间
+// ping 网络是否正常， 双向流
+// 发送一个时间到服务端，判断是否正常和时间间隔
+// 第一次发送0，之后返回接收到的时间
 message PingRequest{
-    // 使用当前时间作为ping请求
-  uint64 time = 1;
+  // 编号
+  uint64 index = 1;
+  // 设备id， 用于区分不同设备端，根据情况需要设置，比如使用帐号作为id
+  string device_id = 2;
+  // 第一次发送0， 第二次返回服务器时间 
+  uint64 time = 3;
 }
 message PingResponse{
   // 返回ping请求的时间
-    uint64 time = 1;
+  uint64 index = 1;
+    uint64 time = 2;
 }

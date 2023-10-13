@@ -468,14 +468,14 @@ const EntityTimestamp$json = {
   '1': 'EntityTimestamp',
   '2': [
     {'1': 'entity_id', '3': 1, '4': 1, '5': 9, '10': 'entityId'},
-    {'1': 'modified_timestamp', '3': 2, '4': 1, '5': 12, '10': 'modifiedTimestamp'},
+    {'1': 'timestamp', '3': 2, '4': 1, '5': 12, '10': 'timestamp'},
   ],
 };
 
 /// Descriptor for `EntityTimestamp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List entityTimestampDescriptor = $convert.base64Decode(
-    'Cg9FbnRpdHlUaW1lc3RhbXASGwoJZW50aXR5X2lkGAEgASgJUghlbnRpdHlJZBItChJtb2RpZm'
-    'llZF90aW1lc3RhbXAYAiABKAxSEW1vZGlmaWVkVGltZXN0YW1w');
+    'Cg9FbnRpdHlUaW1lc3RhbXASGwoJZW50aXR5X2lkGAEgASgJUghlbnRpdHlJZBIcCgl0aW1lc3'
+    'RhbXAYAiABKAxSCXRpbWVzdGFtcA==');
 
 @$core.Deprecated('Use checkEntitiesUpdateRequestDescriptor instead')
 const CheckEntitiesUpdateRequest$json = {
@@ -511,15 +511,15 @@ const CheckUpdatesLaterThenTimeRequest$json = {
   '2': [
     {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
     {'1': 'timestamp', '3': 2, '4': 1, '5': 12, '10': 'timestamp'},
-    {'1': 'sort_conditions', '3': 3, '4': 1, '5': 12, '10': 'sortConditions'},
+    {'1': 'ascending_order', '3': 3, '4': 1, '5': 8, '10': 'ascendingOrder'},
   ],
 };
 
 /// Descriptor for `CheckUpdatesLaterThenTimeRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List checkUpdatesLaterThenTimeRequestDescriptor = $convert.base64Decode(
     'CiBDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG'
-    '1hbmFnZUlkEhwKCXRpbWVzdGFtcBgCIAEoDFIJdGltZXN0YW1wEicKD3NvcnRfY29uZGl0aW9u'
-    'cxgDIAEoDFIOc29ydENvbmRpdGlvbnM=');
+    '1hbmFnZUlkEhwKCXRpbWVzdGFtcBgCIAEoDFIJdGltZXN0YW1wEicKD2FzY2VuZGluZ19vcmRl'
+    'chgDIAEoCFIOYXNjZW5kaW5nT3JkZXI=');
 
 @$core.Deprecated('Use checkUpdatesLaterThenTimeResponseDescriptor instead')
 const CheckUpdatesLaterThenTimeResponse$json = {

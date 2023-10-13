@@ -23,7 +23,7 @@ pub fn add_managers(new_managers: Vec<Arc<Manager>>) -> Result<OperationResult, 
     let managers_map_arc = get_managers_map();
     let mut managers_map_lock = managers_map_arc.write();
     for m in new_managers.iter() {
-        managers_map_lock.insert(m.get_manager_id(), m.clone());
+        managers_map_lock.insert(m.get_id(), m.clone());
     }
 
     Ok(operation_succeed("ok"))

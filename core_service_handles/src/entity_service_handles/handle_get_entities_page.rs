@@ -89,7 +89,7 @@ async fn handle_get_entities_page(
             matches.insert(k, v);
         });
     } else {
-        debug!("{}", t!("没有可读描写字段，用户不具有集合可读权限"));
+        debug!("{}: {}-{}", t!("没有可读描写字段，用户不具有集合可读权限"), manage_id, role_group);
         return Err(Status::unauthenticated(
             "没有可读描写字段，用户不具有集合可读权限",
         ));

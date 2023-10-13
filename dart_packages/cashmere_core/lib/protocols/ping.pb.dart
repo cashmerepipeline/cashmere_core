@@ -14,14 +14,22 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// ping 网络是否正常
-/// 发送一个时间到服务端，服务端返回相同的时间，判断是否正常和时间间隔
-/// 共发送2次，第一次发送0，第二次返回接收到的时间
+/// ping 网络是否正常， 双向流
+/// 发送一个时间到服务端，判断是否正常和时间间隔
+/// 第一次发送0，之后返回接收到的时间
 class PingRequest extends $pb.GeneratedMessage {
   factory PingRequest({
+    $fixnum.Int64? index,
+    $core.String? deviceId,
     $fixnum.Int64? time,
   }) {
     final $result = create();
+    if (index != null) {
+      $result.index = index;
+    }
+    if (deviceId != null) {
+      $result.deviceId = deviceId;
+    }
     if (time != null) {
       $result.time = time;
     }
@@ -32,7 +40,9 @@ class PingRequest extends $pb.GeneratedMessage {
   factory PingRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PingRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$fixnum.Int64>(1, _omitFieldNames ? '' : 'time', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(1, _omitFieldNames ? '' : 'index', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOS(2, _omitFieldNames ? '' : 'deviceId')
+    ..a<$fixnum.Int64>(3, _omitFieldNames ? '' : 'time', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -57,22 +67,46 @@ class PingRequest extends $pb.GeneratedMessage {
   static PingRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PingRequest>(create);
   static PingRequest? _defaultInstance;
 
-  /// 使用当前时间作为ping请求
+  /// 编号
   @$pb.TagNumber(1)
-  $fixnum.Int64 get time => $_getI64(0);
+  $fixnum.Int64 get index => $_getI64(0);
   @$pb.TagNumber(1)
-  set time($fixnum.Int64 v) { $_setInt64(0, v); }
+  set index($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasTime() => $_has(0);
+  $core.bool hasIndex() => $_has(0);
   @$pb.TagNumber(1)
-  void clearTime() => clearField(1);
+  void clearIndex() => clearField(1);
+
+  /// 设备id， 用于区分不同设备端，根据情况需要设置，比如使用帐号作为id
+  @$pb.TagNumber(2)
+  $core.String get deviceId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set deviceId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDeviceId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDeviceId() => clearField(2);
+
+  /// 第一次发送0， 第二次返回服务器时间
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get time => $_getI64(2);
+  @$pb.TagNumber(3)
+  set time($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTime() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTime() => clearField(3);
 }
 
 class PingResponse extends $pb.GeneratedMessage {
   factory PingResponse({
+    $fixnum.Int64? index,
     $fixnum.Int64? time,
   }) {
     final $result = create();
+    if (index != null) {
+      $result.index = index;
+    }
     if (time != null) {
       $result.time = time;
     }
@@ -83,7 +117,8 @@ class PingResponse extends $pb.GeneratedMessage {
   factory PingResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PingResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$fixnum.Int64>(1, _omitFieldNames ? '' : 'time', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(1, _omitFieldNames ? '' : 'index', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(2, _omitFieldNames ? '' : 'time', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -110,13 +145,22 @@ class PingResponse extends $pb.GeneratedMessage {
 
   /// 返回ping请求的时间
   @$pb.TagNumber(1)
-  $fixnum.Int64 get time => $_getI64(0);
+  $fixnum.Int64 get index => $_getI64(0);
   @$pb.TagNumber(1)
-  set time($fixnum.Int64 v) { $_setInt64(0, v); }
+  set index($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasTime() => $_has(0);
+  $core.bool hasIndex() => $_has(0);
   @$pb.TagNumber(1)
-  void clearTime() => clearField(1);
+  void clearIndex() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get time => $_getI64(1);
+  @$pb.TagNumber(2)
+  set time($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTime() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTime() => clearField(2);
 }
 
 
