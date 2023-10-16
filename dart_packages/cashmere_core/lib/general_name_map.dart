@@ -19,11 +19,9 @@ final Map<int, Map<String, String>> generalSchemaFieldsNameMap = {
 // 组
   GROUPS_FIELD_ID: {"zh": "组", "en": "group"},
 // 相关数据
-  DATAS_FIELD_ID: {"zh": "数据", "en": "datas"},
-// 已删除相关数据
-  DATAS_REMOVED_FIELD_ID: {"zh": "已删除数据", "en": "datas"},
+  SPECS_FIELD_ID: {"zh": "规格", "en": "datas"},
 // 注释和评论
   COMMENTS_FIELD_ID: {"zh": "评论", "en": "id"},
 // 删除标记
-  ENTITY_REMOVED_FIELD_ID: {"zh": "删除标记", "en": "removed"}
+  REMOVED_FIELD_ID: {"zh": "删除标记", "en": "removed"}
 };

@@ -134,7 +134,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     entity_removed_name_map.insert("zh".to_string(), "已移除".to_string());
     entity_removed_name_map.insert("en".to_string(), "name".to_string());
     let entity_removed_field = PropertyField {
-        id: ENTITY_REMOVED_FIELD_ID,
+        id: REMOVED_FIELD_ID,
         name_map: entity_removed_name_map,
         data_type: FieldDataType::Bool,
         removed: false,

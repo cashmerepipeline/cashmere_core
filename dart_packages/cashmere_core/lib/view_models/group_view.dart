@@ -1,3 +1,5 @@
-import 'package:cashmere_core/entity/entity_base.dart';
+import 'package:cashmere_core/view_models/entity_view_base.dart';
 
-class GroupView with EntityBase {}
+class GroupView extends EntityViewBase {
+  GroupView(super.id);
+}

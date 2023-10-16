@@ -1,0 +1,11 @@
+
+syntax = "proto3";
+package cashmere;
+
+// 价格
+message Price {
+  // 价格
+  uint32 price = 1;
+  // 货币
+  string currency = 2;
+}

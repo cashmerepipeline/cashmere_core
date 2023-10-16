@@ -8,7 +8,8 @@ name_map = { zh = "模板", en = "templates" }
 # 描写，模式
 schema = [
   { data_type = "String", name_map = { zh = "管理", en = "manage" }, removed = false },
-  { data_type = "List", name_map = { zh = "预设表", en = "presets" }, removed = false },
+  # 字段的值表，bson二进制序列
+  { data_type = "Map", name_map = { zh = "预设", en = "presets" }, removed = false },
 ]
 
 [items]

@@ -27,7 +27,7 @@ pub const TAGS_FIELD_ID: i32 = 1010;
 // 描述
 pub const DESCRIPTIONS_FIELD_ID: i32 = 1011;
 // 删除标记
-pub const ENTITY_REMOVED_FIELD_ID: i32 = 1200;
+pub const REMOVED_FIELD_ID: i32 = 1200;
 // 删除数据
 pub const DATAS_REMOVED_FIELD_ID: i32 = 1900;
 

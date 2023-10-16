@@ -1,5 +1,5 @@
 // 取得管理描写表
-import 'package:cashmere_core/core/name_map_utils.dart';
+import 'package:cashmere_core/core/name_map_from_bytes.dart';
 import 'package:cashmere_core/protocols/manage_schema.pb.dart' as s_massge;
 
 class SchemaField {

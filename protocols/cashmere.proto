@@ -11,9 +11,11 @@ import "constant.proto";
 import "group.proto";
 import "field_data_type.proto";
 import "property_type.proto";
+
 import "name.proto";
 import "color.proto";
 import "gender.proto";
+import "price.proto";
 
 import "entity.proto";
 import "entity_template.proto";

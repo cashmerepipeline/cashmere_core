@@ -3,7 +3,7 @@ use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
-use manage_define::{cashmere::*, general_field_ids::ENTITY_REMOVED_FIELD_ID};
+use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
@@ -80,7 +80,7 @@ async fn handle_get_removed_entities_page(
     };
 
     // 加入移除标记过滤
-    matches.insert(ENTITY_REMOVED_FIELD_ID.to_string(), true);
+    matches.insert(REMOVED_FIELD_ID.to_string(), true);
 
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;

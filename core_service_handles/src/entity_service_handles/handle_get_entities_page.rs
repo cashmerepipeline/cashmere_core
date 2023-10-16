@@ -5,7 +5,7 @@ use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
-use manage_define::{cashmere::*, general_field_ids::ENTITY_REMOVED_FIELD_ID};
+use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
 use managers::traits::ManagerTrait;
 use request_utils::request_account_context;
 
@@ -95,7 +95,7 @@ async fn handle_get_entities_page(
         ));
     };
 
-    matches.insert(ENTITY_REMOVED_FIELD_ID.to_string(), false);
+    matches.insert(REMOVED_FIELD_ID.to_string(), false);
 
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;

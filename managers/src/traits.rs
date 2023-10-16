@@ -562,7 +562,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             ID_FIELD_ID.to_string(): entity_id
         };
         let mut m_doc = doc! {
-            ENTITY_REMOVED_FIELD_ID.to_string(): true
+            REMOVED_FIELD_ID.to_string(): true
         };
         match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id)
             .await
@@ -582,7 +582,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             ID_FIELD_ID.to_string(): entity_id
         };
         let mut m_doc = doc! {
-            ENTITY_REMOVED_FIELD_ID.to_string(): false
+            REMOVED_FIELD_ID.to_string(): false
         };
         match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id)
             .await
