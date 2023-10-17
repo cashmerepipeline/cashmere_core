@@ -19,4 +19,5 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/tag.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/ping.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/constant.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/price.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/range.proto
 
