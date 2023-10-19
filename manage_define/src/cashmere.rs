@@ -33,16 +33,6 @@ pub struct Name {
     #[prost(string, tag = "2")]
     pub name: ::prost::alloc::string::String,
 }
-/// 名属性，语言：语言名
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NameField {
-    #[prost(map = "string, string", tag = "1")]
-    pub name_field: ::std::collections::HashMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-}
 /// 重命名
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -480,6 +470,17 @@ impl Gender {
             _ => None,
         }
     }
+}
+/// 价格
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Price {
+    /// 价格
+    #[prost(uint32, tag = "1")]
+    pub price: u32,
+    /// 货币
+    #[prost(string, tag = "2")]
+    pub currency: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1316,4 +1317,81 @@ pub struct RemoveTagsFromEntityResponse {
     /// 成功返回“ok”, 失败返回错误信息
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Calendar {
+    #[prost(enumeration = "CalendarType", tag = "1")]
+    pub r#type: i32,
+    /// {"year"| "month"| "week"}
+    #[prost(string, tag = "2")]
+    pub every: ::prost::alloc::string::String,
+    /// {"day": day, "hour": hour, "minute": minute}
+    #[prost(map = "string, string", tag = "3")]
+    pub daytime: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub calendar: ::core::option::Option<Calendar>,
+    #[prost(string, tag = "4")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarResponse {
+    /// 成功返回新日历编码，失败返回信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCalendarsRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCalendarsResponse {
+    /// 成功返回日历列表，失败返回信息
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub calendars: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum CalendarType {
+    Specified = 0,
+    Scripted = 1,
+}
+impl CalendarType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            CalendarType::Specified => "Specified",
+            CalendarType::Scripted => "Scripted",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Specified" => Some(Self::Specified),
+            "Scripted" => Some(Self::Scripted),
+            _ => None,
+        }
+    }
 }
