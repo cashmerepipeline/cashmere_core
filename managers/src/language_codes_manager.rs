@@ -14,15 +14,17 @@ use dependencies_sync::tonic::async_trait;
 
 use dependencies_sync::parking_lot::RwLock;
 
-use super::{Manager, ManagerInner, ManagerTrait};
+use super::ManagerTrait;
 
-use cash_core::{manage_from_document, Manage};
+use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
 use crate::declare_get_manager;
 use dependencies_sync::bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
+use crate::manager::Manager;
+use crate::manager_inner::ManagerInner;
 
 #[derive(Default)]
 pub struct LanguageCodesManager;

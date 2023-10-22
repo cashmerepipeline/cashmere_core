@@ -11,7 +11,7 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 use manage_define::manage_ids::*;
 use request_utils::request_account_context;
 
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 use view;
 use view::ReadRule;

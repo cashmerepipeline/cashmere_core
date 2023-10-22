@@ -10,12 +10,12 @@ use dependencies_sync::rust_i18n::{self};
 rust_i18n::i18n!("locales");
 
 
-pub use manager_inits::*;
+pub use init_managers::*;
 pub use majordomo::*;
 pub use majordomo_arc::*;
 pub use managers_map::*;
 
-mod manager_inits;
+mod init_managers;
 mod majordomo;
 mod majordomo_arc;
 mod managers_map;

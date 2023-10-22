@@ -12,9 +12,12 @@ use database;
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
-use dependencies_sync::mongodb::Cursor;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tokio;
+use dependencies_sync::tokio::sync::mpsc;
+use dependencies_sync::tokio_stream::StreamExt;
+use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tonic::async_trait;
 use entity;
 use manage_define::field_ids::*;
@@ -22,6 +25,8 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use property_field::*;
 
+use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::entity_cache_map::cache_get_entity;
 use crate::schema::schema_field_exists;
 
 /// 管理接口
@@ -420,21 +425,34 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 实体相关操作
     // ---------------------
 
-    // 实体是否缓存
+    // 实体缓存
     fn has_cache(&self) -> bool;
-    // TODO: init
-    // fn init_cache(&self) -> Result<OperationResult, OperationResult>;
+
+    async fn init_cache(&self) -> Result<OperationResult, OperationResult> {
+        cache_init_cache(self.get_id()).await
+    }
+
     // fn get_entities_cache_map(&self) -> Option<Arc<RwLock<HashMap<i32, Document>>>>;
     // fn refresh_cache(&self) -> Result<OperationResult, OperationResult>;
 
-    async fn update_cache(&self, _new_doc: &Document) -> Result<OperationResult, OperationResult> {
+    // 直接替换缓存中的实体
+    async fn update_cache(&self, new_doc: &Document) -> Result<OperationResult, OperationResult> {
         if !self.has_cache() {
             return Ok(operation_succeed("管理没有缓存，不需要更新"));
         }
-        Err(operation_failed(
-            "update_cache",
-            "需要实现管理自己的更新方法",
-        ))
+
+        let id = if let Ok(r) = new_doc.get_str(ID_FIELD_ID.to_string()) {
+            r.to_string()
+        } else {
+            return Err(operation_failed(
+                "update_cache",
+                t!("新实体没有编号, 格式不正确"),
+            ));
+        };
+
+        cache_update_entity(self.get_id(), &id, new_doc.clone());
+
+        Ok(operation_succeed(format!("{}: {}", t!("更新缓存完成"), id)))
     }
 
     async fn get_entry_counts(&self, filter_doc: Document) -> Result<u64, OperationResult> {
@@ -479,6 +497,15 @@ pub trait ManagerTrait: Any + Send + Sync {
     /// 通过id取得实体
     async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
         let manage_id = self.get_id().to_string();
+        // 如果存在缓存，从缓存中取得
+        if self.has_cache() {
+            let result = cache_get_entity(self.get_id(), entity_id);
+            return match result {
+                Some(r) => Ok(r),
+                None => Err(operation_failed("get_entity_by_id", t!("取得实体缓存失败"))),
+            };
+        }
+
         match entity::get_entity_by_id(&manage_id, entity_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -519,17 +546,33 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-    async fn get_query_cursor(
+    async fn get_entity_stream(
         &self,
         matches: Document,
         projects: Option<Document>,
         sorts: Option<Document>,
-    ) -> Result<Cursor<Document>, OperationResult> {
-        let manage_id = self.get_id().to_string();
+    ) -> Result<ReceiverStream<Document>, OperationResult> {
+        let manage_id = self.get_id();
 
-        match entity::get_query_cursor(&manage_id, matches, projects, sorts).await {
-            Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "manager::get_query_cursor".to_string())),
+        if self.has_cache() {
+            return Ok(cache_get_entity_stream(self.get_id()).await);
+        }
+
+        match entity::get_query_cursor(&manage_id.to_string(), matches, projects, sorts).await {
+            Ok(mut r) => {
+                let (tx, rv) = mpsc::channel(1);
+                tokio::spawn(async move {
+                    while let Some(r) = r.next().await {
+                        tx.send(r.unwrap()).await;
+                    }
+                });
+
+                Ok(ReceiverStream::new(rv))
+            }
+            Err(e) => Err(add_call_name_to_chain(
+                e,
+                "manager::get_query_cursor".to_string(),
+            )),
         }
     }
 
@@ -607,12 +650,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &String,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
-        match entity::add_to_array_field(
-            &manage_id.to_string(),
-            query_doc,
-            modify_doc,
-            account_id,
-        )
+        match entity::add_to_array_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
             .await
         {
             Ok(r) => Ok(r),

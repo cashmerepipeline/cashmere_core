@@ -9,7 +9,7 @@ use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use property_field::PropertyField;
 use request_utils::request_account_context;
 

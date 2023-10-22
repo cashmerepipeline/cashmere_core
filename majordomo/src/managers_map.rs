@@ -5,8 +5,9 @@ use std::sync::Arc;
 use dependencies_sync::parking_lot::RwLock;
 
 use cash_result::*;
-use managers::{self, Manager};
-use managers::traits::ManagerTrait;
+use managers::{self};
+use managers::Manager;
+use managers::ManagerTrait;
 
 /// 管理表类型
 pub type ManagersMap = HashMap<i32, Arc<Manager>>;

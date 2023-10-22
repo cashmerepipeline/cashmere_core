@@ -4,7 +4,7 @@ use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};

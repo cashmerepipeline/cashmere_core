@@ -8,8 +8,8 @@ Introduction:
 #![allow(unused_imports)]
 #![allow(dead_code)]
 
-#[macro_use]
-extern crate rust_i18n;
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 
 pub use change_entity_owner::*;
@@ -80,3 +80,4 @@ mod get_entity_owner;
 mod get_entity_groups;
 
 mod get_entry_count;
+mod get_entity_count;

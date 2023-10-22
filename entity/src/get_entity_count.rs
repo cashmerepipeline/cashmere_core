@@ -13,7 +13,7 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 /// 取得实体数量
-pub async fn get_entry_count(
+pub async fn get_entity_count(
     collection_name: &String,
     filter_doc: Document,
 ) -> Result<u64, OperationResult> {
@@ -26,13 +26,16 @@ pub async fn get_entry_count(
         None => return Err(collection_not_exists("get_entity_by_id")),
     };
 
-    let result = collection.estimated_document_count(None).await;
+    let result = collection.count_documents(filter_doc, None).await;
+
+    // let result = collection.find(filter_doc, None).await;
 
     match result {
-        Ok(r) => Ok(r),
+        // Ok(r) => Ok(r.count().await as u64),
+        Ok( r) => Ok(r),
         Err(_e) => Err(operation_failed(
             "get_entry_count",
-            format!("获取实体数失败{}", collection_name),
+            format!("获取实体数量失败{}", collection_name),
         )),
     }
 }

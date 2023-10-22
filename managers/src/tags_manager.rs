@@ -1,17 +1,17 @@
 use std::sync::Arc;
 
-// use dependencies_sync::log::{error, info, warn};
-use dependencies_sync::bson;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
-use crate::{declare_get_manager, traits::ManagerTrait, Manager, ManagerInner};
-use cash_core::{manage_from_document, Manage};
+use crate::{declare_get_manager, manager_trait::ManagerTrait};
+use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::TAGS_MANAGE_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
+use crate::manager::Manager;
+use crate::manager_inner::ManagerInner;
 
 #[derive(Default)]
 pub struct TagsManager;

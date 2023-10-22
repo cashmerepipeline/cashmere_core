@@ -9,7 +9,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::{LANGUAGES_CODES_MANAGE_ID, PHONE_AREA_CODES_MANAGE_ID};
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
@@ -56,20 +56,13 @@ async fn handle_language_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_query_cursor(query_doc, None, None).await;
+    let result = manager.get_entity_stream(query_doc, None, None).await;
 
     match result {
         Ok(mut entities_iter) => {
             let mut result_codes = vec![];
             while let Some(r) = entities_iter.next().await {
-                let d = if let Ok(d) = r {
-                    d
-                } else {
-                    error!("{}", t!("获取手机区号失败"));
-                    continue;
-                };
-
-                let code = bson::to_vec(&d).unwrap();
+                let code = bson::to_vec(&r).unwrap();
 
                 result_codes.push(code);
             }

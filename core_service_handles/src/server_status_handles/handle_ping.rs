@@ -13,7 +13,7 @@ use manage_define::field_ids::{
 };
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use request_utils::{request_account_context, validate_auth_token, validate_has_role_group};
 

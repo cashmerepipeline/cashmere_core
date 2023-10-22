@@ -9,7 +9,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 
 use service_utils::types::UnaryResponseResult;
 

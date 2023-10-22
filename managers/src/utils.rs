@@ -1,7 +1,8 @@
-use crate::{Manager, ManagerTrait};
+use crate::ManagerTrait;
 use dependencies_sync::bson::Document;
-use manage_define::general_field_ids::{REMOVED_FIELD_ID, ID_FIELD_ID};
+use manage_define::general_field_ids::{ID_FIELD_ID, REMOVED_FIELD_ID};
 use std::sync::Arc;
+use crate::manager::Manager;
 
 /// 新建一个实体记录
 pub async fn make_new_entity_document(manager: &Arc<Manager>, account_id: &String) -> Option<Document> {

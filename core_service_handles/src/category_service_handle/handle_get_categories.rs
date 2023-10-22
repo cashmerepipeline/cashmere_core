@@ -10,7 +10,7 @@ use manage_define::field_ids::*;
 
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::{CATEGORIES_MANAGE_ID};
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -60,20 +60,13 @@ async fn handle_get_categories(
         CATEGORIES_MANAGE_ID_FIELD_ID.to_string():manage_id,
     };
 
-    let result = manager.get_query_cursor(query_doc, None, None).await;
+    let result = manager.get_entity_stream(query_doc, None, None).await;
 
     match result {
         Ok(mut entities_iter) => {
             let mut results = vec![];
             while let Some(r) = entities_iter.next().await {
-                let d = if let Ok(d) = r {
-                    d
-                } else {
-                    error!("{}-{}", t!("获取失败"), manage_id);
-                    continue;
-                };
-
-                results.push(bson::to_vec(&d).unwrap());
+                results.push(bson::to_vec(&r).unwrap());
             }
 
             Ok(Response::new(GetCategoriesResponse {

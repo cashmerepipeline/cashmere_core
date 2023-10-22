@@ -2,6 +2,7 @@ use cash_result::*;
 use dependencies_sync::bson::doc;
 use dependencies_sync::log::trace;
 use dependencies_sync::mongodb::bson::Document;
+use dependencies_sync::rust_i18n::{self, t};
 
 use crate::utils::add_modify_update_fields;
 

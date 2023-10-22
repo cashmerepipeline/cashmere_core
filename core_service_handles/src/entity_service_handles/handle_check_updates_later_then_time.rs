@@ -9,7 +9,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -100,7 +100,7 @@ async fn handle_check_updates_later_then_time(
     };
 
     let mut query_cursor = match manager
-        .get_query_cursor(query_doc, Some(project_doc), Some(sort_doc))
+        .get_entity_stream(query_doc, Some(project_doc), Some(sort_doc))
         .await
     {
         Ok(cursor) => cursor,
@@ -128,15 +128,8 @@ async fn handle_check_updates_later_then_time(
         let mut limit_count = 0;
         let mut ids = vec![];
         while let Some(result) = query_cursor.next().await {
-            match result {
-                Ok(d) => {
-                    let id = d.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
-                    ids.push(id);
-                }
-                Err(e) => {
-                    error!("{}: {}", t!("取得查询失败"), e);
-                }
-            }
+            let id = result.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
+            ids.push(id);
 
             // 满20，发送到返回流
             if ids.len() >= 20 {

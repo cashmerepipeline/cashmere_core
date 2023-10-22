@@ -4,7 +4,8 @@ use cash_result::{operation_failed, OperationResult};
 use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use managers::{Manager, ManagerTrait};
+use managers::ManagerTrait;
+use managers::Manager;
 
 use crate::{get_managers_map, ManagersMap};
 use crate::managers_map::add_managers;

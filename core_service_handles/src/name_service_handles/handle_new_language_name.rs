@@ -6,7 +6,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};

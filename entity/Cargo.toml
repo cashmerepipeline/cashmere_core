@@ -19,11 +19,10 @@ dependencies_sync = { path = "../dependencies_sync", features = [
     "futures",
     "chrono",
     "mongodb",
+    "rust-i18n",
+    "once_cell",
 ] }
 
 #mongodb = {version="2.2.1", default_features=false, features=["async-std-runtime"]}
 serde = "1.0"
 serde_derive = "1.0"
-
-rust-i18n = "1.0"
-once_cell = "1.8.0"

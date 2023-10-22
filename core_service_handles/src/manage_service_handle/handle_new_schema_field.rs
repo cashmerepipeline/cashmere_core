@@ -6,7 +6,7 @@ use dependencies_sync::linked_hash_map::LinkedHashMap;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 use property_field::{FieldDataType, PropertyField};
 

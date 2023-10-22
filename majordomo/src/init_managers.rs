@@ -4,15 +4,15 @@
 
 use std::sync::Arc;
 
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::log::info;
+use dependencies_sync::rust_i18n::{self, t};
 
-use managers::traits::ManagerTrait;
 use managers::Manager;
+use managers::ManagerTrait;
 
 use crate::majordomo_arc::get_majordomo;
 
-pub fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
+pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
     info!("初始化主管");
     let majordomo_lock = get_majordomo();
 
@@ -29,6 +29,12 @@ pub fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
                 t!("请检查管理编号指定"),
                 manager_id
             );
+        }
+
+        if m.has_cache() {
+            if m.init_cache().await.is_err() {
+                panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
+            };
         }
 
         manages_map.insert(manager_id, m.clone());

@@ -6,7 +6,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::ID_FIELD_ID;
-use managers::traits::ManagerTrait;
+use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, iter, StreamExt};
