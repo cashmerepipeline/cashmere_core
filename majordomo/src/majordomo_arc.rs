@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use dependencies_sync::log::info;
+use dependencies_sync::rust_i18n::{self, t};
 
 use crate::majordomo::Majordomo;
 
@@ -8,7 +9,8 @@ static mut MAJORDOMO: Option<Arc<Majordomo>> = None;
 
 /// 从设置新建管理管理器
 fn init_majordomo() -> Arc<Majordomo> {
-    info!("初始化主管实例");
+    info!("{}", t!("初始化主管实例"));
+
     let majordomo = Majordomo::new();
     Arc::new(majordomo)
 }

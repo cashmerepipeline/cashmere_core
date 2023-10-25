@@ -29,6 +29,7 @@ import "position.proto";
 import "category.proto";
 import "tag.proto";
 import "calendar.proto";
+import "search.proto";
 
 service CashmereGrpc{
   // // =====管理=====

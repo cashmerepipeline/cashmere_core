@@ -7,7 +7,7 @@ Modified: !date!
 */
 
 use cash_result::*;
-use tokio::runtime::Handle;
+use dependencies_sync::tokio::runtime::Handle;
 
 pub static mut TOKIO_RUNTIME_HANDLE: Option<Handle> = None;
 

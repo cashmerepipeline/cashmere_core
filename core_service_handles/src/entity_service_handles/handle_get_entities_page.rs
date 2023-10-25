@@ -17,7 +17,8 @@ use service_utils::types::UnaryResponseResult;
 
 #[async_trait]
 pub trait HandleGetEntitiesPage {
-    /// 取得产品分页
+    /// zh: 取得产品分页
+    /// en: Get product page
     async fn handle_get_entities_page(
         &self,
         request: Request<GetEntitiesPageRequest>,
@@ -95,6 +96,8 @@ async fn handle_get_entities_page(
         ));
     };
 
+    // zh: 只返回未删除的实体,
+    // en: only return not removed entities
     matches.insert(REMOVED_FIELD_ID.to_string(), false);
 
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
@@ -114,7 +117,8 @@ async fn handle_get_entities_page(
         None
     };
 
-    // zh: 从1开始，
+    // zh: 页码从1开始，
+    // en: page index from 1
     let index = if *page_index == 0u32 {
         1u32
     } else {

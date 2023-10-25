@@ -1,24 +1,26 @@
 [package]
-name = "auth"
-version = "0.2.2"
-authors = ["yes7rose <yes7rose@sina.com>"]
+name = "search_engine"
+version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 configs = { path = "../configs" }
+cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
+database = { path = "../database" }
+entity ={ path = "../entity"}
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tokio",
+  "mongodb",
+  "bson",
   "rust-i18n",
   "once_cell",
-  "futures",
-  "chrono",
-  "serde",
+  "tantivy",
+  "serde_json",
+  "log",
 ] }
 
-rust-argon2 = "1.0"
-jsonwebtoken = "7.2"
-serde = { version = "1.0", features = ["derive"] }

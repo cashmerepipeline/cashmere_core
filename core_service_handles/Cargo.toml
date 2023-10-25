@@ -37,6 +37,8 @@ property_field = { path = "../property_field" }
 view = { path = "../view" }
 request_utils = { path = "../request_utils" }
 service_utils = { path = "../service_utils" }
+database = {path = "../database"}
+search_engine = {path = "../search_engine"}
 
 # [features]
 # view_rules_validate = ["view/view_rules_validate"]

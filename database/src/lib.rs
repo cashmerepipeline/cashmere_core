@@ -3,177 +3,24 @@
 所有操作只使用一个client, 需要进一步测试
 */
 
-use std::sync::Arc;
+use dependencies_sync::rust_i18n::{self};
+rust_i18n::i18n!("locales");
 
-use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::mongodb::{self, options::ClientOptions, options::ServerAddress, Client, Collection, Database};
+pub use get_mongodb_client::*;
+pub use get_cashmere_database::*;
+pub use collection_exists::*;
+pub use get_collection_by_id::*;
+pub use get_manages_collection::*;
+pub use get_ids_collection::*;
+pub use init_ids_count_field::*;
 
-
-// use  manage_define::manage_ids::MANAGES_MANAGE_ID;
-use cash_result::{operation_failed, operation_succeed, OperationResult};
-
-use manage_define::manage_ids::{IDS_MANAGE_ID, MANAGES_MANAGE_ID};
-
-pub type MongodbResult<T> = mongodb::error::Result<T>;
-
-static mut CASHMERE_DATABASE: Option<Arc<Database>> = None;
-static mut MONGODB_CLIENT: Option<Arc<Client>> = None;
-
-/// 取得客户端
-pub async fn get_mongodb_client() -> &'static Client {
-    unsafe {
-        if MONGODB_CLIENT.is_some() {
-            MONGODB_CLIENT.as_ref().unwrap()
-        } else {
-            let database_configs = configs::get_database_configs();
-
-            MONGODB_CLIENT.get_or_insert_with(|| {
-                let options = ClientOptions::builder()
-                    .hosts(vec![ServerAddress::Tcp {
-                        host: database_configs.address.clone(),
-                        port: Some(database_configs.port),
-                    }])
-                    .build();
-
-                let client = match Client::with_options(options) {
-                    Ok(r) => r,
-                    Err(_e) => panic!("连接到数据库失败"),
-                };
-                Arc::new(client)
-            });
-            MONGODB_CLIENT.as_ref().unwrap()
-        }
-    }
-}
-
-/// 根据设置文件，取得数据库
-pub async fn get_cashmere_database() -> &'static Database {
-    unsafe {
-        if CASHMERE_DATABASE.is_some() {
-            CASHMERE_DATABASE.as_ref().unwrap()
-        } else {
-            let database_configs = configs::get_database_configs();
-
-            CASHMERE_DATABASE.get_or_insert_with(|| {
-                let options = ClientOptions::builder()
-                    .hosts(vec![ServerAddress::Tcp {
-                        host: database_configs.address.clone(),
-                        port: Some(database_configs.port),
-                    }])
-                    .build();
-
-                let client = match Client::with_options(options) {
-                    Ok(r) => r,
-                    Err(_e) => panic!("连接到数据库失败"),
-                };
-                Arc::new(client.database(database_configs.name.as_str()))
-            });
-
-            CASHMERE_DATABASE.as_ref().unwrap()
-        }
-    }
-}
-
-/// 集合是否存在
-pub async fn collection_exists(collection: &String) -> bool {
-    let db = get_cashmere_database().await;
-    let collections = db.list_collection_names(None).await.unwrap();
-
-    collections.contains(collection)
-}
-
-/// 取得集合
-pub async fn get_collection_by_id(manage_id: &String) -> Option<Collection<Document>> {
-    let cashmere_db = get_cashmere_database().await;
-
-    // 不存在
-    if !collection_exists(manage_id).await {
-        return None;
-    }
-
-    Some(cashmere_db.collection(manage_id))
-}
-
-/// 取得管理-管理集合, 不存在则新建
-pub async fn get_manages_collection() -> Collection<Document> {
-    let cashmere_db = get_cashmere_database().await;
-
-    let manages_id = &MANAGES_MANAGE_ID.to_string();
-
-    // manages 不存在则创建
-    if !collection_exists(manages_id).await {
-        cashmere_db
-            .create_collection(manages_id, None)
-            .await
-            .expect("创建管理失败");
-    }
-
-    cashmere_db.collection(manages_id)
-}
-
-/// 取得编号-管理集合, 不存在则新建
-pub async fn get_ids_collection() -> Collection<Document> {
-    let cashmere_db = get_cashmere_database().await;
-
-    let manages_id = &IDS_MANAGE_ID.to_string();
-
-    // manages 不存在则创建
-    if !collection_exists(manages_id).await {
-        cashmere_db
-            .create_collection(manages_id, None)
-            .await
-            .expect("创建管理失败");
-    }
-
-    cashmere_db.collection(manages_id)
-}
-
-/// 初始化实体编号字段
-pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult, OperationResult> {
-    let ids_collection = get_ids_collection().await;
-
-    let f_result = ids_collection
-        .find_one(
-            doc! {
-                "_id": manage_id.clone()
-            },
-            None,
-        )
-        .await;
-
-    if let Ok(r) = f_result {
-        if r.is_none() {
-            match ids_collection
-                .insert_one(
-                    doc! {
-                        "_id": manage_id.clone(),
-                        "id_count": 0i32
-                    },
-                    None,
-                )
-                .await
-            {
-                Ok(_r) => (),
-                Err(_e) => {
-                    return Err(operation_failed(
-                        "init_ids_count_field",
-                        "初始化序列号记录失败",
-                    ))
-                }
-            };
-        } else {
-            log::info! {"序号生成器记录已存在 {}", manage_id};
-            return Ok(operation_succeed("already exits"));
-        }
-    } else {
-        return Err(operation_failed(
-            "init_ids_count_field",
-            "初始化序列号记录失败",
-        ));
-    }
-
-    Ok(operation_succeed("ok"))
-}
+mod get_mongodb_client;
+mod get_cashmere_database;
+mod collection_exists;
+mod get_collection_by_id;
+mod get_manages_collection;
+mod get_ids_collection;
+mod init_ids_count_field;
 
 #[cfg(test)]
 mod tests {
@@ -183,7 +30,7 @@ mod tests {
 
     #[test]
     fn test_database() {
-        let db = tokio_test::block_on(get_cashmere_database());
+        let db = tokio_test::block_on(get_cashmere_database::get_cashmere_database());
         tokio_test::block_on(db.create_collection("test", None)).expect("创建测试集合失败");
         let collection = db.collection("test");
         let doc = doc! {

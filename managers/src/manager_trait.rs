@@ -14,6 +14,7 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tantivy::schema::{Schema, STORED, TEXT, FAST, STRING};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
 use dependencies_sync::tokio_stream::StreamExt;
@@ -24,6 +25,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use property_field::*;
+use search_engine::watch_manage_collection;
 
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;
@@ -761,4 +763,21 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     // ---------------------
     // 数据
+
+    // ---------------
+    // 搜索引擎索引
+    fn tantivy_schema(&self)-> Schema {
+        let mut schema_builder = Schema::builder();
+        let id = schema_builder.add_text_field("_id", STORED | TEXT);
+        let idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
+        let name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), STORED | TEXT);
+        let description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), STORED | TEXT);
+        let modify_time = schema_builder.add_u64_field(MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(), STORED | FAST);
+
+        schema_builder.build()
+    }
+
+    async fn watch_collection(&self){
+        watch_manage_collection(self.get_id()).await;
+    }
 }

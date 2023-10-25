@@ -6,7 +6,6 @@ Created:  2020-11-29T04:53:15.516Z
 Modified: !date!
 */
 use dependencies_sync::rust_i18n::{self};
-
 rust_i18n::i18n!("locales");
 
 

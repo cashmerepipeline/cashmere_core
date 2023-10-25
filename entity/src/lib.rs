@@ -21,6 +21,7 @@ pub use get_entities_by_page::*;
 pub use get_query_cursor::*;
 
 pub use get_entity_by_id::*;
+pub use get_entity_by_objectid::*;
 pub use get_entity_by_name::*;
 pub use get_entry_count::*;
 pub use get_entity_field::*;
@@ -66,6 +67,7 @@ mod insert_entity_map_field;
 mod update_entity_map_field;
 
 mod get_entity_by_id;
+mod get_entity_by_objectid;
 mod get_entity_by_name;
 mod get_entities;
 mod get_entities_by_page;

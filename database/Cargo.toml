@@ -1,6 +1,6 @@
 [package]
 name = "database"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 
@@ -10,11 +10,18 @@ edition = "2021"
 tokio-test = "0.4.1"
 
 [dependencies]
-configs = {path="../configs"}
-cash_core = {path="../cash_core"}
-cash_result = {path="../cash_result"}
-manage_define = {path="../manage_define"}
+configs = { path = "../configs" }
+cash_core = { path = "../cash_core" }
+cash_result = { path = "../cash_result" }
+manage_define = { path = "../manage_define" }
 
-dependencies_sync = {path="../dependencies_sync", features=["tokio", "mongodb", "bson"]}
-
-log="0.4.17"
+dependencies_sync = { path = "../dependencies_sync", features = [
+  "tokio",
+  "mongodb",
+  "bson",
+  "rust-i18n",
+  "once_cell",
+  "tantivy",
+  "serde_json",
+  "log",
+] }

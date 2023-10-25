@@ -7,7 +7,6 @@ Modified: !date!
 */
 
 syntax = "proto3";
-
 package cashmere;
 
 

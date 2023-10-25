@@ -1,3 +1,4 @@
+
 #[cfg(feature="futures")]
 pub use futures;
 
@@ -55,6 +56,9 @@ pub use serde;
 #[cfg(feature="serde_derive")]
 pub use serde_derive;
 
+#[cfg(feature="serde_json")]
+pub use serde_json;
+
 #[cfg(feature="log")]
 pub use log;
 
@@ -66,6 +70,10 @@ pub use rust_i18n;
 
 #[cfg(feature="once_cell")]
 pub use once_cell;
+
+#[cfg(feature="tantivy")]
+#[macro_use]
+pub extern crate tantivy;
 
 #[cfg(feature="clap")]
 pub use clap;

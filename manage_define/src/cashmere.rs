@@ -1395,3 +1395,22 @@ impl CalendarType {
         }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SearchRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    /// 搜索字段和关键字，bson document bytes
+    #[prost(map = "string, string", tag = "2")]
+    pub search_params: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SearchResponse {
+    /// 查找结果为json字符串
+    #[prost(string, repeated, tag = "1")]
+    pub results: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}

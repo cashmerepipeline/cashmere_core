@@ -12,6 +12,7 @@ pub use handle_get_entity::*;
 pub use handle_get_removed_entities_page::*;
 pub use handle_mark_entity_removed::*;
 pub use handle_recover_removed_entity::*;
+pub use handle_search::*;
 
 mod handle_change_entity_owner;
 mod handle_check_entities_update;
@@ -27,3 +28,4 @@ mod handle_get_entity;
 mod handle_get_removed_entities_page;
 mod handle_mark_entity_removed;
 mod handle_recover_removed_entity;
+mod handle_search;

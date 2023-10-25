@@ -5,6 +5,7 @@
 # Modified: !date!
 
 [workspace]
+resolver = "2"
 members = [
   "auth",
   "generate_defines",
@@ -23,7 +24,8 @@ members = [
   "managers",
   # "minit",
   "view",
-  "dependencies_sync"
+  "dependencies_sync",
+  "search_engine",
 ]
 
 exclude = ["server_template", "minit"]

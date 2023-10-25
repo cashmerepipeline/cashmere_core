@@ -9,4 +9,4 @@ edition = "2021"
 [dependencies]
 cash_core = {path="../cash_core"}
 cash_result = {path="../cash_result"}
-tokio="1.4.0"
+dependencies_sync ={ path = "../dependencies_sync", features = ["tokio"]}

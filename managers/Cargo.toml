@@ -14,6 +14,7 @@ entity = { path = "../entity" }
 configs = { path = "../configs" }
 manage_define = { path = "../manage_define" }
 property_field = { path = "../property_field" }
+search_engine ={ path = "../search_engine" }
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tonic",
