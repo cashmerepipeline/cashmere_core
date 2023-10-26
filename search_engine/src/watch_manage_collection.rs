@@ -68,11 +68,11 @@ pub async fn watch_manage_collection(manage_id: i32) {
                                 manage_id,
                                 &entity_id,
                                 &r.update_description.as_ref().unwrap().updated_fields,
-                            );
+                            ).await;
                         }
                         OperationType::Delete => {
                             // println!("{:?}", r.full_document.as_ref());
-                            handle_delete_event(manage_id, entity_id);
+                            handle_delete_event(manage_id, &entity_id);
                         }
                         OperationType::Replace => {
                             // println!("{:?}", r.full_document.as_ref());

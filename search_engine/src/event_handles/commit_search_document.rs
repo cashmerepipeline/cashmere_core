@@ -25,7 +25,7 @@ pub fn commit_search_document(
             entity_id.unwrap().as_str(),
         ));
     }
-    
+
     let database_id = update_document.get_object_id("_id").unwrap().to_string();
     let id = update_document.get_str(ID_FIELD_ID.to_string()).unwrap();
     let name_map = update_document
@@ -38,9 +38,14 @@ pub fn commit_search_document(
     });
     let description = update_document
         .get_str(DESCRIPTIONS_FIELD_ID.to_string())
-        .unwrap();
+        .unwrap_or("");
 
-    let modify_time = Utc::now().timestamp_millis();
+    let modify_time =
+        if let Ok(t) = update_document.get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string()) {
+            t.time as i64
+        } else {
+            Utc::now().timestamp_millis()
+        };
     let json_doc: serde_json::Value = json!({
             "_id": database_id,
             ID_FIELD_ID.to_string(): id,
@@ -68,6 +73,6 @@ pub fn commit_search_document(
         log::error!("{}: {}: {:?}", t!("提交失败"), manage_id, e);
         return Err(operation_failed("update_search_document", t!("提交失败")));
     };
-    
+
     Ok(())
 }

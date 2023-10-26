@@ -17,14 +17,21 @@ pub async fn handle_update_event(manage_id: i32, entity_id: &String, updates: &D
     let schema = get_manage_tantivy_schema(manage_id).unwrap();
 
     if let Ok(mut index_writer) = index.writer(15_000_000) {
-        let update_document = if let Ok(entity) =
-            entity::get_entity_by_objectid(&manage_id.to_string(), entity_id).await
-        {
-            entity
-        } else {
-            log::error!("{}: {}", t!("获取实体失败"), entity_id);
-            return;
-        };
+        let update_document =
+            match entity::get_entity_by_objectid(&manage_id.to_string(), entity_id).await {
+                Ok(entity) => entity,
+                Err(err) => {
+                    log::error!(
+                        "{}, {}: {}, {}",
+                        t!("更新实体失败"),
+                        t!("获取实体失败"),
+                        entity_id,
+                        err.details()
+                    );
+                    return;
+                }
+            };
+
         if let Err(err) = commit_search_document(
             &update_document,
             schema,
@@ -37,4 +44,6 @@ pub async fn handle_update_event(manage_id: i32, entity_id: &String, updates: &D
     } else {
         log::error!("{}: {}", t!("获取writer失败"), manage_id);
     }
+    
+    index.reader().unwrap().reload();
 }

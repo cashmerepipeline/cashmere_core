@@ -33,6 +33,8 @@ pub fn handle_insert_event(manage_id: i32, new_entity_id: &String, full_document
         log::error!("{}: {}", t!("获取writer失败"), manage_id);
         return;
     };
+
+    index.reader().unwrap().reload();
 }
 
 

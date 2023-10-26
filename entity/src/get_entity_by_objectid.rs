@@ -1,5 +1,7 @@
 use std::collections::BTreeMap;
+use std::str::FromStr;
 
+use dependencies_sync::bson::oid::ObjectId;
 use dependencies_sync::chrono::Utc;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
@@ -28,7 +30,7 @@ pub async fn get_entity_by_objectid(
     let result = collection
         .find_one(
             doc! {
-                "_id": id
+                "_id": ObjectId::from_str(id.as_str()).unwrap()
             },
             None,
         )
