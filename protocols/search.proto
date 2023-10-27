@@ -4,7 +4,7 @@ package cashmere;
 
 message SearchRequest{
   int32 manage_id = 1;
-  // 搜索字段和关键字，bson document bytes
+  // 搜索字段和关键字
   map<string, string> search_params = 2;
 }
 message SearchResponse{

@@ -7,7 +7,7 @@ use dependencies_sync::{
             ChangeStream,
         },
         error::Error,
-        options::{ChangeStreamOptions, ReadConcern},
+        options::{ChangeStreamOptions, ReadConcern, FullDocumentType},
     },
     rust_i18n::{self, t},
     tokio,
@@ -26,7 +26,9 @@ pub async fn watch_manage_collection(manage_id: i32) {
         let collection = get_collection_by_id(&manage_id.to_string()).await.unwrap();
         let read_concern = ChangeStreamOptions::builder()
             .read_concern(Some(ReadConcern::majority()))
+            .full_document(Some(FullDocumentType::UpdateLookup))
             .build();
+
         let mut change_stream: ChangeStream<ChangeStreamEvent<Document>> =
             match collection.watch(None, Some(read_concern)).await {
                 Ok(r) => r,
@@ -36,18 +38,19 @@ pub async fn watch_manage_collection(manage_id: i32) {
                 }
             };
 
-        while let result = &change_stream.next().await {
-            let change_event: &Result<ChangeStreamEvent<Document>, Error> = match result {
-                Some(c) => c,
-                None => {
-                    log::info!("{}: {}", t!("监听管理集结束"), manage_id);
-                    break;
-                }
-            };
+        // while let result = &change_stream.next().await {
+        //     let change_event: &Result<ChangeStreamEvent<Document>, Error> = match result {
+        //         Some(c) => c,
+        //         None => {
+        //             log::info!("{}: {}", t!("监听管理集结束"), manage_id);
+        //             break;
+        //         }
+        //     };
 
+        while let Some(change_event) = &change_stream.next().await {
             match change_event {
                 Ok(r) => {
-                    let entity_id = r
+                    let object_id = r
                         .document_key
                         .as_ref()
                         .unwrap()
@@ -59,20 +62,20 @@ pub async fn watch_manage_collection(manage_id: i32) {
                         OperationType::Insert => {
                             handle_insert_event(
                                 manage_id,
-                                &entity_id,
                                 r.full_document.as_ref().unwrap(),
                             );
                         }
                         OperationType::Update => {
                             handle_update_event(
                                 manage_id,
-                                &entity_id,
+                                &object_id,
                                 &r.update_description.as_ref().unwrap().updated_fields,
-                            ).await;
+                                r.full_document.as_ref().unwrap(),
+                            );
                         }
                         OperationType::Delete => {
                             // println!("{:?}", r.full_document.as_ref());
-                            handle_delete_event(manage_id, &entity_id);
+                            handle_delete_event(manage_id, &object_id);
                         }
                         OperationType::Replace => {
                             // println!("{:?}", r.full_document.as_ref());
@@ -84,7 +87,7 @@ pub async fn watch_manage_collection(manage_id: i32) {
                     // println!("{} {}: {:?}", t!("修改发生"), manage_id, r);
                 }
                 Err(err) => {
-                    log::error!("{}: {}", t!("监听数据发生错误"), manage_id);
+                    log::error!("{}: {}, {}", t!("监听数据发生错误"), manage_id, err);
                 }
             }
         }

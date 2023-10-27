@@ -10,19 +10,23 @@ use manage_define::general_field_ids::{
     DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
 
+use crate::get_manage_index_writer;
+
 pub fn commit_search_document(
     update_document: &bson::Document,
     schema: std::sync::Arc<Schema>,
     manage_id: i32,
     // 这里的id为数据库的objectid
-    entity_id: Option<String>,
-    mut writer: tantivy::IndexWriter,
+    object_id: Option<String>,
 ) -> Result<(), OperationResult> {
+    let writer_arc = get_manage_index_writer(manage_id);
+    let writer = writer_arc.read();
+
     // zh: 如果存在，先删除旧的
-    if entity_id.is_some() {
+    if object_id.is_some() {
         writer.delete_term(Term::from_field_text(
             schema.get_field("_id").unwrap(),
-            entity_id.unwrap().as_str(),
+            object_id.unwrap().as_str(),
         ));
     }
 
@@ -69,10 +73,5 @@ pub fn commit_search_document(
             t!("添加文档失败"),
         ));
     };
-    if let Err(e) = writer.commit() {
-        log::error!("{}: {}: {:?}", t!("提交失败"), manage_id, e);
-        return Err(operation_failed("update_search_document", t!("提交失败")));
-    };
-
     Ok(())
 }

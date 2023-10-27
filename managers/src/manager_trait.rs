@@ -14,21 +14,21 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::schema::{Schema, STORED, TEXT, FAST, STRING};
+use dependencies_sync::tantivy::schema::{Schema, FAST, STORED, STRING, TEXT};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 use entity;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use property_field::*;
-use search_engine::watch_manage_collection;
 
-use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;
+use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::get_text_options::get_text_options;
 use crate::schema::schema_field_exists;
 
 /// 管理接口
@@ -287,7 +287,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(()),
@@ -352,7 +352,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(operation_succeed("ok")),
@@ -412,7 +412,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             return Err(add_call_name_to_chain(
                 e,
@@ -426,6 +426,11 @@ pub trait ManagerTrait: Any + Send + Sync {
     // ---------------------
     // 实体相关操作
     // ---------------------
+
+    /// 实体是否可以删除，默认不可删除，使用removed字段
+    fn is_entity_deleteable(&self) -> bool{
+        false
+    }
 
     // 实体缓存
     fn has_cache(&self) -> bool;
@@ -674,7 +679,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -698,7 +703,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -766,18 +771,21 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     // ---------------
     // 搜索引擎索引
-    fn tantivy_schema(&self)-> Schema {
+    fn tantivy_schema(&self) -> Schema {
+        let text_options = get_text_options();
+
         let mut schema_builder = Schema::builder();
         let id = schema_builder.add_text_field("_id", STORED | TEXT);
         let idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let modify_time = schema_builder.add_u64_field(MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(), STORED | FAST);
+        let name_map = schema_builder
+            .add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), text_options.clone());
+        let description =
+            schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), text_options);
+        let modify_time = schema_builder.add_u64_field(
+            MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(),
+            STORED | FAST,
+        );
 
         schema_builder.build()
-    }
-
-    async fn watch_collection(&self){
-        watch_manage_collection(self.get_id()).await;
     }
 }

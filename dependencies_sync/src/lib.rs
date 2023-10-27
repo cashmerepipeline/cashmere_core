@@ -75,5 +75,11 @@ pub use once_cell;
 #[macro_use]
 pub extern crate tantivy;
 
+#[cfg(feature="cang-jie")]
+pub use cang_jie;
+
+#[cfg(feature="jieba-rs")]
+pub use jieba_rs;
+
 #[cfg(feature="clap")]
 pub use clap;

@@ -12,6 +12,8 @@ cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 database = { path = "../database" }
 entity ={ path = "../entity"}
+majordomo ={ path = "../majordomo"}
+managers ={ path = "../managers"}
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tokio",
@@ -22,5 +24,7 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "tantivy",
   "serde_json",
   "log",
+  "cang-jie",
+  "jieba-rs",
 ] }
 

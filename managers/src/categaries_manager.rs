@@ -6,6 +6,7 @@ use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tantivy::schema::*;
 
+use crate::get_text_options::get_text_options;
 use crate::{declare_get_manager, manager_trait::ManagerTrait};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
@@ -93,11 +94,13 @@ impl ManagerTrait for CategoriesManager {
     }
 
     fn tantivy_schema(&self)-> Schema {
+        let token_options = get_text_options();
+
         let mut schema_builder = Schema::builder();
         let id = schema_builder.add_text_field("_id", STORED | TEXT);
         let idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), STORED | TEXT);
+        let name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), token_options.clone());
+        let description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), token_options);
         let modify_time = schema_builder.add_u64_field(MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(), STORED | FAST);
         let category_manage_id = schema_builder.add_u64_field(CATEGORIES_MANAGE_ID_FIELD_ID.to_string().as_ref(), STORED | FAST);
 

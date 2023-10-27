@@ -36,4 +36,4 @@ mod entity_cache_map;
 // pub mod tag_types_manager;
 // pub mod show_settings_manager;
 
-// use dependencies_sync::log::{info};
+mod get_text_options;
