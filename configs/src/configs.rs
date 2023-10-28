@@ -1,4 +1,5 @@
 use std::sync::Arc;
+use dependencies_sync::rust_i18n::{self, t};
 use serde_derive::Deserialize;
 use std::io::Read;
 
@@ -60,7 +61,7 @@ fn load_configs() -> Option<Arc<Configs>> {
         .expect("配置文件错误");
 
     let configs: Configs = toml::from_str(config_str.as_str()).expect("构建toml失败");
-    log::info!("加载配置: {:?}", config_str);
+    log::info!("{}: {:?}", t!("加载配置"), config_str);
 
     Some(Arc::new(configs))
 }
