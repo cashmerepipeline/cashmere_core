@@ -6,6 +6,7 @@ use dependencies_sync::{
     cang_jie::{CangJieTokenizer, TokenizerOption, CANG_JIE},
     jieba_rs::Jieba,
 };
+use managers::get_tokenizers;
 
 use std::fs::create_dir_all;
 use std::ops::Deref;
@@ -58,12 +59,16 @@ pub fn init_tantivy_index(manage_id: i32) {
                 .create_in_dir(&index_dir_string)
             {
                 Ok(r) => {
-                    let tokenizer = CangJieTokenizer {
-                        worker: Arc::new(Jieba::empty()), // empty dictionary
-                        option: TokenizerOption::Unicode,
-                    };
-
-                    r.tokenizers().register(CANG_JIE, tokenizer); 
+                    // let tokenizer = CangJieTokenizer {
+                    //     worker: Arc::new(Jieba::empty()), // empty dictionary
+                    //     option: TokenizerOption::Unicode,
+                    // };
+                    // r.tokenizers().register(CANG_JIE, tokenizer); 
+                    
+                    let tokenizers = get_tokenizers();
+                    for (k, t) in tokenizers.iter() {
+                        r.tokenizers().register(k, t.clone());
+                    }
 
                     log::info!("{}-{}", t!("新建索引成功"), manage_id);
                     index_map.insert(manage_id, Arc::new(r));

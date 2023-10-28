@@ -1400,7 +1400,7 @@ impl CalendarType {
 pub struct SearchRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
-    /// 搜索字段和关键字，bson document bytes
+    /// 搜索字段和关键字
     #[prost(map = "string, string", tag = "2")]
     pub search_params: ::std::collections::HashMap<
         ::prost::alloc::string::String,

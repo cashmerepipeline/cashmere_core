@@ -34,3 +34,4 @@ mod watch_manage_collection;
 pub mod event_handles;
 
 mod cang_jie_tokenizer;
+pub mod search_engine_configs;
