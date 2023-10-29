@@ -1,14 +1,12 @@
-use std::sync::Arc;
 use dependencies_sync::rust_i18n::{self, t};
 use serde_derive::Deserialize;
-use std::io::Read;
+use std::path::PathBuf;
+use std::sync::Arc;
 
-use dependencies_sync::toml;
-use dependencies_sync::log;
-
-use crate::database_configs::DatabaseConfigs;
-use crate::{ServerConfigs, TlsConfigs};
 use crate::data_server_configs::DataServerConfigs;
+use crate::database_configs::DatabaseConfigs;
+use crate::load_configs;
+use crate::{ServerConfigs, TlsConfigs};
 
 #[derive(Deserialize)]
 pub struct Configs {
@@ -37,7 +35,7 @@ pub fn get_configs_path() -> &'static String {
         if CONFIGS_FILE_PATH.is_some() {
             CONFIGS_FILE_PATH.as_ref().unwrap()
         } else {
-            panic!("配置文件不存在")
+            panic!("配置文件不存在: {}", CONFIGS_FILE_PATH.as_ref().unwrap())
         }
     }
 }
@@ -47,21 +45,15 @@ pub fn get_configs() -> &'static Configs {
         if CONFIGS.is_some() {
             CONFIGS.as_ref().unwrap()
         } else {
-            CONFIGS.get_or_insert(load_configs().unwrap());
-            CONFIGS.as_ref().unwrap()
+            let path_str = get_configs_path();
+            let configs_path = PathBuf::from(path_str);
+            if configs_path.exists() {
+                CONFIGS.get_or_insert(load_configs(configs_path).unwrap());
+                CONFIGS.as_ref().unwrap()
+            } else {
+                panic!("{}: {}", t!("配置文件不存在"), path_str);
+            }
         }
     }
 }
 
-fn load_configs() -> Option<Arc<Configs>> {
-    let mut config_file = std::fs::File::open(get_configs_path()).expect("配置文件不存在");
-    let mut config_str = "".to_string();
-    config_file
-        .read_to_string(&mut config_str)
-        .expect("配置文件错误");
-
-    let configs: Configs = toml::from_str(config_str.as_str()).expect("构建toml失败");
-    log::info!("{}: {:?}", t!("加载配置"), config_str);
-
-    Some(Arc::new(configs))
-}

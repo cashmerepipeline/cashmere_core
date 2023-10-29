@@ -1,9 +1,14 @@
-use configs::get_configs;
-use dependencies_sync::tantivy::directory::MmapDirectory;
+use configs::get_config;
+use dependencies_sync::rust_i18n::{self, t};
+
+use crate::search_engine_configs::{SearchEngineConfigs, SEARCH_ENGINE_CONFIG_NAME};
 
 pub fn get_tantivy_index_dir(manage_id: i32) -> String {
-    let root_dir = &get_configs().database.search_engine_index_root;
-    let index_dir = format!("{}/{}", root_dir, manage_id);
-
-    return index_dir;
+    // let root_dir = &get_configs().database.search_engine_index_root;
+    if let Some(c) = get_config::<SearchEngineConfigs>(&SEARCH_ENGINE_CONFIG_NAME.to_string()) {
+        let index_dir = format!("{}/{}", c.index_root_dir, manage_id);
+        return index_dir;
+    } else {
+        panic!("{}", t!("取得搜索引擎设置失败"));
+    }
 }

@@ -2,7 +2,11 @@ use std::collections::HashMap;
 
 use serde_derive::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize, Clone)]
+use crate::ConfigTrait;
+
+const DATA_SERVER_CONFIGS_NAME : &str = "data_server";
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DataServerConfigs {
     // 数据根目录
     pub root_dir_path: String,
@@ -19,4 +23,10 @@ pub struct DataServerConfigs {
     // 最大文件下载连接
     pub max_file_download_number: u16,
     pub internal_root_dir_map: HashMap<String, String>
+}
+
+impl ConfigTrait for DataServerConfigs {
+    fn name() -> &'static str {
+        return DATA_SERVER_CONFIGS_NAME;
+    }
 }

@@ -1,7 +1,7 @@
-use dependencies_sync::serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 use configs::ConfigTrait;
 
-pub const SEARCH_ENGINE_CONFIG: &str = "SearchEngineConfig";
+pub const SEARCH_ENGINE_CONFIG_NAME: &str = "search_engine";
 
 /// 搜索引擎设置
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -14,4 +14,8 @@ pub struct SearchEngineConfigs{
   pub memory_budget_in_bytes: usize,
 }
 
-impl ConfigTrait for SearchEngineConfigs{}
+impl ConfigTrait for SearchEngineConfigs{
+  fn name() -> &'static str {
+      SEARCH_ENGINE_CONFIG_NAME
+  }
+}

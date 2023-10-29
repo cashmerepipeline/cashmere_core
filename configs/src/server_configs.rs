@@ -1,6 +1,10 @@
-use serde_derive::Deserialize;
+use serde_derive::{Deserialize, Serialize};
 
-#[derive(Deserialize, Clone)]
+use crate::ConfigTrait;
+
+pub const SERVER_CONFIGS_NAME: &str = "server";
+
+#[derive(Deserialize, Clone, Serialize, Debug)]
 pub struct ServerConfigs {
     pub root_dir: String,
     pub address: String,
@@ -13,4 +17,10 @@ pub struct ServerConfigs {
     pub language_code: String,
     pub log_dir: String,
     pub log_level: String,
+}
+
+impl ConfigTrait for ServerConfigs {
+    fn name() -> &'static str {
+        return SERVER_CONFIGS_NAME;
+    }
 }

@@ -15,6 +15,9 @@ entity ={ path = "../entity"}
 majordomo ={ path = "../majordomo"}
 managers ={ path = "../managers"}
 
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = { version = "1.0"}
+
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tokio",
   "mongodb",

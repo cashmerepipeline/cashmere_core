@@ -1,6 +1,6 @@
 [package]
 name = "configs"
-version = "0.3.1"
+version = "0.4.1"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 
@@ -9,10 +9,13 @@ edition = "2021"
 [dependencies]
 serde_derive = "1.0"
 serde = "1.0"
+toml = "0.8.6"
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "log",
-  "toml",
+  "parking_lot",
+  "serde_derive",
+  "serde",
   "rust-i18n",
   "once_cell",
 ] }

@@ -1,27 +1,24 @@
-use dependencies_sync::toml;
-use serde::Serialize;
-use serde_derive::Deserialize;
+use dependencies_sync::log;
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::serde::Serialize;
 
 use crate::configs_map::get_configs_map;
 
 pub trait ConfigTrait {
-    fn register_config(config_name: &str, config: impl Serialize + Deserialize,){
+    fn name() -> &'static str;
+
+    /// 设置序列化为toml格式存储
+    fn register_config(config_name: &'static str, config: &impl Serialize) {
         let map_arc = get_configs_map();
-        let map = map_arc.write();
+        let mut map = map_arc.write();
 
-        let toml_v = toml::Value::from(config);
+        let doc = if let Ok(r) = toml::Table::try_from(config) {
+            r
+        } else {
+            log::error!("{}, {}", t!("转换设置错误"), config_name);
+            panic!("{}, {}", t!("转换设置错误"), config_name);
+        };
 
-        map.insert(config_name, toml_v);
-    }
-
-    fn get_config(config_name: &str) -> Option<impl Deserialize>{
-        let map_arc = get_configs_map();
-        let map = map_arc.read();
-
-        let toml_v = map.get(config_name)?;
-
-        let config = toml::from_str(toml_v.as_str().unwrap()).unwrap();
-
-        Some(config)
+        map.insert(config_name.to_owned(), doc);
     }
 }
