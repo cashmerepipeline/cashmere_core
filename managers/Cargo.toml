@@ -22,6 +22,7 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "parking_lot",
   "rust-i18n",
   "once_cell",
+  "tokio-stream",
 ] }
 
 serde = "1.0"

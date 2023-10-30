@@ -1,28 +1,38 @@
-
 use std::fmt::Debug;
 
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
 };
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-use super::get_configs_map;
+use crate::ConfigTrait;
 
-pub fn get_config<T>(config_name: &String) -> Option<T>
+use super::{get_configs_map, register_config};
+
+pub fn get_config<T>() -> Option<T>
 where
-    T: for<'de> Deserialize<'de> + Debug,
+    T: for<'de> Deserialize<'de> + Debug + Default + Clone + Serialize + ConfigTrait,
 {
+    let config_name = &T::name().to_string();
     let map_arc = get_configs_map();
-    let map = map_arc.read();
+    {
+        let map = map_arc.read();
 
-    let config: T = if let Some(t) = map.get(config_name).cloned() {
-        log::info!("{}: {:?}", t!("配置加载成功"), t);
-        t.try_into().expect("配置格式错误")
-    } else {
-        log::error!("{}: {}", t!("配置不存在"), config_name);
-        return None;
+        if let Some(t) = map.get(config_name).cloned() {
+            log::info!("{}: {:?}", t!("配置加载成功"), t);
+            let config = t.try_into().expect("配置格式错误");
+            return Some(config);
+        };
+    }
+
+    let new_config = {
+        let mut map = map_arc.write();
+        log::warn!("{}: {}", t!("配置不存在"), config_name);
+        log::warn!("{}: {:?}", t!("使用默认配置"), config_name);
+        let config: T = T::default();
+        config
     };
-
-    Some(config)
+    register_config(config_name, &new_config);
+    Some(new_config)
 }

@@ -5,7 +5,7 @@ use crate::search_engine_configs::{SearchEngineConfigs, SEARCH_ENGINE_CONFIG_NAM
 
 pub fn get_tantivy_index_dir(manage_id: i32) -> String {
     // let root_dir = &get_configs().database.search_engine_index_root;
-    if let Some(c) = get_config::<SearchEngineConfigs>(&SEARCH_ENGINE_CONFIG_NAME.to_string()) {
+    if let Some(c) = get_config::<SearchEngineConfigs>() {
         let index_dir = format!("{}/{}", c.index_root_dir, manage_id);
         return index_dir;
     } else {

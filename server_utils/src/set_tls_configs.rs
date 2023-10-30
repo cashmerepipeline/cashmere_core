@@ -3,10 +3,10 @@ use std::fs;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::transport::{ServerTlsConfig, Identity, Certificate};
 
-pub fn get_tls_configs(configs: &configs::Configs) -> ServerTlsConfig{
-    let server_key_path: &String = &configs.tls.server_key_path;
-    let server_ca_path: &String = &configs.tls.server_ca_path;
-    let client_ca_path: &String = &configs.tls.client_ca_path;
+pub fn set_tls_configs(configs: &configs::TlsConfigs) -> ServerTlsConfig{
+    let server_key_path: &String = &configs.server_key_path;
+    let server_ca_path: &String = &configs.server_ca_path;
+    let client_ca_path: &String = &configs.client_ca_path;
 
     // tls文件读取
     let cert = if let Ok(r) = fs::read(server_ca_path) {

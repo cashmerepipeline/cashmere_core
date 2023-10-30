@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
+use dependencies_sync::futures::StreamExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::bson::doc;
 use dependencies_sync::log::info;
-use dependencies_sync::tokio_stream::StreamExt;
 
 use cash_result::{operation_failed, operation_succeed, OperationResult};
 use manage_define::general_field_ids::ID_FIELD_ID;
