@@ -1,3 +1,4 @@
+use crate::DatabaseConfigs;
 use dependencies_sync::mongodb::{Client, Database};
 use dependencies_sync::mongodb::options::{ClientOptions, ServerAddress};
 use std::sync::Arc;
@@ -10,7 +11,7 @@ pub async fn get_cashmere_database() -> &'static Database {
         if CASHMERE_DATABASE.is_some() {
             CASHMERE_DATABASE.as_ref().unwrap()
         } else {
-            let database_configs = configs::get_database_configs();
+            let database_configs = configs::get_config::<DatabaseConfigs>().unwrap();
 
             CASHMERE_DATABASE.get_or_insert_with(|| {
                 let options = ClientOptions::builder()

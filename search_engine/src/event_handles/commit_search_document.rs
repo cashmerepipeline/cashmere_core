@@ -37,7 +37,7 @@ pub fn commit_search_document(
         .unwrap();
     let language_code = name_map.keys().next().unwrap().as_str();
     let name = name_map.values().next().unwrap().as_str().unwrap();
-    let mut name_map_json = json!({
+    let name_map_json = json!({
         language_code:name
     });
     let description = update_document
