@@ -1,23 +1,16 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{debug, error, info};
-use dependencies_sync::rust_i18n::{self, t};
+
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{
-    COUNTRY_CODES_CODE_FIELD_ID, COUNTRY_CODES_LANGUAGES_FIELD_ID, COUNTRY_CODES_NATIVE_FIELD_ID,
-    COUNTRY_CODES_PHONE_AREA_CODE_FIELD_ID,
-};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
-use manage_define::manage_ids::{COUNTRY_CODES_MANAGE_ID, PHONE_AREA_CODES_MANAGE_ID};
-use managers::manager_trait::ManagerTrait;
-use request_utils::request_account_context;
 
-use dependencies_sync::tokio_stream::{self as stream, StreamExt};
+use manage_define::manage_ids::COUNTRY_CODES_MANAGE_ID;
+use managers::manager_trait::ManagerTrait;
+
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -50,7 +43,7 @@ async fn validate_request_params(
 }
 
 async fn handle_get_country_codes(
-    request: Request<GetCountryCodesRequest>,
+    _request: Request<GetCountryCodesRequest>,
 ) -> Result<Response<GetCountryCodesResponse>, Status> {
     let manage_id = COUNTRY_CODES_MANAGE_ID;
 

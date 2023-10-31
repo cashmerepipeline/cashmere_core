@@ -1,19 +1,16 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{debug, error, info};
+
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
 
-use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 
-use dependencies_sync::tokio_stream::{self as stream, StreamExt};
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -73,9 +70,7 @@ async fn handle_get_constants(
                 results.push(bson::to_vec(&r).unwrap());
             }
 
-            Ok(Response::new(GetConstantsResponse {
-                constants: results,
-            }))
+            Ok(Response::new(GetConstantsResponse { constants: results }))
         }
         Err(e) => Err(Status::aborted(format!(
             "{} {}",

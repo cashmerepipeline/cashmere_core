@@ -27,7 +27,6 @@ where
     }
 
     let new_config = {
-        let mut map = map_arc.write();
         log::warn!("{}: {}", t!("配置不存在"), config_name);
         log::warn!("{}: {:?}", t!("使用默认配置"), config_name);
         let config: T = T::default();

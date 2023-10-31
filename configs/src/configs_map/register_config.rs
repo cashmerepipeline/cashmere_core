@@ -2,7 +2,7 @@ use dependencies_sync::{
     log,
     rust_i18n::{self, t},
 };
-use serde::{Serialize, Deserialize};
+use serde::Serialize;
 
 use super::get_configs_map;
 

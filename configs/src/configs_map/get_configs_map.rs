@@ -14,7 +14,7 @@ pub fn get_configs_map() -> ConfigMap {
         } else {
             let configs_map = Arc::new(RwLock::new(HashMap::new()));
             CONFIGS_MAP.replace(configs_map.clone());
-            return configs_map;
+            configs_map
         }
     }
 }

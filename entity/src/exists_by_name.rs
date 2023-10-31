@@ -13,9 +13,9 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 /// 根据名字判断条目是否存在
-pub async fn exists_by_name(entity_name: &String, manage_id: &String) -> bool {
+pub async fn exists_by_name(entity_name: &str, manage_id: &str) -> bool {
     let query_doc = doc! {
-        "name": entity_name.clone()
+        "name": entity_name
     };
 
     crate::entity_exists(manage_id, &query_doc).await

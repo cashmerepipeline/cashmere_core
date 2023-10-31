@@ -15,10 +15,10 @@ use manage_define::general_field_ids::*;
 
 /// 插入实体, 返回插入的实体的_id
 pub async fn insert_entity(
-    manage_id: &String,
+    manage_id: &str,
     entity_doc: &mut Document,
-    account_id: &String,
-    group_id: &String,
+    account_id: &str,
+    group_id: &str,
 ) -> Result<String, OperationResult> {
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
@@ -36,15 +36,15 @@ pub async fn insert_entity(
         .to_string();
 
     // 创建标记
-    entity_doc.insert(CREATOR_FIELD_ID.to_string(), account_id.clone());
-    entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id.clone());
-    entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id.clone());
-    entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id.clone()]);
+    entity_doc.insert(CREATOR_FIELD_ID.to_string(), account_id);
+    entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id);
+    entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id);
+    entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id]);
 
     // 插入, 返回插入后的ID
     let result = collection
         .insert_one(entity_doc.clone(), None)
-        .and_then(|r| async {
+        .and_then(|_r| async {
             let query_doc = doc! {
                 ID_FIELD_ID.to_string(): id.clone(),
             };
@@ -66,7 +66,7 @@ pub async fn insert_entity(
             error!("{}", _e);
             Err(operation_failed(
                 "insert_entity",
-                format!("插入实体失败 {}-{}: {}", manage_id, id, _e.to_string()),
+                format!("插入实体失败 {}-{}: {}", manage_id, id, _e),
             ))
         }
     }

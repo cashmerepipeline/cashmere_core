@@ -1,16 +1,17 @@
-use crate::{get_configs_map, get_configs_file_path};
+use std::io::Read;
+use std::path::PathBuf;
 
 use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
-use std::io::Read;
-use std::path::PathBuf;
-use std::sync::Arc;
-use toml;
 
-pub fn init_configs_map() -> Result<(), ()> {
+use crate::{get_configs_map, get_configs_file_path};
+
+
+
+pub fn init_configs_map() -> Result<(), String> {
     let configs_path: &String = &get_configs_file_path().to_string(); 
     let mut config_file =
-        std::fs::File::open(PathBuf::from(configs_path)).expect(format!("{}", t!("配置文件不存在")).as_ref());
+        std::fs::File::open(PathBuf::from(configs_path)).unwrap_or_else(|_| { panic!("{}", t!("配置文件不存在").to_string()) });
 
     let mut config_str = "".to_string();
     config_file

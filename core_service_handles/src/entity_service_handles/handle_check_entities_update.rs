@@ -37,7 +37,7 @@ async fn validate_view_rules(
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
         if let Err(e) =
-            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+            view::validates::validate_collection_can_read(&manage_id, &role_group).await
         {
             return Err(e);
         }
@@ -49,6 +49,20 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<CheckEntitiesUpdateRequest>,
 ) -> Result<Request<CheckEntitiesUpdateRequest>, Status> {
+    // manage_id 不能为0
+    if request.get_ref().manage_id == 0 {
+        return Err(Status::invalid_argument(format!(
+            "{}: {}",
+            t!("管理编号不能为0"),
+            "check_entities_update"
+        )));
+    }
+
+    // entities 不能为空
+    if request.get_ref().entities.is_empty() {
+        return Err(Status::invalid_argument("entities can not be empty"));
+    }
+
     Ok(request)
 }
 
@@ -110,16 +124,12 @@ async fn handle_check_entities_update(
                 entities.push(bson::to_vec(&entity).unwrap());
             }
 
-            Ok(Response::new(CheckEntitiesUpdateResponse {
-                entities: entities,
-            }))
+            Ok(Response::new(CheckEntitiesUpdateResponse { entities }))
         }
-        Err(e) => {
-            Err(Status::data_loss(format!(
-                "{}-{}",
-                t!("检查实体是否更新错误。"),
-                e.details()
-            )))
-        }
+        Err(e) => Err(Status::data_loss(format!(
+            "{}-{}",
+            t!("检查实体是否更新错误。"),
+            e.details()
+        ))),
     }
 }

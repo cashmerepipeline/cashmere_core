@@ -1,14 +1,13 @@
-use std::{collections::HashMap, ops::Deref};
+use std::ops::Deref;
 
 use cash_result::{operation_failed, OperationResult};
-use dependencies_sync::bson;
+
 use dependencies_sync::tantivy::{collector::TopDocs, query::QueryParser, schema::*};
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
-    serde_json,
 };
-use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, NAME_MAP_FIELD_ID};
 
 use super::{get_manage_searcher, get_manage_tantivy_index, get_manage_tantivy_schema};
 
@@ -31,7 +30,7 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
         .unwrap();
 
     let index = get_manage_tantivy_index(manage_id);
-    let query_parser = QueryParser::for_index(&index.deref(), vec![name_map_f, description_f]);
+    let query_parser = QueryParser::for_index(index.deref(), vec![name_map_f, description_f]);
     let query = query_parser
         .parse_query(search_str.to_string().as_str())
         .map_err(|err| {
@@ -67,7 +66,7 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
         let j_doc = retrieved_doc.to_json(&schema);
         result.push(j_doc);
     }
-    
+
     log::debug!("{}: {}-{:?}", t!("搜索结束"), manage_id, result);
 
     Ok(result)

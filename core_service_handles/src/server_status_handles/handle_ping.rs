@@ -1,4 +1,4 @@
-use dependencies_sync::bson::{self, doc};
+use dependencies_sync::bson::{doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
@@ -6,18 +6,16 @@ use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::async_trait;
 
-use majordomo::{self, get_majordomo};
-use manage_define::cashmere::*;
-use manage_define::field_ids::{
-    PHONE_AREA_CODES_CODE_FIELD_ID, PHONE_AREA_CODES_USING_AREAS_FIELD_ID,
-};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
-use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
-use managers::utils::make_new_entity_document;
-use request_utils::{request_account_context, validate_auth_token, validate_has_role_group};
 
-use dependencies_sync::tonic::{Request, Response, Status};
+use manage_define::cashmere::*;
+
+
+
+
+
+use request_utils::{request_account_context};
+
+use dependencies_sync::tonic::{Response, Status};
 use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
 
 #[async_trait]
@@ -63,7 +61,7 @@ async fn validate_request_params(
 }
 
 async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResult<PingResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let mut in_stream = request.into_inner();
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
@@ -83,7 +81,7 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                     if index != &0u64 {
                         let eclapse_time = now - time;
                         //TODO: 根据网速进行动态加载平衡分组
-                        println!("id: {}, account_id: {}, index: {}, eclapse:{}", device_id.to_string(), account_id, index, eclapse_time);
+                        println!("id: {}, account_id: {}, index: {}, eclapse:{}", device_id, account_id, index, eclapse_time);
                     }
                     
                     // 5秒一次
@@ -99,21 +97,21 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                     });
 
                     // 发送
-                    if resp_tx.send(resp).await.is_err() {
+                    if let Err(e) = resp_tx.send(resp).await {
                         // 发送失败
-                        error!("{}", t!("ping返回失败"));
+                        error!("{}: {}", t!("ping返回失败"), e);
                         break;
                     };
                 }
                 Err(e) => {
-                    error!("{}", t!("ping数据错误"));
-                    // TODO: 断开连接处理
+                    error!("{}: {}", t!("ping数据错误"), e);
+                    // TODO: 断开连接处理和断线重连
                     match resp_tx.send(Err(e)).await {
                         Ok(_) => {
                             error!("{}", t!("ping返回失败"));
                         }
                         Err(e) => {
-                            error!("{}", t!("ping返回失败"));
+                            error!("{}: {}", t!("ping返回失败"), e);
                         }
                     }
                     break;

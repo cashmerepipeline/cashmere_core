@@ -19,13 +19,13 @@ pub struct ServerConfigs {
 
 impl ConfigTrait for ServerConfigs {
     fn name() -> &'static str {
-        return SERVER_CONFIGS_NAME;
+        SERVER_CONFIGS_NAME
     }
 }
 
 impl Default for ServerConfigs {
     fn default() -> Self {
-        return ServerConfigs {
+        ServerConfigs {
             root_dir: ".".to_string(),
             address: "127.0.0.1".to_string(),
             port: "8800".to_string(),
@@ -35,6 +35,6 @@ impl Default for ServerConfigs {
             language_code: "zh".to_string(),
             log_dir: "log".to_string(),
             log_level: "info".to_string(),
-        };
+        }
     }
 }

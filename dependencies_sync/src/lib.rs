@@ -51,10 +51,10 @@ pub use tonic_build;
 pub use fs4;
 
 #[cfg(feature="serde")]
-pub use serde;
+pub extern crate serde;
 
 #[cfg(feature="serde_derive")]
-pub use serde_derive;
+pub extern crate serde_derive;
 
 #[cfg(feature="serde_json")]
 pub use serde_json;
@@ -72,7 +72,7 @@ pub use rust_i18n;
 pub use once_cell;
 
 #[cfg(feature="tantivy")]
-#[macro_use]
+// #[macro_use]
 pub extern crate tantivy;
 
 #[cfg(feature="cang-jie")]

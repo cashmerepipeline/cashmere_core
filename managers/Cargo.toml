@@ -1,6 +1,6 @@
 [package]
 name = "managers"
-version = "0.5.1"
+version = "0.5.2"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 
@@ -23,6 +23,8 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "rust-i18n",
   "once_cell",
   "tokio-stream",
+  "cang-jie",
+  "jieba-rs"
 ] }
 
 serde = "1.0"

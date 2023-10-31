@@ -19,10 +19,10 @@ use crate::utils::{get_timestamp_update_doc, add_modify_update_fields};
 
 /// 更新实体单个属性
 pub async fn update_timestamp_field(
-    manage_id: &String,
+    manage_id: &str,
     query_doc: Document,
     modify_doc: &mut Document,
-    account_id: &String,
+    account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {

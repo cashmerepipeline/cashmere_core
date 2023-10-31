@@ -5,7 +5,6 @@ Create time: 2020-09-10 08:11
 Introduction:
 */
 use dependencies_sync::rust_i18n::{self};
-use dependencies_sync::once_cell;
 
 rust_i18n::i18n!("locales");
 

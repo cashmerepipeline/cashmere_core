@@ -40,5 +40,5 @@ service_utils = { path = "../service_utils" }
 database = {path = "../database"}
 search_engine = {path = "../search_engine"}
 
-# [features]
-# view_rules_validate = ["view/view_rules_validate"]
+[features]
+# view_rules_validate = []

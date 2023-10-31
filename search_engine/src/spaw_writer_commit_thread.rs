@@ -21,15 +21,15 @@ pub fn spaw_writer_commit_thread() -> Result<(), OperationResult> {
 
                 match writer.commit() {
                     Ok(stamp) => {
-                        log::warn!(
+                        log::info!(
                             "\t{}-{}: \t{}", // \t{}",
                             manage_id,
-                            t!("提交成功"),
+                            t!("索引提交成功"),
                             stamp,
                         );
                     }
                     Err(e) => {
-                        log::error!("{}: {:?}", t!("提交失败"), e);
+                        log::error!("{}: {:?}", t!("索引提交失败"), e);
                     }
                 };
             }

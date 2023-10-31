@@ -14,7 +14,7 @@ use manage_define::general_field_ids::*;
 
 /// 根据名字取得entity
 pub async fn get_entity_by_name(
-    collection_name: &String,
+    collection_name: &str,
     name: &String,
 ) -> Result<Document, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {

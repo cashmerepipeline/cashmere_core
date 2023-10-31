@@ -1,4 +1,3 @@
-use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::tantivy::IndexWriter;
 use std::collections::HashMap;
@@ -17,7 +16,6 @@ pub fn get_manage_index_writer_map() -> Arc<RwLock<ManageIndexWriterMap>> {
         let map = Arc::new(RwLock::new(HashMap::new()));
         MANAGE_TANTIVY_INDEX_WRITER_MAP.replace(map);
 
-        return MANAGE_TANTIVY_INDEX_WRITER_MAP.clone().unwrap();
+        MANAGE_TANTIVY_INDEX_WRITER_MAP.clone().unwrap()
     }
 }
-

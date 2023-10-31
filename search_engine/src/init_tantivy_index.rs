@@ -1,11 +1,8 @@
 use dependencies_sync::log;
-use dependencies_sync::parking_lot::RwLock;
+
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::{directory, Index, IndexWriter, Document as TantivyDocument};
-use dependencies_sync::{
-    cang_jie::{CangJieTokenizer, TokenizerOption, CANG_JIE},
-    jieba_rs::Jieba,
-};
+use dependencies_sync::tantivy::{directory, Index};
+
 use managers::get_tokenizers;
 
 use std::fs::create_dir_all;
@@ -13,8 +10,7 @@ use std::ops::Deref;
 use std::path::Path;
 use std::sync::Arc;
 
-use crate::cang_jie_tokenizer::cangjie_tokenizer;
-use crate::{get_manage_tantivy_schema, get_manage_index_writer};
+use crate::get_manage_tantivy_schema;
 
 use super::{get_manage_tantivy_index_map, get_tantivy_index_dir::get_tantivy_index_dir};
 
@@ -26,7 +22,10 @@ pub fn init_tantivy_index(manage_id: i32) {
 
     if !index_dir_path.exists() {
         log::info!("{}: {}", t!("创建索引目录"), index_dir_string);
-        create_dir_all(&index_dir_path);
+        if let Err(err) = create_dir_all(index_dir_path){
+            log::error!("{}: {}", t!("创建索引目录失败"), err.to_string());
+            return;
+        };
     }
 
     let index_dir = match directory::MmapDirectory::open(&index_dir_string) {
@@ -44,7 +43,7 @@ pub fn init_tantivy_index(manage_id: i32) {
         Ok(r) => {
             index_map.insert(manage_id, Arc::new(r));
         }
-        Err(err) => {
+        Err(_err) => {
             log::warn!("{}: {}", t!("新建索引"), manage_id);
 
             // 在初始化管理器初始化完成
@@ -63,8 +62,8 @@ pub fn init_tantivy_index(manage_id: i32) {
                     //     worker: Arc::new(Jieba::empty()), // empty dictionary
                     //     option: TokenizerOption::Unicode,
                     // };
-                    // r.tokenizers().register(CANG_JIE, tokenizer); 
-                    
+                    // r.tokenizers().register(CANG_JIE, tokenizer);
+
                     let tokenizers = get_tokenizers();
                     for (k, t) in tokenizers.iter() {
                         r.tokenizers().register(k, t.clone());

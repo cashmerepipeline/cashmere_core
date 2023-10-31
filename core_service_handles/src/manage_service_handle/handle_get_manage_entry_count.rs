@@ -52,7 +52,7 @@ async fn handle_get_manage_entry_count(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
-    let result = manager.get_entry_counts(doc! {}).await;
+    let result = manager.get_entry_counts().await;
 
     match result {
         Ok(r) => Ok(Response::new(GetManageEntryCountResponse { count: r })),

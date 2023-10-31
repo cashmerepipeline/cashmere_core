@@ -10,14 +10,14 @@ pub fn get_manage_tantivy_index(manage_id: i32) -> Arc<Index> {
     let map_arc = get_manage_tantivy_index_map();
 
     {
-        let mut map = map_arc.read();
+        let map = map_arc.read();
         if let Some(r) = map.get(&manage_id) {
             return r.clone();
         }
     }
     {
         init_tantivy_index(manage_id);
-        let mut map = map_arc.read();
+        let map = map_arc.read();
         map.get(&manage_id).unwrap().clone()
     }
 }
