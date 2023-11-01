@@ -19,6 +19,7 @@ class NewGroupRequest extends $pb.GeneratedMessage {
   factory NewGroupRequest({
     $0.Name? name,
     $core.String? newGroupId,
+    $core.String? description,
   }) {
     final $result = create();
     if (name != null) {
@@ -26,6 +27,9 @@ class NewGroupRequest extends $pb.GeneratedMessage {
     }
     if (newGroupId != null) {
       $result.newGroupId = newGroupId;
+    }
+    if (description != null) {
+      $result.description = description;
     }
     return $result;
   }
@@ -36,6 +40,7 @@ class NewGroupRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewGroupRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..aOS(2, _omitFieldNames ? '' : 'newGroupId')
+    ..aOS(3, _omitFieldNames ? '' : 'description')
     ..hasRequiredFields = false
   ;
 
@@ -79,6 +84,15 @@ class NewGroupRequest extends $pb.GeneratedMessage {
   $core.bool hasNewGroupId() => $_has(1);
   @$pb.TagNumber(2)
   void clearNewGroupId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => clearField(3);
 }
 
 class NewGroupResponse extends $pb.GeneratedMessage {

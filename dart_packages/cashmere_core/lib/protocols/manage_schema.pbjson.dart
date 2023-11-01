@@ -59,14 +59,14 @@ const NewSchemaFieldRequest$json = {
   '1': 'NewSchemaFieldRequest',
   '2': [
     {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
-    {'1': 'field', '3': 2, '4': 1, '5': 11, '6': '.cashmere.SchemaField', '10': 'field'},
+    {'1': 'new_field', '3': 2, '4': 1, '5': 11, '6': '.cashmere.SchemaField', '10': 'newField'},
   ],
 };
 
 /// Descriptor for `NewSchemaFieldRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newSchemaFieldRequestDescriptor = $convert.base64Decode(
-    'ChVOZXdTY2hlbWFGaWVsZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIrCg'
-    'VmaWVsZBgCIAEoCzIVLmNhc2htZXJlLlNjaGVtYUZpZWxkUgVmaWVsZA==');
+    'ChVOZXdTY2hlbWFGaWVsZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIyCg'
+    'luZXdfZmllbGQYAiABKAsyFS5jYXNobWVyZS5TY2hlbWFGaWVsZFIIbmV3RmllbGQ=');
 
 @$core.Deprecated('Use newSchemaFieldResponseDescriptor instead')
 const NewSchemaFieldResponse$json = {

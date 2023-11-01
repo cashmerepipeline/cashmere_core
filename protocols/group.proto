@@ -6,6 +6,7 @@ import "name.proto";
 message NewGroupRequest {
     Name name = 1;
     string new_group_id = 2;
+    string description = 3;
   }
 message NewGroupResponse{
     string result = 1;

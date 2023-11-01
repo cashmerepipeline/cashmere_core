@@ -2,7 +2,9 @@ import 'package:cashmere_core/new_entity_calls/new_entity_call.dart';
 import 'package:cashmere_core/protocols/member.pb.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 
-class AddMemberView implements ToNewEntityRequest<AddMemberRequest> {
+import '../new_entity_calls/to_new_entity_request.dart';
+
+class AddMemberView implements ViewToRequest<AddMemberRequest> {
   final Name name;
   final int ownerManageId;
   final String ownerEntityId;

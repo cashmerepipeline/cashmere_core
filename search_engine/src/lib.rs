@@ -16,6 +16,7 @@ pub use watch_manage_collection::*;
 
 pub use search_engine_configs::*;
 
+mod search_engine_runtime;
 mod get_manage_index_writer;
 mod get_manage_tantivy_index;
 mod init_tantivy_index;

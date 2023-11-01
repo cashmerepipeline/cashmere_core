@@ -15,11 +15,13 @@ use dependencies_sync::{
 
 use database::get_collection_by_id;
 
-use crate::event_handles::handle_insert_event;
+use crate::{event_handles::handle_insert_event, search_engine_runtime::get_search_engine_runtime};
 use crate::event_handles::{handle_delete_event, handle_update_event};
 
 pub async fn watch_manage_collection(manage_id: i32) {
-    tokio::spawn(async move {
+    let run_time = get_search_engine_runtime();
+
+    run_time.spawn(async move {
         log::info!("{}: {}", t!("开始监听管理集"), manage_id);
 
         let collection = get_collection_by_id(&manage_id.to_string()).await.unwrap();

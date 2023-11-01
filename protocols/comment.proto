@@ -10,7 +10,10 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 message NewCommentRequest {
+    Name name = 4;
     string target_manage_id = 1;
     string target_entity_id = 2;
     string contents = 3;

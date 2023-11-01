@@ -17,6 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const NewCommentRequest$json = {
   '1': 'NewCommentRequest',
   '2': [
+    {'1': 'name', '3': 4, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'target_manage_id', '3': 1, '4': 1, '5': 9, '10': 'targetManageId'},
     {'1': 'target_entity_id', '3': 2, '4': 1, '5': 9, '10': 'targetEntityId'},
     {'1': 'contents', '3': 3, '4': 1, '5': 9, '10': 'contents'},
@@ -25,9 +26,10 @@ const NewCommentRequest$json = {
 
 /// Descriptor for `NewCommentRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newCommentRequestDescriptor = $convert.base64Decode(
-    'ChFOZXdDb21tZW50UmVxdWVzdBIoChB0YXJnZXRfbWFuYWdlX2lkGAEgASgJUg50YXJnZXRNYW'
-    '5hZ2VJZBIoChB0YXJnZXRfZW50aXR5X2lkGAIgASgJUg50YXJnZXRFbnRpdHlJZBIaCghjb250'
-    'ZW50cxgDIAEoCVIIY29udGVudHM=');
+    'ChFOZXdDb21tZW50UmVxdWVzdBIiCgRuYW1lGAQgASgLMg4uY2FzaG1lcmUuTmFtZVIEbmFtZR'
+    'IoChB0YXJnZXRfbWFuYWdlX2lkGAEgASgJUg50YXJnZXRNYW5hZ2VJZBIoChB0YXJnZXRfZW50'
+    'aXR5X2lkGAIgASgJUg50YXJnZXRFbnRpdHlJZBIaCghjb250ZW50cxgDIAEoCVIIY29udGVudH'
+    'M=');
 
 @$core.Deprecated('Use newCommentResponseDescriptor instead')
 const NewCommentResponse$json = {

@@ -1,8 +1,14 @@
+import 'package:cashmere_core/new_entity_calls/to_new_entity_request.dart';
 import 'package:cashmere_core/protocols/manage_schema.pb.dart';
 
-class NewSchemaFieldView {
-  final int manage_id;
-  final SchemaField field;
+class NewSchemaFieldView extends ViewToRequest<NewSchemaFieldRequest> {
+  final int manageId;
+  final SchemaField newField;
 
-  NewSchemaFieldView({required this.manage_id, required this.field});
+  NewSchemaFieldView({required this.manageId, required this.newField});
+
+  @override
+  NewSchemaFieldRequest toRequest() {
+    return NewSchemaFieldRequest(manageId: manageId, newField: newField);
+  }
 }
