@@ -26,31 +26,6 @@ const Name$json = {
 final $typed_data.Uint8List nameDescriptor = $convert.base64Decode(
     'CgROYW1lEhoKCGxhbmd1YWdlGAEgASgJUghsYW5ndWFnZRISCgRuYW1lGAIgASgJUgRuYW1l');
 
-@$core.Deprecated('Use nameFieldDescriptor instead')
-const NameField$json = {
-  '1': 'NameField',
-  '2': [
-    {'1': 'name_field', '3': 1, '4': 3, '5': 11, '6': '.cashmere.NameField.NameFieldEntry', '10': 'nameField'},
-  ],
-  '3': [NameField_NameFieldEntry$json],
-};
-
-@$core.Deprecated('Use nameFieldDescriptor instead')
-const NameField_NameFieldEntry$json = {
-  '1': 'NameFieldEntry',
-  '2': [
-    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
-  ],
-  '7': {'7': true},
-};
-
-/// Descriptor for `NameField`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List nameFieldDescriptor = $convert.base64Decode(
-    'CglOYW1lRmllbGQSQQoKbmFtZV9maWVsZBgBIAMoCzIiLmNhc2htZXJlLk5hbWVGaWVsZC5OYW'
-    '1lRmllbGRFbnRyeVIJbmFtZUZpZWxkGjwKDk5hbWVGaWVsZEVudHJ5EhAKA2tleRgBIAEoCVID'
-    'a2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAE=');
-
 @$core.Deprecated('Use renameRequestDescriptor instead')
 const RenameRequest$json = {
   '1': 'RenameRequest',

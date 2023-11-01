@@ -16,12 +16,12 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 
 #[async_trait]
-pub trait HandleNewLanguageCode {
+pub trait HandleDeleteMember{
     /// 新建管理属性
-    async fn handle_new_language_code(
+    async fn handle_delete_member(
         &self,
-        request: Request<NewLanguageCodeRequest>,
-    ) -> Result<Response<NewLanguageCodeResponse>, Status> {
+        request: Request<DeleteMemberRequest>,
+    ) -> Result<Response<DeleteMemberResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_new_language_code)
@@ -30,8 +30,8 @@ pub trait HandleNewLanguageCode {
 }
 
 async fn validate_view_rules(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<DeleteMemberRequest>,
+) -> Result<Request<DeleteMemberRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
@@ -45,14 +45,14 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<DeleteMemberRequest>,
+) -> Result<Request<DeleteMemberRequest>, Status> {
     Ok(request)
 }
 
-async fn handle_new_language_code(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Response<NewLanguageCodeResponse>, Status> {
+async fn handle_delete_member(
+    request: Request<DeleteMemberRequest>,
+) -> Result<Response<DeleteMemberResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let name = &request.get_ref().name;
@@ -98,6 +98,7 @@ async fn handle_new_language_code(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_language_code")))
+        Err(Status::aborted("新增语言编码失败。"))
     }
 }
+

@@ -5,7 +5,16 @@
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
 
+message NewPersonRequest{
+  Name name = 1;
+  string gender;
+  uint64 birthday;
+  bytes portrait = 2;
+  string description = 3;
+  string address = 4;
+}
 
 message GetPersonRequest{
   string id = 1;

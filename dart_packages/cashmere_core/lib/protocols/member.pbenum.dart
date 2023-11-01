@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: entity_template.proto
+//  source: member.proto
 //
 // @dart = 2.12
 

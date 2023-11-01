@@ -16,22 +16,22 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 
 #[async_trait]
-pub trait HandleNewLanguageCode {
+pub trait HandleAddMember {
     /// 新建管理属性
-    async fn handle_new_language_code(
+    async fn handle_add_member(
         &self,
-        request: Request<NewLanguageCodeRequest>,
-    ) -> Result<Response<NewLanguageCodeResponse>, Status> {
+        request: Request<AddMemberRequest>,
+    ) -> Result<Response<AddMemberResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_new_language_code)
+            .and_then(handle_add_member)
             .await
     }
 }
 
 async fn validate_view_rules(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<AddMemberRequest>,
+) -> Result<Request<AddMemberRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
@@ -45,14 +45,14 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Request<NewLanguageCodeRequest>, Status> {
+    request: Request<AddMemberRequest>,
+) -> Result<Request<AddMemberRequest>, Status> {
     Ok(request)
 }
 
-async fn handle_new_language_code(
-    request: Request<NewLanguageCodeRequest>,
-) -> Result<Response<NewLanguageCodeResponse>, Status> {
+async fn handle_add_member(
+    request: Request<AddMemberRequest>,
+) -> Result<Response<AddMemberResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let name = &request.get_ref().name;
@@ -98,6 +98,7 @@ async fn handle_new_language_code(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_language_code")))
+        Err(Status::aborted("新增语言编码失败。"))
     }
 }
+

@@ -128,6 +128,6 @@ async fn handle_new_category(
             ))),
         }
     } else {
-        Err(Status::aborted("创建国家域失败"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_category")))
     }
 }

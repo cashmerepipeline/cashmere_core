@@ -109,6 +109,6 @@ async fn handle_new_group(
             ))),
         }
     } else {
-        Err(Status::aborted("新增组失败。"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_group")))
     }
 }

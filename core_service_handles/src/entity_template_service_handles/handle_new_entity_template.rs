@@ -2,6 +2,7 @@ use dependencies_sync::bson::{self, Bson, Document};
 
 use dependencies_sync::futures::TryFutureExt;
 
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::{Request, Response, Status};
 
 
@@ -65,11 +66,11 @@ async fn handle_new_entity_template(
     let fields = &request.get_ref().fields;
 
     let majordomo_arc = get_majordomo();
-    let template_manager = majordomo_arc
+    let manager = majordomo_arc
         .get_manager_by_id(TEMPLATES_MANAGE_ID)
         .unwrap();
 
-    if let Err(e) = template_manager.validate_data_fields(fields).await {
+    if let Err(e) = manager.validate_data_fields(fields).await {
         return Err(Status::aborted(format!(
             "{} {}",
             e.operation(),
@@ -86,14 +87,19 @@ async fn handle_new_entity_template(
         })
         .collect();
 
-    let new_id = template_manager.get_new_entity_id(&account_id).await.unwrap();
+    let new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await{
+        r
+    }else{
+        return Err(Status::aborted(format!("{}: {}", t!("获取新ID失败"), "new_comment")));
+    };
+
     let mut new_doc = Document::new();
     new_doc.insert("_id", new_id);
     new_doc.insert(ID_FIELD_ID.to_string(), new_id);
     new_doc.insert(TEMPLATES_MANAGE_FIELD_ID.to_string(), manage_id);
     new_doc.insert(TEMPLATES_PRESETS_FIELD_ID.to_string(), fields);
 
-    let result = template_manager
+    let result = manager
         .sink_entity(&mut new_doc, &account_id, &role_group)
         .await;
 

@@ -4,8 +4,10 @@ use dependencies_sync::chrono::Utc;
 // use dependencies_sync::tokio::stream::StreamExt;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::log;
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
+use dependencies_sync::rust_i18n::{self, t};
 use serde::Deserialize;
 
 use cash_result::*;
@@ -37,7 +39,22 @@ pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64>
         .await;
 
     match result {
-        Ok(r) => Some(r.unwrap().get_i32("id_count").unwrap() as i64),
-        Err(_e) => None,
+        Ok(r) => {
+            if let Some(r) = r {
+                if let Ok(r) = r.get_i64("id_count") {
+                    return Some(r);
+                } else {
+                    log::error!("{}: {}", t!("提取新实体编号失败"), manage_id);
+                    return None;
+                }
+            } else {
+                log::error!("{}: {}", t!("新实体编号数据错误"), manage_id);
+                return None;
+            }
+        }
+        Err(_e) => {
+            log::error!("{}: {}", t!("取得新实体编号失败"), manage_id);
+            None
+        }
     }
 }
