@@ -21,12 +21,12 @@ use request_utils::request_account_context;
 
 
 #[async_trait]
-pub trait HandleNewEntityTemplate {
+pub trait HandleNewTemplate {
     // 实体模板
     async fn handle_new_entity_template(
         &self,
-        request: Request<NewEntityTemplateRequest>,
-    ) -> Result<Response<NewEntityTemplateResponse>, Status> {
+        request: Request<NewTemplateRequest>,
+    ) -> Result<Response<NewTemplateResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_new_entity_template)
@@ -35,8 +35,8 @@ pub trait HandleNewEntityTemplate {
 }
 
 async fn validate_view_rules(
-    request: Request<NewEntityTemplateRequest>,
-) -> Result<Request<NewEntityTemplateRequest>, Status> {
+    request: Request<NewTemplateRequest>,
+) -> Result<Request<NewTemplateRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = ENTITIY_TEMPLATES_MANAGE_ID;
@@ -52,14 +52,14 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewEntityTemplateRequest>,
-) -> Result<Request<NewEntityTemplateRequest>, Status> {
+    request: Request<NewTemplateRequest>,
+) -> Result<Request<NewTemplateRequest>, Status> {
     Ok(request)
 }
 
 async fn handle_new_entity_template(
-    request: Request<NewEntityTemplateRequest>,
-) -> Result<Response<NewEntityTemplateResponse>, Status> {
+    request: Request<NewTemplateRequest>,
+) -> Result<Response<NewTemplateResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let manage_id = &request.get_ref().manage_id;
@@ -96,7 +96,7 @@ async fn handle_new_entity_template(
     let mut new_doc = Document::new();
     new_doc.insert("_id", new_id);
     new_doc.insert(ID_FIELD_ID.to_string(), new_id);
-    new_doc.insert(TEMPLATES_MANAGE_FIELD_ID.to_string(), manage_id);
+    new_doc.insert(TEMPLATES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
     new_doc.insert(TEMPLATES_PRESETS_FIELD_ID.to_string(), fields);
 
     let result = manager
@@ -104,7 +104,7 @@ async fn handle_new_entity_template(
         .await;
 
     match result {
-        Ok(_r) => Ok(Response::new(NewEntityTemplateResponse {
+        Ok(_r) => Ok(Response::new(NewTemplateResponse {
             result: "ok".to_string(),
         })),
         Err(e) => Err(Status::aborted(format!(

@@ -482,6 +482,47 @@ pub struct Price {
     #[prost(string, tag = "2")]
     pub currency: ::prost::alloc::string::String,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Season {
+    Spring = 0,
+    Summer = 1,
+    Autumn = 2,
+    Winter = 3,
+}
+impl Season {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Season::Spring => "Spring",
+            Season::Summer => "Summer",
+            Season::Autumn => "Autumn",
+            Season::Winter => "Winter",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Spring" => Some(Self::Spring),
+            "Summer" => Some(Self::Summer),
+            "Autumn" => Some(Self::Autumn),
+            "Winter" => Some(Self::Winter),
+            _ => None,
+        }
+    }
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Position {
+    #[prost(int32, tag = "1")]
+    pub x: i32,
+    #[prost(int32, tag = "2")]
+    pub y: i32,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entity {
@@ -836,23 +877,25 @@ pub struct CheckUpdatesLaterThenTimeResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateRequest {
+pub struct NewTemplateRequest {
+    #[prost(message, optional, tag = "3")]
+    pub name: ::core::option::Option<Name>,
     /// 模板对应管理
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
-    /// 属性:值 列表
+    /// bons Document bytes
     #[prost(bytes = "vec", repeated, tag = "2")]
     pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateResponse {
+pub struct NewTemplateResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateRequest {
+pub struct EditTemplateRequest {
     /// 模板编号
     #[prost(string, tag = "1")]
     pub template_id: ::prost::alloc::string::String,
@@ -862,19 +905,19 @@ pub struct EditEntityTemplateRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateResponse {
+pub struct EditTemplateResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateRequest {
+pub struct RemoveTemplateRequest {
     #[prost(string, tag = "1")]
     pub template_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateResponse {
+pub struct RemoveTemplateResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -1146,46 +1189,45 @@ pub struct RemoveCommentResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum Season {
-    Spring = 0,
-    Summer = 1,
-    Autumn = 2,
-    Winter = 3,
-}
-impl Season {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            Season::Spring => "Spring",
-            Season::Summer => "Summer",
-            Season::Autumn => "Autumn",
-            Season::Winter => "Winter",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Spring" => Some(Self::Spring),
-            "Summer" => Some(Self::Summer),
-            "Autumn" => Some(Self::Autumn),
-            "Winter" => Some(Self::Winter),
-            _ => None,
-        }
-    }
-}
-#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Position {
-    #[prost(int32, tag = "1")]
-    pub x: i32,
+pub struct AddMemberRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
     #[prost(int32, tag = "2")]
-    pub y: i32,
+    pub owner_manage_id: i32,
+    #[prost(string, tag = "3")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+    #[prost(int32, tag = "4")]
+    pub self_manage_id: i32,
+    #[prost(string, tag = "5")]
+    pub self_entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddMemberResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteMemberRequest {
+    #[prost(int32, tag = "1")]
+    pub owner_manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+    #[prost(int32, tag = "3")]
+    pub self_manage_id: i32,
+    #[prost(string, tag = "4")]
+    pub self_entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteMemberResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

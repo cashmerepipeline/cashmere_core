@@ -20,11 +20,11 @@ use request_utils::request_account_context;
 
 
 #[async_trait]
-pub trait HandleEditEntityTemplate {
+pub trait HandleEditTemplate {
     async fn handle_edit_entity_template(
         &self,
-        request: Request<EditEntityTemplateRequest>,
-    ) -> Result<Response<EditEntityTemplateResponse>, Status> {
+        request: Request<EditTemplateRequest>,
+    ) -> Result<Response<EditTemplateResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_template)
@@ -33,8 +33,8 @@ pub trait HandleEditEntityTemplate {
 }
 
 async fn validate_view_rules(
-    request: Request<EditEntityTemplateRequest>,
-) -> Result<Request<EditEntityTemplateRequest>, Status> {
+    request: Request<EditTemplateRequest>,
+) -> Result<Request<EditTemplateRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = TEMPLATES_MANAGE_ID;
@@ -48,14 +48,14 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<EditEntityTemplateRequest>,
-) -> Result<Request<EditEntityTemplateRequest>, Status> {
+    request: Request<EditTemplateRequest>,
+) -> Result<Request<EditTemplateRequest>, Status> {
     Ok(request)
 }
 
 async fn handle_edit_entity_template(
-    request: Request<EditEntityTemplateRequest>,
-) -> Result<Response<EditEntityTemplateResponse>, Status> {
+    request: Request<EditTemplateRequest>,
+) -> Result<Response<EditTemplateResponse>, Status> {
     let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let template_id = &request.get_ref().template_id;
@@ -79,7 +79,7 @@ async fn handle_edit_entity_template(
         .await;
 
     match result {
-        Ok(_r) => Ok(Response::new(EditEntityTemplateResponse {
+        Ok(_r) => Ok(Response::new(EditTemplateResponse {
             result: "ok".to_string(),
         })),
         Err(e) => {

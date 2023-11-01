@@ -73,7 +73,7 @@ async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResul
         .entity_exists(&doc! {
             NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
         })
-        .await
+        .await.is_some()
     {
         return Err(Status::aborted("区域已经存在"));
     }

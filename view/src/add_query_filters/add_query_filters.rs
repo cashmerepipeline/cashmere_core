@@ -9,7 +9,7 @@ use crate::add_query_filters::check_group_read_nolimit::check_group_read_nolimit
 use crate::add_query_filters::check_group_read_only_owner::check_group_read_only_owner;
 use crate::view_rules_map::{get_view_rules_map, query_collection_view_rules};
 
-/// 集合是否可写，向集合添加或者删除实体
+/// 加入查询过滤
 pub async fn add_query_filters(
     account: &String,
     group: &String,

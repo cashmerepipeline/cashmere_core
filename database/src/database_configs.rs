@@ -12,7 +12,7 @@ pub struct DatabaseConfigs {
 
 impl ConfigTrait for DatabaseConfigs {
     fn name() -> &'static str {
-        return DATABASE_CONIFIGS_NAME;
+        DATABASE_CONIFIGS_NAME
     }
 }
 

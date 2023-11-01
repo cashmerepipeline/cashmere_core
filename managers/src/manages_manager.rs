@@ -98,7 +98,7 @@ impl ManagerTrait for ManagesManager {
     }
 
     async fn get_new_entity_id(&self, _account_id: &String) -> Option<i64> {
-        return None;
+        None
     }
 
     // async fn get_entities_by_filter(filter: &Document) -> Result<Vec<Document>, OperationResult>{

@@ -66,9 +66,8 @@ async fn handle_new_language_code(
         .get_manager_by_id(manage_id.to_owned())
         .unwrap();
 
-    // TODO: 检查语言编号是否存在
     let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
-    if manager.entity_exists(&query_doc).await {
+    if manager.entity_exists(&query_doc).await.is_some() {
         return Err(Status::already_exists(format!(
             "{}: {}",
             t!("语言已经存在"),

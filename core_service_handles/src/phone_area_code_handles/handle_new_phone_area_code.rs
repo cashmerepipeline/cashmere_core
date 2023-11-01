@@ -72,7 +72,7 @@ async fn handle_new_phone_area_code(
         .unwrap();
 
     let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
-    if manager.entity_exists(&query_doc).await {
+    if manager.entity_exists(&query_doc).await.is_some() {
         return Err(Status::already_exists(format!(
             "{}: {}",
             t!("区号已经存在"),

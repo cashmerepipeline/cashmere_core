@@ -23,7 +23,7 @@ pub mod tag_service_handles;
 pub mod group_service_handles;
 
 pub mod entity_service_handles;
-pub mod entity_template_service_handles;
+pub mod template_service_handles;
 pub mod manage_service_handle;
 
 pub mod name_service_handles;

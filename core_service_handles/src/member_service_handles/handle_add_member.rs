@@ -1,19 +1,17 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::rust_i18n::{self, t};
-
+use dependencies_sync::tonic::{Request, Response, Status};
+use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::field_ids::*;
+use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
-
-use dependencies_sync::tonic::{Request, Response, Status};
-
+use service_utils::validate_name;
 
 #[async_trait]
 pub trait HandleAddMember {
@@ -47,6 +45,16 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<AddMemberRequest>,
 ) -> Result<Request<AddMemberRequest>, Status> {
+    let name = &request.get_ref().name;
+
+    if !validate_name(name) {
+        return Err(Status::invalid_argument(format!(
+            "{}-{}",
+            t!("名字不能为空"),
+            "add_member"
+        )));
+    }
+
     Ok(request)
 }
 
@@ -56,41 +64,59 @@ async fn handle_add_member(
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
     let name = &request.get_ref().name;
-    let code = &request.get_ref().code;
-    let native_name = &request.get_ref().native_name;
+    let owner_manage_id = &request.get_ref().owner_manage_id;
+    let owner_entity_id = &request.get_ref().owner_entity_id;
+    let self_manage_id = &request.get_ref().self_manage_id;
+    let self_entity_id = &request.get_ref().self_entity_id;
 
-    let manage_id = &LANGUAGES_CODES_MANAGE_ID;
+    let manage_id = &MEMBERS_MANAGE_ID;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
         .get_manager_by_id(manage_id.to_owned())
         .unwrap();
 
-    // TODO: 检查语言编号是否存在
-    let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
-    if manager.entity_exists(&query_doc).await {
+    let name = name.to_owned().unwrap();
+    let name_doc = doc! {name.language.clone():name.name.clone()};
+
+    let mut query_doc = doc! {};
+    query_doc.insert(MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(), owner_manage_id.to_owned());
+    query_doc.insert(MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(), owner_entity_id.to_owned());
+    query_doc.insert(MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(), self_manage_id.to_owned());
+    query_doc.insert(MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(), self_entity_id.to_owned());
+
+    if let Some(id) = manager.entity_exists(&query_doc).await {
+        //标记为删除，则恢复
+        if manager.is_mark_removed(&id).await {
+            if let Err(err) = manager.recover_removed_entity(&id, &account_id).await {
+                return Err(Status::aborted(format!("{}: {}", t!("恢复删除标记失败"), err.details())));
+            };
+            return Ok(Response::new(AddMemberResponse { result: id }));
+        }
         return Err(Status::already_exists(format!(
-            "{}: {}",
-            t!("语言已经存在"),
-            code
+            "{}: {}-{}, {}-{}",
+            t!("成员已存在"),
+            owner_manage_id, owner_entity_id,
+            self_manage_id, self_entity_id
         )));
     }
 
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
-        new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),
-            bson::to_document(name).unwrap(),
+            bson::to_document(&name).unwrap(),
         );
-        new_entity_doc.insert(LANGUAGES_CODES_CODE_FIELD_ID.to_string(), code);
-        new_entity_doc.insert(LANGUAGES_CODES_NATIVE_FIELD_ID.to_string(), native_name);
+        new_entity_doc.insert(MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(), owner_manage_id.to_owned());
+        new_entity_doc.insert(MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(), owner_entity_id.to_owned());
+        new_entity_doc.insert(MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(), self_manage_id.to_owned());
+        new_entity_doc.insert(MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(), self_entity_id.to_owned());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewLanguageCodeResponse { result: r })),
+            Ok(r) => Ok(Response::new(AddMemberResponse { result: r })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),
@@ -98,7 +124,7 @@ async fn handle_add_member(
             ))),
         }
     } else {
-        Err(Status::aborted("新增语言编码失败。"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_language_code")))
     }
 }
 

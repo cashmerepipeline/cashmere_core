@@ -1,4 +1,4 @@
-use crate::view_rules_map::{get_view_rules_map, query_collection_view_rules};
+use crate::view_rules_map::query_collection_view_rules;
 use crate::WriteRule;
 
 /// 集合是否可写，向集合添加或者删除实体

@@ -81,7 +81,7 @@ async fn handle_new_country(
         .entity_exists(&doc! {
             COUNTRY_CODES_CODE_FIELD_ID.to_string():code.clone(),
         })
-        .await
+        .await.is_some()
     {
         return Err(Status::aborted("国家已经存在"));
     }

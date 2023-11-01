@@ -1,4 +1,4 @@
-use crate::view_rules_map::{get_view_rules_map, query_manage_view_rules};
+use crate::view_rules_map::query_manage_view_rules;
 use crate::ReadRule;
 
 /// 管理是否可写, 管理的字段定义添加删除

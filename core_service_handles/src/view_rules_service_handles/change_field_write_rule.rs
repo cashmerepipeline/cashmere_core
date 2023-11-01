@@ -72,7 +72,7 @@ async fn handle_change_field_write_rule(
     // 检查组是否存在
     let group_manager = majordomo_arc.get_manager_by_id(GROUPS_MANAGE_ID).unwrap();
     let group_query_doc = doc! {ID_FIELD_ID.to_string():group_id.clone()};
-    if !group_manager.entity_exists(&group_query_doc).await {
+    if group_manager.entity_exists(&group_query_doc).await.is_none() {
         return Err(Status::data_loss(format!("组不存在: {}", manage_id)));
     }
 

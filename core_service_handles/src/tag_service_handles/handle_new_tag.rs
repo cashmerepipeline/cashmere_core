@@ -97,7 +97,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
             TAGS_TARGET_MANAGES_FIELD_ID.to_string(): *target_manage_id,
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
-        .await
+        .await.is_some()
     {
         return Err(Status::aborted(format!(
             "{}-{}-{}",
