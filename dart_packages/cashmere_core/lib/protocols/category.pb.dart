@@ -198,11 +198,11 @@ class GetCategoriesRequest extends $pb.GeneratedMessage {
 
 class GetCategoriesResponse extends $pb.GeneratedMessage {
   factory GetCategoriesResponse({
-    $core.Iterable<$core.List<$core.int>>? categories,
+    $core.Iterable<$core.List<$core.int>>? codes,
   }) {
     final $result = create();
-    if (categories != null) {
-      $result.categories.addAll(categories);
+    if (codes != null) {
+      $result.codes.addAll(codes);
     }
     return $result;
   }
@@ -211,7 +211,7 @@ class GetCategoriesResponse extends $pb.GeneratedMessage {
   factory GetCategoriesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCategoriesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'categories', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'codes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -238,7 +238,7 @@ class GetCategoriesResponse extends $pb.GeneratedMessage {
 
   /// bson bytes
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get categories => $_getList(0);
+  $core.List<$core.List<$core.int>> get codes => $_getList(0);
 }
 
 /// 标记实体到类, 将品类编号添加到实体的品类列表中

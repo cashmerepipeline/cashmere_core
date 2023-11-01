@@ -22,6 +22,6 @@ message NewPhoneAreaCodeResponse {
 // 客户端应该缓存这个列表
 message GetPhoneAreaCodesRequest {}
 message GetPhoneAreaCodesResponse {
-  repeated bytes phone_area_codes = 1;
+  repeated bytes codes = 1;
 }
 

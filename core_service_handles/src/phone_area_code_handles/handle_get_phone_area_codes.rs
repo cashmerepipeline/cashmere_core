@@ -68,7 +68,7 @@ async fn handle_get_phone_area_codes(
             }
 
             Ok(Response::new(GetPhoneAreaCodesResponse {
-                phone_area_codes: result_codes
+                codes: result_codes
             }))
         }
         Err(e) => Err(Status::aborted(format!(

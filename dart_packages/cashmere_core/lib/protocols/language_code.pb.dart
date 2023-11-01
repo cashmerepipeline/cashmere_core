@@ -182,11 +182,11 @@ class GetLanguageCodesRequest extends $pb.GeneratedMessage {
 
 class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   factory GetLanguageCodesResponse({
-    $core.Iterable<$core.List<$core.int>>? languageCodes,
+    $core.Iterable<$core.List<$core.int>>? codes,
   }) {
     final $result = create();
-    if (languageCodes != null) {
-      $result.languageCodes.addAll(languageCodes);
+    if (codes != null) {
+      $result.codes.addAll(codes);
     }
     return $result;
   }
@@ -195,7 +195,7 @@ class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   factory GetLanguageCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetLanguageCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'languageCodes', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'codes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -221,7 +221,7 @@ class GetLanguageCodesResponse extends $pb.GeneratedMessage {
   static GetLanguageCodesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get languageCodes => $_getList(0);
+  $core.List<$core.List<$core.int>> get codes => $_getList(0);
 }
 
 /// TODO: 可能不需要

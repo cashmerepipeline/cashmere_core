@@ -57,12 +57,11 @@ final $typed_data.Uint8List getCountryCodesRequestDescriptor = $convert.base64De
 const GetCountryCodesResponse$json = {
   '1': 'GetCountryCodesResponse',
   '2': [
-    {'1': 'country_codes', '3': 1, '4': 3, '5': 12, '10': 'countryCodes'},
+    {'1': 'codes', '3': 1, '4': 3, '5': 12, '10': 'codes'},
   ],
 };
 
 /// Descriptor for `GetCountryCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCountryCodesResponseDescriptor = $convert.base64Decode(
-    'ChdHZXRDb3VudHJ5Q29kZXNSZXNwb25zZRIjCg1jb3VudHJ5X2NvZGVzGAEgAygMUgxjb3VudH'
-    'J5Q29kZXM=');
+    'ChdHZXRDb3VudHJ5Q29kZXNSZXNwb25zZRIUCgVjb2RlcxgBIAMoDFIFY29kZXM=');
 

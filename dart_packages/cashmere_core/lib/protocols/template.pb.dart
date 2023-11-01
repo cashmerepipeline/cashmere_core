@@ -13,10 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'name.pb.dart' as $0;
+
 class NewTemplateRequest extends $pb.GeneratedMessage {
   factory NewTemplateRequest({
     $core.int? manageId,
     $core.Iterable<$core.List<$core.int>>? fields,
+    $0.Name? name,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -24,6 +27,9 @@ class NewTemplateRequest extends $pb.GeneratedMessage {
     }
     if (fields != null) {
       $result.fields.addAll(fields);
+    }
+    if (name != null) {
+      $result.name = name;
     }
     return $result;
   }
@@ -34,6 +40,7 @@ class NewTemplateRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewTemplateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'fields', $pb.PbFieldType.PY)
+    ..aOM<$0.Name>(3, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..hasRequiredFields = false
   ;
 
@@ -68,9 +75,20 @@ class NewTemplateRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearManageId() => clearField(1);
 
-  /// 属性:值 列表
+  /// bons Document bytes
   @$pb.TagNumber(2)
   $core.List<$core.List<$core.int>> get fields => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $0.Name get name => $_getN(2);
+  @$pb.TagNumber(3)
+  set name($0.Name v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearName() => clearField(3);
+  @$pb.TagNumber(3)
+  $0.Name ensureName() => $_ensure(2);
 }
 
 class NewTemplateResponse extends $pb.GeneratedMessage {

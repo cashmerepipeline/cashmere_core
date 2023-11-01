@@ -53,12 +53,11 @@ final $typed_data.Uint8List getPhoneAreaCodesRequestDescriptor = $convert.base64
 const GetPhoneAreaCodesResponse$json = {
   '1': 'GetPhoneAreaCodesResponse',
   '2': [
-    {'1': 'phone_area_codes', '3': 1, '4': 3, '5': 12, '10': 'phoneAreaCodes'},
+    {'1': 'codes', '3': 1, '4': 3, '5': 12, '10': 'codes'},
   ],
 };
 
 /// Descriptor for `GetPhoneAreaCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getPhoneAreaCodesResponseDescriptor = $convert.base64Decode(
-    'ChlHZXRQaG9uZUFyZWFDb2Rlc1Jlc3BvbnNlEigKEHBob25lX2FyZWFfY29kZXMYASADKAxSDn'
-    'Bob25lQXJlYUNvZGVz');
+    'ChlHZXRQaG9uZUFyZWFDb2Rlc1Jlc3BvbnNlEhQKBWNvZGVzGAEgAygMUgVjb2Rlcw==');
 

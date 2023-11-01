@@ -63,7 +63,7 @@ async fn handle_get_country_codes(
             }
 
             Ok(Response::new(GetCountryCodesResponse {
-                country_codes: result_codes,
+                codes: result_codes,
             }))
         }
         Err(e) => Err(Status::aborted(format!(

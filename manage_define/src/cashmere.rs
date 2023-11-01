@@ -115,7 +115,7 @@ pub struct GetCountryCodesRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCountryCodesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub country_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 新语言编码
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -143,7 +143,7 @@ pub struct GetLanguageCodesRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLanguageCodesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub language_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// TODO: 可能不需要
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -256,7 +256,7 @@ pub struct GetPhoneAreaCodesRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPhoneAreaCodesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub phone_area_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 通用常量不需要参数的取得接口，简化api
 /// 如果常量需要参数，则需要单独定义接口
@@ -1257,7 +1257,7 @@ pub struct GetCategoriesRequest {
 pub struct GetCategoriesResponse {
     /// bson bytes
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub categories: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 标记实体到类, 将品类编号添加到实体的品类列表中
 #[allow(clippy::derive_partial_eq_without_eq)]
