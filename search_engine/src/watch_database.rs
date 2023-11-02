@@ -13,28 +13,30 @@ use dependencies_sync::{
     tokio_stream::StreamExt,
 };
 
-use database::get_collection_by_id;
+use database::{get_cashmere_database, get_collection_by_id};
 
-use crate::{collection_event_handles::handle_insert_event, search_engine_runtime::get_search_engine_runtime};
-use crate::collection_event_handles::{handle_delete_event, handle_update_event};
+use crate::database_event_handles::{handle_delete_event, handle_update_event};
+use crate::{
+    database_event_handles::handle_insert_event, search_engine_runtime::get_search_engine_runtime,
+};
 
-pub async fn watch_manage_collection(manage_id: i32) {
+pub async fn watch_database() {
     let run_time = get_search_engine_runtime();
 
     run_time.spawn(async move {
-        log::info!("{}: {}", t!("开始监听管理集"), manage_id);
+        log::info!("{}", t!("开始监听数据库"));
 
-        let collection = get_collection_by_id(&manage_id.to_string()).await.unwrap();
+        let database = get_cashmere_database().await;
         let read_concern = ChangeStreamOptions::builder()
             .read_concern(Some(ReadConcern::majority()))
             .full_document(Some(FullDocumentType::UpdateLookup))
             .build();
 
         let mut change_stream: ChangeStream<ChangeStreamEvent<Document>> =
-            match collection.watch(None, Some(read_concern)).await {
+            match database.watch(None, Some(read_concern)).await {
                 Ok(r) => r,
                 Err(e) => {
-                    log::error!("{}: {}", t!("取得监听数据流发生错误"), manage_id);
+                    log::error!("{}", t!("取得监听数据流发生错误"));
                     panic!("{}", e);
                 }
             };
@@ -49,8 +51,30 @@ pub async fn watch_manage_collection(manage_id: i32) {
         //     };
 
         while let Some(change_event) = &change_stream.next().await {
+            log::info!("{}:w", t!("修改发生"));
             match change_event {
                 Ok(r) => {
+                    log::info!("{:?}", r);
+                    let manage_id = if let Some(ref n) = r.ns {
+                        if let Some(ref c) = n.coll {
+                            c.parse::<i32>().unwrap()
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    };
+
+                    let object_id = if let Some(ref dk) = r.document_key {
+                        if let Ok(ref oid) = dk.get_object_id("_id") {
+                            oid.to_string()
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    };
+
                     let object_id = r
                         .document_key
                         .as_ref()
@@ -85,11 +109,11 @@ pub async fn watch_manage_collection(manage_id: i32) {
                     // println!("{} {}: {:?}", t!("修改发生"), manage_id, r);
                 }
                 Err(err) => {
-                    log::error!("{}: {}, {}", t!("监听数据发生错误"), manage_id, err);
+                    log::error!("{}: {}", t!("监听数据发生错误"), err);
                 }
             }
         }
 
-        log::info!("{}: {}", t!("监听管理集结束"), manage_id);
+        log::info!("{}", t!("监听管理集结束"));
     });
 }

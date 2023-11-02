@@ -39,12 +39,12 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
             };
         }
 
-        // 搜索引擎索引
-        register_manage_tantivy_schema(manager_id, m.tantivy_schema());
-        let _ = get_manage_tantivy_index(manager_id);
-        let _ = get_manage_index_writer(manager_id);
-        let _ = spaw_writer_commit_thread();
-        watch_manage_collection(m.get_id()).await;
+        // // 搜索引擎索引
+        // register_manage_tantivy_schema(manager_id, m.tantivy_schema());
+        // let _ = get_manage_tantivy_index(manager_id);
+        // let _ = get_manage_index_writer(manager_id);
+        // let _ = spaw_writer_commit_thread();
+        // watch_manage_collection(m.get_id()).await;
 
         manages_map.insert(manager_id, m.clone());
     }

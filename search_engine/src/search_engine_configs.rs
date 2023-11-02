@@ -1,7 +1,12 @@
-use configs::ConfigTrait;
+use std::sync::OnceLock;
+
+use configs::{ConfigTrait, get_config};
+use dependencies_sync::rust_i18n::{self, t};
 use serde::{Deserialize, Serialize};
 
 pub const SEARCH_ENGINE_CONFIG_NAME: &str = "search_engine";
+
+static SEARCH_ENGINE_CONFIGS: OnceLock<SearchEngineConfigs> = OnceLock::new();
 
 /// 搜索引擎设置
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -17,6 +22,16 @@ pub struct SearchEngineConfigs {
 impl ConfigTrait for SearchEngineConfigs {
     fn name() -> &'static str {
         SEARCH_ENGINE_CONFIG_NAME
+    }
+    fn get() -> &'static Self {
+        if let Some(configs) = SEARCH_ENGINE_CONFIGS.get() {
+            return configs;
+        } else {
+            let configs = get_config::<SearchEngineConfigs>().expect(t!("取得配置失败").as_str());
+            SEARCH_ENGINE_CONFIGS.set(configs).expect("设置配置失败");
+        }
+
+        SEARCH_ENGINE_CONFIGS.get().unwrap()
     }
 }
 

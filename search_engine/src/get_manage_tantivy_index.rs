@@ -3,7 +3,7 @@ use std::sync::Arc;
 use crate::get_manage_tantivy_index_map;
 use dependencies_sync::tantivy::Index;
 
-use super::init_tantivy_index::init_tantivy_index;
+use super::init_single_tantivy_index::init_tantivy_index;
 
 /// 取得管理索引
 pub fn get_manage_tantivy_index(manage_id: i32) -> Arc<Index> {
@@ -16,7 +16,7 @@ pub fn get_manage_tantivy_index(manage_id: i32) -> Arc<Index> {
         }
     }
     {
-        init_tantivy_index(manage_id);
+        init_tantivy_index();
         let map = map_arc.read();
         map.get(&manage_id).unwrap().clone()
     }

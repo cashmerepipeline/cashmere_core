@@ -2,8 +2,8 @@ use dependencies_sync::bson::Document;
 use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 
-use crate::event_handles::commit_search_document::commit_search_document;
-use crate::{get_manage_tantivy_index, get_manage_tantivy_schema};
+use crate::database_event_handles::commit_search_document::commit_search_document;
+use crate::{get_manage_tantivy_index, get_manage_tantivy_schema, get_tantivy_schema};
 
 pub fn handle_update_event(
     manage_id: i32,
@@ -19,8 +19,7 @@ pub fn handle_update_event(
         updates
     );
 
-    let _index = get_manage_tantivy_index(manage_id);
-    let schema = get_manage_tantivy_schema(manage_id).unwrap();
+    let schema = get_tantivy_schema();
 
     // 如果字段全部不在模式表中，则返回
     let field_names = schema
