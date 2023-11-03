@@ -10,7 +10,7 @@ use manage_define::general_field_ids::{
     DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
 
-use crate::{get_manage_index_writer, get_tantivy_writer};
+use crate::get_tantivy_writer;
 
 pub fn commit_search_document(
     update_document: &bson::Document,
@@ -23,10 +23,10 @@ pub fn commit_search_document(
     let writer = writer_arc.read();
 
     // zh: 如果存在，先删除旧的
-    if object_id.is_some() {
+    if let Some(obj_id) = object_id{
         writer.delete_term(Term::from_field_text(
             schema.get_field("_id").unwrap(),
-            object_id.unwrap().as_str(),
+            obj_id.as_str(),
         ));
     }
 

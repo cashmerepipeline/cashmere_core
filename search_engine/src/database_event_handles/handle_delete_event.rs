@@ -2,7 +2,7 @@ use dependencies_sync::tantivy::Term;
 use majordomo::get_majordomo;
 use managers::manager_trait::ManagerTrait;
 
-use crate::{get_manage_index_writer, get_manage_tantivy_schema, get_tantivy_schema, get_tantivy_writer};
+use crate::{get_tantivy_schema, get_tantivy_writer};
 
 pub fn handle_delete_event(manage_id: i32, object_id: &String) {
     println!("handle_delete_event: {}-{}", manage_id, object_id);
@@ -22,5 +22,4 @@ pub fn handle_delete_event(manage_id: i32, object_id: &String) {
         schema.get_field("_id").unwrap(),
         object_id.as_str(),
     ));
-
 }

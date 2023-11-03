@@ -9,11 +9,10 @@ use dependencies_sync::{
         options::{ChangeStreamOptions, FullDocumentType, ReadConcern},
     },
     rust_i18n::{self, t},
-    tokio,
     tokio_stream::StreamExt,
 };
 
-use database::{get_cashmere_database, get_collection_by_id};
+use database::{get_cashmere_database};
 
 use crate::database_event_handles::{handle_delete_event, handle_update_event};
 use crate::{
@@ -65,7 +64,7 @@ pub async fn watch_database() {
                         continue;
                     };
 
-                    let object_id = if let Some(ref dk) = r.document_key {
+                    let _object_id = if let Some(ref dk) = r.document_key {
                         if let Ok(ref oid) = dk.get_object_id("_id") {
                             oid.to_string()
                         } else {

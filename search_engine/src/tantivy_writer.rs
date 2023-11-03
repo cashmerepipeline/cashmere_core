@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use dependencies_sync::{
     parking_lot::RwLock,
-    tantivy::{Index, IndexWriter},
+    tantivy::{IndexWriter},
 };
 
 use crate::tantivy_index::get_tantivy_index;

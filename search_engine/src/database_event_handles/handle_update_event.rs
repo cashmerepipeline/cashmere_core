@@ -3,7 +3,7 @@ use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 
 use crate::database_event_handles::commit_search_document::commit_search_document;
-use crate::{get_manage_tantivy_index, get_manage_tantivy_schema, get_tantivy_schema};
+use crate::get_tantivy_schema;
 
 pub fn handle_update_event(
     manage_id: i32,
@@ -36,7 +36,6 @@ pub fn handle_update_event(
     if !need_update {
         return;
     }
-
 
     if let Err(err) =
         commit_search_document(full_document, schema, manage_id, Some(object_id.clone()))

@@ -2,7 +2,7 @@ use cash_result::OperationResult;
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
-    tokio::{spawn, time},
+    tokio::{time},
 };
 
 use crate::{get_tantivy_writer, search_engine_runtime::get_search_engine_runtime};
@@ -18,7 +18,7 @@ pub fn spaw_commit_thread() -> Result<(), OperationResult> {
             let mut writer = writer_arc.write();
 
             match writer.commit() {
-                Ok(stamp) => {
+                Ok(_stamp) => {
                     log::info!(
                         "\t{}", //-{}: \t{}", // \t{}",
                         t!("索引提交成功"),

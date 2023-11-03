@@ -12,7 +12,6 @@ use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, NAME_MAP_FIELD_ID}
 use crate::tantivy_searcher::get_tantivy_searcher;
 use crate::{get_tantivy_schema, get_tantivy_index};
 
-use super::{get_manage_searcher, get_manage_tantivy_index, get_manage_tantivy_schema};
 
 pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, OperationResult> {
     log::debug!("{}: {}-{:?}", t!("搜索开始"), manage_id, search_str);

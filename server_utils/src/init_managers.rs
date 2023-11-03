@@ -9,10 +9,6 @@ use dependencies_sync::rust_i18n::{self, t};
 use majordomo::get_majordomo;
 use managers::Manager;
 use managers::ManagerTrait;
-use search_engine::{
-    get_manage_index_writer, get_manage_tantivy_index, register_manage_tantivy_schema,
-    spaw_writer_commit_thread, watch_manage_collection,
-};
 
 pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
     info!("{}", t!("初始化主管"));
@@ -38,13 +34,6 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
                 panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
             };
         }
-
-        // // 搜索引擎索引
-        // register_manage_tantivy_schema(manager_id, m.tantivy_schema());
-        // let _ = get_manage_tantivy_index(manager_id);
-        // let _ = get_manage_index_writer(manager_id);
-        // let _ = spaw_writer_commit_thread();
-        // watch_manage_collection(m.get_id()).await;
 
         manages_map.insert(manager_id, m.clone());
     }
