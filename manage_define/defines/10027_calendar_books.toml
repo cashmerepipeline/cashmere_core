@@ -1,10 +1,10 @@
 #
-# 帐本
-# 记录实体相关信息的帐本，可以记录日历
+# 日历帐本
+# 记录实体相关日历信息的帐本
 #
 
 id = 10027
-name_map = { zh = "帐本", en = "books" }
+name_map = { zh = "日历帐本", en = "calendar_books" }
 
 # 数据描写 或者 模式
 schema = [

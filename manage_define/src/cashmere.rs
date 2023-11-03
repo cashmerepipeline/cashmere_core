@@ -1409,7 +1409,7 @@ pub struct RemoveTagsFromEntityResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewBookRequest {
+pub struct NewCalendarBookRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(string, tag = "2")]
@@ -1421,14 +1421,14 @@ pub struct NewBookRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewBookResponse {
+pub struct NewCalendarBookResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 添加日历
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddCalendarRequest {
+pub struct AddCalendarToBookRequest {
     #[prost(string, tag = "1")]
     pub book_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
@@ -1438,7 +1438,7 @@ pub struct AddCalendarRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddCalendarResponse {
+pub struct AddCalendarToBookResponse {
     /// 成功返回新日历编码，失败返回信息
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,

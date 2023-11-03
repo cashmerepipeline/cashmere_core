@@ -4,23 +4,23 @@ package cashmere;
 import "name.proto";
 import "calendar.proto";
 
-message NewBookRequest{
+message NewCalendarBookRequest{
   int32 manage_id = 1;
   string entity_id = 2;
   Name name = 3;
   string description = 4;
 }
-message NewBookResponse{
+message NewCalendarBookResponse{
   string result = 1;
 }
 
 // 添加日历
-message AddCalendarRequest{
+message AddCalendarToBookRequest{
   string book_id = 1;
   Calendar calendar = 2;
   string description = 3;
 }
-message AddCalendarResponse{
+message AddCalendarToBookResponse{
   // 成功返回新日历编码，失败返回信息
   string result = 1;
 }

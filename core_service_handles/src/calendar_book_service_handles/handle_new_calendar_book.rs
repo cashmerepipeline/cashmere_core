@@ -14,22 +14,22 @@ use request_utils::request_account_context;
 use service_utils::validate_name;
 
 #[async_trait]
-pub trait HandleNewBook {
+pub trait HandleNewCalendarBook {
     /// 新建管理属性
-    async fn handle_new_book(
+    async fn handle_new_calendar_book(
         &self,
-        request: Request<NewBookRequest>,
-    ) -> Result<Response<NewBookResponse>, Status> {
+        request: Request<NewCalendarBookRequest>,
+    ) -> Result<Response<NewCalendarBookResponse>, Status> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_new_book)
+            .and_then(handle_new_calendar_book)
             .await
     }
 }
 
 async fn validate_view_rules(
-    request: Request<NewBookRequest>,
-) -> Result<Request<NewBookRequest>, Status> {
+    request: Request<NewCalendarBookRequest>,
+) -> Result<Request<NewCalendarBookRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
@@ -45,8 +45,8 @@ async fn validate_view_rules(
 }
 
 async fn validate_request_params(
-    request: Request<NewBookRequest>,
-) -> Result<Request<NewBookRequest>, Status> {
+    request: Request<NewCalendarBookRequest>,
+) -> Result<Request<NewCalendarBookRequest>, Status> {
     let name = &request.get_ref().name;
 
     if !validate_name(name) {
@@ -60,12 +60,12 @@ async fn validate_request_params(
     Ok(request)
 }
 
-async fn handle_new_book(
-    request: Request<NewBookRequest>,
-) -> Result<Response<NewBookResponse>, Status> {
+async fn handle_new_calendar_book(
+    request: Request<NewCalendarBookRequest>,
+) -> Result<Response<NewCalendarBookResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
 
-    let manage_id = &BOOKS_MANAGE_ID;
+    let manage_id = &CALENDAR_BOOKS_MANAGE_ID;
 
     let name = &request.get_ref().name;
     let param_manage_id = &request.get_ref().manage_id;
@@ -83,8 +83,8 @@ async fn handle_new_book(
     // zh: 重名检查
     let query_doc = doc! {
         NAME_MAP_FIELD_ID.to_string(): name_doc,
-        BOOKS_MANAGE_ID_FIELD_ID.to_string(): param_manage_id.to_owned(),
-        BOOKS_ENTITY_ID_FIELD_ID.to_string(): entity_id.to_owned(),
+        CALENDAR_BOOKS_MANAGE_ID_FIELD_ID.to_string(): param_manage_id.to_owned(),
+        CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(): entity_id.to_owned(),
     };
     if let Some(id) = manager.entity_exists(&query_doc).await {
         //标记为删除，则恢复
@@ -96,7 +96,7 @@ async fn handle_new_book(
                     err.details()
                 )));
             };
-            return Ok(Response::new(NewBookResponse { result: id }));
+            return Ok(Response::new(NewCalendarBookResponse { result: id }));
         }
         return Err(Status::already_exists(format!(
             "{}: {}-{}, {:?}",
@@ -113,10 +113,10 @@ async fn handle_new_book(
             bson::to_document(&name).unwrap(),
         );
         new_entity_doc.insert(
-            BOOKS_MANAGE_ID_FIELD_ID.to_string(),
+            CALENDAR_BOOKS_MANAGE_ID_FIELD_ID.to_string(),
             param_manage_id.to_owned(),
         );
-        new_entity_doc.insert(BOOKS_ENTITY_ID_FIELD_ID.to_string(), entity_id.to_owned());
+        new_entity_doc.insert(CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(), entity_id.to_owned());
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.to_owned());
 
         let result = manager
@@ -124,7 +124,7 @@ async fn handle_new_book(
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(NewBookResponse { result: r })),
+            Ok(r) => Ok(Response::new(NewCalendarBookResponse { result: r })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
                 e.operation(),
