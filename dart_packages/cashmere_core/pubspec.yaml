@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
   grpc: ^3.2.3
   bson: ^4.0.0
+  hooks_riverpod: ^2.4.3
+  account_module:
+    path: ../../../account_module/dart_packages/account_module
 
 dev_dependencies:
   flutter_test:

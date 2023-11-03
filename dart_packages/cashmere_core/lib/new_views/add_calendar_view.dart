@@ -1,7 +1,7 @@
+import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
 import 'package:cashmere_core/protocols/book.pb.dart';
 import 'package:cashmere_core/protocols/calendar.pb.dart';
 
-import '../new_entity_calls/to_new_entity_request.dart';
 
 class AddCalendarView implements ViewToRequest<AddCalendarRequest> {
   final String bookId;

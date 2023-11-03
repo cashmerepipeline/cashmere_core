@@ -1,4 +1,4 @@
-import 'package:cashmere_core/new_entity_calls/to_new_entity_request.dart';
+import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
 import 'package:cashmere_core/protocols/manage_schema.pb.dart';
 
 class NewSchemaFieldView extends ViewToRequest<NewSchemaFieldRequest> {

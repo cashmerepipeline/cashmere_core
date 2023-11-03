@@ -1,10 +1,10 @@
 import 'package:grpc/grpc.dart';
 
 import 'package:cashmere_core/grpc_call.dart';
-import 'package:cashmere_core/new_entity_calls/to_new_entity_request.dart';
+import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
 
 // 通用新建接口，如果需要特别新建形式，则建新的函数
-Future<Res> newEntity<Req, Res>(
+Future<Res> newEntityCall<Req, Res>(
   ViewToRequest newView,
   GrpcCall<Req, Res> stubCall,
   Map<String, String> metaData,

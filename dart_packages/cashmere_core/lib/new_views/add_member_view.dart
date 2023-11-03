@@ -1,8 +1,7 @@
-import 'package:cashmere_core/new_entity_calls/new_entity_call.dart';
+import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
 import 'package:cashmere_core/protocols/member.pb.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 
-import '../new_entity_calls/to_new_entity_request.dart';
 
 class AddMemberView implements ViewToRequest<AddMemberRequest> {
   final Name name;
