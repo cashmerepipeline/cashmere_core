@@ -1115,6 +1115,26 @@ pub struct Calendar {
         ::prost::alloc::string::String,
     >,
 }
+/// 新日历
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarRequest {
+    #[prost(message, optional, tag = "4")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "1")]
+    pub book_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub calendar: ::core::option::Option<Calendar>,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarResponse {
+    /// 成功返回新日历编码，失败返回信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -1422,24 +1442,6 @@ pub struct NewCalendarBookRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCalendarBookResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 添加日历
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddCalendarToBookRequest {
-    #[prost(string, tag = "1")]
-    pub book_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "2")]
-    pub calendar: ::core::option::Option<Calendar>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddCalendarToBookResponse {
-    /// 成功返回新日历编码，失败返回信息
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }

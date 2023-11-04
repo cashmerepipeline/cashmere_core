@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: book.proto
+//  source: calendar_book.proto
 //
 // @dart = 2.12
 

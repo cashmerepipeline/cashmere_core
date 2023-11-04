@@ -1,18 +1,18 @@
 import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
-import 'package:cashmere_core/protocols/book.pb.dart';
+import 'package:cashmere_core/protocols/calendar_book.pb.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 
-class NewBookView extends ViewToRequest<NewBookRequest> {
+class NewCalendarBookView extends ViewToRequest<NewCalendarBookRequest> {
   final Name name;
   final int manageId;
   final String entityId;
   final String description;
 
-  NewBookView({required this.name, required this.manageId, required this.entityId, required this.description});
+  NewCalendarBookView({required this.name, required this.manageId, required this.entityId, required this.description});
 
   @override
-  NewBookRequest toRequest() {
-    return NewBookRequest(
+  NewCalendarBookRequest toRequest() {
+    return NewCalendarBookRequest(
       name: name,
       manageId: manageId,
       entityId: entityId,

@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'calendar.pbenum.dart';
+import 'name.pb.dart' as $0;
 
 export 'calendar.pbenum.dart';
 
@@ -89,6 +90,154 @@ class Calendar extends $pb.GeneratedMessage {
   /// {"day": day, "hour": hour, "minute": minute}
   @$pb.TagNumber(3)
   $core.Map<$core.String, $core.String> get daytime => $_getMap(2);
+}
+
+/// 新日历
+class NewCalendarRequest extends $pb.GeneratedMessage {
+  factory NewCalendarRequest({
+    $core.String? bookId,
+    Calendar? calendar,
+    $core.String? description,
+    $0.Name? name,
+  }) {
+    final $result = create();
+    if (bookId != null) {
+      $result.bookId = bookId;
+    }
+    if (calendar != null) {
+      $result.calendar = calendar;
+    }
+    if (description != null) {
+      $result.description = description;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    return $result;
+  }
+  NewCalendarRequest._() : super();
+  factory NewCalendarRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NewCalendarRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewCalendarRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'bookId')
+    ..aOM<Calendar>(2, _omitFieldNames ? '' : 'calendar', subBuilder: Calendar.create)
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOM<$0.Name>(4, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  NewCalendarRequest clone() => NewCalendarRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewCalendarRequest copyWith(void Function(NewCalendarRequest) updates) => super.copyWith((message) => updates(message as NewCalendarRequest)) as NewCalendarRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static NewCalendarRequest create() => NewCalendarRequest._();
+  NewCalendarRequest createEmptyInstance() => create();
+  static $pb.PbList<NewCalendarRequest> createRepeated() => $pb.PbList<NewCalendarRequest>();
+  @$core.pragma('dart2js:noInline')
+  static NewCalendarRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewCalendarRequest>(create);
+  static NewCalendarRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get bookId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set bookId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasBookId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearBookId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  Calendar get calendar => $_getN(1);
+  @$pb.TagNumber(2)
+  set calendar(Calendar v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCalendar() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCalendar() => clearField(2);
+  @$pb.TagNumber(2)
+  Calendar ensureCalendar() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Name get name => $_getN(3);
+  @$pb.TagNumber(4)
+  set name($0.Name v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Name ensureName() => $_ensure(3);
+}
+
+class NewCalendarResponse extends $pb.GeneratedMessage {
+  factory NewCalendarResponse({
+    $core.String? result,
+  }) {
+    final $result = create();
+    if (result != null) {
+      $result.result = result;
+    }
+    return $result;
+  }
+  NewCalendarResponse._() : super();
+  factory NewCalendarResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NewCalendarResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewCalendarResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  NewCalendarResponse clone() => NewCalendarResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewCalendarResponse copyWith(void Function(NewCalendarResponse) updates) => super.copyWith((message) => updates(message as NewCalendarResponse)) as NewCalendarResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static NewCalendarResponse create() => NewCalendarResponse._();
+  NewCalendarResponse createEmptyInstance() => create();
+  static $pb.PbList<NewCalendarResponse> createRepeated() => $pb.PbList<NewCalendarResponse>();
+  @$core.pragma('dart2js:noInline')
+  static NewCalendarResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewCalendarResponse>(create);
+  static NewCalendarResponse? _defaultInstance;
+
+  /// 成功返回新日历编码，失败返回信息
+  @$pb.TagNumber(1)
+  $core.String get result => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set result($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResult() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResult() => clearField(1);
 }
 
 

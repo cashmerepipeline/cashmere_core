@@ -13,6 +13,24 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use editOperationTypeEnumDescriptor instead')
+const EditOperationTypeEnum$json = {
+  '1': 'EditOperationTypeEnum',
+  '2': [
+    {'1': 'EDIT_PRIMARY_FIELD', '2': 0},
+    {'1': 'EIDT_MAP_FIELD', '2': 1},
+    {'1': 'EDIT_MAP_FIELD_REMOVE_KEY', '2': 2},
+    {'1': 'EDIT_ADD_TO_ARRAY_FIELD', '2': 3},
+    {'1': 'EDIT_REMOVE_FROM_ARRAY_FIELD', '2': 4},
+  ],
+};
+
+/// Descriptor for `EditOperationTypeEnum`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List editOperationTypeEnumDescriptor = $convert.base64Decode(
+    'ChVFZGl0T3BlcmF0aW9uVHlwZUVudW0SFgoSRURJVF9QUklNQVJZX0ZJRUxEEAASEgoORUlEVF'
+    '9NQVBfRklFTEQQARIdChlFRElUX01BUF9GSUVMRF9SRU1PVkVfS0VZEAISGwoXRURJVF9BRERf'
+    'VE9fQVJSQVlfRklFTEQQAxIgChxFRElUX1JFTU9WRV9GUk9NX0FSUkFZX0ZJRUxEEAQ=');
+
 @$core.Deprecated('Use entityDescriptor instead')
 const Entity$json = {
   '1': 'Entity',
@@ -124,6 +142,51 @@ const EditEntityResponse$json = {
 /// Descriptor for `EditEntityResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List editEntityResponseDescriptor = $convert.base64Decode(
     'ChJFZGl0RW50aXR5UmVzcG9uc2USFgoGcmVzdWx0GAEgASgJUgZyZXN1bHQ=');
+
+@$core.Deprecated('Use entityFieldEditDescriptor instead')
+const EntityFieldEdit$json = {
+  '1': 'EntityFieldEdit',
+  '2': [
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
+    {'1': 'field_id', '3': 3, '4': 1, '5': 9, '10': 'fieldId'},
+    {'1': 'operation_type', '3': 4, '4': 1, '5': 14, '6': '.cashmere.EditOperationTypeEnum', '10': 'operationType'},
+    {'1': 'edits', '3': 5, '4': 1, '5': 12, '10': 'edits'},
+  ],
+};
+
+/// Descriptor for `EntityFieldEdit`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List entityFieldEditDescriptor = $convert.base64Decode(
+    'Cg9FbnRpdHlGaWVsZEVkaXQSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdH'
+    'lfaWQYAiABKAlSCGVudGl0eUlkEhkKCGZpZWxkX2lkGAMgASgJUgdmaWVsZElkEkYKDm9wZXJh'
+    'dGlvbl90eXBlGAQgASgOMh8uY2FzaG1lcmUuRWRpdE9wZXJhdGlvblR5cGVFbnVtUg1vcGVyYX'
+    'Rpb25UeXBlEhQKBWVkaXRzGAUgASgMUgVlZGl0cw==');
+
+@$core.Deprecated('Use editEntitiesFielsdsRequestDescriptor instead')
+const EditEntitiesFielsdsRequest$json = {
+  '1': 'EditEntitiesFielsdsRequest',
+  '2': [
+    {'1': 'edits', '3': 1, '4': 3, '5': 11, '6': '.cashmere.EntityFieldEdit', '10': 'edits'},
+  ],
+};
+
+/// Descriptor for `EditEntitiesFielsdsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntitiesFielsdsRequestDescriptor = $convert.base64Decode(
+    'ChpFZGl0RW50aXRpZXNGaWVsc2RzUmVxdWVzdBIvCgVlZGl0cxgBIAMoCzIZLmNhc2htZXJlLk'
+    'VudGl0eUZpZWxkRWRpdFIFZWRpdHM=');
+
+@$core.Deprecated('Use editEntitiesFielsdsResponseDescriptor instead')
+const EditEntitiesFielsdsResponse$json = {
+  '1': 'EditEntitiesFielsdsResponse',
+  '2': [
+    {'1': 'results', '3': 1, '4': 1, '5': 9, '10': 'results'},
+  ],
+};
+
+/// Descriptor for `EditEntitiesFielsdsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEntitiesFielsdsResponseDescriptor = $convert.base64Decode(
+    'ChtFZGl0RW50aXRpZXNGaWVsc2RzUmVzcG9uc2USGAoHcmVzdWx0cxgBIAEoCVIHcmVzdWx0cw'
+    '==');
 
 @$core.Deprecated('Use editEntityFieldRequestDescriptor instead')
 const EditEntityFieldRequest$json = {
