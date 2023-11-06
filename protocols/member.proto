@@ -14,13 +14,3 @@ message AddMemberRequest {
 message AddMemberResponse{
     string result = 1;
   }
-
-message DeleteMemberRequest {
-  int32 owner_manage_id = 1;
-  string owner_entity_id = 2;
-  int32 self_manage_id = 3;
-  string self_entity_id = 4;
-}
-message DeleteMemberResponse{
-  string result = 1;
-}
