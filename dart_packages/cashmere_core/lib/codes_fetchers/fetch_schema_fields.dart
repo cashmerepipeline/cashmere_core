@@ -16,7 +16,7 @@ Future<List<model_schema.SchemaField>> fetchSchemaFields(
 
     final fields = response.fields.map((e) => model_schema.SchemaField.fromMessage(e)).toList();
 
-    debugPrint("schema fields of $manageId: $fields");
+    // debugPrint("schema fields of $manageId: $fields");
 
     if (fields.isNotEmpty) {
       return fields;

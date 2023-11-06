@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_test/flutter_test.dart';
 
 import 'package:cashmere_core/protocols/manage_schema.pb.dart' as schema_message;
 import 'package:cashmere_core/manage/schema_field.dart';
