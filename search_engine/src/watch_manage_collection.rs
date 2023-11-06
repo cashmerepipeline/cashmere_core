@@ -1,13 +1,12 @@
 use dependencies_sync::{
-    bson::{from_document, Document},
+    bson::Document,
     log,
     mongodb::{
         change_stream::{
             event::{ChangeStreamEvent, OperationType},
             ChangeStream,
         },
-        error::Error,
-        options::{ChangeStreamOptions, ReadConcern, FullDocumentType},
+        options::{ChangeStreamOptions, FullDocumentType, ReadConcern},
     },
     rust_i18n::{self, t},
     tokio,
@@ -60,10 +59,7 @@ pub async fn watch_manage_collection(manage_id: i32) {
 
                     match r.operation_type {
                         OperationType::Insert => {
-                            handle_insert_event(
-                                manage_id,
-                                r.full_document.as_ref().unwrap(),
-                            );
+                            handle_insert_event(manage_id, r.full_document.as_ref().unwrap());
                         }
                         OperationType::Update => {
                             handle_update_event(

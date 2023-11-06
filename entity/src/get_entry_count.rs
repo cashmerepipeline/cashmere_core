@@ -15,7 +15,6 @@ use manage_define::general_field_ids::*;
 /// 取得实体数量
 pub async fn get_entry_count(
     collection_name: &String,
-    filter_doc: Document,
 ) -> Result<u64, OperationResult> {
     if !database::collection_exists(collection_name).await {
         return Err(collection_not_exists("get_entity_by_id"));

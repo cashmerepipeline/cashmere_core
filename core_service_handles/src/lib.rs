@@ -6,8 +6,8 @@ Created:  2021-02-14T09:31:29.747Z
 Modified: !date!
 */
 
-use dependencies_sync::once_cell;
-use dependencies_sync::rust_i18n::{self, i18n, t};
+
+use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 
 pub mod server_status_handles;

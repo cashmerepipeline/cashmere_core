@@ -7,7 +7,7 @@ pub fn read_configs_file_path() -> String {
     args.next();
     while let Some(arg) = args.next() {
         if arg == "-c" || arg == "--configs" {
-            configs_path = args.next().unwrap_or(String::new());
+            configs_path = args.next().unwrap_or_default();
             break;
         }
     }

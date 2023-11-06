@@ -12,7 +12,7 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-pub async fn entity_exists(manage_id: &String, query_doc: &Document) -> bool {
+pub async fn entity_exists(manage_id: &str, query_doc: &Document) -> bool {
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,

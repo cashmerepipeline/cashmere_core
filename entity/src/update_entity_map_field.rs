@@ -16,10 +16,10 @@ use crate::insert_entity_map_field;
 
 /// 更新map字段
 pub async fn update_entity_map_field(
-    manage_id: &String,
+    manage_id: &str,
     query_doc: Document,
     modify_doc: Document,
-    account_id: &String,
+    account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     insert_entity_map_field(manage_id, query_doc, modify_doc, account_id).await
 }

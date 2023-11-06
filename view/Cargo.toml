@@ -27,4 +27,4 @@ rust-i18n= "2.2.1"
 once_cell = "1.10"
 
 [features]
-# view_rules_validate = []
+view_rules_validate = []

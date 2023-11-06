@@ -14,7 +14,7 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::schema::{Schema, FAST, STORED, STRING, TEXT};
+use dependencies_sync::tantivy::schema::{Schema, FAST, STORED, TEXT};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
@@ -277,7 +277,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let query_doc = doc! {
             ID_FIELD_ID.to_string(): manage_id.to_string()
         };
-        let mut modify_doc = doc! {
+        let modify_doc = doc! {
             MANAGES_SCHEMA_FIELD_ID.to_string():value
         };
 
@@ -381,7 +381,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             }
 
             let index = manage.schema.iter().position(|x| x.id == field_id).unwrap();
-            let mut field = &mut manage.schema[index];
+            let field = &mut manage.schema[index];
 
             // 已经是removed
             if field.removed {
@@ -462,14 +462,14 @@ pub trait ManagerTrait: Any + Send + Sync {
         Ok(operation_succeed(format!("{}: {}", t!("更新缓存完成"), id)))
     }
 
-    async fn get_entry_counts(&self, filter_doc: Document) -> Result<u64, OperationResult> {
+    async fn get_entry_counts(&self) -> Result<u64, OperationResult> {
         let manage_id = self.get_id();
 
-        entity::get_entry_count(&manage_id.to_string(), filter_doc).await
+        entity::get_entry_count(&manage_id.to_string()).await
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
-    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
+    async fn get_new_entity_id(&self, _account_id: &String) -> Option<i64> {
         let manage_id = self.get_id().to_string();
         entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
     }
@@ -775,13 +775,13 @@ pub trait ManagerTrait: Any + Send + Sync {
         let text_options = get_text_options();
 
         let mut schema_builder = Schema::builder();
-        let id = schema_builder.add_text_field("_id", STORED | TEXT);
-        let idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let name_map = schema_builder
+        let _id = schema_builder.add_text_field("_id", STORED | TEXT);
+        let _idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
+        let _name_map = schema_builder
             .add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), text_options.clone());
-        let description =
+        let _description =
             schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), text_options);
-        let modify_time = schema_builder.add_u64_field(
+        let _modify_time = schema_builder.add_u64_field(
             MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(),
             STORED | FAST,
         );

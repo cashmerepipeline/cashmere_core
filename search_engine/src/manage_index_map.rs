@@ -1,8 +1,8 @@
-use dependencies_sync::log;
-use dependencies_sync::parking_lot::RwLock;
-use dependencies_sync::tantivy::Index;
 use std::collections::HashMap;
 use std::sync::Arc;
+
+use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::tantivy::Index;
 
 pub type ManageIndexMap = HashMap<i32, Arc<Index>>;
 
@@ -17,6 +17,6 @@ pub fn get_manage_tantivy_index_map() -> Arc<RwLock<ManageIndexMap>> {
         let map = Arc::new(RwLock::new(HashMap::new()));
         MANAGE_TANTIVY_INDEX_MAP.replace(map);
 
-        return MANAGE_TANTIVY_INDEX_MAP.clone().unwrap();
+        MANAGE_TANTIVY_INDEX_MAP.clone().unwrap()
     }
 }

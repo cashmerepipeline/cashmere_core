@@ -14,8 +14,7 @@ pub async fn cache_get_entity_stream(manage_id: i32) -> ReceiverStream<Document>
         let c_map = get_manage_entity_cache(manage_id);
         let e_map = c_map.read();
         e_map
-            .values()
-            .map(|v| v.clone())
+            .values().cloned()
             .collect::<Vec<Arc<Document>>>()
     };
 

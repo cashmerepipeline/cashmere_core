@@ -12,9 +12,9 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-pub async fn exists_by_id(manage_id: &String, entity_id: &String) -> bool {
+pub async fn exists_by_id(manage_id: &str, entity_id: &str) -> bool {
     let query_doc = doc! {
-        "_id": entity_id.clone()
+        "_id": entity_id
     };
 
     crate::entity_exists(manage_id, &query_doc).await

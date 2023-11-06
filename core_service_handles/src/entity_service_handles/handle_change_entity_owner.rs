@@ -1,9 +1,9 @@
-use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::prost::bytes::Buf;
-use dependencies_sync::tonic::{Request, Response, Status};
+use dependencies_sync::tonic::async_trait;
+
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -12,8 +12,6 @@ use manage_define::general_field_ids::*;
 
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
-
-
 
 use service_utils::types::UnaryResponseResult;
 
@@ -39,7 +37,7 @@ async fn validate_view_rules(
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
         if let Err(e) =
-            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+            view::validates::validate_entity_can_write(&manage_id, &role_group).await
         {
             return Err(e);
         }
@@ -55,9 +53,9 @@ async fn validate_request_params(
     let entity_id = &request.get_ref().entity_id;
     let old_owner_id = &request.get_ref().old_owner_id;
     let new_owner_id = &request.get_ref().new_owner_id;
-    
+
     let majordomo_arc = get_majordomo();
-    
+
     if !majordomo_arc.get_manager_ids().contains(manage_id) {
         return Err(Status::aborted(t!("管理不存在")));
     }
@@ -71,7 +69,7 @@ async fn validate_request_params(
     if new_owner_id.is_empty() {
         return Err(Status::aborted(t!("新拥有者编号不能为空")));
     }
-    
+
     Ok(request)
 }
 
@@ -82,7 +80,7 @@ async fn handle_change_entity_owner(
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
-    let old_owner_id = &request.get_ref().old_owner_id;
+    let _old_owner_id = &request.get_ref().old_owner_id;
     let new_owner_id = &request.get_ref().new_owner_id;
 
     let majordomo_arc = get_majordomo();
@@ -91,7 +89,7 @@ async fn handle_change_entity_owner(
     let query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,
     };
-    
+
     let mut modify_doc = doc! {
         OWNER_FIELD_ID.to_string():new_owner_id.clone(),
     };
@@ -111,4 +109,3 @@ async fn handle_change_entity_owner(
         ))),
     }
 }
-

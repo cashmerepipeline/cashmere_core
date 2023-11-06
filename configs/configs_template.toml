@@ -1,11 +1,11 @@
 [database]
-address = "192.168.2.29"
+address = "localhost"
 port = 27017
 name = "cashmere_db"
 
 [server]
 root_dir = "."
-address = "192.168.2.29"
+address = "127.0.0.1"
 port = "8800"
 
 # 加密
@@ -21,6 +21,7 @@ language_code = "zh"
 
 # 日志位置
 log_dir = "log"
+log_level = "debug"
 
 [tls]
 server_key_path = "tls/server.key"

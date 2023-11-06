@@ -10,7 +10,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use crate::tag_service_handles;
+
 
 #[async_trait]
 pub trait HandleRemoveTagsFromEntity {
@@ -34,7 +34,7 @@ async fn validate_view_rules(
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
 
         if let Err(e) =
-            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+            view::validates::validate_entity_can_write(&manage_id, &role_group).await
         {
             return Err(e);
         }

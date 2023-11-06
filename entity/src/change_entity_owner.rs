@@ -16,15 +16,15 @@ use crate::update_entity_field::update_entity_field;
 
 /// 变更条目所属人
 pub async fn change_entity_owner(
-    manage_id: &String,
-    entity_id: &String,
-    new_owner: &String,
-    account_id: &String,
+    manage_id: &str,
+    entity_id: &str,
+    new_owner: &str,
+    account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     let _new_value = Bson::from(new_owner);
 
-    let query_doc = doc! {ID_FIELD_ID.to_string():entity_id.clone()};
-    let mut modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner.clone()};
+    let query_doc = doc! {ID_FIELD_ID.to_string():entity_id};
+    let mut modify_doc = doc! {OWNER_FIELD_ID.to_string():new_owner};
 
     update_entity_field(
         manage_id,

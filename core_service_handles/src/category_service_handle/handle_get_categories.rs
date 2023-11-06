@@ -1,6 +1,5 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{error, info, debug};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
@@ -8,13 +7,11 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::general_field_ids::*;
-use manage_define::manage_ids::{CATEGORIES_MANAGE_ID};
+use manage_define::manage_ids::CATEGORIES_MANAGE_ID;
 use managers::manager_trait::ManagerTrait;
 
-use dependencies_sync::tokio_stream::{self as stream, StreamExt};
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -42,7 +39,16 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<GetCategoriesRequest>,
 ) -> Result<Request<GetCategoriesRequest>, Status> {
-    // 没有参数
+    let manage_id = &request.get_ref().manage_id;
+    // 不能为0
+    if manage_id == &0 {
+        return Err(Status::invalid_argument(format!(
+            "{}: {}",
+            t!("管理号不能为0"),
+            "get_categories"
+        )));
+    }
+
     Ok(request)
 }
 
@@ -80,4 +86,3 @@ async fn handle_get_categories(
         ))),
     }
 }
-

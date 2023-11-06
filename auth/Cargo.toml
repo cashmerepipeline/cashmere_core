@@ -16,6 +16,7 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "once_cell",
   "futures",
   "chrono",
+  "parking_lot",
   "serde",
 ] }
 

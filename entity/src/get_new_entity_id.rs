@@ -15,12 +15,12 @@ use manage_define::general_field_ids::*;
 use crate::utils::get_timestamp_update_doc;
 
 /// 取得新连续id
-pub async fn get_new_entity_id(manage_id: &String, account_id: &String) -> Option<i64> {
+pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
 
     let update_doc = doc! {
      "$inc": {"id_count":1},
-     "$set": { MODIFIER_FIELD_ID.to_string(): account_id.clone()},
+     "$set": { MODIFIER_FIELD_ID.to_string(): account_id},
      "$currentDate": {
          MODIFY_TIMESTAMP_FIELD_ID.to_string(): { "$type": "timestamp" }
       },
@@ -29,7 +29,7 @@ pub async fn get_new_entity_id(manage_id: &String, account_id: &String) -> Optio
     let result = ids_collection
         .find_one_and_update(
             doc! {
-                "_id": manage_id.clone()
+                "_id": manage_id
             },
             update_doc,
             Some(FindOneAndUpdateOptions::builder().upsert(true).build()),

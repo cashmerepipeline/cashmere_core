@@ -6,9 +6,9 @@ pub fn get_text_options() -> TextOptions {
         .set_tokenizer(CANG_JIE) // Set custom tokenizer
         .set_index_option(IndexRecordOption::WithFreqsAndPositions);
 
-    let text_options = TextOptions::default()
-        .set_indexing_options(text_indexing)
-        .set_stored();
+    
 
-    text_options
+    TextOptions::default()
+        .set_indexing_options(text_indexing)
+        .set_stored()
 }

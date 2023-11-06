@@ -16,10 +16,10 @@ use crate::utils::get_timestamp_update_doc;
 
 /// 更新实体多个个属性
 pub async fn update_entity_fields(
-    entity_id: &String,
-    collection: &String,
+    entity_id: &str,
+    collection: &str,
     new_value: Document,
-    account_id: &String,
+    account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(collection).await {
@@ -32,7 +32,7 @@ pub async fn update_entity_fields(
                     "$set": new_value,
                 },
                 doc! {
-                    "$set": {MODIFIER_FIELD_ID.to_string(): account_id.clone()}
+                    "$set": {MODIFIER_FIELD_ID.to_string(): account_id}
                 },
                 get_timestamp_update_doc(),
     ];

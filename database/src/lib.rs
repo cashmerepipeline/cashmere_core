@@ -13,6 +13,7 @@ pub use get_collection_by_id::*;
 pub use get_manages_collection::*;
 pub use get_ids_collection::*;
 pub use init_ids_count_field::*;
+pub use database_configs::*;
 
 mod get_mongodb_client;
 mod get_cashmere_database;
@@ -21,6 +22,7 @@ mod get_collection_by_id;
 mod get_manages_collection;
 mod get_ids_collection;
 mod init_ids_count_field;
+mod database_configs;
 
 #[cfg(test)]
 mod tests {

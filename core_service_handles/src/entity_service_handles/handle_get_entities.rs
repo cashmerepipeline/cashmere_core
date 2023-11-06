@@ -1,4 +1,4 @@
-use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
@@ -11,7 +11,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, iter, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, can_field_read, filter_can_read_fields};
+use view::{self, can_entity_read, filter_can_read_fields};
 
 use service_utils::types::UnaryResponseResult;
 

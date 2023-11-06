@@ -1,9 +1,9 @@
-use dependencies_sync::bson::{self, doc, Document, Timestamp};
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
-use dependencies_sync::tokio_stream::{self, iter, StreamExt};
+use dependencies_sync::tokio_stream::{self, StreamExt};
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
@@ -13,9 +13,9 @@ use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, filter_can_read_fields};
 
-use service_utils::types::{ResponseStream, StreamResponseResult, UnaryResponseResult};
+
+use service_utils::types::{ResponseStream, StreamResponseResult};
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -39,7 +39,7 @@ async fn validate_view_rules(
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata());
         if let Err(e) =
-            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+            view::validates::validate_collection_can_read(&manage_id, &role_group).await
         {
             return Err(e);
         }

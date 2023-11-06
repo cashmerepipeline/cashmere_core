@@ -18,5 +18,5 @@ pub fn get_manage_entity_cache(manage_id: i32) -> Arc<RwLock<BTreeMap<String, Ar
     let new_map = Arc::new(RwLock::new(BTreeMap::new()));
     c_map.insert(manage_id, new_map.clone());
 
-    return new_map.clone();
+    new_map.clone()
 }

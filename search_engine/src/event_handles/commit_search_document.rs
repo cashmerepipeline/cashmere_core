@@ -1,11 +1,11 @@
 use cash_result::{operation_failed, OperationResult};
-use dependencies_sync::bson::{self, extjson, Bson};
+use dependencies_sync::bson::{self};
 use dependencies_sync::chrono::Utc;
 use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::serde_json::{self, json};
-use dependencies_sync::tantivy::time::Instant;
-use dependencies_sync::tantivy::{self, doc, schema::*, TantivyDocument};
+
+use dependencies_sync::tantivy::{schema::*, TantivyDocument};
 use manage_define::general_field_ids::{
     DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
@@ -37,7 +37,7 @@ pub fn commit_search_document(
         .unwrap();
     let language_code = name_map.keys().next().unwrap().as_str();
     let name = name_map.values().next().unwrap().as_str().unwrap();
-    let mut name_map_json = json!({
+    let name_map_json = json!({
         language_code:name
     });
     let description = update_document

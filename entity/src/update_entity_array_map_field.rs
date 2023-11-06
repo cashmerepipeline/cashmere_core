@@ -16,10 +16,10 @@ use crate::utils::{add_modify_update_fields, get_timestamp_update_doc};
 
 /// 更新map元素
 pub async fn update_entity_array_map_field(
-    manage_id: &String,
+    manage_id: &str,
     query_doc: Document,
     modify_doc: Document,
-    account_id: &String,
+    account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {

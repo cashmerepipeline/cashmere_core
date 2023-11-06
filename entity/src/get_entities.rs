@@ -13,7 +13,7 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 pub async fn get_entities(
-    collection_name: &String,
+    collection_name: &str,
     filter: &Option<Document>,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
