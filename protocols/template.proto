@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package cashmere;
+
+import "name.proto";
+
+message NewTemplateRequest {
+  Name name = 3;
+  // 模板对应管理
+  int32 manage_id = 1;
+  // bons Document bytes
+  repeated bytes fields = 2;
+}
+message NewTemplateResponse {
+  string result = 1;
+}
+
+message EditTemplateRequest {
+  // 模板编号
+  string template_id = 1;
+  // 属性:值 列表
+  repeated bytes fields = 2;
+}
+
+message EditTemplateResponse {
+  string result = 1;
+}
+
+message RemoveTemplateRequest {
+  string template_id = 1;
+}
+
+message RemoveTemplateResponse {
+  string result = 1;
+}

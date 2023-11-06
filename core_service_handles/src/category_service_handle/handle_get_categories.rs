@@ -76,7 +76,7 @@ async fn handle_get_categories(
             }
 
             Ok(Response::new(GetCategoriesResponse {
-                categories: results,
+                codes: results,
             }))
         }
         Err(e) => Err(Status::aborted(format!(

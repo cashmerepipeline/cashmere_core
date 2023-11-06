@@ -19,13 +19,15 @@ const NewGroupRequest$json = {
   '2': [
     {'1': 'name', '3': 1, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'new_group_id', '3': 2, '4': 1, '5': 9, '10': 'newGroupId'},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 
 /// Descriptor for `NewGroupRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newGroupRequestDescriptor = $convert.base64Decode(
     'Cg9OZXdHcm91cFJlcXVlc3QSIgoEbmFtZRgBIAEoCzIOLmNhc2htZXJlLk5hbWVSBG5hbWUSIA'
-    'oMbmV3X2dyb3VwX2lkGAIgASgJUgpuZXdHcm91cElk');
+    'oMbmV3X2dyb3VwX2lkGAIgASgJUgpuZXdHcm91cElkEiAKC2Rlc2NyaXB0aW9uGAMgASgJUgtk'
+    'ZXNjcmlwdGlvbg==');
 
 @$core.Deprecated('Use newGroupResponseDescriptor instead')
 const NewGroupResponse$json = {

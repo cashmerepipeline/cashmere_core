@@ -1,12 +1,5 @@
 use std::sync::Arc;
-
-use cash_result::{collection_not_exists, operation_failed, OperationResult};
-use dependencies_sync::{
-    bson::{doc, Document},
-    parking_lot::RwLock,
-};
-use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
-
+use dependencies_sync::parking_lot::RwLock;
 use crate::view_rules::ViewRules;
 
 use super::get_view_rules_map;

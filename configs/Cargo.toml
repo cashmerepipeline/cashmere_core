@@ -1,6 +1,6 @@
 [package]
 name = "configs"
-version = "0.4.1"
+version = "0.4.2"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 

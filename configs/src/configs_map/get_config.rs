@@ -20,7 +20,7 @@ where
         let map = map_arc.read();
 
         if let Some(t) = map.get(config_name).cloned() {
-            log::info!("{}: {:?}", t!("配置加载成功"), t);
+            log::debug!("{}: {:?}", t!("配置加载成功"), t);
             let config = t.try_into().expect("配置格式错误");
             return Some(config);
         };

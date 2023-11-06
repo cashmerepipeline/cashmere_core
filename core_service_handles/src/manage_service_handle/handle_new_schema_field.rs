@@ -55,7 +55,7 @@ async fn handle_new_schema_field(
     let (account_id, _groups, _role_group) = request_account_context(request.metadata());
 
     let manage_id = request.get_ref().manage_id;
-    let field: &SchemaField = request.get_ref().field.as_ref().unwrap();
+    let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
 
     let name_bytes = field.name_map.clone();
     let name_doc = Document::from_reader(&mut name_bytes.as_slice()).unwrap();

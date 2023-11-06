@@ -27,7 +27,7 @@ pub trait HandleNewPhoneAreaCode {
             .and_then(validate_has_role_group::<NewPhoneAreaCodeRequest>)
             .and_then(validate_view_rules)
             .and_then(validate_request_params)
-            .and_then(handle_new_language_code)
+            .and_then(handle_new_phone_area_code)
             .await
     }
 }
@@ -55,7 +55,7 @@ async fn validate_request_params(
     Ok(request)
 }
 
-async fn handle_new_language_code(
+async fn handle_new_phone_area_code(
     request: Request<NewPhoneAreaCodeRequest>,
 ) -> Result<Response<NewPhoneAreaCodeResponse>, Status> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata());
@@ -72,7 +72,7 @@ async fn handle_new_language_code(
         .unwrap();
 
     let query_doc = doc! {ID_FIELD_ID.to_string(): code.clone()};
-    if manager.entity_exists(&query_doc).await {
+    if manager.entity_exists(&query_doc).await.is_some() {
         return Err(Status::already_exists(format!(
             "{}: {}",
             t!("区号已经存在"),
@@ -102,6 +102,6 @@ async fn handle_new_language_code(
             ))),
         }
     } else {
-        Err(Status::aborted("新增区号失败。"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_phone_area_code")))
     }
 }

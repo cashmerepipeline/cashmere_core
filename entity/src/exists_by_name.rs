@@ -13,7 +13,7 @@ use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
 /// 根据名字判断条目是否存在
-pub async fn exists_by_name(entity_name: &str, manage_id: &str) -> bool {
+pub async fn exists_by_name(entity_name: &str, manage_id: &str) -> Option<String> {
     let query_doc = doc! {
         "name": entity_name
     };

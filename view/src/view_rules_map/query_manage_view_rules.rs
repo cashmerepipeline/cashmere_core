@@ -14,8 +14,7 @@ pub async fn query_manage_view_rules(manage_id: &String, group_id: &String) -> O
     if let Some(manage_view_rules_map) = get_manage_view_rules(manage_id).await {
         let m = manage_view_rules_map.read();
         m.manage
-            .get(group_id)
-            .map_or(None, |rule| Some(rule.clone()))
+            .get(group_id).cloned()
     } else {
         None
     }

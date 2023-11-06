@@ -1,3 +1,4 @@
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::{bson::doc, futures::TryFutureExt, tonic::async_trait};
 
 use majordomo::{self, get_majordomo};
@@ -72,7 +73,7 @@ async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResul
         .entity_exists(&doc! {
             NAME_MAP_FIELD_ID.to_string():name_doc.clone(),
         })
-        .await
+        .await.is_some()
     {
         return Err(Status::aborted("区域已经存在"));
     }
@@ -98,6 +99,6 @@ async fn handle_new_area(request: Request<NewAreaRequest>) -> UnaryResponseResul
             ))),
         }
     } else {
-        Err(Status::aborted("创建新区域失败"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_area")))
     }
 }

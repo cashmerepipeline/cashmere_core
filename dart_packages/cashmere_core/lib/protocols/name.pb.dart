@@ -78,51 +78,6 @@ class Name extends $pb.GeneratedMessage {
   void clearName() => clearField(2);
 }
 
-/// 名属性，语言：语言名
-class NameField extends $pb.GeneratedMessage {
-  factory NameField({
-    $core.Map<$core.String, $core.String>? nameField,
-  }) {
-    final $result = create();
-    if (nameField != null) {
-      $result.nameField.addAll(nameField);
-    }
-    return $result;
-  }
-  NameField._() : super();
-  factory NameField.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory NameField.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NameField', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..m<$core.String, $core.String>(1, _omitFieldNames ? '' : 'nameField', entryClassName: 'NameField.NameFieldEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  NameField clone() => NameField()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  NameField copyWith(void Function(NameField) updates) => super.copyWith((message) => updates(message as NameField)) as NameField;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static NameField create() => NameField._();
-  NameField createEmptyInstance() => create();
-  static $pb.PbList<NameField> createRepeated() => $pb.PbList<NameField>();
-  @$core.pragma('dart2js:noInline')
-  static NameField getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NameField>(create);
-  static NameField? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.Map<$core.String, $core.String> get nameField => $_getMap(0);
-}
-
 /// 重命名
 class RenameRequest extends $pb.GeneratedMessage {
   factory RenameRequest({

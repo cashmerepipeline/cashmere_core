@@ -57,14 +57,13 @@ final $typed_data.Uint8List getCategoriesRequestDescriptor = $convert.base64Deco
 const GetCategoriesResponse$json = {
   '1': 'GetCategoriesResponse',
   '2': [
-    {'1': 'categories', '3': 1, '4': 3, '5': 12, '10': 'categories'},
+    {'1': 'codes', '3': 1, '4': 3, '5': 12, '10': 'codes'},
   ],
 };
 
 /// Descriptor for `GetCategoriesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCategoriesResponseDescriptor = $convert.base64Decode(
-    'ChVHZXRDYXRlZ29yaWVzUmVzcG9uc2USHgoKY2F0ZWdvcmllcxgBIAMoDFIKY2F0ZWdvcmllcw'
-    '==');
+    'ChVHZXRDYXRlZ29yaWVzUmVzcG9uc2USFAoFY29kZXMYASADKAxSBWNvZGVz');
 
 @$core.Deprecated('Use markEntityCategoriesRequestDescriptor instead')
 const MarkEntityCategoriesRequest$json = {

@@ -2,6 +2,11 @@ syntax = "proto3";
 package cashmere;
 
 import "ping.proto";
+
+import "manage.proto";
+import "manage_schema.proto";
+import "entity.proto";
+
 import "country_code.proto";
 import "language_code.proto";
 import "area.proto";
@@ -16,19 +21,20 @@ import "name.proto";
 import "color.proto";
 import "gender.proto";
 import "price.proto";
-
-import "entity.proto";
-import "entity_template.proto";
-import "manage.proto";
-import "manage_schema.proto";
-import "view.proto";
-import "comment.proto";
 import "season.proto";
 import "position.proto";
+import "calendar.proto";
 
+import "template.proto";
+import "view.proto";
+
+import "comment.proto";
+import "member.proto";
 import "category.proto";
 import "tag.proto";
-import "calendar.proto";
+import "calendar_book.proto";
+import "person.proto";
+
 import "search.proto";
 
 service CashmereGrpc{

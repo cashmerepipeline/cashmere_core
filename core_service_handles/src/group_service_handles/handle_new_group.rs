@@ -71,7 +71,7 @@ async fn handle_new_group(
     // 组是否已经存在
     if group_manager
         .entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id})
-        .await
+        .await.is_some()
     {
         return Err(Status::already_exists(format!(
             "{}: {}",
@@ -109,6 +109,6 @@ async fn handle_new_group(
             ))),
         }
     } else {
-        Err(Status::aborted("新增组失败。"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_group")))
     }
 }

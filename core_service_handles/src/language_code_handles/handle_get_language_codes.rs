@@ -68,7 +68,7 @@ async fn handle_language_codes(
             }
 
             Ok(Response::new(GetLanguageCodesResponse {
-                language_codes: result_codes,
+                codes: result_codes,
             }))
         }
         Err(e) => Err(Status::aborted(format!(

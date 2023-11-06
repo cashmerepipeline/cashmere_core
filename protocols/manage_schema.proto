@@ -30,7 +30,7 @@ message GetManageSchemaResponse{
 // 添加管理属性
 message NewSchemaFieldRequest{
   int32 manage_id = 1;
-  SchemaField field = 2;
+  SchemaField new_field = 2;
 }
 message NewSchemaFieldResponse{
   string result = 1;

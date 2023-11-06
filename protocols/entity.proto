@@ -59,7 +59,34 @@ message EditEntityResponse {
   string result = 1;
 }
 
-// 通用修改实体属性
+// 编辑操作类型
+enum EditOperationTypeEnum {
+  EDIT_PRIMARY_FIELD = 0;
+  EIDT_MAP_FIELD = 1;
+  EDIT_MAP_FIELD_REMOVE_KEY = 2;
+  EDIT_ADD_TO_ARRAY_FIELD = 3;
+  EDIT_REMOVE_FROM_ARRAY_FIELD = 4;
+}
+
+message EntityFieldEdit {
+    int32 manage_id = 1;
+    string entity_id = 2;
+    string field_id = 3;
+    EditOperationTypeEnum operation_type = 4;
+    // 使用bson Document格式表示，如：{field_id:value}
+    bytes edits = 5;
+}
+
+// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
+message EditEntitiesFielsdsRequest{
+  repeated EntityFieldEdit edits = 1;
+}
+message EditEntitiesFielsdsResponse{
+  // 成功返回"ok"
+  string results = 1;
+}
+
+// 编辑单个字段
 message EditEntityFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -72,7 +99,7 @@ message EditEntityFieldResponse {
   string result = 1;
 }
 
-// 通用修改MAP实体属性
+// 编辑MAP字段中的某个属性
 message EditEntityMapFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;

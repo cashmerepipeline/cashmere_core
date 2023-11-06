@@ -13,11 +13,14 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'name.pb.dart' as $0;
+
 class NewCommentRequest extends $pb.GeneratedMessage {
   factory NewCommentRequest({
     $core.String? targetManageId,
     $core.String? targetEntityId,
     $core.String? contents,
+    $0.Name? name,
   }) {
     final $result = create();
     if (targetManageId != null) {
@@ -29,6 +32,9 @@ class NewCommentRequest extends $pb.GeneratedMessage {
     if (contents != null) {
       $result.contents = contents;
     }
+    if (name != null) {
+      $result.name = name;
+    }
     return $result;
   }
   NewCommentRequest._() : super();
@@ -39,6 +45,7 @@ class NewCommentRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
     ..aOS(2, _omitFieldNames ? '' : 'targetEntityId')
     ..aOS(3, _omitFieldNames ? '' : 'contents')
+    ..aOM<$0.Name>(4, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..hasRequiredFields = false
   ;
 
@@ -89,6 +96,17 @@ class NewCommentRequest extends $pb.GeneratedMessage {
   $core.bool hasContents() => $_has(2);
   @$pb.TagNumber(3)
   void clearContents() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Name get name => $_getN(3);
+  @$pb.TagNumber(4)
+  set name($0.Name v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Name ensureName() => $_ensure(3);
 }
 
 class NewCommentResponse extends $pb.GeneratedMessage {

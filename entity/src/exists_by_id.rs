@@ -12,7 +12,7 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-pub async fn exists_by_id(manage_id: &str, entity_id: &str) -> bool {
+pub async fn exists_by_id(manage_id: &str, entity_id: &str) -> Option<String> {
     let query_doc = doc! {
         "_id": entity_id
     };

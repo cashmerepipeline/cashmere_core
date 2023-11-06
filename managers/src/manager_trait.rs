@@ -14,11 +14,11 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::schema::{Schema, FAST, STORED, TEXT};
+use dependencies_sync::tantivy::schema::{FAST, Schema, STORED, TEXT};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
-use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tokio_stream::StreamExt;
+use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tonic::async_trait;
 use entity;
 use manage_define::field_ids::*;
@@ -26,8 +26,8 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use property_field::*;
 
-use crate::entity_cache_map::cache_get_entity;
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::entity_cache_map::cache_get_entity;
 use crate::get_text_options::get_text_options;
 use crate::schema::schema_field_exists;
 
@@ -47,8 +47,8 @@ pub trait ManagerTrait: Any + Send + Sync {
             ));
         }
 
-        // 检查管理实体是否存在，不存在则创建管理实体
-        if !entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id).await {
+        // 检查管理实体是否存在，不存在则需创建管理实体
+        if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id).await.is_none() {
             return Err(operation_failed(
                 "ManagerTrait::init",
                 format!("{}: {}", t!("请先使用minit命令初始化管理数据库"), manage_id),
@@ -287,7 +287,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(()),
@@ -352,7 +352,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(operation_succeed("ok")),
@@ -412,7 +412,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             return Err(add_call_name_to_chain(
                 e,
@@ -428,7 +428,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     // ---------------------
 
     /// 实体是否可以删除，默认不可删除，使用removed字段
-    fn is_entity_deleteable(&self) -> bool{
+    fn is_entity_deleteable(&self) -> bool {
         false
     }
 
@@ -570,7 +570,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {
                     while let Some(r) = r.next().await {
-                        tx.send(r.unwrap()).await;
+                        let _ = tx.send(r.unwrap()).await;
                     }
                 });
 
@@ -642,7 +642,24 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-    async fn entity_exists(&self, query_doc: &Document) -> bool {
+    async fn is_mark_removed(
+        &self,
+        entity_id: &str,
+    ) -> bool {
+        let manage_id = self.get_id();
+        match entity::get_entity_by_id(&manage_id.to_string(), &entity_id).await {
+            Ok(r) => {
+                if let Ok(b) = r.get_bool(REMOVED_FIELD_ID.to_string()) {
+                    return b;
+                } else {
+                    false
+                }
+            }
+            Err(_e) => false,
+        }
+    }
+
+    async fn entity_exists(&self, query_doc: &Document) -> Option<String> {
         let manage_id = self.get_id();
         entity::entity_exists(&manage_id.to_string(), query_doc).await
     }
@@ -679,7 +696,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -703,7 +720,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-        .await
+            .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(

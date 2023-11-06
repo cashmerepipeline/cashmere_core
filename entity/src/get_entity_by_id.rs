@@ -14,7 +14,7 @@ use manage_define::general_field_ids::*;
 /// 取得 实体
 pub async fn get_entity_by_id(
     collection_name: &str,
-    id: &String,
+    id: &str,
 ) -> Result<Document, OperationResult> {
     if !database::collection_exists(collection_name).await {
         return Err(collection_not_exists("get_entity_by_id"));

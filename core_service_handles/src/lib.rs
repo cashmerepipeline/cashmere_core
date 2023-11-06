@@ -23,10 +23,13 @@ pub mod tag_service_handles;
 pub mod group_service_handles;
 
 pub mod entity_service_handles;
-pub mod entity_template_service_handles;
+pub mod template_service_handles;
 pub mod manage_service_handle;
 
 pub mod name_service_handles;
 pub mod view_rules_service_handles;
 
 pub mod comment_service_handles;
+
+pub mod member_service_handles;
+pub mod calendar_book_service_handles;

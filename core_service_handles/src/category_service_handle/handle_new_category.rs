@@ -96,7 +96,7 @@ async fn handle_new_category(
             CATEGORIES_MANAGE_ID_FIELD_ID.to_string(): *manage_id,
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
-        .await
+        .await.is_some()
     {
         return Err(Status::aborted(format!(
             "{}-{}-{}",
@@ -128,6 +128,6 @@ async fn handle_new_category(
             ))),
         }
     } else {
-        Err(Status::aborted("创建国家域失败"))
+        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_category")))
     }
 }

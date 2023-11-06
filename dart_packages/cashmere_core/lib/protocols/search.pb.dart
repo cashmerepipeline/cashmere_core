@@ -67,7 +67,7 @@ class SearchRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearManageId() => clearField(1);
 
-  /// 搜索字段和关键字，bson document bytes
+  /// 搜索字段和关键字
   @$pb.TagNumber(2)
   $core.Map<$core.String, $core.String> get searchParams => $_getMap(1);
 }
@@ -112,7 +112,7 @@ class SearchResponse extends $pb.GeneratedMessage {
   static SearchResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SearchResponse>(create);
   static SearchResponse? _defaultInstance;
 
-  /// 返回实体编号和 【修改时间？】
+  /// 查找结果为json字符串
   @$pb.TagNumber(1)
   $core.List<$core.String> get results => $_getList(0);
 }

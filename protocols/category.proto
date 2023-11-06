@@ -18,7 +18,7 @@ message GetCategoriesRequest{
   }
 message GetCategoriesResponse{
     // bson bytes
-    repeated bytes categories = 1;
+    repeated bytes codes = 1;
   }
 
 // 标记实体到类, 将品类编号添加到实体的品类列表中

@@ -1,0 +1,16 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+message AddMemberRequest {
+    Name name = 1;
+    int32 owner_manage_id = 2;
+    string owner_entity_id = 3;
+    int32 self_manage_id = 4;
+    string self_entity_id = 5;
+    string description = 6;
+  }
+message AddMemberResponse{
+    string result = 1;
+  }

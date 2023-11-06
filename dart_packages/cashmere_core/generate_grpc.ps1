@@ -11,7 +11,7 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/position.pro
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/season.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/color.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/entity.proto
-protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/entity_template.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/template.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/view.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/gender.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/category.proto
@@ -21,4 +21,8 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/constant.pro
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/price.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/range.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/search.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/member.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/calendar.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/calendar_book.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/person.proto
 

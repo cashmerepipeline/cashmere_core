@@ -20,5 +20,5 @@ message NewCountryCodeResponse {
 // 客户端应该缓存这个列表
 message GetCountryCodesRequest {}
 message GetCountryCodesResponse {
-  repeated bytes country_codes = 1;
+  repeated bytes codes = 1;
 }

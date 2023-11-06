@@ -17,7 +17,7 @@ message NewLanguageCodeResponse {
 // 客户端应该缓存这个列表
 message GetLanguageCodesRequest { }
 message GetLanguageCodesResponse {
-  repeated bytes language_codes = 1;
+  repeated bytes codes = 1;
 }
 
 // TODO: 可能不需要

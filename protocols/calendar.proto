@@ -1,6 +1,8 @@
 syntax = "proto3";
 package cashmere;
 
+import "name.proto";
+
 enum CalendarType{
   Specified = 0;
   Scripted = 1;
@@ -14,22 +16,14 @@ message Calendar{
   map<string, string> daytime = 3;
 }
 
+// 新日历
 message NewCalendarRequest{
-  int32 manage_id = 1;
-  string entity_id = 2;
-  Calendar calendar = 3;
-  string description = 4;
+  Name name = 4;
+  string book_id = 1;
+  Calendar calendar = 2;
+  string description = 3;
 }
 message NewCalendarResponse{
   // 成功返回新日历编码，失败返回信息
   string result = 1;
-}
-
-message GetCalendarsRequest{
-  int32 manage_id = 1;
-  string entity_id = 2;
-}
-message GetCalendarsResponse{
-  // 成功返回日历列表，失败返回信息
-  repeated bytes calendars = 1;
 }

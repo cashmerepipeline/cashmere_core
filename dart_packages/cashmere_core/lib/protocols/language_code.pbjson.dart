@@ -54,14 +54,13 @@ final $typed_data.Uint8List getLanguageCodesRequestDescriptor = $convert.base64D
 const GetLanguageCodesResponse$json = {
   '1': 'GetLanguageCodesResponse',
   '2': [
-    {'1': 'language_codes', '3': 1, '4': 3, '5': 12, '10': 'languageCodes'},
+    {'1': 'codes', '3': 1, '4': 3, '5': 12, '10': 'codes'},
   ],
 };
 
 /// Descriptor for `GetLanguageCodesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getLanguageCodesResponseDescriptor = $convert.base64Decode(
-    'ChhHZXRMYW5ndWFnZUNvZGVzUmVzcG9uc2USJQoObGFuZ3VhZ2VfY29kZXMYASADKAxSDWxhbm'
-    'd1YWdlQ29kZXM=');
+    'ChhHZXRMYW5ndWFnZUNvZGVzUmVzcG9uc2USFAoFY29kZXMYASADKAxSBWNvZGVz');
 
 @$core.Deprecated('Use updateLanguageCodeRequestDescriptor instead')
 const UpdateLanguageCodeRequest$json = {

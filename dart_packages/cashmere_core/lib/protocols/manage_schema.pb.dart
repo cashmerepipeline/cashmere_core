@@ -204,14 +204,14 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
 class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   factory NewSchemaFieldRequest({
     $core.int? manageId,
-    SchemaField? field_2,
+    SchemaField? newField,
   }) {
     final $result = create();
     if (manageId != null) {
       $result.manageId = manageId;
     }
-    if (field_2 != null) {
-      $result.field_2 = field_2;
+    if (newField != null) {
+      $result.newField = newField;
     }
     return $result;
   }
@@ -221,7 +221,7 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewSchemaFieldRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..aOM<SchemaField>(2, _omitFieldNames ? '' : 'field', subBuilder: SchemaField.create)
+    ..aOM<SchemaField>(2, _omitFieldNames ? '' : 'newField', subBuilder: SchemaField.create)
     ..hasRequiredFields = false
   ;
 
@@ -256,15 +256,15 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   void clearManageId() => clearField(1);
 
   @$pb.TagNumber(2)
-  SchemaField get field_2 => $_getN(1);
+  SchemaField get newField => $_getN(1);
   @$pb.TagNumber(2)
-  set field_2(SchemaField v) { setField(2, v); }
+  set newField(SchemaField v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasField_2() => $_has(1);
+  $core.bool hasNewField() => $_has(1);
   @$pb.TagNumber(2)
-  void clearField_2() => clearField(2);
+  void clearNewField() => clearField(2);
   @$pb.TagNumber(2)
-  SchemaField ensureField_2() => $_ensure(1);
+  SchemaField ensureNewField() => $_ensure(1);
 }
 
 class NewSchemaFieldResponse extends $pb.GeneratedMessage {

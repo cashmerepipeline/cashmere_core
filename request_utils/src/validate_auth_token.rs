@@ -1,14 +1,11 @@
-use std::any::{Any, TypeId};
 
-use auth::{get_auth_token, get_claims_account_and_roles, get_current_role};
+use auth::{get_auth_token, get_claims_account_and_roles};
 use auth::jwt::{get_claims, validate_jwt_token};
 
 use dependencies_sync::chrono::Utc;
 use dependencies_sync::tonic::{Request, Status};
-use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
 
-use manage_define::cashmere::GetPhoneAreaCodesRequest;
 
 ///检查授权token
 pub async fn validate_auth_token<T>(request: Request<T>) -> Result<Request<T>, Status> {

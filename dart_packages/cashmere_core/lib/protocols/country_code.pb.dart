@@ -205,11 +205,11 @@ class GetCountryCodesRequest extends $pb.GeneratedMessage {
 
 class GetCountryCodesResponse extends $pb.GeneratedMessage {
   factory GetCountryCodesResponse({
-    $core.Iterable<$core.List<$core.int>>? countryCodes,
+    $core.Iterable<$core.List<$core.int>>? codes,
   }) {
     final $result = create();
-    if (countryCodes != null) {
-      $result.countryCodes.addAll(countryCodes);
+    if (codes != null) {
+      $result.codes.addAll(codes);
     }
     return $result;
   }
@@ -218,7 +218,7 @@ class GetCountryCodesResponse extends $pb.GeneratedMessage {
   factory GetCountryCodesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCountryCodesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'countryCodes', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'codes', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -244,7 +244,7 @@ class GetCountryCodesResponse extends $pb.GeneratedMessage {
   static GetCountryCodesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get countryCodes => $_getList(0);
+  $core.List<$core.List<$core.int>> get codes => $_getList(0);
 }
 
 

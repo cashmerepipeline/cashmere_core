@@ -39,7 +39,7 @@ impl ManagerTrait for Manager {
             .await
     }
 
-    async fn entity_exists(&self, query_doc: &Document) -> bool {
+    async fn entity_exists(&self, query_doc: &Document) -> Option<String> {
         self.inner.entity_exists(query_doc).await
     }
 

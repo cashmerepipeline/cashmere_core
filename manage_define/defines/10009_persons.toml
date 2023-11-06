@@ -15,6 +15,7 @@ schema = [
   
   # 2003
   { data_type = "Bytes", name_map = { zh = "头像", en = "portrait" }, removed = false },
+  { data_type = "String", name_map = { zh = "地址", en = "address" }, removed = false },
 
 ]
 

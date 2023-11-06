@@ -84,403 +84,36 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 新国家编码
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCountryCodeRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "3")]
-    pub code: ::prost::alloc::string::String,
-    /// 母语名
-    #[prost(string, tag = "2")]
-    pub native: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub phone_area_code: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag = "5")]
-    pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+pub struct Manage {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(bytes = "vec", tag = "2")]
+    pub name_map: ::prost::alloc::vec::Vec<u8>,
 }
+/// 取得管理列表
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCountryCodeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
+pub struct GetManagesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetManagesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub manages: ::prost::alloc::vec::Vec<Manage>,
 }
-/// 取得编码列表, 读取不需要权限
-/// 客户端应该缓存这个列表
+/// 取得记录数量
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetCountryCodesRequest {}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetCountryCodesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub country_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// 新语言编码
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLanguageCodeRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub code: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub native_name: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLanguageCodeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 取得编码列表, 读取不需要权限
-/// 客户端应该缓存这个列表
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetLanguageCodesRequest {}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetLanguageCodesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub language_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// TODO: 可能不需要
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateLanguageCodeRequest {
-    #[prost(string, tag = "1")]
-    pub id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub new_code: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub new_native: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateLanguageCodeResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewAreaRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub parent_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub code: ::prost::alloc::string::String,
-    #[prost(enumeration = "AreaLevel", tag = "4")]
-    pub level: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewAreaResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditAreaRequest {
-    #[prost(string, tag = "1")]
-    pub area_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub new_parent_id: ::prost::alloc::string::String,
-    #[prost(enumeration = "AreaLevel", tag = "4")]
-    pub new_level: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditAreaResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum AreaLevel {
-    Country = 0,
-    Province = 1,
-    City = 2,
-    Area = 3,
-}
-impl AreaLevel {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            AreaLevel::Country => "Country",
-            AreaLevel::Province => "Province",
-            AreaLevel::City => "City",
-            AreaLevel::Area => "Area",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Country" => Some(Self::Country),
-            "Province" => Some(Self::Province),
-            "City" => Some(Self::City),
-            "Area" => Some(Self::Area),
-            _ => None,
-        }
-    }
-}
-/// 新区号编码
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewPhoneAreaCodeRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub code: ::prost::alloc::string::String,
-    /// 使用地区
-    #[prost(string, repeated, tag = "3")]
-    pub areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewPhoneAreaCodeResponse {
-    /// 成功返回新区号编码
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-/// 取得区号编码列表, 读取不需要权限
-/// 客户端应该缓存这个列表
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetPhoneAreaCodesRequest {}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetPhoneAreaCodesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub phone_area_codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// 通用常量不需要参数的取得接口，简化api
-/// 如果常量需要参数，则需要单独定义接口
-/// 每种可能有提供有自己的访问接口
-/// 常量一般不需要权限控制
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetConstantsRequest {
+pub struct GetManageEntryCountRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetConstantsResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub constants: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewGroupRequest {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "2")]
-    pub new_group_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewGroupResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum FieldDataType {
-    /// protobuf 类型
-    FieldDataytypeUnknown = 0,
-    FieldDatatypeDouble = 1,
-    FieldDatatypeFloat = 2,
-    FieldDatatypeInt32 = 3,
-    FieldDatatypeInt64 = 4,
-    FieldDatatypeUint32 = 5,
-    FieldDatatypeUint64 = 6,
-    FieldDatatypeSint32 = 7,
-    FieldDatatypeSint64 = 8,
-    FieldDatatypeFixed32 = 9,
-    FieldDatatypeFixed64 = 10,
-    FieldDatatypeSfixed32 = 11,
-    FieldDatatypeSfixed64 = 12,
-    FieldDatatypeBool = 13,
-    FieldDatatypeString = 14,
-    FieldDatatypeBytes = 15,
-    /// 自定义类型
-    /// 范围
-    FieldDatatypeRange = 16,
-    /// vec2
-    FieldDatatypeVec2 = 17,
-    /// vec3
-    FieldDatatypeVec3 = 18,
-    /// vec4
-    FieldDatatypeVec4 = 19,
-    /// 时间
-    FieldDatatypeTime = 20,
-}
-impl FieldDataType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            FieldDataType::FieldDataytypeUnknown => "FIELD_DATAYTYPE_UNKNOWN",
-            FieldDataType::FieldDatatypeDouble => "FIELD_DATATYPE_DOUBLE",
-            FieldDataType::FieldDatatypeFloat => "FIELD_DATATYPE_FLOAT",
-            FieldDataType::FieldDatatypeInt32 => "FIELD_DATATYPE_INT32",
-            FieldDataType::FieldDatatypeInt64 => "FIELD_DATATYPE_INT64",
-            FieldDataType::FieldDatatypeUint32 => "FIELD_DATATYPE_UINT32",
-            FieldDataType::FieldDatatypeUint64 => "FIELD_DATATYPE_UINT64",
-            FieldDataType::FieldDatatypeSint32 => "FIELD_DATATYPE_SINT32",
-            FieldDataType::FieldDatatypeSint64 => "FIELD_DATATYPE_SINT64",
-            FieldDataType::FieldDatatypeFixed32 => "FIELD_DATATYPE_FIXED32",
-            FieldDataType::FieldDatatypeFixed64 => "FIELD_DATATYPE_FIXED64",
-            FieldDataType::FieldDatatypeSfixed32 => "FIELD_DATATYPE_SFIXED32",
-            FieldDataType::FieldDatatypeSfixed64 => "FIELD_DATATYPE_SFIXED64",
-            FieldDataType::FieldDatatypeBool => "FIELD_DATATYPE_BOOL",
-            FieldDataType::FieldDatatypeString => "FIELD_DATATYPE_STRING",
-            FieldDataType::FieldDatatypeBytes => "FIELD_DATATYPE_BYTES",
-            FieldDataType::FieldDatatypeRange => "FIELD_DATATYPE_RANGE",
-            FieldDataType::FieldDatatypeVec2 => "FIELD_DATATYPE_VEC2",
-            FieldDataType::FieldDatatypeVec3 => "FIELD_DATATYPE_VEC3",
-            FieldDataType::FieldDatatypeVec4 => "FIELD_DATATYPE_VEC4",
-            FieldDataType::FieldDatatypeTime => "FIELD_DATATYPE_TIME",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "FIELD_DATAYTYPE_UNKNOWN" => Some(Self::FieldDataytypeUnknown),
-            "FIELD_DATATYPE_DOUBLE" => Some(Self::FieldDatatypeDouble),
-            "FIELD_DATATYPE_FLOAT" => Some(Self::FieldDatatypeFloat),
-            "FIELD_DATATYPE_INT32" => Some(Self::FieldDatatypeInt32),
-            "FIELD_DATATYPE_INT64" => Some(Self::FieldDatatypeInt64),
-            "FIELD_DATATYPE_UINT32" => Some(Self::FieldDatatypeUint32),
-            "FIELD_DATATYPE_UINT64" => Some(Self::FieldDatatypeUint64),
-            "FIELD_DATATYPE_SINT32" => Some(Self::FieldDatatypeSint32),
-            "FIELD_DATATYPE_SINT64" => Some(Self::FieldDatatypeSint64),
-            "FIELD_DATATYPE_FIXED32" => Some(Self::FieldDatatypeFixed32),
-            "FIELD_DATATYPE_FIXED64" => Some(Self::FieldDatatypeFixed64),
-            "FIELD_DATATYPE_SFIXED32" => Some(Self::FieldDatatypeSfixed32),
-            "FIELD_DATATYPE_SFIXED64" => Some(Self::FieldDatatypeSfixed64),
-            "FIELD_DATATYPE_BOOL" => Some(Self::FieldDatatypeBool),
-            "FIELD_DATATYPE_STRING" => Some(Self::FieldDatatypeString),
-            "FIELD_DATATYPE_BYTES" => Some(Self::FieldDatatypeBytes),
-            "FIELD_DATATYPE_RANGE" => Some(Self::FieldDatatypeRange),
-            "FIELD_DATATYPE_VEC2" => Some(Self::FieldDatatypeVec2),
-            "FIELD_DATATYPE_VEC3" => Some(Self::FieldDatatypeVec3),
-            "FIELD_DATATYPE_VEC4" => Some(Self::FieldDatatypeVec4),
-            "FIELD_DATATYPE_TIME" => Some(Self::FieldDatatypeTime),
-            _ => None,
-        }
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Int32Range {
-    #[prost(int32, tag = "1")]
-    pub min: i32,
-    #[prost(int32, tag = "2")]
-    pub max: i32,
-    #[prost(int32, tag = "3")]
-    pub value: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Int64Range {
-    #[prost(int64, tag = "1")]
-    pub min: i64,
-    #[prost(int64, tag = "2")]
-    pub max: i64,
-    #[prost(int64, tag = "3")]
-    pub value: i64,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UInt32Range {
-    #[prost(uint32, tag = "1")]
-    pub min: u32,
-    #[prost(uint32, tag = "2")]
-    pub max: u32,
-    #[prost(uint32, tag = "3")]
-    pub value: u32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FloatRange {
-    #[prost(float, tag = "1")]
-    pub min: f32,
-    #[prost(float, tag = "2")]
-    pub max: f32,
-    #[prost(float, tag = "3")]
-    pub value: f32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DoubleRange {
-    #[prost(double, tag = "1")]
-    pub min: f64,
-    #[prost(double, tag = "2")]
-    pub max: f64,
-    #[prost(double, tag = "3")]
-    pub value: f64,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Color {
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "2")]
-    pub red: u32,
-    #[prost(uint32, tag = "3")]
-    pub green: u32,
-    #[prost(uint32, tag = "4")]
-    pub blue: u32,
-    #[prost(uint32, tag = "5")]
-    pub alpha: u32,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum Gender {
-    Male = 0,
-    Female = 1,
-}
-impl Gender {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            Gender::Male => "Male",
-            Gender::Female => "Female",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Male" => Some(Self::Male),
-            "Female" => Some(Self::Female),
-            _ => None,
-        }
-    }
-}
-/// 价格
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Price {
-    /// 价格
-    #[prost(uint32, tag = "1")]
-    pub price: u32,
-    /// 货币
-    #[prost(string, tag = "2")]
-    pub currency: ::prost::alloc::string::String,
+pub struct GetManageEntryCountResponse {
+    #[prost(uint64, tag = "1")]
+    pub count: u64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -834,81 +467,6 @@ pub struct CheckUpdatesLaterThenTimeResponse {
     #[prost(string, repeated, tag = "1")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateRequest {
-    /// 模板对应管理
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-    /// 属性:值 列表
-    #[prost(bytes = "vec", repeated, tag = "2")]
-    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewEntityTemplateResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateRequest {
-    /// 模板编号
-    #[prost(string, tag = "1")]
-    pub template_id: ::prost::alloc::string::String,
-    /// 属性:值 列表
-    #[prost(bytes = "vec", repeated, tag = "2")]
-    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntityTemplateResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateRequest {
-    #[prost(string, tag = "1")]
-    pub template_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemoveEntityTemplateResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Manage {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
-}
-/// 取得管理列表
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManagesRequest {}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManagesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub manages: ::prost::alloc::vec::Vec<Manage>,
-}
-/// 取得记录数量
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageEntryCountRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetManageEntryCountResponse {
-    #[prost(uint64, tag = "1")]
-    pub count: u64,
-}
 /// 映像请求
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1058,7 +616,7 @@ pub struct NewSchemaFieldRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(message, optional, tag = "2")]
-    pub field: ::core::option::Option<SchemaField>,
+    pub new_field: ::core::option::Option<SchemaField>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1100,9 +658,561 @@ pub struct EditSchemaFieldNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 新国家编码
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCountryCodeRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "3")]
+    pub code: ::prost::alloc::string::String,
+    /// 母语名
+    #[prost(string, tag = "2")]
+    pub native: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub phone_area_code: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "5")]
+    pub languages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCountryCodeResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCountryCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCountryCodesResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 新语言编码
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLanguageCodeRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub native_name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLanguageCodeResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetLanguageCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetLanguageCodesResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// TODO: 可能不需要
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateLanguageCodeRequest {
+    #[prost(string, tag = "1")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub new_code: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub new_native: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateLanguageCodeResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub parent_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "4")]
+    pub level: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaRequest {
+    #[prost(string, tag = "1")]
+    pub area_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub new_parent_id: ::prost::alloc::string::String,
+    #[prost(enumeration = "AreaLevel", tag = "4")]
+    pub new_level: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditAreaResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AreaLevel {
+    Country = 0,
+    Province = 1,
+    City = 2,
+    Area = 3,
+}
+impl AreaLevel {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            AreaLevel::Country => "Country",
+            AreaLevel::Province => "Province",
+            AreaLevel::City => "City",
+            AreaLevel::Area => "Area",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Country" => Some(Self::Country),
+            "Province" => Some(Self::Province),
+            "City" => Some(Self::City),
+            "Area" => Some(Self::Area),
+            _ => None,
+        }
+    }
+}
+/// 新区号编码
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewPhoneAreaCodeRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub code: ::prost::alloc::string::String,
+    /// 使用地区
+    #[prost(string, repeated, tag = "3")]
+    pub areas: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewPhoneAreaCodeResponse {
+    /// 成功返回新区号编码
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得区号编码列表, 读取不需要权限
+/// 客户端应该缓存这个列表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPhoneAreaCodesRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPhoneAreaCodesResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 通用常量不需要参数的取得接口，简化api
+/// 如果常量需要参数，则需要单独定义接口
+/// 每种可能有提供有自己的访问接口
+/// 常量一般不需要权限控制
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetConstantsRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetConstantsResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub constants: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewGroupRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "2")]
+    pub new_group_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewGroupResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FieldDataType {
+    /// protobuf 类型
+    FieldDataytypeUnknown = 0,
+    FieldDatatypeDouble = 1,
+    FieldDatatypeFloat = 2,
+    FieldDatatypeInt32 = 3,
+    FieldDatatypeInt64 = 4,
+    FieldDatatypeUint32 = 5,
+    FieldDatatypeUint64 = 6,
+    FieldDatatypeSint32 = 7,
+    FieldDatatypeSint64 = 8,
+    FieldDatatypeFixed32 = 9,
+    FieldDatatypeFixed64 = 10,
+    FieldDatatypeSfixed32 = 11,
+    FieldDatatypeSfixed64 = 12,
+    FieldDatatypeBool = 13,
+    FieldDatatypeString = 14,
+    FieldDatatypeBytes = 15,
+    /// 自定义类型
+    /// 范围
+    FieldDatatypeRange = 16,
+    /// vec2
+    FieldDatatypeVec2 = 17,
+    /// vec3
+    FieldDatatypeVec3 = 18,
+    /// vec4
+    FieldDatatypeVec4 = 19,
+    /// 时间
+    FieldDatatypeTime = 20,
+}
+impl FieldDataType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            FieldDataType::FieldDataytypeUnknown => "FIELD_DATAYTYPE_UNKNOWN",
+            FieldDataType::FieldDatatypeDouble => "FIELD_DATATYPE_DOUBLE",
+            FieldDataType::FieldDatatypeFloat => "FIELD_DATATYPE_FLOAT",
+            FieldDataType::FieldDatatypeInt32 => "FIELD_DATATYPE_INT32",
+            FieldDataType::FieldDatatypeInt64 => "FIELD_DATATYPE_INT64",
+            FieldDataType::FieldDatatypeUint32 => "FIELD_DATATYPE_UINT32",
+            FieldDataType::FieldDatatypeUint64 => "FIELD_DATATYPE_UINT64",
+            FieldDataType::FieldDatatypeSint32 => "FIELD_DATATYPE_SINT32",
+            FieldDataType::FieldDatatypeSint64 => "FIELD_DATATYPE_SINT64",
+            FieldDataType::FieldDatatypeFixed32 => "FIELD_DATATYPE_FIXED32",
+            FieldDataType::FieldDatatypeFixed64 => "FIELD_DATATYPE_FIXED64",
+            FieldDataType::FieldDatatypeSfixed32 => "FIELD_DATATYPE_SFIXED32",
+            FieldDataType::FieldDatatypeSfixed64 => "FIELD_DATATYPE_SFIXED64",
+            FieldDataType::FieldDatatypeBool => "FIELD_DATATYPE_BOOL",
+            FieldDataType::FieldDatatypeString => "FIELD_DATATYPE_STRING",
+            FieldDataType::FieldDatatypeBytes => "FIELD_DATATYPE_BYTES",
+            FieldDataType::FieldDatatypeRange => "FIELD_DATATYPE_RANGE",
+            FieldDataType::FieldDatatypeVec2 => "FIELD_DATATYPE_VEC2",
+            FieldDataType::FieldDatatypeVec3 => "FIELD_DATATYPE_VEC3",
+            FieldDataType::FieldDatatypeVec4 => "FIELD_DATATYPE_VEC4",
+            FieldDataType::FieldDatatypeTime => "FIELD_DATATYPE_TIME",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FIELD_DATAYTYPE_UNKNOWN" => Some(Self::FieldDataytypeUnknown),
+            "FIELD_DATATYPE_DOUBLE" => Some(Self::FieldDatatypeDouble),
+            "FIELD_DATATYPE_FLOAT" => Some(Self::FieldDatatypeFloat),
+            "FIELD_DATATYPE_INT32" => Some(Self::FieldDatatypeInt32),
+            "FIELD_DATATYPE_INT64" => Some(Self::FieldDatatypeInt64),
+            "FIELD_DATATYPE_UINT32" => Some(Self::FieldDatatypeUint32),
+            "FIELD_DATATYPE_UINT64" => Some(Self::FieldDatatypeUint64),
+            "FIELD_DATATYPE_SINT32" => Some(Self::FieldDatatypeSint32),
+            "FIELD_DATATYPE_SINT64" => Some(Self::FieldDatatypeSint64),
+            "FIELD_DATATYPE_FIXED32" => Some(Self::FieldDatatypeFixed32),
+            "FIELD_DATATYPE_FIXED64" => Some(Self::FieldDatatypeFixed64),
+            "FIELD_DATATYPE_SFIXED32" => Some(Self::FieldDatatypeSfixed32),
+            "FIELD_DATATYPE_SFIXED64" => Some(Self::FieldDatatypeSfixed64),
+            "FIELD_DATATYPE_BOOL" => Some(Self::FieldDatatypeBool),
+            "FIELD_DATATYPE_STRING" => Some(Self::FieldDatatypeString),
+            "FIELD_DATATYPE_BYTES" => Some(Self::FieldDatatypeBytes),
+            "FIELD_DATATYPE_RANGE" => Some(Self::FieldDatatypeRange),
+            "FIELD_DATATYPE_VEC2" => Some(Self::FieldDatatypeVec2),
+            "FIELD_DATATYPE_VEC3" => Some(Self::FieldDatatypeVec3),
+            "FIELD_DATATYPE_VEC4" => Some(Self::FieldDatatypeVec4),
+            "FIELD_DATATYPE_TIME" => Some(Self::FieldDatatypeTime),
+            _ => None,
+        }
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int32Range {
+    #[prost(int32, tag = "1")]
+    pub min: i32,
+    #[prost(int32, tag = "2")]
+    pub max: i32,
+    #[prost(int32, tag = "3")]
+    pub value: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Int64Range {
+    #[prost(int64, tag = "1")]
+    pub min: i64,
+    #[prost(int64, tag = "2")]
+    pub max: i64,
+    #[prost(int64, tag = "3")]
+    pub value: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UInt32Range {
+    #[prost(uint32, tag = "1")]
+    pub min: u32,
+    #[prost(uint32, tag = "2")]
+    pub max: u32,
+    #[prost(uint32, tag = "3")]
+    pub value: u32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FloatRange {
+    #[prost(float, tag = "1")]
+    pub min: f32,
+    #[prost(float, tag = "2")]
+    pub max: f32,
+    #[prost(float, tag = "3")]
+    pub value: f32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DoubleRange {
+    #[prost(double, tag = "1")]
+    pub min: f64,
+    #[prost(double, tag = "2")]
+    pub max: f64,
+    #[prost(double, tag = "3")]
+    pub value: f64,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Color {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(uint32, tag = "2")]
+    pub red: u32,
+    #[prost(uint32, tag = "3")]
+    pub green: u32,
+    #[prost(uint32, tag = "4")]
+    pub blue: u32,
+    #[prost(uint32, tag = "5")]
+    pub alpha: u32,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Gender {
+    Male = 0,
+    Female = 1,
+}
+impl Gender {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Gender::Male => "Male",
+            Gender::Female => "Female",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Male" => Some(Self::Male),
+            "Female" => Some(Self::Female),
+            _ => None,
+        }
+    }
+}
+/// 价格
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Price {
+    /// 价格
+    #[prost(uint32, tag = "1")]
+    pub price: u32,
+    /// 货币
+    #[prost(string, tag = "2")]
+    pub currency: ::prost::alloc::string::String,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Season {
+    Spring = 0,
+    Summer = 1,
+    Autumn = 2,
+    Winter = 3,
+}
+impl Season {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Season::Spring => "Spring",
+            Season::Summer => "Summer",
+            Season::Autumn => "Autumn",
+            Season::Winter => "Winter",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Spring" => Some(Self::Spring),
+            "Summer" => Some(Self::Summer),
+            "Autumn" => Some(Self::Autumn),
+            "Winter" => Some(Self::Winter),
+            _ => None,
+        }
+    }
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Position {
+    #[prost(int32, tag = "1")]
+    pub x: i32,
+    #[prost(int32, tag = "2")]
+    pub y: i32,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Calendar {
+    #[prost(enumeration = "CalendarType", tag = "1")]
+    pub r#type: i32,
+    /// {"year"| "month"| "week"}
+    #[prost(string, tag = "2")]
+    pub every: ::prost::alloc::string::String,
+    /// {"day": day, "hour": hour, "minute": minute}
+    #[prost(map = "string, string", tag = "3")]
+    pub daytime: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+/// 新日历
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarRequest {
+    #[prost(message, optional, tag = "4")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(string, tag = "1")]
+    pub book_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub calendar: ::core::option::Option<Calendar>,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCalendarResponse {
+    /// 成功返回新日历编码，失败返回信息
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum CalendarType {
+    Specified = 0,
+    Scripted = 1,
+}
+impl CalendarType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            CalendarType::Specified => "Specified",
+            CalendarType::Scripted => "Scripted",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Specified" => Some(Self::Specified),
+            "Scripted" => Some(Self::Scripted),
+            _ => None,
+        }
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewTemplateRequest {
+    #[prost(message, optional, tag = "3")]
+    pub name: ::core::option::Option<Name>,
+    /// 模板对应管理
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    /// bons Document bytes
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewTemplateResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditTemplateRequest {
+    /// 模板编号
+    #[prost(string, tag = "1")]
+    pub template_id: ::prost::alloc::string::String,
+    /// 属性:值 列表
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditTemplateResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTemplateRequest {
+    #[prost(string, tag = "1")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveTemplateResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCommentRequest {
+    #[prost(message, optional, tag = "4")]
+    pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "1")]
     pub target_manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -1146,46 +1256,45 @@ pub struct RemoveCommentResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum Season {
-    Spring = 0,
-    Summer = 1,
-    Autumn = 2,
-    Winter = 3,
-}
-impl Season {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            Season::Spring => "Spring",
-            Season::Summer => "Summer",
-            Season::Autumn => "Autumn",
-            Season::Winter => "Winter",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Spring" => Some(Self::Spring),
-            "Summer" => Some(Self::Summer),
-            "Autumn" => Some(Self::Autumn),
-            "Winter" => Some(Self::Winter),
-            _ => None,
-        }
-    }
-}
-#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Position {
-    #[prost(int32, tag = "1")]
-    pub x: i32,
+pub struct AddMemberRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
     #[prost(int32, tag = "2")]
-    pub y: i32,
+    pub owner_manage_id: i32,
+    #[prost(string, tag = "3")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+    #[prost(int32, tag = "4")]
+    pub self_manage_id: i32,
+    #[prost(string, tag = "5")]
+    pub self_entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddMemberResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteMemberRequest {
+    #[prost(int32, tag = "1")]
+    pub owner_manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+    #[prost(int32, tag = "3")]
+    pub self_manage_id: i32,
+    #[prost(string, tag = "4")]
+    pub self_entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteMemberResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1215,7 +1324,7 @@ pub struct GetCategoriesRequest {
 pub struct GetCategoriesResponse {
     /// bson bytes
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub categories: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub codes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 标记实体到类, 将品类编号添加到实体的品类列表中
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1318,82 +1427,65 @@ pub struct RemoveTagsFromEntityResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Calendar {
-    #[prost(enumeration = "CalendarType", tag = "1")]
-    pub r#type: i32,
-    /// {"year"| "month"| "week"}
-    #[prost(string, tag = "2")]
-    pub every: ::prost::alloc::string::String,
-    /// {"day": day, "hour": hour, "minute": minute}
-    #[prost(map = "string, string", tag = "3")]
-    pub daytime: ::std::collections::HashMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCalendarRequest {
+pub struct NewCalendarBookRequest {
     #[prost(int32, tag = "1")]
     pub manage_id: i32,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
-    pub calendar: ::core::option::Option<Calendar>,
+    pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "4")]
     pub description: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCalendarResponse {
-    /// 成功返回新日历编码，失败返回信息
+pub struct NewCalendarBookResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetCalendarsRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-    #[prost(string, tag = "2")]
-    pub entity_id: ::prost::alloc::string::String,
+pub struct NewPersonRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    #[prost(enumeration = "Gender", tag = "2")]
+    pub gender: i32,
+    #[prost(uint64, tag = "3")]
+    pub birthday: u64,
+    #[prost(bytes = "vec", tag = "4")]
+    pub portrait: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag = "5")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub address: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetCalendarsResponse {
-    /// 成功返回日历列表，失败返回信息
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub calendars: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+pub struct NewPersonResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum CalendarType {
-    Specified = 0,
-    Scripted = 1,
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPersonRequest {
+    #[prost(string, tag = "1")]
+    pub id: ::prost::alloc::string::String,
 }
-impl CalendarType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            CalendarType::Specified => "Specified",
-            CalendarType::Scripted => "Scripted",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "Specified" => Some(Self::Specified),
-            "Scripted" => Some(Self::Scripted),
-            _ => None,
-        }
-    }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetGroupPersonsRequest {
+    #[prost(string, tag = "1")]
+    pub group_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPersonsPageRequest {
+    #[prost(int32, tag = "1")]
+    pub start: i32,
+    #[prost(int32, tag = "2")]
+    pub end: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
