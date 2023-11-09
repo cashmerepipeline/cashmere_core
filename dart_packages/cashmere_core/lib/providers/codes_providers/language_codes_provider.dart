@@ -1,6 +1,6 @@
 import 'package:account_module/providers/meta_data_provider.dart';
 import 'package:bson/bson.dart';
-import 'package:cashmere_core/codes_fetchers/fetch_precoded_codes.dart';
+import 'package:cashmere_core/fetchers/fetch_precoded_codes.dart';
 import 'package:cashmere_core/grpc_call.dart';
 import 'package:cashmere_core/protocols/language_code.pb.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

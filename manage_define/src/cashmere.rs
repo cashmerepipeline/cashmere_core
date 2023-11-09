@@ -195,7 +195,36 @@ pub struct EditEntityResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改实体属性
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EntityFieldEdit {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub field_id: ::prost::alloc::string::String,
+    #[prost(enumeration = "EditOperationTypeEnum", tag = "4")]
+    pub operation_type: i32,
+    /// 使用bson Document格式表示，如：{field_id:value}
+    #[prost(bytes = "vec", tag = "5")]
+    pub edits: ::prost::alloc::vec::Vec<u8>,
+}
+/// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntitiesFielsdsRequest {
+    #[prost(message, repeated, tag = "1")]
+    pub edits: ::prost::alloc::vec::Vec<EntityFieldEdit>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EditEntitiesFielsdsResponse {
+    /// 成功返回"ok"
+    #[prost(string, tag = "1")]
+    pub results: ::prost::alloc::string::String,
+}
+/// 编辑单个字段
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityFieldRequest {
@@ -216,7 +245,7 @@ pub struct EditEntityFieldResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改MAP实体属性
+/// 编辑MAP字段中的某个属性
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRequest {
@@ -466,6 +495,44 @@ pub struct CheckUpdatesLaterThenTimeResponse {
     /// 最多返回1000条
     #[prost(string, repeated, tag = "1")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 编辑操作类型
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum EditOperationTypeEnum {
+    EditPrimaryField = 0,
+    EidtMapField = 1,
+    EditMapFieldRemoveKey = 2,
+    EditAddToArrayField = 3,
+    EditRemoveFromArrayField = 4,
+}
+impl EditOperationTypeEnum {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            EditOperationTypeEnum::EditPrimaryField => "EDIT_PRIMARY_FIELD",
+            EditOperationTypeEnum::EidtMapField => "EIDT_MAP_FIELD",
+            EditOperationTypeEnum::EditMapFieldRemoveKey => "EDIT_MAP_FIELD_REMOVE_KEY",
+            EditOperationTypeEnum::EditAddToArrayField => "EDIT_ADD_TO_ARRAY_FIELD",
+            EditOperationTypeEnum::EditRemoveFromArrayField => {
+                "EDIT_REMOVE_FROM_ARRAY_FIELD"
+            }
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "EDIT_PRIMARY_FIELD" => Some(Self::EditPrimaryField),
+            "EIDT_MAP_FIELD" => Some(Self::EidtMapField),
+            "EDIT_MAP_FIELD_REMOVE_KEY" => Some(Self::EditMapFieldRemoveKey),
+            "EDIT_ADD_TO_ARRAY_FIELD" => Some(Self::EditAddToArrayField),
+            "EDIT_REMOVE_FROM_ARRAY_FIELD" => Some(Self::EditRemoveFromArrayField),
+            _ => None,
+        }
+    }
 }
 /// 映像请求
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1275,24 +1342,6 @@ pub struct AddMemberRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddMemberResponse {
-    #[prost(string, tag = "1")]
-    pub result: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteMemberRequest {
-    #[prost(int32, tag = "1")]
-    pub owner_manage_id: i32,
-    #[prost(string, tag = "2")]
-    pub owner_entity_id: ::prost::alloc::string::String,
-    #[prost(int32, tag = "3")]
-    pub self_manage_id: i32,
-    #[prost(string, tag = "4")]
-    pub self_entity_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteMemberResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }

@@ -1,5 +1,6 @@
 
-import 'package:cashmere_core/providers/edit_entity_notifier_state_enum.dart';
+
+import 'package:cashmere_core/providers/edit_providers/edit_entity_notifier_state_enum.dart';
 
 class EditEntityNotifierState<Res> {
   late Res? result;
