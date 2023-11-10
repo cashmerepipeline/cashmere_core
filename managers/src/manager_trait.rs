@@ -468,6 +468,11 @@ pub trait ManagerTrait: Any + Send + Sync {
         Ok(operation_succeed(format!("{}: {}", t!("更新缓存完成"), id)))
     }
 
+    async fn count_entity(&self, filter_doc: Document) -> Result<u64, OperationResult> {
+        let manage_id = self.get_id();
+        entity::count_entity(&manage_id.to_string(), filter_doc).await
+    }
+
     async fn get_entry_counts(&self) -> Result<u64, OperationResult> {
         let manage_id = self.get_id();
 

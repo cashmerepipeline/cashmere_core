@@ -12,8 +12,8 @@ use cash_result::*;
 use database::get_cashmere_database;
 use manage_define::general_field_ids::*;
 
-/// 取得实体数量
-pub async fn get_entity_count(
+/// 使用过滤条件获取实体数量
+pub async fn count_entity(
     collection_name: &String,
     filter_doc: Document,
 ) -> Result<u64, OperationResult> {

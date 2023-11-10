@@ -24,6 +24,7 @@ pub use get_entity_by_id::*;
 pub use get_entity_by_objectid::*;
 pub use get_entity_by_name::*;
 pub use get_entry_count::*;
+pub use count_entity::*;
 pub use get_entity_field::*;
 pub use get_entity_field_as_string::*;
 pub use get_entity_field_as_type::*;
@@ -82,4 +83,4 @@ mod get_entity_owner;
 mod get_entity_groups;
 
 mod get_entry_count;
-mod get_entity_count;
+mod count_entity;
