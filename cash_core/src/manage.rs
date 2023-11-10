@@ -27,8 +27,6 @@ pub struct Manage {
 
     // 能被搜索
     pub is_searchable: bool,
-    // 需要登录才能访问管理的实体
-    pub login_required: bool,
 }
 
 /// bson文档-->管理实体
@@ -80,10 +78,6 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         .get_bool(&IS_SEARCHABLE_FIELD_ID.to_string())
         .unwrap();
 
-    let login_required = manage_doc
-        .get_bool(&LOGIN_REQUIRED_FIELD_ID.to_string())
-        .unwrap();
-
     Ok(Manage {
         object_id: object_id.to_string(),
         id,
@@ -96,6 +90,5 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         groups,
         schema,
         is_searchable,
-        login_required,
     })
 }

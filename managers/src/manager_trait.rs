@@ -111,12 +111,6 @@ pub trait ManagerTrait: Any + Send + Sync {
         manage.is_searchable
     }
     
-    async fn login_required(&self) -> bool {
-        let manage_lock = self.get_manage().await;
-        let manage = manage_lock.read();
-        manage.login_required
-    }
-
     // ---------------------------
     //  数据验证
     // ---------------------------

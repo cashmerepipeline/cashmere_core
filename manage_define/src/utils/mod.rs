@@ -6,4 +6,3 @@ mod get_name;
 mod get_schema;
 mod get_toml_map;
 mod get_is_searchable;
-mod get_login_required;

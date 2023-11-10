@@ -5,7 +5,7 @@
 id = 10015
 name_map = { zh = "映像规则", en = "view_rules" }
 is_searchable = false
-login_required = true
+
 
 
 # 描写，模式

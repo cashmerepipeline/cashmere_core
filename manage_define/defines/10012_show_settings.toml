@@ -5,7 +5,7 @@
 id = 10012
 name_map = { zh = "显示设置", en = "show_settings" }
 is_searchable = true
-login_required = true
+
 
 # 描写，模式
 schema = [

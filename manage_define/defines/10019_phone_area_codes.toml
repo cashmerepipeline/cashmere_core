@@ -5,7 +5,7 @@
 id = 10019
 name_map = { zh = "手机区号", en = "phone_area_codes" }
 is_searchable = true
-login_required = false
+
 
 # 数据描写 或者 模式
 schema = [

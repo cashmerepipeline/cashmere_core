@@ -5,7 +5,7 @@
 id = 10002
 name_map = { zh = "组", en = "groups" }
 is_searchable = false
-login_required = true
+
 
 # 描写，模式
 schema = []

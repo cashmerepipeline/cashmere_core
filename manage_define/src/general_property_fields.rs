@@ -140,16 +140,6 @@ fn _general_property_fields() -> Vec<PropertyField> {
         removed: false,
     };
 
-    let mut login_required_name_map = LinkedHashMap::new();
-    login_required_name_map.insert("zh".to_string(), "需登录".to_string());
-    login_required_name_map.insert("en".to_string(), "login_required".to_string());
-    let login_required_field = PropertyField {
-        id: LOGIN_REQUIRED_FIELD_ID,
-        name_map: login_required_name_map,
-        data_type: FieldDataType::List,
-        removed: false,
-    };
-
     let mut entity_removed_name_map = LinkedHashMap::new();
     entity_removed_name_map.insert("zh".to_string(), "已移除".to_string());
     entity_removed_name_map.insert("en".to_string(), "name".to_string());
@@ -160,5 +150,5 @@ fn _general_property_fields() -> Vec<PropertyField> {
         removed: false,
     };
 
-    vec![id_field, name_map_field, owner_field, group_field, is_searchable_field, login_required_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
+    vec![id_field, name_map_field, owner_field, group_field, is_searchable_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
 }

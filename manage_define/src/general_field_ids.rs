@@ -26,8 +26,6 @@ pub const COMMENTS_FIELD_ID: i32 = 1009;
 pub const TAGS_FIELD_ID: i32 = 1010;
 // 描述
 pub const DESCRIPTION_FIELD_ID: i32 = 1011;
-// 登录后可访问
-pub const LOGIN_REQUIRED_FIELD_ID: i32 = 1012;
 // 删除标记
 pub const REMOVED_FIELD_ID: i32 = 1200;
 

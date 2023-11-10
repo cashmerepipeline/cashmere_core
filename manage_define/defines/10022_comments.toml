@@ -5,7 +5,7 @@
 id = 10022
 name_map = { zh = "评论", en = "comments" }
 is_searchable = true
-login_required = false
+
 
 # 数据描写 或者 模式
 schema = [

@@ -5,7 +5,7 @@
 id = 19999
 name_map = { zh = "编号器", en = "ids" }
 is_searchable = false
-login_required = true
+
 
 # 数据描写 或者 模式
 schema = [

@@ -27,7 +27,7 @@ const int COMMENTS_FIELD_ID = 1009;
 // 标签
 const int TAGS_FIELD_ID = 1010;
 // 描述
-const int DESCRIPTIONS_FIELD_ID = 1011;
+const int DESCRIPTION_FIELD_ID = 1011;
 // 删除标记
 const int REMOVED_FIELD_ID = 1200;
 
