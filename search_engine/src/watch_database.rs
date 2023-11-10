@@ -12,7 +12,9 @@ use dependencies_sync::{
     tokio_stream::StreamExt,
 };
 
-use database::{get_cashmere_database};
+use database::get_cashmere_database;
+use majordomo::get_majordomo;
+use managers::ManagerTrait;
 
 use crate::database_event_handles::{handle_delete_event, handle_update_event};
 use crate::{
@@ -63,6 +65,15 @@ pub async fn watch_database() {
                     } else {
                         continue;
                     };
+
+                    {
+                        // 判断是否需要搜索
+                        let majordomo_arc = get_majordomo();
+                        let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+                        if !manager.is_searchable().await {
+                            continue;
+                        }
+                    }
 
                     let _object_id = if let Some(ref dk) = r.document_key {
                         if let Ok(ref oid) = dk.get_object_id("_id") {

@@ -5,6 +5,8 @@
 # 管理名, 对应数据库的表或者集合
 id = 10006
 name_map = { zh = "语言编码", en = "languages_codes" }
+is_searchable = false
+login_required = false
 
 # 数据描写 或者 模式
 schema = [

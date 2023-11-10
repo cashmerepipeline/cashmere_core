@@ -7,7 +7,7 @@ use dependencies_sync::serde_json::{self, json};
 
 use dependencies_sync::tantivy::{schema::*, TantivyDocument};
 use manage_define::general_field_ids::{
-    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
+    DESCRIPTION_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
 
 use crate::get_tantivy_writer;
@@ -41,7 +41,7 @@ pub fn commit_search_document(
         language_code:name
     });
     let description = update_document
-        .get_str(DESCRIPTIONS_FIELD_ID.to_string())
+        .get_str(DESCRIPTION_FIELD_ID.to_string())
         .unwrap_or("");
 
     let modify_time =
@@ -55,7 +55,7 @@ pub fn commit_search_document(
             "_id": object_id,
             ID_FIELD_ID.to_string(): id,
             NAME_MAP_FIELD_ID.to_string(): name_map_json,
-            DESCRIPTIONS_FIELD_ID.to_string(): description,
+            DESCRIPTION_FIELD_ID.to_string(): description,
             MODIFY_TIMESTAMP_FIELD_ID.to_string(): modify_time
     });
     let doc = if let Ok(doc) = TantivyDocument::parse_json(&schema, json_doc.to_string().as_str()) {

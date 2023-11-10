@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 dependencies_sync ={ path = "../dependencies_sync", features = ["futures", "tonic"] }
 manage_define ={ path = "../manage_define" }
+majordomo ={ path = "../majordomo"}
+managers ={ path = "../managers" }

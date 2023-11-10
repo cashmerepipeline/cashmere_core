@@ -5,6 +5,8 @@
 
 id = 10024
 name_map = { zh = "标签", en = "tags" }
+is_searchable = true
+login_required = false
 
 # 数据描写 或者 模式
 schema = [

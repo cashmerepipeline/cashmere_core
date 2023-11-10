@@ -100,32 +100,52 @@ fn _general_property_fields() -> Vec<PropertyField> {
         removed: false,
     };
 
-    let mut datas_name_map = LinkedHashMap::new();
-    datas_name_map.insert("zh".to_string(), "数据".to_string());
-    datas_name_map.insert("en".to_string(), "datas".to_string());
-    let datas_field = PropertyField {
-        id: DATAS_FIELD_ID,
-        name_map: datas_name_map,
-        data_type: FieldDataType::List,
-        removed: false,
-    };
-
-    let mut datas_removed_name_map = LinkedHashMap::new();
-    datas_removed_name_map.insert("zh".to_string(), "实体名".to_string());
-    datas_removed_name_map.insert("en".to_string(), "name".to_string());
-    let datas_removed_field = PropertyField {
-        id: DATAS_REMOVED_FIELD_ID,
-        name_map: datas_removed_name_map,
-        data_type: FieldDataType::List,
+    let mut is_searchable_name_map = LinkedHashMap::new();
+    is_searchable_name_map.insert("zh".to_string(), "可搜索".to_string());
+    is_searchable_name_map.insert("en".to_string(), "is_searchable".to_string());
+    let is_searchable_field = PropertyField {
+        id: IS_SEARCHABLE_FIELD_ID,
+        name_map: is_searchable_name_map,
+        data_type: FieldDataType::Bool,
         removed: false,
     };
 
     let mut comments_name_map = LinkedHashMap::new();
-    comments_name_map.insert("zh".to_string(), "注释".to_string());
-    comments_name_map.insert("en".to_string(), "name".to_string());
+    comments_name_map.insert("zh".to_string(), "评论".to_string());
+    comments_name_map.insert("en".to_string(), "comments".to_string());
     let comments_field = PropertyField {
         id: COMMENTS_FIELD_ID,
         name_map: comments_name_map,
+        data_type: FieldDataType::List,
+        removed: false,
+    };
+
+    let mut tags_name_map = LinkedHashMap::new();
+    tags_name_map.insert("zh".to_string(), "标签".to_string());
+    tags_name_map.insert("en".to_string(), "tags".to_string());
+    let tags_field = PropertyField {
+        id: TAGS_FIELD_ID,
+        name_map: tags_name_map,
+        data_type: FieldDataType::List,
+        removed: false,
+    };
+
+    let mut description_name_map = LinkedHashMap::new();
+    description_name_map.insert("zh".to_string(), "注释".to_string());
+    description_name_map.insert("en".to_string(), "description".to_string());
+    let description_field = PropertyField {
+        id: DESCRIPTION_FIELD_ID,
+        name_map: description_name_map,
+        data_type: FieldDataType::List,
+        removed: false,
+    };
+
+    let mut login_required_name_map = LinkedHashMap::new();
+    login_required_name_map.insert("zh".to_string(), "需登录".to_string());
+    login_required_name_map.insert("en".to_string(), "login_required".to_string());
+    let login_required_field = PropertyField {
+        id: LOGIN_REQUIRED_FIELD_ID,
+        name_map: login_required_name_map,
         data_type: FieldDataType::List,
         removed: false,
     };
@@ -140,5 +160,5 @@ fn _general_property_fields() -> Vec<PropertyField> {
         removed: false,
     };
 
-    vec![id_field, name_map_field, owner_field, group_field, datas_field, datas_removed_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
+    vec![id_field, name_map_field, owner_field, group_field, is_searchable_field, login_required_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
 }

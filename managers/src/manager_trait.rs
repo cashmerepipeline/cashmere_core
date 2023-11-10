@@ -104,6 +104,18 @@ pub trait ManagerTrait: Any + Send + Sync {
             .unwrap()
             .clone())
     }
+    
+    async fn is_searchable(&self) -> bool {
+        let manage_lock = self.get_manage().await;
+        let manage = manage_lock.read();
+        manage.is_searchable
+    }
+    
+    async fn login_required(&self) -> bool {
+        let manage_lock = self.get_manage().await;
+        let manage = manage_lock.read();
+        manage.login_required
+    }
 
     // ---------------------------
     //  数据验证
@@ -785,7 +797,6 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     // ---------------------
     // 数据
-
     // ---------------
     // 搜索引擎索引
     fn tantivy_schema(&self) -> Schema {
@@ -797,7 +808,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let _name_map = schema_builder
             .add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), text_options.clone());
         let _description =
-            schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), text_options);
+            schema_builder.add_text_field(DESCRIPTION_FIELD_ID.to_string().as_ref(), text_options);
         let _modify_time = schema_builder.add_u64_field(
             MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(),
             STORED | FAST,

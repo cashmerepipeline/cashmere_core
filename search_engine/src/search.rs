@@ -7,13 +7,15 @@ use dependencies_sync::{
     log,
     rust_i18n::{self, t},
 };
-use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID};
 
 use crate::tantivy_searcher::get_tantivy_searcher;
 use crate::{get_tantivy_schema, get_tantivy_index};
 
 
 pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, OperationResult> {
+    
+    
     log::debug!("{}: {}-{:?}", t!("搜索开始"), manage_id, search_str);
 
     // let schema = if let Some(s) = get_manage_tantivy_schema(manage_id) {
@@ -30,7 +32,7 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
         .get_field(NAME_MAP_FIELD_ID.to_string().as_ref())
         .unwrap();
     let description_f = schema
-        .get_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref())
+        .get_field(DESCRIPTION_FIELD_ID.to_string().as_ref())
         .unwrap();
 
     let index_arc = get_tantivy_index();

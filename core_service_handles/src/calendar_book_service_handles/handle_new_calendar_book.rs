@@ -117,7 +117,7 @@ async fn handle_new_calendar_book(
             param_manage_id.to_owned(),
         );
         new_entity_doc.insert(CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(), entity_id.to_owned());
-        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.to_owned());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.to_owned());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

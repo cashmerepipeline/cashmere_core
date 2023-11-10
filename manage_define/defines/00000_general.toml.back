@@ -4,6 +4,8 @@
 
 id = 00000
 name_map = { zh = "管理模板", en = "general" }
+is_searchable = true
+login_required = false
 
 # 描写，模式
 schema = [

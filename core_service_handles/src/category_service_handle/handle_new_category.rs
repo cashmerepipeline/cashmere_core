@@ -109,7 +109,7 @@ async fn handle_new_category(
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(CATEGORIES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
-        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

@@ -4,6 +4,8 @@
 
 id = 10011
 name_map = { zh = "模板", en = "templates" }
+is_searchable = true
+login_required = true
 
 # 描写，模式
 schema = [

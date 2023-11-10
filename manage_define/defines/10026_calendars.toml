@@ -5,6 +5,8 @@
 
 id = 10026
 name_map = { zh = "日历", en = "calendars" }
+is_searchable = true
+login_required = true
 
 # 数据描写 或者 模式
 schema = [

@@ -5,6 +5,8 @@
 
 id = 10027
 name_map = { zh = "日历帐本", en = "calendar_books" }
+is_searchable = true
+login_required = true
 
 # 数据描写 或者 模式
 schema = [

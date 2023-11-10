@@ -100,7 +100,7 @@ impl ManagerTrait for CategoriesManager {
         let _id = schema_builder.add_text_field("_id", STORED | TEXT);
         let _idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
         let _name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), token_options.clone());
-        let _description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), token_options);
+        let _description = schema_builder.add_text_field(DESCRIPTION_FIELD_ID.to_string().as_ref(), token_options);
         let _modify_time = schema_builder.add_u64_field(MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(), STORED | FAST);
         let _category_manage_id = schema_builder.add_u64_field(CATEGORIES_MANAGE_ID_FIELD_ID.to_string().as_ref(), STORED | FAST);
 

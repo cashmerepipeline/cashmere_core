@@ -4,6 +4,8 @@
 
 id = 10003
 name_map = { zh = "国家", en = "country_codes" }
+is_searchable = false
+login_required = false
 
 # 数据描写 或者 模式
 schema = [

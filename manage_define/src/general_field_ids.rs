@@ -1,5 +1,5 @@
 // ----------------
-// 必须属性
+// 通用属性
 // ----------------
 
 // 编号
@@ -18,22 +18,23 @@ pub const MODIFY_TIMESTAMP_FIELD_ID: i32 = 1005;
 pub const OWNER_FIELD_ID: i32 = 1006;
 // 组
 pub const GROUPS_FIELD_ID: i32 = 1007;
-// 相关数据
-pub const DATAS_FIELD_ID: i32 = 1008;
+// 可在搜索引擎中建立索引
+pub const IS_SEARCHABLE_FIELD_ID: i32 = 1008;
 // 注释和评论
 pub const COMMENTS_FIELD_ID: i32 = 1009;
 // 标签
 pub const TAGS_FIELD_ID: i32 = 1010;
 // 描述
-pub const DESCRIPTIONS_FIELD_ID: i32 = 1011;
+pub const DESCRIPTION_FIELD_ID: i32 = 1011;
+// 登录后可访问
+pub const LOGIN_REQUIRED_FIELD_ID: i32 = 1012;
 // 删除标记
 pub const REMOVED_FIELD_ID: i32 = 1200;
-// 删除数据
-pub const DATAS_REMOVED_FIELD_ID: i32 = 1900;
+
 
 // --------
-// 非必须属性
+// 非通用属性
 // --------
 
 // 分类
-pub const CATEGORIES_FIELD_ID: i32 = 1012;
+pub const CATEGORIES_FIELD_ID: i32 = 1300;
