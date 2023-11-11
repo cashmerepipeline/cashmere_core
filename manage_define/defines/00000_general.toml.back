@@ -11,17 +11,17 @@ schema = [
   # 通用属性
   # common
   { data_type = "String", name_map = { zh = "编号", en = "id" }, removed = false },
-  { data_type = "List", name_map = { zh = "实体名", en = "name" }, removed = false },
+  { data_type = "Array", name_map = { zh = "实体名", en = "name" }, removed = false },
   { data_type = "String", name_map = { zh = "创建人", en = "creator" }, removed = false },
-  { data_type = "Int64", name_map = { zh = "创建时间戳", en = "create_timestamp" }, removed = false },
+  { data_type = "Timestamp", name_map = { zh = "创建时间戳", en = "create_timestamp" }, removed = false },
   { data_type = "String", name_map = { zh = "修改人", en = "modifier" }, removed = false },
-  { data_type = "Int64", name_map = { zh = "修改时间戳", en = "modify_timestamp" }, removed = false },
+  { data_type = "Timestamp", name_map = { zh = "修改时间戳", en = "modify_timestamp" }, removed = false },
   { data_type = "String", name_map = { zh = "主人", en = "owner" }, removed = false },
   { data_type = "String", name_map = { zh = "组", en = "groups" }, removed = false },
-  { data_type = "List", name_map = { zh = "评论", en = "comments" }, removed = false },
-  { data_type = "List", name_map = { zh = "标签", en = "tags" }, removed = false },
+  { data_type = "Array", name_map = { zh = "评论", en = "comments" }, removed = false },
+  { data_type = "Array", name_map = { zh = "标签", en = "tags" }, removed = false },
   { data_type = "String", name_map = { zh = "描述", en = "descriptions" }, removed = false },
-  { data_type = "Bool", name_map = { zh = "删除", en = "entity_removed" }, removed = false },
+  { data_type = "Boolean", name_map = { zh = "删除", en = "entity_removed" }, removed = false },
 ]
 
 # 初始实体

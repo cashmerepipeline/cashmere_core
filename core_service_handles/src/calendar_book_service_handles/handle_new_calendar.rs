@@ -83,7 +83,7 @@ async fn handle_new_calendar(
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),
-            bson::to_document(&name).unwrap(),
+            name_doc,
         );
         new_entity_doc.insert(
             CALENDARS_BOOK_ID_FIELD_ID.to_string(),

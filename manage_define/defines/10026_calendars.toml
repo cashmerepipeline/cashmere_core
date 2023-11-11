@@ -11,7 +11,7 @@ is_searchable = true
 # 数据描写 或者 模式
 schema = [
   { data_type = "Int32", name_map = { zh = "帐本编号", en = "book_id" }, removed = false },
-  { data_type = "Map", name_map = { zh = "日历", en = "calendar" }, removed = false },
+  { data_type = "Document", name_map = { zh = "日历", en = "calendar" }, removed = false },
 ]
 
 # 初始实体

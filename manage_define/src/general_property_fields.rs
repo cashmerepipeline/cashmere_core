@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
-use property_field::{FieldDataType, PropertyField};
+use property_field::PropertyField;
 
 use crate::general_field_ids::*;
 
@@ -28,7 +28,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let id_field = PropertyField {
         id: ID_FIELD_ID,
         name_map: id_name_map,
-        data_type: FieldDataType::String,
+        data_type: "String".to_string(),
         removed: false,
     };
 
@@ -38,7 +38,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let name_map_field = PropertyField {
         id: NAME_MAP_FIELD_ID,
         name_map: name_name_map,
-        data_type: FieldDataType::List,
+        data_type: "Array".to_string(),
         removed: false,
     };
 
@@ -48,7 +48,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let creator_field = PropertyField {
         id: CREATOR_FIELD_ID,
         name_map: creator_name_map,
-        data_type: FieldDataType::String,
+        data_type: "String".to_string(),
         removed: false,
     };
 
@@ -58,7 +58,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let create_timestamp_field = PropertyField {
         id: CREATE_TIMESTAMP_FIELD_ID,
         name_map: create_timestamp_name_map,
-        data_type: FieldDataType::Int64,
+        data_type: "Timestamp".to_string(),
         removed: false,
     };
     let mut modifier_name_map = LinkedHashMap::new();
@@ -67,7 +67,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let modifier_field = PropertyField {
         id: MODIFIER_FIELD_ID,
         name_map: modifier_name_map,
-        data_type: FieldDataType::String,
+        data_type: "Array".to_string(),
         removed: false,
     };
     let mut modify_timestamp_name_map = LinkedHashMap::new();
@@ -76,7 +76,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let modify_timestamp_field = PropertyField {
         id: MODIFY_TIMESTAMP_FIELD_ID,
         name_map: modify_timestamp_name_map,
-        data_type: FieldDataType::Int64,
+        data_type: "Timestamp".to_string(),
         removed: false,
     };
 
@@ -86,7 +86,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let owner_field = PropertyField {
         id: OWNER_FIELD_ID,
         name_map: owner_name_map,
-        data_type: FieldDataType::String,
+        data_type: "String".to_string(),
         removed: false,
     };
 
@@ -96,7 +96,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let group_field = PropertyField {
         id: GROUPS_FIELD_ID,
         name_map: group_name_map,
-        data_type: FieldDataType::List,
+        data_type: "Array".to_string(),
         removed: false,
     };
 
@@ -106,7 +106,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let is_searchable_field = PropertyField {
         id: IS_SEARCHABLE_FIELD_ID,
         name_map: is_searchable_name_map,
-        data_type: FieldDataType::Bool,
+        data_type: "Boolean".to_string(),
         removed: false,
     };
 
@@ -116,7 +116,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let comments_field = PropertyField {
         id: COMMENTS_FIELD_ID,
         name_map: comments_name_map,
-        data_type: FieldDataType::List,
+        data_type: "Array".to_string(),
         removed: false,
     };
 
@@ -126,7 +126,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let tags_field = PropertyField {
         id: TAGS_FIELD_ID,
         name_map: tags_name_map,
-        data_type: FieldDataType::List,
+        data_type: "Array".to_string(),
         removed: false,
     };
 
@@ -136,7 +136,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let description_field = PropertyField {
         id: DESCRIPTION_FIELD_ID,
         name_map: description_name_map,
-        data_type: FieldDataType::List,
+        data_type: "String".to_string(),
         removed: false,
     };
 
@@ -146,7 +146,7 @@ fn _general_property_fields() -> Vec<PropertyField> {
     let entity_removed_field = PropertyField {
         id: REMOVED_FIELD_ID,
         name_map: entity_removed_name_map,
-        data_type: FieldDataType::Bool,
+        data_type: "Boolean".to_string(),
         removed: false,
     };
 

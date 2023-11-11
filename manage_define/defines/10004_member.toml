@@ -17,7 +17,7 @@ schema = [
   # 2003
   { data_type = "Int32", name_map = { zh = "自身管理", en = "self_manage_id" }, removed = false },
   # 2004
-  { data_type = "List", name_map = { zh = "自身编号", en = "self_entity_id" }, removed = false },
+  { data_type = "Array", name_map = { zh = "自身编号", en = "self_entity_id" }, removed = false },
 ]
 
 [view_rules]

@@ -11,7 +11,7 @@ is_searchable = true
 schema = [
   { data_type = "Int32", name_map = { zh = "管理", en = "manage_id" }, removed = false },
   # 字段的值表，bson二进制序列
-  { data_type = "Map", name_map = { zh = "预设", en = "presets" }, removed = false },
+  { data_type = "Document", name_map = { zh = "预设", en = "presets" }, removed = false },
 ]
 
 [items]

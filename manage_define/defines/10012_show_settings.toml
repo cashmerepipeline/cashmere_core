@@ -10,8 +10,8 @@ is_searchable = true
 # 描写，模式
 schema = [
   { data_type = "Int32", name_map = { zh = "管理编号", en = "manage" }, removed = false },
-  { data_type = "Map", name_map = { zh = "设置", en = "settings" }, removed = false },
-  { data_type = "List", name_map = { zh = "隐藏属性", en = "hidden_schemas" }, removed = false },
+  { data_type = "Document", name_map = { zh = "设置", en = "settings" }, removed = false },
+  { data_type = "Array", name_map = { zh = "隐藏属性", en = "hidden_schemas" }, removed = false },
 ]
 
 [items]

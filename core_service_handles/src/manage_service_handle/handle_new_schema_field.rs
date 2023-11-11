@@ -1,17 +1,16 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::tonic::async_trait;
 
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use managers::manager_trait::ManagerTrait;
+use property_field::PropertyField;
 use request_utils::request_account_context;
-use property_field::{FieldDataType, PropertyField};
 
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 #[async_trait]
 pub trait HandleNewSchemaField {
@@ -26,7 +25,6 @@ pub trait HandleNewSchemaField {
             .await
     }
 }
-
 
 async fn validate_view_rules(
     request: Request<NewSchemaFieldRequest>,
@@ -64,7 +62,7 @@ async fn handle_new_schema_field(
     let new_field: PropertyField = PropertyField {
         id: field.id,
         name_map: name,
-        data_type: FieldDataType::from(field.data_type.clone()),
+        data_type: field.data_type.clone(),
         removed: false,
     };
 

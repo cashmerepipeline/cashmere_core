@@ -104,13 +104,18 @@ pub trait ManagerTrait: Any + Send + Sync {
             .unwrap()
             .clone())
     }
-    
+
+    async fn has_schema_field(&self, property_id: &str) -> bool {
+        let schema = self.get_manage_schema().await.iter().map(|x| x.id.to_string()).collect::<Vec<String>>();
+        schema.contains(&property_id.to_string())
+    }
+
     async fn is_searchable(&self) -> bool {
         let manage_lock = self.get_manage().await;
         let manage = manage_lock.read();
         manage.is_searchable
     }
-    
+
     // ---------------------------
     //  数据验证
     // ---------------------------

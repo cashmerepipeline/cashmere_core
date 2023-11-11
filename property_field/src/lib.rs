@@ -6,11 +6,11 @@ Created:  2020-11-26T12:47:25.692Z
 Modified: !date!
 */
 
-mod field_data_type;
+// mod field_data_type;
 mod property_field;
 mod rang;
 
 pub mod general_field_names;
 
-pub use field_data_type::*;
+// pub use field_data_type::*;
 pub use property_field::*;

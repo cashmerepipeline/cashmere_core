@@ -4,17 +4,13 @@ use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{self, StreamExt};
+use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
-
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
-
-use dependencies_sync::tonic::{Request, Response, Status};
-
-
 use service_utils::types::{ResponseStream, StreamResponseResult};
 
 #[async_trait]
@@ -60,7 +56,26 @@ async fn validate_request_params(
             "check_update_later_then_time"
         )));
     }
-    // TODO:深入检查时间戳格式是否正确
+
+    // 格式二进制 bson Document 形式{"value": Timestamp()}
+    let timestamp_doc: Document = if let Ok(t) = bson::from_slice(timestamp) {
+        t
+    } else {
+        return Err(Status::invalid_argument(format!(
+            "{}: {}",
+            t!("反序列化时间戳失败"),
+            "check_update_later_then_time"
+        )));
+    };
+
+    if let Err(err) = timestamp_doc.get_timestamp("value") {
+        return Err(Status::invalid_argument(format!(
+            "{}: {}, {}",
+            t!("时间戳格式错误"),
+            err,
+            "check_update_later_then_time"
+        )));
+    }
 
     Ok(request)
 }

@@ -6,12 +6,12 @@ Created:  2020-11-26T12:47:25.692Z
 Modified: !date!
 */
 
+use bson::spec::ElementType;
 use std::fmt::{Display, Formatter};
 
 use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
 
-use crate::field_data_type::FieldDataType;
 use crate::general_field_names::*;
 
 /// 实体属性
@@ -19,28 +19,35 @@ use crate::general_field_names::*;
 pub struct PropertyField {
     pub id: i32,
     pub name_map: LinkedHashMap<String, String>,
-    pub data_type: FieldDataType,
+    pub data_type: String,
     pub removed: bool,
 }
 
-impl Display for FieldDataType {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FieldDataType::Bool => write!(f, "Bool"),
-            FieldDataType::Int32 => write!(f, "Int32"),
-            FieldDataType::Int64 => write!(f, "Int64"),
-            FieldDataType::UInt32 => write!(f, "UInt32"),
-            FieldDataType::UInt64 => write!(f, "UInt64"),
-            FieldDataType::F32 => write!(f, "F32"),
-            FieldDataType::F64 => write!(f, "F64"),
-            FieldDataType::Range => write!(f, "Range"),
-            FieldDataType::String => write!(f, "String"),
-            FieldDataType::List => write!(f, "List"),
-            FieldDataType::Bytes => write!(f, "Bytes"),
-            FieldDataType::Map => write!(f, "Map"),
-            FieldDataType::Date => write!(f, "Date"),
-            FieldDataType::DateTime => write!(f, "DateTime"),
-            FieldDataType::None => write!(f, "None"),
+impl PropertyField {
+    pub fn get_element_type(&self) -> ElementType {
+        match self.data_type.as_str() {
+            "Double" => ElementType::Double,
+            "String" => ElementType::String,
+            "Array" => ElementType::Array,
+            "Document" => ElementType::EmbeddedDocument,
+            "Boolean" => ElementType::Boolean,
+            "Null " => ElementType::Null,
+            "RegularExpression" => ElementType::RegularExpression,
+            "JavaScriptCode" => ElementType::JavaScriptCode,
+            "JavaScriptCodeWithScope" => ElementType::JavaScriptCodeWithScope,
+            "Int32" => ElementType::Int32,
+            "Int64" => ElementType::Int64,
+            "Timestamp" => ElementType::Timestamp,
+            "Binary" => ElementType::Binary,
+            "ObjectId" => ElementType::ObjectId,
+            "DateTime" => ElementType::DateTime,
+            "Symbol" => ElementType::Symbol,
+            "Decimal128" => ElementType::Decimal128,
+            "Undefined " => ElementType::Undefined,
+            "MaxKey " => ElementType::MaxKey,
+            "MinKey " => ElementType::MinKey,
+            "DbPointer" => ElementType::DbPointer,
+            _ => ElementType::Undefined,
         }
     }
 }
@@ -55,8 +62,12 @@ impl PropertyField {
         let name_map: LinkedHashMap<String, String> =
             toml::from_str(&toml.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
 
-        let data_type: FieldDataType =
-            toml::from_str(&toml.get(DATA_TYPE_FIELD_NAME).unwrap().to_string()).unwrap();
+        let data_type: String = toml
+            .get(DATA_TYPE_FIELD_NAME)
+            .unwrap()
+            .as_str()
+            .unwrap()
+            .to_owned();
 
         let removed: bool = toml.get(REMOVED_FIELD_NAME).unwrap().as_bool().unwrap();
 
@@ -74,7 +85,7 @@ impl PropertyField {
         let name_map: LinkedHashMap<String, String> =
             bson::from_bson(doc.get(NAME_MAP_FIELD_NAME).unwrap().clone()).unwrap();
 
-        let data_type: FieldDataType =
+        let data_type: String =
             bson::from_bson(doc.get(DATA_TYPE_FIELD_NAME).unwrap().clone()).unwrap();
 
         let removed: bool = doc.get_bool(REMOVED_FIELD_NAME).unwrap();

@@ -9,7 +9,7 @@ is_searchable = false
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "List", name_map = { zh = "编号", en = "id_count" }, removed = false },
+  { data_type = "Array", name_map = { zh = "编号", en = "id_count" }, removed = false },
 ]
 
 

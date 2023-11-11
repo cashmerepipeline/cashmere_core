@@ -16,7 +16,7 @@ schema = [
   # 2003
   { data_type = "Int32", name_map = { zh = "电话区号", en = "phone_area_code" }, removed = false },
   # 2004
-  { data_type = "List", name_map = { zh = "所用语言", en = "languages" }, removed = false },
+  { data_type = "Array", name_map = { zh = "所用语言", en = "languages" }, removed = false },
 ]
 
 [view_rules]

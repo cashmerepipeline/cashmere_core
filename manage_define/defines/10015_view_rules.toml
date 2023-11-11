@@ -28,9 +28,9 @@ schema = [
   # 只有组的       OnlyGroup,
   # 只有主的      OnlyOwner,
 
-  { data_type = "Map", name_map = { zh = "管理级", en = "manage" }, removed = false },
-  { data_type = "Map", name_map = { zh = "属性级", en = "collection" }, removed = false },
-  { data_type = "Map", name_map = { zh = "实体级", en = "entity" }, removed = false },
+  { data_type = "Document", name_map = { zh = "管理级", en = "manage" }, removed = false },
+  { data_type = "Document", name_map = { zh = "属性级", en = "collection" }, removed = false },
+  { data_type = "Document", name_map = { zh = "实体级", en = "entity" }, removed = false },
 ]
 
 [items]
