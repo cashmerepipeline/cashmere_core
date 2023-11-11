@@ -1,5 +1,6 @@
 use dependencies_sync::log::error;
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::toml;
 
 use cash_core::view_rules::{ViewRule, ViewRules};
 

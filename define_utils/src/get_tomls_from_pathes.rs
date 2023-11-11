@@ -1,4 +1,6 @@
-// 从文件列表创建toml表
+use dependencies_sync::toml;
+
+/// 从文件列表创建toml表
 pub fn get_tomls_from_pathes(
     toml_pathes: &Vec<String>,
 ) -> Option<Vec<toml::map::Map<String, toml::Value>>> {

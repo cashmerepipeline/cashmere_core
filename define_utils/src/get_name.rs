@@ -1,5 +1,6 @@
-use bson::Document;
-use linked_hash_map::LinkedHashMap;
+use dependencies_sync::bson::{self, Document};
+use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::toml;
 
 use property_field::general_field_names::NAME_MAP_FIELD_NAME;
 

@@ -7,10 +7,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bson = "2.6.1"
-toml = "0.5.8"
-linked-hash-map = "0.5.4"
-log = "0.4"
 
 dependencies_sync = {path="../dependencies_sync", features = ["bson", "toml", "log", "linked-hash-map"]}
 

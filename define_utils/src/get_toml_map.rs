@@ -1,4 +1,5 @@
 use std::io::Read;
+use dependencies_sync::toml;
 
 /// 读取文件为toml_map
 pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::Value>> {
