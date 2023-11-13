@@ -63,7 +63,7 @@ async fn execute_transaction(
             .unwrap();
 
         let query_doc = doc! {ID_FIELD_ID.to_string(): edit.entity_id.clone()};
-        match EditOperationTypeEnum::from_i32(edit.operation_type).unwrap() {
+        match EditOperationTypeEnum::try_from(edit.operation_type).unwrap() {
             EditOperationTypeEnum::EditPrimaryField => {
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
                 let mut modify_doc = doc! {"$set": new_value_doc};
@@ -81,7 +81,7 @@ async fn execute_transaction(
                 let modify_doc = doc! {edit.field_id.clone():  doc! {"$each": items}};
                 let mut modify_doc = doc! {"$addToSet": modify_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                collection.update_one_with_session(query_doc, modify_doc, None, session);
+                collection.update_one_with_session(query_doc, modify_doc, None, session).await;
             }
             EditOperationTypeEnum::EditRemoveFromArrayField => {
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
@@ -101,7 +101,7 @@ async fn execute_transaction(
                         modify_doc,
                         None,
                         session,
-                    );
+                    ).await;
                 }
             }
             EditOperationTypeEnum::EidtMapField => {
@@ -124,7 +124,7 @@ async fn execute_transaction(
                         modify_doc,
                         UpdateOptions::builder().upsert(true).build(),
                         session,
-                    );
+                    ).await;
                 }
             }
             EditOperationTypeEnum::EditMapFieldRemoveKey => {
@@ -139,7 +139,7 @@ async fn execute_transaction(
                     modify_doc,
                     UpdateOptions::builder().upsert(true).build(),
                     session,
-                );
+                ).await;
             }
             EditOperationTypeEnum::EditUpdateArrayElementField => {
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
@@ -153,7 +153,7 @@ async fn execute_transaction(
                     modify_doc,
                     UpdateOptions::builder().upsert(true).build(),
                     session,
-                );
+                ).await;
             }
         }
     }

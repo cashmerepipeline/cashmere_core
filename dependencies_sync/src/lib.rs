@@ -47,6 +47,9 @@ pub use tonic;
 #[cfg(feature="tonic-build")]
 pub use tonic_build;
 
+#[cfg(feature="glob")]
+pub use glob;
+
 #[cfg(feature="fs4")]
 pub use fs4;
 

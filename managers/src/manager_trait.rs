@@ -44,7 +44,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         if !database::collection_exists(manage_id).await {
             return Err(operation_failed(
                 "ManagerTrait::init",
-                format!("{}: {}", t!("请先使用minit命令初始化管理数据库"), manage_id),
+                format!("{}: {}", t!("数据库管理集合不存在, 请先初始化数据库"), manage_id),
             ));
         }
 
@@ -52,7 +52,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id).await.is_none() {
             return Err(operation_failed(
                 "ManagerTrait::init",
-                format!("{}: {}", t!("请先使用minit命令初始化管理数据库"), manage_id),
+                format!("{}: {}", t!("管理实体不存在, 需要先初始化管理实体"), manage_id),
             ));
         }
 

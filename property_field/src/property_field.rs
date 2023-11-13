@@ -7,7 +7,6 @@ Modified: !date!
 */
 
 use bson::spec::ElementType;
-use std::fmt::{Display, Formatter};
 
 use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};

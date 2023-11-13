@@ -12,7 +12,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             &["protocols", "../cashmere_core/protocols"],
         )?;
 
-    manage_define::utils::generate_manage_defines(
+    define_utils::generate_manage_defines(
         &vec!["manage_defines"],
         "src/ids_codes",
         Some("dart_packges/knitter_id_codes/lib/src"),

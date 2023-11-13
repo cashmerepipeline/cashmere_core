@@ -1,7 +1,6 @@
 // 异步线程限制
 #![recursion_limit = "256"]
 
-
 use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 

@@ -14,7 +14,7 @@ use manage_define::general_field_ids::*;
 
 pub async fn exists_by_id(manage_id: &str, entity_id: &str) -> Option<String> {
     let query_doc = doc! {
-        "_id": entity_id
+        ID_FIELD_ID.to_string(): entity_id
     };
 
     crate::entity_exists(manage_id, &query_doc).await
