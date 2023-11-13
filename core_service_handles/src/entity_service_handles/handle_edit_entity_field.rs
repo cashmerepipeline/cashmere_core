@@ -1,9 +1,9 @@
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::prost::bytes::Buf;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
@@ -14,9 +14,9 @@ use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
-
-
 use service_utils::types::UnaryResponseResult;
+
+use super::{validate_new_value_doc, validate_edit_field_id, validate_edit_entity_id};
 
 #[async_trait]
 pub trait HandleEditEntityField {
@@ -58,72 +58,17 @@ async fn validate_request_params(
     // bson bytes {field_id:new_value}
     let new_value = &request.get_ref().new_value;
 
-    let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
-    // 实体是否存在
-    if manager.entity_exists(&doc! {
-        "_id": entity_id,
-    }).await.is_none(){
-        return Err(Status::invalid_argument(format!(
-            "{}: {}-{}, {}",
-            t!("实体不存在"),
-            manage_id,
-            entity_id,
-            "edit_entity_field"
-        )));
+    if let Err(err) = validate_edit_entity_id(manage_id, entity_id).await {
+        return Err(err);
     }
 
-    // 描写属性是否存在
-    let fields = manager.get_manage_schema().await;
-    if !manager.has_schema_field(field_id).await{
-        return Err(Status::invalid_argument(format!(
-            "{}: {}-{}, {}",
-            t!("属性不存在"),
-            manage_id,
-            field_id,
-            "edit_entity_field"
-        )));
-    }
-
-    // 验证新值
-    let new_value_doc: Document = if let Ok(r) = bson::from_slice(new_value){
-        r
-    }else {
-        return Err(Status::invalid_argument(format!(
-            "{}:  {}",
-            t!("新值反序列化失败"),
-            "edit_entity_field"
-        )));
+    let fields = match validate_edit_field_id(manage_id, entity_id, field_id).await {
+        Ok(fields) => fields,
+        Err(err) => return Err(err),
     };
-    // 只能有一个field
-    if new_value_doc.keys().count() != 1{
-        return Err(Status::invalid_argument(format!(
-            "{}:  {}",
-            t!("新值只能有一个field"),
-            "edit_entity_field"
-        )))
-    }
-    let new_field =
-        new_value_doc.keys().next().expect(t!("取得新值field失败").as_str());
-    // 新值field必须与目标field一致
-    if field_id != new_field{
-        return Err(Status::invalid_argument(format!(
-            "{}:  {}",
-            t!("新值field必须与目标field一致"),
-            "edit_entity_field"
-        )));
-    }
 
-    let new_value_bson = new_value_doc.get(field_id).unwrap();
-    let new_t = new_value_bson.element_type();
-    let f_t = fields.iter().find(|f| &f.id.to_string() == field_id).unwrap().get_element_type();
-    // field类型需要匹配
-    if new_t != f_t{
-        return Err(Status::invalid_argument(format!(
-            "{}:  {}",
-            t!("新值field类型需要与目标field类型一致"),
-            "edit_entity_field"
-        )));
+    if let Err(err) = validate_new_value_doc(new_value, field_id, fields) {
+        return Err(err);
     }
 
     Ok(request)
@@ -151,7 +96,6 @@ async fn handle_edit_entity_field(
         }
         Err(_) => return Err(Status::data_loss("新值不能为空")),
     };
-
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();

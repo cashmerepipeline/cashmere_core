@@ -1,17 +1,27 @@
-use dependencies_sync::tonic::async_trait;
-use property_field::PropertyField;
-use std::sync::Arc;
+use crate::manager_inner::ManagerInner;
+use crate::ManagerTrait;
 use cash_core::Manage;
 use cash_result::OperationResult;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
-use crate::manager_inner::ManagerInner;
-use crate::ManagerTrait;
+use dependencies_sync::tonic::async_trait;
+use manage_define::cashmere::EntityFieldEdit;
+use property_field::PropertyField;
+use std::sync::Arc;
 
 /// 管理器包裹
 #[derive(Clone)]
 pub struct Manager {
     pub inner: Arc<ManagerInner>,
+}
+
+impl Manager {
+    pub async fn update_multi_entity_fields(
+        edits: &Vec<EntityFieldEdit>,
+        account_id: &String,
+    ) -> Result<OperationResult, OperationResult> {
+        entity::update_multi_entity_fields(edits, account_id).await
+    }
 }
 
 #[async_trait]

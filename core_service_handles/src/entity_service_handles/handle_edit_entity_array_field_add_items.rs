@@ -16,6 +16,8 @@ use request_utils::request_account_context;
 
 use service_utils::types::UnaryResponseResult;
 
+use super::{validate_new_value_doc, validate_edit_field_id, validate_edit_entity_id};
+
 #[async_trait]
 pub trait HandleEditEntityArrayFieldAddItems {
     /// 编辑区域
@@ -50,6 +52,23 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<EditEntityArrayFieldAddItemsRequest>,
 ) -> Result<Request<EditEntityArrayFieldAddItemsRequest>, Status> {
+        let manage_id = &request.get_ref().manage_id;
+        let entity_id = &request.get_ref().entity_id;
+        let field_id = &request.get_ref().field_id;
+        let items = &request.get_ref().items;
+
+        if let Err(err) = validate_edit_entity_id(manage_id, entity_id).await {
+            return Err(err);
+        }
+
+        let fields = match validate_edit_field_id(manage_id, entity_id, field_id).await {
+            Ok(fields) => fields,
+            Err(err) => return Err(err),
+        };
+
+        if let Err(err) = validate_new_value_doc(items, field_id, fields) {
+            return Err(err);
+        }
     Ok(request)
 }
 

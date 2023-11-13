@@ -46,6 +46,7 @@ pub use update_entity_field::*;
 pub use update_entity_fields::*;
 pub use update_entity_map_field::*;
 pub use update_timestamp_field::*;
+pub use update_multi_entity_fields::*;
 
 mod utils;
 mod get_new_entity_id;
@@ -84,3 +85,4 @@ mod get_entity_groups;
 
 mod get_entry_count;
 mod count_entity;
+mod update_multi_entity_fields;

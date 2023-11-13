@@ -206,23 +206,23 @@ pub struct EntityFieldEdit {
     pub field_id: ::prost::alloc::string::String,
     #[prost(enumeration = "EditOperationTypeEnum", tag = "4")]
     pub operation_type: i32,
-    /// 使用bson Document格式表示，如：{field_id:value}
+    /// 修改, 使用bson Document格式表示，如：{field_id:value}
     #[prost(bytes = "vec", tag = "5")]
-    pub edits: ::prost::alloc::vec::Vec<u8>,
+    pub edit: ::prost::alloc::vec::Vec<u8>,
 }
 /// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntitiesFielsdsRequest {
+pub struct EditMultiEntityFieldsRequest {
     #[prost(message, repeated, tag = "1")]
     pub edits: ::prost::alloc::vec::Vec<EntityFieldEdit>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntitiesFielsdsResponse {
+pub struct EditMultiEntityFieldsResponse {
     /// 成功返回"ok"
     #[prost(string, tag = "1")]
-    pub results: ::prost::alloc::string::String,
+    pub result: ::prost::alloc::string::String,
 }
 /// 编辑单个字段
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -500,10 +500,17 @@ pub struct CheckUpdatesLaterThenTimeResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum EditOperationTypeEnum {
+    /// {field_id:value}
     EditPrimaryField = 0,
+    /// {field_id:{"key":value}}
     EidtMapField = 1,
+    /// {field_id:"key"}
     EditMapFieldRemoveKey = 2,
+    /// {field_id:\[value, ...\]}
     EditAddToArrayField = 3,
+    /// {field_id:{"index": index, "value":value}}
+    EditUpdateArrayElementField = 5,
+    /// {field_id:\[value, ...\]}
     EditRemoveFromArrayField = 4,
 }
 impl EditOperationTypeEnum {
@@ -517,6 +524,9 @@ impl EditOperationTypeEnum {
             EditOperationTypeEnum::EidtMapField => "EIDT_MAP_FIELD",
             EditOperationTypeEnum::EditMapFieldRemoveKey => "EDIT_MAP_FIELD_REMOVE_KEY",
             EditOperationTypeEnum::EditAddToArrayField => "EDIT_ADD_TO_ARRAY_FIELD",
+            EditOperationTypeEnum::EditUpdateArrayElementField => {
+                "Edit_UPDATE_ARRAY_ELEMENT_FIELD"
+            }
             EditOperationTypeEnum::EditRemoveFromArrayField => {
                 "EDIT_REMOVE_FROM_ARRAY_FIELD"
             }
@@ -529,6 +539,7 @@ impl EditOperationTypeEnum {
             "EIDT_MAP_FIELD" => Some(Self::EidtMapField),
             "EDIT_MAP_FIELD_REMOVE_KEY" => Some(Self::EditMapFieldRemoveKey),
             "EDIT_ADD_TO_ARRAY_FIELD" => Some(Self::EditAddToArrayField),
+            "Edit_UPDATE_ARRAY_ELEMENT_FIELD" => Some(Self::EditUpdateArrayElementField),
             "EDIT_REMOVE_FROM_ARRAY_FIELD" => Some(Self::EditRemoveFromArrayField),
             _ => None,
         }

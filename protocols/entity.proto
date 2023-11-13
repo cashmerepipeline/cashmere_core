@@ -61,10 +61,17 @@ message EditEntityResponse {
 
 // 编辑操作类型
 enum EditOperationTypeEnum {
+  // {field_id:value}
   EDIT_PRIMARY_FIELD = 0;
+  // {field_id:{"key":value}}
   EIDT_MAP_FIELD = 1;
+  // {field_id:"key"}
   EDIT_MAP_FIELD_REMOVE_KEY = 2;
+  // {field_id:[value, ...]}
   EDIT_ADD_TO_ARRAY_FIELD = 3;
+  // {field_id:{"index": index, "value":value}}
+  Edit_UPDATE_ARRAY_ELEMENT_FIELD = 5;
+  // {field_id:[value, ...]}
   EDIT_REMOVE_FROM_ARRAY_FIELD = 4;
 }
 
@@ -73,17 +80,17 @@ message EntityFieldEdit {
     string entity_id = 2;
     string field_id = 3;
     EditOperationTypeEnum operation_type = 4;
-    // 使用bson Document格式表示，如：{field_id:value}
-    bytes edits = 5;
+    // 修改, 使用bson Document格式表示，如：{field_id:value}
+    bytes edit = 5;
 }
 
 // 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
-message EditEntitiesFielsdsRequest{
+message EditMultiEntityFieldsRequest{
   repeated EntityFieldEdit edits = 1;
 }
-message EditEntitiesFielsdsResponse{
+message EditMultiEntityFieldsResponse{
   // 成功返回"ok"
-  string results = 1;
+  string result = 1;
 }
 
 // 编辑单个字段

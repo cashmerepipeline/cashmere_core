@@ -1,7 +1,7 @@
 use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::prost::bytes::Buf;
+use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
@@ -12,9 +12,9 @@ use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
-
-
 use service_utils::types::UnaryResponseResult;
+
+use super::{validate_edit_entity_id, validate_edit_field_id, validate_new_value_doc};
 
 #[async_trait]
 pub trait HandleEditEntityArrayFieldRemoveItems {
@@ -50,6 +50,23 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<EditEntityArrayFieldRemoveItemsRequest>,
 ) -> Result<Request<EditEntityArrayFieldRemoveItemsRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let entity_id = &request.get_ref().entity_id;
+    let field_id = &request.get_ref().field_id;
+    let items = &request.get_ref().items;
+
+    if let Err(err) = validate_edit_entity_id(manage_id, entity_id).await {
+        return Err(err);
+    }
+
+    let fields = match validate_edit_field_id(manage_id, entity_id, field_id).await {
+        Ok(fields) => fields,
+        Err(err) => return Err(err),
+    };
+
+    if let Err(err) = validate_new_value_doc(items, field_id, fields) {
+        return Err(err);
+    }
     Ok(request)
 }
 

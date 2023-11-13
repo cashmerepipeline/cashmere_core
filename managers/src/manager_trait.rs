@@ -21,6 +21,7 @@ use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tonic::async_trait;
 use entity;
+use manage_define::cashmere::EntityFieldEdit;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
