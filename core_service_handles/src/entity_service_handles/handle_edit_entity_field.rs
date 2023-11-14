@@ -1,8 +1,8 @@
-use dependencies_sync::bson;
+
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::prost::bytes::Buf;
-use dependencies_sync::rust_i18n::{self, t};
+
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
@@ -16,7 +16,7 @@ use request_utils::request_account_context;
 
 use service_utils::types::UnaryResponseResult;
 
-use super::{validate_new_value_doc, validate_edit_field_id, validate_edit_entity_id};
+use validates::{validate_value_doc, validate_field_id, validate_entity_id, get_manage_schema_fields};
 
 #[async_trait]
 pub trait HandleEditEntityField {
@@ -58,18 +58,12 @@ async fn validate_request_params(
     // bson bytes {field_id:new_value}
     let new_value = &request.get_ref().new_value;
 
-    if let Err(err) = validate_edit_entity_id(manage_id, entity_id).await {
-        return Err(err);
-    }
+    validate_entity_id(manage_id, entity_id).await?;
 
-    let fields = match validate_edit_field_id(manage_id, entity_id, field_id).await {
-        Ok(fields) => fields,
-        Err(err) => return Err(err),
-    };
+    validate_field_id(manage_id, field_id).await?;
+    let fields = get_manage_schema_fields(manage_id).await?;
 
-    if let Err(err) = validate_new_value_doc(new_value, field_id, fields) {
-        return Err(err);
-    }
+    validate_value_doc(new_value, field_id, fields)?;
 
     Ok(request)
 }

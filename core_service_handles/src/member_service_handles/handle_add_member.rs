@@ -1,8 +1,8 @@
-use dependencies_sync::bson::{self, doc};
+use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
+use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
@@ -34,7 +34,9 @@ async fn validate_view_rules(
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata());
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -80,36 +82,63 @@ async fn handle_add_member(
     let name_doc = doc! {name.language.clone():name.name.clone()};
 
     let mut query_doc = doc! {};
-    query_doc.insert(MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(), owner_manage_id.to_owned());
-    query_doc.insert(MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(), owner_entity_id.to_owned());
-    query_doc.insert(MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(), self_manage_id.to_owned());
-    query_doc.insert(MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(), self_entity_id.to_owned());
+    query_doc.insert(
+        MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(),
+        owner_manage_id.to_owned(),
+    );
+    query_doc.insert(
+        MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(),
+        owner_entity_id.to_owned(),
+    );
+    query_doc.insert(
+        MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(),
+        self_manage_id.to_owned(),
+    );
+    query_doc.insert(
+        MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(),
+        self_entity_id.to_owned(),
+    );
 
     if let Some(id) = manager.entity_exists(&query_doc).await {
         //标记为删除，则恢复
         if manager.is_mark_removed(&id).await {
             if let Err(err) = manager.recover_removed_entity(&id, &account_id).await {
-                return Err(Status::aborted(format!("{}: {}", t!("恢复删除标记失败"), err.details())));
+                return Err(Status::aborted(format!(
+                    "{}: {}",
+                    t!("恢复删除标记失败"),
+                    err.details()
+                )));
             };
             return Ok(Response::new(AddMemberResponse { result: id }));
         }
         return Err(Status::already_exists(format!(
             "{}: {}-{}, {}-{}",
             t!("成员已存在"),
-            owner_manage_id, owner_entity_id,
-            self_manage_id, self_entity_id
+            owner_manage_id,
+            owner_entity_id,
+            self_manage_id,
+            self_entity_id
         )));
     }
 
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+        new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(
-            NAME_MAP_FIELD_ID.to_string(),
-            name_doc,
+            MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(),
+            owner_manage_id.to_owned(),
         );
-        new_entity_doc.insert(MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(), owner_manage_id.to_owned());
-        new_entity_doc.insert(MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(), owner_entity_id.to_owned());
-        new_entity_doc.insert(MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(), self_manage_id.to_owned());
-        new_entity_doc.insert(MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(), self_entity_id.to_owned());
+        new_entity_doc.insert(
+            MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(),
+            owner_entity_id.to_owned(),
+        );
+        new_entity_doc.insert(
+            MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(),
+            self_manage_id.to_owned(),
+        );
+        new_entity_doc.insert(
+            MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string(),
+            self_entity_id.to_owned(),
+        );
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
@@ -124,7 +153,10 @@ async fn handle_add_member(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_language_code")))
+        Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新实体失败"),
+            "new_language_code"
+        )))
     }
 }
-

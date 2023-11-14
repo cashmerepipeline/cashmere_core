@@ -39,6 +39,7 @@ request_utils = { path = "../request_utils" }
 service_utils = { path = "../service_utils" }
 database = {path = "../database"}
 search_engine = {path = "../search_engine"}
+validates ={ path = "../validates"}
 
 [features]
 # view_rules_validate = []

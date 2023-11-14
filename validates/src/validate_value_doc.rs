@@ -3,8 +3,8 @@ use dependencies_sync::bson;
 use dependencies_sync::bson::Document;
 use dependencies_sync::tonic::Status;
 
-pub fn validate_new_value_doc(
-    new_value: &Vec<u8>,
+pub fn validate_value_doc(
+    new_value: &[u8],
     field_id: &String,
     fields: Vec<property_field::PropertyField>,
 ) -> Result<(), Status> {

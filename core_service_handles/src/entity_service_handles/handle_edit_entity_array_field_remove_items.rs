@@ -14,7 +14,7 @@ use request_utils::request_account_context;
 
 use service_utils::types::UnaryResponseResult;
 
-use super::{validate_edit_entity_id, validate_edit_field_id, validate_new_value_doc};
+use validates::{validate_entity_id, validate_field_id, validate_value_doc, get_manage_schema_fields};
 
 #[async_trait]
 pub trait HandleEditEntityArrayFieldRemoveItems {
@@ -55,18 +55,11 @@ async fn validate_request_params(
     let field_id = &request.get_ref().field_id;
     let items = &request.get_ref().items;
 
-    if let Err(err) = validate_edit_entity_id(manage_id, entity_id).await {
-        return Err(err);
-    }
+    validate_entity_id(manage_id, entity_id).await?;
+    validate_field_id(manage_id, field_id).await?;
+    let fields = get_manage_schema_fields(manage_id).await?;
+    validate_value_doc(items, field_id, fields)?;
 
-    let fields = match validate_edit_field_id(manage_id, entity_id, field_id).await {
-        Ok(fields) => fields,
-        Err(err) => return Err(err),
-    };
-
-    if let Err(err) = validate_new_value_doc(items, field_id, fields) {
-        return Err(err);
-    }
     Ok(request)
 }
 

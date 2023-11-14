@@ -8,8 +8,8 @@ use dependencies_sync::tonic::Status;
 use manage_define::general_field_ids::ID_FIELD_ID;
 use managers::ManagerTrait;
 
-/// zh: 验证编辑的目标实体存在性 
-pub(crate) async fn validate_edit_entity_id(manage_id: &i32, entity_id: &String) -> Result<(), Status> {
+/// zh: 验证目标实体存在性 
+pub async fn validate_entity_id(manage_id: &i32, entity_id: &String) -> Result<(), Status> {
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
     if manager.entity_exists(&doc! {

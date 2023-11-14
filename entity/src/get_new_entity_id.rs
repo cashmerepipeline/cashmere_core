@@ -45,7 +45,7 @@ pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64>
                     Some(r)
                 } else {
                     log::error!("{}: {}", t!("提取新实体编号失败"), manage_id);
-                    return None
+                    None
                 }
             } else {
                 log::error!("{}: {}", t!("新实体编号数据错误"), manage_id);

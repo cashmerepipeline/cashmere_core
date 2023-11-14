@@ -42,7 +42,7 @@ pub async fn update_multi_entity_fields(
 
     // A "TransientTransactionError" label indicates that the entire transaction can be retried
     // with a reasonable expectation that it will succeed.
-    while let Err(error) = execute_transaction(&edits, &mut session, account_id).await {
+    while let Err(error) = execute_transaction(edits, &mut session, account_id).await {
         if !error.contains_label(TRANSIENT_TRANSACTION_ERROR) {
             break;
         }
@@ -81,7 +81,9 @@ async fn execute_transaction(
                 let modify_doc = doc! {edit.field_id.clone():  doc! {"$each": items}};
                 let mut modify_doc = doc! {"$addToSet": modify_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                collection.update_one_with_session(query_doc, modify_doc, None, session).await;
+                collection
+                    .update_one_with_session(query_doc, modify_doc, None, session)
+                    .await?;
             }
             EditOperationTypeEnum::EditRemoveFromArrayField => {
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
@@ -96,12 +98,9 @@ async fn execute_transaction(
                     let modify_doc = doc! {edit.field_id.clone(): item.get(key).unwrap()};
                     let mut modify_doc = doc! {"$pull": modify_doc};
                     let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                    collection.update_one_with_session(
-                        query_doc.clone(),
-                        modify_doc,
-                        None,
-                        session,
-                    ).await;
+                    collection
+                        .update_one_with_session(query_doc.clone(), modify_doc, None, session)
+                        .await?;
                 }
             }
             EditOperationTypeEnum::EidtMapField => {
@@ -119,12 +118,14 @@ async fn execute_transaction(
                     let modify_doc = doc! {f:  new_value_doc.get(key).unwrap()};
                     let mut modify_doc = doc! {"$set": modify_doc};
                     let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                    collection.update_one_with_session(
-                        query_doc.clone(),
-                        modify_doc,
-                        UpdateOptions::builder().upsert(true).build(),
-                        session,
-                    ).await;
+                    collection
+                        .update_one_with_session(
+                            query_doc.clone(),
+                            modify_doc,
+                            UpdateOptions::builder().upsert(true).build(),
+                            session,
+                        )
+                        .await?;
                 }
             }
             EditOperationTypeEnum::EditMapFieldRemoveKey => {
@@ -134,12 +135,14 @@ async fn execute_transaction(
                 let mut modify_doc = doc! {f: bson::Bson::Null};
 
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                collection.update_one_with_session(
-                    query_doc,
-                    modify_doc,
-                    UpdateOptions::builder().upsert(true).build(),
-                    session,
-                ).await;
+                collection
+                    .update_one_with_session(
+                        query_doc,
+                        modify_doc,
+                        UpdateOptions::builder().upsert(true).build(),
+                        session,
+                    )
+                    .await?;
             }
             EditOperationTypeEnum::EditUpdateArrayElementField => {
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
@@ -148,12 +151,14 @@ async fn execute_transaction(
 
                 let mut modify_doc = doc! {f: new_value_doc.get("index").unwrap().clone()};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
-                collection.update_one_with_session(
-                    query_doc,
-                    modify_doc,
-                    UpdateOptions::builder().upsert(true).build(),
-                    session,
-                ).await;
+                collection
+                    .update_one_with_session(
+                        query_doc,
+                        modify_doc,
+                        UpdateOptions::builder().upsert(true).build(),
+                        session,
+                    )
+                    .await?;
             }
         }
     }

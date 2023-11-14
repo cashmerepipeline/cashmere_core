@@ -14,7 +14,7 @@ pub async fn entity_exists(manage_id: &str, query_doc: &Document) -> Option<Stri
     match result {
         Ok(Some(r)) => {
             if let Ok(i) = r.get_str(ID_FIELD_ID.to_string()) {
-                return Some(i.to_string());
+                Some(i.to_string())
             } else { None }
         }
         Ok(None) => None,

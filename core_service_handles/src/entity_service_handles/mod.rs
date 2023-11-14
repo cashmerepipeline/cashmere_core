@@ -15,10 +15,6 @@ pub use handle_mark_entity_removed::*;
 pub use handle_recover_removed_entity::*;
 pub use handle_search::*;
 
-pub(crate) use validate_edit_field_id::*;
-pub(crate) use validate_edit_entity_id::*;
-pub(crate) use validate_new_value_doc::*;
-
 mod handle_change_entity_owner;
 mod handle_check_entities_update;
 mod handle_check_updates_later_then_time;
@@ -35,7 +31,3 @@ mod handle_get_removed_entities_page;
 mod handle_mark_entity_removed;
 mod handle_recover_removed_entity;
 mod handle_search;
-
-mod validate_edit_field_id;
-mod validate_edit_entity_id;
-mod validate_new_value_doc;

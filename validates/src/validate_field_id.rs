@@ -1,16 +1,14 @@
-use dependencies_sync::bson::doc;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::Status;
 
 use majordomo::get_majordomo;
 use managers::ManagerTrait;
 
-/// zh: 返回管理的schema表, 
-pub(crate) async fn validate_edit_field_id(manage_id: &i32, entity_id: &String, field_id: &String) -> Result<Vec<property_field::PropertyField>, Status> {
+/// zh: 验证管理字段是否存在
+pub async fn validate_field_id(manage_id: &i32, field_id: &String) -> Result<(), Status> {
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
-    let fields = manager.get_manage_schema().await;
     if !manager.has_schema_field(field_id).await{
         return Err(Status::invalid_argument(format!(
             "{}: {}-{}, {}",
@@ -21,5 +19,5 @@ pub(crate) async fn validate_edit_field_id(manage_id: &i32, entity_id: &String, 
         )));
     }
     
-    Ok(fields)
+    Ok(())
 }

@@ -26,6 +26,7 @@ members = [
   "view",
   "dependencies_sync",
   "search_engine",
+  "validates",
 ]
 
 exclude = ["server_template", "minit"]

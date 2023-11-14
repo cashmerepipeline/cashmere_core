@@ -21,7 +21,6 @@ use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tonic::async_trait;
 use entity;
-use manage_define::cashmere::EntityFieldEdit;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
@@ -124,16 +123,25 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         data: &Vec<u8>,
     ) -> Result<OperationResult, OperationResult> {
-        let b = data.clone();
-        let d = match Document::from_reader(&mut b.as_slice()) {
-            Ok(r) => r,
-            Err(_e) => {
-                return Err(operation_failed(
-                    "validate_data_fields",
-                    "数据不是数据对的形式",
-                ));
-            }
+        let d = if let Ok(d) = bson::from_slice::<Document>(data) {
+            d
+        } else {
+            return Err(operation_failed(
+                "validate_data_fields",
+                "数据不是数据对的形式",
+            ));
         };
+
+        // let b = data.clone();
+        // let d = match Document::from_reader(&mut b.as_slice()) {
+        //     Ok(r) => r,
+        //     Err(_e) => {
+        //         return Err(operation_failed(
+        //             "validate_data_fields",
+        //             "数据不是数据对的形式",
+        //         ));
+        //     }
+        // };
         let ks: Vec<i32> = d.keys().map(|x| x.parse::<i32>().unwrap()).collect();
         if ks.is_empty() || ks.len() > 1 {
             return Err(operation_failed("validate_data_fields", "数据格式不正确"));
@@ -255,7 +263,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn new_schema_field(
         &self,
         new_field: PropertyField,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<(), OperationResult> {
         let field_id = new_field.id;
 
@@ -311,7 +319,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         field_id: i32,
         local: &String,
         new_name: &String,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         // 更新管理
         let manage_id = self.get_id();
@@ -374,7 +382,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn mark_schema_field_removed(
         &self,
         field_id: i32,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
 
@@ -486,7 +494,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
-    async fn get_new_entity_id(&self, _account_id: &String) -> Option<i64> {
+    async fn get_new_entity_id(&self, _account_id: &str) -> Option<i64> {
         let manage_id = self.get_id().to_string();
         entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
     }
@@ -495,8 +503,8 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn sink_entity(
         &self,
         new_entity_doc: &mut Document,
-        account_id: &String,
-        group_id: &String,
+        account_id: &str,
+        group_id: &str,
     ) -> Result<String, OperationResult> {
         let manage_id_str = self.get_id().to_string();
 
@@ -604,7 +612,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: &mut Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::update_entity_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
@@ -622,7 +630,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn mark_entity_removed(
         &self,
         entity_id: &String,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
         let q_doc = doc! {
@@ -642,7 +650,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn recover_removed_entity(
         &self,
         entity_id: &String,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
         let q_doc = doc! {
@@ -664,7 +672,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         entity_id: &str,
     ) -> bool {
         let manage_id = self.get_id();
-        match entity::get_entity_by_id(&manage_id.to_string(), &entity_id).await {
+        match entity::get_entity_by_id(&manage_id.to_string(), entity_id).await {
             Ok(r) => {
                 if let Ok(b) = r.get_bool(REMOVED_FIELD_ID.to_string()) {
                     return b;
@@ -688,7 +696,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::add_to_array_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
@@ -704,7 +712,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::remove_from_array_field(
@@ -728,7 +736,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::update_entity_array_element_field(
@@ -754,7 +762,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::insert_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
@@ -771,7 +779,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         query_doc: Document,
         modify_doc: Document,
-        account_id: &String,
+        account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
         match entity::update_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
@@ -786,7 +794,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     // ---------------------
     // 映像
     // 取得映像
-    // async fn get_view(&self, account_id: &String, )
+    // async fn get_view(&self, account_id: &str, )
 
     // 关联事件队列
 
