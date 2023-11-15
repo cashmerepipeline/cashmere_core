@@ -31,6 +31,6 @@ Future<List<SchemaField>?> fetchManageSchemaFields(
   } catch (e) {
     // TODO: 错误日志
     print(e);
-    return null;
+    return Future.error(e);
   }
 }

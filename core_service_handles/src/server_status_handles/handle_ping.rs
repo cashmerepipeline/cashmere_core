@@ -61,7 +61,7 @@ async fn validate_request_params(
 }
 
 async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResult<PingResponse> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let mut in_stream = request.into_inner();
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);

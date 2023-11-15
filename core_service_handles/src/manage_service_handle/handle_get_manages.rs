@@ -31,7 +31,7 @@ async fn validate_view_rules(
     {
         let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
         for manage_id in managers_ids {
-            let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+            let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
             if let Err(e) =
                 view::validates::validate_collection_can_write(&manage_id, &role_group).await
             {
@@ -52,7 +52,7 @@ async fn validate_request_params(
 async fn handle_get_manages(
     request: Request<GetManagesRequest>,
 ) -> Result<Response<GetManagesResponse>, Status> {
-    let (_account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
 

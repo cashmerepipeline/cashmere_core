@@ -33,7 +33,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
-        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -63,7 +63,7 @@ async fn validate_request_params(
 async fn handle_add_member(
     request: Request<AddMemberRequest>,
 ) -> Result<Response<AddMemberResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let name = &request.get_ref().name;
     let owner_manage_id = &request.get_ref().owner_manage_id;

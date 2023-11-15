@@ -37,7 +37,7 @@ async fn validate_view_rules(
     {
         let manage_id = TAGS_MANAGE_ID;
 
-        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -77,7 +77,7 @@ async fn validate_request_params(
 async fn handle_new_category(
     request: Request<NewCategoryRequest>,
 ) -> UnaryResponseResult<NewCategoryResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
     let manager_id = CATEGORIES_MANAGE_ID;
 
     let name = &request.get_ref().name;
