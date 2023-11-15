@@ -70,7 +70,9 @@ async fn handle_search(
 
     let search_str = search_params
         .iter()
-        .map(|(k, v)| format!("{}:{}", k, v))
+
+        // zh: 关键词必须用引号包裹, 否则空格位置会不正确
+        .map(|(k, v)| format!("{}:\"{}\"", k, v))
         .collect::<Vec<String>>()
         .join(" ");
 
