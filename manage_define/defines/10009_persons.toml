@@ -1,10 +1,11 @@
 #
-# 人管理定义
+# 人管理
 #
 
 id = 10009
 name_map = { zh = "人", en = "persons" }
 is_searchable = false
+description = "人相关信息"
 
 
 # 描写，模式

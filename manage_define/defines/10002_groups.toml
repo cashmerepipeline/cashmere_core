@@ -5,6 +5,7 @@
 id = 10002
 name_map = { zh = "组", en = "groups" }
 is_searchable = false
+description = "组，对帐号进行分组"
 
 
 # 描写，模式

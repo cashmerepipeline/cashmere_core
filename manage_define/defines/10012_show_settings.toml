@@ -1,10 +1,11 @@
 #
-# 显示模板定义
+# 显示设置定义
 #
 
 id = 10012
 name_map = { zh = "显示设置", en = "show_settings" }
 is_searchable = true
+description = "用于存储客户端的显示设置"
 
 
 # 描写，模式

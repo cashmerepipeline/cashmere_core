@@ -1,11 +1,11 @@
 #
-# 过程模板管理定义
+# 模板管理定义
 #
 
 id = 10011
 name_map = { zh = "模板", en = "templates" }
 is_searchable = true
-
+description = "实体模板，用于创建实体时"
 
 # 描写，模式
 schema = [

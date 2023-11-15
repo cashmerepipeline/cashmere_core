@@ -1,10 +1,11 @@
 #
 # 评论
-#
+# 评论必须属于某个实体
 
 id = 10022
 name_map = { zh = "评论", en = "comments" }
 is_searchable = true
+description = "评论，必须属于某个实体"
 
 
 # 数据描写 或者 模式

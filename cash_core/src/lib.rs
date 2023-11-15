@@ -7,7 +7,9 @@ Modified: !date!
 */
 
 pub mod view_rules;
-mod manage;
-
 pub use manage::*;
+pub use manage_from_document::*;
+
+mod manage;
+mod manage_from_document;
 
