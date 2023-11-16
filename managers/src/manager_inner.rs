@@ -1,5 +1,5 @@
 use dependencies_sync::tonic::async_trait;
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 use std::sync::Arc;
 use cash_core::Manage;
 use cash_result::OperationResult;
@@ -14,7 +14,7 @@ pub struct ManagerInner {
 
 #[async_trait]
 impl ManagerTrait for ManagerInner {
-    async fn get_manage_schema(&self) -> Vec<PropertyField> {
+    async fn get_manage_schema(&self) -> Vec<SchemaField> {
         self.manager.get_manage_schema().await
     }
 

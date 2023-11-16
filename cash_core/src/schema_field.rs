@@ -17,7 +17,7 @@ use manage_define::general_field_names::*;
 
 /// 实体属性
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
-pub struct PropertyField {
+pub struct SchemaField {
     pub id: i32,
     pub name_map: LinkedHashMap<String, String>,
     // 使用bson的数据类型
@@ -25,7 +25,7 @@ pub struct PropertyField {
     pub removed: bool,
 }
 
-impl PropertyField {
+impl SchemaField {
     pub fn get_element_type(&self) -> ElementType {
         match self.data_type.as_str() {
             "Double" => ElementType::Double,
@@ -54,12 +54,12 @@ impl PropertyField {
     }
 }
 
-impl PropertyField {
+impl SchemaField {
     pub fn has_name(&self, name: &String) -> bool {
         self.name_map.values().cloned().any(|x| x == *name)
     }
 
-    pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> PropertyField {
+    pub fn from_toml(toml: &toml::map::Map<String, toml::Value>, id: &i32) -> SchemaField {
         // println!("{:?}", toml);
         let name_map: LinkedHashMap<String, String> =
             toml::from_str(&toml.get(NAME_MAP_FIELD_NAME).unwrap().to_string()).unwrap();
@@ -73,7 +73,7 @@ impl PropertyField {
 
         let removed: bool = toml.get(REMOVED_FIELD_NAME).unwrap().as_bool().unwrap();
 
-        PropertyField {
+        SchemaField {
             id: *id,
             name_map,
             data_type,
@@ -81,7 +81,7 @@ impl PropertyField {
         }
     }
 
-    pub fn from_document(doc: &bson::Document) -> PropertyField {
+    pub fn from_document(doc: &bson::Document) -> SchemaField {
         let id = doc.get_i32(ID_FIELD_NAME).unwrap();
 
         let name_map: LinkedHashMap<String, String> =
@@ -92,7 +92,7 @@ impl PropertyField {
 
         let removed: bool = doc.get_bool(REMOVED_FIELD_NAME).unwrap();
 
-        PropertyField {
+        SchemaField {
             id,
             name_map,
             data_type,

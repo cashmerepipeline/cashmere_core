@@ -7,7 +7,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use managers::manager_trait::ManagerTrait;
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -59,7 +59,7 @@ async fn handle_new_schema_field(
     let name_doc = Document::from_reader(&mut name_bytes.as_slice()).unwrap();
     let name: LinkedHashMap<String, String> = bson::from_document(name_doc).unwrap();
 
-    let new_field: PropertyField = PropertyField {
+    let new_field: SchemaField = SchemaField {
         id: field.id,
         name_map: name,
         data_type: field.data_type.clone(),

@@ -1,11 +1,11 @@
 use  dependencies_sync::bson::{doc, Document};
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 
 use crate::can_field_read;
 
 pub async fn get_manage_schema_view(
     manage_id: &String,
-    fields: &Vec<PropertyField>,
+    fields: &Vec<SchemaField>,
     role_group: &String,
 ) -> Document {
     let field_stream = fields.iter();

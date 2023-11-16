@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use dependencies_sync::bson::Timestamp;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
-use crate::PropertyField;
+use crate::SchemaField;
 
 /// zh: 管理定义，管理实体具有大部分实体属性，在数据库中有具体的实体。管理相关的操作在管理器中定义，每个管理对应一个管理器。
 /// en:
@@ -31,7 +31,7 @@ pub struct Manage {
 
     // zh: 实体模式表
     // en: 
-    pub schema: Vec<PropertyField>,
+    pub schema: Vec<SchemaField>,
 
     // zh: 能被搜索
     //  en: is_searchable

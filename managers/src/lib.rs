@@ -28,7 +28,6 @@ pub mod utils;
 
 mod macros;
 
-pub(crate) mod schema;
 pub mod manager_trait;
 mod manager_inner;
 mod manager;

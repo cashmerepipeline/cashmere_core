@@ -6,7 +6,7 @@ use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::tonic::async_trait;
 use manage_define::cashmere::EntityFieldEdit;
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 use std::sync::Arc;
 
 /// 管理器包裹
@@ -26,7 +26,7 @@ impl Manager {
 
 #[async_trait]
 impl ManagerTrait for Manager {
-    async fn get_manage_schema(&self) -> Vec<PropertyField> {
+    async fn get_manage_schema(&self) -> Vec<SchemaField> {
         self.inner.get_manage_schema().await
     }
 

@@ -5,7 +5,7 @@ use dependencies_sync::toml;
 use manage_define::general_field_names::{
     DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME, REMOVED_FIELD_NAME,
 };
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 
 use crate::get_id;
 
@@ -23,8 +23,8 @@ pub fn get_schema(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Bson
             }
             Some(r) => r,
         };
-        let field: PropertyField =
-            PropertyField::from_toml(field_toml, &((field_id + 2001) as i32));
+        let field: SchemaField =
+            SchemaField::from_toml(field_toml, &((field_id + 2001) as i32));
         // println!("{:?}", field);
         let mut temp_doc = Document::new();
         temp_doc.insert(ID_FIELD_NAME, field.id);

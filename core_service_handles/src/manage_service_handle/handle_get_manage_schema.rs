@@ -10,7 +10,7 @@ use dependencies_sync::futures::TryFutureExt;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::manager_trait::ManagerTrait;
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 use request_utils::request_account_context;
 
 use view::can_field_read;
@@ -67,7 +67,7 @@ async fn handle_get_manage_schema(
     let mut field_stream = tokio_stream::iter(&fields);
 
     // 可见性过滤
-    let mut result: Vec<PropertyField> = vec![];
+    let mut result: Vec<SchemaField> = vec![];
     while let Some(field) = field_stream.next().await {
         if can_field_read(&manage_id.to_string(), &field.id.to_string(), &role_group).await {
             result.push(field.to_owned());

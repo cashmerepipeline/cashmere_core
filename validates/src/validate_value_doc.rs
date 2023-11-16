@@ -3,12 +3,12 @@ use dependencies_sync::bson;
 use dependencies_sync::bson::Document;
 use dependencies_sync::tonic::Status;
 
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 
 pub fn validate_value_doc(
     new_value: &[u8],
     field_id: &String,
-    fields: Vec<PropertyField>,
+    fields: Vec<SchemaField>,
 ) -> Result<(), Status> {
     let new_value_doc: Document = if let Ok(r) = bson::from_slice(new_value) {
         r

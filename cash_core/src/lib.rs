@@ -1,11 +1,15 @@
 pub use manage::*;
 pub use manage_from_document::*;
 
-pub use property_field::*;
-pub use general_property_fields::*;
+pub use schema_field::*;
+pub use general_schema_fields::*;
+pub use schema_field_exists::*;
 
-mod general_property_fields;
-mod property_field;
+mod general_schema_fields;
+mod schema_field;
+mod schema_field_exists;
+
+
 mod rang;
 
 mod manage;

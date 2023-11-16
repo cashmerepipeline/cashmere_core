@@ -24,12 +24,12 @@ use entity;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use cash_core::PropertyField;
+use cash_core::SchemaField;
 
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;
 use crate::get_text_options::get_text_options;
-use crate::schema::schema_field_exists;
+use cash_core::schema_field_exists;
 
 /// 管理接口
 #[async_trait]
@@ -85,7 +85,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     //  管理描写模式
     // ---------------------------
     // 取得管理描写, 如果为空则返回空表，无异常发生
-    async fn get_manage_schema(&self) -> Vec<PropertyField> {
+    async fn get_manage_schema(&self) -> Vec<SchemaField> {
         let manage_lock = self.get_manage().await;
         let manage = manage_lock.read();
         if manage.schema.is_empty() {
@@ -262,7 +262,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     /// 新建管理描写属性
     async fn new_schema_field(
         &self,
-        new_field: PropertyField,
+        new_field: SchemaField,
         account_id: &str,
     ) -> Result<(), OperationResult> {
         let field_id = new_field.id;
@@ -323,7 +323,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<OperationResult, OperationResult> {
         // 更新管理
         let manage_id = self.get_id();
-        let mut new_field: Option<PropertyField> = None;
+        let mut new_field: Option<SchemaField> = None;
         {
             let manage_arc = self.get_manage().await;
             let mut manage = manage_arc.write();
@@ -386,7 +386,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
 
-        let _new_field: Option<PropertyField> = None;
+        let _new_field: Option<SchemaField> = None;
 
         // 更新管理缓存
         {
