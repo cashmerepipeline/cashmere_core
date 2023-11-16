@@ -1,6 +1,8 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log;
+use dependencies_sync::rust_i18n::{self, t};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -71,7 +73,9 @@ async fn handle_get_entity(
                 if !can_field_read(&manage_id.to_string(), &k, &role_group).await {
                     if k == *"_id" {
                         result_doc.insert(k, v);
+                        continue;
                     }
+                    log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
                     continue;
                 }
                 result_doc.insert(k, v);

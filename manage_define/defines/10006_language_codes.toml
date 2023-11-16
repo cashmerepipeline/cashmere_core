@@ -58,7 +58,7 @@ schema = [
 ] }
 
 [view_rules.schema.1002]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -67,7 +67,7 @@ schema = [
 ] }
 
 [view_rules.schema.1003]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -76,7 +76,7 @@ schema = [
 ] }
 
 [view_rules.schema.1004]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -85,7 +85,7 @@ schema = [
 ] }
 
 [view_rules.schema.1005]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -94,7 +94,7 @@ schema = [
 ] }
 
 [view_rules.schema.1006]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -103,7 +103,7 @@ schema = [
 ] }
 
 [view_rules.schema.1007]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -112,7 +112,7 @@ schema = [
 ] }
 
 [view_rules.schema.1008]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -120,7 +120,7 @@ schema = [
 ], write_filters = [
 ] }
 [view_rules.schema.1009]
-10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
 ] }
@@ -168,61 +168,61 @@ schema = [
 
 # 初始实体
 [items]
-1000 = { 1000 = "1000", 1002 = "8610000000000", 1001 = { zh = "中文", en = "Chinese" }, 1006 = "8610000000000", 1007 = [
+zh = { 1000 = "zh", 1002 = "8610000000000", 1001 = { zh = "中文", en = "Chinese" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "zh", 2002 = "中文" }
 
-1001 = { 1000 = "1001", 1002 = "8610000000000", 1001 = { zh = "英文", en = "English" }, 1006 = "8610000000000", 1007 = [
+en = { 1000 = "en", 1002 = "8610000000000", 1001 = { zh = "英文", en = "English" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "en", 2002 = "English" }
 
-1003 = { 1000 = "1003", 1002 = "8610000000000", 1001 = { zh = "法语", en = "French" }, 1006 = "8610000000000", 1007 = [
+fr = { 1000 = "fr", 1002 = "8610000000000", 1001 = { zh = "法语", en = "French" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "fr", 2002 = "Français" }
 
-1004 = { 1000 = "1004", 1002 = "8610000000000", 1001 = { zh = "德语", en = "German" }, 1006 = "8610000000000", 1007 = [
+de = { 1000 = "de", 1002 = "8610000000000", 1001 = { zh = "德语", en = "German" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "de", 2002 = "Deutsch" }
 
-1005 = { 1000 = "1005", 1002 = "8610000000000", 1001 = { zh = "意大利语", en = "Italian" }, 1006 = "8610000000000", 1007 = [
+it = { 1000 = "it", 1002 = "8610000000000", 1001 = { zh = "意大利语", en = "Italian" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "it", 2002 = "Italiano" }
 
-1006 = { 1000 = "1006", 1002 = "8610000000000", 1001 = { zh = "日语", en = "Japanese" }, 1006 = "8610000000000", 1007 = [
+ja = { 1000 = "ja", 1002 = "8610000000000", 1001 = { zh = "日语", en = "Japanese" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "ja", 2002 = "日本語" }
 
-1007 = { 1000 = "1007", 1002 = "8610000000000", 1001 = { zh = "朝鲜语", en = "Korean" }, 1006 = "8610000000000", 1007 = [
+ko = { 1000 = "ko", 1002 = "8610000000000", 1001 = { zh = "朝鲜语", en = "Korean" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "ko", 2002 = "한국어" }
 
-1008 = { 1000 = "1008", 1002 = "8610000000000", 1001 = { zh = "西班牙语", en = "Spanish" }, 1006 = "8610000000000", 1007 = [
+es = { 1000 = "es", 1002 = "8610000000000", 1001 = { zh = "西班牙语", en = "Spanish" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "es", 2002 = "Español" }
 
-1009 = { 1000 = "1009", 1002 = "8610000000000", 1001 = { zh = "阿拉伯语", en = "Arabic" }, 1006 = "8610000000000", 1007 = [
+ar = { 1000 = "ar", 1002 = "8610000000000", 1001 = { zh = "阿拉伯语", en = "Arabic" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [
 ], 1200 = false, 2001 = "ar", 2002 = "العربية" }
 
-1010 = { 1000 = "1010", 1002 = "8610000000000", 1001 = { zh = "俄语", en = "Russian" }, 1006 = "8610000000000", 1007 = [
+ru = { 1000 = "ru", 1002 = "8610000000000", 1001 = { zh = "俄语", en = "Russian" }, 1006 = "8610000000000", 1007 = [
   "10000",
 ], 1008 = [
 ], 1900 = [

@@ -3,7 +3,7 @@ use crate::FilterRule;
 
 /// 实体是否可读
 pub async fn can_entity_read(manage_id: &String, role_group: &String) -> bool {
-    let view_rules = if let Some(r) = query_collection_view_rules(manage_id, role_group).await {
+    let view_rules = if let Ok(r) = query_collection_view_rules(manage_id, role_group).await {
         r
     } else {
         return false;
