@@ -10,7 +10,7 @@ use dependencies_sync::futures::TryFutureExt;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::manager_trait::ManagerTrait;
-use property_field::PropertyField;
+use cash_core::PropertyField;
 use request_utils::request_account_context;
 
 use view::can_field_read;

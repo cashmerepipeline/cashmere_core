@@ -1,5 +1,5 @@
 use dependencies_sync::tonic::async_trait;
-use property_field::PropertyField;
+use cash_core::PropertyField;
 use std::sync::Arc;
 use cash_core::Manage;
 use cash_result::OperationResult;

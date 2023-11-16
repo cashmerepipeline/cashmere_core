@@ -2,7 +2,7 @@ use dependencies_sync::log::error;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::toml;
 
-use cash_core::view_rules::{ViewRule, ViewRules};
+use view::{ViewRule, ViewRules};
 
 /// 取得映像定义
 pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Option<ViewRules> {

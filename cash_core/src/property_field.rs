@@ -6,18 +6,21 @@ Created:  2020-11-26T12:47:25.692Z
 Modified: !date!
 */
 
-use bson::spec::ElementType;
+use dependencies_sync::bson::spec::ElementType;
+use dependencies_sync::bson;
+use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::toml;
 
-use linked_hash_map::LinkedHashMap;
 use serde::{Deserialize, Serialize};
 
-use crate::general_field_names::*;
+use manage_define::general_field_names::*;
 
 /// 实体属性
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct PropertyField {
     pub id: i32,
     pub name_map: LinkedHashMap<String, String>,
+    // 使用bson的数据类型
     pub data_type: String,
     pub removed: bool,
 }

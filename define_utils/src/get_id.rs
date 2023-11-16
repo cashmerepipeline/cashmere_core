@@ -1,4 +1,4 @@
-use property_field::general_field_names::ID_FIELD_NAME;
+use manage_define::general_field_names::ID_FIELD_NAME;
 use dependencies_sync::toml;
 
 /// 取得管理id

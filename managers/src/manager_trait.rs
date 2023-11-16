@@ -24,7 +24,7 @@ use entity;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use property_field::*;
+use cash_core::PropertyField;
 
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;

@@ -1,6 +1,6 @@
 use dependencies_sync::{log, rust_i18n::{self, t}, tonic::Status, chrono::format::format};
 use majordomo::get_majordomo;
-use property_field::PropertyField;
+use cash_core::PropertyField;
 use managers::ManagerTrait;
 
 pub async fn get_manage_schema_fields(manage_id: &i32) -> Result<Vec<PropertyField>, Status> {

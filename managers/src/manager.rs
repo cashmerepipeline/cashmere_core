@@ -6,7 +6,7 @@ use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::tonic::async_trait;
 use manage_define::cashmere::EntityFieldEdit;
-use property_field::PropertyField;
+use cash_core::PropertyField;
 use std::sync::Arc;
 
 /// 管理器包裹

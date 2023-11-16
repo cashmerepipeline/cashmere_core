@@ -2,7 +2,7 @@ use dependencies_sync::bson::{self, Document};
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::toml;
 
-use property_field::general_field_names::NAME_MAP_FIELD_NAME;
+use manage_define::general_field_names::NAME_MAP_FIELD_NAME;
 
 /// 取得管理名
 pub fn get_name_map(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Document> {

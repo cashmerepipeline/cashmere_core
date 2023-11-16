@@ -2,9 +2,9 @@ use std::sync::Arc;
 
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
-use property_field::PropertyField;
+use crate::PropertyField;
 
-use crate::general_field_ids::*;
+use manage_define::general_field_ids::*;
 
 static mut GENERAL_PROPERTY_FIELDS: Option<Arc<Vec<PropertyField>>> = None;
 

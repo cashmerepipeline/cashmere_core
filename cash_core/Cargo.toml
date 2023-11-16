@@ -9,15 +9,15 @@ edition = "2021"
 [dependencies]
 serde = "1.0"
 serde_derive = "1.0"
-
 dependencies_sync = { path = "../dependencies_sync", features = [
     "bson",
     "parking_lot",
     "toml",
     "futures",
     "bytes",
+    "linked-hash-map",
 ] }
 
 manage_define = { path = "../manage_define" }
 cash_result = { path = "../cash_result" }
-property_field = { path = "../property_field" }
+# property_field = { path = "../property_field" }

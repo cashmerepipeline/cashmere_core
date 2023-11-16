@@ -1,5 +1,5 @@
 use  dependencies_sync::bson::{doc, Document};
-use property_field::PropertyField;
+use cash_core::PropertyField;
 
 use crate::can_field_read;
 

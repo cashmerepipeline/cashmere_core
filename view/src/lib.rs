@@ -42,6 +42,8 @@ pub use can_field_write::*;
 pub use can_manage_read::*;
 pub use can_manage_write::*;
 
+pub use view_rule::*;
+pub use view_rules::*;
 pub use enum_filter_rule::*;
 pub use enum_read_rule::*;
 pub use enum_write_rule::*;

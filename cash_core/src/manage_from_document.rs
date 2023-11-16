@@ -2,8 +2,8 @@ use cash_result::OperationResult;
 use dependencies_sync::bson::{self, Document};
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
 use manage_define::general_field_ids::{CREATE_TIMESTAMP_FIELD_ID, CREATOR_FIELD_ID, DESCRIPTION_FIELD_ID, GROUPS_FIELD_ID, ID_FIELD_ID, IS_SEARCHABLE_FIELD_ID, MODIFIER_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID, OWNER_FIELD_ID};
-use manage_define::general_property_fields::general_property_fields;
-use property_field::PropertyField;
+use crate::general_property_fields;
+use crate::PropertyField;
 use crate::Manage;
 
 /// bson文档-->管理实体
