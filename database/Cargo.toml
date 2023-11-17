@@ -14,7 +14,6 @@ serde ={ version = "1.0", features = ["derive"]}
 serde_derive = "1.0"
 
 configs = { path = "../configs" }
-cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
 

@@ -45,6 +45,7 @@ pub use update_entity_array_map_field::*;
 pub use update_entity_field::*;
 pub use update_entity_fields::*;
 pub use update_entity_map_field::*;
+pub use delete_entity_map_field_key::*;
 pub use update_timestamp_field::*;
 pub use update_multi_entity_fields::*;
 
@@ -67,6 +68,7 @@ mod update_entity_array_map_field;
 mod update_entity_fields;
 mod insert_entity_map_field;
 mod update_entity_map_field;
+mod delete_entity_map_field_key;
 
 mod get_entity_by_id;
 mod get_entity_by_objectid;

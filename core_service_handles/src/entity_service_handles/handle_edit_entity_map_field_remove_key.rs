@@ -15,7 +15,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
 
-use validates::{validate_field_id, validate_entity_id};
+use validates::{validate_field_id, validate_entity_id, validate_role_group};
 
 #[async_trait]
 pub trait HandleEditEntityMapFieldRemoveKey {
@@ -24,7 +24,8 @@ pub trait HandleEditEntityMapFieldRemoveKey {
         &self,
         request: Request<EditEntityMapFieldRemoveKeyRequest>,
     ) -> UnaryResponseResult<EditEntityMapFieldRemoveKeyResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_map_field_remove_key)
             .await
@@ -82,7 +83,7 @@ async fn handle_edit_entity_map_field_remove_key(
     modify_doc.insert(format!("{}.{}", field_id, key), bson::Bson::Null);
 
     let result = manager
-        .update_entity_field(query_doc, &mut modify_doc, &account_id)
+        .delete_entity_map_field_key(query_doc, modify_doc, &account_id)
         .await;
 
     match result {

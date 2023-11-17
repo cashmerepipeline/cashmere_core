@@ -19,6 +19,7 @@ use manage_define::general_field_names::*;
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct SchemaField {
     pub id: i32,
+    // 使用LinkedHashMap是为了保持字段顺序
     pub name_map: LinkedHashMap<String, String>,
     // 使用bson的数据类型
     pub data_type: String,

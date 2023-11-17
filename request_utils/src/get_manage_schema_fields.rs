@@ -1,7 +1,8 @@
 use dependencies_sync::{log, rust_i18n::{self, t}, tonic::Status, chrono::format::format};
-use majordomo::get_majordomo;
+
 use cash_core::SchemaField;
-use managers::ManagerTrait;
+use majordomo::get_majordomo;
+use managers::manager_trait::ManagerTrait;
 
 pub async fn get_manage_schema_fields(manage_id: &i32) -> Result<Vec<SchemaField>, Status> {
     let majordomo_arc = get_majordomo();

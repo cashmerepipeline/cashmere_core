@@ -10,12 +10,13 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
 use managers::manager_trait::ManagerTrait;
-use request_utils::request_account_context;
+use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
 
 use validates::{
-    get_manage_schema_fields, validate_entity_id, validate_field_id, validate_value_doc,
+     validate_entity_id, validate_field_id, validate_role_group,
+    validate_value_doc,
 };
 
 #[async_trait]
@@ -25,7 +26,8 @@ pub trait HandleEditEntityArrayFieldAddItems {
         &self,
         request: Request<EditEntityArrayFieldAddItemsRequest>,
     ) -> UnaryResponseResult<EditEntityArrayFieldAddItemsResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_array_field_add_items)
             .await

@@ -10,6 +10,8 @@ majordomo = { path = "../majordomo" }
 managers = { path = "../managers" }
 manage_define = { path = "../manage_define" }
 cash_core = { path = "../cash_core" }
+entity = { path = "../entity" }
+request_utils = { path = "../request_utils" }
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "rust-i18n",

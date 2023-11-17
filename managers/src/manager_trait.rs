@@ -105,9 +105,9 @@ pub trait ManagerTrait: Any + Send + Sync {
             .clone())
     }
 
-    async fn has_schema_field(&self, property_id: &str) -> bool {
-        let schema = self.get_manage_schema().await.iter().map(|x| x.id.to_string()).collect::<Vec<String>>();
-        schema.contains(&property_id.to_string())
+    async fn has_schema_field(&self, field_id: i32) -> bool {
+        let schema = self.get_manage_schema().await.iter().map(|x| x.id).collect::<Vec<i32>>();
+        schema.contains(&field_id)
     }
 
     async fn is_searchable(&self) -> bool {
@@ -790,6 +790,23 @@ pub trait ManagerTrait: Any + Send + Sync {
             )),
         }
     }
+    /// 删除映射字段
+    async fn delete_entity_map_field_key(
+        &self,
+        query_doc: Document,
+        modify_doc: Document,
+        account_id: &str,
+    ) -> Result<OperationResult, OperationResult> {
+        let manage_id = self.get_id().to_string();
+        match entity::delete_entity_map_field_key(&manage_id, query_doc, modify_doc, account_id).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(
+                e,
+                "update_entity_map_field".to_string(),
+            )),
+        }
+    }
+
 
     // ---------------------
     // 映像

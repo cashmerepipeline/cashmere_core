@@ -18,7 +18,7 @@ use request_utils::request_account_context;
 
 use service_utils::types::UnaryResponseResult;
 
-use validates::{validate_field_id, validate_entity_id};
+use validates::{validate_field_id, validate_entity_id, validate_role_group};
 
 #[async_trait]
 pub trait HandleEditEntityMapField {
@@ -27,7 +27,8 @@ pub trait HandleEditEntityMapField {
         &self,
         request: Request<EditEntityMapFieldRequest>,
     ) -> UnaryResponseResult<EditEntityMapFieldResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_map_field)
             .await

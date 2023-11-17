@@ -12,11 +12,11 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
 use managers::manager_trait::ManagerTrait;
-use request_utils::request_account_context;
+use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
 
-use validates::{validate_value_doc, validate_field_id, validate_entity_id, get_manage_schema_fields};
+use validates::{validate_value_doc, validate_field_id, validate_entity_id, validate_role_group};
 
 #[async_trait]
 pub trait HandleEditEntityField {
@@ -25,7 +25,8 @@ pub trait HandleEditEntityField {
         &self,
         request: Request<EditEntityFieldRequest>,
     ) -> UnaryResponseResult<EditEntityFieldResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_field)
             .await

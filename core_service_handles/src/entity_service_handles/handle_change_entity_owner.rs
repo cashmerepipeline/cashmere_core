@@ -14,6 +14,7 @@ use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use service_utils::types::UnaryResponseResult;
+use validates::validate_role_group;
 
 #[async_trait]
 pub trait HandleChangeEntityOwner {
@@ -22,7 +23,8 @@ pub trait HandleChangeEntityOwner {
         &self,
         request: Request<ChangeEntityOwnerRequest>,
     ) -> UnaryResponseResult<ChangeEntityOwnerResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_change_entity_owner)
             .await
@@ -36,9 +38,7 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) =
-            view::validates::validate_entity_can_write(&manage_id, &role_group).await
-        {
+        if let Err(e) = view::validates::validate_entity_can_write(&manage_id, &role_group).await {
             return Err(e);
         }
     }

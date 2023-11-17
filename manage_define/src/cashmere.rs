@@ -667,8 +667,11 @@ pub struct ChangeFieldWriteRuleResponse {
 pub struct SchemaField {
     #[prost(int32, tag = "1")]
     pub id: i32,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
+    #[prost(map = "string, string", tag = "2")]
+    pub name_map: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     #[prost(string, tag = "3")]
     pub data_type: ::prost::alloc::string::String,
     #[prost(bool, tag = "4")]

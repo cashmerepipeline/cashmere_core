@@ -13,7 +13,7 @@ static mut ENTITY_CACHE_MAP: Option<Arc<RwLock<EntityCacheMap>>> = None;
 pub fn get_entity_cache_map() -> Arc<RwLock<EntityCacheMap>> {
     unsafe {
         if ENTITY_CACHE_MAP.is_none() {
-            ENTITY_CACHE_MAP.replace(init_managers_map());
+            ENTITY_CACHE_MAP.replace(init_cache_map());
             ENTITY_CACHE_MAP.clone().unwrap()
         } else {
             ENTITY_CACHE_MAP.clone().unwrap()
@@ -22,7 +22,7 @@ pub fn get_entity_cache_map() -> Arc<RwLock<EntityCacheMap>> {
 }
 
 /// 初始化管理器映射表
-fn init_managers_map() -> Arc<RwLock<EntityCacheMap>> {
+fn init_cache_map() -> Arc<RwLock<EntityCacheMap>> {
     let c_map = RwLock::new(BTreeMap::new());
     Arc::new(c_map)
 }

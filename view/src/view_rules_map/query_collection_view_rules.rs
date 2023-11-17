@@ -20,7 +20,7 @@ pub async fn query_collection_view_rules(
                     "query_collection_view_rules",
                     "取得集合可见性规则失败",
                 ));
-            println!("{}: {:?}", t!("取得集合可见规则成功"), result);
+            log::debug!("{}: {:?}", t!("取得集合可见规则成功"), result);
             result
         }
         None => {

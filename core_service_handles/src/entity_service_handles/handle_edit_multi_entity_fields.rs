@@ -6,11 +6,11 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use manage_define::cashmere::*;
 
 use managers::Manager;
-use request_utils::request_account_context;
+use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
 
-use validates::{validate_entity_id, validate_field_id, validate_value_doc, get_manage_schema_fields};
+use validates::{validate_entity_id, validate_field_id, validate_value_doc, validate_role_group};
 
 #[async_trait]
 pub trait HandleEditMultiEntityFields {
@@ -19,7 +19,8 @@ pub trait HandleEditMultiEntityFields {
         &self,
         request: Request<EditMultiEntityFieldsRequest>,
     ) -> UnaryResponseResult<EditMultiEntityFieldsResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_multi_entity_fields)
             .await

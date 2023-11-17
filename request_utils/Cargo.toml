@@ -11,5 +11,8 @@ edition = "2021"
 [dependencies]
 auth ={ path = "../auth" }
 manage_define = { path = "../manage_define" }
+cash_core = { path = "../cash_core" }
+majordomo = { path = "../majordomo" }
+managers ={ path = "../managers"}
 
 dependencies_sync = { path = "../dependencies_sync", features = ["tonic", "rust-i18n", "once_cell"] }

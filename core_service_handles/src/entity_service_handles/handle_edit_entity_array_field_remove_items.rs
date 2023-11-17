@@ -10,11 +10,11 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
 use managers::manager_trait::ManagerTrait;
-use request_utils::request_account_context;
+use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
 
-use validates::{validate_entity_id, validate_field_id, validate_value_doc, get_manage_schema_fields};
+use validates::{validate_entity_id, validate_field_id, validate_value_doc, validate_role_group, };
 
 #[async_trait]
 pub trait HandleEditEntityArrayFieldRemoveItems {
@@ -23,7 +23,8 @@ pub trait HandleEditEntityArrayFieldRemoveItems {
         &self,
         request: Request<EditEntityArrayFieldRemoveItemsRequest>,
     ) -> UnaryResponseResult<EditEntityArrayFieldRemoveItemsResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_array_field_remove_items)
             .await
