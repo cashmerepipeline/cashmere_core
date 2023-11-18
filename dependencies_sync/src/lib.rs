@@ -74,15 +74,15 @@ pub use rust_i18n;
 #[cfg(feature="once_cell")]
 pub use once_cell;
 
-#[cfg(feature="tantivy")]
+// #[cfg(feature="tantivy")]
 // #[macro_use]
-pub extern crate tantivy;
+// pub extern crate tantivy;
 
-#[cfg(feature="cang-jie")]
-pub use cang_jie;
+// #[cfg(feature="cang-jie")]
+// pub use cang_jie;
 
-#[cfg(feature="jieba-rs")]
-pub use jieba_rs;
+// #[cfg(feature="jieba-rs")]
+// pub use jieba_rs;
 
 #[cfg(feature="clap")]
 pub use clap;

@@ -1,5 +1,5 @@
-use dependencies_sync::{tantivy, log};
-use dependencies_sync::tantivy::Searcher;
+use dependencies_sync::log;
+use tantivy::Searcher;
 
 use crate::get_tantivy_index;
 

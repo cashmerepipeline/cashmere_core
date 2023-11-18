@@ -4,9 +4,7 @@ use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::tantivy::schema::*;
 
-use crate::get_text_options::get_text_options;
 use crate::{declare_get_manager, manager_trait::ManagerTrait};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
@@ -93,7 +91,7 @@ impl ManagerTrait for CategoriesManager {
         }
     }
 
-    fn tantivy_schema(&self)-> Schema {
+    /* fn tantivy_schema(&self)-> Schema {
         let token_options = get_text_options();
 
         let mut schema_builder = Schema::builder();
@@ -105,5 +103,5 @@ impl ManagerTrait for CategoriesManager {
         let _category_manage_id = schema_builder.add_u64_field(CATEGORIES_MANAGE_ID_FIELD_ID.to_string().as_ref(), STORED | FAST);
 
         schema_builder.build()
-    }
+    } */
 }

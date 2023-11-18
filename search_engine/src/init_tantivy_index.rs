@@ -2,7 +2,7 @@ use dependencies_sync::log;
 
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::{directory, Index};
+use tantivy::{directory, Index};
 
 use std::fs::create_dir_all;
 use std::ops::Deref;

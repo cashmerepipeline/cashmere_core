@@ -5,7 +5,9 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-# NOTE: cargo workspace 要求必须再一个目录结构下面，所以这里使用了这个单独的包作为同步依赖的包 显得有些繁琐
+# NOTE: cargo workspace 要求必须再一个目录结构下面，所以这里使用了这个单独的包用来同步依赖，保证版本一致
+
+# 问题： 会造成不必要的依赖多，编译慢，如果模块单独依赖的包，可以考虑单独添加。还有部分生成代码的依赖需要将依赖单独添加
 
 [dependencies]
 futures = { version = "0.3.13", optional = true }
@@ -18,7 +20,7 @@ fs4 = { version = "0.6.6", features = ["tokio-async"], optional = true }
 
 chrono = { version = "0.4.19", features = ["serde"], optional = true }
 
-mongodb = { version = "2.5.0", optional = true }
+mongodb = { version = "2.6.1", optional = true }
 bson = { version = "2.6.1", optional = true }
 toml = { version = "0.5.8", features = ["preserve_order"], optional = true }
 
@@ -44,11 +46,12 @@ rust-i18n = { version = "2.2.1", optional = true }
 
 clap = { version = "3.2.23", optional = true }
 
-# tantivy = { version = "0.21.1", optional = true}
-tantivy = {git = "https://github.com/quickwit-oss/tantivy.git", optional = true}
-cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
-# cang-jie = { version = "0.18.0", optional = true }
-jieba-rs = { version = "0.6.8", optional = true }
+# 搜索引擎依赖移动到搜索引擎中，log库依赖冲突
+# tantivy = { version = "0.21.1"}
+# tantivy = {git = "https://github.com/quickwit-oss/tantivy.git", optional = true}
+# cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
+# cang-jie = { version = "0.18.0"}
+# jieba-rs = { version = "0.6.8"}
 
 [features]
 futures = ["dep:futures"]
@@ -62,9 +65,9 @@ mongodb = ["dep:mongodb"]
 bson = ["dep:bson"]
 toml = ["dep:toml"]
 
-tantivy = ["dep:tantivy"]
-cang-jie = ["dep:cang-jie"]
-jieba-rs = ["dep:jieba-rs"]
+# tantivy = ["dep:tantivy"]
+# cang-jie = ["dep:cang-jie"]
+# jieba-rs = ["dep:jieba-rs"]
 
 linked-hash-map = ["dep:linked-hash-map"]
 md-5 = ["dep:md-5"]

@@ -7,7 +7,6 @@ i18n!("locales");
 pub use manager_trait::ManagerTrait;
 pub use manager::*;
 pub use manager_inner::*;
-pub use get_tokenizers::*;
 
 pub mod manages_manager;
 
@@ -35,5 +34,3 @@ mod entity_cache_map;
 // pub mod tag_types_manager;
 // pub mod show_settings_manager;
 
-mod get_text_options;
-mod get_tokenizers;

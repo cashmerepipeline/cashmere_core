@@ -2,7 +2,7 @@ use std::ops::Deref;
 
 use cash_result::{operation_failed, OperationResult};
 
-use dependencies_sync::tantivy::{collector::TopDocs, query::QueryParser, schema::*};
+use tantivy::{collector::TopDocs, Document as TantivyDocument, query::QueryParser, schema::*};
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
@@ -71,7 +71,8 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
     for (_score, doc_address) in top_docs {
         let retrieved_doc: TantivyDocument = searcher.doc(doc_address).unwrap();
 
-        let j_doc = retrieved_doc.to_json(&schema);
+        // let j_doc = retrieved_doc.to_json(&schema);
+        let j_doc = Schema::to_json(&schema, &retrieved_doc);
         result.push(j_doc);
     }
 

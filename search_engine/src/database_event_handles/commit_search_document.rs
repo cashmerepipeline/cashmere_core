@@ -5,7 +5,7 @@ use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::serde_json::{self, json};
 
-use dependencies_sync::tantivy::{schema::*, TantivyDocument};
+use tantivy::{schema::*, Document as TantivyDocument};
 use manage_define::general_field_ids::{
     DESCRIPTION_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
@@ -23,7 +23,7 @@ pub fn commit_search_document(
     let writer = writer_arc.read();
 
     // zh: 如果存在，先删除旧的
-    if let Some(obj_id) = object_id{
+    if let Some(obj_id) = object_id {
         writer.delete_term(Term::from_field_text(
             schema.get_field("_id").unwrap(),
             obj_id.as_str(),
@@ -58,7 +58,8 @@ pub fn commit_search_document(
             DESCRIPTION_FIELD_ID.to_string(): description,
             MODIFY_TIMESTAMP_FIELD_ID.to_string(): modify_time
     });
-    let doc = if let Ok(doc) = TantivyDocument::parse_json(&schema, json_doc.to_string().as_str()) {
+    // let doc = if let Ok(doc) = TantivyDocument::parse_json(&schema, json_doc.to_string().as_str()) {
+    let doc = if let Ok(doc) = schema.parse_document(json_doc.to_string().as_str()) {
         doc
     } else {
         log::error!("{}: {}: {:?}", t!("转换为tdoc失败"), manage_id, json_doc);

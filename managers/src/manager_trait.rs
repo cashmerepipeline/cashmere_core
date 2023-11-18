@@ -14,7 +14,6 @@ use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tantivy::schema::{FAST, Schema, STORED, TEXT};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
 use dependencies_sync::tokio_stream::StreamExt;
@@ -28,7 +27,6 @@ use cash_core::SchemaField;
 
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;
-use crate::get_text_options::get_text_options;
 use cash_core::schema_field_exists;
 
 /// 管理接口
@@ -828,22 +826,4 @@ pub trait ManagerTrait: Any + Send + Sync {
     // ---------------------
     // 数据
     // ---------------
-    // 搜索引擎索引
-    fn tantivy_schema(&self) -> Schema {
-        let text_options = get_text_options();
-
-        let mut schema_builder = Schema::builder();
-        let _id = schema_builder.add_text_field("_id", STORED | TEXT);
-        let _idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
-        let _name_map = schema_builder
-            .add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), text_options.clone());
-        let _description =
-            schema_builder.add_text_field(DESCRIPTION_FIELD_ID.to_string().as_ref(), text_options);
-        let _modify_time = schema_builder.add_u64_field(
-            MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(),
-            STORED | FAST,
-        );
-
-        schema_builder.build()
-    }
 }

@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use dependencies_sync::tantivy::schema::{Schema, STORED, FAST, TEXT};
+use tantivy::schema::{Schema, STORED, FAST, TEXT};
 use manage_define::general_field_ids::*;
 
 use crate::get_text_options::get_text_options;

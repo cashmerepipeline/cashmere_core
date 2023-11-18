@@ -23,7 +23,6 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "bson",
   "rust-i18n",
   "once_cell",
-  "tantivy",
   "serde_json",
   "log",
 ] }
