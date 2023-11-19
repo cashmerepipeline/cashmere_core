@@ -2,9 +2,8 @@ import 'package:cashmere_core/grpc_call.dart';
 import 'package:cashmere_core/protocols/manage_schema.pb.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grpc/grpc.dart';
-import 'package:cashmere_core/manage/schema_field.dart' as model_schema;
 
-Future<List<model_schema.SchemaField>> fetchSchemaFields(
+Future<List<SchemaField>> fetchSchemaFields(
   int manageId,
   GrpcCall<GetManageSchemaRequest, GetManageSchemaResponse> stubCall,
   Map<String, String> metaData,
@@ -14,7 +13,7 @@ Future<List<model_schema.SchemaField>> fetchSchemaFields(
   try {
     final response = await stubCall(request, options: CallOptions(metadata: metaData));
 
-    final fields = response.fields.map((e) => model_schema.SchemaField.fromMessage(e)).toList();
+    final fields = response.fields;
 
     // debugPrint("schema fields of $manageId: $fields");
 

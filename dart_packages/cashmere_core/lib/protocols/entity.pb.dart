@@ -594,7 +594,7 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     $core.String? entityId,
     $core.String? fieldId,
     EditOperationTypeEnum? operationType,
-    $core.List<$core.int>? edits,
+    $core.List<$core.int>? edit,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -609,8 +609,8 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     if (operationType != null) {
       $result.operationType = operationType;
     }
-    if (edits != null) {
-      $result.edits = edits;
+    if (edit != null) {
+      $result.edit = edit;
     }
     return $result;
   }
@@ -623,7 +623,7 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..e<EditOperationTypeEnum>(4, _omitFieldNames ? '' : 'operationType', $pb.PbFieldType.OE, defaultOrMaker: EditOperationTypeEnum.EDIT_PRIMARY_FIELD, valueOf: EditOperationTypeEnum.valueOf, enumValues: EditOperationTypeEnum.values)
-    ..a<$core.List<$core.int>>(5, _omitFieldNames ? '' : 'edits', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(5, _omitFieldNames ? '' : 'edit', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -684,20 +684,20 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearOperationType() => clearField(4);
 
-  /// 使用bson Document格式表示，如：{field_id:value}
+  /// 修改, 使用bson Document格式表示，如：{field_id:value}
   @$pb.TagNumber(5)
-  $core.List<$core.int> get edits => $_getN(4);
+  $core.List<$core.int> get edit => $_getN(4);
   @$pb.TagNumber(5)
-  set edits($core.List<$core.int> v) { $_setBytes(4, v); }
+  set edit($core.List<$core.int> v) { $_setBytes(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasEdits() => $_has(4);
+  $core.bool hasEdit() => $_has(4);
   @$pb.TagNumber(5)
-  void clearEdits() => clearField(5);
+  void clearEdit() => clearField(5);
 }
 
-/// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，使用下面单实体单属性编辑接口
-class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
-  factory EditEntitiesFielsdsRequest({
+/// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
+class EditMultiEntityFieldsRequest extends $pb.GeneratedMessage {
+  factory EditMultiEntityFieldsRequest({
     $core.Iterable<EntityFieldEdit>? edits,
   }) {
     final $result = create();
@@ -706,11 +706,11 @@ class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  EditEntitiesFielsdsRequest._() : super();
-  factory EditEntitiesFielsdsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEntitiesFielsdsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  EditMultiEntityFieldsRequest._() : super();
+  factory EditMultiEntityFieldsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditMultiEntityFieldsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntitiesFielsdsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditMultiEntityFieldsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..pc<EntityFieldEdit>(1, _omitFieldNames ? '' : 'edits', $pb.PbFieldType.PM, subBuilder: EntityFieldEdit.create)
     ..hasRequiredFields = false
   ;
@@ -719,43 +719,43 @@ class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsRequest clone() => EditEntitiesFielsdsRequest()..mergeFromMessage(this);
+  EditMultiEntityFieldsRequest clone() => EditMultiEntityFieldsRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsRequest copyWith(void Function(EditEntitiesFielsdsRequest) updates) => super.copyWith((message) => updates(message as EditEntitiesFielsdsRequest)) as EditEntitiesFielsdsRequest;
+  EditMultiEntityFieldsRequest copyWith(void Function(EditMultiEntityFieldsRequest) updates) => super.copyWith((message) => updates(message as EditMultiEntityFieldsRequest)) as EditMultiEntityFieldsRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsRequest create() => EditEntitiesFielsdsRequest._();
-  EditEntitiesFielsdsRequest createEmptyInstance() => create();
-  static $pb.PbList<EditEntitiesFielsdsRequest> createRepeated() => $pb.PbList<EditEntitiesFielsdsRequest>();
+  static EditMultiEntityFieldsRequest create() => EditMultiEntityFieldsRequest._();
+  EditMultiEntityFieldsRequest createEmptyInstance() => create();
+  static $pb.PbList<EditMultiEntityFieldsRequest> createRepeated() => $pb.PbList<EditMultiEntityFieldsRequest>();
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEntitiesFielsdsRequest>(create);
-  static EditEntitiesFielsdsRequest? _defaultInstance;
+  static EditMultiEntityFieldsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditMultiEntityFieldsRequest>(create);
+  static EditMultiEntityFieldsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<EntityFieldEdit> get edits => $_getList(0);
 }
 
-class EditEntitiesFielsdsResponse extends $pb.GeneratedMessage {
-  factory EditEntitiesFielsdsResponse({
-    $core.String? results,
+class EditMultiEntityFieldsResponse extends $pb.GeneratedMessage {
+  factory EditMultiEntityFieldsResponse({
+    $core.String? result,
   }) {
     final $result = create();
-    if (results != null) {
-      $result.results = results;
+    if (result != null) {
+      $result.result = result;
     }
     return $result;
   }
-  EditEntitiesFielsdsResponse._() : super();
-  factory EditEntitiesFielsdsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEntitiesFielsdsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  EditMultiEntityFieldsResponse._() : super();
+  factory EditMultiEntityFieldsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditMultiEntityFieldsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntitiesFielsdsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'results')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditMultiEntityFieldsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
@@ -763,35 +763,35 @@ class EditEntitiesFielsdsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsResponse clone() => EditEntitiesFielsdsResponse()..mergeFromMessage(this);
+  EditMultiEntityFieldsResponse clone() => EditMultiEntityFieldsResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsResponse copyWith(void Function(EditEntitiesFielsdsResponse) updates) => super.copyWith((message) => updates(message as EditEntitiesFielsdsResponse)) as EditEntitiesFielsdsResponse;
+  EditMultiEntityFieldsResponse copyWith(void Function(EditMultiEntityFieldsResponse) updates) => super.copyWith((message) => updates(message as EditMultiEntityFieldsResponse)) as EditMultiEntityFieldsResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsResponse create() => EditEntitiesFielsdsResponse._();
-  EditEntitiesFielsdsResponse createEmptyInstance() => create();
-  static $pb.PbList<EditEntitiesFielsdsResponse> createRepeated() => $pb.PbList<EditEntitiesFielsdsResponse>();
+  static EditMultiEntityFieldsResponse create() => EditMultiEntityFieldsResponse._();
+  EditMultiEntityFieldsResponse createEmptyInstance() => create();
+  static $pb.PbList<EditMultiEntityFieldsResponse> createRepeated() => $pb.PbList<EditMultiEntityFieldsResponse>();
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEntitiesFielsdsResponse>(create);
-  static EditEntitiesFielsdsResponse? _defaultInstance;
+  static EditMultiEntityFieldsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditMultiEntityFieldsResponse>(create);
+  static EditMultiEntityFieldsResponse? _defaultInstance;
 
   /// 成功返回"ok"
   @$pb.TagNumber(1)
-  $core.String get results => $_getSZ(0);
+  $core.String get result => $_getSZ(0);
   @$pb.TagNumber(1)
-  set results($core.String v) { $_setString(0, v); }
+  set result($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasResults() => $_has(0);
+  $core.bool hasResult() => $_has(0);
   @$pb.TagNumber(1)
-  void clearResults() => clearField(1);
+  void clearResult() => clearField(1);
 }
 
-/// 通用修改实体属性
+/// 编辑单个字段
 class EditEntityFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityFieldRequest({
     $core.int? manageId,
@@ -936,7 +936,7 @@ class EditEntityFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改MAP实体属性
+/// 编辑MAP字段中的某个属性
 class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRequest({
     $core.int? manageId,

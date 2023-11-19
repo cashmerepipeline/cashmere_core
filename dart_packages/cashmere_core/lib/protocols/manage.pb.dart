@@ -14,70 +14,6 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class Manage extends $pb.GeneratedMessage {
-  factory Manage({
-    $core.int? manageId,
-    $core.List<$core.int>? nameMap,
-  }) {
-    final $result = create();
-    if (manageId != null) {
-      $result.manageId = manageId;
-    }
-    if (nameMap != null) {
-      $result.nameMap = nameMap;
-    }
-    return $result;
-  }
-  Manage._() : super();
-  factory Manage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Manage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Manage', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
-    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'nameMap', $pb.PbFieldType.OY)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Manage clone() => Manage()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Manage copyWith(void Function(Manage) updates) => super.copyWith((message) => updates(message as Manage)) as Manage;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Manage create() => Manage._();
-  Manage createEmptyInstance() => create();
-  static $pb.PbList<Manage> createRepeated() => $pb.PbList<Manage>();
-  @$core.pragma('dart2js:noInline')
-  static Manage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Manage>(create);
-  static Manage? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasManageId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearManageId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.List<$core.int> get nameMap => $_getN(1);
-  @$pb.TagNumber(2)
-  set nameMap($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasNameMap() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearNameMap() => clearField(2);
-}
-
 /// 取得管理列表
 class GetManagesRequest extends $pb.GeneratedMessage {
   factory GetManagesRequest() => create();
@@ -113,7 +49,7 @@ class GetManagesRequest extends $pb.GeneratedMessage {
 
 class GetManagesResponse extends $pb.GeneratedMessage {
   factory GetManagesResponse({
-    $core.Iterable<Manage>? manages,
+    $core.Iterable<$core.List<$core.int>>? manages,
   }) {
     final $result = create();
     if (manages != null) {
@@ -126,7 +62,7 @@ class GetManagesResponse extends $pb.GeneratedMessage {
   factory GetManagesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManagesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pc<Manage>(1, _omitFieldNames ? '' : 'manages', $pb.PbFieldType.PM, subBuilder: Manage.create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'manages', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -151,8 +87,9 @@ class GetManagesResponse extends $pb.GeneratedMessage {
   static GetManagesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetManagesResponse>(create);
   static GetManagesResponse? _defaultInstance;
 
+  /// 类型为bson document bytes
   @$pb.TagNumber(1)
-  $core.List<Manage> get manages => $_getList(0);
+  $core.List<$core.List<$core.int>> get manages => $_getList(0);
 }
 
 /// 取得记录数量

@@ -166,6 +166,26 @@ schema = [
 ], write_filters = [
 ] }
 
+[view_rules.schema.2004]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
 [items]
 root = { 1000 = "8610000000000", 1001 = "root", 1002 = "8610000000000", 1006 = "8610000000000", 2001 = "男", 2002 = "2020-10-22", 2004 = [
   "10000",

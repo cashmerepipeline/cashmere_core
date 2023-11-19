@@ -166,6 +166,18 @@ schema = [
 ], write_filters = [
 ] }
 
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
 # 初始实体
 [items]
 zh = { 1000 = "zh", 1002 = "8610000000000", 1001 = { zh = "中文", en = "Chinese" }, 1006 = "8610000000000", 1007 = [

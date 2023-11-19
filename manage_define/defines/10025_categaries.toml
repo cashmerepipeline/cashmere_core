@@ -136,6 +136,18 @@ schema = [
 ], write_filters = [
 ] }
 
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
 [view_rules.schema.2001]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",

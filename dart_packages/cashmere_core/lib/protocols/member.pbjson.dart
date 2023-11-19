@@ -46,33 +46,3 @@ const AddMemberResponse$json = {
 final $typed_data.Uint8List addMemberResponseDescriptor = $convert.base64Decode(
     'ChFBZGRNZW1iZXJSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
 
-@$core.Deprecated('Use deleteMemberRequestDescriptor instead')
-const DeleteMemberRequest$json = {
-  '1': 'DeleteMemberRequest',
-  '2': [
-    {'1': 'owner_manage_id', '3': 1, '4': 1, '5': 5, '10': 'ownerManageId'},
-    {'1': 'owner_entity_id', '3': 2, '4': 1, '5': 9, '10': 'ownerEntityId'},
-    {'1': 'self_manage_id', '3': 3, '4': 1, '5': 5, '10': 'selfManageId'},
-    {'1': 'self_entity_id', '3': 4, '4': 1, '5': 9, '10': 'selfEntityId'},
-  ],
-};
-
-/// Descriptor for `DeleteMemberRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deleteMemberRequestDescriptor = $convert.base64Decode(
-    'ChNEZWxldGVNZW1iZXJSZXF1ZXN0EiYKD293bmVyX21hbmFnZV9pZBgBIAEoBVINb3duZXJNYW'
-    '5hZ2VJZBImCg9vd25lcl9lbnRpdHlfaWQYAiABKAlSDW93bmVyRW50aXR5SWQSJAoOc2VsZl9t'
-    'YW5hZ2VfaWQYAyABKAVSDHNlbGZNYW5hZ2VJZBIkCg5zZWxmX2VudGl0eV9pZBgEIAEoCVIMc2'
-    'VsZkVudGl0eUlk');
-
-@$core.Deprecated('Use deleteMemberResponseDescriptor instead')
-const DeleteMemberResponse$json = {
-  '1': 'DeleteMemberResponse',
-  '2': [
-    {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
-  ],
-};
-
-/// Descriptor for `DeleteMemberResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deleteMemberResponseDescriptor = $convert.base64Decode(
-    'ChREZWxldGVNZW1iZXJSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA==');
-

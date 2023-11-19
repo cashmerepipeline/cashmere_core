@@ -1,11 +1,11 @@
-use dependencies_sync::bson::doc;
+use dependencies_sync::bson::{doc, self};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
@@ -56,27 +56,14 @@ async fn handle_get_manages(
 
     let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
 
-    let mut result: Vec<Manage> = Vec::new();
+    let mut result: Vec<Vec<u8>> = Vec::new();
     for id in managers_ids {
         let manager = get_majordomo().get_manager_by_id(id).unwrap();
-        let doc = manager.get_manage_document().await.read().clone();
+        let mut doc = manager.get_manage_document().await.read().clone();
 
-        let mut name_map: Vec<u8> = Vec::new();
-        doc.get_document(NAME_MAP_FIELD_ID.to_string())
-            .unwrap()
-            .to_writer(&mut name_map)
-            .unwrap();
+        let _ = doc.remove(MANAGES_SCHEMA_FIELD_ID.to_string());
 
-        let m = Manage {
-            manage_id: doc
-                .get_str(ID_FIELD_ID.to_string())
-                .unwrap()
-                .parse::<i32>()
-                .unwrap(),
-            name_map,
-        };
-
-        result.push(m);
+        result.push(bson::to_vec(&doc).unwrap());
     }
 
     Ok(Response::new(GetManagesResponse { manages: result }))

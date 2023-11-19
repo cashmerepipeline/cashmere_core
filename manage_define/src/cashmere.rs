@@ -84,14 +84,6 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Manage {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
-}
 /// 取得管理列表
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -99,8 +91,9 @@ pub struct GetManagesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManagesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub manages: ::prost::alloc::vec::Vec<Manage>,
+    /// 类型为bson document bytes
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub manages: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 取得记录数量
 #[allow(clippy::derive_partial_eq_without_eq)]

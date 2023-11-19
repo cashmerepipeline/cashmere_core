@@ -127,3 +127,11 @@ emitor = "String"
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+10001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }

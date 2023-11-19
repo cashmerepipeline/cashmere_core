@@ -21,6 +21,7 @@ const EditOperationTypeEnum$json = {
     {'1': 'EIDT_MAP_FIELD', '2': 1},
     {'1': 'EDIT_MAP_FIELD_REMOVE_KEY', '2': 2},
     {'1': 'EDIT_ADD_TO_ARRAY_FIELD', '2': 3},
+    {'1': 'Edit_UPDATE_ARRAY_ELEMENT_FIELD', '2': 5},
     {'1': 'EDIT_REMOVE_FROM_ARRAY_FIELD', '2': 4},
   ],
 };
@@ -29,7 +30,8 @@ const EditOperationTypeEnum$json = {
 final $typed_data.Uint8List editOperationTypeEnumDescriptor = $convert.base64Decode(
     'ChVFZGl0T3BlcmF0aW9uVHlwZUVudW0SFgoSRURJVF9QUklNQVJZX0ZJRUxEEAASEgoORUlEVF'
     '9NQVBfRklFTEQQARIdChlFRElUX01BUF9GSUVMRF9SRU1PVkVfS0VZEAISGwoXRURJVF9BRERf'
-    'VE9fQVJSQVlfRklFTEQQAxIgChxFRElUX1JFTU9WRV9GUk9NX0FSUkFZX0ZJRUxEEAQ=');
+    'VE9fQVJSQVlfRklFTEQQAxIjCh9FZGl0X1VQREFURV9BUlJBWV9FTEVNRU5UX0ZJRUxEEAUSIA'
+    'ocRURJVF9SRU1PVkVfRlJPTV9BUlJBWV9GSUVMRBAE');
 
 @$core.Deprecated('Use entityDescriptor instead')
 const Entity$json = {
@@ -151,7 +153,7 @@ const EntityFieldEdit$json = {
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'field_id', '3': 3, '4': 1, '5': 9, '10': 'fieldId'},
     {'1': 'operation_type', '3': 4, '4': 1, '5': 14, '6': '.cashmere.EditOperationTypeEnum', '10': 'operationType'},
-    {'1': 'edits', '3': 5, '4': 1, '5': 12, '10': 'edits'},
+    {'1': 'edit', '3': 5, '4': 1, '5': 12, '10': 'edit'},
   ],
 };
 
@@ -160,32 +162,32 @@ final $typed_data.Uint8List entityFieldEditDescriptor = $convert.base64Decode(
     'Cg9FbnRpdHlGaWVsZEVkaXQSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIbCgllbnRpdH'
     'lfaWQYAiABKAlSCGVudGl0eUlkEhkKCGZpZWxkX2lkGAMgASgJUgdmaWVsZElkEkYKDm9wZXJh'
     'dGlvbl90eXBlGAQgASgOMh8uY2FzaG1lcmUuRWRpdE9wZXJhdGlvblR5cGVFbnVtUg1vcGVyYX'
-    'Rpb25UeXBlEhQKBWVkaXRzGAUgASgMUgVlZGl0cw==');
+    'Rpb25UeXBlEhIKBGVkaXQYBSABKAxSBGVkaXQ=');
 
-@$core.Deprecated('Use editEntitiesFielsdsRequestDescriptor instead')
-const EditEntitiesFielsdsRequest$json = {
-  '1': 'EditEntitiesFielsdsRequest',
+@$core.Deprecated('Use editMultiEntityFieldsRequestDescriptor instead')
+const EditMultiEntityFieldsRequest$json = {
+  '1': 'EditMultiEntityFieldsRequest',
   '2': [
     {'1': 'edits', '3': 1, '4': 3, '5': 11, '6': '.cashmere.EntityFieldEdit', '10': 'edits'},
   ],
 };
 
-/// Descriptor for `EditEntitiesFielsdsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntitiesFielsdsRequestDescriptor = $convert.base64Decode(
-    'ChpFZGl0RW50aXRpZXNGaWVsc2RzUmVxdWVzdBIvCgVlZGl0cxgBIAMoCzIZLmNhc2htZXJlLk'
-    'VudGl0eUZpZWxkRWRpdFIFZWRpdHM=');
+/// Descriptor for `EditMultiEntityFieldsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editMultiEntityFieldsRequestDescriptor = $convert.base64Decode(
+    'ChxFZGl0TXVsdGlFbnRpdHlGaWVsZHNSZXF1ZXN0Ei8KBWVkaXRzGAEgAygLMhkuY2FzaG1lcm'
+    'UuRW50aXR5RmllbGRFZGl0UgVlZGl0cw==');
 
-@$core.Deprecated('Use editEntitiesFielsdsResponseDescriptor instead')
-const EditEntitiesFielsdsResponse$json = {
-  '1': 'EditEntitiesFielsdsResponse',
+@$core.Deprecated('Use editMultiEntityFieldsResponseDescriptor instead')
+const EditMultiEntityFieldsResponse$json = {
+  '1': 'EditMultiEntityFieldsResponse',
   '2': [
-    {'1': 'results', '3': 1, '4': 1, '5': 9, '10': 'results'},
+    {'1': 'result', '3': 1, '4': 1, '5': 9, '10': 'result'},
   ],
 };
 
-/// Descriptor for `EditEntitiesFielsdsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEntitiesFielsdsResponseDescriptor = $convert.base64Decode(
-    'ChtFZGl0RW50aXRpZXNGaWVsc2RzUmVzcG9uc2USGAoHcmVzdWx0cxgBIAEoCVIHcmVzdWx0cw'
+/// Descriptor for `EditMultiEntityFieldsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editMultiEntityFieldsResponseDescriptor = $convert.base64Decode(
+    'Ch1FZGl0TXVsdGlFbnRpdHlGaWVsZHNSZXNwb25zZRIWCgZyZXN1bHQYASABKAlSBnJlc3VsdA'
     '==');
 
 @$core.Deprecated('Use editEntityFieldRequestDescriptor instead')
