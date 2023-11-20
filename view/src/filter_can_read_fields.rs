@@ -13,9 +13,6 @@ pub async fn filter_can_read_fields(
 
     while let Some((k, v)) = property_stream.next().await {
         if !can_field_read(&manage_id.to_string(), &k, role_group).await {
-            if k == &"_id".to_string() {
-                result_doc.insert(k, v);
-            }
             continue;
         }
         result_doc.insert(k, v);

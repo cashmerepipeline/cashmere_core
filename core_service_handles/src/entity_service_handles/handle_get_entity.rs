@@ -71,10 +71,6 @@ async fn handle_get_entity(
             let mut property_stream = stream::iter(r);
             while let Some((k, v)) = property_stream.next().await {
                 if !can_field_read(&manage_id.to_string(), &k, &role_group).await {
-                    if k == *"_id" {
-                        result_doc.insert(k, v);
-                        continue;
-                    }
                     log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
                     continue;
                 }
