@@ -9,7 +9,7 @@ use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions
 use serde::Deserialize;
 
 use cash_result::*;
-use database::get_cashmere_database;
+use database::get_database;
 use manage_define::general_field_ids::*;
 
 use crate::utils::{add_modify_update_fields, get_timestamp_update_doc};

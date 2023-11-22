@@ -1,22 +1,25 @@
+use std::collections::HashMap;
+
 use  dependencies_sync::bson::{doc, Document};
 use cash_core::SchemaField;
 
 use crate::can_field_read;
 
-pub async fn get_manage_schema_view(
+/// 获取字段是否可读，1为可读，0为不可读
+pub async fn get_manage_schema_view_mask(
     manage_id: &String,
     fields: &Vec<SchemaField>,
     role_group: &String,
-) -> Document {
+) -> HashMap<String, bool> {
     let field_stream = fields.iter();
 
     // 可见性过滤
-    let mut props = doc! {};
+    let mut props = HashMap::new();
     for field in field_stream {
         if can_field_read(manage_id, &field.id.to_string(), role_group).await {
-            props.insert(field.id.to_string(), 1);
+            props.insert(field.id.to_string(), true);
         } else {
-            props.insert(field.id.to_string(), 0);
+            props.insert(field.id.to_string(), false);
         }
     }
 

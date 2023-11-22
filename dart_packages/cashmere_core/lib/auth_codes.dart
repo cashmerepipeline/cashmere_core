@@ -1,1 +1,1 @@
-const String RoleGroupName = "role_group";
+const String RoleGroupName = "role-group";

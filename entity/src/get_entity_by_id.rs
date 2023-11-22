@@ -8,7 +8,7 @@ use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions
 use serde::Deserialize;
 
 use cash_result::*;
-use database::get_cashmere_database;
+use database::get_database;
 use manage_define::general_field_ids::*;
 
 /// 取得 实体

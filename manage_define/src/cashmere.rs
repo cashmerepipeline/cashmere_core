@@ -128,7 +128,7 @@ pub struct Entity {
     #[prost(string, repeated, tag = "8")]
     pub groups: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, repeated, tag = "9")]
-    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    pub specs_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, repeated, tag = "10")]
     pub comment_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(bool, tag = "11")]
@@ -217,7 +217,7 @@ pub struct EditMultiEntityFieldsResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 编辑单个字段
+/// 编辑单个实体单个字段，基础类型字段
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityFieldRequest {
@@ -238,7 +238,7 @@ pub struct EditEntityFieldResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 编辑MAP字段中的某个属性
+/// 编辑单个实体MAP字段中的某个属性
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRequest {
@@ -261,7 +261,7 @@ pub struct EditEntityMapFieldResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改MAP移除key
+/// 修改单个实体MAP移除某个key
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRemoveKeyRequest {
@@ -281,7 +281,7 @@ pub struct EditEntityMapFieldRemoveKeyResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改List实体属性, 添加成员
+/// 修改单个实体List实体属性, 添加成员
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldAddItemsRequest {
@@ -302,7 +302,7 @@ pub struct EditEntityArrayFieldAddItemsResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改List实体属性, 移除物体
+/// 修改单个实体List实体属性, 移除物体
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldRemoveItemsRequest {
@@ -493,16 +493,22 @@ pub struct CheckUpdatesLaterThenTimeResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum EditOperationTypeEnum {
+    /// 修改单个基础类型字段
     /// {field_id:value}
     EditPrimaryField = 0,
+    /// 修改MAP字段，map中的单个字段
     /// {field_id:{"key":value}}
     EidtMapField = 1,
+    /// 从MAP中移除某个key，单个字段
     /// {field_id:"key"}
     EditMapFieldRemoveKey = 2,
+    /// 向数组中添加一组元素
     /// {field_id:\[value, ...\]}
     EditAddToArrayField = 3,
+    /// 修改数组中某个元素的字段值，单个元素，单个字段
     /// {field_id:{"index": index, "value":value}}
     EditUpdateArrayElementField = 5,
+    /// 从数组中移除一组元素
     /// {field_id:\[value, ...\]}
     EditRemoveFromArrayField = 4,
 }

@@ -59,7 +59,7 @@ async fn validate_request_params(
         validate_entity_id(manage_id, entity_id).await?;
         validate_field_id(manage_id, field_id).await?;
         let fields = get_manage_schema_fields(manage_id).await?;
-        validate_value_doc(new_value, field_id, fields)?
+        validate_value_doc(new_value, manage_id, field_id, fields)?
     }
 
     Ok(request)

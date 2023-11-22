@@ -20,7 +20,7 @@ message Entity{
   string modify_timestamp = 6;
   string owner_id = 7;
   repeated string groups = 8;
-  repeated string data_ids = 9;
+  repeated string specs_ids = 9;
   repeated string comment_ids=  10;
   bool removed = 11;
   repeated string removed_data_ids = 12;
@@ -61,16 +61,27 @@ message EditEntityResponse {
 
 // 编辑操作类型
 enum EditOperationTypeEnum {
+  // 修改单个基础类型字段
   // {field_id:value}
   EDIT_PRIMARY_FIELD = 0;
+
+  // 修改MAP字段，map中的单个字段
   // {field_id:{"key":value}}
   EIDT_MAP_FIELD = 1;
+
+  // 从MAP中移除某个key，单个字段
   // {field_id:"key"}
   EDIT_MAP_FIELD_REMOVE_KEY = 2;
+
+  // 向数组中添加一组元素
   // {field_id:[value, ...]}
   EDIT_ADD_TO_ARRAY_FIELD = 3;
+
+  // 修改数组中某个元素的字段值，单个元素，单个字段
   // {field_id:{"index": index, "value":value}}
   Edit_UPDATE_ARRAY_ELEMENT_FIELD = 5;
+
+  // 从数组中移除一组元素
   // {field_id:[value, ...]}
   EDIT_REMOVE_FROM_ARRAY_FIELD = 4;
 }
@@ -93,7 +104,7 @@ message EditMultiEntityFieldsResponse{
   string result = 1;
 }
 
-// 编辑单个字段
+// 编辑单个实体单个字段，基础类型字段
 message EditEntityFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -106,7 +117,7 @@ message EditEntityFieldResponse {
   string result = 1;
 }
 
-// 编辑MAP字段中的某个属性
+// 编辑单个实体MAP字段中的某个属性
 message EditEntityMapFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -120,7 +131,7 @@ message EditEntityMapFieldResponse {
   string result = 1;
 }
 
-// 通用修改MAP移除key
+// 修改单个实体MAP移除某个key
 message EditEntityMapFieldRemoveKeyRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -132,7 +143,7 @@ message EditEntityMapFieldRemoveKeyResponse {
   string result = 1;
 }
 
-// 通用修改List实体属性, 添加成员
+// 修改单个实体List实体属性, 添加成员
 message EditEntityArrayFieldAddItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -145,7 +156,7 @@ message EditEntityArrayFieldAddItemsResponse {
   string result = 1;
 }
 
-// 通用修改List实体属性, 移除物体
+// 修改单个实体List实体属性, 移除物体
 message EditEntityArrayFieldRemoveItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;

@@ -1,2 +1,2 @@
 /// grpc metadata role_group field key
-pub const ROLE_GROUP_NAME: &str = "role_group";
+pub const ROLE_GROUP_NAME: &str = "role-group";

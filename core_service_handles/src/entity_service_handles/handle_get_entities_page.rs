@@ -1,8 +1,8 @@
 use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
@@ -11,7 +11,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use view::{add_query_filters, get_manage_schema_view};
+use view::{add_query_filters, get_manage_schema_view_mask};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -53,7 +53,7 @@ async fn validate_request_params(
     let manage_id = &request.get_ref().manage_id;
 
     let majordomo_arc = get_majordomo();
-    if majordomo_arc.get_manager_by_id(*manage_id).is_err(){
+    if majordomo_arc.get_manager_by_id(*manage_id).is_err() {
         error!("{} {}", t!("没有找到对应的管理器"), manage_id);
 
         return Err(Status::aborted(format!(
@@ -61,7 +61,7 @@ async fn validate_request_params(
             t!("没有找到对应的管理器"),
             manage_id
         )));
-    };        
+    };
 
     Ok(request)
 }
@@ -90,7 +90,12 @@ async fn handle_get_entities_page(
             matches.insert(k, v);
         });
     } else {
-        debug!("{}: {}-{}", t!("没有可读描写字段，用户不具有集合可读权限"), manage_id, role_group);
+        debug!(
+            "{}: {}-{}",
+            t!("没有可读描写字段，用户不具有集合可读权限"),
+            manage_id,
+            role_group
+        );
         return Err(Status::unauthenticated(
             "没有可读描写字段，用户不具有集合可读权限",
         ));
@@ -100,38 +105,33 @@ async fn handle_get_entities_page(
     // en: only return not removed entities
     matches.insert(REMOVED_FIELD_ID.to_string(), false);
 
-    // zh: 描写字段可见性过滤, 加入mongodb的project方法
+    // zh: 描写字段可见性过滤, 加入mongodb的$unset方法
     let fields = manager.get_manage_schema().await;
-    let schema_projects =
-        get_manage_schema_view(&manage_id.to_string(), &fields, &role_group).await;
-    let project_doc = if !schema_projects.is_empty() {
-        // 只加入不可见字段
-        let mut no_show_project = Document::new();
-        schema_projects.iter().for_each(|(k, v)| {
-            if v.as_i32().unwrap() == 0 {
-                no_show_project.insert(k, v);
-            }
-        });
-        Some(no_show_project)
-    } else {
-        None
-    };
+    let unsets = get_manage_schema_view_mask(&manage_id.to_string(), &fields, &role_group)
+        .await
+        .iter()
+        .filter(|(k, v)| **v == false)
+        .map(|(k, v)| k.clone())
+        .collect();
 
     // zh: 页码从1开始，
     // en: page index from 1
-    let index = if *page_index == 0u32 {
+    let index = if *page_index <= 0u32 {
         1u32
     } else {
         *page_index
     };
-    
+
     let result = manager
-        .get_entities_by_page(index, &Some(matches), &sorts_doc, &project_doc)
+        .get_entities_by_page(index, &Some(matches), &sorts_doc, &unsets)
         .await;
 
     match result {
         Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
-            entities: entities.iter().map(|x| bson::to_vec(x).unwrap()).collect(),
+            entities: entities
+                .iter()
+                .map(|x| bson::to_vec(&x).unwrap())
+                .collect(),
         })),
         Err(e) => Err(Status::aborted(format!(
             "{} {}",

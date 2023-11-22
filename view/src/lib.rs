@@ -22,7 +22,7 @@ mod enum_view_level;
 mod enum_view_rule_result;
 mod enum_write_rule;
 
-mod get_manage_schema_view;
+mod get_manage_schema_view_mask;
 mod manage_view_claims;
 
 mod view_rule;
@@ -47,7 +47,7 @@ pub use view_rules::*;
 pub use enum_filter_rule::*;
 pub use enum_read_rule::*;
 pub use enum_write_rule::*;
-pub use get_manage_schema_view::*;
+pub use get_manage_schema_view_mask::*;
 
 pub use validate_group::*;
 pub mod validates;

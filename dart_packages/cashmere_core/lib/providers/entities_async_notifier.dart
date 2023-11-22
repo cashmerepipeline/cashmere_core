@@ -41,8 +41,12 @@ class EntitiesPageAsyncNotifier
     }
 
     final metaData = await ref.watch(metaDataFutureProvider.future);
-    final entities = await fetchEntitiesPage(arg.manageId, 1, arg.stubCall, metaData);
-    return entities;
+    try {
+      final entities = await fetchEntitiesPage(arg.manageId, 1, arg.stubCall, metaData);
+      return entities;
+    } catch (err) {
+      return [];
+    }
   }
 }
 

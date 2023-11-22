@@ -38,7 +38,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
     let name_map_field = SchemaField {
         id: NAME_MAP_FIELD_ID,
         name_map: name_name_map,
-        data_type: "Array".to_string(),
+        data_type: "Document".to_string(),
         removed: false,
     };
 

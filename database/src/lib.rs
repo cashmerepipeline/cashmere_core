@@ -6,8 +6,9 @@
 use dependencies_sync::rust_i18n::{self};
 rust_i18n::i18n!("locales");
 
+pub use get_database_name::*;
 pub use get_mongodb_client::*;
-pub use get_cashmere_database::*;
+pub use get_database::*;
 pub use collection_exists::*;
 pub use get_collection_by_id::*;
 pub use get_manages_collection::*;
@@ -15,8 +16,9 @@ pub use get_ids_collection::*;
 pub use init_ids_count_field::*;
 pub use database_configs::*;
 
+mod get_database_name;
 mod get_mongodb_client;
-mod get_cashmere_database;
+mod get_database;
 mod collection_exists;
 mod get_collection_by_id;
 mod get_manages_collection;
@@ -26,13 +28,13 @@ mod database_configs;
 
 #[cfg(test)]
 mod tests {
-    use crate::get_cashmere_database;
+    use crate::get_database;
     use dependencies_sync::mongodb::bson::doc;
     use tokio_test::assert_ok;
 
     #[test]
     fn test_database() {
-        let db = tokio_test::block_on(get_cashmere_database::get_cashmere_database());
+        let db = tokio_test::block_on(get_cashmere_database::get_database());
         tokio_test::block_on(db.create_collection("test", None)).expect("创建测试集合失败");
         let collection = db.collection("test");
         let doc = doc! {

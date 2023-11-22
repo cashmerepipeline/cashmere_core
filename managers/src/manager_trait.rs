@@ -563,11 +563,11 @@ pub trait ManagerTrait: Any + Send + Sync {
         page_index: u32,
         matches: &Option<Document>,
         sorts: &Option<Document>,
-        projects: &Option<Document>,
+        unsets: &Vec<String>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id().to_string();
 
-        match entity::get_entities_by_page(&manage_id, page_index, matches, sorts, projects).await {
+        match entity::get_entities_by_page(&manage_id, page_index, matches, sorts, unsets).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,

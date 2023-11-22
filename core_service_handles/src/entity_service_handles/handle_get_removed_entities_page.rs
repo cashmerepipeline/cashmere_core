@@ -8,7 +8,7 @@ use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{add_query_filters, get_manage_schema_view};
+use view::{add_query_filters, get_manage_schema_view_mask};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -84,20 +84,13 @@ async fn handle_get_removed_entities_page(
 
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;
-    let schema_projects =
-        get_manage_schema_view(&manage_id.to_string(), &fields, &role_group).await;
-    let project_doc = if !schema_projects.is_empty() {
-        // 只加入不可见字段
-        let mut no_show_project = Document::new();
-        schema_projects.iter().for_each(|(k, v)| {
-            if v.as_i32().unwrap() == 0 {
-                no_show_project.insert(k, v);
-            }
-        });
-        Some(no_show_project)
-    } else {
-        None
-    };
+    let unsets =
+        get_manage_schema_view_mask(&manage_id.to_string(), &fields, &role_group).await
+        .iter()
+        .filter(|(k, v)| **v == false)
+        .map(|(k, v)| k.clone())
+        .collect();
+    
 
     // zh: 从1开始，
     let index = if *page_index == 0u32 {
@@ -107,7 +100,7 @@ async fn handle_get_removed_entities_page(
     };
 
     let result = manager
-        .get_entities_by_page(index, &Some(matches), &sorts_doc, &project_doc)
+        .get_entities_by_page(index, &Some(matches), &sorts_doc, &unsets)
         .await;
 
     match result {

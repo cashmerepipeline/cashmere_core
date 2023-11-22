@@ -1,11 +1,11 @@
 use dependencies_sync::bson::Document;
 use dependencies_sync::mongodb::Collection;
 use manage_define::manage_ids::IDS_MANAGE_ID;
-use crate::{collection_exists, get_cashmere_database};
+use crate::{collection_exists, get_database};
 
 /// 取得编号-管理集合, 不存在则新建
 pub async fn get_ids_collection() -> Collection<Document> {
-    let cashmere_db = get_cashmere_database().await;
+    let cashmere_db = get_database().await;
 
     let manages_id = &IDS_MANAGE_ID.to_string();
 

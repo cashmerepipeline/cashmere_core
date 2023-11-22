@@ -47,6 +47,8 @@ async fn validate_request_params(
             "get_constants"
         )));
     }
+    
+    // TODO: 检查是否为常量管理
 
     Ok(request)
 }
