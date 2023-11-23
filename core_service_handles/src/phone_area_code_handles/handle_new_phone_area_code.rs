@@ -12,7 +12,8 @@ use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
-use request_utils::{request_account_context, validate_auth_token, validate_has_role_group};
+use request_utils::request_account_context;
+use validates::{validate_auth_token, validate_has_role_group};
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
@@ -102,6 +103,10 @@ async fn handle_new_phone_area_code(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_phone_area_code")))
+        Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新实体失败"),
+            "new_phone_area_code"
+        )))
     }
 }
