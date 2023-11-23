@@ -15,7 +15,7 @@ use request_utils::request_account_context;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use service_utils::validate_name;
+use validates::validate_name;
 
 #[async_trait]
 pub trait HandleNewTag {
@@ -54,13 +54,7 @@ async fn validate_request_params(
     let name = &request.get_ref().name;
     let target_manage_id = &request.get_ref().target_manage_id;
     
-    if !validate_name(name) {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("名字不能为空"),
-            "new_tag"
-        )));
-    }
+    validate_name(name)?;
     
     // 目标管理不能为空
     if *target_manage_id == 0i32 {

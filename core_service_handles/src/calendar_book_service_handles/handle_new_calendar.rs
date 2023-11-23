@@ -11,7 +11,7 @@ use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
-use service_utils::validate_name;
+use validates::validate_name;
 
 #[async_trait]
 pub trait HandleNewCalendar {
@@ -49,13 +49,7 @@ async fn validate_request_params(
 ) -> Result<Request<NewCalendarRequest>, Status> {
     let name = &request.get_ref().name;
 
-    if !validate_name(name) {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("名字不能为空"),
-            "add_member"
-        )));
-    }
+    validate_name(name)?;
 
     Ok(request)
 }
