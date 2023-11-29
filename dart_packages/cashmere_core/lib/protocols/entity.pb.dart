@@ -11,6 +11,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'entity.pbenum.dart';
@@ -28,7 +29,7 @@ class Entity extends $pb.GeneratedMessage {
     $core.String? modifyTimestamp,
     $core.String? ownerId,
     $core.Iterable<$core.String>? groups,
-    $core.Iterable<$core.String>? dataIds,
+    $core.Iterable<$core.String>? specsIds,
     $core.Iterable<$core.String>? commentIds,
     $core.bool? removed,
     $core.Iterable<$core.String>? removedDataIds,
@@ -58,8 +59,8 @@ class Entity extends $pb.GeneratedMessage {
     if (groups != null) {
       $result.groups.addAll(groups);
     }
-    if (dataIds != null) {
-      $result.dataIds.addAll(dataIds);
+    if (specsIds != null) {
+      $result.specsIds.addAll(specsIds);
     }
     if (commentIds != null) {
       $result.commentIds.addAll(commentIds);
@@ -85,7 +86,7 @@ class Entity extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'modifyTimestamp')
     ..aOS(7, _omitFieldNames ? '' : 'ownerId')
     ..pPS(8, _omitFieldNames ? '' : 'groups')
-    ..pPS(9, _omitFieldNames ? '' : 'dataIds')
+    ..pPS(9, _omitFieldNames ? '' : 'specsIds')
     ..pPS(10, _omitFieldNames ? '' : 'commentIds')
     ..aOB(11, _omitFieldNames ? '' : 'removed')
     ..pPS(12, _omitFieldNames ? '' : 'removedDataIds')
@@ -182,7 +183,7 @@ class Entity extends $pb.GeneratedMessage {
   $core.List<$core.String> get groups => $_getList(7);
 
   @$pb.TagNumber(9)
-  $core.List<$core.String> get dataIds => $_getList(8);
+  $core.List<$core.String> get specsIds => $_getList(8);
 
   @$pb.TagNumber(10)
   $core.List<$core.String> get commentIds => $_getList(9);
@@ -791,7 +792,7 @@ class EditMultiEntityFieldsResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 编辑单个字段
+/// 编辑单个实体单个字段，基础类型字段
 class EditEntityFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityFieldRequest({
     $core.int? manageId,
@@ -936,7 +937,7 @@ class EditEntityFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 编辑MAP字段中的某个属性
+/// 编辑单个实体MAP字段中的某个属性
 class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRequest({
     $core.int? manageId,
@@ -1095,7 +1096,7 @@ class EditEntityMapFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改MAP移除key
+/// 修改单个实体MAP移除某个key
 class EditEntityMapFieldRemoveKeyRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRemoveKeyRequest({
     $core.int? manageId,
@@ -1239,7 +1240,7 @@ class EditEntityMapFieldRemoveKeyResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改List实体属性, 添加成员
+/// 修改单个实体List实体属性, 添加成员
 class EditEntityArrayFieldAddItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldAddItemsRequest({
     $core.int? manageId,
@@ -1384,7 +1385,7 @@ class EditEntityArrayFieldAddItemsResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改List实体属性, 移除物体
+/// 修改单个实体List实体属性, 移除物体
 class EditEntityArrayFieldRemoveItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldRemoveItemsRequest({
     $core.int? manageId,
@@ -1870,6 +1871,172 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<$core.List<$core.int>> get entities => $_getList(0);
+}
+
+/// 交互取得实体页
+class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
+  factory InteractiveGetEntitiesRequest({
+    $core.int? manageId,
+    $core.int? pageIndex,
+    $core.List<$core.int>? matchDoc,
+    $core.List<$core.int>? sortDoc,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    if (pageIndex != null) {
+      $result.pageIndex = pageIndex;
+    }
+    if (matchDoc != null) {
+      $result.matchDoc = matchDoc;
+    }
+    if (sortDoc != null) {
+      $result.sortDoc = sortDoc;
+    }
+    return $result;
+  }
+  InteractiveGetEntitiesRequest._() : super();
+  factory InteractiveGetEntitiesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InteractiveGetEntitiesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'InteractiveGetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesRequest clone() => InteractiveGetEntitiesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesRequest copyWith(void Function(InteractiveGetEntitiesRequest) updates) => super.copyWith((message) => updates(message as InteractiveGetEntitiesRequest)) as InteractiveGetEntitiesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesRequest create() => InteractiveGetEntitiesRequest._();
+  InteractiveGetEntitiesRequest createEmptyInstance() => create();
+  static $pb.PbList<InteractiveGetEntitiesRequest> createRepeated() => $pb.PbList<InteractiveGetEntitiesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InteractiveGetEntitiesRequest>(create);
+  static InteractiveGetEntitiesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get manageId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get pageIndex => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set pageIndex($core.int v) { $_setUnsignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPageIndex() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPageIndex() => clearField(2);
+
+  /// bson document
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get matchDoc => $_getN(2);
+  @$pb.TagNumber(3)
+  set matchDoc($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasMatchDoc() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMatchDoc() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get sortDoc => $_getN(3);
+  @$pb.TagNumber(4)
+  set sortDoc($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSortDoc() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSortDoc() => clearField(4);
+}
+
+class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {
+  factory InteractiveGetEntitiesResponse({
+    $core.int? pageIndex,
+    $core.Iterable<$core.List<$core.int>>? entities,
+    $fixnum.Int64? totalCount,
+  }) {
+    final $result = create();
+    if (pageIndex != null) {
+      $result.pageIndex = pageIndex;
+    }
+    if (entities != null) {
+      $result.entities.addAll(entities);
+    }
+    if (totalCount != null) {
+      $result.totalCount = totalCount;
+    }
+    return $result;
+  }
+  InteractiveGetEntitiesResponse._() : super();
+  factory InteractiveGetEntitiesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InteractiveGetEntitiesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'InteractiveGetEntitiesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
+    ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$fixnum.Int64>(3, _omitFieldNames ? '' : 'totalCount', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesResponse clone() => InteractiveGetEntitiesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesResponse copyWith(void Function(InteractiveGetEntitiesResponse) updates) => super.copyWith((message) => updates(message as InteractiveGetEntitiesResponse)) as InteractiveGetEntitiesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesResponse create() => InteractiveGetEntitiesResponse._();
+  InteractiveGetEntitiesResponse createEmptyInstance() => create();
+  static $pb.PbList<InteractiveGetEntitiesResponse> createRepeated() => $pb.PbList<InteractiveGetEntitiesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InteractiveGetEntitiesResponse>(create);
+  static InteractiveGetEntitiesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get pageIndex => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pageIndex($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPageIndex() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPageIndex() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.List<$core.int>> get entities => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get totalCount => $_getI64(2);
+  @$pb.TagNumber(3)
+  set totalCount($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTotalCount() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTotalCount() => clearField(3);
 }
 
 /// 标记实体已移除

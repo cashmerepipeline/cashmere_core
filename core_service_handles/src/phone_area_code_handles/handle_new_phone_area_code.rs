@@ -13,7 +13,7 @@ use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
-use validates::{validate_auth_token, validate_has_role_group};
+use validates::{validate_auth_token, validate_has_role_group, validate_is_login};
 
 use dependencies_sync::tonic::{Request, Response, Status};
 

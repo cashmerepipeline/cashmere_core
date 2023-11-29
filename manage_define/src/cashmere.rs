@@ -372,6 +372,30 @@ pub struct GetEntitiesPageResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
     pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
+/// 交互取得实体页
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InteractiveGetEntitiesRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(uint32, tag = "2")]
+    pub page_index: u32,
+    /// bson document
+    #[prost(bytes = "vec", tag = "3")]
+    pub match_doc: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub sort_doc: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InteractiveGetEntitiesResponse {
+    #[prost(uint32, tag = "1")]
+    pub page_index: u32,
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(uint64, tag = "3")]
+    pub total_count: u64,
+}
 /// 标记实体已移除
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

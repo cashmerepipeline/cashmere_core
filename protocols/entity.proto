@@ -200,6 +200,21 @@ message GetEntitiesPageResponse {
   repeated bytes entities = 1;
 }
 
+// 交互取得实体页
+message InteractiveGetEntitiesRequest {
+  int32 manage_id = 1;
+  uint32 page_index = 2;
+  // bson document
+  bytes match_doc = 3;
+  bytes sort_doc = 4;
+}
+message InteractiveGetEntitiesResponse {
+  uint32 page_index = 1;
+  repeated bytes entities = 2;
+  uint64 total_count = 3;
+}
+
+
 // 标记实体已移除
 message MarkEntityRemovedRequest {
   int32 manage_id = 1;

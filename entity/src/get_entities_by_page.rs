@@ -33,12 +33,19 @@ pub async fn get_entities_by_page(
         pipeline.push(doc! {"$match": matches});
     }
 
-    if sorts.is_some() {
-        pipeline.push(doc! {"$sort": sorts.clone().unwrap()});
+    if let Some(sorts) = sorts {
+        if sorts.keys().count() > 1 {
+            pipeline.push(doc! {"$sort": sorts.clone()});
+        }
     }
 
-    // zh: 注意: skip 需要在limit之前
-    pipeline.push(doc! {"$skip": 20*(page_index-1)});
+    // zh: 页码从0开始
+    if page_index == 0 {
+        pipeline.push(doc! {"$skip": 0u32});
+    } else {
+        pipeline.push(doc! {"$skip": 20*page_index});
+    }
+
     pipeline.push(doc! {"$limit": 20_u32});
 
     if unsets.len() > 0 {
