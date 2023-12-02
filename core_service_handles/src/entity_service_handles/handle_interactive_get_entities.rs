@@ -17,6 +17,8 @@ use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
 use validates::validate_manage_id;
 
 use super::get_manage_entities_page;
+use super::send_stream_response::send_stream_response;
+use super::send_stream_error::send_stream_error;
 
 #[async_trait]
 pub trait HandleInteractiveGetEntities {
@@ -77,6 +79,7 @@ async fn handle_interactive_entities_stream(
                     let page_index = &request.page_index;
                     let match_doc = &request.match_doc;
                     let sort_doc = &request.sort_doc;
+                    let no_present_fields = &request.no_present_fields;
 
                     if let Err(err) = validate_manage_id(manage_id).await {
                         if let Err(_) = resp_tx.send(Err(err)).await {
@@ -91,6 +94,7 @@ async fn handle_interactive_entities_stream(
                         bson::from_slice(&match_doc).unwrap_or(Document::new());
                     let sort_doc: Document = bson::from_slice(&sort_doc).unwrap_or(Document::new());
 
+                    // zh: 没有实体，返回空表
                     let count = if let Ok(c) = manager.count_entity(match_doc.clone()).await {
                         c
                     } else {
@@ -100,29 +104,38 @@ async fn handle_interactive_entities_stream(
                             total_count: 0,
                         };
 
-                        send_response(&resp_tx, empty_resp).await;
+                        send_stream_response(&resp_tx, empty_resp).await;
 
                         continue;
                     };
 
                     let result = get_manage_entities_page(
-                        &account_id, &role_group, &manage_id, &match_doc, &Some(sort_doc), page_index,
+                        &account_id,
+                        &role_group,
+                        &manage_id,
+                        &match_doc,
+                        &Some(sort_doc),
+                        page_index,
+                        no_present_fields,
                     )
                     .await;
 
                     match result {
                         Ok(entities) => {
-                            let b_d = entities.iter().map(|x|bson::to_vec(x).unwrap()).collect::<Vec<Vec<u8>>>();
+                            let b_d = entities
+                                .iter()
+                                .map(|x| bson::to_vec(x).unwrap())
+                                .collect::<Vec<Vec<u8>>>();
                             let resp = InteractiveGetEntitiesResponse {
                                 page_index: *page_index,
                                 entities: b_d,
                                 total_count: count,
                             };
-                            send_response(&resp_tx, resp).await;
+                            send_stream_response(&resp_tx, resp).await;
                         }
                         Err(e) => {
                             error!("{}: {}", t!("交互查询数据错误"), e.details());
-                            send_error(&resp_tx, Status::aborted(t!("从数据库取得实体列表失败")))
+                            send_stream_error(&resp_tx, Status::aborted(t!("从数据库取得实体列表失败")))
                                 .await;
                         }
                     };
@@ -148,22 +161,4 @@ async fn handle_interactive_entities_stream(
     Ok(Response::new(
         Box::pin(resp_stream) as ResponseStream<InteractiveGetEntitiesResponse>
     ))
-}
-
-async fn send_error(resp_tx: &Sender<Result<InteractiveGetEntitiesResponse, Status>>, e: Status) {
-    match resp_tx.send(Err(e)).await {
-        Ok(_) => (),
-        Err(e) => {
-            error!("{}: {}", t!("反馈错误失败"), e);
-        }
-    }
-}
-
-async fn send_response(
-    resp_tx: &Sender<Result<InteractiveGetEntitiesResponse, Status>>,
-    resp: InteractiveGetEntitiesResponse,
-) {
-    if let Err(err) = resp_tx.send(Ok(resp)).await {
-        error!("{}: {:?}", t!("发送数据失败"), err);
-    }
 }

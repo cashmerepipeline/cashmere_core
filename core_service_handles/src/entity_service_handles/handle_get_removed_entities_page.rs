@@ -85,7 +85,7 @@ async fn handle_get_removed_entities_page(
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;
     let unsets =
-        get_manage_schema_view_mask(&manage_id.to_string(), &fields, &role_group).await
+        get_manage_schema_view_mask(&manage_id, &fields, &role_group).await
         .iter()
         .filter(|(k, v)| **v == false)
         .map(|(k, v)| k.clone())

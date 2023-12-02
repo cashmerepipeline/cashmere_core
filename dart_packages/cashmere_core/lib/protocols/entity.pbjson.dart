@@ -387,13 +387,13 @@ final $typed_data.Uint8List getEntitiesRequestDescriptor = $convert.base64Decode
 const GetEntitiesResponse$json = {
   '1': 'GetEntitiesResponse',
   '2': [
-    {'1': 'entities', '3': 1, '4': 3, '5': 12, '10': 'entities'},
+    {'1': 'entity', '3': 1, '4': 1, '5': 12, '10': 'entity'},
   ],
 };
 
 /// Descriptor for `GetEntitiesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getEntitiesResponseDescriptor = $convert.base64Decode(
-    'ChNHZXRFbnRpdGllc1Jlc3BvbnNlEhoKCGVudGl0aWVzGAEgAygMUghlbnRpdGllcw==');
+    'ChNHZXRFbnRpdGllc1Jlc3BvbnNlEhYKBmVudGl0eRgBIAEoDFIGZW50aXR5');
 
 @$core.Deprecated('Use getEntitiesPageRequestDescriptor instead')
 const GetEntitiesPageRequest$json = {

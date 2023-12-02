@@ -1725,11 +1725,11 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
 
 class GetEntitiesResponse extends $pb.GeneratedMessage {
   factory GetEntitiesResponse({
-    $core.Iterable<$core.List<$core.int>>? entities,
+    $core.List<$core.int>? entity,
   }) {
     final $result = create();
-    if (entities != null) {
-      $result.entities.addAll(entities);
+    if (entity != null) {
+      $result.entity = entity;
     }
     return $result;
   }
@@ -1738,7 +1738,7 @@ class GetEntitiesResponse extends $pb.GeneratedMessage {
   factory GetEntitiesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entity', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1764,7 +1764,13 @@ class GetEntitiesResponse extends $pb.GeneratedMessage {
   static GetEntitiesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+  $core.List<$core.int> get entity => $_getN(0);
+  @$pb.TagNumber(1)
+  set entity($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEntity() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEntity() => clearField(1);
 }
 
 /// 依据页码取得实体页列表，页码从1开始

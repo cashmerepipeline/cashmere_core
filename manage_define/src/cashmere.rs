@@ -357,8 +357,8 @@ pub struct GetEntitiesRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes = "vec", tag = "1")]
+    pub entity: ::prost::alloc::vec::Vec<u8>,
 }
 /// 依据页码取得实体页列表，页码从1开始
 /// 需要先取得实体总数，然后计算页数

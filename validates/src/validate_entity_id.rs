@@ -5,24 +5,37 @@ use majordomo::get_majordomo;
 
 use dependencies_sync::tonic::Status;
 
-use manage_define::general_field_ids::ID_FIELD_ID;
+use manage_define::general_field_ids::{ID_FIELD_ID, REMOVED_FIELD_ID};
 use managers::ManagerTrait;
 
-/// zh: 验证目标实体存在性 
+/// zh: 验证目标实体存在性
 pub async fn validate_entity_id(manage_id: &i32, entity_id: &String) -> Result<(), Status> {
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
-    if manager.entity_exists(&doc! {
-        ID_FIELD_ID.to_string(): entity_id,
-    }).await.is_none(){
-        return Err(Status::invalid_argument(format!(
-            "{}: {}-{}, {}",
-            t!("实体不存在"),
-            manage_id,
-            entity_id,
-            "validate_edit_entity_id"
-        )));
+    match manager.get_entity_by_id(entity_id, &vec![]).await {
+        Ok(r) => {
+            if r.get_bool(REMOVED_FIELD_ID.to_string()).unwrap_or(true) {
+                return Err(Status::invalid_argument(format!(
+                    "{}: {}-{}, {}",
+                    t!("实体已删除"),
+                    manage_id,
+                    entity_id,
+                    "validate_entity_id"
+                )));
+            } else {
+                return Ok(());
+            };
+        }
+        Err(e) => {
+            return Err(Status::invalid_argument(format!(
+                "{}: {}-{}, {}",
+                t!("实体不存在"),
+                manage_id,
+                entity_id,
+                "validate_entity_id"
+            )))
+        }
     }
-    
+
     Ok(())
 }

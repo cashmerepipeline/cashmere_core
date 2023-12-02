@@ -55,4 +55,3 @@ message EditSchemaFieldNameRequest{
 message EditSchemaFieldNameResponse{
   string result = 1;
 }
-

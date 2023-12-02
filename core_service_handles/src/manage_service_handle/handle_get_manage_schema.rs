@@ -71,7 +71,7 @@ async fn handle_get_manage_schema(
     // 可见性过滤
     let mut result: Vec<CoreSchemaField> = vec![];
     while let Some(field) = field_stream.next().await {
-        if can_field_read(&manage_id.to_string(), &field.id.to_string(), &role_group).await {
+        if can_field_read(&manage_id, &field.id.to_string(), &role_group).await {
             result.push(field.to_owned());
         } else {
             debug!(

@@ -29,9 +29,10 @@ mod handle_edit_entity_field;
 mod handle_edit_entity_map_field;
 mod handle_edit_entity_map_field_remove_key;
 mod handle_edit_multi_entity_fields;
+
+mod handle_get_entity;
 mod handle_get_entities;
 mod handle_get_entities_page;
-mod handle_get_entity;
 mod handle_interactive_get_entities;
 
 mod handle_get_removed_entities_page;
@@ -40,3 +41,5 @@ mod handle_recover_removed_entity;
 mod handle_search;
 
 mod get_manage_entities_page;
+mod send_stream_error;
+mod send_stream_response;

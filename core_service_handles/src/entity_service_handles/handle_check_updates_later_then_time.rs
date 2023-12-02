@@ -115,7 +115,7 @@ async fn handle_check_updates_later_then_time(
     };
 
     let mut query_cursor = match manager
-        .get_entity_stream(query_doc, Some(project_doc), Some(sort_doc))
+        .get_entity_stream(query_doc, Some(project_doc), Some(sort_doc), None, 0)
         .await
     {
         Ok(cursor) => cursor,

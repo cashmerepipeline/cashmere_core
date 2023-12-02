@@ -1,7 +1,10 @@
-use dependencies_sync::bson::{self, Document, doc};
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tokio;
+use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
@@ -11,9 +14,10 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use service_utils::types::UnaryResponseResult;
+use service_utils::types::{ResponseStream, StreamResponseResult, UnaryResponseResult};
+use validates::validate_manage_id;
 
-use super::get_manage_entities_page;
+use super::{get_manage_entities_page, send_stream_response::send_stream_response};
 
 #[async_trait]
 pub trait HandleGetEntitiesPage {
@@ -22,7 +26,7 @@ pub trait HandleGetEntitiesPage {
     async fn handle_get_entities_page(
         &self,
         request: Request<GetEntitiesPageRequest>,
-    ) -> UnaryResponseResult<GetEntitiesPageResponse> {
+    ) -> StreamResponseResult<GetEntitiesPageResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_get_entities_page)
@@ -52,44 +56,74 @@ async fn validate_request_params(
 ) -> Result<Request<GetEntitiesPageRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
 
-    let majordomo_arc = get_majordomo();
-    if majordomo_arc.get_manager_by_id(*manage_id).is_err() {
-        error!("{} {}", t!("没有找到对应的管理器"), manage_id);
-
-        return Err(Status::aborted(format!(
-            "{} {}",
-            t!("没有找到对应的管理器"),
-            manage_id
-        )));
-    };
+    validate_manage_id(manage_id).await?;
 
     Ok(request)
 }
 
 async fn handle_get_entities_page(
     request: Request<GetEntitiesPageRequest>,
-) -> Result<Response<GetEntitiesPageResponse>, Status> {
+) -> StreamResponseResult<GetEntitiesPageResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let page_index = &request.get_ref().page_index;
-    let conditions = &request.get_ref().conditions;
+    let match_doc = &request.get_ref().match_doc;
+    let sort_doc = &request.get_ref().sort_doc;
+    
+    // 页码和起始点不同时起作用
+    let page_index = &request.get_ref().page_index;
+    let start_oid = &request.get_ref().start_oid;
 
-    let sorts_doc: Document = bson::from_slice(&conditions).unwrap_or(Document::new());
+    let match_doc: Document = bson::from_slice(&match_doc).unwrap_or(Document::new());
+    let sort_doc: Document = bson::from_slice(&sort_doc).unwrap_or(Document::new());
 
-    let result = get_manage_entities_page(
-        &account_id, &role_group, manage_id, &doc!{}, &Some(sorts_doc), page_index,
-    )
-    .await;
+    let mut skip_count = page_index * 20;
+    let start_oid: Option<String> = if start_oid.is_empty() {
+        None
+    } else {
+        Some(start_oid.to_string())
+    };
 
-    match result {
-        Ok(entities) => Ok(Response::new(GetEntitiesPageResponse {
-            entities: entities.iter().map(|x| bson::to_vec(&x).unwrap()).collect(),
-        })),
-        Err(e) => Err(Status::aborted(format!(
-            "{} {}",
-            e.operation(),
-            e.details()
-        ))),
-    }
+    let sort = if !sort_doc.is_empty() {
+        let mut result = doc! {};
+        sort_doc.iter().for_each(|(k, v)| {
+            result.insert(k, v);
+        });
+        Some(result)
+    } else {
+        None
+    };
+
+    let majordomo_arc = get_majordomo();
+    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let doc_stream = manager
+        .get_entity_stream(match_doc, None, sort, start_oid, skip_count)
+        .await;
+
+    // 创建返回流
+    let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
+    tokio::spawn(async move {
+        if let Ok(mut d_stream) = doc_stream {
+            // 每页最多返回20个
+            let mut item_count = 0;
+            while let Some(doc) = d_stream.next().await {
+                let resp = GetEntitiesPageResponse {
+                    entity: bson::to_vec(&doc).unwrap(),
+                };
+
+                send_stream_response(&resp_tx, resp).await;
+                item_count += 1;
+                if item_count >= 20 {
+                    break;
+                }
+            }
+        }
+    });
+
+    let resp_stream = ReceiverStream::new(resp_rx);
+
+    Ok(Response::new(
+        Box::pin(resp_stream) as ResponseStream<GetEntitiesPageResponse>
+    ))
 }

@@ -66,7 +66,7 @@ async fn handle_get_categories(
         CATEGORIES_MANAGE_ID_FIELD_ID.to_string():manage_id,
     };
 
-    let result = manager.get_entity_stream(query_doc, None, None).await;
+    let result = manager.get_entity_stream(query_doc, None, None, None, 0).await;
 
     match result {
         Ok(mut entities_iter) => {

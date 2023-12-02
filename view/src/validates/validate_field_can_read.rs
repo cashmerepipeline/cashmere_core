@@ -9,7 +9,7 @@ pub async fn validate_field_can_read(
 ) -> Result<(), Status>{
 
     if !can_field_read(
-        &manage_id.to_string(),
+        &manage_id,
         field_id,
         role_group,
     )

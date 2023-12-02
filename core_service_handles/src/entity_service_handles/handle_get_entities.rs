@@ -1,6 +1,8 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tokio;
+use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
@@ -11,9 +13,11 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, iter, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, filter_can_read_fields};
+use view::{self, can_entity_read, filter_can_read_fields, get_manage_schema_view_mask};
 
-use service_utils::types::UnaryResponseResult;
+use service_utils::types::{ResponseStream, StreamResponseResult, UnaryResponseResult};
+
+use super::send_stream_response::send_stream_response;
 
 #[async_trait]
 pub trait HandleGetEntities {
@@ -21,7 +25,7 @@ pub trait HandleGetEntities {
     async fn handle_get_entities(
         &self,
         request: Request<GetEntitiesRequest>,
-    ) -> UnaryResponseResult<GetEntitiesResponse> {
+    ) -> StreamResponseResult<GetEntitiesResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
             .and_then(handle_get_entities)
@@ -73,7 +77,7 @@ async fn validate_request_params(
     if entity_ids.len() > 100 {
         return Err(Status::invalid_argument(format!(
             "{}-{}",
-            t!("实体列表不能超过100"),
+            t!("一次最多取得100个实体"),
             "get_entities"
         )));
     }
@@ -83,49 +87,47 @@ async fn validate_request_params(
 
 async fn handle_get_entities(
     request: Request<GetEntitiesRequest>,
-) -> Result<Response<GetEntitiesResponse>, Status> {
+) -> StreamResponseResult<GetEntitiesResponse> {
     let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = &request.get_ref().manage_id;
+    let manage_id = request.get_ref().manage_id.clone();
     let entity_ids = &request.get_ref().entity_ids;
+    let no_present_fields = &request.get_ref().no_present_fields;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
-    // 实体可见性过滤
-    let mut filtered_ids = vec![];
-    let mut id_stream = stream::iter(entity_ids);
-    while let Some(ref id) = id_stream.next().await {
-        if can_entity_read(&manage_id.to_string(), &role_group).await {
-            filtered_ids.push(id.to_owned());
+    let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
+    let fields = manager.get_manage_schema().await;
+    let view_mask = get_manage_schema_view_mask(&manage_id, &fields, &role_group).await;
+
+    let mut filtered_ids = no_present_fields.clone();
+    view_mask.iter().for_each(|(k, v)| {
+        if !v {
+            filtered_ids.push(k.to_owned())
         }
-    }
+    });
 
-    let query_doc = doc! {
-        ID_FIELD_ID.to_string():{"$in":filtered_ids.clone()}
-    };
+    let mut id_stream = stream::iter(entity_ids.clone());
+    tokio::spawn(async move {
+        while let Some(ref id) = id_stream.next().await {
+            if can_entity_read(&manage_id.to_string(), &role_group).await {
+                filtered_ids.push(id.to_owned());
+            };
 
-    let result = manager.get_entities_by_filter(&Some(query_doc)).await;
-
-    match result {
-        Ok(entities) => {
-            let mut result_docs = vec![];
-            while let Some(doc) = iter(&entities).next().await {
-                let entity = filter_can_read_fields(doc, manage_id, &role_group).await;
-                result_docs.push(entity);
+            let entity = manager.get_entity_by_id(id, &filtered_ids).await;
+            if let Ok(e) = entity {
+                let resp = GetEntitiesResponse {
+                    entity: bson::to_vec(&e).unwrap(),
+                };
+                send_stream_response(&resp_tx, resp);
             }
-
-            Ok(Response::new(GetEntitiesResponse {
-                entities: result_docs
-                    .iter()
-                    .map(|x| bson::to_vec(x).unwrap())
-                    .collect(),
-            }))
         }
-        Err(e) => Err(Status::aborted(format!(
-            "{} {}",
-            e.operation(),
-            e.details()
-        ))),
-    }
+    });
+
+    let resp_stream = ReceiverStream::new(resp_rx);
+
+    Ok(Response::new(
+        Box::pin(resp_stream) as ResponseStream<GetEntitiesResponse>
+    ))
 }

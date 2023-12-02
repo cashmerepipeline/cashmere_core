@@ -7,14 +7,14 @@ use crate::FilterRule;
 use crate::ReadRule;
 
 /// 实体的可写性，可否修改实体的字段
-pub async fn can_field_read(manage_id: &String, field_id: &String, role_group: &String) -> bool {
+pub async fn can_field_read(manage_id: &i32, field_id: &String, role_group: &String) -> bool {
     // objectId 总可见
     if field_id == "_id"{
         return true;
     }
     
     let collection_view_rules =
-        if let Ok(r) = query_collection_view_rules(manage_id, role_group).await {
+        if let Ok(r) = query_collection_view_rules(&manage_id.to_string(), role_group).await {
             r
         } else {
             log::error!("{}:{}, {}", t!("取得集合可见性规则失败"), role_group, manage_id);
@@ -24,7 +24,7 @@ pub async fn can_field_read(manage_id: &String, field_id: &String, role_group: &
     log::debug!("collection_view_rules: {:?}", collection_view_rules);
 
     let field_view_rules =
-        if let Some(r) = query_field_view_rules(manage_id, field_id, role_group).await {
+        if let Some(r) = query_field_view_rules(&manage_id.to_string(), field_id, role_group).await {
             r
         } else {
             log::error!("{}:{}, {}-{}", t!("取得字段可见性规则失败"), role_group, manage_id, field_id);

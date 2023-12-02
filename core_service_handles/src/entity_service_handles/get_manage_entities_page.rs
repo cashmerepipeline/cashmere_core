@@ -26,6 +26,7 @@ pub(crate) async fn get_manage_entities_page(
     match_doc: &Document,
     sort_doc: &Option<Document>,
     page_index: &u32,
+    no_present_fields: &[String],
 ) -> Result<Vec<Document>, OperationResult> {
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
@@ -37,13 +38,15 @@ pub(crate) async fn get_manage_entities_page(
     }
 
     let fields = manager.get_manage_schema().await;
-    let unsets =
-        get_manage_schema_view_mask(&manage_id.to_string(), &fields, &role_group.to_string())
+    let mut unsets =
+        get_manage_schema_view_mask(&manage_id, &fields, &role_group.to_string())
             .await
             .iter()
             .filter(|(k, v)| **v == false)
             .map(|(k, v)| k.clone())
-            .collect();
+            .collect::<Vec<String>>();
+    
+    no_present_fields.iter().for_each(|k| unsets.push(k.clone()));
 
     let index = if *page_index < 0u32 {
         0u32
