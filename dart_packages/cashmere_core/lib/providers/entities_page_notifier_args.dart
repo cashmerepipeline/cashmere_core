@@ -3,7 +3,7 @@ import 'package:cashmere_core/protocols/entity.pb.dart';
 
 class EntitiesPageNotifierArgs {
   final int manageId;
-  final GrpcCall<GetEntitiesPageRequest, GetEntitiesPageResponse> stubCall;
+  final ResponseStreamGrpcCall<GetEntitiesPageRequest, GetEntitiesPageResponse> stubCall;
 
   EntitiesPageNotifierArgs({required this.manageId, required this.stubCall});
 }

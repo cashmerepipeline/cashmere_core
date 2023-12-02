@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   grpc: ^3.2.4
-  bson: ^4.0.0
+  bson: ^5.0.2
   hooks_riverpod: ^2.4.3
   platform_device_id: ^1.0.1
 

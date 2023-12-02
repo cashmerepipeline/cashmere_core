@@ -331,6 +331,9 @@ pub struct GetEntityRequest {
     pub manage_id: i32,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "3")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -347,6 +350,9 @@ pub struct GetEntitiesRequest {
     /// 列表最长100, 根据需要指定长度
     #[prost(string, repeated, tag = "2")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "3")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -363,14 +369,26 @@ pub struct GetEntitiesPageRequest {
     pub manage_id: i32,
     #[prost(uint32, tag = "2")]
     pub page_index: u32,
+    /// 过滤条件 bson document
     #[prost(bytes = "vec", tag = "3")]
-    pub conditions: ::prost::alloc::vec::Vec<u8>,
+    pub match_doc: ::prost::alloc::vec::Vec<u8>,
+    /// 排序条件 bson document
+    #[prost(bytes = "vec", tag = "4")]
+    pub sort_doc: ::prost::alloc::vec::Vec<u8>,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "5")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 起始oid，用于分页，第一页不需要指定
+    #[prost(string, tag = "6")]
+    pub start_oid: ::prost::alloc::string::String,
 }
+/// 返回为流
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesPageResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    /// bson docuemts
+    #[prost(bytes = "vec", tag = "1")]
+    pub entity: ::prost::alloc::vec::Vec<u8>,
 }
 /// 交互取得实体页
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -385,6 +403,8 @@ pub struct InteractiveGetEntitiesRequest {
     pub match_doc: ::prost::alloc::vec::Vec<u8>,
     #[prost(bytes = "vec", tag = "4")]
     pub sort_doc: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, repeated, tag = "5")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -581,6 +601,22 @@ pub struct GetManageViewRequest {
 pub struct GetManageViewResponse {
     #[prost(string, tag = "1")]
     pub view_token: ::prost::alloc::string::String,
+}
+/// 取得管理模式可视表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSchemaViewRulesMapRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub group_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSchemaViewRulesMapResponse {
+    /// bson document
+    #[prost(bytes = "vec", tag = "1")]
+    pub rules_map: ::prost::alloc::vec::Vec<u8>,
 }
 /// 管理权限
 #[allow(clippy::derive_partial_eq_without_eq)]

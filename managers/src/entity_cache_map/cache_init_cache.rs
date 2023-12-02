@@ -15,7 +15,7 @@ pub async fn cache_init_cache(
 ) -> Result<OperationResult, OperationResult> {
     let mut entities = vec![];
     let mut cursor = if let Ok(r) =
-        entity::get_query_cursor(&manage_id.to_string(), doc! {}, None, None).await
+        entity::get_query_cursor(&manage_id.to_string(), doc! {}, None, None, None, 0).await
     {
         r
     } else {

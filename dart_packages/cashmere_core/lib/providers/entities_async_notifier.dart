@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:account_module/providers/account_provider.dart';
 import 'package:account_module/providers/meta_data_provider.dart';
+import 'package:bson/bson.dart';
 import 'package:cashmere_core/fetchers/fetch_entities_page.dart';
 import 'package:cashmere_core/ids/general_field_ids.dart';
 import 'package:cashmere_core/providers/page_index_state_provider.dart';
@@ -42,13 +43,17 @@ class EntitiesPageAsyncNotifier
     }
 
     fetchedPages.add(pageIndex);
+    final startOid = state.value?.last["_id"]! as ObjectId;
+    debugPrint("fetchMore $pageIndex ${startOid.$oid}");
 
     final metaData = await ref.watch(metaDataFutureProvider.future);
     try {
-      final entities = await fetchEntitiesPage(arg.manageId, pageIndex , arg.stubCall, metaData) ?? [];
-      final newEntities = state.value ?? [];
-      newEntities.addAll(entities);
-      state = AsyncValue.data(newEntities);
+      final stream = await fetchEntitiesPage(arg.manageId, 0, startOid.$oid, {"_id": -1}, arg.stubCall, metaData);
+      stream.listen((entity) {
+        final newEntities = state.value ?? [];
+        newEntities.add(entity);
+        state = AsyncValue.data(newEntities);
+      });
     } catch (err) {
       debugPrint("fetchMore error: $err");
     }
@@ -64,9 +69,14 @@ class EntitiesPageAsyncNotifier
 
     final metaData = await ref.watch(metaDataFutureProvider.future);
     try {
-      final entities = await fetchEntitiesPage(arg.manageId, 0, arg.stubCall, metaData);
+      final stream = await fetchEntitiesPage(arg.manageId, 0, "", {"_id": -1}, arg.stubCall, metaData);
       fetchedPages.add(0);
-      return entities;
+      stream.listen((entity) {
+        final newEntities = state.value ?? [];
+        newEntities.add(entity);
+        state = AsyncValue.data(newEntities);
+      });
+      return [];
     } catch (err) {
       return [];
     }

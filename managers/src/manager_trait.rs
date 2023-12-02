@@ -7,6 +7,7 @@ Introduction:
 use std::{any::Any, sync::Arc};
 
 use cash_core::Manage;
+use cash_core::SchemaField;
 use cash_result::*;
 use database;
 use dependencies_sync::bson;
@@ -16,17 +17,16 @@ use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio::sync::mpsc;
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 use entity;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use cash_core::SchemaField;
 
-use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use crate::entity_cache_map::cache_get_entity;
+use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
 use cash_core::schema_field_exists;
 
 /// 管理接口
@@ -41,15 +41,26 @@ pub trait ManagerTrait: Any + Send + Sync {
         if !database::collection_exists(manage_id).await {
             return Err(operation_failed(
                 "ManagerTrait::init",
-                format!("{}: {}", t!("数据库管理集合不存在, 请先初始化数据库"), manage_id),
+                format!(
+                    "{}: {}",
+                    t!("数据库管理集合不存在, 请先初始化数据库"),
+                    manage_id
+                ),
             ));
         }
 
         // 检查管理实体是否存在，不存在则需创建管理实体
-        if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id).await.is_none() {
+        if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id)
+            .await
+            .is_none()
+        {
             return Err(operation_failed(
                 "ManagerTrait::init",
-                format!("{}: {}", t!("管理实体不存在, 需要先初始化管理实体"), manage_id),
+                format!(
+                    "{}: {}",
+                    t!("管理实体不存在, 需要先初始化管理实体"),
+                    manage_id
+                ),
             ));
         }
 
@@ -104,7 +115,12 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     async fn has_schema_field(&self, field_id: i32) -> bool {
-        let schema = self.get_manage_schema().await.iter().map(|x| x.id).collect::<Vec<i32>>();
+        let schema = self
+            .get_manage_schema()
+            .await
+            .iter()
+            .map(|x| x.id)
+            .collect::<Vec<i32>>();
         schema.contains(&field_id)
     }
 
@@ -305,7 +321,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(()),
@@ -370,7 +386,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(operation_succeed("ok")),
@@ -430,7 +446,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             return Err(add_call_name_to_chain(
                 e,
@@ -525,7 +541,11 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     /// 通过id取得实体
-    async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
+    async fn get_entity_by_id(
+        &self,
+        entity_id: &String,
+        no_present_fields: &Vec<String>,
+    ) -> Result<Document, OperationResult> {
         let manage_id = self.get_id().to_string();
         // 如果存在缓存，从缓存中取得
         if self.has_cache() {
@@ -536,7 +556,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             };
         }
 
-        match entity::get_entity_by_id(&manage_id, entity_id).await {
+        match entity::get_entity_by_id(&manage_id, entity_id, no_present_fields).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
@@ -551,7 +571,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         filter: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id().to_string();
-        match entity::get_entities(&manage_id, filter).await {
+        match entity::get_entities(&manage_id, filter, &vec![]).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
         }
@@ -578,9 +598,11 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     async fn get_entity_stream(
         &self,
-        matches: Document,
+        matche_doc: Document,
         projects: Option<Document>,
         sorts: Option<Document>,
+        start_oid: Option<String>,
+        skip_count: u32,
     ) -> Result<ReceiverStream<Document>, OperationResult> {
         let manage_id = self.get_id();
 
@@ -588,7 +610,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             return Ok(cache_get_entity_stream(self.get_id()).await);
         }
 
-        match entity::get_query_cursor(&manage_id.to_string(), matches, projects, sorts).await {
+        match entity::get_query_cursor(&manage_id.to_string(), matche_doc, projects, sorts, start_oid, skip_count).await {
             Ok(mut r) => {
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {
@@ -601,7 +623,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             }
             Err(e) => Err(add_call_name_to_chain(
                 e,
-                "manager::get_query_cursor".to_string(),
+                "manager::get_entity_stream".to_string(),
             )),
         }
     }
@@ -665,12 +687,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
-    async fn is_mark_removed(
-        &self,
-        entity_id: &str,
-    ) -> bool {
+    async fn is_mark_removed(&self, entity_id: &str) -> bool {
         let manage_id = self.get_id();
-        match entity::get_entity_by_id(&manage_id.to_string(), entity_id).await {
+        match entity::get_entity_by_id(&manage_id.to_string(), entity_id, &[]).await {
             Ok(r) => {
                 if let Ok(b) = r.get_bool(REMOVED_FIELD_ID.to_string()) {
                     return b;
@@ -719,7 +738,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -743,7 +762,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             modify_doc,
             account_id,
         )
-            .await
+        .await
         {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
@@ -796,7 +815,9 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
-        match entity::delete_entity_map_field_key(&manage_id, query_doc, modify_doc, account_id).await {
+        match entity::delete_entity_map_field_key(&manage_id, query_doc, modify_doc, account_id)
+            .await
+        {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
@@ -804,7 +825,6 @@ pub trait ManagerTrait: Any + Send + Sync {
             )),
         }
     }
-
 
     // ---------------------
     // 映像

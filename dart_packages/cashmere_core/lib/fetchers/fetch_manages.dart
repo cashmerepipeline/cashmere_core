@@ -12,8 +12,7 @@ Future<List<Map<String, dynamic>>> fetchManages(
   try {
     final response = await stubCall(request, options: CallOptions(metadata: metaData));
 
-    final bson = BSON();
-    final items = response.manages.map((e) => bson.deserialize(BsonBinary.from(e))).toList();
+    final items = response.manages.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
 
     if (items.isNotEmpty) {
       return items;

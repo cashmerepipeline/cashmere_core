@@ -1535,6 +1535,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   factory GetEntityRequest({
     $core.int? manageId,
     $core.String? entityId,
+    $core.Iterable<$core.String>? noPresentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1542,6 +1543,9 @@ class GetEntityRequest extends $pb.GeneratedMessage {
     }
     if (entityId != null) {
       $result.entityId = entityId;
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
     }
     return $result;
   }
@@ -1552,6 +1556,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
+    ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1593,6 +1598,10 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   $core.bool hasEntityId() => $_has(1);
   @$pb.TagNumber(2)
   void clearEntityId() => clearField(2);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get noPresentFields => $_getList(2);
 }
 
 class GetEntityResponse extends $pb.GeneratedMessage {
@@ -1650,6 +1659,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   factory GetEntitiesRequest({
     $core.int? manageId,
     $core.Iterable<$core.String>? entityIds,
+    $core.Iterable<$core.String>? noPresentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1657,6 +1667,9 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
     }
     if (entityIds != null) {
       $result.entityIds.addAll(entityIds);
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
     }
     return $result;
   }
@@ -1667,6 +1680,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..pPS(2, _omitFieldNames ? '' : 'entityIds')
+    ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1703,6 +1717,10 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   /// 列表最长100, 根据需要指定长度
   @$pb.TagNumber(2)
   $core.List<$core.String> get entityIds => $_getList(1);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get noPresentFields => $_getList(2);
 }
 
 class GetEntitiesResponse extends $pb.GeneratedMessage {
@@ -1755,7 +1773,10 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetEntitiesPageRequest({
     $core.int? manageId,
     $core.int? pageIndex,
-    $core.List<$core.int>? conditions,
+    $core.List<$core.int>? matchDoc,
+    $core.List<$core.int>? sortDoc,
+    $core.Iterable<$core.String>? noPresentFields,
+    $core.String? startOid,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1764,8 +1785,17 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
     if (pageIndex != null) {
       $result.pageIndex = pageIndex;
     }
-    if (conditions != null) {
-      $result.conditions = conditions;
+    if (matchDoc != null) {
+      $result.matchDoc = matchDoc;
+    }
+    if (sortDoc != null) {
+      $result.sortDoc = sortDoc;
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
+    }
+    if (startOid != null) {
+      $result.startOid = startOid;
     }
     return $result;
   }
@@ -1776,7 +1806,10 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesPageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
-    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'conditions', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
+    ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
+    ..aOS(6, _omitFieldNames ? '' : 'startOid')
     ..hasRequiredFields = false
   ;
 
@@ -1819,23 +1852,49 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearPageIndex() => clearField(2);
 
+  /// 过滤条件 bson document
   @$pb.TagNumber(3)
-  $core.List<$core.int> get conditions => $_getN(2);
+  $core.List<$core.int> get matchDoc => $_getN(2);
   @$pb.TagNumber(3)
-  set conditions($core.List<$core.int> v) { $_setBytes(2, v); }
+  set matchDoc($core.List<$core.int> v) { $_setBytes(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasConditions() => $_has(2);
+  $core.bool hasMatchDoc() => $_has(2);
   @$pb.TagNumber(3)
-  void clearConditions() => clearField(3);
+  void clearMatchDoc() => clearField(3);
+
+  /// 排序条件 bson document
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get sortDoc => $_getN(3);
+  @$pb.TagNumber(4)
+  set sortDoc($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSortDoc() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSortDoc() => clearField(4);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get noPresentFields => $_getList(4);
+
+  /// 起始oid，用于分页，第一页不需要指定
+  @$pb.TagNumber(6)
+  $core.String get startOid => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set startOid($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasStartOid() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearStartOid() => clearField(6);
 }
 
+/// 返回为流
 class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   factory GetEntitiesPageResponse({
-    $core.Iterable<$core.List<$core.int>>? entities,
+    $core.List<$core.int>? entity,
   }) {
     final $result = create();
-    if (entities != null) {
-      $result.entities.addAll(entities);
+    if (entity != null) {
+      $result.entity = entity;
     }
     return $result;
   }
@@ -1844,7 +1903,7 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   factory GetEntitiesPageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesPageResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entity', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1869,8 +1928,15 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   static GetEntitiesPageResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetEntitiesPageResponse>(create);
   static GetEntitiesPageResponse? _defaultInstance;
 
+  /// bson docuemts
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+  $core.List<$core.int> get entity => $_getN(0);
+  @$pb.TagNumber(1)
+  set entity($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEntity() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEntity() => clearField(1);
 }
 
 /// 交互取得实体页
@@ -1880,6 +1946,7 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     $core.int? pageIndex,
     $core.List<$core.int>? matchDoc,
     $core.List<$core.int>? sortDoc,
+    $core.Iterable<$core.String>? noPresentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1894,6 +1961,9 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     if (sortDoc != null) {
       $result.sortDoc = sortDoc;
     }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
+    }
     return $result;
   }
   InteractiveGetEntitiesRequest._() : super();
@@ -1905,6 +1975,7 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
+    ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1965,6 +2036,9 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
   $core.bool hasSortDoc() => $_has(3);
   @$pb.TagNumber(4)
   void clearSortDoc() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get noPresentFields => $_getList(4);
 }
 
 class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {

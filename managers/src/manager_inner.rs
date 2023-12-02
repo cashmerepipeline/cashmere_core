@@ -37,8 +37,8 @@ impl ManagerTrait for ManagerInner {
             .await
     }
 
-    async fn get_entity_by_id(&self, entity_id: &String) -> Result<Document, OperationResult> {
-        self.manager.get_entity_by_id(entity_id).await
+    async fn get_entity_by_id(&self, entity_id: &String, no_present_fields: &Vec<String>) -> Result<Document, OperationResult> {
+        self.manager.get_entity_by_id(entity_id, no_present_fields).await
     }
 
     async fn get_entities_by_filter(
