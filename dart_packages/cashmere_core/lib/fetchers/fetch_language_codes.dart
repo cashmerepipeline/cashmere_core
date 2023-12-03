@@ -17,8 +17,7 @@ Future<List<Map<String, dynamic>>> fetchLanguageCodes(
     ),
   );
 
-  final bson = BSON();
-  final items = response.codes.map((e) => bson.deserialize(BsonBinary.from(e))).toList();
+  final items = response.codes.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
 
   return items;
 }

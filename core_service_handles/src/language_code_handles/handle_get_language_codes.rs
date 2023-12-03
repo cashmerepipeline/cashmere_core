@@ -27,7 +27,7 @@ pub trait HandleGetLanguageCodes {
     ) -> UnaryResponseResult<GetLanguageCodesResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_language_codes)
+            .and_then(handle_get_language_codes)
             .await
     }
 }
@@ -46,7 +46,7 @@ async fn validate_request_params(
     Ok(request)
 }
 
-async fn handle_language_codes(
+async fn handle_get_language_codes(
     _request: Request<GetLanguageCodesRequest>,
 ) -> Result<Response<GetLanguageCodesResponse>, Status> {
     let manage_id = LANGUAGES_CODES_MANAGE_ID;
@@ -56,7 +56,7 @@ async fn handle_language_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_entity_stream(query_doc, None, None).await;
+    let result = manager.get_entity_stream(query_doc, None, None, None, 0).await;
 
     match result {
         Ok(mut entities_iter) => {

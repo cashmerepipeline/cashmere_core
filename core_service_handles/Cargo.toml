@@ -33,12 +33,13 @@ managers = { path = "../managers" }
 manage_define = { path = "../manage_define" }
 auth = { path = "../auth" }
 entity = { path = "../entity" }
-property_field = { path = "../property_field" }
+# property_field = { path = "../property_field" }
 view = { path = "../view" }
 request_utils = { path = "../request_utils" }
 service_utils = { path = "../service_utils" }
 database = {path = "../database"}
 search_engine = {path = "../search_engine"}
+validates ={ path = "../validates"}
 
 [features]
 # view_rules_validate = []

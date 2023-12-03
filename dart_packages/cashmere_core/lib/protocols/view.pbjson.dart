@@ -38,6 +38,33 @@ const GetManageViewResponse$json = {
 final $typed_data.Uint8List getManageViewResponseDescriptor = $convert.base64Decode(
     'ChVHZXRNYW5hZ2VWaWV3UmVzcG9uc2USHQoKdmlld190b2tlbhgBIAEoCVIJdmlld1Rva2Vu');
 
+@$core.Deprecated('Use getSchemaViewRulesMapRequestDescriptor instead')
+const GetSchemaViewRulesMapRequest$json = {
+  '1': 'GetSchemaViewRulesMapRequest',
+  '2': [
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
+  ],
+};
+
+/// Descriptor for `GetSchemaViewRulesMapRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getSchemaViewRulesMapRequestDescriptor = $convert.base64Decode(
+    'ChxHZXRTY2hlbWFWaWV3UnVsZXNNYXBSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYW'
+    'dlSWQSGQoIZ3JvdXBfaWQYAiABKAlSB2dyb3VwSWQ=');
+
+@$core.Deprecated('Use getSchemaViewRulesMapResponseDescriptor instead')
+const GetSchemaViewRulesMapResponse$json = {
+  '1': 'GetSchemaViewRulesMapResponse',
+  '2': [
+    {'1': 'rules_map', '3': 1, '4': 1, '5': 12, '10': 'rulesMap'},
+  ],
+};
+
+/// Descriptor for `GetSchemaViewRulesMapResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getSchemaViewRulesMapResponseDescriptor = $convert.base64Decode(
+    'Ch1HZXRTY2hlbWFWaWV3UnVsZXNNYXBSZXNwb25zZRIbCglydWxlc19tYXAYASABKAxSCHJ1bG'
+    'VzTWFw');
+
 @$core.Deprecated('Use changeManageReadRuleRequestDescriptor instead')
 const ChangeManageReadRuleRequest$json = {
   '1': 'ChangeManageReadRuleRequest',

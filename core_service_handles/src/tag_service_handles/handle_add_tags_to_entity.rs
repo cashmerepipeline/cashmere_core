@@ -30,7 +30,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().target_manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
         if let Err(e) = view::validates::validate_entity_can_write(&manage_id, &role_group).await {
             return Err(e);
@@ -73,7 +73,7 @@ async fn validate_request_params(
 async fn handle_add_tags_to_entity(
     request: Request<AddTagsToEntityRequest>,
 ) -> Result<Response<AddTagsToEntityResponse>, Status> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let target_manage_id = &request.get_ref().target_manage_id;
     let target_entity_id = &request.get_ref().target_entity_id;

@@ -35,7 +35,7 @@ async fn validate_view_rules(
   #[cfg(feature = "view_rules_validate")]
   {
       let manage_id = ENTITIY_TEMPLATES_MANAGE_ID;
-      let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+      let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
       if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
           return Err(e);
       }
@@ -53,7 +53,7 @@ async fn validate_request_params(
 async fn handle_remove_entity_template(
   request: Request<RemoveEntityTemplateRequest>,
 ) -> Result<Response<RemoveEntityTemplateResponse>, Status> {
-  let (account_id, _groups, role_group) = request_account_context(request.metadata());
+  let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
   let target_manage_id = &request.get_ref().target_manage_id;
   let target_entity_id = &request.get_ref().target_entity_id;

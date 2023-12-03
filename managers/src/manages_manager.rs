@@ -67,7 +67,7 @@ impl ManagerTrait for ManagesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = MANAGES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
@@ -86,7 +86,7 @@ impl ManagerTrait for ManagesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = MANAGES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
@@ -97,7 +97,7 @@ impl ManagerTrait for ManagesManager {
         }
     }
 
-    async fn get_new_entity_id(&self, _account_id: &String) -> Option<i64> {
+    async fn get_new_entity_id(&self, _account_id: &str) -> Option<i64> {
         None
     }
 

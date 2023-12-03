@@ -5,6 +5,9 @@
 
 id = 10027
 name_map = { zh = "日历帐本", en = "calendar_books" }
+is_searchable = true
+description = "用于记录某个实体的日历信息"
+
 
 # 数据描写 或者 模式
 schema = [
@@ -134,4 +137,16 @@ schema = [
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }

@@ -19,6 +19,7 @@ class EditOperationTypeEnum extends $pb.ProtobufEnum {
   static const EditOperationTypeEnum EIDT_MAP_FIELD = EditOperationTypeEnum._(1, _omitEnumNames ? '' : 'EIDT_MAP_FIELD');
   static const EditOperationTypeEnum EDIT_MAP_FIELD_REMOVE_KEY = EditOperationTypeEnum._(2, _omitEnumNames ? '' : 'EDIT_MAP_FIELD_REMOVE_KEY');
   static const EditOperationTypeEnum EDIT_ADD_TO_ARRAY_FIELD = EditOperationTypeEnum._(3, _omitEnumNames ? '' : 'EDIT_ADD_TO_ARRAY_FIELD');
+  static const EditOperationTypeEnum Edit_UPDATE_ARRAY_ELEMENT_FIELD = EditOperationTypeEnum._(5, _omitEnumNames ? '' : 'Edit_UPDATE_ARRAY_ELEMENT_FIELD');
   static const EditOperationTypeEnum EDIT_REMOVE_FROM_ARRAY_FIELD = EditOperationTypeEnum._(4, _omitEnumNames ? '' : 'EDIT_REMOVE_FROM_ARRAY_FIELD');
 
   static const $core.List<EditOperationTypeEnum> values = <EditOperationTypeEnum> [
@@ -26,6 +27,7 @@ class EditOperationTypeEnum extends $pb.ProtobufEnum {
     EIDT_MAP_FIELD,
     EDIT_MAP_FIELD_REMOVE_KEY,
     EDIT_ADD_TO_ARRAY_FIELD,
+    Edit_UPDATE_ARRAY_ELEMENT_FIELD,
     EDIT_REMOVE_FROM_ARRAY_FIELD,
   ];
 

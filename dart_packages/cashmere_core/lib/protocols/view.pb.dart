@@ -115,6 +115,122 @@ class GetManageViewResponse extends $pb.GeneratedMessage {
   void clearViewToken() => clearField(1);
 }
 
+/// 取得管理模式可视表
+class GetSchemaViewRulesMapRequest extends $pb.GeneratedMessage {
+  factory GetSchemaViewRulesMapRequest({
+    $core.int? manageId,
+    $core.String? groupId,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    if (groupId != null) {
+      $result.groupId = groupId;
+    }
+    return $result;
+  }
+  GetSchemaViewRulesMapRequest._() : super();
+  factory GetSchemaViewRulesMapRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSchemaViewRulesMapRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetSchemaViewRulesMapRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSchemaViewRulesMapRequest clone() => GetSchemaViewRulesMapRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSchemaViewRulesMapRequest copyWith(void Function(GetSchemaViewRulesMapRequest) updates) => super.copyWith((message) => updates(message as GetSchemaViewRulesMapRequest)) as GetSchemaViewRulesMapRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetSchemaViewRulesMapRequest create() => GetSchemaViewRulesMapRequest._();
+  GetSchemaViewRulesMapRequest createEmptyInstance() => create();
+  static $pb.PbList<GetSchemaViewRulesMapRequest> createRepeated() => $pb.PbList<GetSchemaViewRulesMapRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetSchemaViewRulesMapRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSchemaViewRulesMapRequest>(create);
+  static GetSchemaViewRulesMapRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get manageId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get groupId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set groupId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasGroupId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGroupId() => clearField(2);
+}
+
+class GetSchemaViewRulesMapResponse extends $pb.GeneratedMessage {
+  factory GetSchemaViewRulesMapResponse({
+    $core.List<$core.int>? rulesMap,
+  }) {
+    final $result = create();
+    if (rulesMap != null) {
+      $result.rulesMap = rulesMap;
+    }
+    return $result;
+  }
+  GetSchemaViewRulesMapResponse._() : super();
+  factory GetSchemaViewRulesMapResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSchemaViewRulesMapResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetSchemaViewRulesMapResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'rulesMap', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSchemaViewRulesMapResponse clone() => GetSchemaViewRulesMapResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSchemaViewRulesMapResponse copyWith(void Function(GetSchemaViewRulesMapResponse) updates) => super.copyWith((message) => updates(message as GetSchemaViewRulesMapResponse)) as GetSchemaViewRulesMapResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetSchemaViewRulesMapResponse create() => GetSchemaViewRulesMapResponse._();
+  GetSchemaViewRulesMapResponse createEmptyInstance() => create();
+  static $pb.PbList<GetSchemaViewRulesMapResponse> createRepeated() => $pb.PbList<GetSchemaViewRulesMapResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetSchemaViewRulesMapResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSchemaViewRulesMapResponse>(create);
+  static GetSchemaViewRulesMapResponse? _defaultInstance;
+
+  /// bson document
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get rulesMap => $_getN(0);
+  @$pb.TagNumber(1)
+  set rulesMap($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRulesMap() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRulesMap() => clearField(1);
+}
+
 /// 管理权限
 class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeManageReadRuleRequest({

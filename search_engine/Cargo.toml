@@ -15,6 +15,12 @@ entity ={ path = "../entity"}
 majordomo ={ path = "../majordomo"}
 managers ={ path = "../managers"}
 
+tantivy = { version = "0.21.1"}
+# tantivy = {git = "https://github.com/quickwit-oss/tantivy.git", optional = true}
+# cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
+cang-jie = { version = "0.18.0"}
+jieba-rs = { version = "0.6.8"}
+
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = { version = "1.0"}
 
@@ -24,10 +30,10 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "bson",
   "rust-i18n",
   "once_cell",
-  "tantivy",
+  # "tantivy",
   "serde_json",
   "log",
-  "cang-jie",
-  "jieba-rs",
+  # "cang-jie",
+  # "jieba-rs",
 ] }
 

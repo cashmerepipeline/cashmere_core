@@ -1,16 +1,18 @@
-use dependencies_sync::bson::{self, doc};
+use std::collections::HashMap;
+
+use dependencies_sync::bson::doc;
+use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio_stream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
-use dependencies_sync::futures::TryFutureExt;
 
+use cash_core::SchemaField as CoreSchemaField;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use managers::manager_trait::ManagerTrait;
-use property_field::PropertyField;
 use request_utils::request_account_context;
 
 use view::can_field_read;
@@ -35,7 +37,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -55,7 +57,7 @@ async fn validate_request_params(
 async fn handle_get_manage_schema(
     request: Request<GetManageSchemaRequest>,
 ) -> Result<Response<GetManageSchemaResponse>, Status> {
-    let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = request.get_ref().manage_id;
 
@@ -67,14 +69,19 @@ async fn handle_get_manage_schema(
     let mut field_stream = tokio_stream::iter(&fields);
 
     // 可见性过滤
-    let mut result: Vec<PropertyField> = vec![];
+    let mut result: Vec<CoreSchemaField> = vec![];
     while let Some(field) = field_stream.next().await {
-        if can_field_read(&manage_id.to_string(), &field.id.to_string(), &role_group).await {
+        if can_field_read(&manage_id, &field.id.to_string(), &role_group).await {
             result.push(field.to_owned());
-        }
-        else{
-            debug!("{}:, {}-{}, {}", t!("属性不可见"), &manage_id, &field.id, role_group);
-            continue
+        } else {
+            debug!(
+                "{}:, {}-{}, {}",
+                t!("属性不可见"),
+                &manage_id,
+                &field.id,
+                role_group
+            );
+            continue;
         }
     }
 
@@ -82,11 +89,18 @@ async fn handle_get_manage_schema(
     Ok(Response::new(GetManageSchemaResponse {
         fields: result
             .iter()
-            .map(|f| SchemaField {
-                id: f.id,
-                name_map: bson::to_vec(&f.name_map).unwrap(),
-                data_type: f.data_type.to_string(),
-                removed: f.removed,
+            .map(|f| {
+                let mut name_map = HashMap::new();
+                f.name_map.iter().for_each(|(k, v)| {
+                    name_map.insert(k.to_string(), v.to_string());
+                });
+
+                SchemaField {
+                    id: f.id,
+                    name_map,
+                    data_type: f.data_type.to_string(),
+                    removed: f.removed,
+                }
             })
             .collect(),
     }))

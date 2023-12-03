@@ -5,10 +5,13 @@
 
 id = 10024
 name_map = { zh = "标签", en = "tags" }
+is_searchable = true
+description = "对实体进行标记，标记添加到实体的tags表中"
+
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name_map = { zh = "可标管理表", en = "target_manages" }, removed = false },
+    { data_type = "Array", name_map = { zh = "可标管理表", en = "target_manages" }, removed = false },
 ]
 
 [view_rules]
@@ -170,6 +173,18 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }
 
 # 初始实体

@@ -1,15 +1,18 @@
 #
-# 显示模板定义
+# 显示设置定义
 #
 
 id = 10012
 name_map = { zh = "显示设置", en = "show_settings" }
+is_searchable = true
+description = "用于存储客户端的显示设置"
+
 
 # 描写，模式
 schema = [
   { data_type = "Int32", name_map = { zh = "管理编号", en = "manage" }, removed = false },
-  { data_type = "Map", name_map = { zh = "设置", en = "settings" }, removed = false },
-  { data_type = "List", name_map = { zh = "隐藏属性", en = "hidden_schemas" }, removed = false },
+  { data_type = "Document", name_map = { zh = "设置", en = "settings" }, removed = false },
+  { data_type = "Array", name_map = { zh = "隐藏属性", en = "hidden_schemas" }, removed = false },
 ]
 
 [items]
@@ -156,4 +159,16 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }

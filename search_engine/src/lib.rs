@@ -1,3 +1,6 @@
+// #[macro_use]
+// extern crate tantivy;
+
 use dependencies_sync::rust_i18n::{self};
 rust_i18n::i18n!("locales");
 

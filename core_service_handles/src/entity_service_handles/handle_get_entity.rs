@@ -1,6 +1,8 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log;
+use dependencies_sync::rust_i18n::{self, t};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -9,6 +11,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::{validate_manage_id, validate_entity_id};
 use view::{self, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
@@ -34,7 +37,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
             return Err(e);
         }
@@ -46,21 +49,28 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<GetEntityRequest>,
 ) -> Result<Request<GetEntityRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let entity_id = &request.get_ref().entity_id;
+
+    validate_manage_id(manage_id).await?;
+    validate_entity_id(manage_id, entity_id).await?;
+
     Ok(request)
 }
 
 async fn handle_get_entity(
     request: Request<GetEntityRequest>,
 ) -> Result<Response<GetEntityResponse>, Status> {
-    let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
+    let no_present_fields = &request.get_ref().no_present_fields;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
-    let result = manager.get_entity_by_id(entity_id).await;
+    let result = manager.get_entity_by_id(entity_id, no_present_fields).await;
 
     match result {
         Ok(r) => {
@@ -68,10 +78,8 @@ async fn handle_get_entity(
             let mut result_doc = doc!();
             let mut property_stream = stream::iter(r);
             while let Some((k, v)) = property_stream.next().await {
-                if !can_field_read(&manage_id.to_string(), &k, &role_group).await {
-                    if k == *"_id" {
-                        result_doc.insert(k, v);
-                    }
+                if !can_field_read(manage_id, &k, &role_group).await {
+                    log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
                     continue;
                 }
                 result_doc.insert(k, v);

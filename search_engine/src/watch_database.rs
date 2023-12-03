@@ -12,7 +12,9 @@ use dependencies_sync::{
     tokio_stream::StreamExt,
 };
 
-use database::{get_cashmere_database};
+use database::get_database;
+use majordomo::get_majordomo;
+use managers::ManagerTrait;
 
 use crate::database_event_handles::{handle_delete_event, handle_update_event};
 use crate::{
@@ -25,7 +27,7 @@ pub async fn watch_database() {
     run_time.spawn(async move {
         log::info!("{}", t!("开始监听数据库"));
 
-        let database = get_cashmere_database().await;
+        let database = get_database().await;
         let read_concern = ChangeStreamOptions::builder()
             .read_concern(Some(ReadConcern::majority()))
             .full_document(Some(FullDocumentType::UpdateLookup))
@@ -50,10 +52,8 @@ pub async fn watch_database() {
         //     };
 
         while let Some(change_event) = &change_stream.next().await {
-            log::info!("{}:w", t!("修改发生"));
             match change_event {
                 Ok(r) => {
-                    log::info!("{:?}", r);
                     let manage_id = if let Some(ref n) = r.ns {
                         if let Some(ref c) = n.coll {
                             c.parse::<i32>().unwrap()
@@ -63,6 +63,16 @@ pub async fn watch_database() {
                     } else {
                         continue;
                     };
+
+                    {
+                        // 判断是否需要搜索
+                        let majordomo_arc = get_majordomo();
+                        let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+                        if !manager.is_searchable().await {
+                            continue;
+                        }
+                    }
+                    log::info!("{}: {}", t!("接收到数据库变更"), manage_id);
 
                     let _object_id = if let Some(ref dk) = r.document_key {
                         if let Ok(ref oid) = dk.get_object_id("_id") {
@@ -102,7 +112,7 @@ pub async fn watch_database() {
                             // println!("{:?}", r.full_document.as_ref());
                         }
                         _ => {
-                            println!("other operation: {:?}", r.operation_type);
+                            log::debug!("{}: {:?}", t!("发生其他变更"), r.operation_type);
                         }
                     }
                     // println!("{} {}: {:?}", t!("修改发生"), manage_id, r);

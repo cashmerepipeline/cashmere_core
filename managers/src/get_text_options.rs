@@ -1,5 +1,5 @@
-use dependencies_sync::cang_jie::CANG_JIE;
-use dependencies_sync::tantivy::schema::{IndexRecordOption, TextFieldIndexing, TextOptions};
+use cang_jie::CANG_JIE;
+use tantivy::schema::{IndexRecordOption, TextFieldIndexing, TextOptions};
 
 pub fn get_text_options() -> TextOptions {
     let text_indexing = TextFieldIndexing::default()

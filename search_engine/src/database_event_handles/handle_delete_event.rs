@@ -1,4 +1,4 @@
-use dependencies_sync::tantivy::Term;
+use tantivy::Term;
 use majordomo::get_majordomo;
 use managers::manager_trait::ManagerTrait;
 

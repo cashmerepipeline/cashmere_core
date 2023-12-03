@@ -1,0 +1,22 @@
+[package]
+name = "validates"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+majordomo = { path = "../majordomo" }
+managers = { path = "../managers" }
+manage_define = { path = "../manage_define" }
+cash_core = { path = "../cash_core" }
+entity = { path = "../entity" }
+request_utils = { path = "../request_utils" }
+auth = { path = "../auth" }
+
+dependencies_sync = { path = "../dependencies_sync", features = [
+  "rust-i18n",
+  "bson",
+  "tonic",
+  "log",
+]}

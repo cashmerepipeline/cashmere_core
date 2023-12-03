@@ -1,4 +1,4 @@
-use dependencies_sync::bson::{doc};
+use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
@@ -6,14 +6,8 @@ use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::async_trait;
 
-
 use manage_define::cashmere::*;
-
-
-
-
-
-use request_utils::{request_account_context};
+use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Response, Status};
 use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
@@ -61,7 +55,7 @@ async fn validate_request_params(
 }
 
 async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResult<PingResponse> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let mut in_stream = request.into_inner();
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
@@ -81,9 +75,12 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                     if index != &0u64 {
                         let eclapse_time = now - time;
                         //TODO: 根据网速进行动态加载平衡分组
-                        println!("id: {}, account_id: {}, index: {}, eclapse:{}", device_id, account_id, index, eclapse_time);
+                        println!(
+                            "id: {}, account_id: {}, index: {}, eclapse:{}",
+                            device_id, account_id, index, eclapse_time
+                        );
                     }
-                    
+
                     // 5秒一次
                     tokio::time::sleep(std::time::Duration::from_millis(5000)).await;
                     let now = std::time::SystemTime::now()

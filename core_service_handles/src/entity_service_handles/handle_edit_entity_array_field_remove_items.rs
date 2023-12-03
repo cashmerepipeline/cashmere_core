@@ -1,7 +1,7 @@
 use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::prost::bytes::Buf;
+use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
@@ -10,11 +10,11 @@ use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
 use managers::manager_trait::ManagerTrait;
-use request_utils::request_account_context;
-
-
+use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
+
+use validates::{validate_entity_id, validate_field_id, validate_value_doc, validate_role_group, };
 
 #[async_trait]
 pub trait HandleEditEntityArrayFieldRemoveItems {
@@ -23,7 +23,8 @@ pub trait HandleEditEntityArrayFieldRemoveItems {
         &self,
         request: Request<EditEntityArrayFieldRemoveItemsRequest>,
     ) -> UnaryResponseResult<EditEntityArrayFieldRemoveItemsResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_array_field_remove_items)
             .await
@@ -36,7 +37,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -50,13 +51,23 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<EditEntityArrayFieldRemoveItemsRequest>,
 ) -> Result<Request<EditEntityArrayFieldRemoveItemsRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let entity_id = &request.get_ref().entity_id;
+    let field_id = &request.get_ref().field_id;
+    let items = &request.get_ref().items;
+
+    validate_entity_id(manage_id, entity_id).await?;
+    validate_field_id(manage_id, field_id).await?;
+    let fields = get_manage_schema_fields(manage_id).await?;
+    validate_value_doc(items, manage_id, field_id, fields)?;
+
     Ok(request)
 }
 
 async fn handle_edit_entity_array_field_remove_items(
     request: Request<EditEntityArrayFieldRemoveItemsRequest>,
 ) -> UnaryResponseResult<EditEntityArrayFieldRemoveItemsResponse> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;

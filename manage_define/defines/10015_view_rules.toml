@@ -4,6 +4,8 @@
 
 id = 10015
 name_map = { zh = "映像规则", en = "view_rules" }
+is_searchable = false
+description = "映像规则，定义各层级的操作可见性"
 
 # 描写，模式
 schema = [
@@ -25,17 +27,13 @@ schema = [
   # 只有组的       OnlyGroup,
   # 只有主的      OnlyOwner,
 
-  { data_type = "Map", name_map = { zh = "管理级", en = "manage" }, removed = false },
-  { data_type = "Map", name_map = { zh = "属性级", en = "collection" }, removed = false },
-  { data_type = "Map", name_map = { zh = "实体级", en = "entity" }, removed = false },
+  { data_type = "Document", name_map = { zh = "管理级", en = "manage" }, removed = false },
+  { data_type = "Document", name_map = { zh = "属性级", en = "collection" }, removed = false },
+  { data_type = "Document", name_map = { zh = "实体级", en = "entity" }, removed = false },
 ]
 
-[items]
 
 [view_rules]
-id = 10015
-name_map = { zh = "映像规则", en = "view_rules" }
-
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
@@ -187,3 +185,15 @@ name_map = { zh = "映像规则", en = "view_rules" }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[items]

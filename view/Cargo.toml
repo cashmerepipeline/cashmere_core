@@ -14,7 +14,7 @@ entity = { path = "../entity" }
 cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 manage_define = { path = "../manage_define" }
-property_field = { path = "../property_field" }
+# property_field = { path = "../property_field" }
 
 dependencies_sync = { path = "../dependencies_sync", features = ["tonic", "log", "futures", "tokio-stream", "bson", "mongodb", "linked-hash-map"] }
 

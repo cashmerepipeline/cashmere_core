@@ -1,10 +1,11 @@
-import 'package:cashmere_core/manage/schema_field.dart';
+
+import 'package:cashmere_core/protocols/manage_schema.pb.dart';
 
 String getSchemaFieldName(
     List<SchemaField> fields, int fieldId, String languageCode) {
   try {
     final field = fields.firstWhere((i) {
-      return i.fieldId == fieldId;
+      return i.id == fieldId;
     });
 
     final name = field.nameMap[languageCode];

@@ -11,6 +11,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'entity.pbenum.dart';
@@ -28,7 +29,7 @@ class Entity extends $pb.GeneratedMessage {
     $core.String? modifyTimestamp,
     $core.String? ownerId,
     $core.Iterable<$core.String>? groups,
-    $core.Iterable<$core.String>? dataIds,
+    $core.Iterable<$core.String>? specsIds,
     $core.Iterable<$core.String>? commentIds,
     $core.bool? removed,
     $core.Iterable<$core.String>? removedDataIds,
@@ -58,8 +59,8 @@ class Entity extends $pb.GeneratedMessage {
     if (groups != null) {
       $result.groups.addAll(groups);
     }
-    if (dataIds != null) {
-      $result.dataIds.addAll(dataIds);
+    if (specsIds != null) {
+      $result.specsIds.addAll(specsIds);
     }
     if (commentIds != null) {
       $result.commentIds.addAll(commentIds);
@@ -85,7 +86,7 @@ class Entity extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'modifyTimestamp')
     ..aOS(7, _omitFieldNames ? '' : 'ownerId')
     ..pPS(8, _omitFieldNames ? '' : 'groups')
-    ..pPS(9, _omitFieldNames ? '' : 'dataIds')
+    ..pPS(9, _omitFieldNames ? '' : 'specsIds')
     ..pPS(10, _omitFieldNames ? '' : 'commentIds')
     ..aOB(11, _omitFieldNames ? '' : 'removed')
     ..pPS(12, _omitFieldNames ? '' : 'removedDataIds')
@@ -182,7 +183,7 @@ class Entity extends $pb.GeneratedMessage {
   $core.List<$core.String> get groups => $_getList(7);
 
   @$pb.TagNumber(9)
-  $core.List<$core.String> get dataIds => $_getList(8);
+  $core.List<$core.String> get specsIds => $_getList(8);
 
   @$pb.TagNumber(10)
   $core.List<$core.String> get commentIds => $_getList(9);
@@ -594,7 +595,7 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     $core.String? entityId,
     $core.String? fieldId,
     EditOperationTypeEnum? operationType,
-    $core.List<$core.int>? edits,
+    $core.List<$core.int>? edit,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -609,8 +610,8 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     if (operationType != null) {
       $result.operationType = operationType;
     }
-    if (edits != null) {
-      $result.edits = edits;
+    if (edit != null) {
+      $result.edit = edit;
     }
     return $result;
   }
@@ -623,7 +624,7 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..e<EditOperationTypeEnum>(4, _omitFieldNames ? '' : 'operationType', $pb.PbFieldType.OE, defaultOrMaker: EditOperationTypeEnum.EDIT_PRIMARY_FIELD, valueOf: EditOperationTypeEnum.valueOf, enumValues: EditOperationTypeEnum.values)
-    ..a<$core.List<$core.int>>(5, _omitFieldNames ? '' : 'edits', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(5, _omitFieldNames ? '' : 'edit', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -684,20 +685,20 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearOperationType() => clearField(4);
 
-  /// 使用bson Document格式表示，如：{field_id:value}
+  /// 修改, 使用bson Document格式表示，如：{field_id:value}
   @$pb.TagNumber(5)
-  $core.List<$core.int> get edits => $_getN(4);
+  $core.List<$core.int> get edit => $_getN(4);
   @$pb.TagNumber(5)
-  set edits($core.List<$core.int> v) { $_setBytes(4, v); }
+  set edit($core.List<$core.int> v) { $_setBytes(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasEdits() => $_has(4);
+  $core.bool hasEdit() => $_has(4);
   @$pb.TagNumber(5)
-  void clearEdits() => clearField(5);
+  void clearEdit() => clearField(5);
 }
 
-/// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，使用下面单实体单属性编辑接口
-class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
-  factory EditEntitiesFielsdsRequest({
+/// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
+class EditMultiEntityFieldsRequest extends $pb.GeneratedMessage {
+  factory EditMultiEntityFieldsRequest({
     $core.Iterable<EntityFieldEdit>? edits,
   }) {
     final $result = create();
@@ -706,11 +707,11 @@ class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  EditEntitiesFielsdsRequest._() : super();
-  factory EditEntitiesFielsdsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEntitiesFielsdsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  EditMultiEntityFieldsRequest._() : super();
+  factory EditMultiEntityFieldsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditMultiEntityFieldsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntitiesFielsdsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditMultiEntityFieldsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..pc<EntityFieldEdit>(1, _omitFieldNames ? '' : 'edits', $pb.PbFieldType.PM, subBuilder: EntityFieldEdit.create)
     ..hasRequiredFields = false
   ;
@@ -719,43 +720,43 @@ class EditEntitiesFielsdsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsRequest clone() => EditEntitiesFielsdsRequest()..mergeFromMessage(this);
+  EditMultiEntityFieldsRequest clone() => EditMultiEntityFieldsRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsRequest copyWith(void Function(EditEntitiesFielsdsRequest) updates) => super.copyWith((message) => updates(message as EditEntitiesFielsdsRequest)) as EditEntitiesFielsdsRequest;
+  EditMultiEntityFieldsRequest copyWith(void Function(EditMultiEntityFieldsRequest) updates) => super.copyWith((message) => updates(message as EditMultiEntityFieldsRequest)) as EditMultiEntityFieldsRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsRequest create() => EditEntitiesFielsdsRequest._();
-  EditEntitiesFielsdsRequest createEmptyInstance() => create();
-  static $pb.PbList<EditEntitiesFielsdsRequest> createRepeated() => $pb.PbList<EditEntitiesFielsdsRequest>();
+  static EditMultiEntityFieldsRequest create() => EditMultiEntityFieldsRequest._();
+  EditMultiEntityFieldsRequest createEmptyInstance() => create();
+  static $pb.PbList<EditMultiEntityFieldsRequest> createRepeated() => $pb.PbList<EditMultiEntityFieldsRequest>();
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEntitiesFielsdsRequest>(create);
-  static EditEntitiesFielsdsRequest? _defaultInstance;
+  static EditMultiEntityFieldsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditMultiEntityFieldsRequest>(create);
+  static EditMultiEntityFieldsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<EntityFieldEdit> get edits => $_getList(0);
 }
 
-class EditEntitiesFielsdsResponse extends $pb.GeneratedMessage {
-  factory EditEntitiesFielsdsResponse({
-    $core.String? results,
+class EditMultiEntityFieldsResponse extends $pb.GeneratedMessage {
+  factory EditMultiEntityFieldsResponse({
+    $core.String? result,
   }) {
     final $result = create();
-    if (results != null) {
-      $result.results = results;
+    if (result != null) {
+      $result.result = result;
     }
     return $result;
   }
-  EditEntitiesFielsdsResponse._() : super();
-  factory EditEntitiesFielsdsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEntitiesFielsdsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  EditMultiEntityFieldsResponse._() : super();
+  factory EditMultiEntityFieldsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditMultiEntityFieldsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntitiesFielsdsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'results')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditMultiEntityFieldsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
     ..hasRequiredFields = false
   ;
 
@@ -763,35 +764,35 @@ class EditEntitiesFielsdsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsResponse clone() => EditEntitiesFielsdsResponse()..mergeFromMessage(this);
+  EditMultiEntityFieldsResponse clone() => EditMultiEntityFieldsResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EditEntitiesFielsdsResponse copyWith(void Function(EditEntitiesFielsdsResponse) updates) => super.copyWith((message) => updates(message as EditEntitiesFielsdsResponse)) as EditEntitiesFielsdsResponse;
+  EditMultiEntityFieldsResponse copyWith(void Function(EditMultiEntityFieldsResponse) updates) => super.copyWith((message) => updates(message as EditMultiEntityFieldsResponse)) as EditMultiEntityFieldsResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsResponse create() => EditEntitiesFielsdsResponse._();
-  EditEntitiesFielsdsResponse createEmptyInstance() => create();
-  static $pb.PbList<EditEntitiesFielsdsResponse> createRepeated() => $pb.PbList<EditEntitiesFielsdsResponse>();
+  static EditMultiEntityFieldsResponse create() => EditMultiEntityFieldsResponse._();
+  EditMultiEntityFieldsResponse createEmptyInstance() => create();
+  static $pb.PbList<EditMultiEntityFieldsResponse> createRepeated() => $pb.PbList<EditMultiEntityFieldsResponse>();
   @$core.pragma('dart2js:noInline')
-  static EditEntitiesFielsdsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEntitiesFielsdsResponse>(create);
-  static EditEntitiesFielsdsResponse? _defaultInstance;
+  static EditMultiEntityFieldsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditMultiEntityFieldsResponse>(create);
+  static EditMultiEntityFieldsResponse? _defaultInstance;
 
   /// 成功返回"ok"
   @$pb.TagNumber(1)
-  $core.String get results => $_getSZ(0);
+  $core.String get result => $_getSZ(0);
   @$pb.TagNumber(1)
-  set results($core.String v) { $_setString(0, v); }
+  set result($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasResults() => $_has(0);
+  $core.bool hasResult() => $_has(0);
   @$pb.TagNumber(1)
-  void clearResults() => clearField(1);
+  void clearResult() => clearField(1);
 }
 
-/// 通用修改实体属性
+/// 编辑单个实体单个字段，基础类型字段
 class EditEntityFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityFieldRequest({
     $core.int? manageId,
@@ -936,7 +937,7 @@ class EditEntityFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改MAP实体属性
+/// 编辑单个实体MAP字段中的某个属性
 class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRequest({
     $core.int? manageId,
@@ -1095,7 +1096,7 @@ class EditEntityMapFieldResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改MAP移除key
+/// 修改单个实体MAP移除某个key
 class EditEntityMapFieldRemoveKeyRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRemoveKeyRequest({
     $core.int? manageId,
@@ -1239,7 +1240,7 @@ class EditEntityMapFieldRemoveKeyResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改List实体属性, 添加成员
+/// 修改单个实体List实体属性, 添加成员
 class EditEntityArrayFieldAddItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldAddItemsRequest({
     $core.int? manageId,
@@ -1384,7 +1385,7 @@ class EditEntityArrayFieldAddItemsResponse extends $pb.GeneratedMessage {
   void clearResult() => clearField(1);
 }
 
-/// 通用修改List实体属性, 移除物体
+/// 修改单个实体List实体属性, 移除物体
 class EditEntityArrayFieldRemoveItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldRemoveItemsRequest({
     $core.int? manageId,
@@ -1534,6 +1535,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   factory GetEntityRequest({
     $core.int? manageId,
     $core.String? entityId,
+    $core.Iterable<$core.String>? noPresentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1541,6 +1543,9 @@ class GetEntityRequest extends $pb.GeneratedMessage {
     }
     if (entityId != null) {
       $result.entityId = entityId;
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
     }
     return $result;
   }
@@ -1551,6 +1556,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
+    ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1592,6 +1598,10 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   $core.bool hasEntityId() => $_has(1);
   @$pb.TagNumber(2)
   void clearEntityId() => clearField(2);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get noPresentFields => $_getList(2);
 }
 
 class GetEntityResponse extends $pb.GeneratedMessage {
@@ -1649,6 +1659,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   factory GetEntitiesRequest({
     $core.int? manageId,
     $core.Iterable<$core.String>? entityIds,
+    $core.Iterable<$core.String>? noPresentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1656,6 +1667,9 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
     }
     if (entityIds != null) {
       $result.entityIds.addAll(entityIds);
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
     }
     return $result;
   }
@@ -1666,6 +1680,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..pPS(2, _omitFieldNames ? '' : 'entityIds')
+    ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1702,15 +1717,19 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   /// 列表最长100, 根据需要指定长度
   @$pb.TagNumber(2)
   $core.List<$core.String> get entityIds => $_getList(1);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get noPresentFields => $_getList(2);
 }
 
 class GetEntitiesResponse extends $pb.GeneratedMessage {
   factory GetEntitiesResponse({
-    $core.Iterable<$core.List<$core.int>>? entities,
+    $core.List<$core.int>? entity,
   }) {
     final $result = create();
-    if (entities != null) {
-      $result.entities.addAll(entities);
+    if (entity != null) {
+      $result.entity = entity;
     }
     return $result;
   }
@@ -1719,7 +1738,7 @@ class GetEntitiesResponse extends $pb.GeneratedMessage {
   factory GetEntitiesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entity', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1745,7 +1764,13 @@ class GetEntitiesResponse extends $pb.GeneratedMessage {
   static GetEntitiesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+  $core.List<$core.int> get entity => $_getN(0);
+  @$pb.TagNumber(1)
+  set entity($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEntity() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEntity() => clearField(1);
 }
 
 /// 依据页码取得实体页列表，页码从1开始
@@ -1754,7 +1779,10 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetEntitiesPageRequest({
     $core.int? manageId,
     $core.int? pageIndex,
-    $core.List<$core.int>? conditions,
+    $core.List<$core.int>? matchDoc,
+    $core.List<$core.int>? sortDoc,
+    $core.Iterable<$core.String>? noPresentFields,
+    $core.String? startOid,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1763,8 +1791,17 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
     if (pageIndex != null) {
       $result.pageIndex = pageIndex;
     }
-    if (conditions != null) {
-      $result.conditions = conditions;
+    if (matchDoc != null) {
+      $result.matchDoc = matchDoc;
+    }
+    if (sortDoc != null) {
+      $result.sortDoc = sortDoc;
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
+    }
+    if (startOid != null) {
+      $result.startOid = startOid;
     }
     return $result;
   }
@@ -1775,7 +1812,10 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesPageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
-    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'conditions', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
+    ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
+    ..aOS(6, _omitFieldNames ? '' : 'startOid')
     ..hasRequiredFields = false
   ;
 
@@ -1818,23 +1858,49 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearPageIndex() => clearField(2);
 
+  /// 过滤条件 bson document
   @$pb.TagNumber(3)
-  $core.List<$core.int> get conditions => $_getN(2);
+  $core.List<$core.int> get matchDoc => $_getN(2);
   @$pb.TagNumber(3)
-  set conditions($core.List<$core.int> v) { $_setBytes(2, v); }
+  set matchDoc($core.List<$core.int> v) { $_setBytes(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasConditions() => $_has(2);
+  $core.bool hasMatchDoc() => $_has(2);
   @$pb.TagNumber(3)
-  void clearConditions() => clearField(3);
+  void clearMatchDoc() => clearField(3);
+
+  /// 排序条件 bson document
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get sortDoc => $_getN(3);
+  @$pb.TagNumber(4)
+  set sortDoc($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSortDoc() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSortDoc() => clearField(4);
+
+  /// 不出现的字段, 主要用于分步加载数据
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get noPresentFields => $_getList(4);
+
+  /// 起始oid，用于分页，第一页不需要指定
+  @$pb.TagNumber(6)
+  $core.String get startOid => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set startOid($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasStartOid() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearStartOid() => clearField(6);
 }
 
+/// 返回为流
 class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   factory GetEntitiesPageResponse({
-    $core.Iterable<$core.List<$core.int>>? entities,
+    $core.List<$core.int>? entity,
   }) {
     final $result = create();
-    if (entities != null) {
-      $result.entities.addAll(entities);
+    if (entity != null) {
+      $result.entity = entity;
     }
     return $result;
   }
@@ -1843,7 +1909,7 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   factory GetEntitiesPageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesPageResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entity', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1868,8 +1934,189 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
   static GetEntitiesPageResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetEntitiesPageResponse>(create);
   static GetEntitiesPageResponse? _defaultInstance;
 
+  /// bson docuemts
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+  $core.List<$core.int> get entity => $_getN(0);
+  @$pb.TagNumber(1)
+  set entity($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEntity() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEntity() => clearField(1);
+}
+
+/// 交互取得实体页
+class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
+  factory InteractiveGetEntitiesRequest({
+    $core.int? manageId,
+    $core.int? pageIndex,
+    $core.List<$core.int>? matchDoc,
+    $core.List<$core.int>? sortDoc,
+    $core.Iterable<$core.String>? noPresentFields,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    if (pageIndex != null) {
+      $result.pageIndex = pageIndex;
+    }
+    if (matchDoc != null) {
+      $result.matchDoc = matchDoc;
+    }
+    if (sortDoc != null) {
+      $result.sortDoc = sortDoc;
+    }
+    if (noPresentFields != null) {
+      $result.noPresentFields.addAll(noPresentFields);
+    }
+    return $result;
+  }
+  InteractiveGetEntitiesRequest._() : super();
+  factory InteractiveGetEntitiesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InteractiveGetEntitiesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'InteractiveGetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
+    ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesRequest clone() => InteractiveGetEntitiesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesRequest copyWith(void Function(InteractiveGetEntitiesRequest) updates) => super.copyWith((message) => updates(message as InteractiveGetEntitiesRequest)) as InteractiveGetEntitiesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesRequest create() => InteractiveGetEntitiesRequest._();
+  InteractiveGetEntitiesRequest createEmptyInstance() => create();
+  static $pb.PbList<InteractiveGetEntitiesRequest> createRepeated() => $pb.PbList<InteractiveGetEntitiesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InteractiveGetEntitiesRequest>(create);
+  static InteractiveGetEntitiesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get manageId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get pageIndex => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set pageIndex($core.int v) { $_setUnsignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPageIndex() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPageIndex() => clearField(2);
+
+  /// bson document
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get matchDoc => $_getN(2);
+  @$pb.TagNumber(3)
+  set matchDoc($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasMatchDoc() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMatchDoc() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get sortDoc => $_getN(3);
+  @$pb.TagNumber(4)
+  set sortDoc($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSortDoc() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSortDoc() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get noPresentFields => $_getList(4);
+}
+
+class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {
+  factory InteractiveGetEntitiesResponse({
+    $core.int? pageIndex,
+    $core.Iterable<$core.List<$core.int>>? entities,
+    $fixnum.Int64? totalCount,
+  }) {
+    final $result = create();
+    if (pageIndex != null) {
+      $result.pageIndex = pageIndex;
+    }
+    if (entities != null) {
+      $result.entities.addAll(entities);
+    }
+    if (totalCount != null) {
+      $result.totalCount = totalCount;
+    }
+    return $result;
+  }
+  InteractiveGetEntitiesResponse._() : super();
+  factory InteractiveGetEntitiesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InteractiveGetEntitiesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'InteractiveGetEntitiesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
+    ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..a<$fixnum.Int64>(3, _omitFieldNames ? '' : 'totalCount', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesResponse clone() => InteractiveGetEntitiesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  InteractiveGetEntitiesResponse copyWith(void Function(InteractiveGetEntitiesResponse) updates) => super.copyWith((message) => updates(message as InteractiveGetEntitiesResponse)) as InteractiveGetEntitiesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesResponse create() => InteractiveGetEntitiesResponse._();
+  InteractiveGetEntitiesResponse createEmptyInstance() => create();
+  static $pb.PbList<InteractiveGetEntitiesResponse> createRepeated() => $pb.PbList<InteractiveGetEntitiesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static InteractiveGetEntitiesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InteractiveGetEntitiesResponse>(create);
+  static InteractiveGetEntitiesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get pageIndex => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pageIndex($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPageIndex() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPageIndex() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.List<$core.int>> get entities => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get totalCount => $_getI64(2);
+  @$pb.TagNumber(3)
+  set totalCount($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTotalCount() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTotalCount() => clearField(3);
 }
 
 /// 标记实体已移除

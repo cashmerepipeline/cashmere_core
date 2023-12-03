@@ -5,6 +5,9 @@
 
 id = 10021
 name_map = { zh = "地区", en = "areas" }
+is_searchable = true
+description = "地区管理"
+
 
 # 数据描写 或者 模式
 schema = [
@@ -151,6 +154,17 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }
 
 # 初始实体

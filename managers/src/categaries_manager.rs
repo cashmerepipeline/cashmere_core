@@ -4,16 +4,14 @@ use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
-use dependencies_sync::tantivy::schema::*;
 
-use crate::get_text_options::get_text_options;
 use crate::{declare_get_manager, manager_trait::ManagerTrait};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::CATEGORIES_MANAGE_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
+
 use crate::manager::Manager;
 use crate::manager_inner::ManagerInner;
 
@@ -64,7 +62,7 @@ impl ManagerTrait for CategoriesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = CATEGORIES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
@@ -82,7 +80,7 @@ impl ManagerTrait for CategoriesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = CATEGORIES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
@@ -93,17 +91,17 @@ impl ManagerTrait for CategoriesManager {
         }
     }
 
-    fn tantivy_schema(&self)-> Schema {
+    /* fn tantivy_schema(&self)-> Schema {
         let token_options = get_text_options();
 
         let mut schema_builder = Schema::builder();
         let _id = schema_builder.add_text_field("_id", STORED | TEXT);
         let _idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
         let _name_map = schema_builder.add_json_field(NAME_MAP_FIELD_ID.to_string().as_ref(), token_options.clone());
-        let _description = schema_builder.add_text_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref(), token_options);
+        let _description = schema_builder.add_text_field(DESCRIPTION_FIELD_ID.to_string().as_ref(), token_options);
         let _modify_time = schema_builder.add_u64_field(MODIFY_TIMESTAMP_FIELD_ID.to_string().as_ref(), STORED | FAST);
         let _category_manage_id = schema_builder.add_u64_field(CATEGORIES_MANAGE_ID_FIELD_ID.to_string().as_ref(), STORED | FAST);
 
         schema_builder.build()
-    }
+    } */
 }

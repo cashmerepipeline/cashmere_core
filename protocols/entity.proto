@@ -20,7 +20,7 @@ message Entity{
   string modify_timestamp = 6;
   string owner_id = 7;
   repeated string groups = 8;
-  repeated string data_ids = 9;
+  repeated string specs_ids = 9;
   repeated string comment_ids=  10;
   bool removed = 11;
   repeated string removed_data_ids = 12;
@@ -61,10 +61,28 @@ message EditEntityResponse {
 
 // 编辑操作类型
 enum EditOperationTypeEnum {
+  // 修改单个基础类型字段
+  // {field_id:value}
   EDIT_PRIMARY_FIELD = 0;
+
+  // 修改MAP字段，map中的单个字段
+  // {field_id:{"key":value}}
   EIDT_MAP_FIELD = 1;
+
+  // 从MAP中移除某个key，单个字段
+  // {field_id:"key"}
   EDIT_MAP_FIELD_REMOVE_KEY = 2;
+
+  // 向数组中添加一组元素
+  // {field_id:[value, ...]}
   EDIT_ADD_TO_ARRAY_FIELD = 3;
+
+  // 修改数组中某个元素的字段值，单个元素，单个字段
+  // {field_id:{"index": index, "value":value}}
+  Edit_UPDATE_ARRAY_ELEMENT_FIELD = 5;
+
+  // 从数组中移除一组元素
+  // {field_id:[value, ...]}
   EDIT_REMOVE_FROM_ARRAY_FIELD = 4;
 }
 
@@ -73,20 +91,20 @@ message EntityFieldEdit {
     string entity_id = 2;
     string field_id = 3;
     EditOperationTypeEnum operation_type = 4;
-    // 使用bson Document格式表示，如：{field_id:value}
-    bytes edits = 5;
+    // 修改, 使用bson Document格式表示，如：{field_id:value}
+    bytes edit = 5;
 }
 
 // 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
-message EditEntitiesFielsdsRequest{
+message EditMultiEntityFieldsRequest{
   repeated EntityFieldEdit edits = 1;
 }
-message EditEntitiesFielsdsResponse{
+message EditMultiEntityFieldsResponse{
   // 成功返回"ok"
-  string results = 1;
+  string result = 1;
 }
 
-// 编辑单个字段
+// 编辑单个实体单个字段，基础类型字段
 message EditEntityFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -99,7 +117,7 @@ message EditEntityFieldResponse {
   string result = 1;
 }
 
-// 编辑MAP字段中的某个属性
+// 编辑单个实体MAP字段中的某个属性
 message EditEntityMapFieldRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -113,7 +131,7 @@ message EditEntityMapFieldResponse {
   string result = 1;
 }
 
-// 通用修改MAP移除key
+// 修改单个实体MAP移除某个key
 message EditEntityMapFieldRemoveKeyRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -125,7 +143,7 @@ message EditEntityMapFieldRemoveKeyResponse {
   string result = 1;
 }
 
-// 通用修改List实体属性, 添加成员
+// 修改单个实体List实体属性, 添加成员
 message EditEntityArrayFieldAddItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -138,7 +156,7 @@ message EditEntityArrayFieldAddItemsResponse {
   string result = 1;
 }
 
-// 通用修改List实体属性, 移除物体
+// 修改单个实体List实体属性, 移除物体
 message EditEntityArrayFieldRemoveItemsRequest {
     int32 manage_id = 1;
     string entity_id = 2;
@@ -156,6 +174,8 @@ message EditEntityArrayFieldRemoveItemsResponse {
 message GetEntityRequest {
     int32 manage_id = 1;
     string entity_id = 2;
+    // 不出现的字段, 主要用于分步加载数据
+    repeated string no_present_fields = 3;
 }
 message GetEntityResponse {
     bytes entity = 1;
@@ -166,9 +186,11 @@ message GetEntitiesRequest {
     int32 manage_id = 1;
     // 列表最长100, 根据需要指定长度
     repeated string entity_ids = 2;
+    // 不出现的字段, 主要用于分步加载数据
+    repeated string no_present_fields = 3;
 }
 message GetEntitiesResponse {
-    repeated bytes entities = 1;
+    bytes entity = 1;
 }
 
 // 依据页码取得实体页列表，页码从1开始
@@ -176,11 +198,36 @@ message GetEntitiesResponse {
 message GetEntitiesPageRequest {
   int32 manage_id = 1;
   uint32 page_index = 2;
-  bytes conditions = 3;
+  // 过滤条件 bson document
+  bytes match_doc = 3;
+  // 排序条件 bson document
+  bytes sort_doc = 4;
+  // 不出现的字段, 主要用于分步加载数据
+  repeated string no_present_fields = 5;
+  // 起始oid，用于分页，第一页不需要指定
+  string start_oid = 6;
 }
+// 返回为流
 message GetEntitiesPageResponse {
-  repeated bytes entities = 1;
+  // bson docuemts
+  bytes entity = 1;
 }
+
+// 交互取得实体页
+message InteractiveGetEntitiesRequest {
+  int32 manage_id = 1;
+  uint32 page_index = 2;
+  // bson document
+  bytes match_doc = 3;
+  bytes sort_doc = 4;
+  repeated string no_present_fields = 5;
+}
+message InteractiveGetEntitiesResponse {
+  uint32 page_index = 1;
+  repeated bytes entities = 2;
+  uint64 total_count = 3;
+}
+
 
 // 标记实体已移除
 message MarkEntityRemovedRequest {

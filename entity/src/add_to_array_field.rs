@@ -20,12 +20,7 @@ pub async fn add_to_array_field(
         None => return Err(collection_not_exists("push_entity_array_field")),
     };
 
-    if !modify_doc.contains_key("$addToSet") {
-        return Err(operation_failed(
-            "add_to_array_field",
-            format!("{}: {}", t!("需要包含$addToSet"), modify_doc)),
-        );
-    }
+    
 
     let mut _modify_doc = doc! { "$addToSet": modify_doc.clone()};
 

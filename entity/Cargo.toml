@@ -8,7 +8,6 @@ edition = "2021"
 
 [dependencies]
 database = { path = "../database" }
-cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 configs = { path = "../configs" }
 manage_define = { path = "../manage_define" }

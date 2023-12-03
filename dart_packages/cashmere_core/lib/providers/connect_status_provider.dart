@@ -13,7 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:cashmere_core/providers/status_enums/connect_status_enum.dart';
 
 final connectStatusProvider =
-    StreamProvider.family<ConnectStatusEnum, StreamGrpcCall<PingRequest, PingResponse>>((ref, pingCall) async* {
+    StreamProvider.family<ConnectStatusEnum, BiStreamGrpcCall<PingRequest, PingResponse>>((ref, pingCall) async* {
   final metaData = ref.watch(metaDataFutureProvider);
   final deviceId = ref.watch(deviceIdProvider).value;
 

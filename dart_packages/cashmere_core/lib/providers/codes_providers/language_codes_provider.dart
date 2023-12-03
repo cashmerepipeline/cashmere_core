@@ -13,8 +13,7 @@ final countryCodesFutureProvider =
   final response =
       await fetchPrecodedCodes<GetLanguageCodesRequest, GetLanguageCodesResponse>(request, stubCall, metaData);
 
-  final bson = BSON();
-  final items = response.codes.map((e) => bson.deserialize(BsonBinary.from(e))).toList();
+  final items = response.codes.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
 
   return items;
 });

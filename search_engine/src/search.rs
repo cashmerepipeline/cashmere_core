@@ -2,18 +2,20 @@ use std::ops::Deref;
 
 use cash_result::{operation_failed, OperationResult};
 
-use dependencies_sync::tantivy::{collector::TopDocs, query::QueryParser, schema::*};
+use tantivy::{collector::TopDocs, Document as TantivyDocument, query::QueryParser, schema::*};
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
 };
-use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, NAME_MAP_FIELD_ID};
+use manage_define::general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID};
 
 use crate::tantivy_searcher::get_tantivy_searcher;
 use crate::{get_tantivy_schema, get_tantivy_index};
 
 
 pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, OperationResult> {
+    
+    
     log::debug!("{}: {}-{:?}", t!("搜索开始"), manage_id, search_str);
 
     // let schema = if let Some(s) = get_manage_tantivy_schema(manage_id) {
@@ -30,7 +32,7 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
         .get_field(NAME_MAP_FIELD_ID.to_string().as_ref())
         .unwrap();
     let description_f = schema
-        .get_field(DESCRIPTIONS_FIELD_ID.to_string().as_ref())
+        .get_field(DESCRIPTION_FIELD_ID.to_string().as_ref())
         .unwrap();
 
     let index_arc = get_tantivy_index();
@@ -69,7 +71,8 @@ pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, Ope
     for (_score, doc_address) in top_docs {
         let retrieved_doc: TantivyDocument = searcher.doc(doc_address).unwrap();
 
-        let j_doc = retrieved_doc.to_json(&schema);
+        // let j_doc = retrieved_doc.to_json(&schema);
+        let j_doc = Schema::to_json(&schema, &retrieved_doc);
         result.push(j_doc);
     }
 

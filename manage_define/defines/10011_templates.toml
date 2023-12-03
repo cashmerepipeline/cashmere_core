@@ -1,15 +1,17 @@
 #
-# 过程模板管理定义
+# 模板管理定义
 #
 
 id = 10011
 name_map = { zh = "模板", en = "templates" }
+is_searchable = true
+description = "实体模板，用于创建实体时"
 
 # 描写，模式
 schema = [
   { data_type = "Int32", name_map = { zh = "管理", en = "manage_id" }, removed = false },
   # 字段的值表，bson二进制序列
-  { data_type = "Map", name_map = { zh = "预设", en = "presets" }, removed = false },
+  { data_type = "Document", name_map = { zh = "预设", en = "presets" }, removed = false },
 ]
 
 [items]
@@ -147,4 +149,16 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }

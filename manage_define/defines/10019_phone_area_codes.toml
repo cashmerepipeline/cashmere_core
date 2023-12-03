@@ -4,11 +4,14 @@
 
 id = 10019
 name_map = { zh = "手机区号", en = "phone_area_codes" }
+is_searchable = true
+description = "手机区号编码"
+
 
 # 数据描写 或者 模式
 schema = [
   { data_type = "String", name_map = { zh = "编号", en = "code" }, removed = false },
-  { data_type = "List", name_map = { zh = "地区", en = "using_areas" }, removed = false },
+  { data_type = "Array", name_map = { zh = "地区", en = "using_areas" }, removed = false },
 ]
 
 [view_rules]
@@ -147,6 +150,18 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }
 
 # 初始实体

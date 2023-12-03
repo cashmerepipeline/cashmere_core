@@ -16,7 +16,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class SchemaField extends $pb.GeneratedMessage {
   factory SchemaField({
     $core.int? id,
-    $core.List<$core.int>? nameMap,
+    $core.Map<$core.String, $core.String>? nameMap,
     $core.String? dataType,
     $core.bool? removed,
   }) {
@@ -25,7 +25,7 @@ class SchemaField extends $pb.GeneratedMessage {
       $result.id = id;
     }
     if (nameMap != null) {
-      $result.nameMap = nameMap;
+      $result.nameMap.addAll(nameMap);
     }
     if (dataType != null) {
       $result.dataType = dataType;
@@ -41,7 +41,7 @@ class SchemaField extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SchemaField', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.O3)
-    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'nameMap', $pb.PbFieldType.OY)
+    ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'SchemaField.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
     ..aOS(3, _omitFieldNames ? '' : 'dataType')
     ..aOB(4, _omitFieldNames ? '' : 'removed')
     ..hasRequiredFields = false
@@ -78,13 +78,7 @@ class SchemaField extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get nameMap => $_getN(1);
-  @$pb.TagNumber(2)
-  set nameMap($core.List<$core.int> v) { $_setBytes(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasNameMap() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearNameMap() => clearField(2);
+  $core.Map<$core.String, $core.String> get nameMap => $_getMap(1);
 
   @$pb.TagNumber(3)
   $core.String get dataType => $_getSZ(2);

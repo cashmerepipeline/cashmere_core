@@ -16,11 +16,9 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "rust-i18n",
 ] }
 
-cash_core = { path = "../cash_core" }
 cash_result = { path = "../cash_result" }
 configs = { path = "../configs" }
 managers = { path = "../managers" }
 manage_define = { path = "../manage_define" }
 entity = { path = "../entity" }
 database = { path = "../database" }
-property_field = { path = "../property_field" }

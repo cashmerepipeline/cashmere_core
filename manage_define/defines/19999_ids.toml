@@ -1,13 +1,16 @@
 #
-# 事件定义
+# 用于id生成的数据库，不对外可见
 #
 
 id = 19999
 name_map = { zh = "编号器", en = "ids" }
+is_searchable = false
+description = "用于id生成的数据库，不对外可见"
+
 
 # 数据描写 或者 模式
 schema = [
-  { data_type = "List", name_map = { zh = "编号", en = "id_count" }, removed = false },
+  { data_type = "Array", name_map = { zh = "编号", en = "id_count" }, removed = false },
 ]
 
 
@@ -122,5 +125,13 @@ emitor = "String"
 ], write_filters = [
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+10001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }

@@ -15,7 +15,7 @@ members = [
   "configs",
   "database",
   "entity",
-  "property_field",
+  # "property_field",
   #    "server_template",
   "request_utils",
   "core_service_handles",
@@ -26,6 +26,7 @@ members = [
   "view",
   "dependencies_sync",
   "search_engine",
+  "validates",
 ]
 
 exclude = ["server_template", "minit"]

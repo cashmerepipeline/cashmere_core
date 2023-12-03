@@ -11,7 +11,7 @@ use std::sync::Arc;
 use dependencies_sync::bson::{de::from_document, Document};
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::log::info;
+use dependencies_sync::log;
 use dependencies_sync::mongodb;
 use dependencies_sync::parking_lot::RwLock;
 
@@ -59,26 +59,48 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
             Ok(ref d) => {
                 let id = d.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
 
-                info!("{}: {}", t!("初始化管理映像规则表"), id);
+                log::info!("{}: {}", t!("初始化管理映像规则表"), id);
 
-                let manage_rule = from_document(
-                    d.get_document(&VIEW_RULES_MANAGE_FIELD_ID.to_string())
-                        .unwrap()
-                        .clone(),
-                )
-                .unwrap();
-                let collection_rule = from_document(
-                    d.get_document(&VIEW_RULES_COLLECTION_FIELD_ID.to_string())
-                        .unwrap()
-                        .clone(),
-                )
-                .unwrap();
-                let schema_rule = from_document(
-                    d.get_document(&VIEW_RULES_ENTITY_FIELD_ID.to_string())
-                        .unwrap()
-                        .clone(),
-                )
-                .unwrap();
+                let manage_rule =
+                    if let Ok(r) = d.get_document(&VIEW_RULES_MANAGE_FIELD_ID.to_string()) {
+                        match from_document(r.clone()) {
+                            Ok(v) => v,
+                            Err(_) => {
+                                log::error!("{}: {}", t!("初始化管理映像规则表反序列化失败"), id);
+                                panic!("{}: {}", t!("初始化管理映像规则表反序列化失败"), id);
+                            }
+                        }
+                    } else {
+                        log::error!("{}: {}", t!("初始化管理映像规则表失败"), id);
+                        panic!("{}: {}", t!("初始化管理映像规则表失败"), id);
+                    };
+
+                let collection_rule =
+                    if let Ok(r) = d.get_document(&VIEW_RULES_COLLECTION_FIELD_ID.to_string()) {
+                        match from_document(r.clone()) {
+                            Ok(v) => v,
+                            Err(_) => {
+                                log::error!("{}: {}", t!("初始化集合映像规则表反序列化失败"), id);
+                                panic!("{}: {}", t!("初始化集合映像规则表反序列化失败"), id);
+                            }
+                        }
+                    } else {
+                        log::error!("{}: {}", t!("初始化集合映像规则表失败"), id);
+                        panic!("{}: {}", t!("初始化集合映像规则表失败"), id);
+                    };
+                let schema_rule =
+                    if let Ok(r) = d.get_document(&VIEW_RULES_ENTITY_FIELD_ID.to_string()) {
+                        match from_document(r.clone()) {
+                            Ok(v) => v,
+                            Err(_) => {
+                                log::error!("{}: {}", t!("初始化字段映像规则表失败"), id);
+                                panic!("{}: {}", t!("初始化字段映像规则表失败"), id);
+                            }
+                        }
+                    } else {
+                        log::error!("{}: {}", t!("初始化字段映像规则表失败"), id);
+                        panic!("{}: {}", t!("初始化字段映像规则表失败"), id);
+                    };
 
                 let view_rules = ViewRules {
                     manage: manage_rule,

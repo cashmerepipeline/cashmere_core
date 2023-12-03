@@ -11,7 +11,7 @@ use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
-use service_utils::validate_name;
+use validates::validate_name;
 
 #[async_trait]
 pub trait HandleNewCalendarBook {
@@ -33,7 +33,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
-        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -49,13 +49,7 @@ async fn validate_request_params(
 ) -> Result<Request<NewCalendarBookRequest>, Status> {
     let name = &request.get_ref().name;
 
-    if !validate_name(name) {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("名字不能为空"),
-            "add_member"
-        )));
-    }
+    validate_name(name)?;
 
     Ok(request)
 }
@@ -63,7 +57,7 @@ async fn validate_request_params(
 async fn handle_new_calendar_book(
     request: Request<NewCalendarBookRequest>,
 ) -> Result<Response<NewCalendarBookResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &CALENDAR_BOOKS_MANAGE_ID;
 
@@ -117,7 +111,7 @@ async fn handle_new_calendar_book(
             param_manage_id.to_owned(),
         );
         new_entity_doc.insert(CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(), entity_id.to_owned());
-        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.to_owned());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.to_owned());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

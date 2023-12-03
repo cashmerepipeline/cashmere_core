@@ -1,10 +1,8 @@
 use std::{collections::HashMap, sync::Arc};
 
-use dependencies_sync::{
-    cang_jie::{CangJieTokenizer, TokenizerOption, CANG_JIE},
-    jieba_rs::Jieba,
-    tantivy::tokenizer::Tokenizer,
-};
+use cang_jie::{CangJieTokenizer, TokenizerOption, CANG_JIE};
+use jieba_rs::Jieba;
+use tantivy::tokenizer::Tokenizer;
 
 pub fn get_tokenizers() -> HashMap<&'static str, impl Tokenizer> {
     let mut tokenizers = HashMap::new();

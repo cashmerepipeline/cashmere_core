@@ -13,20 +13,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use manageDescriptor instead')
-const Manage$json = {
-  '1': 'Manage',
-  '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
-    {'1': 'name_map', '3': 2, '4': 1, '5': 12, '10': 'nameMap'},
-  ],
-};
-
-/// Descriptor for `Manage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List manageDescriptor = $convert.base64Decode(
-    'CgZNYW5hZ2USGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIZCghuYW1lX21hcBgCIAEoDF'
-    'IHbmFtZU1hcA==');
-
 @$core.Deprecated('Use getManagesRequestDescriptor instead')
 const GetManagesRequest$json = {
   '1': 'GetManagesRequest',
@@ -40,14 +26,13 @@ final $typed_data.Uint8List getManagesRequestDescriptor = $convert.base64Decode(
 const GetManagesResponse$json = {
   '1': 'GetManagesResponse',
   '2': [
-    {'1': 'manages', '3': 1, '4': 3, '5': 11, '6': '.cashmere.Manage', '10': 'manages'},
+    {'1': 'manages', '3': 1, '4': 3, '5': 12, '10': 'manages'},
   ],
 };
 
 /// Descriptor for `GetManagesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getManagesResponseDescriptor = $convert.base64Decode(
-    'ChJHZXRNYW5hZ2VzUmVzcG9uc2USKgoHbWFuYWdlcxgBIAMoCzIQLmNhc2htZXJlLk1hbmFnZV'
-    'IHbWFuYWdlcw==');
+    'ChJHZXRNYW5hZ2VzUmVzcG9uc2USGAoHbWFuYWdlcxgBIAMoDFIHbWFuYWdlcw==');
 
 @$core.Deprecated('Use getManageEntryCountRequestDescriptor instead')
 const GetManageEntryCountRequest$json = {

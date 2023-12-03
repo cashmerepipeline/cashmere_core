@@ -5,11 +5,14 @@
 
 id = 10026
 name_map = { zh = "日历", en = "calendars" }
+is_searchable = true
+description = "日历必须依附于某个帐本"
+
 
 # 数据描写 或者 模式
 schema = [
   { data_type = "Int32", name_map = { zh = "帐本编号", en = "book_id" }, removed = false },
-  { data_type = "Map", name_map = { zh = "日历", en = "calendar" }, removed = false },
+  { data_type = "Document", name_map = { zh = "日历", en = "calendar" }, removed = false },
 ]
 
 # 初始实体
@@ -134,4 +137,16 @@ schema = [
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }

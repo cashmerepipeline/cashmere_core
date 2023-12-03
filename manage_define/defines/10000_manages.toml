@@ -4,10 +4,12 @@
 
 id = 10000
 name_map = { zh = "管理", en = "manages" }
+is_searchable = false
+description = "管理定义，用于描述一个管理中实体具备的字段和属性"
 
 # 描写，模式
 schema = [
-  { data_type = "Map", name_map = { zh = "描写", en = "schema" }, removed = false },
+  { data_type = "Document", name_map = { zh = "描写", en = "schema" }, removed = false },
 ]
 
 # 初始实体
@@ -164,4 +166,15 @@ schema = [
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }

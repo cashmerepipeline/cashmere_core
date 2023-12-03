@@ -1,13 +1,15 @@
-/*
-Author: 闫刚 (yes7rose@sina.com)
-core_ids.rs (c) 2020
-Desc: 核心管理编号
-Created:  2020-11-12T09:37:07.992Z
-Modified: !date!
-*/
-
-pub mod view_rules;
-mod manage;
-
 pub use manage::*;
+pub use manage_from_document::*;
 
+pub use schema_field::*;
+pub use general_schema_fields::*;
+pub use schema_field_exists::*;
+
+mod general_schema_fields;
+mod schema_field;
+mod schema_field_exists;
+
+mod rang;
+
+mod manage;
+mod manage_from_document;

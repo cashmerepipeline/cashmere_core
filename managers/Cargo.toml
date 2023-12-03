@@ -13,7 +13,7 @@ database = { path = "../database" }
 entity = { path = "../entity" }
 configs = { path = "../configs" }
 manage_define = { path = "../manage_define" }
-property_field = { path = "../property_field" }
+# property_field = { path = "../property_field" }
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tonic",
@@ -23,8 +23,6 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "rust-i18n",
   "once_cell",
   "tokio-stream",
-  "cang-jie",
-  "jieba-rs"
 ] }
 
 serde = "1.0"

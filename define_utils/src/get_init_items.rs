@@ -1,4 +1,6 @@
-use bson::Document;
+use dependencies_sync::log;
+use dependencies_sync::bson::{self, Document};
+use dependencies_sync::toml;
 
 /// 初始记录
 pub fn get_init_items(toml_map: &toml::map::Map<String, toml::Value>) -> Option<Vec<Document>> {
@@ -16,7 +18,7 @@ pub fn get_init_items(toml_map: &toml::map::Map<String, toml::Value>) -> Option<
                 let doc = bson::ser::to_document(v_table).unwrap();
                 items.push(doc);
             }
-            println!("\t\t取得初始化实体 {} 个", items.len());
+            log::info!("\t\t取得初始化实体 {} 个", items.len());
             Some(items)
         }
         None => None,

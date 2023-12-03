@@ -12,7 +12,8 @@ use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use managers::utils::make_new_entity_document;
-use request_utils::{request_account_context, validate_auth_token, validate_has_role_group};
+use request_utils::request_account_context;
+use validates::{validate_auth_token, validate_has_role_group};
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
@@ -38,7 +39,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
-        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -58,7 +59,7 @@ async fn validate_request_params(
 async fn handle_new_phone_area_code(
     request: Request<NewPhoneAreaCodeRequest>,
 ) -> Result<Response<NewPhoneAreaCodeResponse>, Status> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let name = &request.get_ref().name;
     let code = &request.get_ref().code;
@@ -102,6 +103,10 @@ async fn handle_new_phone_area_code(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_phone_area_code")))
+        Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新实体失败"),
+            "new_phone_area_code"
+        )))
     }
 }

@@ -9,5 +9,5 @@ edition = "2021"
 
 [build-dependencies]
 dependencies_sync = {path="../dependencies_sync", features=["tonic-build"]}
-manage_define = { path = "../manage_define" }
+define_utils = { path = "../define_utils" }
 

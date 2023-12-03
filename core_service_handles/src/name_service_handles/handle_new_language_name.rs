@@ -31,7 +31,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
-        let (account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
             return Err(e);
         }
@@ -66,7 +66,7 @@ async fn validate_request_params(
 async fn handle_new_language_name(
     request: Request<NewLanguageNameRequest>,
 ) -> Result<Response<NewLanguageNameResponse>, Status> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
@@ -82,7 +82,7 @@ async fn handle_new_language_name(
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
     // 检查语言是否已经存在
-    let entity = manager.get_entity_by_id(entity_id).await.unwrap();
+    let entity = manager.get_entity_by_id(entity_id, &vec![]).await.unwrap();
     let lang_name_exists = entity
         .get_document(NAME_MAP_FIELD_ID.to_string())
         .unwrap()

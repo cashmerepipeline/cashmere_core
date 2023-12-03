@@ -1,5 +1,7 @@
 use std::path::Path;
 
+use dependencies_sync::log;
+
 // 取得目录下的toml文件
 pub fn get_toml_files_of_dir(toml_dir: &String) -> Option<Vec<String>> {
     let mut toml_pathes: Vec<String> = vec![];
@@ -17,7 +19,7 @@ pub fn get_toml_files_of_dir(toml_dir: &String) -> Option<Vec<String>> {
                 // 添加toml文件路径
                 let path_string = path_buf.to_str().unwrap().to_string();
                 if path_string.ends_with(".toml") {
-                    println!("取得管理定义文件 {}", path_string);
+                    log::info!("取得管理定义文件 {}", path_string);
                     toml_pathes.push(path_string);
                 }
             }

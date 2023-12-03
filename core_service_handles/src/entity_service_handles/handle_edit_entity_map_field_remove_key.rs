@@ -15,6 +15,8 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
 
+use validates::{validate_field_id, validate_entity_id, validate_role_group};
+
 #[async_trait]
 pub trait HandleEditEntityMapFieldRemoveKey {
     /// 编辑区域
@@ -22,7 +24,8 @@ pub trait HandleEditEntityMapFieldRemoveKey {
         &self,
         request: Request<EditEntityMapFieldRemoveKeyRequest>,
     ) -> UnaryResponseResult<EditEntityMapFieldRemoveKeyResponse> {
-        validate_view_rules(request)
+        validate_role_group(request)
+            .and_then(validate_view_rules)
             .and_then(validate_request_params)
             .and_then(handle_edit_entity_map_field_remove_key)
             .await
@@ -35,7 +38,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -49,13 +52,21 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<EditEntityMapFieldRemoveKeyRequest>,
 ) -> Result<Request<EditEntityMapFieldRemoveKeyRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let entity_id = &request.get_ref().entity_id;
+    let field_id = &request.get_ref().field_id;
+    let _key = &request.get_ref().key;
+
+    validate_entity_id(manage_id, entity_id).await?;
+    validate_field_id(manage_id, field_id).await?;
+
     Ok(request)
 }
 
 async fn handle_edit_entity_map_field_remove_key(
     request: Request<EditEntityMapFieldRemoveKeyRequest>,
 ) -> Result<Response<EditEntityMapFieldRemoveKeyResponse>, Status> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
@@ -72,7 +83,7 @@ async fn handle_edit_entity_map_field_remove_key(
     modify_doc.insert(format!("{}.{}", field_id, key), bson::Bson::Null);
 
     let result = manager
-        .update_entity_field(query_doc, &mut modify_doc, &account_id)
+        .delete_entity_map_field_key(query_doc, modify_doc, &account_id)
         .await;
 
     match result {

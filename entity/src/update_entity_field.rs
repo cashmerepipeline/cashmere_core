@@ -11,7 +11,7 @@ use dependencies_sync::rust_i18n::{self, t};
 use serde::Deserialize;
 
 use cash_result::*;
-use database::get_cashmere_database;
+use database::get_database;
 use manage_define::general_field_ids::*;
 
 use crate::utils::{get_timestamp_update_doc, add_modify_update_fields};

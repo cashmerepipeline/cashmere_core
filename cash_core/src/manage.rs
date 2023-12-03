@@ -1,85 +1,43 @@
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
 use serde::{Deserialize, Serialize};
 
-use dependencies_sync::bson::{self, Timestamp, Document};
+use dependencies_sync::bson::Timestamp;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
-use cash_result::OperationResult;
-use manage_define::general_property_fields::general_property_fields;
-use property_field::PropertyField;
+use crate::SchemaField;
 
-/// 管理实体
+/// zh: 管理定义，管理实体具有大部分实体属性，在数据库中有具体的实体。管理相关的操作在管理器中定义，每个管理对应一个管理器。
+/// en:
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Manage {
-    pub _id: String,
+    // zh: 数据库分配的id
+    pub object_id: String,
+    // zh: 管理id
     pub id: i32,
+    // zh: 命名表，{lang:native_name, ...}
     pub name_map: LinkedHashMap<String, String>,
+    // zh: 创建人
     pub creator: String,
+    // zh: 创建时间戳
     pub create_timestamp: Timestamp,
+    // zh: 修改人
     pub modifier: String,
+    // zh: 修改时间戳
     pub modify_timestamp: Timestamp,
+
+    // zh: 所属人
     pub owner: String,
+    // zh: 所属组
     pub groups: Vec<String>,
 
-    pub schema: Vec<PropertyField>,
-}
+    // zh: 实体模式表
+    // en: schema
+    pub schema: Vec<SchemaField>,
 
-/// bson文档-->管理实体
-pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationResult> {
-    let _id = manage_doc.get_str("_id").unwrap();
-    let id: i32 = manage_doc
-        .get_str(&ID_FIELD_ID.to_string())
-        .unwrap()
-        .parse()
-        .unwrap();
+    // zh: 能被搜索
+    //  en: is_searchable
+    pub is_searchable: bool,
 
-    let name_map = bson::from_document(
-        manage_doc
-            .get_document(&NAME_MAP_FIELD_ID.to_string())
-            .unwrap()
-            .clone(),
-    )
-        .unwrap();
-
-    let creator = manage_doc.get_str(&CREATOR_FIELD_ID.to_string()).unwrap();
-    let create_timestamp = manage_doc
-        .get_timestamp(CREATE_TIMESTAMP_FIELD_ID.to_string())
-        .unwrap();
-
-    let modifier = manage_doc.get_str(&MODIFIER_FIELD_ID.to_string()).unwrap();
-    let modify_timestamp = manage_doc
-        .get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string())
-        .unwrap();
-
-    let owner = manage_doc.get_str(&OWNER_FIELD_ID.to_string()).unwrap();
-    let groups: Vec<String> = manage_doc
-        .get_array(&GROUPS_FIELD_ID.to_string())
-        .unwrap()
-        .iter()
-        .map(|x| x.as_str().unwrap().to_string())
-        .collect();
-
-    let mut schema = general_property_fields().clone();
-    manage_doc
-        .get_array(&MANAGES_SCHEMA_FIELD_ID.to_string())
-        .unwrap()
-        .iter()
-        .for_each(|x| {
-            let field: PropertyField = PropertyField::from_document(x.as_document().unwrap());
-            schema.push(field);
-        });
-
-    Ok(Manage {
-        _id: _id.to_string(),
-        id,
-        name_map,
-        creator: creator.to_string(),
-        create_timestamp,
-        modifier: modifier.to_string(),
-        modify_timestamp,
-        owner: owner.to_string(),
-        groups,
-        schema,
-    })
+    // zh: 注释
+    // en: description
+    pub description: String,
 }

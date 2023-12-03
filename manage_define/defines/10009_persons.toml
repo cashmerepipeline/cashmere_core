@@ -1,9 +1,12 @@
 #
-# 人管理定义
+# 人管理
 #
 
 id = 10009
 name_map = { zh = "人", en = "persons" }
+is_searchable = false
+description = "人相关信息"
+
 
 # 描写，模式
 schema = [
@@ -11,10 +14,10 @@ schema = [
   { data_type = "String", name_map = { zh = "性别", en = "gender" }, removed = false },
 
   # 2002
-  { data_type = "Date", name_map = { zh = "生日", en = "birthday" }, removed = false },
+  { data_type = "DateTime", name_map = { zh = "生日", en = "birthday" }, removed = false },
   
   # 2003
-  { data_type = "Bytes", name_map = { zh = "头像", en = "portrait" }, removed = false },
+  { data_type = "Binary", name_map = { zh = "头像", en = "portrait" }, removed = false },
   { data_type = "String", name_map = { zh = "地址", en = "address" }, removed = false },
 
 ]
@@ -161,6 +164,26 @@ schema = [
 ] }
 10001 = { read_rule = "Read", write_rule = "OwnerWrite", read_filters = [
 ], write_filters = [
+] }
+
+[view_rules.schema.2004]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
 ] }
 
 [items]

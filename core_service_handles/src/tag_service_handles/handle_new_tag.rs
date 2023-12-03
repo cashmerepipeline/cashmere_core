@@ -15,7 +15,7 @@ use request_utils::request_account_context;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use service_utils::validate_name;
+use validates::validate_name;
 
 #[async_trait]
 pub trait HandleNewTag {
@@ -37,7 +37,7 @@ async fn validate_view_rules(
     {
         let manage_id = TAGS_MANAGE_ID;
 
-        let (account_id, groups, role_group) = request_account_context(request.metadata());
+        let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -54,13 +54,7 @@ async fn validate_request_params(
     let name = &request.get_ref().name;
     let target_manage_id = &request.get_ref().target_manage_id;
     
-    if !validate_name(name) {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("名字不能为空"),
-            "new_tag"
-        )));
-    }
+    validate_name(name)?;
     
     // 目标管理不能为空
     if *target_manage_id == 0i32 {
@@ -75,7 +69,7 @@ async fn validate_request_params(
 }
 
 async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<NewTagResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
     let manager_id = TAGS_MANAGE_ID;
 
     let name = &request.get_ref().name;
@@ -110,7 +104,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
     if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(TAGS_TARGET_MANAGES_FIELD_ID.to_string(), target_manage_id);
-        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

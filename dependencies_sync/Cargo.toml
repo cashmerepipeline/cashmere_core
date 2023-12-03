@@ -5,7 +5,9 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-# NOTE: cargo workspace 要求必须再一个目录结构下面，所以这里使用了这个单独的包作为同步依赖的包 显得有些繁琐
+# NOTE: cargo workspace 要求必须再一个目录结构下面，所以这里使用了这个单独的包用来同步依赖，保证版本一致
+
+# 问题： 会造成不必要的依赖多，编译慢，如果模块单独依赖的包，可以考虑单独添加。还有部分生成代码的依赖需要将依赖单独添加
 
 [dependencies]
 futures = { version = "0.3.13", optional = true }
@@ -13,22 +15,23 @@ tokio = { version = "1.21.2", features = ["full"], optional = true }
 tokio-stream = { version = "0.1.11", optional = true }
 parking_lot = { version = "0.12.1", optional = true }
 
+glob = { version = "0.3.0", optional = true }
 fs4 = { version = "0.6.6", features = ["tokio-async"], optional = true }
 
 chrono = { version = "0.4.19", features = ["serde"], optional = true }
 
-mongodb = { version = "2.5.0", optional = true }
+mongodb = { version = "2.6.1", optional = true }
 bson = { version = "2.6.1", optional = true }
 toml = { version = "0.5.8", features = ["preserve_order"], optional = true }
 
 md-5 = { version = "0.10.1", optional = true }
 bytes = { version = "1.4", optional = true }
 hex = { version = "0.4.3", optional = true }
-linked-hash-map = { version = "0.5.6", optional = true }
+linked-hash-map = { version = "0.5.6", optional = true, features = ["serde_impl"]}
 
 serde = { version = "1.0", features = ["derive"], optional = true }
 serde_derive = { version = "1.0", optional = true }
-serde_json = {version = "1.0", optional = true }
+serde_json = { version = "1.0", optional = true }
 
 tower = { version = "0.4.13", optional = true }
 prost = { version = "0.12", optional = true }
@@ -43,10 +46,12 @@ rust-i18n = { version = "2.2.1", optional = true }
 
 clap = { version = "3.2.23", optional = true }
 
-# tantivy = { version = "0.21.1" }
-tantivy = {git = "https://github.com/quickwit-oss/tantivy.git"}
-cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
-jieba-rs ={ version = "0.6.8", optional = true}
+# 搜索引擎依赖移动到搜索引擎中，log库依赖冲突
+# tantivy = { version = "0.21.1"}
+# tantivy = {git = "https://github.com/quickwit-oss/tantivy.git", optional = true}
+# cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
+# cang-jie = { version = "0.18.0"}
+# jieba-rs = { version = "0.6.8"}
 
 [features]
 futures = ["dep:futures"]
@@ -60,9 +65,9 @@ mongodb = ["dep:mongodb"]
 bson = ["dep:bson"]
 toml = ["dep:toml"]
 
-tantivy = []
-cang-jie = ["dep:cang-jie"]
-jieba-rs = ["dep:jieba-rs"]
+# tantivy = ["dep:tantivy"]
+# cang-jie = ["dep:cang-jie"]
+# jieba-rs = ["dep:jieba-rs"]
 
 linked-hash-map = ["dep:linked-hash-map"]
 md-5 = ["dep:md-5"]
@@ -77,6 +82,7 @@ prost = ["dep:prost"]
 tonic = ["dep:tonic"]
 tonic-build = ["dep:tonic-build"]
 
+glob = ["dep:glob"]
 fs4 = ["dep:fs4"]
 
 log = ["dep:log"]

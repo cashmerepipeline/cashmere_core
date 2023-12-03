@@ -1,6 +1,6 @@
 [package]
 name = "manage_define"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["wangrongwen <403271579@qq.com>"]
 edition = "2021"
 
@@ -9,13 +9,9 @@ edition = "2021"
 [dependencies]
 dependencies_sync = {path="../dependencies_sync", features = ["tonic", "toml", "linked-hash-map", "bson", "log"]}
 
-glob = "0.3.0"
-
 tonic = { version = "0.10.2", features = ["tls"] }
 prost = "0.12.1"
-serde_derive = { version = "1.0.131"}
-serde = { version = "1.0.131"}
-
-property_field = {path="../property_field"}
+serde_derive = { version = "1.0"}
+serde = { version = "1.0"}
 
 [build-dependencies]

@@ -1,4 +1,5 @@
 use crate::DatabaseConfigs;
+use configs::ConfigTrait;
 use dependencies_sync::mongodb::Client;
 use dependencies_sync::mongodb::options::{ClientOptions, ServerAddress};
 use std::sync::Arc;
@@ -11,7 +12,7 @@ pub async fn get_mongodb_client() -> &'static Client {
         if MONGODB_CLIENT.is_some() {
             MONGODB_CLIENT.as_ref().unwrap()
         } else {
-            let database_configs = configs::get_config::<DatabaseConfigs>().unwrap();
+            let database_configs = DatabaseConfigs::get();
 
             MONGODB_CLIENT.get_or_insert_with(|| {
                 let options = ClientOptions::builder()

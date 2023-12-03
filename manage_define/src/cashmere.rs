@@ -84,14 +84,6 @@ pub struct RemoveLanguageNameResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Manage {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
-}
 /// 取得管理列表
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -99,8 +91,9 @@ pub struct GetManagesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManagesResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub manages: ::prost::alloc::vec::Vec<Manage>,
+    /// 类型为bson document bytes
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub manages: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 取得记录数量
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -135,7 +128,7 @@ pub struct Entity {
     #[prost(string, repeated, tag = "8")]
     pub groups: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, repeated, tag = "9")]
-    pub data_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    pub specs_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, repeated, tag = "10")]
     pub comment_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(bool, tag = "11")]
@@ -206,25 +199,25 @@ pub struct EntityFieldEdit {
     pub field_id: ::prost::alloc::string::String,
     #[prost(enumeration = "EditOperationTypeEnum", tag = "4")]
     pub operation_type: i32,
-    /// 使用bson Document格式表示，如：{field_id:value}
+    /// 修改, 使用bson Document格式表示，如：{field_id:value}
     #[prost(bytes = "vec", tag = "5")]
-    pub edits: ::prost::alloc::vec::Vec<u8>,
+    pub edit: ::prost::alloc::vec::Vec<u8>,
 }
 /// 支持多实体多属性一次提交，如果是单实体单属性编辑提交，也可以使用下面单属性编辑接口
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntitiesFielsdsRequest {
+pub struct EditMultiEntityFieldsRequest {
     #[prost(message, repeated, tag = "1")]
     pub edits: ::prost::alloc::vec::Vec<EntityFieldEdit>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EditEntitiesFielsdsResponse {
+pub struct EditMultiEntityFieldsResponse {
     /// 成功返回"ok"
     #[prost(string, tag = "1")]
-    pub results: ::prost::alloc::string::String,
+    pub result: ::prost::alloc::string::String,
 }
-/// 编辑单个字段
+/// 编辑单个实体单个字段，基础类型字段
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityFieldRequest {
@@ -245,7 +238,7 @@ pub struct EditEntityFieldResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 编辑MAP字段中的某个属性
+/// 编辑单个实体MAP字段中的某个属性
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRequest {
@@ -268,7 +261,7 @@ pub struct EditEntityMapFieldResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改MAP移除key
+/// 修改单个实体MAP移除某个key
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRemoveKeyRequest {
@@ -288,7 +281,7 @@ pub struct EditEntityMapFieldRemoveKeyResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改List实体属性, 添加成员
+/// 修改单个实体List实体属性, 添加成员
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldAddItemsRequest {
@@ -309,7 +302,7 @@ pub struct EditEntityArrayFieldAddItemsResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 通用修改List实体属性, 移除物体
+/// 修改单个实体List实体属性, 移除物体
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldRemoveItemsRequest {
@@ -338,6 +331,9 @@ pub struct GetEntityRequest {
     pub manage_id: i32,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "3")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -354,12 +350,15 @@ pub struct GetEntitiesRequest {
     /// 列表最长100, 根据需要指定长度
     #[prost(string, repeated, tag = "2")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "3")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(bytes = "vec", tag = "1")]
+    pub entity: ::prost::alloc::vec::Vec<u8>,
 }
 /// 依据页码取得实体页列表，页码从1开始
 /// 需要先取得实体总数，然后计算页数
@@ -370,14 +369,52 @@ pub struct GetEntitiesPageRequest {
     pub manage_id: i32,
     #[prost(uint32, tag = "2")]
     pub page_index: u32,
+    /// 过滤条件 bson document
     #[prost(bytes = "vec", tag = "3")]
-    pub conditions: ::prost::alloc::vec::Vec<u8>,
+    pub match_doc: ::prost::alloc::vec::Vec<u8>,
+    /// 排序条件 bson document
+    #[prost(bytes = "vec", tag = "4")]
+    pub sort_doc: ::prost::alloc::vec::Vec<u8>,
+    /// 不出现的字段, 主要用于分步加载数据
+    #[prost(string, repeated, tag = "5")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// 起始oid，用于分页，第一页不需要指定
+    #[prost(string, tag = "6")]
+    pub start_oid: ::prost::alloc::string::String,
 }
+/// 返回为流
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesPageResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
+    /// bson docuemts
+    #[prost(bytes = "vec", tag = "1")]
+    pub entity: ::prost::alloc::vec::Vec<u8>,
+}
+/// 交互取得实体页
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InteractiveGetEntitiesRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(uint32, tag = "2")]
+    pub page_index: u32,
+    /// bson document
+    #[prost(bytes = "vec", tag = "3")]
+    pub match_doc: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub sort_doc: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, repeated, tag = "5")]
+    pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InteractiveGetEntitiesResponse {
+    #[prost(uint32, tag = "1")]
+    pub page_index: u32,
+    #[prost(bytes = "vec", repeated, tag = "2")]
     pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    #[prost(uint64, tag = "3")]
+    pub total_count: u64,
 }
 /// 标记实体已移除
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -500,10 +537,23 @@ pub struct CheckUpdatesLaterThenTimeResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum EditOperationTypeEnum {
+    /// 修改单个基础类型字段
+    /// {field_id:value}
     EditPrimaryField = 0,
+    /// 修改MAP字段，map中的单个字段
+    /// {field_id:{"key":value}}
     EidtMapField = 1,
+    /// 从MAP中移除某个key，单个字段
+    /// {field_id:"key"}
     EditMapFieldRemoveKey = 2,
+    /// 向数组中添加一组元素
+    /// {field_id:\[value, ...\]}
     EditAddToArrayField = 3,
+    /// 修改数组中某个元素的字段值，单个元素，单个字段
+    /// {field_id:{"index": index, "value":value}}
+    EditUpdateArrayElementField = 5,
+    /// 从数组中移除一组元素
+    /// {field_id:\[value, ...\]}
     EditRemoveFromArrayField = 4,
 }
 impl EditOperationTypeEnum {
@@ -517,6 +567,9 @@ impl EditOperationTypeEnum {
             EditOperationTypeEnum::EidtMapField => "EIDT_MAP_FIELD",
             EditOperationTypeEnum::EditMapFieldRemoveKey => "EDIT_MAP_FIELD_REMOVE_KEY",
             EditOperationTypeEnum::EditAddToArrayField => "EDIT_ADD_TO_ARRAY_FIELD",
+            EditOperationTypeEnum::EditUpdateArrayElementField => {
+                "Edit_UPDATE_ARRAY_ELEMENT_FIELD"
+            }
             EditOperationTypeEnum::EditRemoveFromArrayField => {
                 "EDIT_REMOVE_FROM_ARRAY_FIELD"
             }
@@ -529,6 +582,7 @@ impl EditOperationTypeEnum {
             "EIDT_MAP_FIELD" => Some(Self::EidtMapField),
             "EDIT_MAP_FIELD_REMOVE_KEY" => Some(Self::EditMapFieldRemoveKey),
             "EDIT_ADD_TO_ARRAY_FIELD" => Some(Self::EditAddToArrayField),
+            "Edit_UPDATE_ARRAY_ELEMENT_FIELD" => Some(Self::EditUpdateArrayElementField),
             "EDIT_REMOVE_FROM_ARRAY_FIELD" => Some(Self::EditRemoveFromArrayField),
             _ => None,
         }
@@ -547,6 +601,22 @@ pub struct GetManageViewRequest {
 pub struct GetManageViewResponse {
     #[prost(string, tag = "1")]
     pub view_token: ::prost::alloc::string::String,
+}
+/// 取得管理模式可视表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSchemaViewRulesMapRequest {
+    #[prost(int32, tag = "1")]
+    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub group_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSchemaViewRulesMapResponse {
+    /// bson document
+    #[prost(bytes = "vec", tag = "1")]
+    pub rules_map: ::prost::alloc::vec::Vec<u8>,
 }
 /// 管理权限
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -656,8 +726,11 @@ pub struct ChangeFieldWriteRuleResponse {
 pub struct SchemaField {
     #[prost(int32, tag = "1")]
     pub id: i32,
-    #[prost(bytes = "vec", tag = "2")]
-    pub name_map: ::prost::alloc::vec::Vec<u8>,
+    #[prost(map = "string, string", tag = "2")]
+    pub name_map: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     #[prost(string, tag = "3")]
     pub data_type: ::prost::alloc::string::String,
     #[prost(bool, tag = "4")]

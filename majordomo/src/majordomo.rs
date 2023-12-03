@@ -17,7 +17,7 @@ pub struct Majordomo;
 impl Majordomo {
     /// 新建
     pub fn new() -> Majordomo {
-        Majordomo::default()
+        Majordomo
     }
 
     /// 取得管理器, 返回Arc指针
@@ -27,14 +27,14 @@ impl Majordomo {
 
         managers
             .get(&id)
-            .cloned()
             .ok_or(operation_failed(
                 format!("get_manager_by_id {}", id),
                 "取得管理器失败",
             ))
-            .and_then(|manager| {
+            .cloned()
+            .map(|manager| {
                 debug!("{}: {}-{}", t!("成功获取管理器"), id, manager.get_name());
-                Ok(manager)
+                manager
             })
     }
 

@@ -24,6 +24,7 @@ pub use get_entity_by_id::*;
 pub use get_entity_by_objectid::*;
 pub use get_entity_by_name::*;
 pub use get_entry_count::*;
+pub use count_entity::*;
 pub use get_entity_field::*;
 pub use get_entity_field_as_string::*;
 pub use get_entity_field_as_type::*;
@@ -44,7 +45,9 @@ pub use update_entity_array_map_field::*;
 pub use update_entity_field::*;
 pub use update_entity_fields::*;
 pub use update_entity_map_field::*;
+pub use delete_entity_map_field_key::*;
 pub use update_timestamp_field::*;
+pub use update_multi_entity_fields::*;
 
 mod utils;
 mod get_new_entity_id;
@@ -65,6 +68,7 @@ mod update_entity_array_map_field;
 mod update_entity_fields;
 mod insert_entity_map_field;
 mod update_entity_map_field;
+mod delete_entity_map_field_key;
 
 mod get_entity_by_id;
 mod get_entity_by_objectid;
@@ -82,4 +86,5 @@ mod get_entity_owner;
 mod get_entity_groups;
 
 mod get_entry_count;
-mod get_entity_count;
+mod count_entity;
+mod update_multi_entity_fields;

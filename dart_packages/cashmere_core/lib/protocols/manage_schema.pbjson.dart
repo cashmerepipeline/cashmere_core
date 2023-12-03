@@ -18,16 +18,29 @@ const SchemaField$json = {
   '1': 'SchemaField',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
-    {'1': 'name_map', '3': 2, '4': 1, '5': 12, '10': 'nameMap'},
+    {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.SchemaField.NameMapEntry', '10': 'nameMap'},
     {'1': 'data_type', '3': 3, '4': 1, '5': 9, '10': 'dataType'},
     {'1': 'removed', '3': 4, '4': 1, '5': 8, '10': 'removed'},
   ],
+  '3': [SchemaField_NameMapEntry$json],
+};
+
+@$core.Deprecated('Use schemaFieldDescriptor instead')
+const SchemaField_NameMapEntry$json = {
+  '1': 'NameMapEntry',
+  '2': [
+    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+  ],
+  '7': {'7': true},
 };
 
 /// Descriptor for `SchemaField`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List schemaFieldDescriptor = $convert.base64Decode(
-    'CgtTY2hlbWFGaWVsZBIOCgJpZBgBIAEoBVICaWQSGQoIbmFtZV9tYXAYAiABKAxSB25hbWVNYX'
-    'ASGwoJZGF0YV90eXBlGAMgASgJUghkYXRhVHlwZRIYCgdyZW1vdmVkGAQgASgIUgdyZW1vdmVk');
+    'CgtTY2hlbWFGaWVsZBIOCgJpZBgBIAEoBVICaWQSPQoIbmFtZV9tYXAYAiADKAsyIi5jYXNobW'
+    'VyZS5TY2hlbWFGaWVsZC5OYW1lTWFwRW50cnlSB25hbWVNYXASGwoJZGF0YV90eXBlGAMgASgJ'
+    'UghkYXRhVHlwZRIYCgdyZW1vdmVkGAQgASgIUgdyZW1vdmVkGjoKDE5hbWVNYXBFbnRyeRIQCg'
+    'NrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWU6AjgB');
 
 @$core.Deprecated('Use getManageSchemaRequestDescriptor instead')
 const GetManageSchemaRequest$json = {

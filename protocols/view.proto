@@ -19,6 +19,16 @@ message GetManageViewResponse{
   string view_token =1;
 }
 
+// 取得管理模式可视表
+message GetSchemaViewRulesMapRequest{
+  int32 manage_id =1;
+  string group_id =2;
+}
+message GetSchemaViewRulesMapResponse{
+  // bson document
+  bytes rules_map =1;
+}
+
 // 管理权限
 message ChangeManageReadRuleRequest {
   int32 manage_id = 1;

@@ -17,7 +17,7 @@ fn main() {
         .compile(&["../protocols/cashmere.proto"], &["../protocols"])
         .unwrap();
 
-    manage_define::utils::generate_manage_defines(
+    define_utils::generate_manage_defines(
         &vec!["../manage_define/defines"],
         "../manage_define/src",
         Some("../dart_packages/cashmere_core/lib/ids"),

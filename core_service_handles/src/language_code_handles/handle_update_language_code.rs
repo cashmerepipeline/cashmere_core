@@ -32,7 +32,7 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = LANGUAGES_CODES_MANAGE_ID;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata());
+        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
         {
@@ -52,7 +52,7 @@ async fn validate_request_params(
 async fn handle_update_language_code(
     request: Request<UpdateLanguageCodeRequest>,
 ) -> Result<Response<UpdateLanguageCodeResponse>, Status> {
-    let (account_id, _groups, _role_group) = request_account_context(request.metadata());
+    let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let id = &request.get_ref().id;
     let new_code = &request.get_ref().new_code;
