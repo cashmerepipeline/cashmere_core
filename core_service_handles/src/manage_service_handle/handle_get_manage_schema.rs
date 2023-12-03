@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use dependencies_sync::bson::{self, doc};
+use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
@@ -97,7 +97,7 @@ async fn handle_get_manage_schema(
 
                 SchemaField {
                     id: f.id,
-                    name_map: name_map,
+                    name_map,
                     data_type: f.data_type.to_string(),
                     removed: f.removed,
                 }

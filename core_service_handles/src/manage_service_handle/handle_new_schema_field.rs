@@ -1,4 +1,4 @@
-use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
@@ -12,10 +12,10 @@ use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-use validates::{validate_role_group, validate_field_id};
+use validates::{validate_field_id, validate_role_group};
 
 #[async_trait]
-pub trait HandleNewSchemaField{
+pub trait HandleNewSchemaField {
     /// 新建管理属性
     async fn handle_new_schema_field(
         &self,
@@ -49,12 +49,18 @@ async fn validate_request_params(
 ) -> Result<Request<NewSchemaFieldRequest>, Status> {
     let manage_id = request.get_ref().manage_id;
     let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
-    
+
     // 已经存在
-    if validate_field_id(&manage_id, &field.id.to_string()).await.is_ok(){
-        return Err(Status::already_exists(
-            format!("{}: {}-{}", t!("字段已经存在"), manage_id, field.id)
-        ));
+    if validate_field_id(&manage_id, &field.id.to_string())
+        .await
+        .is_ok()
+    {
+        return Err(Status::already_exists(format!(
+            "{}: {}-{}",
+            t!("字段已经存在"),
+            manage_id,
+            field.id
+        )));
     }
 
     Ok(request)

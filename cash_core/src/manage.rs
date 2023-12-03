@@ -30,7 +30,7 @@ pub struct Manage {
     pub groups: Vec<String>,
 
     // zh: 实体模式表
-    // en: 
+    // en: schema
     pub schema: Vec<SchemaField>,
 
     // zh: 能被搜索

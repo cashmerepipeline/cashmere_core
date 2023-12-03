@@ -70,7 +70,7 @@ async fn handle_get_entity(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
-    let result = manager.get_entity_by_id(entity_id, &no_present_fields).await;
+    let result = manager.get_entity_by_id(entity_id, no_present_fields).await;
 
     match result {
         Ok(r) => {
@@ -78,7 +78,7 @@ async fn handle_get_entity(
             let mut result_doc = doc!();
             let mut property_stream = stream::iter(r);
             while let Some((k, v)) = property_stream.next().await {
-                if !can_field_read(&manage_id, &k, &role_group).await {
+                if !can_field_read(manage_id, &k, &role_group).await {
                     log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
                     continue;
                 }

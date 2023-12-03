@@ -1,23 +1,23 @@
 use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::error;
-use dependencies_sync::rust_i18n::{self, t};
+
+
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
-use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
+use manage_define::{cashmere::*};
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use service_utils::types::{ResponseStream, StreamResponseResult, UnaryResponseResult};
+use service_utils::types::{ResponseStream, StreamResponseResult};
 use validates::validate_manage_id;
 
-use super::{get_manage_entities_page, send_stream_response::send_stream_response};
+use super::{send_stream_response::send_stream_response};
 
 #[async_trait]
 pub trait HandleGetEntitiesPage {
@@ -64,10 +64,10 @@ async fn validate_request_params(
 async fn handle_get_entities_page(
     request: Request<GetEntitiesPageRequest>,
 ) -> StreamResponseResult<GetEntitiesPageResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
-    let page_index = &request.get_ref().page_index;
+    let _page_index = &request.get_ref().page_index;
     let match_doc = &request.get_ref().match_doc;
     let sort_doc = &request.get_ref().sort_doc;
     
@@ -75,10 +75,10 @@ async fn handle_get_entities_page(
     let page_index = &request.get_ref().page_index;
     let start_oid = &request.get_ref().start_oid;
 
-    let match_doc: Document = bson::from_slice(&match_doc).unwrap_or(Document::new());
-    let sort_doc: Document = bson::from_slice(&sort_doc).unwrap_or(Document::new());
+    let match_doc: Document = bson::from_slice(match_doc).unwrap_or(Document::new());
+    let sort_doc: Document = bson::from_slice(sort_doc).unwrap_or(Document::new());
 
-    let mut skip_count = page_index * 20;
+    let skip_count = page_index * 20;
     let start_oid: Option<String> = if start_oid.is_empty() {
         None
     } else {

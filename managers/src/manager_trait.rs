@@ -27,6 +27,7 @@ use manage_define::manage_ids::*;
 
 use crate::entity_cache_map::cache_get_entity;
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::manage_interface;
 use cash_core::schema_field_exists;
 
 /// 管理接口
@@ -49,7 +50,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             ));
         }
 
-        // 检查管理实体是否存在，不存在则需创建管理实体
+        // 检查管理实体是否存在，不存在给出错误信息
         if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id)
             .await
             .is_none()
@@ -168,7 +169,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         } else {
             return Err(operation_failed(
                 "validate_data_fields",
-                format!("属性不在描写中 {}", ks[0]),
+                format!("属性不在描写模式中 {}", ks[0]),
             ));
         }
     }
@@ -520,24 +521,14 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &str,
         group_id: &str,
     ) -> Result<String, OperationResult> {
-        let manage_id_str = self.get_id().to_string();
-
-        let result =
-            match entity::insert_entity(&manage_id_str, new_entity_doc, account_id, group_id).await
-            {
-                Ok(r) => Ok(r),
-                Err(e) => return Err(add_call_name_to_chain(e, "new_entity".to_string())),
-            };
-
-        // 如果有缓存则更新缓存
-        if self.has_cache() {
-            let _result = match self.update_cache(new_entity_doc).await {
-                Err(e) => Err(add_call_name_to_chain(e, "new_entity".to_string())),
-                _ => Ok(operation_succeed("ok")),
-            };
-        }
-
-        result
+        manage_interface::sink_entity(
+            &self.get_id(),
+            new_entity_doc,
+            account_id,
+            group_id,
+            self.has_cache(),
+        )
+        .await
     }
 
     /// 通过id取得实体
@@ -610,7 +601,16 @@ pub trait ManagerTrait: Any + Send + Sync {
             return Ok(cache_get_entity_stream(self.get_id()).await);
         }
 
-        match entity::get_query_cursor(&manage_id.to_string(), matche_doc, projects, sorts, start_oid, skip_count).await {
+        match entity::get_query_cursor(
+            &manage_id.to_string(),
+            matche_doc,
+            projects,
+            sorts,
+            start_oid,
+            skip_count,
+        )
+        .await
+        {
             Ok(mut r) => {
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {

@@ -1,19 +1,18 @@
-use dependencies_sync::bson::{doc, Document, self};
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::ID_FIELD_ID;
+
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id, validate_manage_id, validate_role_group};
-use view::view_rules_map::get_view_rules_map;
-use view::{WriteRule, get_manage_schema_view_mask, can_field_read, can_field_write};
+use validates::{validate_entity_id, validate_manage_id};
+
+use view::{can_field_read, can_field_write};
 
 #[async_trait]
 pub trait HandleGetSchemaViewRulesMap {
@@ -62,10 +61,10 @@ async fn validate_request_params(
 async fn handle_change_manage_write_rule(
     request: Request<GetSchemaViewRulesMapRequest>,
 ) -> UnaryResponseResult<GetSchemaViewRulesMapResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
-    let group_id = &request.get_ref().group_id;
+    let _group_id = &request.get_ref().group_id;
 
     let majordomo_arc = get_majordomo();
 
@@ -82,14 +81,17 @@ async fn handle_change_manage_write_rule(
 
     let mut rules_map: Document = doc! {};
     for f in fields.iter() {
-      let read_rule = can_field_read(manage_id, &f.id.to_string(), &role_group).await;
-      let write_rule = can_field_write(manage_id, &f.id.to_string(), &role_group).await;
-      rules_map.insert(f.id.to_string(), doc!{
-        "read": read_rule,
-        "write": write_rule,});
+        let read_rule = can_field_read(manage_id, &f.id.to_string(), &role_group).await;
+        let write_rule = can_field_write(manage_id, &f.id.to_string(), &role_group).await;
+        rules_map.insert(
+            f.id.to_string(),
+            doc! {
+            "read": read_rule,
+            "write": write_rule,},
+        );
     }
 
     Ok(Response::new(GetSchemaViewRulesMapResponse {
-            rules_map: bson::to_vec(&rules_map).unwrap(),
-        }))
+        rules_map: bson::to_vec(&rules_map).unwrap(),
+    }))
 }

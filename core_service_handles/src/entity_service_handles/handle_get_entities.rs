@@ -7,15 +7,15 @@ use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::general_field_ids::ID_FIELD_ID;
+
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
-use dependencies_sync::tokio_stream::{self as stream, iter, StreamExt};
+use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use view::{self, can_entity_read, filter_can_read_fields, get_manage_schema_view_mask};
+use view::{self, can_entity_read, get_manage_schema_view_mask};
 
-use service_utils::types::{ResponseStream, StreamResponseResult, UnaryResponseResult};
+use service_utils::types::{ResponseStream, StreamResponseResult};
 
 use super::send_stream_response::send_stream_response;
 
@@ -90,7 +90,7 @@ async fn handle_get_entities(
 ) -> StreamResponseResult<GetEntitiesResponse> {
     let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = request.get_ref().manage_id.clone();
+    let manage_id = request.get_ref().manage_id;
     let entity_ids = &request.get_ref().entity_ids;
     let no_present_fields = &request.get_ref().no_present_fields;
 
@@ -120,7 +120,7 @@ async fn handle_get_entities(
                 let resp = GetEntitiesResponse {
                     entity: bson::to_vec(&e).unwrap(),
                 };
-                send_stream_response(&resp_tx, resp);
+                send_stream_response(&resp_tx, resp).await;
             }
         }
     });

@@ -10,8 +10,8 @@ use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::CATEGORIES_MANAGE_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
-use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
+
 use crate::manager::Manager;
 use crate::manager_inner::ManagerInner;
 

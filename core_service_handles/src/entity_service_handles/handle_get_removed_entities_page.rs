@@ -1,4 +1,4 @@
-use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
 
@@ -85,10 +85,10 @@ async fn handle_get_removed_entities_page(
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;
     let unsets =
-        get_manage_schema_view_mask(&manage_id, &fields, &role_group).await
+        get_manage_schema_view_mask(manage_id, &fields, &role_group).await
         .iter()
-        .filter(|(k, v)| **v == false)
-        .map(|(k, v)| k.clone())
+        .filter(|(_k, v)| !(**v))
+        .map(|(k, _v)| k.clone())
         .collect();
     
 

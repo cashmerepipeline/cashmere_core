@@ -3,7 +3,7 @@ use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
-use dependencies_sync::tokio::sync::mpsc::Sender;
+
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use dependencies_sync::tonic::async_trait;
 
@@ -82,7 +82,7 @@ async fn handle_interactive_entities_stream(
                     let no_present_fields = &request.no_present_fields;
 
                     if let Err(err) = validate_manage_id(manage_id).await {
-                        if let Err(_) = resp_tx.send(Err(err)).await {
+                        if resp_tx.send(Err(err)).await.is_err() {
                             error!("{}", t!("反馈错误失败"));
                         }
                     }
@@ -91,8 +91,8 @@ async fn handle_interactive_entities_stream(
                     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
 
                     let match_doc: Document =
-                        bson::from_slice(&match_doc).unwrap_or(Document::new());
-                    let sort_doc: Document = bson::from_slice(&sort_doc).unwrap_or(Document::new());
+                        bson::from_slice(match_doc).unwrap_or(Document::new());
+                    let sort_doc: Document = bson::from_slice(sort_doc).unwrap_or(Document::new());
 
                     // zh: 没有实体，返回空表
                     let count = if let Ok(c) = manager.count_entity(match_doc.clone()).await {
@@ -112,7 +112,7 @@ async fn handle_interactive_entities_stream(
                     let result = get_manage_entities_page(
                         &account_id,
                         &role_group,
-                        &manage_id,
+                        manage_id,
                         &match_doc,
                         &Some(sort_doc),
                         page_index,

@@ -40,11 +40,13 @@ pub async fn insert_entity(
     entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id);
     entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id);
     entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id]);
+    entity_doc.insert(REMOVED_FIELD_ID.to_string(), false);
 
     // 插入, 返回插入后的ID
     let result = collection
         .insert_one(entity_doc.clone(), None)
         .and_then(|_r| async {
+            // 需要单独更新时间戳
             let query_doc = doc! {
                 ID_FIELD_ID.to_string(): id.clone(),
             };

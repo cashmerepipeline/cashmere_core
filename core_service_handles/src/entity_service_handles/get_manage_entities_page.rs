@@ -4,15 +4,15 @@ use view::get_manage_schema_view_mask;
 
 use manage_define::general_field_ids::REMOVED_FIELD_ID;
 
-use dependencies_sync::tonic::Status;
 
-use dependencies_sync::log::{debug, error};
 
-use view::add_query_filters;
+use dependencies_sync::log::{error};
+
+
 
 use dependencies_sync::bson::doc;
 
-use dependencies_sync::bson;
+
 
 use majordomo::get_majordomo;
 use managers::ManagerTrait;
@@ -20,7 +20,7 @@ use managers::ManagerTrait;
 use dependencies_sync::bson::Document;
 
 pub(crate) async fn get_manage_entities_page(
-    account_id: &str,
+    _account_id: &str,
     role_group: &str,
     manage_id: &i32,
     match_doc: &Document,
@@ -39,23 +39,17 @@ pub(crate) async fn get_manage_entities_page(
 
     let fields = manager.get_manage_schema().await;
     let mut unsets =
-        get_manage_schema_view_mask(&manage_id, &fields, &role_group.to_string())
+        get_manage_schema_view_mask(manage_id, &fields, &role_group.to_string())
             .await
             .iter()
-            .filter(|(k, v)| **v == false)
-            .map(|(k, v)| k.clone())
+            .filter(|(_k, v)| !(**v))
+            .map(|(k, _v)| k.clone())
             .collect::<Vec<String>>();
     
     no_present_fields.iter().for_each(|k| unsets.push(k.clone()));
 
-    let index = if *page_index < 0u32 {
-        0u32
-    } else {
-        *page_index
-    };
-
     let result = manager
-        .get_entities_by_page(index, &Some(matches), &sort_doc, &unsets)
+        .get_entities_by_page(*page_index, &Some(matches), sort_doc, &unsets)
         .await;
 
     match result {
