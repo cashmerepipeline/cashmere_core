@@ -79,10 +79,10 @@ async fn handle_get_entities_page(
     let sort_doc: Document = bson::from_slice(sort_doc).unwrap_or(Document::new());
 
     let skip_count = page_index * 20;
-    let start_oid: Option<String> = if start_oid.is_empty() {
+    let start_oid: Option<&str> = if start_oid.is_empty() {
         None
     } else {
-        Some(start_oid.to_string())
+        Some(start_oid.as_str())
     };
 
     let sort = if !sort_doc.is_empty() {
@@ -97,6 +97,7 @@ async fn handle_get_entities_page(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+
     let doc_stream = manager
         .get_entity_stream(match_doc, None, sort, start_oid, skip_count)
         .await;

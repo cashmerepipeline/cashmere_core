@@ -1,9 +1,13 @@
 use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
 use database::get_database;
 use dependencies_sync::{
-    bson::{Document, doc},
+    bson::{doc, Document},
     log,
-    rust_i18n::{self, t}, mongodb::{options::{TransactionOptions, ReadConcern, WriteConcern, Acknowledgment}, Collection},
+    mongodb::{
+        options::{Acknowledgment, ReadConcern, TransactionOptions, WriteConcern},
+        Collection,
+    },
+    rust_i18n::{self, t},
 };
 use manage_define::{
     field_ids::{
@@ -62,7 +66,6 @@ pub async fn sink_entity_of_member(
     new_entity_doc.insert(MODIFIER_FIELD_ID.to_string(), account_id);
     new_entity_doc.insert(OWNER_FIELD_ID.to_string(), account_id);
     new_entity_doc.insert(GROUPS_FIELD_ID.to_string(), vec![group_id]);
-    new_entity_doc.insert(REMOVED_FIELD_ID.to_string(), false);
 
     let mut new_member_doc = Document::new();
     new_member_doc.insert(
@@ -107,9 +110,9 @@ pub async fn sink_entity_of_member(
         ID_FIELD_ID.to_string(): new_entity_id.clone(),
     };
     let update_timestamp_doc = doc! {
-          "$currentDate": doc!{
+      "$currentDate": doc!{
               MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$type":"timestamp"},
-          CREATE_TIMESTAMP_FIELD_ID.to_string(): {"$type":"timestamp"},
+              CREATE_TIMESTAMP_FIELD_ID.to_string(): {"$type":"timestamp"},
       }
     };
 
@@ -136,14 +139,14 @@ pub async fn sink_entity_of_member(
         ));
     };
 
-    if let Err(err) = session.commit_transaction().await{
-      log::error!("{}: {}", t!("执行事务失败"), err);
-            session.abort_transaction().await;
-            return Err(operation_failed(
-                "sink_entity_of_member",
-                format!("{}: {:?}", t!("提交事务失败"), err),
-            ));
+    if let Err(err) = session.commit_transaction().await {
+        log::error!("{}: {}", t!("执行事务失败"), err);
+        session.abort_transaction().await;
+        return Err(operation_failed(
+            "sink_entity_of_member",
+            format!("{}: {:?}", t!("提交事务失败"), err),
+        ));
     };
-    
+
     Ok(new_entity_id)
 }

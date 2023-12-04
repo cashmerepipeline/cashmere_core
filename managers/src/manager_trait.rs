@@ -590,9 +590,9 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn get_entity_stream(
         &self,
         matche_doc: Document,
-        projects: Option<Document>,
+        unsets: Option<Vec<String>>,
         sorts: Option<Document>,
-        start_oid: Option<String>,
+        start_oid: Option<&str>,
         skip_count: u32,
     ) -> Result<ReceiverStream<Document>, OperationResult> {
         let manage_id = self.get_id();
@@ -604,7 +604,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         match entity::get_query_cursor(
             &manage_id.to_string(),
             matche_doc,
-            projects,
+            unsets,
             sorts,
             start_oid,
             skip_count,

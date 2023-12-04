@@ -18,9 +18,9 @@ use manage_define::general_field_ids::*;
 pub async fn get_query_cursor(
     collection_id: &String,
     matches: Document,
-    projects: Option<Document>,
+    unsets: Option<Vec<String>>,
     sort_doc: Option<Document>,
-    start_oid: Option<String>,
+    start_oid: Option<&str>,
     skip_count: u32,
 ) -> Result<Cursor<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_id).await {
@@ -40,8 +40,8 @@ pub async fn get_query_cursor(
         pipeline.push(doc! {"$match": matches});
     }
 
-    if projects.is_some() {
-        pipeline.push(doc! {"$project": projects.clone().unwrap()});
+    if unsets.is_some() {
+        pipeline.push(doc! {"$unset": unsets.clone().unwrap()});
     }
 
     if sort_doc.is_some() {

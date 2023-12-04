@@ -11,6 +11,10 @@ pub use get_mongodb_client::*;
 pub use get_database::*;
 pub use collection_exists::*;
 pub use get_collection_by_id::*;
+
+pub use get_member_db_view_name::*;
+pub use get_member_view::*;
+
 pub use get_manages_collection::*;
 pub use get_ids_collection::*;
 pub use init_ids_count_field::*;
@@ -21,6 +25,10 @@ mod get_mongodb_client;
 mod get_database;
 mod collection_exists;
 mod get_collection_by_id;
+
+mod get_member_db_view_name;
+mod get_member_view;
+
 mod get_manages_collection;
 mod get_ids_collection;
 mod init_ids_count_field;

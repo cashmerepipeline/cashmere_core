@@ -109,13 +109,13 @@ async fn handle_check_updates_later_then_time(
         }
     };
 
-    let project_doc = doc! {
-        ID_FIELD_ID.to_string(): 1,
-        MODIFY_TIMESTAMP_FIELD_ID.to_string(): 1,
-    };
+    let unsets = vec! [
+        ID_FIELD_ID.to_string(),
+        MODIFY_TIMESTAMP_FIELD_ID.to_string(),
+    ];
 
     let mut query_cursor = match manager
-        .get_entity_stream(query_doc, Some(project_doc), Some(sort_doc), None, 0)
+        .get_entity_stream(query_doc, Some(unsets), Some(sort_doc), None, 0)
         .await
     {
         Ok(cursor) => cursor,
