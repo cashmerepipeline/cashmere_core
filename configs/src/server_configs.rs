@@ -19,6 +19,7 @@ pub struct ServerConfigs {
     pub language_code: String,
     pub log_dir: String,
     pub log_level: String,
+    pub max_page_size: u16,
 }
 
 impl ConfigTrait for ServerConfigs {
@@ -49,6 +50,7 @@ impl Default for ServerConfigs {
             language_code: "zh".to_string(),
             log_dir: "log".to_string(),
             log_level: "info".to_string(),
+            max_page_size: 20,
         }
     }
 }

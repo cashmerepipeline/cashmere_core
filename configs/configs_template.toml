@@ -23,6 +23,9 @@ language_code = "zh"
 log_dir = "log"
 log_level = "debug"
 
+# 分页最大容量
+max_page_size = 20
+
 [tls]
 server_key_path = "tls/server.key"
 server_ca_path = "tls/server.crt"
