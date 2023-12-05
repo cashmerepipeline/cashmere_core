@@ -13,6 +13,8 @@ pub use validate_role_group::*;
 pub use validate_is_login::*;
 pub use validate_description_length::*;
 
+pub use validate_bson_document_bytes::*;
+
 mod validate_auth_token;
 mod validate_has_role_group;
 
@@ -24,3 +26,5 @@ mod validate_value_doc;
 mod validate_role_group;
 mod validate_is_login;
 mod validate_description_length;
+
+mod validate_bson_document_bytes;

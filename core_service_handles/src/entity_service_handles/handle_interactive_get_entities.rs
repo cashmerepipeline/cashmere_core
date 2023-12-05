@@ -13,12 +13,11 @@ use managers::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Response, Status};
+use service_utils::{send_stream_response, send_stream_error};
 use service_utils::types::{RequestStream, ResponseStream, StreamResponseResult};
 use validates::validate_manage_id;
 
 use super::get_manage_entities_page;
-use super::send_stream_response::send_stream_response;
-use super::send_stream_error::send_stream_error;
 
 #[async_trait]
 pub trait HandleInteractiveGetEntities {

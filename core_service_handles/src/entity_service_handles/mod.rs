@@ -41,5 +41,3 @@ mod handle_recover_removed_entity;
 mod handle_search;
 
 mod get_manage_entities_page;
-mod send_stream_error;
-mod send_stream_response;

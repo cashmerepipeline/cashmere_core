@@ -14,10 +14,9 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
+use service_utils::send_stream_response;
 use service_utils::types::{ResponseStream, StreamResponseResult};
 use validates::validate_manage_id;
-
-use super::{send_stream_response::send_stream_response};
 
 #[async_trait]
 pub trait HandleGetEntitiesPage {

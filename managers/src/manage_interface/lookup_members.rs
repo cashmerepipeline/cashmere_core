@@ -30,6 +30,7 @@ pub async fn lookup_members(
     sort_doc: &Document,
     unsets: &Vec<String>,
     start_oid: Option<&str>,
+    // 相对于start_oid的位置跳过数，不包含start_oid
     skip_count: u32,
 ) -> Result<ReceiverStream<Document>, OperationResult> {
     let view_name = get_member_view_name(&owner_manage_id.to_string(), owner_entity_id, &self_manage_id.to_string());
@@ -57,7 +58,7 @@ pub async fn lookup_members(
         match_doc,
         Some(unsets),
         Some(sorts),
-        start_oid.as_deref(),
+        start_oid,
         skip_count,
     )
     .await
