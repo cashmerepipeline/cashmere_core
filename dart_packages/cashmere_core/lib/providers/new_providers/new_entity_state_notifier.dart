@@ -25,6 +25,7 @@ class NewEntityNotifier<V, Req, Res> extends StateNotifier<NewEntityNotifierStat
 
     try {
       final result = await newEntityCall(newEntityView, stubcall, metaData);
+
       final newState = NewEntityNotifierState(NewEntityNotifierStateEnum.success);
       newState.result = result;
       state = newState;

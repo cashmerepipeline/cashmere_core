@@ -10,3 +10,4 @@ dependencies_sync ={ path = "../dependencies_sync", features = ["futures", "toni
 manage_define ={ path = "../manage_define" }
 majordomo ={ path = "../majordomo"}
 managers ={ path = "../managers" }
+cash_result ={ path = "../cash_result" }

@@ -5,6 +5,7 @@ package cashmere;
 // 如果常量需要参数，则需要单独定义接口
 // 每种可能有提供有自己的访问接口
 // 常量一般不需要权限控制
+// NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
 message GetConstantsRequest {
   int32 manage_id = 1;
 }

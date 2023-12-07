@@ -1,14 +1,15 @@
+use configs::ConfigTrait;
+use configs::ServerConfigs;
+
 use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
-
-
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
-use manage_define::{cashmere::*};
+use manage_define::cashmere::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
@@ -66,10 +67,8 @@ async fn handle_get_entities_page(
     let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
-    let _page_index = &request.get_ref().page_index;
     let match_doc = &request.get_ref().match_doc;
     let sort_doc = &request.get_ref().sort_doc;
-    
     // 页码和起始点不同时起作用
     let page_index = &request.get_ref().page_index;
     let start_oid = &request.get_ref().start_oid;
@@ -105,16 +104,16 @@ async fn handle_get_entities_page(
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
     tokio::spawn(async move {
         if let Ok(mut d_stream) = doc_stream {
-            // 每页最多返回20个
-            let mut item_count = 0;
+            let mut max_page_size = ServerConfigs::get().max_page_size.clone();
             while let Some(doc) = d_stream.next().await {
                 let resp = GetEntitiesPageResponse {
                     entity: bson::to_vec(&doc).unwrap(),
                 };
 
                 send_stream_response(&resp_tx, resp).await;
-                item_count += 1;
-                if item_count >= 20 {
+
+                max_page_size -= 1;
+                if max_page_size == 0 {
                     break;
                 }
             }

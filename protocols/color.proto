@@ -10,10 +10,21 @@ Modified: !date!
 syntax = "proto3";
 package cashmere;
 
-message Color {
-    string name = 1;
-    uint32 red = 2;
-    uint32 green = 3;
-    uint32 blue = 4;
-    uint32 alpha = 5;
+import "name.proto";
+
+// 新颜色
+message NewColorRequest{
+    Name name = 1;
+    // [r,g,b]
+    repeated uint32 color = 2;
+    string description = 3;
+}
+message NewColorResponse{
+    string result = 1;
+}
+
+// 获取颜色
+message GetColorsRequest{ }
+message GetColorsResponse{
+    repeated bytes colors = 1;
 }

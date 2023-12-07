@@ -1,0 +1,233 @@
+#
+#  颜色，预设的颜色或者色卡
+#  存储RGB颜色值，颜色位值一般位0-255整数, 支持到32位整数，根据需要而定
+#  
+
+id = 10007
+name_map = { zh = "颜色", en = "colors" }
+is_searchable = false
+description = "预设颜色"
+
+# 数据描写 或者 模式
+schema = [
+  # [r, g, b]数组形式存储
+  { data_type = "Array", name_map = { zh = "色值", en = "value" }, removed = false },
+]
+
+[view_rules]
+
+[view_rules.manage]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.collection]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.schema.1000]
+10000 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1001]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1002]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1003]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1004]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1005]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1006]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1007]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.1008]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1009]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1010]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1011]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.schema.2001]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+[view_rules.schema.2002]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
+# 初始实体
+[items]
+zh = { 1000 = "zh", 1002 = "8610000000000", 1001 = { zh = "中文", en = "Chinese" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "zh", 2002 = "中文" }
+
+en = { 1000 = "en", 1002 = "8610000000000", 1001 = { zh = "英文", en = "English" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "en", 2002 = "English" }
+
+fr = { 1000 = "fr", 1002 = "8610000000000", 1001 = { zh = "法语", en = "French" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "fr", 2002 = "Français" }
+
+de = { 1000 = "de", 1002 = "8610000000000", 1001 = { zh = "德语", en = "German" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "de", 2002 = "Deutsch" }
+
+it = { 1000 = "it", 1002 = "8610000000000", 1001 = { zh = "意大利语", en = "Italian" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "it", 2002 = "Italiano" }
+
+ja = { 1000 = "ja", 1002 = "8610000000000", 1001 = { zh = "日语", en = "Japanese" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "ja", 2002 = "日本語" }
+
+ko = { 1000 = "ko", 1002 = "8610000000000", 1001 = { zh = "朝鲜语", en = "Korean" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "ko", 2002 = "한국어" }
+
+es = { 1000 = "es", 1002 = "8610000000000", 1001 = { zh = "西班牙语", en = "Spanish" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "es", 2002 = "Español" }
+
+ar = { 1000 = "ar", 1002 = "8610000000000", 1001 = { zh = "阿拉伯语", en = "Arabic" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "ar", 2002 = "العربية" }
+
+ru = { 1000 = "ru", 1002 = "8610000000000", 1001 = { zh = "俄语", en = "Russian" }, 1006 = "8610000000000", 1007 = [
+  "10000",
+], 1008 = [
+],  1200 = false, 2001 = "ru", 2002 = "Русский" }
+

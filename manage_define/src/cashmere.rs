@@ -976,6 +976,7 @@ pub struct GetPhoneAreaCodesResponse {
 /// 如果常量需要参数，则需要单独定义接口
 /// 每种可能有提供有自己的访问接口
 /// 常量一般不需要权限控制
+/// NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConstantsRequest {
@@ -1149,8 +1150,8 @@ pub struct DoubleRange {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Color {
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
     #[prost(uint32, tag = "2")]
     pub red: u32,
     #[prost(uint32, tag = "3")]
@@ -1159,6 +1160,32 @@ pub struct Color {
     pub blue: u32,
     #[prost(uint32, tag = "5")]
     pub alpha: u32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewColorRequest {
+    #[prost(message, optional, tag = "1")]
+    pub name: ::core::option::Option<Name>,
+    /// \[r,g,b\]
+    #[prost(uint32, repeated, tag = "2")]
+    pub color: ::prost::alloc::vec::Vec<u32>,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewColorResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetColorsRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetColorsResponse {
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub colors: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
