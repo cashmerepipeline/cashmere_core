@@ -1146,21 +1146,7 @@ pub struct DoubleRange {
     #[prost(double, tag = "3")]
     pub value: f64,
 }
-#[derive(serde::Serialize, serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Color {
-    #[prost(message, optional, tag = "1")]
-    pub name: ::core::option::Option<Name>,
-    #[prost(uint32, tag = "2")]
-    pub red: u32,
-    #[prost(uint32, tag = "3")]
-    pub green: u32,
-    #[prost(uint32, tag = "4")]
-    pub blue: u32,
-    #[prost(uint32, tag = "5")]
-    pub alpha: u32,
-}
+/// 新颜色
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewColorRequest {
@@ -1178,6 +1164,7 @@ pub struct NewColorResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 获取颜色
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetColorsRequest {}

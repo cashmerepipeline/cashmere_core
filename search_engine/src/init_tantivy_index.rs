@@ -1,3 +1,4 @@
+use configs::ConfigTrait;
 use dependencies_sync::log;
 
 use dependencies_sync::parking_lot::RwLock;
@@ -9,16 +10,14 @@ use std::ops::Deref;
 use std::path::Path;
 use std::sync::Arc;
 
-use crate::get_tantivy_schema;
+use crate::{get_tantivy_schema, SearchEngineConfigs};
 use crate::get_tokenizers::get_tokenizers;
 use crate::tantivy_index::set_tantivy_index;
-
-use super::get_tantivy_index_dir::get_tantivy_index_dir;
 
 pub fn init_tantivy_index() {
     log::info!("{}", t!("开始初始化索引"));
 
-    let index_dir_string = get_tantivy_index_dir();
+    let index_dir_string = SearchEngineConfigs::get().index_root_dir.clone();
     let index_dir_path = Path::new(&index_dir_string);
 
     if !index_dir_path.exists() {

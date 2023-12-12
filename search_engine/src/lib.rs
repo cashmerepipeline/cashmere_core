@@ -26,10 +26,11 @@ mod tantivy_searcher;
 
 mod search;
 
-mod get_tantivy_index_dir;
-
 pub mod database_event_handles;
+
 mod watch_database;
+// mod is_searchable;
+
 mod spaw_commit_thread;
 
 mod search_engine_configs;

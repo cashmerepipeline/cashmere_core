@@ -8,7 +8,7 @@ use manage_define::language_keys::ENGLISH;
 
 use crate::{get_id, get_name_map, get_schema, get_toml_map};
 
-pub fn generate_manage_defines(src_dirs: &Vec<&str>, target_dir: &str, dart_dir: Option<&str>) {
+pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Option<&str>) {
     let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);
     let manage_field_ids_path_rust = format!("{}/field_ids.rs", target_dir);
 

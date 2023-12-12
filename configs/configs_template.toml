@@ -39,6 +39,9 @@ writer_commit_interval = 15
 # zh: 写缓存块，根据索引大小设置, 单位为 字节
 memory_budget_in_bytes = 15000000
 
+# zh: 不可搜索管理表
+# unsearchable_manages = ["19999"]
+
 [data_server]
 root_dir_path = "data_root"
 # 文件最大大小, 16MB
@@ -54,4 +57,10 @@ max_file_download_number = 256
 # 块最大大小，1024*128=128KB
 transfer_chunk_size = 131072
 # 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
-internal_root_dir_map = {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}
+internal_root_dir_map = { "windows" = "X:/data_root/dir", "linux" = "/mnt/data_root/dir", "macos" = "/mnt/data_root/dir" }
+
+# 文件上传路径形式，可将文件上传到指定目录, 目前只支持 
+# manage["", "manage_id"], stage["", stage, stage_id], version["", version,version_id], 
+# specs不能为空且目前只能为id，
+# data不能为空且目前只能为id，
+file_path_format = {"manage" = "manage_id",  "specs" = "specs_id", "data" = "data_id", "stage" = "", "version" = "" }
