@@ -3,7 +3,7 @@
 # 日历必须依附于某个帐本
 #
 
-id = 10026
+id = "日历"
 name_map = { zh = "日历", en = "calendars" }
 is_searchable = true
 description = "日历必须依附于某个帐本"

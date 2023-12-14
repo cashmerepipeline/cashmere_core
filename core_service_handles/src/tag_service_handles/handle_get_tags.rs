@@ -17,6 +17,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 
 use service_utils::types::UnaryResponseResult;
+use validates::validate_manage_id;
 
 #[async_trait]
 pub trait HandleGetTags {
@@ -44,14 +45,7 @@ async fn validate_request_params(
 ) -> Result<Request<GetTagsRequest>, Status> {
     // 没有参数
     let manage_id = &request.get_ref().target_manage_id;
-    // 不能为0
-    if manage_id == &0 {
-        return Err(Status::invalid_argument(format!(
-            "{}: {}",
-            t!("目标管理号不能为0"),
-            "get_categories"
-        )));
-    }
+    validate_manage_id(manage_id).await?;
 
     Ok(request)
 }

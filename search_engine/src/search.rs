@@ -13,7 +13,7 @@ use crate::tantivy_searcher::get_tantivy_searcher;
 use crate::{get_tantivy_schema, get_tantivy_index};
 
 
-pub async fn search(manage_id: i32, search_str: &str) -> Result<Vec<String>, OperationResult> {
+pub async fn search(manage_id: &str, search_str: &str) -> Result<Vec<String>, OperationResult> {
     
     
     log::debug!("{}: {}-{:?}", t!("搜索开始"), manage_id, search_str);

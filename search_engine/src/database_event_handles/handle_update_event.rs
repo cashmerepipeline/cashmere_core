@@ -6,7 +6,7 @@ use crate::database_event_handles::commit_search_document::commit_search_documen
 use crate::get_tantivy_schema;
 
 pub fn handle_update_event(
-    manage_id: i32,
+    manage_id: &str,
     object_id: &String,
     updates: &Document,
     full_document: &Document,

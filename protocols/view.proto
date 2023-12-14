@@ -21,7 +21,7 @@ message GetManageViewResponse{
 
 // 取得管理模式可视表
 message GetSchemaViewRulesMapRequest{
-  int32 manage_id =1;
+  string manage_id =1;
   string group_id =2;
 }
 message GetSchemaViewRulesMapResponse{
@@ -31,7 +31,7 @@ message GetSchemaViewRulesMapResponse{
 
 // 管理权限
 message ChangeManageReadRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string read_rule = 3;
 }
@@ -40,7 +40,7 @@ message ChangeManageReadRuleResponse {
 } 
 
 message ChangeManageWriteRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string write_rule = 3;
 }
@@ -50,7 +50,7 @@ message ChangeManageWriteRuleResponse {
 
 // 集合权限 
 message ChangeCollectionReadRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string read_rule = 3;
 }
@@ -59,7 +59,7 @@ message ChangeCollectionReadRuleResponse {
 } 
 
 message ChangeCollectionWriteRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string write_rule = 3;
 }
@@ -69,7 +69,7 @@ message ChangeCollectionWriteRuleResponse {
 
 // 描写字段权限 
 message ChangeFieldReadRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string field_id = 3;
   string read_rule = 4;
@@ -79,7 +79,7 @@ message ChangeFieldReadRuleResponse {
 } 
 
 message ChangeFieldWriteRuleRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string group_id = 2;
   string field_id = 3;
   string write_rule = 4;

@@ -2,7 +2,7 @@
 # 手机区号编码
 #
 
-id = 10019
+id = "手机区号"
 name_map = { zh = "手机区号", en = "phone_area_codes" }
 is_searchable = true
 description = "手机区号编码"

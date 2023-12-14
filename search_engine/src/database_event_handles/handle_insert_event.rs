@@ -6,7 +6,7 @@ use super::commit_search_document::commit_search_document;
 
 use crate::get_tantivy_schema;
 
-pub fn handle_insert_event(manage_id: i32, full_document: &bson::Document) {
+pub fn handle_insert_event(manage_id: &str, full_document: &bson::Document) {
     log::warn!("{}: {}", t!("开始插入查询"), manage_id);
 
     let schema = get_tantivy_schema();

@@ -56,7 +56,7 @@ pub async fn watch_database() {
                 Ok(r) => {
                     let manage_id = if let Some(ref n) = r.ns {
                         if let Some(ref c) = n.coll {
-                            c.parse::<i32>().unwrap()
+                            c
                         } else {
                             continue;
                         }
@@ -67,7 +67,7 @@ pub async fn watch_database() {
                     {
                         // 判断是否需要搜索
                         let majordomo_arc = get_majordomo();
-                        let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+                        let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
                         if !manager.is_searchable().await {
                             continue;
                         }

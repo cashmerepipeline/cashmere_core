@@ -3,7 +3,7 @@
 #  存储RGB颜色值，颜色位值一般位0-255整数, 支持到32位整数，根据需要而定
 #  
 
-id = 10007
+id = "颜色"
 name_map = { zh = "颜色", en = "colors" }
 is_searchable = false
 description = "预设颜色"

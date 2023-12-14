@@ -54,7 +54,7 @@ impl ManagerTrait for ViewRulesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         VIEW_RULES_MANAGE_ID
     }
 

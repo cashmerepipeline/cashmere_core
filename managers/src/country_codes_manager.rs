@@ -54,7 +54,7 @@ impl ManagerTrait for CountryCodesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         COUNTRY_CODES_MANAGE_ID
     }
 

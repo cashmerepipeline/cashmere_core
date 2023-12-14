@@ -41,7 +41,7 @@ impl ManagerTrait for ShowSettingsManager {
         Err(operation_failed("unregister", format!("{}-{}", t!(format!("{}-{}-{}", t!("管理器不能被注销"), self.get_id() , self.get_name())), self.get_id() )))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         SHOW_SETTINGS_MANAGE_ID
     }
 

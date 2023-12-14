@@ -37,8 +37,8 @@ pub struct Name {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenameRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
@@ -54,8 +54,8 @@ pub struct RenameResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLanguageNameRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
@@ -71,8 +71,8 @@ pub struct NewLanguageNameResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveLanguageNameRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -99,8 +99,8 @@ pub struct GetManagesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageEntryCountRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -140,8 +140,8 @@ pub struct Entity {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeEntityOwnerRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -159,8 +159,8 @@ pub struct ChangeEntityOwnerResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(bytes = "vec", tag = "2")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
@@ -174,8 +174,8 @@ pub struct NewEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     /// {field_id:value, ...}
@@ -191,8 +191,8 @@ pub struct EditEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntityFieldEdit {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -221,8 +221,8 @@ pub struct EditMultiEntityFieldsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityFieldRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -242,8 +242,8 @@ pub struct EditEntityFieldResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -265,8 +265,8 @@ pub struct EditEntityMapFieldResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityMapFieldRemoveKeyRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -285,8 +285,8 @@ pub struct EditEntityMapFieldRemoveKeyResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldAddItemsRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -306,8 +306,8 @@ pub struct EditEntityArrayFieldAddItemsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditEntityArrayFieldRemoveItemsRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -327,8 +327,8 @@ pub struct EditEntityArrayFieldRemoveItemsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     /// 不出现的字段, 主要用于分步加载数据
@@ -345,8 +345,8 @@ pub struct GetEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     /// 列表最长100, 根据需要指定长度
     #[prost(string, repeated, tag = "2")]
     pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -365,8 +365,8 @@ pub struct GetEntitiesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitiesPageRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "2")]
     pub page_index: u32,
     /// 过滤条件 bson document
@@ -394,8 +394,8 @@ pub struct GetEntitiesPageResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InteractiveGetEntitiesRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "2")]
     pub page_index: u32,
     /// bson document
@@ -420,8 +420,8 @@ pub struct InteractiveGetEntitiesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityRemovedRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
 }
@@ -436,8 +436,8 @@ pub struct MarkEntityRemovedResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RecoverRemovedEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
 }
@@ -452,8 +452,8 @@ pub struct RecoverRemovedEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetRemovedEntitiesPageRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "2")]
     pub page_index: u32,
     #[prost(bytes = "vec", tag = "3")]
@@ -498,8 +498,8 @@ pub struct EntityTimestamp {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CheckEntitiesUpdateRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     /// 列表最长不能超过100
     #[prost(message, repeated, tag = "2")]
     pub entities: ::prost::alloc::vec::Vec<EntityTimestamp>,
@@ -516,8 +516,8 @@ pub struct CheckEntitiesUpdateResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CheckUpdatesLaterThenTimeRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     /// 格式二进制 bson Document 形式{"value": Timestamp()}
     #[prost(bytes = "vec", tag = "2")]
     pub timestamp: ::prost::alloc::vec::Vec<u8>,
@@ -606,8 +606,8 @@ pub struct GetManageViewResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSchemaViewRulesMapRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
 }
@@ -622,8 +622,8 @@ pub struct GetSchemaViewRulesMapResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeManageReadRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -638,8 +638,8 @@ pub struct ChangeManageReadRuleResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeManageWriteRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -655,8 +655,8 @@ pub struct ChangeManageWriteRuleResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeCollectionReadRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -671,8 +671,8 @@ pub struct ChangeCollectionReadRuleResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeCollectionWriteRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -688,8 +688,8 @@ pub struct ChangeCollectionWriteRuleResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeFieldReadRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -706,8 +706,8 @@ pub struct ChangeFieldReadRuleResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeFieldWriteRuleRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub group_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
@@ -740,8 +740,8 @@ pub struct SchemaField {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageSchemaRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -753,8 +753,8 @@ pub struct GetManageSchemaResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub new_field: ::core::option::Option<SchemaField>,
 }
@@ -768,8 +768,8 @@ pub struct NewSchemaFieldResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkSchemaFieldRemovedRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(int32, tag = "2")]
     pub field_id: i32,
 }
@@ -783,8 +783,8 @@ pub struct MarkSchemaFieldRemovedResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EditSchemaFieldNameRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(int32, tag = "2")]
     pub field_id: i32,
     #[prost(string, tag = "3")]
@@ -980,8 +980,8 @@ pub struct GetPhoneAreaCodesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConstantsRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1322,8 +1322,8 @@ pub struct NewTemplateRequest {
     #[prost(message, optional, tag = "3")]
     pub name: ::core::option::Option<Name>,
     /// 模板对应管理
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     /// bons Document bytes
     #[prost(bytes = "vec", repeated, tag = "2")]
     pub fields: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
@@ -1435,8 +1435,8 @@ pub struct AddMemberResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCategoryRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "3")]
@@ -1452,8 +1452,8 @@ pub struct NewCategoryResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCategoriesRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1466,8 +1466,8 @@ pub struct GetCategoriesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkEntityCategoriesRequest {
-    #[prost(int32, tag = "2")]
-    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "4")]
@@ -1484,8 +1484,8 @@ pub struct MarkEntityCategoriesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UnmarkEntityCategoriesRequest {
-    #[prost(int32, tag = "2")]
-    pub manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "4")]
@@ -1501,8 +1501,8 @@ pub struct UnmarkEntityCategoriesResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewTagRequest {
-    #[prost(int32, tag = "1")]
-    pub target_manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub target_manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "3")]
@@ -1521,8 +1521,8 @@ pub struct NewTagResponse {
 pub struct AddTagsToEntityRequest {
     #[prost(string, repeated, tag = "1")]
     pub tag_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(int32, tag = "2")]
-    pub target_manage_id: i32,
+    #[prost(string, tag = "2")]
+    pub target_manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub target_entity_id: ::prost::alloc::string::String,
 }
@@ -1536,8 +1536,8 @@ pub struct AddTagsToEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTagsRequest {
-    #[prost(int32, tag = "1")]
-    pub target_manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub target_manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1549,8 +1549,8 @@ pub struct GetTagsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveTagsFromEntityRequest {
-    #[prost(int32, tag = "1")]
-    pub target_manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub target_manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub target_entity_id: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "3")]
@@ -1566,8 +1566,8 @@ pub struct RemoveTagsFromEntityResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCalendarBookRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub entity_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
@@ -1626,8 +1626,8 @@ pub struct GetPersonsPageRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchRequest {
-    #[prost(int32, tag = "1")]
-    pub manage_id: i32,
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
     /// 搜索字段和关键字
     #[prost(map = "string, string", tag = "2")]
     pub search_params: ::std::collections::HashMap<

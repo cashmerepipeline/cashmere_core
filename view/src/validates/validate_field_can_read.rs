@@ -3,7 +3,7 @@ use dependencies_sync::tonic::Status;
 use crate::can_field_read;
 
 pub async fn validate_field_can_read(
-    manage_id: &i32,
+    manage_id: &str,
     field_id: &String,
     role_group: &String,
 ) -> Result<(), Status>{

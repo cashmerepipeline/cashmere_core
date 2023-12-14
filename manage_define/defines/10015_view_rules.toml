@@ -2,7 +2,7 @@
 # 映像规则定义
 #
 
-id = 10015
+id = "映像规则"
 name_map = { zh = "映像规则", en = "view_rules" }
 is_searchable = false
 description = "映像规则，定义各层级的操作可见性"

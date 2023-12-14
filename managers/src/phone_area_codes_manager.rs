@@ -54,7 +54,7 @@ impl ManagerTrait for PhoneAreaCodesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         PHONE_AREA_CODES_MANAGE_ID
     }
 

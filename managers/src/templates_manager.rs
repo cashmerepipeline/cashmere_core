@@ -54,7 +54,7 @@ impl ManagerTrait for TempaltesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         TEMPLATES_MANAGE_ID
     }
 

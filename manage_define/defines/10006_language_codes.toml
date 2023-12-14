@@ -2,8 +2,8 @@
 #  语言编码
 #
 
-id = 10006
-name_map = { zh = "语言编码", en = "languages_codes" }
+id = "语言编码"
+name_map = { zh = "语言编码", en = "language_codes" }
 is_searchable = false
 description = "语言编码"
 

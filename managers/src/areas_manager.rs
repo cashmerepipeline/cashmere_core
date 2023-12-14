@@ -54,7 +54,7 @@ impl ManagerTrait for AreasManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         AREAS_MANAGE_ID
     }
 

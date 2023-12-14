@@ -21,7 +21,7 @@ message GetManagesResponse{
 
 // 取得记录数量
 message GetManageEntryCountRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
 }
 message GetManageEntryCountResponse{
   uint64 count = 1;

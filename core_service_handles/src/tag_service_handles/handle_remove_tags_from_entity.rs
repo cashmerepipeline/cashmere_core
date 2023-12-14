@@ -59,7 +59,7 @@ async fn handle_remove_tags_from_entity(
     let tag_ids = &request.get_ref().tag_ids;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*target_manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(target_manage_id).unwrap();
 
     let query_doc = doc! {
         ID_FIELD_ID.to_string():target_entity_id

@@ -54,8 +54,8 @@ impl ManagerTrait for LanguageCodesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
-        LANGUAGES_CODES_MANAGE_ID
+    fn get_id(&self) -> &'static str {
+        LANGUAGE_CODES_MANAGE_ID
     }
 
     fn get_name(&self) -> String {

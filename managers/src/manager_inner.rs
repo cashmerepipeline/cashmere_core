@@ -66,7 +66,7 @@ impl ManagerTrait for ManagerInner {
         self.manager.unregister()
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         self.manager.get_id()
     }
 

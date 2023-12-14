@@ -12,7 +12,7 @@ pub struct Manage {
     // zh: 数据库分配的id
     pub object_id: String,
     // zh: 管理id
-    pub id: i32,
+    pub id: String,
     // zh: 命名表，{lang:native_name, ...}
     pub name_map: LinkedHashMap<String, String>,
     // zh: 创建人

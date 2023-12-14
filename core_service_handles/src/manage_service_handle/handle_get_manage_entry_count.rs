@@ -50,7 +50,7 @@ async fn handle_get_manage_entry_count(
     
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let result = manager.get_entry_counts().await;
 

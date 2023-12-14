@@ -3,7 +3,7 @@ use dependencies_sync::tonic::Status;
 use crate::can_entity_read;
 
 pub async fn validate_entity_can_read(
-    manage_id: &i32,
+    manage_id: &str,
     role_group: &String,
 ) -> Result<(), Status>{
 

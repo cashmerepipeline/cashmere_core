@@ -4,11 +4,11 @@ use cash_result::{operation_failed, OperationResult};
 use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use managers::ManagerTrait;
 use managers::Manager;
+use managers::ManagerTrait;
 
-use crate::{get_managers_map, ManagersMap};
 use crate::managers_map::add_managers;
+use crate::{get_managers_map, ManagersMap};
 
 /// 管理管理器
 #[derive(Debug, Default)]
@@ -21,7 +21,7 @@ impl Majordomo {
     }
 
     /// 取得管理器, 返回Arc指针
-    pub fn get_manager_by_id(&self, id: i32) -> Result<Arc<Manager>, OperationResult> {
+    pub fn get_manager_by_id(&self, id: &str) -> Result<Arc<Manager>, OperationResult> {
         let managers = get_managers_map();
         let managers = managers.read();
 
@@ -39,8 +39,8 @@ impl Majordomo {
     }
 
     /// 取得管理编号表
-    pub fn get_manager_ids(&self) -> Vec<i32> {
-        let managers_ids: Vec<i32> = self.get_managers_map().read().keys().copied().collect();
+    pub fn get_manager_ids(&self) -> Vec<&str> {
+        let managers_ids: Vec<&str> = self.get_managers_map().read().keys().copied().collect();
         managers_ids
     }
 

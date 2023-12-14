@@ -2,7 +2,7 @@
 # 组定义
 #
 
-id = 10002
+id = "组"
 name_map = { zh = "组", en = "groups" }
 is_searchable = false
 description = "组，对帐号进行分组"

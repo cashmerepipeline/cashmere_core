@@ -5,7 +5,7 @@ use dependencies_sync::rust_i18n::{self, t};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
+use manage_define::field_ids::{LANGUAGE_CODES_CODE_FIELD_ID, LANGUAGE_CODES_NATIVE_FIELD_ID};
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
@@ -34,7 +34,7 @@ async fn validate_view_rules(
 ) -> Result<Request<NewLanguageCodeRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        let manage_id = LANGUAGES_CODES_MANAGE_ID;
+        let manage_id = LANGUAGE_CODES_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
             return Err(e);
@@ -59,7 +59,7 @@ async fn handle_new_language_code(
     let code = &request.get_ref().code;
     let native_name = &request.get_ref().native_name;
 
-    let manage_id = &LANGUAGES_CODES_MANAGE_ID;
+    let manage_id = &LANGUAGE_CODES_MANAGE_ID;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
@@ -81,8 +81,8 @@ async fn handle_new_language_code(
             NAME_MAP_FIELD_ID.to_string(),
             bson::to_document(name).unwrap(),
         );
-        new_entity_doc.insert(LANGUAGES_CODES_CODE_FIELD_ID.to_string(), code);
-        new_entity_doc.insert(LANGUAGES_CODES_NATIVE_FIELD_ID.to_string(), native_name);
+        new_entity_doc.insert(LANGUAGE_CODES_CODE_FIELD_ID.to_string(), code);
+        new_entity_doc.insert(LANGUAGE_CODES_NATIVE_FIELD_ID.to_string(), native_name);
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

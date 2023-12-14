@@ -63,7 +63,7 @@ async fn handle_change_manage_write_rule(
     let majordomo_arc = get_majordomo();
 
     // 检查管理是否存在
-    if !majordomo_arc.get_manager_ids().contains(manage_id) {
+    if !majordomo_arc.get_manager_ids().contains(&manage_id.as_str()) {
         return Err(Status::data_loss(format!("管理不存在: {}", manage_id)));
     }
 
@@ -82,7 +82,7 @@ async fn handle_change_manage_write_rule(
     }
 
     let view_rules_manager = majordomo_arc
-        .get_manager_by_id(VIEW_RULES_MANAGE_ID.to_owned())
+        .get_manager_by_id(VIEW_RULES_MANAGE_ID)
         .unwrap();
 
     let query_doc = doc! {

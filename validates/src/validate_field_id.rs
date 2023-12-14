@@ -5,9 +5,9 @@ use majordomo::get_majordomo;
 use managers::ManagerTrait;
 
 /// zh: 验证管理字段是否存在
-pub async fn validate_field_id(manage_id: &i32, field_id: &String) -> Result<(), Status> {
+pub async fn validate_field_id(manage_id: &str, field_id: &String) -> Result<(), Status> {
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
     let field_id = if let Ok(r) = field_id.parse::<i32>(){
         r

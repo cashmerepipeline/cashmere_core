@@ -11,7 +11,7 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 use crate::entity_cache_map::get_manage_entity_cache;
 
 pub async fn cache_init_cache(
-    manage_id: i32,
+    manage_id: &'static str,
 ) -> Result<OperationResult, OperationResult> {
     let mut entities = vec![];
     let mut cursor = if let Ok(r) =

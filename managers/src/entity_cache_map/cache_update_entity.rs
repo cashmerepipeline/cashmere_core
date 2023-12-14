@@ -6,7 +6,7 @@ use dependencies_sync::bson::Document;
 // 更新极少发生
 // 返回旧数据，后继操作失败以恢复缓存
 pub fn cache_update_entity(
-    manage_id: i32,
+    manage_id: &'static str,
     entity_id: &str,
     new_doc: Document,
 ) -> Option<Document> {

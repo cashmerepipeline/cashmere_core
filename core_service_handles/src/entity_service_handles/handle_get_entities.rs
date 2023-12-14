@@ -55,10 +55,10 @@ async fn validate_request_params(
     let entity_ids = &request.get_ref().entity_ids;
 
     // 管理编号不能为0
-    if manage_id == &0 {
+    if manage_id.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}-{}",
-            t!("管理编号不能为0"),
+            t!("管理编号不能为空"),
             "get_entities"
         )));
     }
@@ -89,16 +89,17 @@ async fn handle_get_entities(
 ) -> StreamResponseResult<GetEntitiesResponse> {
     let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = request.get_ref().manage_id;
+    let manage_id = &request.get_ref().manage_id;
     let entity_ids = &request.get_ref().entity_ids;
     let no_present_fields = &request.get_ref().no_present_fields;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let fields = manager.get_manage_schema().await;
     let view_mask = get_manage_schema_view_mask(&manage_id, &fields, &role_group).await;
-
+    
+    let manage_id = manage_id.to_owned();
     let mut filtered_ids = no_present_fields.clone();
     view_mask.iter().for_each(|(k, v)| {
         if !v {
@@ -110,7 +111,7 @@ async fn handle_get_entities(
     let mut id_stream = stream::iter(entity_ids.clone());
     tokio::spawn(async move {
         while let Some(ref id) = id_stream.next().await {
-            if can_entity_read(&manage_id.to_string(), &role_group).await {
+            if can_entity_read(&manage_id.clone(), &role_group).await {
                 filtered_ids.push(id.to_owned());
             };
 

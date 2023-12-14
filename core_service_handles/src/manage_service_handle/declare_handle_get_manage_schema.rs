@@ -19,7 +19,7 @@ macro_rules! declare_handle_get_manage_schema {
                 let manage_id: i32 = request.get_ref().manage_id.parse().unwrap();
 
                 let majordomo_arc = get_majordomo();
-                let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+                let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
                 let data = manager.get_manage_schema_bytes().await;
 
                 // let data = majordomo_arc.get_manage_schema_bytes(manage_id).await;

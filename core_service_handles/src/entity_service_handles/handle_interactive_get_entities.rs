@@ -87,7 +87,7 @@ async fn handle_interactive_entities_stream(
                     }
 
                     let majordomo_arc = get_majordomo();
-                    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+                    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
                     let match_doc: Document =
                         bson::from_slice(match_doc).unwrap_or(Document::new());

@@ -1,14 +1,13 @@
-use dependencies_sync::bson::{doc, self};
+use dependencies_sync::bson::{self, doc};
+use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
-use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
-
 
 #[async_trait]
 pub trait HandleGetManages {
@@ -54,11 +53,15 @@ async fn handle_get_manages(
 ) -> Result<Response<GetManagesResponse>, Status> {
     let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
-    let managers_ids: Vec<i32> = get_majordomo().get_manager_ids();
+    let managers_ids = get_majordomo()
+        .get_manager_ids()
+        .iter()
+        .map(|id| id.to_string())
+        .collect::<Vec<String>>();
 
     let mut result: Vec<Vec<u8>> = Vec::new();
     for id in managers_ids {
-        let manager = get_majordomo().get_manager_by_id(id).unwrap();
+        let manager = get_majordomo().get_manager_by_id(&id.as_str()).unwrap();
         let mut doc = manager.get_manage_document().await.read().clone();
 
         let _ = doc.remove(MANAGES_SCHEMA_FIELD_ID.to_string());

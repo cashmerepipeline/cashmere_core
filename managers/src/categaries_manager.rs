@@ -43,7 +43,7 @@ impl ManagerTrait for CategoriesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         CATEGORIES_MANAGE_ID
     }
 

@@ -15,7 +15,7 @@ use request_utils::request_account_context;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use validates::validate_name;
+use validates::{validate_name, validate_manage_id};
 
 #[async_trait]
 pub trait HandleNewTag {
@@ -53,18 +53,10 @@ async fn validate_request_params(
 ) -> Result<Request<NewTagRequest>, Status> {
     let name = &request.get_ref().name;
     let target_manage_id = &request.get_ref().target_manage_id;
-    
+
+    validate_manage_id(target_manage_id).await?; 
     validate_name(name)?;
     
-    // 目标管理不能为空
-    if *target_manage_id == 0i32 {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("目标管理不能为0"),
-            "new_tag"
-        )));
-    }
-
     Ok(request)
 }
 
@@ -88,7 +80,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
     // 是否存在，存在则返回
     if manager
         .entity_exists(&doc! {
-            TAGS_TARGET_MANAGES_FIELD_ID.to_string(): *target_manage_id,
+            TAGS_TARGET_MANAGES_FIELD_ID.to_string(): target_manage_id,
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
         .await.is_some()

@@ -5,7 +5,7 @@ use crate::can_field_read;
 
 pub async fn filter_can_read_fields(
     result: &bson::Document,
-    manage_id: &i32,
+    manage_id: &str,
     role_group: &String,
 ) -> bson::Document {
     let mut result_doc = doc!();

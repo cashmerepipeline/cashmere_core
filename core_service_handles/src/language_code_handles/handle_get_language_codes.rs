@@ -1,20 +1,16 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 
-
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-
-use manage_define::manage_ids::{LANGUAGES_CODES_MANAGE_ID};
+use manage_define::manage_ids::LANGUAGE_CODES_MANAGE_ID;
 use managers::manager_trait::ManagerTrait;
 
-
-use dependencies_sync::tokio_stream::{StreamExt};
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 use service_utils::types::UnaryResponseResult;
 
@@ -49,14 +45,16 @@ async fn validate_request_params(
 async fn handle_get_language_codes(
     _request: Request<GetLanguageCodesRequest>,
 ) -> Result<Response<GetLanguageCodesResponse>, Status> {
-    let manage_id = LANGUAGES_CODES_MANAGE_ID;
+    let manage_id = LANGUAGE_CODES_MANAGE_ID;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
     let query_doc = doc! {};
 
-    let result = manager.get_entity_stream(query_doc, None, None, None, 0).await;
+    let result = manager
+        .get_entity_stream(query_doc, None, None, None, 0)
+        .await;
 
     match result {
         Ok(mut entities_iter) => {

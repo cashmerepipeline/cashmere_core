@@ -1,5 +1,4 @@
 use dependencies_sync::tonic_build;
-
 fn main() {
     tonic_build::configure()
         .out_dir("../manage_define/src")

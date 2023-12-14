@@ -54,7 +54,7 @@ impl ManagerTrait for CommentsManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         COMMENTS_MANAGE_ID
     }
 

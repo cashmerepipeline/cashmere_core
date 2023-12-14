@@ -47,11 +47,11 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<NewSchemaFieldRequest>,
 ) -> Result<Request<NewSchemaFieldRequest>, Status> {
-    let manage_id = request.get_ref().manage_id;
-    let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
+    let manage_id = &request.get_ref().manage_id;
+    let field: &SchemaField = &request.get_ref().new_field.as_ref().unwrap();
 
     // 已经存在
-    if validate_field_id(&manage_id, &field.id.to_string())
+    if validate_field_id(manage_id.as_str(), &field.id.to_string())
         .await
         .is_ok()
     {
@@ -71,8 +71,8 @@ async fn handle_new_schema_field(
 ) -> Result<Response<NewSchemaFieldResponse>, Status> {
     let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = request.get_ref().manage_id;
-    let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
+    let manage_id = &request.get_ref().manage_id;
+    let field: &SchemaField = &request.get_ref().new_field.as_ref().unwrap();
 
     let name_map = field.name_map.clone();
     let name_doc = bson::to_document(&name_map).unwrap();
@@ -86,7 +86,7 @@ async fn handle_new_schema_field(
     };
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
     let result = manager.new_schema_field(new_field, &account_id).await;
 
     match result {

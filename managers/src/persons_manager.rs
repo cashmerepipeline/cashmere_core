@@ -54,7 +54,7 @@ impl ManagerTrait for PersonsManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         PERSONS_MANAGE_ID
     }
 

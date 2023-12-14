@@ -59,7 +59,7 @@ async fn handle_get_removed_entities_page(
     let conditions = &request.get_ref().conditions;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     // TODO: 排序条件只支持几种固定格式，需要安全性检查
     let sorts_doc = bson::to_document(conditions).ok().or(None);

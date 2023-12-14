@@ -57,7 +57,7 @@ async fn handle_edit_schema_field_name(
     let new_name = &request.get_ref().new_name;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
     let result = manager
         .edit_schema_field_name(field_id, language, new_name, &account_id)
         .await;

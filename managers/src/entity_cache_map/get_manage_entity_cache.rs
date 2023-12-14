@@ -6,10 +6,10 @@ use dependencies_sync::parking_lot::RwLock;
 
 use crate::entity_cache_map::get_entity_cache_map;
 
-pub fn get_manage_entity_cache(manage_id: i32) -> Arc<RwLock<BTreeMap<String, Arc<Document>>>> {
+pub fn get_manage_entity_cache(manage_id: &'static str) -> Arc<RwLock<BTreeMap<String, Arc<Document>>>> {
     let c_map_arc = get_entity_cache_map();
     let mut c_map = c_map_arc.write();
-    let e_map = c_map.get(&manage_id);
+    let e_map = c_map.get(manage_id);
 
     if let Some(r) = e_map {
         return r.clone();

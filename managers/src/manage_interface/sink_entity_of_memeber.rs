@@ -21,9 +21,9 @@ use manage_define::{
 use crate::entity_cache_map::cache_update_entity;
 
 pub async fn sink_entity_of_member(
-    owner_manage_id: &i32,
+    owner_manage_id: &str,
     owner_entity_id: &str,
-    self_manage_id: &i32,
+    self_manage_id: &str,
     new_entity_doc: &mut Document,
     account_id: &str,
     group_id: &str,

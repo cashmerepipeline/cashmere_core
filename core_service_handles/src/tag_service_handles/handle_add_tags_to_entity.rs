@@ -10,6 +10,8 @@ use request_utils::request_account_context;
 
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::validate_entity_id;
+use validates::validate_manage_id;
 
 #[async_trait]
 pub trait HandleAddTagsToEntity {
@@ -43,24 +45,14 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<AddTagsToEntityRequest>,
 ) -> Result<Request<AddTagsToEntityRequest>, Status> {
-    // target_manage_id不能为0
-    if request.get_ref().target_manage_id == 0 {
-        return Err(Status::invalid_argument(format!(
-            "{}: {}",
-            t!("目标管理编号不能为0"),
-            "add_tags_to_entity"
-        )));
-    }
-    // target_entity_id不能为空
-    if request.get_ref().target_entity_id.is_empty() {
-        return Err(Status::invalid_argument(format!(
-            "{}: {}",
-            t!("目标实体编号不能为空"),
-            "add_tags_to_entity"
-        )));
-    }
+    let target_manage_id = &request.get_ref().target_manage_id;
+    let target_entity_id = &request.get_ref().target_entity_id;
+    let tag_ids = &request.get_ref().tag_ids;
+    validate_manage_id(target_manage_id).await?;
+    validate_entity_id(target_manage_id, target_entity_id).await?;
+
     // tag_ids不能为空
-    if request.get_ref().tag_ids.is_empty() {
+    if tag_ids.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}: {}",
             t!("标签编号不能为空"),
@@ -80,7 +72,7 @@ async fn handle_add_tags_to_entity(
     let tag_ids = &request.get_ref().tag_ids;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*target_manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(target_manage_id).unwrap();
 
     let query_doc = doc! {
         ID_FIELD_ID.to_string():target_entity_id

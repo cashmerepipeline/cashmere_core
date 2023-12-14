@@ -11,6 +11,7 @@ use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::validate_manage_id;
 use view::{self, filter_can_read_fields};
 
 use service_utils::types::UnaryResponseResult;
@@ -49,14 +50,9 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<CheckEntitiesUpdateRequest>,
 ) -> Result<Request<CheckEntitiesUpdateRequest>, Status> {
-    // manage_id 不能为0
-    if request.get_ref().manage_id == 0 {
-        return Err(Status::invalid_argument(format!(
-            "{}: {}",
-            t!("管理编号不能为0"),
-            "check_entities_update"
-        )));
-    }
+    let manage_id = &request.get_ref().manage_id;
+
+    validate_manage_id(manage_id).await?;
 
     // entities 不能为空
     if request.get_ref().entities.is_empty() {
@@ -75,7 +71,7 @@ async fn handle_check_entities_update(
     let entities = &request.get_ref().entities;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let ids = entities
         .iter()

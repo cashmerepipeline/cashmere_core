@@ -40,7 +40,7 @@ async fn validate_request_params(
 ) -> Result<Request<GetConstantsRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
 
-    if manage_id == &0 {
+    if manage_id.is_empty(){
         return Err(Status::invalid_argument(format!(
             "{}: {}",
             t!("无效参数"),
@@ -59,7 +59,7 @@ async fn handle_get_constants(
     let manage_id = &request.get_ref().manage_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let query_doc = doc! {};
 

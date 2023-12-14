@@ -8,6 +8,7 @@ use manage_define::language_keys::ENGLISH;
 
 use crate::{get_id, get_name_map, get_schema, get_toml_map};
 
+/// 输入定义文件表，输出id的常量定义
 pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Option<&str>) {
     let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);
     let manage_field_ids_path_rust = format!("{}/field_ids.rs", target_dir);
@@ -19,7 +20,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
         manage_field_ids_path_dart = format!("{}/field_ids.dart", dart_out);
     }
 
-    let mut manage_ids_map: LinkedHashMap<String, i32> = LinkedHashMap::new();
+    let mut manage_ids_map: LinkedHashMap<String, String> = LinkedHashMap::new();
     let mut manage_field_ids_map: LinkedHashMap<String, Vec<(String, i32)>> = LinkedHashMap::new();
 
     for dir in src_dirs.iter() {
@@ -68,7 +69,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                         fields.push((s_name.to_string(), s_id));
                     }
                     manage_field_ids_map.insert(manage_name.clone(), fields);
-                    manage_ids_map.insert(manage_name, manage_id);
+                    manage_ids_map.insert(manage_name, manage_id.to_string());
                 }
                 Err(e) => println!("{:?}", e),
             }
@@ -88,14 +89,14 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
     for (name, id) in manage_ids_map.iter() {
         manage_ids_file_rust
             .write_fmt(format_args!(
-                "pub const {}_MANAGE_ID:i32 = {}; \n",
+                "pub const {}_MANAGE_ID: &str = \"{}\"; \n",
                 name.to_uppercase(),
                 id
             ))
             .expect("写入管理rust文件编码错误");
         manage_ids_file_dart
             .write_fmt(format_args!(
-                "const int {}_MANAGE_ID = {}; \n",
+                "const String {}_MANAGE_ID =\"{}\"; \n",
                 name.to_uppercase(),
                 id
             ))

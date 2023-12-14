@@ -3,7 +3,7 @@
 # 记录实体相关日历信息的帐本
 #
 
-id = 10027
+id = "日历帐本"
 name_map = { zh = "日历帐本", en = "calendar_books" }
 is_searchable = true
 description = "用于记录某个实体的日历信息"

@@ -21,7 +21,7 @@ message SchemaField {
 
 // 取得管理描写
 message GetManageSchemaRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
 }
 message GetManageSchemaResponse{
   repeated SchemaField fields = 1;
@@ -29,7 +29,7 @@ message GetManageSchemaResponse{
 
 // 添加管理属性
 message NewSchemaFieldRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
   SchemaField new_field = 2;
 }
 message NewSchemaFieldResponse{
@@ -38,7 +38,7 @@ message NewSchemaFieldResponse{
 
 // 标记属性移除
 message MarkSchemaFieldRemovedRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
   int32 field_id = 2;
 }
 message MarkSchemaFieldRemovedResponse{
@@ -47,7 +47,7 @@ message MarkSchemaFieldRemovedResponse{
 
 // 编辑属性名
 message EditSchemaFieldNameRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
   int32 field_id = 2;
   string language = 3;
   string new_name = 4;

@@ -57,7 +57,7 @@ async fn handle_unmark_entity_categories(
     let tag_ids = &request.get_ref().category_ids;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*target_manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(target_manage_id).unwrap();
 
     let query_doc = doc! {
         ID_FIELD_ID.to_string():target_entity_id

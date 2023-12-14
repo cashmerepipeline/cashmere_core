@@ -22,14 +22,14 @@ use dependencies_sync::bson::Document;
 pub(crate) async fn get_manage_entities_page(
     _account_id: &str,
     role_group: &str,
-    manage_id: &i32,
+    manage_id: &str,
     match_doc: &Document,
     sort_doc: &Option<Document>,
     page_index: &u32,
     no_present_fields: &[String],
 ) -> Result<Vec<Document>, OperationResult> {
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
     let mut matches = doc! {};
     matches.insert(REMOVED_FIELD_ID.to_string(), false);

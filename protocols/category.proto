@@ -4,7 +4,7 @@ package cashmere;
 import "name.proto";
 
 message NewCategoryRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
   Name name = 2;
   string description = 3;
 }
@@ -14,7 +14,7 @@ message NewCategoryResponse{
 }
 
 message GetCategoriesRequest{
-    int32 manage_id = 1;
+    string manage_id = 1;
   }
 message GetCategoriesResponse{
     // bson bytes
@@ -23,7 +23,7 @@ message GetCategoriesResponse{
 
 // 标记实体到类, 将品类编号添加到实体的品类列表中
 message MarkEntityCategoriesRequest {
-  int32 manage_id = 2;
+  string manage_id = 2;
   string entity_id = 3;
   repeated string category_ids = 4;
 }
@@ -34,7 +34,7 @@ message MarkEntityCategoriesResponse {
 
 // 取消标记品类，将品类从实体品类列表中删除
 message UnmarkEntityCategoriesRequest {
-  int32 manage_id = 2;
+  string manage_id = 2;
   string entity_id = 3;
   repeated string category_ids = 4;
 }

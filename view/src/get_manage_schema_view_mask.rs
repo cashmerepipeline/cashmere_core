@@ -7,7 +7,7 @@ use crate::can_field_read;
 
 /// 获取字段是否可读，1为可读，0为不可读
 pub async fn get_manage_schema_view_mask(
-    manage_id: &i32,
+    manage_id: &str,
     fields: &Vec<SchemaField>,
     role_group: &String,
 ) -> HashMap<String, bool> {

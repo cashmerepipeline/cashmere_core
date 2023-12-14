@@ -8,7 +8,7 @@ use cash_core::SchemaField;
 
 pub fn validate_value_doc(
     new_value: &[u8],
-    manage_id: &i32,
+    manage_id: &str,
     field_id: &String,
     fields: Vec<SchemaField>,
 ) -> Result<(), Status> {

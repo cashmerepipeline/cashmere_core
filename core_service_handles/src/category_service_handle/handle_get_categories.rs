@@ -41,7 +41,7 @@ async fn validate_request_params(
 ) -> Result<Request<GetCategoriesRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
     // 不能为0
-    if manage_id == &0 {
+    if manage_id.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}: {}",
             t!("管理号不能为0"),

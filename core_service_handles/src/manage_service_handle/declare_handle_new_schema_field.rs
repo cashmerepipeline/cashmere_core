@@ -31,7 +31,7 @@ macro_rules! declare_handle_new_schema_field {
                 };
 
                 let majordomo_arc = get_majordomo();
-                let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+                let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
                 let result = manager.new_schema_field(new_field, &account_id).await;
 
                 match result {

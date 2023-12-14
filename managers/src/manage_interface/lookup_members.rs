@@ -23,9 +23,9 @@ use crate::entity_cache_map::cache_update_entity;
 
 /// zh: 返回
 pub async fn lookup_members(
-    owner_manage_id: &i32,
+    owner_manage_id: &str,
     owner_entity_id: &str,
-    self_manage_id: &i32,
+    self_manage_id: &str,
     query_doc: &Document,
     sort_doc: &Document,
     unsets: &Vec<String>,

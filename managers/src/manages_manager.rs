@@ -48,8 +48,8 @@ impl ManagerTrait for ManagesManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
-        MANAGES_MANAGE_ID
+    fn get_id(&self) -> &'static str {
+        MANAGES_MANAGE_ID.clone()
     }
 
     fn get_name(&self) -> String {

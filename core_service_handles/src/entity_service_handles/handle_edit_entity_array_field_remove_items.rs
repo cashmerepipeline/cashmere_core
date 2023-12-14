@@ -88,7 +88,7 @@ async fn handle_edit_entity_array_field_remove_items(
     };
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,

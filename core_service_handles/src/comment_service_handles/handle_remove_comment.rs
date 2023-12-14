@@ -62,7 +62,7 @@ async fn handle_remove_comment(
 
     let majordomo_arc = get_majordomo();
     let target_manager = majordomo_arc
-        .get_manager_by_id(target_manage_id.parse::<i32>().unwrap())
+        .get_manager_by_id(target_manage_id.as_str())
         .unwrap();
     let comment_manager = majordomo_arc
         .get_manager_by_id(COMMENTS_MANAGE_ID)

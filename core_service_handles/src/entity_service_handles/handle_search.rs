@@ -77,9 +77,9 @@ async fn handle_search(
         .join(" ");
 
     let majordomo_arc = get_majordomo();
-    let _manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let _manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let result = search(*manage_id, search_str.as_str()).await;
+    let result = search(manage_id, search_str.as_str()).await;
 
     // TODO:  过滤不可读实体
 

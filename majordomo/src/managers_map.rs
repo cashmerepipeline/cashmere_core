@@ -10,7 +10,7 @@ use managers::Manager;
 use managers::ManagerTrait;
 
 /// 管理表类型
-pub type ManagersMap = HashMap<i32, Arc<Manager>>;
+pub type ManagersMap = HashMap<&'static str, Arc<Manager>>;
 
 /// 管理管理器表
 static mut MANAGERS_MAP: Option<Arc<RwLock<ManagersMap>>> = None;

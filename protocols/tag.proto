@@ -4,7 +4,7 @@ package cashmere;
 import "name.proto";
 
 message NewTagRequest{
-  int32 target_manage_id = 1;
+  string target_manage_id = 1;
   Name name = 2;
   string description = 3;
 }
@@ -16,7 +16,7 @@ message NewTagResponse{
 // 添加标签到某个实体
 message AddTagsToEntityRequest {
   repeated string tag_ids = 1;
-  int32 target_manage_id = 2;
+  string target_manage_id = 2;
   string target_entity_id = 3;
 }
 message AddTagsToEntityResponse {
@@ -25,7 +25,7 @@ message AddTagsToEntityResponse {
 }
 
 message GetTagsRequest {
-    int32 target_manage_id = 1;
+    string target_manage_id = 1;
   }
 message GetTagsResponse {
     repeated bytes tags = 1;
@@ -33,7 +33,7 @@ message GetTagsResponse {
 
 // 移除标签
 message RemoveTagsFromEntityRequest {
-  int32 target_manage_id = 1;
+  string target_manage_id = 1;
   string target_entity_id = 2;
   repeated string tag_ids = 3;
 }

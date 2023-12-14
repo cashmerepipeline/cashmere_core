@@ -4,7 +4,7 @@ package cashmere;
 import "name.proto";
 
 message NewCalendarBookRequest{
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   Name name = 3;
   string description = 4;

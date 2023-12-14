@@ -18,7 +18,7 @@ message Name {
 
 // 重命名
 message RenameRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   Name new_name = 3;
 }
@@ -28,7 +28,7 @@ message RenameResponse {
 
 // 新语言名
 message NewLanguageNameRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   Name new_name = 3;
 }
@@ -38,7 +38,7 @@ message NewLanguageNameResponse {
 
 // 移除语言名
 message RemoveLanguageNameRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   string language = 3;
 }

@@ -94,7 +94,7 @@ async fn handle_get_entities_page(
     };
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let doc_stream = manager
         .get_entity_stream(match_doc, None, sort, start_oid, skip_count)

@@ -56,7 +56,7 @@ async fn handle_recover_removed_entity(
     let entity_id = &request.get_ref().entity_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let result = manager.recover_removed_entity(entity_id, &account_id).await;
 

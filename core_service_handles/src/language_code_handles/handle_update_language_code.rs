@@ -4,7 +4,7 @@ use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use manage_define::field_ids::{LANGUAGES_CODES_CODE_FIELD_ID, LANGUAGES_CODES_NATIVE_FIELD_ID};
+use manage_define::field_ids::{LANGUAGE_CODES_CODE_FIELD_ID, LANGUAGE_CODES_NATIVE_FIELD_ID};
 use manage_define::manage_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
@@ -31,7 +31,7 @@ async fn validate_view_rules(
 ) -> Result<Request<UpdateLanguageCodeRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        let manage_id = LANGUAGES_CODES_MANAGE_ID;
+        let manage_id = LANGUAGE_CODES_MANAGE_ID;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await
@@ -58,7 +58,7 @@ async fn handle_update_language_code(
     let new_code = &request.get_ref().new_code;
     let new_native = &request.get_ref().new_native;
 
-    let manage_id = &LANGUAGES_CODES_MANAGE_ID;
+    let manage_id = &LANGUAGE_CODES_MANAGE_ID;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
@@ -69,8 +69,8 @@ async fn handle_update_language_code(
         "_id": id
     };
     let mut modify_doc = doc! {
-        LANGUAGES_CODES_CODE_FIELD_ID.to_string(): new_code,
-        LANGUAGES_CODES_NATIVE_FIELD_ID.to_string(): new_native
+        LANGUAGE_CODES_CODE_FIELD_ID.to_string(): new_code,
+        LANGUAGE_CODES_NATIVE_FIELD_ID.to_string(): new_native
     };
 
     let result = manager

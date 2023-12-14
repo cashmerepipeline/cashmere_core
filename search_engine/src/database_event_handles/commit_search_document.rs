@@ -15,7 +15,7 @@ use crate::get_tantivy_writer;
 pub fn commit_search_document(
     update_document: &bson::Document,
     schema: std::sync::Arc<Schema>,
-    manage_id: i32,
+    manage_id: &str,
     // 这里的id为数据库的objectid
     object_id: Option<String>,
 ) -> Result<(), OperationResult> {
@@ -51,7 +51,7 @@ pub fn commit_search_document(
             Utc::now().timestamp_millis()
         };
     let json_doc: serde_json::Value = json!({
-            "mid": manage_id as u64,
+            "mid": manage_id,
             "_id": object_id,
             ID_FIELD_ID.to_string(): id,
             NAME_MAP_FIELD_ID.to_string(): name_map_json,

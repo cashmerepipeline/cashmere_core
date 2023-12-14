@@ -4,7 +4,7 @@ use managers::manager_trait::ManagerTrait;
 
 use crate::{get_tantivy_schema, get_tantivy_writer};
 
-pub fn handle_delete_event(manage_id: i32, object_id: &String) {
+pub fn handle_delete_event(manage_id: &str, object_id: &String) {
     println!("handle_delete_event: {}-{}", manage_id, object_id);
 
     // zh: 大部分管理的实体不删除，只有少数的几个管理实体支持删除操作

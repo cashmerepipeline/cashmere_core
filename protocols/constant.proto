@@ -7,7 +7,7 @@ package cashmere;
 // 常量一般不需要权限控制
 // NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
 message GetConstantsRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
 }
 message GetConstantsResponse {
   repeated bytes constants = 1;

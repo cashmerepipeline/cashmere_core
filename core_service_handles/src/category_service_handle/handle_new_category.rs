@@ -57,7 +57,7 @@ async fn validate_request_params(
     validate_name(name)?; 
 
     // 目标管理不能为空
-    if *manage_id == 0i32 {
+    if manage_id.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}-{}",
             t!("目标管理不能为0"),
@@ -87,7 +87,7 @@ async fn handle_new_category(
     // 是否存在，存在则返回
     if manager
         .entity_exists(&doc! {
-            CATEGORIES_MANAGE_ID_FIELD_ID.to_string(): *manage_id,
+            CATEGORIES_MANAGE_ID_FIELD_ID.to_string(): manage_id,
             NAME_MAP_FIELD_ID.to_string(): {"$elementMatch":name_doc.clone()},
         })
         .await.is_some()

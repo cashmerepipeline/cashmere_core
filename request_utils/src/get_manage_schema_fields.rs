@@ -4,9 +4,9 @@ use cash_core::SchemaField;
 use majordomo::get_majordomo;
 use managers::manager_trait::ManagerTrait;
 
-pub async fn get_manage_schema_fields(manage_id: &i32) -> Result<Vec<SchemaField>, Status> {
+pub async fn get_manage_schema_fields(manage_id: &str) -> Result<Vec<SchemaField>, Status> {
     let majordomo_arc = get_majordomo();
-    let manager = if let Ok(r) = majordomo_arc.get_manager_by_id(*manage_id) {
+    let manager = if let Ok(r) = majordomo_arc.get_manager_by_id(manage_id) {
         r
     } else {
         log::error!("{}, {}", t!("取得管理器失败"), manage_id);

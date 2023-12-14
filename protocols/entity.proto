@@ -29,7 +29,7 @@ message Entity{
 // 变更物主
 message ChangeEntityOwnerRequest
 {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   string old_owner_id = 3;
   string new_owner_id = 4;
@@ -41,7 +41,7 @@ message ChangeEntityOwnerResponse
 
 // 太通用，不建议开放
 message NewEntityRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   bytes data = 2;
 }
 message NewEntityResponse {
@@ -50,7 +50,7 @@ message NewEntityResponse {
 
 // 不建议开放
 message EditEntityRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
   // {field_id:value, ...}
   bytes data = 3;
@@ -87,7 +87,7 @@ enum EditOperationTypeEnum {
 }
 
 message EntityFieldEdit {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     EditOperationTypeEnum operation_type = 4;
@@ -106,7 +106,7 @@ message EditMultiEntityFieldsResponse{
 
 // 编辑单个实体单个字段，基础类型字段
 message EditEntityFieldRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     // {field_id:value}
@@ -119,7 +119,7 @@ message EditEntityFieldResponse {
 
 // 编辑单个实体MAP字段中的某个属性
 message EditEntityMapFieldRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     string key = 4;
@@ -133,7 +133,7 @@ message EditEntityMapFieldResponse {
 
 // 修改单个实体MAP移除某个key
 message EditEntityMapFieldRemoveKeyRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     string key = 4;
@@ -145,7 +145,7 @@ message EditEntityMapFieldRemoveKeyResponse {
 
 // 修改单个实体List实体属性, 添加成员
 message EditEntityArrayFieldAddItemsRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     // {field_id:[items]}
@@ -158,7 +158,7 @@ message EditEntityArrayFieldAddItemsResponse {
 
 // 修改单个实体List实体属性, 移除物体
 message EditEntityArrayFieldRemoveItemsRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     string field_id = 3;
     // {field_id:[items]}
@@ -172,7 +172,7 @@ message EditEntityArrayFieldRemoveItemsResponse {
 
 // 依据id取得单个实体
 message GetEntityRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     string entity_id = 2;
     // 不出现的字段, 主要用于分步加载数据
     repeated string no_present_fields = 3;
@@ -183,7 +183,7 @@ message GetEntityResponse {
 
 // 依据id列表取得多个实体
 message GetEntitiesRequest {
-    int32 manage_id = 1;
+    string manage_id = 1;
     // 列表最长100, 根据需要指定长度
     repeated string entity_ids = 2;
     // 不出现的字段, 主要用于分步加载数据
@@ -196,7 +196,7 @@ message GetEntitiesResponse {
 // 依据页码取得实体页列表，页码从1开始
 // 需要先取得实体总数，然后计算页数
 message GetEntitiesPageRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   uint32 page_index = 2;
   // 过滤条件 bson document
   bytes match_doc = 3;
@@ -215,7 +215,7 @@ message GetEntitiesPageResponse {
 
 // 交互取得实体页
 message InteractiveGetEntitiesRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   uint32 page_index = 2;
   // bson document
   bytes match_doc = 3;
@@ -231,7 +231,7 @@ message InteractiveGetEntitiesResponse {
 
 // 标记实体已移除
 message MarkEntityRemovedRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
 }
 message MarkEntityRemovedResponse {
@@ -241,7 +241,7 @@ message MarkEntityRemovedResponse {
 
 // 恢复标记为已移除的实体
 message RecoverRemovedEntityRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   string entity_id = 2;
 }
 message RecoverRemovedEntityResponse {
@@ -251,7 +251,7 @@ message RecoverRemovedEntityResponse {
 
 // 取得已删除实体页
 message GetRemovedEntitiesPageRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   uint32 page_index = 2;
   bytes conditions = 3;
 }
@@ -281,7 +281,7 @@ message EntityTimestamp {
 
 // 检查实体是否有更新，返回有更新的实体
 message CheckEntitiesUpdateRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   // 列表最长不能超过100
   repeated EntityTimestamp entities = 2;
 }
@@ -293,7 +293,7 @@ message CheckEntitiesUpdateResponse {
 // 检查迟于指定时间是否有更新
 // 返回编号列表页流
 message CheckUpdatesLaterThenTimeRequest {
-  int32 manage_id = 1;
+  string manage_id = 1;
   // 格式二进制 bson Document 形式{"value": Timestamp()}
   bytes timestamp = 2;
   // 是否按时间升序排列, 默认降序

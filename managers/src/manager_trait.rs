@@ -81,7 +81,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     fn unregister(&self) -> Result<OperationResult, OperationResult>;
 
     // 取得管理器id
-    fn get_id(&self) -> i32;
+    fn get_id(&self) -> &'static str;
     // 取得管理器名
     fn get_name(&self) -> String;
 
@@ -470,7 +470,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 实体缓存
     fn has_cache(&self) -> bool;
 
-    async fn init_cache(&self) -> Result<OperationResult, OperationResult> {
+    async fn init_cache(&'static self) -> Result<OperationResult, OperationResult> {
         cache_init_cache(self.get_id()).await
     }
 

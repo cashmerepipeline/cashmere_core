@@ -43,11 +43,11 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<MarkEntityCategoriesRequest>,
 ) -> Result<Request<MarkEntityCategoriesRequest>, Status> {
-    let target_manage_id = request.get_ref().manage_id;
+    let target_manage_id = &request.get_ref().manage_id;
     let target_entity_id = &request.get_ref().entity_id;
     let category_ids = &request.get_ref().category_ids;
 
-    if target_manage_id == 0i32 {
+    if target_manage_id.is_empty() {
         return Err(Status::invalid_argument(t!("管理编号不正确")));
     }
     if target_entity_id.is_empty() {
@@ -66,7 +66,7 @@ async fn handle_mark_entity_categories(
 ) -> Result<Response<MarkEntityCategoriesResponse>, Status> {
     let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
-    let target_manage_id = request.get_ref().manage_id;
+    let target_manage_id = &request.get_ref().manage_id;
     let target_entity_id = &request.get_ref().entity_id;
     let category_ids = &request.get_ref().category_ids;
 

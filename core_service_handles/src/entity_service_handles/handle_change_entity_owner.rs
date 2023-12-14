@@ -56,7 +56,7 @@ async fn validate_request_params(
 
     let majordomo_arc = get_majordomo();
 
-    if !majordomo_arc.get_manager_ids().contains(manage_id) {
+    if !majordomo_arc.get_manager_ids().contains(&manage_id.as_str()) {
         return Err(Status::aborted(t!("管理不存在")));
     }
 
@@ -84,7 +84,7 @@ async fn handle_change_entity_owner(
     let new_owner_id = &request.get_ref().new_owner_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,

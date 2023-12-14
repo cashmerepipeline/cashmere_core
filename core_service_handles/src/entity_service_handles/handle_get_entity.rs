@@ -68,7 +68,7 @@ async fn handle_get_entity(
     let no_present_fields = &request.get_ref().no_present_fields;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(*manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let result = manager.get_entity_by_id(entity_id, no_present_fields).await;
 

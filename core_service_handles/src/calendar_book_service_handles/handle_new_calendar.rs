@@ -32,7 +32,7 @@ async fn validate_view_rules(
 ) -> Result<Request<NewCalendarRequest>, Status> {
     #[cfg(feature = "view_rules_validate")]
     {
-        let manage_id = LANGUAGES_CODES_MANAGE_ID;
+        let manage_id = LANGUAGE_CODES_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata())?;
         if let Err(e) =
             view::validates::validate_collection_can_write(&manage_id, &role_group).await

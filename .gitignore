@@ -6,8 +6,6 @@ target/
 *.pyc
 *.log
 *.lock
-manage_define/src/manage_ids.rs
-/account_server/src/cashmere.rs
 
 dart_packages/cashmere_core/.flutter-plugins
 dart_packages/cashmere_core/.flutter-plugins-dependencies

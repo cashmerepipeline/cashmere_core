@@ -59,10 +59,10 @@ async fn handle_get_manage_schema(
 ) -> Result<Response<GetManageSchemaResponse>, Status> {
     let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = request.get_ref().manage_id;
+    let manage_id = &request.get_ref().manage_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let fields = manager.get_manage_schema().await;
 
