@@ -38,9 +38,8 @@ index_root_dir = "tantivy"
 writer_commit_interval = 15
 # zh: 写缓存块，根据索引大小设置, 单位为 字节
 memory_budget_in_bytes = 15000000
-
 # zh: 不可搜索管理表
-# unsearchable_manages = ["19999"]
+unsearchable_manages = ["编号器", "人", "管理", "帐号", "事件服务", "通知栏帐号对", "帐号发送端对"]
 
 [data_server]
 root_dir_path = "data_root"
@@ -63,4 +62,4 @@ internal_root_dir_map = { "windows" = "X:/data_root/dir", "linux" = "/mnt/data_r
 # manage["", "manage_id"], stage["", stage, stage_id], version["", version,version_id], 
 # specs不能为空且目前只能为id，
 # data不能为空且目前只能为id，
-file_path_format = {"manage" = "manage_id",  "specs" = "specs_id", "data" = "data_id", "stage" = "", "version" = "" }
+file_path_format = { "manage" = "manage_id", "specs" = "specs_id", "data" = "data_id", "stage" = "", "version" = "" }

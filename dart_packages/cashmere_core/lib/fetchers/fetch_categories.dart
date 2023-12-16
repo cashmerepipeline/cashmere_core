@@ -6,7 +6,7 @@ import 'package:grpc/grpc.dart';
 Future<List<Map<String, dynamic>>> fetchCategories(
   GrpcCall<GetCategoriesRequest, GetCategoriesResponse> stubCall,
   Map<String, String> metaData,
-  int manageId,
+  String manageId,
 ) async {
   final request = GetCategoriesRequest(manageId: manageId);
 

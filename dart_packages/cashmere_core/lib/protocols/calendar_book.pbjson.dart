@@ -17,7 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const NewCalendarBookRequest$json = {
   '1': 'NewCalendarBookRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'name', '3': 3, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'description', '3': 4, '4': 1, '5': 9, '10': 'description'},
@@ -26,7 +26,7 @@ const NewCalendarBookRequest$json = {
 
 /// Descriptor for `NewCalendarBookRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newCalendarBookRequestDescriptor = $convert.base64Decode(
-    'ChZOZXdDYWxlbmRhckJvb2tSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGw'
+    'ChZOZXdDYWxlbmRhckJvb2tSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGw'
     'oJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIiCgRuYW1lGAMgASgLMg4uY2FzaG1lcmUuTmFt'
     'ZVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgEIAEoCVILZGVzY3JpcHRpb24=');
 

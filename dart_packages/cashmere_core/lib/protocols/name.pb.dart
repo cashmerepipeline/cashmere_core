@@ -81,7 +81,7 @@ class Name extends $pb.GeneratedMessage {
 /// 重命名
 class RenameRequest extends $pb.GeneratedMessage {
   factory RenameRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     Name? newName,
   }) {
@@ -102,7 +102,7 @@ class RenameRequest extends $pb.GeneratedMessage {
   factory RenameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RenameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOM<Name>(3, _omitFieldNames ? '' : 'newName', subBuilder: Name.create)
     ..hasRequiredFields = false
@@ -130,9 +130,9 @@ class RenameRequest extends $pb.GeneratedMessage {
   static RenameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -212,7 +212,7 @@ class RenameResponse extends $pb.GeneratedMessage {
 /// 新语言名
 class NewLanguageNameRequest extends $pb.GeneratedMessage {
   factory NewLanguageNameRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     Name? newName,
   }) {
@@ -233,7 +233,7 @@ class NewLanguageNameRequest extends $pb.GeneratedMessage {
   factory NewLanguageNameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewLanguageNameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOM<Name>(3, _omitFieldNames ? '' : 'newName', subBuilder: Name.create)
     ..hasRequiredFields = false
@@ -261,9 +261,9 @@ class NewLanguageNameRequest extends $pb.GeneratedMessage {
   static NewLanguageNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -343,7 +343,7 @@ class NewLanguageNameResponse extends $pb.GeneratedMessage {
 /// 移除语言名
 class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
   factory RemoveLanguageNameRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? language,
   }) {
@@ -364,7 +364,7 @@ class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
   factory RemoveLanguageNameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveLanguageNameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'language')
     ..hasRequiredFields = false
@@ -392,9 +392,9 @@ class RemoveLanguageNameRequest extends $pb.GeneratedMessage {
   static RemoveLanguageNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

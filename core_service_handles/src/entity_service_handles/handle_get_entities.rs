@@ -97,7 +97,7 @@ async fn handle_get_entities(
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     let fields = manager.get_manage_schema().await;
-    let view_mask = get_manage_schema_view_mask(&manage_id, &fields, &role_group).await;
+    let view_mask = get_manage_schema_view_mask(manage_id, &fields, &role_group).await;
     
     let manage_id = manage_id.to_owned();
     let mut filtered_ids = no_present_fields.clone();

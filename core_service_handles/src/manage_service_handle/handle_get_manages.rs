@@ -61,7 +61,7 @@ async fn handle_get_manages(
 
     let mut result: Vec<Vec<u8>> = Vec::new();
     for id in managers_ids {
-        let manager = get_majordomo().get_manager_by_id(&id.as_str()).unwrap();
+        let manager = get_majordomo().get_manager_by_id(id.as_str()).unwrap();
         let mut doc = manager.get_manage_document().await.read().clone();
 
         let _ = doc.remove(MANAGES_SCHEMA_FIELD_ID.to_string());

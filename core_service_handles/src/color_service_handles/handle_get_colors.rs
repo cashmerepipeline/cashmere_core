@@ -42,7 +42,7 @@ async fn validate_request_params(
 async fn handle_get_country_codes(
     _request: Request<GetColorsRequest>,
 ) -> Result<Response<GetColorsResponse>, Status> {
-    let result = get_constants(&COLORS_MANAGE_ID).await;
+    let result = get_constants(COLORS_MANAGE_ID).await;
 
     match result {
         Ok(entities) => Ok(Response::new(GetColorsResponse {

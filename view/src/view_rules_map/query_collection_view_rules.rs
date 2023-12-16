@@ -13,13 +13,10 @@ pub async fn query_collection_view_rules(
     match get_manage_view_rules(manage_id).await {
         Some(manage_view_rules_map) => {
             let m = manage_view_rules_map.read();
-            let result = m.collection
-                .get(group_id)
-                .map(|rule| rule.clone())
-                .ok_or(operation_failed(
-                    "query_collection_view_rules",
-                    "取得集合可见性规则失败",
-                ));
+            let result = m.collection.get(group_id).cloned().ok_or(operation_failed(
+                "query_collection_view_rules",
+                "取得集合可见性规则失败",
+            ));
             log::debug!("{}: {:?}", t!("取得集合可见规则成功"), result);
             result
         }

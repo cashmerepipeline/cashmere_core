@@ -7,7 +7,7 @@ use manage_define::general_field_ids::{GROUPS_FIELD_ID, OWNER_FIELD_ID};
 use crate::add_query_filters::check_group_read_group::check_group_read_group;
 use crate::add_query_filters::check_group_read_nolimit::check_group_read_nolimit;
 use crate::add_query_filters::check_group_read_only_owner::check_group_read_only_owner;
-use crate::view_rules_map::{get_view_rules_map, query_collection_view_rules};
+use crate::view_rules_map::query_collection_view_rules;
 
 /// 加入查询过滤
 pub async fn add_query_filters(

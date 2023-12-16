@@ -17,7 +17,7 @@ import 'name.pb.dart' as $0;
 
 class NewCategoryRequest extends $pb.GeneratedMessage {
   factory NewCategoryRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $0.Name? name,
     $core.String? description,
   }) {
@@ -38,7 +38,7 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
   factory NewCategoryRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewCategoryRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOM<$0.Name>(2, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..aOS(3, _omitFieldNames ? '' : 'description')
     ..hasRequiredFields = false
@@ -66,9 +66,9 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
   static NewCategoryRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -148,7 +148,7 @@ class NewCategoryResponse extends $pb.GeneratedMessage {
 
 class GetCategoriesRequest extends $pb.GeneratedMessage {
   factory GetCategoriesRequest({
-    $core.int? manageId,
+    $core.String? manageId,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -161,7 +161,7 @@ class GetCategoriesRequest extends $pb.GeneratedMessage {
   factory GetCategoriesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCategoriesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..hasRequiredFields = false
   ;
 
@@ -187,9 +187,9 @@ class GetCategoriesRequest extends $pb.GeneratedMessage {
   static GetCategoriesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -244,7 +244,7 @@ class GetCategoriesResponse extends $pb.GeneratedMessage {
 /// 标记实体到类, 将品类编号添加到实体的品类列表中
 class MarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   factory MarkEntityCategoriesRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.Iterable<$core.String>? categoryIds,
   }) {
@@ -265,7 +265,7 @@ class MarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   factory MarkEntityCategoriesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MarkEntityCategoriesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'manageId')
     ..aOS(3, _omitFieldNames ? '' : 'entityId')
     ..pPS(4, _omitFieldNames ? '' : 'categoryIds')
     ..hasRequiredFields = false
@@ -293,9 +293,9 @@ class MarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   static MarkEntityCategoriesRequest? _defaultInstance;
 
   @$pb.TagNumber(2)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(2)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(2)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(2)
@@ -368,7 +368,7 @@ class MarkEntityCategoriesResponse extends $pb.GeneratedMessage {
 /// 取消标记品类，将品类从实体品类列表中删除
 class UnmarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   factory UnmarkEntityCategoriesRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.Iterable<$core.String>? categoryIds,
   }) {
@@ -389,7 +389,7 @@ class UnmarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   factory UnmarkEntityCategoriesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UnmarkEntityCategoriesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'manageId')
     ..aOS(3, _omitFieldNames ? '' : 'entityId')
     ..pPS(4, _omitFieldNames ? '' : 'categoryIds')
     ..hasRequiredFields = false
@@ -417,9 +417,9 @@ class UnmarkEntityCategoriesRequest extends $pb.GeneratedMessage {
   static UnmarkEntityCategoriesRequest? _defaultInstance;
 
   @$pb.TagNumber(2)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(2)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(2)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(2)

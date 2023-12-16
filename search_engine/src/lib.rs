@@ -29,7 +29,7 @@ mod search;
 pub mod database_event_handles;
 
 mod watch_database;
-// mod is_searchable;
+mod is_searchable;
 
 mod spaw_commit_thread;
 

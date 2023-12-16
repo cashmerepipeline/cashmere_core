@@ -118,7 +118,7 @@ class GetManageViewResponse extends $pb.GeneratedMessage {
 /// 取得管理模式可视表
 class GetSchemaViewRulesMapRequest extends $pb.GeneratedMessage {
   factory GetSchemaViewRulesMapRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
   }) {
     final $result = create();
@@ -135,7 +135,7 @@ class GetSchemaViewRulesMapRequest extends $pb.GeneratedMessage {
   factory GetSchemaViewRulesMapRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetSchemaViewRulesMapRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..hasRequiredFields = false
   ;
@@ -162,9 +162,9 @@ class GetSchemaViewRulesMapRequest extends $pb.GeneratedMessage {
   static GetSchemaViewRulesMapRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -234,7 +234,7 @@ class GetSchemaViewRulesMapResponse extends $pb.GeneratedMessage {
 /// 管理权限
 class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeManageReadRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? readRule,
   }) {
@@ -255,7 +255,7 @@ class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeManageReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'readRule')
     ..hasRequiredFields = false
@@ -283,9 +283,9 @@ class ChangeManageReadRuleRequest extends $pb.GeneratedMessage {
   static ChangeManageReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -362,7 +362,7 @@ class ChangeManageReadRuleResponse extends $pb.GeneratedMessage {
 
 class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeManageWriteRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? writeRule,
   }) {
@@ -383,7 +383,7 @@ class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeManageWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeManageWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'writeRule')
     ..hasRequiredFields = false
@@ -411,9 +411,9 @@ class ChangeManageWriteRuleRequest extends $pb.GeneratedMessage {
   static ChangeManageWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -491,7 +491,7 @@ class ChangeManageWriteRuleResponse extends $pb.GeneratedMessage {
 /// 集合权限
 class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeCollectionReadRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? readRule,
   }) {
@@ -512,7 +512,7 @@ class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeCollectionReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'readRule')
     ..hasRequiredFields = false
@@ -540,9 +540,9 @@ class ChangeCollectionReadRuleRequest extends $pb.GeneratedMessage {
   static ChangeCollectionReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -619,7 +619,7 @@ class ChangeCollectionReadRuleResponse extends $pb.GeneratedMessage {
 
 class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeCollectionWriteRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? writeRule,
   }) {
@@ -640,7 +640,7 @@ class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeCollectionWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeCollectionWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'writeRule')
     ..hasRequiredFields = false
@@ -668,9 +668,9 @@ class ChangeCollectionWriteRuleRequest extends $pb.GeneratedMessage {
   static ChangeCollectionWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -748,7 +748,7 @@ class ChangeCollectionWriteRuleResponse extends $pb.GeneratedMessage {
 /// 描写字段权限
 class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeFieldReadRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? fieldId,
     $core.String? readRule,
@@ -773,7 +773,7 @@ class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
   factory ChangeFieldReadRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldReadRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..aOS(4, _omitFieldNames ? '' : 'readRule')
@@ -802,9 +802,9 @@ class ChangeFieldReadRuleRequest extends $pb.GeneratedMessage {
   static ChangeFieldReadRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -890,7 +890,7 @@ class ChangeFieldReadRuleResponse extends $pb.GeneratedMessage {
 
 class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeFieldWriteRuleRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? groupId,
     $core.String? fieldId,
     $core.String? writeRule,
@@ -915,7 +915,7 @@ class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
   factory ChangeFieldWriteRuleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeFieldWriteRuleRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..aOS(4, _omitFieldNames ? '' : 'writeRule')
@@ -944,9 +944,9 @@ class ChangeFieldWriteRuleRequest extends $pb.GeneratedMessage {
   static ChangeFieldWriteRuleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

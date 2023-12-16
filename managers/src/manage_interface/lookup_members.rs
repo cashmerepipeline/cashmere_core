@@ -7,17 +7,11 @@ use dependencies_sync::{
         options::{Acknowledgment, ReadConcern, TransactionOptions, WriteConcern},
         Collection,
     },
-    rust_i18n::{self, t}, tokio_stream::{wrappers::ReceiverStream, StreamExt}, tokio::{sync::mpsc, self},
+    rust_i18n::{self, t},
+    tokio::{self, sync::mpsc},
+    tokio_stream::{wrappers::ReceiverStream, StreamExt},
 };
-use manage_define::{
-    field_ids::{
-        MEMBERS_OWNER_ENTITY_ID_FIELD_ID, MEMBERS_OWNER_MANAGE_ID_FIELD_ID,
-        MEMBERS_SELF_ENTITY_ID_FIELD_ID, MEMBERS_SELF_MANAGE_ID_FIELD_ID,
-    },
-    general_field_ids::*,
-    general_field_names::MEMBER_LOOKUP_FIELD_NAME,
-    manage_ids::MEMBERS_MANAGE_ID,
-};
+use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
 
 use crate::entity_cache_map::cache_update_entity;
 
@@ -33,7 +27,11 @@ pub async fn lookup_members(
     // 相对于start_oid的位置跳过数，不包含start_oid
     skip_count: u32,
 ) -> Result<ReceiverStream<Document>, OperationResult> {
-    let view_name = get_member_view_name(&owner_manage_id.to_string(), owner_entity_id, &self_manage_id.to_string());
+    let view_name = get_member_view_name(
+        &owner_manage_id.to_string(),
+        owner_entity_id,
+        &self_manage_id.to_string(),
+    );
     let mut match_doc = doc! {};
     query_doc.iter().for_each(|(k, v)| {
         match_doc.insert(

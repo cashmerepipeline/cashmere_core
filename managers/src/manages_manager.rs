@@ -18,9 +18,9 @@ use dependencies_sync::tonic::async_trait;
 use crate::{declare_get_manager, ManagerTrait};
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
-use cash_core::{Manage, manage_from_document};
 use crate::manager::Manager;
 use crate::manager_inner::ManagerInner;
+use cash_core::{manage_from_document, Manage};
 
 #[derive(Default)]
 pub struct ManagesManager;
@@ -49,7 +49,7 @@ impl ManagerTrait for ManagesManager {
     }
 
     fn get_id(&self) -> &'static str {
-        MANAGES_MANAGE_ID.clone()
+        MANAGES_MANAGE_ID
     }
 
     fn get_name(&self) -> String {

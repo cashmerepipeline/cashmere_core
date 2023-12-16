@@ -42,11 +42,10 @@ pub async fn get_view_rules_map() -> Arc<RwLock<ViewRulesMap>> {
 
 /// 从数据库读取映射规则
 async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
-    let view_rules_collection =
-        match database::get_collection_by_id(&VIEW_RULES_MANAGE_ID.to_string()).await {
-            Some(r) => r,
-            None => return None,
-        };
+    let view_rules_collection = match database::get_collection_by_id(VIEW_RULES_MANAGE_ID).await {
+        Some(r) => r,
+        None => return None,
+    };
     let cusor = match view_rules_collection.find(None, None).await {
         Ok(c) => c,
         Err(_e) => return None,

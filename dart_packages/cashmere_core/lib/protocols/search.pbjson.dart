@@ -17,7 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const SearchRequest$json = {
   '1': 'SearchRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'search_params', '3': 2, '4': 3, '5': 11, '6': '.cashmere.SearchRequest.SearchParamsEntry', '10': 'searchParams'},
   ],
   '3': [SearchRequest_SearchParamsEntry$json],
@@ -35,7 +35,7 @@ const SearchRequest_SearchParamsEntry$json = {
 
 /// Descriptor for `SearchRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List searchRequestDescriptor = $convert.base64Decode(
-    'Cg1TZWFyY2hSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSTgoNc2VhcmNoX3'
+    'Cg1TZWFyY2hSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSTgoNc2VhcmNoX3'
     'BhcmFtcxgCIAMoCzIpLmNhc2htZXJlLlNlYXJjaFJlcXVlc3QuU2VhcmNoUGFyYW1zRW50cnlS'
     'DHNlYXJjaFBhcmFtcxo/ChFTZWFyY2hQYXJhbXNFbnRyeRIQCgNrZXkYASABKAlSA2tleRIUCg'
     'V2YWx1ZRgCIAEoCVIFdmFsdWU6AjgB');

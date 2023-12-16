@@ -48,7 +48,7 @@ async fn validate_request_params(
     request: Request<NewSchemaFieldRequest>,
 ) -> Result<Request<NewSchemaFieldRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
-    let field: &SchemaField = &request.get_ref().new_field.as_ref().unwrap();
+    let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
 
     // 已经存在
     if validate_field_id(manage_id.as_str(), &field.id.to_string())
@@ -72,7 +72,7 @@ async fn handle_new_schema_field(
     let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
-    let field: &SchemaField = &request.get_ref().new_field.as_ref().unwrap();
+    let field: &SchemaField = request.get_ref().new_field.as_ref().unwrap();
 
     let name_map = field.name_map.clone();
     let name_doc = bson::to_document(&name_map).unwrap();

@@ -6,7 +6,7 @@ import 'package:cashmere_core/view_models/set_general_fields.dart';
 
 /// 管理视图
 class ManageView {
-  final int id;
+  final String id;
   late final NameMap nameMap;
   late final String creator;
   late final Timestamp createTimestamp;
@@ -19,7 +19,7 @@ class ManageView {
   ManageView(this.id);
 
   factory ManageView.fromMap(Map<String, dynamic> map) {
-    ManageView v = ManageView(int.parse(map[ID_FIELD_ID.toString()]));
+    ManageView v = ManageView(map[ID_FIELD_ID.toString()]);
 
     map[NAME_MAP_FIELD_ID.toString()] != null ? v.nameMap = nameMapFromMap(map[NAME_MAP_FIELD_ID.toString()]) : null;
     map[CREATOR_FIELD_ID.toString()] != null ? v.creator = map[CREATOR_FIELD_ID.toString()] : null;

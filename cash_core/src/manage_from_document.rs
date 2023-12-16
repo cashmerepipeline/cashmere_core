@@ -55,7 +55,7 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         });
 
     let is_searchable = manage_doc
-        .get_bool(&IS_SEARCHABLE_FIELD_ID.to_string())
+        .get_bool(IS_SEARCHABLE_FIELD_ID.to_string())
         .unwrap();
 
     let description = manage_doc

@@ -48,7 +48,7 @@ pub async fn get_entities_by_page(
 
     pipeline.push(doc! {"$limit": 20_u32});
 
-    if unsets.len() > 0 {
+    if !unsets.is_empty() {
         pipeline.push(doc! {"$unset": unsets});
     }
 

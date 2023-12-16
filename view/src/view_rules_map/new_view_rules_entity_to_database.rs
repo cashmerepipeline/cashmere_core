@@ -1,8 +1,8 @@
 use dependencies_sync::bson;
 
+use crate::view_rules::ViewRules;
 use cash_result::OperationResult;
 use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
-use crate::view_rules::ViewRules;
 
 /// 新建映像规则实体
 pub async fn new_view_rules_entity_to_database(
@@ -19,13 +19,12 @@ pub async fn new_view_rules_entity_to_database(
     view_rules_doc.insert("name", name);
 
     // 入库
-    
 
     entity::insert_entity(
-        &VIEW_RULES_MANAGE_ID.to_string(),
+        VIEW_RULES_MANAGE_ID,
         &mut view_rules_doc,
         account_id,
         group_id,
     )
-        .await
+    .await
 }

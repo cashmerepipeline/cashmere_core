@@ -1,4 +1,4 @@
-use crate::view_rules_map::{get_view_rules_map, query_collection_view_rules};
+use crate::view_rules_map::query_collection_view_rules;
 use crate::FilterRule;
 
 /// 实体是否可读

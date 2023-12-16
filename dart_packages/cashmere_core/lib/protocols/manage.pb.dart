@@ -95,7 +95,7 @@ class GetManagesResponse extends $pb.GeneratedMessage {
 /// 取得记录数量
 class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   factory GetManageEntryCountRequest({
-    $core.int? manageId,
+    $core.String? manageId,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -108,7 +108,7 @@ class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   factory GetManageEntryCountRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageEntryCountRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..hasRequiredFields = false
   ;
 
@@ -134,9 +134,9 @@ class GetManageEntryCountRequest extends $pb.GeneratedMessage {
   static GetManageEntryCountRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

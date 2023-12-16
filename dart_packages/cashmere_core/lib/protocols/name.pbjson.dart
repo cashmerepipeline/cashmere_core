@@ -30,7 +30,7 @@ final $typed_data.Uint8List nameDescriptor = $convert.base64Decode(
 const RenameRequest$json = {
   '1': 'RenameRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'new_name', '3': 3, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'newName'},
   ],
@@ -38,7 +38,7 @@ const RenameRequest$json = {
 
 /// Descriptor for `RenameRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List renameRequestDescriptor = $convert.base64Decode(
-    'Cg1SZW5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGwoJZW50aXR5X2'
+    'Cg1SZW5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aXR5X2'
     'lkGAIgASgJUghlbnRpdHlJZBIpCghuZXdfbmFtZRgDIAEoCzIOLmNhc2htZXJlLk5hbWVSB25l'
     'd05hbWU=');
 
@@ -58,7 +58,7 @@ final $typed_data.Uint8List renameResponseDescriptor = $convert.base64Decode(
 const NewLanguageNameRequest$json = {
   '1': 'NewLanguageNameRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'new_name', '3': 3, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'newName'},
   ],
@@ -66,7 +66,7 @@ const NewLanguageNameRequest$json = {
 
 /// Descriptor for `NewLanguageNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newLanguageNameRequestDescriptor = $convert.base64Decode(
-    'ChZOZXdMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQSGw'
+    'ChZOZXdMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGw'
     'oJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIpCghuZXdfbmFtZRgDIAEoCzIOLmNhc2htZXJl'
     'Lk5hbWVSB25ld05hbWU=');
 
@@ -86,7 +86,7 @@ final $typed_data.Uint8List newLanguageNameResponseDescriptor = $convert.base64D
 const RemoveLanguageNameRequest$json = {
   '1': 'RemoveLanguageNameRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
   ],
@@ -94,7 +94,7 @@ const RemoveLanguageNameRequest$json = {
 
 /// Descriptor for `RemoveLanguageNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List removeLanguageNameRequestDescriptor = $convert.base64Decode(
-    'ChlSZW1vdmVMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSW'
+    'ChlSZW1vdmVMYW5ndWFnZU5hbWVSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSW'
     'QSGwoJZW50aXR5X2lkGAIgASgJUghlbnRpdHlJZBIaCghsYW5ndWFnZRgDIAEoCVIIbGFuZ3Vh'
     'Z2U=');
 

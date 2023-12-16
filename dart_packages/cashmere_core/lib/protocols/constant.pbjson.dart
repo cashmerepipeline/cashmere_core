@@ -17,13 +17,13 @@ import 'dart:typed_data' as $typed_data;
 const GetConstantsRequest$json = {
   '1': 'GetConstantsRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
   ],
 };
 
 /// Descriptor for `GetConstantsRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getConstantsRequestDescriptor = $convert.base64Decode(
-    'ChNHZXRDb25zdGFudHNSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQ=');
+    'ChNHZXRDb25zdGFudHNSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQ=');
 
 @$core.Deprecated('Use getConstantsResponseDescriptor instead')
 const GetConstantsResponse$json = {

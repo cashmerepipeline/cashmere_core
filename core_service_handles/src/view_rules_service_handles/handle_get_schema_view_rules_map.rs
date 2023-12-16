@@ -53,7 +53,7 @@ async fn validate_request_params(
 
     validate_manage_id(manage_id).await?;
     // 验证组有效性
-    validate_entity_id(&GROUPS_MANAGE_ID, group_id).await?;
+    validate_entity_id(GROUPS_MANAGE_ID, group_id).await?;
 
     Ok(request)
 }

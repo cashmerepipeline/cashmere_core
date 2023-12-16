@@ -5,7 +5,9 @@ use dependencies_sync::chrono::Utc;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
-use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, bson::oid::ObjectId, Collection, Cursor};
+use dependencies_sync::mongodb::{
+    bson, bson::doc, bson::oid::ObjectId, bson::Bson, bson::Document, Collection, Cursor,
+};
 use serde::Deserialize;
 
 use dependencies_sync::log::trace;
@@ -16,7 +18,7 @@ use manage_define::general_field_ids::*;
 
 /// zh: 取得查询游标，查询从指定的实体编号开始，使用oid作为排序索引
 pub async fn get_query_cursor(
-    collection_id: &String,
+    collection_id: &str,
     matches: Document,
     unsets: Option<Vec<String>>,
     sort_doc: Option<Document>,
@@ -30,7 +32,7 @@ pub async fn get_query_cursor(
 
     let mut pipeline: Vec<Document> = vec![];
     if let Some(last_oid) = start_oid {
-        let oid = ObjectId::parse_str(&last_oid).unwrap();
+        let oid = ObjectId::parse_str(last_oid).unwrap();
         let mut r = doc! {"_id":{"$lt": oid}};
         matches.iter().for_each(|(k, v)| {
             r.insert(k, v.clone());

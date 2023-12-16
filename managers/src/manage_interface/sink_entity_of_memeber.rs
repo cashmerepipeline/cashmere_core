@@ -1,4 +1,4 @@
-use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
+use cash_result::{ operation_failed, OperationResult};
 use database::get_database;
 use dependencies_sync::{
     bson::{doc, Document},
@@ -18,7 +18,6 @@ use manage_define::{
     manage_ids::MEMBERS_MANAGE_ID,
 };
 
-use crate::entity_cache_map::cache_update_entity;
 
 pub async fn sink_entity_of_member(
     owner_manage_id: &str,

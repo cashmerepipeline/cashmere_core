@@ -38,13 +38,13 @@ final $typed_data.Uint8List getManagesResponseDescriptor = $convert.base64Decode
 const GetManageEntryCountRequest$json = {
   '1': 'GetManageEntryCountRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
   ],
 };
 
 /// Descriptor for `GetManageEntryCountRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getManageEntryCountRequestDescriptor = $convert.base64Decode(
-    'ChpHZXRNYW5hZ2VFbnRyeUNvdW50UmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZU'
+    'ChpHZXRNYW5hZ2VFbnRyeUNvdW50UmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAlSCG1hbmFnZU'
     'lk');
 
 @$core.Deprecated('Use getManageEntryCountResponseDescriptor instead')

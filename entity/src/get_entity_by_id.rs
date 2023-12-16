@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 use dependencies_sync::chrono::Utc;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::mongodb::options::{UpdateOptions, FindOneOptions};
+use dependencies_sync::mongodb::options::{FindOneOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
 
@@ -27,9 +27,11 @@ pub async fn get_entity_by_id(
     };
 
     let mut project_doc = doc! {};
-    no_present_fields.iter().for_each(|f| {project_doc.insert(f.clone(), 0);});
+    no_present_fields.iter().for_each(|f| {
+        project_doc.insert(f.clone(), 0);
+    });
 
-    let result = if no_present_fields.len() > 0 {
+    let result = if !no_present_fields.is_empty() {
         let find_option = FindOneOptions::builder().projection(project_doc).build();
         collection
             .find_one(

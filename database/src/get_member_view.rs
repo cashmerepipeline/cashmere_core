@@ -8,7 +8,6 @@ use manage_define::field_ids::{
 };
 use manage_define::general_field_ids::ID_FIELD_ID;
 use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
-use manage_define::manage_ids::MEMBERS_MANAGE_ID;
 
 /// 取得集合
 pub async fn get_member_view(
@@ -24,23 +23,20 @@ pub async fn get_member_view(
         let mut match_doc = doc! {};
         match_doc.insert(
             MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(),
-            owner_manage_id.clone(),
+            owner_manage_id,
         );
         match_doc.insert(
             MEMBERS_OWNER_ENTITY_ID_FIELD_ID.to_string(),
-            owner_entity_id.clone(),
+            owner_entity_id,
         );
-        match_doc.insert(
-            MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(),
-            self_manage_id.clone(),
-        );
+        match_doc.insert(MEMBERS_SELF_MANAGE_ID_FIELD_ID.to_string(), self_manage_id);
         let match_doc = doc! {"$match": match_doc};
 
         let mut lookup_doc = doc! {};
-        lookup_doc.insert("from", self_manage_id.clone());
+        lookup_doc.insert("from", self_manage_id);
         lookup_doc.insert("localField", MEMBERS_SELF_ENTITY_ID_FIELD_ID.to_string());
         lookup_doc.insert("foreignField", ID_FIELD_ID.to_string());
-        lookup_doc.insert("as", MEMBER_LOOKUP_FIELD_NAME.clone());
+        lookup_doc.insert("as", MEMBER_LOOKUP_FIELD_NAME);
         let lookup_doc = doc! {"$lookup": lookup_doc};
 
         let unwind_doc = doc! {"$unwind": format!("${}", MEMBER_LOOKUP_FIELD_NAME)};

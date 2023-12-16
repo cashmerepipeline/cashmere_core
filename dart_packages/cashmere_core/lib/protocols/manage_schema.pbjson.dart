@@ -46,13 +46,13 @@ final $typed_data.Uint8List schemaFieldDescriptor = $convert.base64Decode(
 const GetManageSchemaRequest$json = {
   '1': 'GetManageSchemaRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
   ],
 };
 
 /// Descriptor for `GetManageSchemaRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getManageSchemaRequestDescriptor = $convert.base64Decode(
-    'ChZHZXRNYW5hZ2VTY2hlbWFSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoBVIIbWFuYWdlSWQ=');
+    'ChZHZXRNYW5hZ2VTY2hlbWFSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQ=');
 
 @$core.Deprecated('Use getManageSchemaResponseDescriptor instead')
 const GetManageSchemaResponse$json = {
@@ -71,14 +71,14 @@ final $typed_data.Uint8List getManageSchemaResponseDescriptor = $convert.base64D
 const NewSchemaFieldRequest$json = {
   '1': 'NewSchemaFieldRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'new_field', '3': 2, '4': 1, '5': 11, '6': '.cashmere.SchemaField', '10': 'newField'},
   ],
 };
 
 /// Descriptor for `NewSchemaFieldRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newSchemaFieldRequestDescriptor = $convert.base64Decode(
-    'ChVOZXdTY2hlbWFGaWVsZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIyCg'
+    'ChVOZXdTY2hlbWFGaWVsZFJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBIyCg'
     'luZXdfZmllbGQYAiABKAsyFS5jYXNobWVyZS5TY2hlbWFGaWVsZFIIbmV3RmllbGQ=');
 
 @$core.Deprecated('Use newSchemaFieldResponseDescriptor instead')
@@ -97,14 +97,14 @@ final $typed_data.Uint8List newSchemaFieldResponseDescriptor = $convert.base64De
 const MarkSchemaFieldRemovedRequest$json = {
   '1': 'MarkSchemaFieldRemovedRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'field_id', '3': 2, '4': 1, '5': 5, '10': 'fieldId'},
   ],
 };
 
 /// Descriptor for `MarkSchemaFieldRemovedRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List markSchemaFieldRemovedRequestDescriptor = $convert.base64Decode(
-    'Ch1NYXJrU2NoZW1hRmllbGRSZW1vdmVkUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbm'
+    'Ch1NYXJrU2NoZW1hRmllbGRSZW1vdmVkUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAlSCG1hbm'
     'FnZUlkEhkKCGZpZWxkX2lkGAIgASgFUgdmaWVsZElk');
 
 @$core.Deprecated('Use markSchemaFieldRemovedResponseDescriptor instead')
@@ -124,7 +124,7 @@ final $typed_data.Uint8List markSchemaFieldRemovedResponseDescriptor = $convert.
 const EditSchemaFieldNameRequest$json = {
   '1': 'EditSchemaFieldNameRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'field_id', '3': 2, '4': 1, '5': 5, '10': 'fieldId'},
     {'1': 'language', '3': 3, '4': 1, '5': 9, '10': 'language'},
     {'1': 'new_name', '3': 4, '4': 1, '5': 9, '10': 'newName'},
@@ -133,7 +133,7 @@ const EditSchemaFieldNameRequest$json = {
 
 /// Descriptor for `EditSchemaFieldNameRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List editSchemaFieldNameRequestDescriptor = $convert.base64Decode(
-    'ChpFZGl0U2NoZW1hRmllbGROYW1lUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZU'
+    'ChpFZGl0U2NoZW1hRmllbGROYW1lUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAlSCG1hbmFnZU'
     'lkEhkKCGZpZWxkX2lkGAIgASgFUgdmaWVsZElkEhoKCGxhbmd1YWdlGAMgASgJUghsYW5ndWFn'
     'ZRIZCghuZXdfbmFtZRgEIAEoCVIHbmV3TmFtZQ==');
 

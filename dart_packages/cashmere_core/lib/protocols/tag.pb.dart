@@ -17,7 +17,7 @@ import 'name.pb.dart' as $0;
 
 class NewTagRequest extends $pb.GeneratedMessage {
   factory NewTagRequest({
-    $core.int? targetManageId,
+    $core.String? targetManageId,
     $0.Name? name,
     $core.String? description,
   }) {
@@ -38,7 +38,7 @@ class NewTagRequest extends $pb.GeneratedMessage {
   factory NewTagRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewTagRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'targetManageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
     ..aOM<$0.Name>(2, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..aOS(3, _omitFieldNames ? '' : 'description')
     ..hasRequiredFields = false
@@ -66,9 +66,9 @@ class NewTagRequest extends $pb.GeneratedMessage {
   static NewTagRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get targetManageId => $_getIZ(0);
+  $core.String get targetManageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set targetManageId($core.int v) { $_setSignedInt32(0, v); }
+  set targetManageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasTargetManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -150,7 +150,7 @@ class NewTagResponse extends $pb.GeneratedMessage {
 class AddTagsToEntityRequest extends $pb.GeneratedMessage {
   factory AddTagsToEntityRequest({
     $core.Iterable<$core.String>? tagIds,
-    $core.int? targetManageId,
+    $core.String? targetManageId,
     $core.String? targetEntityId,
   }) {
     final $result = create();
@@ -171,7 +171,7 @@ class AddTagsToEntityRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddTagsToEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
     ..pPS(1, _omitFieldNames ? '' : 'tagIds')
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'targetManageId', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'targetManageId')
     ..aOS(3, _omitFieldNames ? '' : 'targetEntityId')
     ..hasRequiredFields = false
   ;
@@ -201,9 +201,9 @@ class AddTagsToEntityRequest extends $pb.GeneratedMessage {
   $core.List<$core.String> get tagIds => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.int get targetManageId => $_getIZ(1);
+  $core.String get targetManageId => $_getSZ(1);
   @$pb.TagNumber(2)
-  set targetManageId($core.int v) { $_setSignedInt32(1, v); }
+  set targetManageId($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasTargetManageId() => $_has(1);
   @$pb.TagNumber(2)
@@ -272,7 +272,7 @@ class AddTagsToEntityResponse extends $pb.GeneratedMessage {
 
 class GetTagsRequest extends $pb.GeneratedMessage {
   factory GetTagsRequest({
-    $core.int? targetManageId,
+    $core.String? targetManageId,
   }) {
     final $result = create();
     if (targetManageId != null) {
@@ -285,7 +285,7 @@ class GetTagsRequest extends $pb.GeneratedMessage {
   factory GetTagsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetTagsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'targetManageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
     ..hasRequiredFields = false
   ;
 
@@ -311,9 +311,9 @@ class GetTagsRequest extends $pb.GeneratedMessage {
   static GetTagsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get targetManageId => $_getIZ(0);
+  $core.String get targetManageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set targetManageId($core.int v) { $_setSignedInt32(0, v); }
+  set targetManageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasTargetManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -367,7 +367,7 @@ class GetTagsResponse extends $pb.GeneratedMessage {
 /// 移除标签
 class RemoveTagsFromEntityRequest extends $pb.GeneratedMessage {
   factory RemoveTagsFromEntityRequest({
-    $core.int? targetManageId,
+    $core.String? targetManageId,
     $core.String? targetEntityId,
     $core.Iterable<$core.String>? tagIds,
   }) {
@@ -388,7 +388,7 @@ class RemoveTagsFromEntityRequest extends $pb.GeneratedMessage {
   factory RemoveTagsFromEntityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemoveTagsFromEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'targetManageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'targetManageId')
     ..aOS(2, _omitFieldNames ? '' : 'targetEntityId')
     ..pPS(3, _omitFieldNames ? '' : 'tagIds')
     ..hasRequiredFields = false
@@ -416,9 +416,9 @@ class RemoveTagsFromEntityRequest extends $pb.GeneratedMessage {
   static RemoveTagsFromEntityRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get targetManageId => $_getIZ(0);
+  $core.String get targetManageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set targetManageId($core.int v) { $_setSignedInt32(0, v); }
+  set targetManageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasTargetManageId() => $_has(0);
   @$pb.TagNumber(1)

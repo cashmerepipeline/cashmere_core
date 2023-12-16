@@ -17,7 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const NewCategoryRequest$json = {
   '1': 'NewCategoryRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'name', '3': 2, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
   ],
@@ -25,7 +25,7 @@ const NewCategoryRequest$json = {
 
 /// Descriptor for `NewCategoryRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newCategoryRequestDescriptor = $convert.base64Decode(
-    'ChJOZXdDYXRlZ29yeVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgFUghtYW5hZ2VJZBIiCgRuYW'
+    'ChJOZXdDYXRlZ29yeVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBIiCgRuYW'
     '1lGAIgASgLMg4uY2FzaG1lcmUuTmFtZVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVz'
     'Y3JpcHRpb24=');
 
@@ -45,13 +45,13 @@ final $typed_data.Uint8List newCategoryResponseDescriptor = $convert.base64Decod
 const GetCategoriesRequest$json = {
   '1': 'GetCategoriesRequest',
   '2': [
-    {'1': 'manage_id', '3': 1, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
   ],
 };
 
 /// Descriptor for `GetCategoriesRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCategoriesRequestDescriptor = $convert.base64Decode(
-    'ChRHZXRDYXRlZ29yaWVzUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAVSCG1hbmFnZUlk');
+    'ChRHZXRDYXRlZ29yaWVzUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAlSCG1hbmFnZUlk');
 
 @$core.Deprecated('Use getCategoriesResponseDescriptor instead')
 const GetCategoriesResponse$json = {
@@ -69,7 +69,7 @@ final $typed_data.Uint8List getCategoriesResponseDescriptor = $convert.base64Dec
 const MarkEntityCategoriesRequest$json = {
   '1': 'MarkEntityCategoriesRequest',
   '2': [
-    {'1': 'manage_id', '3': 2, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 2, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 3, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'category_ids', '3': 4, '4': 3, '5': 9, '10': 'categoryIds'},
   ],
@@ -77,7 +77,7 @@ const MarkEntityCategoriesRequest$json = {
 
 /// Descriptor for `MarkEntityCategoriesRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List markEntityCategoriesRequestDescriptor = $convert.base64Decode(
-    'ChtNYXJrRW50aXR5Q2F0ZWdvcmllc1JlcXVlc3QSGwoJbWFuYWdlX2lkGAIgASgFUghtYW5hZ2'
+    'ChtNYXJrRW50aXR5Q2F0ZWdvcmllc1JlcXVlc3QSGwoJbWFuYWdlX2lkGAIgASgJUghtYW5hZ2'
     'VJZBIbCgllbnRpdHlfaWQYAyABKAlSCGVudGl0eUlkEiEKDGNhdGVnb3J5X2lkcxgEIAMoCVIL'
     'Y2F0ZWdvcnlJZHM=');
 
@@ -97,7 +97,7 @@ final $typed_data.Uint8List markEntityCategoriesResponseDescriptor = $convert.ba
 const UnmarkEntityCategoriesRequest$json = {
   '1': 'UnmarkEntityCategoriesRequest',
   '2': [
-    {'1': 'manage_id', '3': 2, '4': 1, '5': 5, '10': 'manageId'},
+    {'1': 'manage_id', '3': 2, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 3, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'category_ids', '3': 4, '4': 3, '5': 9, '10': 'categoryIds'},
   ],
@@ -105,7 +105,7 @@ const UnmarkEntityCategoriesRequest$json = {
 
 /// Descriptor for `UnmarkEntityCategoriesRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List unmarkEntityCategoriesRequestDescriptor = $convert.base64Decode(
-    'Ch1Vbm1hcmtFbnRpdHlDYXRlZ29yaWVzUmVxdWVzdBIbCgltYW5hZ2VfaWQYAiABKAVSCG1hbm'
+    'Ch1Vbm1hcmtFbnRpdHlDYXRlZ29yaWVzUmVxdWVzdBIbCgltYW5hZ2VfaWQYAiABKAlSCG1hbm'
     'FnZUlkEhsKCWVudGl0eV9pZBgDIAEoCVIIZW50aXR5SWQSIQoMY2F0ZWdvcnlfaWRzGAQgAygJ'
     'UgtjYXRlZ29yeUlkcw==');
 

@@ -470,7 +470,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     // 实体缓存
     fn has_cache(&self) -> bool;
 
-    async fn init_cache(&'static self) -> Result<OperationResult, OperationResult> {
+    async fn init_cache(&self) -> Result<OperationResult, OperationResult> {
         cache_init_cache(self.get_id()).await
     }
 
@@ -602,7 +602,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
 
         match entity::get_query_cursor(
-            &manage_id.to_string(),
+            manage_id,
             matche_doc,
             unsets,
             sorts,

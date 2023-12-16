@@ -7,7 +7,7 @@ import 'package:cashmere_core/protocols/manage.pb.dart';
 import 'package:grpc/grpc.dart';
 
 Future<Int64> fetchEntryCount(
-  int manageId,
+  String manageId,
   GrpcCall<GetManageEntryCountRequest, GetManageEntryCountResponse> stubCall,
   Map<String, String> metaData,
 ) async {

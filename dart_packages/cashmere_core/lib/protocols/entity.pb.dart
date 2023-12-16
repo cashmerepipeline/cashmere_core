@@ -204,7 +204,7 @@ class Entity extends $pb.GeneratedMessage {
 /// 变更物主
 class ChangeEntityOwnerRequest extends $pb.GeneratedMessage {
   factory ChangeEntityOwnerRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? oldOwnerId,
     $core.String? newOwnerId,
@@ -229,7 +229,7 @@ class ChangeEntityOwnerRequest extends $pb.GeneratedMessage {
   factory ChangeEntityOwnerRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeEntityOwnerRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'oldOwnerId')
     ..aOS(4, _omitFieldNames ? '' : 'newOwnerId')
@@ -258,9 +258,9 @@ class ChangeEntityOwnerRequest extends $pb.GeneratedMessage {
   static ChangeEntityOwnerRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -347,7 +347,7 @@ class ChangeEntityOwnerResponse extends $pb.GeneratedMessage {
 /// 太通用，不建议开放
 class NewEntityRequest extends $pb.GeneratedMessage {
   factory NewEntityRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.List<$core.int>? data,
   }) {
     final $result = create();
@@ -364,7 +364,7 @@ class NewEntityRequest extends $pb.GeneratedMessage {
   factory NewEntityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'data', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
@@ -391,9 +391,9 @@ class NewEntityRequest extends $pb.GeneratedMessage {
   static NewEntityRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -462,7 +462,7 @@ class NewEntityResponse extends $pb.GeneratedMessage {
 /// 不建议开放
 class EditEntityRequest extends $pb.GeneratedMessage {
   factory EditEntityRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.List<$core.int>? data,
   }) {
@@ -483,7 +483,7 @@ class EditEntityRequest extends $pb.GeneratedMessage {
   factory EditEntityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'data', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
@@ -511,9 +511,9 @@ class EditEntityRequest extends $pb.GeneratedMessage {
   static EditEntityRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -591,7 +591,7 @@ class EditEntityResponse extends $pb.GeneratedMessage {
 
 class EntityFieldEdit extends $pb.GeneratedMessage {
   factory EntityFieldEdit({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     EditOperationTypeEnum? operationType,
@@ -620,7 +620,7 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
   factory EntityFieldEdit.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EntityFieldEdit', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..e<EditOperationTypeEnum>(4, _omitFieldNames ? '' : 'operationType', $pb.PbFieldType.OE, defaultOrMaker: EditOperationTypeEnum.EDIT_PRIMARY_FIELD, valueOf: EditOperationTypeEnum.valueOf, enumValues: EditOperationTypeEnum.values)
@@ -650,9 +650,9 @@ class EntityFieldEdit extends $pb.GeneratedMessage {
   static EntityFieldEdit? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -795,7 +795,7 @@ class EditMultiEntityFieldsResponse extends $pb.GeneratedMessage {
 /// 编辑单个实体单个字段，基础类型字段
 class EditEntityFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityFieldRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     $core.List<$core.int>? newValue,
@@ -820,7 +820,7 @@ class EditEntityFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityFieldRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityFieldRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'newValue', $pb.PbFieldType.OY)
@@ -849,9 +849,9 @@ class EditEntityFieldRequest extends $pb.GeneratedMessage {
   static EditEntityFieldRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -940,7 +940,7 @@ class EditEntityFieldResponse extends $pb.GeneratedMessage {
 /// 编辑单个实体MAP字段中的某个属性
 class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     $core.String? key,
@@ -969,7 +969,7 @@ class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityMapFieldRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..aOS(4, _omitFieldNames ? '' : 'key')
@@ -999,9 +999,9 @@ class EditEntityMapFieldRequest extends $pb.GeneratedMessage {
   static EditEntityMapFieldRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1099,7 +1099,7 @@ class EditEntityMapFieldResponse extends $pb.GeneratedMessage {
 /// 修改单个实体MAP移除某个key
 class EditEntityMapFieldRemoveKeyRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRemoveKeyRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     $core.String? key,
@@ -1124,7 +1124,7 @@ class EditEntityMapFieldRemoveKeyRequest extends $pb.GeneratedMessage {
   factory EditEntityMapFieldRemoveKeyRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityMapFieldRemoveKeyRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..aOS(4, _omitFieldNames ? '' : 'key')
@@ -1153,9 +1153,9 @@ class EditEntityMapFieldRemoveKeyRequest extends $pb.GeneratedMessage {
   static EditEntityMapFieldRemoveKeyRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1243,7 +1243,7 @@ class EditEntityMapFieldRemoveKeyResponse extends $pb.GeneratedMessage {
 /// 修改单个实体List实体属性, 添加成员
 class EditEntityArrayFieldAddItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldAddItemsRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     $core.List<$core.int>? items,
@@ -1268,7 +1268,7 @@ class EditEntityArrayFieldAddItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldAddItemsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityArrayFieldAddItemsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'items', $pb.PbFieldType.OY)
@@ -1297,9 +1297,9 @@ class EditEntityArrayFieldAddItemsRequest extends $pb.GeneratedMessage {
   static EditEntityArrayFieldAddItemsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1388,7 +1388,7 @@ class EditEntityArrayFieldAddItemsResponse extends $pb.GeneratedMessage {
 /// 修改单个实体List实体属性, 移除物体
 class EditEntityArrayFieldRemoveItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldRemoveItemsRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.String? fieldId,
     $core.List<$core.int>? items,
@@ -1413,7 +1413,7 @@ class EditEntityArrayFieldRemoveItemsRequest extends $pb.GeneratedMessage {
   factory EditEntityArrayFieldRemoveItemsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditEntityArrayFieldRemoveItemsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..aOS(3, _omitFieldNames ? '' : 'fieldId')
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'items', $pb.PbFieldType.OY)
@@ -1442,9 +1442,9 @@ class EditEntityArrayFieldRemoveItemsRequest extends $pb.GeneratedMessage {
   static EditEntityArrayFieldRemoveItemsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1533,7 +1533,7 @@ class EditEntityArrayFieldRemoveItemsResponse extends $pb.GeneratedMessage {
 /// 依据id取得单个实体
 class GetEntityRequest extends $pb.GeneratedMessage {
   factory GetEntityRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
     $core.Iterable<$core.String>? noPresentFields,
   }) {
@@ -1554,7 +1554,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   factory GetEntityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
@@ -1582,9 +1582,9 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   static GetEntityRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1657,7 +1657,7 @@ class GetEntityResponse extends $pb.GeneratedMessage {
 /// 依据id列表取得多个实体
 class GetEntitiesRequest extends $pb.GeneratedMessage {
   factory GetEntitiesRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.Iterable<$core.String>? entityIds,
     $core.Iterable<$core.String>? noPresentFields,
   }) {
@@ -1678,7 +1678,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   factory GetEntitiesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..pPS(2, _omitFieldNames ? '' : 'entityIds')
     ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
     ..hasRequiredFields = false
@@ -1706,9 +1706,9 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   static GetEntitiesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1777,7 +1777,7 @@ class GetEntitiesResponse extends $pb.GeneratedMessage {
 /// 需要先取得实体总数，然后计算页数
 class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetEntitiesPageRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.int? pageIndex,
     $core.List<$core.int>? matchDoc,
     $core.List<$core.int>? sortDoc,
@@ -1810,7 +1810,7 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetEntitiesPageRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetEntitiesPageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
@@ -1841,9 +1841,9 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   static GetEntitiesPageRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1948,7 +1948,7 @@ class GetEntitiesPageResponse extends $pb.GeneratedMessage {
 /// 交互取得实体页
 class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
   factory InteractiveGetEntitiesRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.int? pageIndex,
     $core.List<$core.int>? matchDoc,
     $core.List<$core.int>? sortDoc,
@@ -1977,7 +1977,7 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
   factory InteractiveGetEntitiesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'InteractiveGetEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
@@ -2007,9 +2007,9 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
   static InteractiveGetEntitiesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -2122,7 +2122,7 @@ class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {
 /// 标记实体已移除
 class MarkEntityRemovedRequest extends $pb.GeneratedMessage {
   factory MarkEntityRemovedRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
   }) {
     final $result = create();
@@ -2139,7 +2139,7 @@ class MarkEntityRemovedRequest extends $pb.GeneratedMessage {
   factory MarkEntityRemovedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MarkEntityRemovedRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..hasRequiredFields = false
   ;
@@ -2166,9 +2166,9 @@ class MarkEntityRemovedRequest extends $pb.GeneratedMessage {
   static MarkEntityRemovedRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -2238,7 +2238,7 @@ class MarkEntityRemovedResponse extends $pb.GeneratedMessage {
 /// 恢复标记为已移除的实体
 class RecoverRemovedEntityRequest extends $pb.GeneratedMessage {
   factory RecoverRemovedEntityRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.String? entityId,
   }) {
     final $result = create();
@@ -2255,7 +2255,7 @@ class RecoverRemovedEntityRequest extends $pb.GeneratedMessage {
   factory RecoverRemovedEntityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RecoverRemovedEntityRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..hasRequiredFields = false
   ;
@@ -2282,9 +2282,9 @@ class RecoverRemovedEntityRequest extends $pb.GeneratedMessage {
   static RecoverRemovedEntityRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -2354,7 +2354,7 @@ class RecoverRemovedEntityResponse extends $pb.GeneratedMessage {
 /// 取得已删除实体页
 class GetRemovedEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetRemovedEntitiesPageRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.int? pageIndex,
     $core.List<$core.int>? conditions,
   }) {
@@ -2375,7 +2375,7 @@ class GetRemovedEntitiesPageRequest extends $pb.GeneratedMessage {
   factory GetRemovedEntitiesPageRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetRemovedEntitiesPageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'pageIndex', $pb.PbFieldType.OU3)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'conditions', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
@@ -2403,9 +2403,9 @@ class GetRemovedEntitiesPageRequest extends $pb.GeneratedMessage {
   static GetRemovedEntitiesPageRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -2668,7 +2668,7 @@ class EntityTimestamp extends $pb.GeneratedMessage {
 /// 检查实体是否有更新，返回有更新的实体
 class CheckEntitiesUpdateRequest extends $pb.GeneratedMessage {
   factory CheckEntitiesUpdateRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.Iterable<EntityTimestamp>? entities,
   }) {
     final $result = create();
@@ -2685,7 +2685,7 @@ class CheckEntitiesUpdateRequest extends $pb.GeneratedMessage {
   factory CheckEntitiesUpdateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckEntitiesUpdateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..pc<EntityTimestamp>(2, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PM, subBuilder: EntityTimestamp.create)
     ..hasRequiredFields = false
   ;
@@ -2712,9 +2712,9 @@ class CheckEntitiesUpdateRequest extends $pb.GeneratedMessage {
   static CheckEntitiesUpdateRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -2774,7 +2774,7 @@ class CheckEntitiesUpdateResponse extends $pb.GeneratedMessage {
 /// 返回编号列表页流
 class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.List<$core.int>? timestamp,
     $core.bool? ascendingOrder,
   }) {
@@ -2795,7 +2795,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OY)
     ..aOB(3, _omitFieldNames ? '' : 'ascendingOrder')
     ..hasRequiredFields = false
@@ -2823,9 +2823,9 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   static CheckUpdatesLaterThenTimeRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

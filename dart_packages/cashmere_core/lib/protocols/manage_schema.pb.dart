@@ -102,7 +102,7 @@ class SchemaField extends $pb.GeneratedMessage {
 /// 取得管理描写
 class GetManageSchemaRequest extends $pb.GeneratedMessage {
   factory GetManageSchemaRequest({
-    $core.int? manageId,
+    $core.String? manageId,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -115,7 +115,7 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
   factory GetManageSchemaRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetManageSchemaRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..hasRequiredFields = false
   ;
 
@@ -141,9 +141,9 @@ class GetManageSchemaRequest extends $pb.GeneratedMessage {
   static GetManageSchemaRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -197,7 +197,7 @@ class GetManageSchemaResponse extends $pb.GeneratedMessage {
 /// 添加管理属性
 class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   factory NewSchemaFieldRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     SchemaField? newField,
   }) {
     final $result = create();
@@ -214,7 +214,7 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   factory NewSchemaFieldRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewSchemaFieldRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOM<SchemaField>(2, _omitFieldNames ? '' : 'newField', subBuilder: SchemaField.create)
     ..hasRequiredFields = false
   ;
@@ -241,9 +241,9 @@ class NewSchemaFieldRequest extends $pb.GeneratedMessage {
   static NewSchemaFieldRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -314,7 +314,7 @@ class NewSchemaFieldResponse extends $pb.GeneratedMessage {
 /// 标记属性移除
 class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   factory MarkSchemaFieldRemovedRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.int? fieldId,
   }) {
     final $result = create();
@@ -331,7 +331,7 @@ class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   factory MarkSchemaFieldRemovedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MarkSchemaFieldRemovedRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'fieldId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -358,9 +358,9 @@ class MarkSchemaFieldRemovedRequest extends $pb.GeneratedMessage {
   static MarkSchemaFieldRemovedRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)
@@ -429,7 +429,7 @@ class MarkSchemaFieldRemovedResponse extends $pb.GeneratedMessage {
 /// 编辑属性名
 class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   factory EditSchemaFieldNameRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.int? fieldId,
     $core.String? language,
     $core.String? newName,
@@ -454,7 +454,7 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   factory EditSchemaFieldNameRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditSchemaFieldNameRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'fieldId', $pb.PbFieldType.O3)
     ..aOS(3, _omitFieldNames ? '' : 'language')
     ..aOS(4, _omitFieldNames ? '' : 'newName')
@@ -483,9 +483,9 @@ class EditSchemaFieldNameRequest extends $pb.GeneratedMessage {
   static EditSchemaFieldNameRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

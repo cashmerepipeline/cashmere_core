@@ -17,9 +17,10 @@ import 'package:protobuf/protobuf.dart' as $pb;
 /// 如果常量需要参数，则需要单独定义接口
 /// 每种可能有提供有自己的访问接口
 /// 常量一般不需要权限控制
+/// NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
 class GetConstantsRequest extends $pb.GeneratedMessage {
   factory GetConstantsRequest({
-    $core.int? manageId,
+    $core.String? manageId,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -32,7 +33,7 @@ class GetConstantsRequest extends $pb.GeneratedMessage {
   factory GetConstantsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetConstantsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..hasRequiredFields = false
   ;
 
@@ -58,9 +59,9 @@ class GetConstantsRequest extends $pb.GeneratedMessage {
   static GetConstantsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

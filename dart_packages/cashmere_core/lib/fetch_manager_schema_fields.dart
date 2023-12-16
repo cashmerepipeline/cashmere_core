@@ -9,7 +9,7 @@ import 'package:grpc/grpc.dart';
 Future<List<SchemaField>?> fetchManageSchemaFields(
   GrpcCall<GetManageSchemaRequest, GetManageSchemaResponse> stubCall,
   Map<String, String> metaData,
-  int manageId,
+  String manageId,
 ) async {
   final sRequest = GetManageSchemaRequest(manageId: manageId);
   try {

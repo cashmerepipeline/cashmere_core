@@ -1,9 +1,10 @@
 use cash_result::{operation_failed, operation_succeed, OperationResult};
-use database::{get_database_name, get_database};
+use database::{get_database, get_database_name};
 use dependencies_sync::bson::{self, doc, from_bson, from_slice, Bson, Document};
 use dependencies_sync::log;
 use dependencies_sync::mongodb::error::{
-    Result as DbResult, TRANSIENT_TRANSACTION_ERROR, UNKNOWN_TRANSACTION_COMMIT_RESULT, Error, ErrorKind,
+    Error, ErrorKind, Result as DbResult, TRANSIENT_TRANSACTION_ERROR,
+    UNKNOWN_TRANSACTION_COMMIT_RESULT,
 };
 use dependencies_sync::mongodb::options::{
     Acknowledgment, ReadConcern, TransactionOptions, UpdateOptions, WriteConcern,
@@ -27,7 +28,7 @@ pub async fn update_multi_entity_fields(
     } else {
         return Err(operation_failed(
             "update_multi_entity_fields",
-            format!("{}", t!("发起会话失败")),
+            t!("发起会话失败").to_string(),
         ));
     };
 
@@ -52,10 +53,10 @@ pub async fn update_multi_entity_fields(
         Err(err) => {
             log::error!("{}: {}", t!("执行事务失败"), err);
             session.abort_transaction().await;
-            return Err(operation_failed(
+            Err(operation_failed(
                 "update_multi_entity_fields",
                 format!("{}: {:?}", t!("提交失败"), err),
-            ));
+            ))
         }
     }
 }
@@ -149,15 +150,15 @@ async fn execute_transaction(
                 let new_value_doc: Document = from_slice(&edit.edit).unwrap();
                 let index = match new_value_doc.get_i32("index") {
                     Ok(i) => i,
-                    Err(err) => {
-                                    log::error!(
-                                        "{}: {}-{}",
-                                        t!("编辑数组字段，更新元素的字段值，索引值不存在"),
-                                        edit.manage_id,
-                                        edit.field_id
-                                    );
-                                    return Err(Error::custom("index not found"));
-                                }
+                    Err(_err) => {
+                        log::error!(
+                            "{}: {}-{}",
+                            t!("编辑数组字段，更新元素的字段值，索引值不存在"),
+                            edit.manage_id,
+                            edit.field_id
+                        );
+                        return Err(Error::custom("index not found"));
+                    }
                 };
 
                 let f = format!("{}.{}", edit.field_id, index);
@@ -197,7 +198,7 @@ async fn execute_transaction(
                     .get_array(edit.field_id.clone())
                     .unwrap()
                     .clone();
-                
+
                 let modify_doc = doc! {edit.field_id.clone(): doc! {"$in":items.clone()}};
                 let mut modify_doc = doc! {"$pull": modify_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);

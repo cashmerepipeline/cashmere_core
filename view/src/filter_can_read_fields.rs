@@ -12,7 +12,7 @@ pub async fn filter_can_read_fields(
     let mut property_stream = stream::iter(result);
 
     while let Some((k, v)) = property_stream.next().await {
-        if !can_field_read(&manage_id, &k, role_group).await {
+        if !can_field_read(manage_id, k, role_group).await {
             continue;
         }
         result_doc.insert(k, v);

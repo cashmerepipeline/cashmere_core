@@ -17,7 +17,7 @@ import 'name.pb.dart' as $0;
 
 class NewTemplateRequest extends $pb.GeneratedMessage {
   factory NewTemplateRequest({
-    $core.int? manageId,
+    $core.String? manageId,
     $core.Iterable<$core.List<$core.int>>? fields,
     $0.Name? name,
   }) {
@@ -38,7 +38,7 @@ class NewTemplateRequest extends $pb.GeneratedMessage {
   factory NewTemplateRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewTemplateRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'manageId', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..p<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'fields', $pb.PbFieldType.PY)
     ..aOM<$0.Name>(3, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..hasRequiredFields = false
@@ -67,9 +67,9 @@ class NewTemplateRequest extends $pb.GeneratedMessage {
 
   /// 模板对应管理
   @$pb.TagNumber(1)
-  $core.int get manageId => $_getIZ(0);
+  $core.String get manageId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set manageId($core.int v) { $_setSignedInt32(0, v); }
+  set manageId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasManageId() => $_has(0);
   @$pb.TagNumber(1)

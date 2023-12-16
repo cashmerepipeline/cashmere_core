@@ -104,7 +104,7 @@ async fn handle_get_entities_page(
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
     tokio::spawn(async move {
         if let Ok(mut d_stream) = doc_stream {
-            let mut max_page_size = ServerConfigs::get().max_page_size.clone();
+            let mut max_page_size = ServerConfigs::get().max_page_size;
             while let Some(doc) = d_stream.next().await {
                 let resp = GetEntitiesPageResponse {
                     entity: bson::to_vec(&doc).unwrap(),

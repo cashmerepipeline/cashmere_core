@@ -14,6 +14,7 @@ use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
+use validates::validate_manage_id;
 
 #[async_trait]
 pub trait HandleGetCategories {
@@ -41,13 +42,7 @@ async fn validate_request_params(
 ) -> Result<Request<GetCategoriesRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
     // 不能为0
-    if manage_id.is_empty() {
-        return Err(Status::invalid_argument(format!(
-            "{}: {}",
-            t!("管理号不能为0"),
-            "get_categories"
-        )));
-    }
+    validate_manage_id(manage_id).await?;
 
     Ok(request)
 }
@@ -66,7 +61,9 @@ async fn handle_get_categories(
         CATEGORIES_MANAGE_ID_FIELD_ID.to_string():manage_id,
     };
 
-    let result = manager.get_entity_stream(query_doc, None, None, None, 0).await;
+    let result = manager
+        .get_entity_stream(query_doc, None, None, None, 0)
+        .await;
 
     match result {
         Ok(mut entities_iter) => {
@@ -75,9 +72,7 @@ async fn handle_get_categories(
                 results.push(bson::to_vec(&r).unwrap());
             }
 
-            Ok(Response::new(GetCategoriesResponse {
-                codes: results,
-            }))
+            Ok(Response::new(GetCategoriesResponse { codes: results }))
         }
         Err(e) => Err(Status::aborted(format!(
             "{} {}",

@@ -13,12 +13,12 @@ static SEARCH_ENGINE_CONFIGS: OnceLock<SearchEngineConfigs> = OnceLock::new();
 pub struct SearchEngineConfigs {
     // zh: 索引存储位置
     pub index_root_dir: String,
-    // zh: 提交时间间隔，根据修改繁忙程度设置
+    // zh: 提交时间间隔，根据修改繁忙程度设置，单位：秒
     pub writer_commit_interval: u64,
     // zh: 写入用缓存块？
     pub memory_budget_in_bytes: usize,
     // zh: 不可搜索管理
-    // pub unsearchable_manages: Vec<String>,
+    pub unsearchable_manages: Vec<String>,
 }
 
 impl ConfigTrait for SearchEngineConfigs {
@@ -43,7 +43,7 @@ impl Default for SearchEngineConfigs {
             index_root_dir: "tantivy".to_string(),
             writer_commit_interval: 15,
             memory_budget_in_bytes: 15_000_000,
-            // unsearchable_manages: [].to_vec(),
+            unsearchable_manages: [].to_vec(),
         }
     }
 }

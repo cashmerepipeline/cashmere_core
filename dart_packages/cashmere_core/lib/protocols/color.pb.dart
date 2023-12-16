@@ -13,42 +13,35 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class Color extends $pb.GeneratedMessage {
-  factory Color({
-    $core.String? name,
-    $core.int? red,
-    $core.int? green,
-    $core.int? blue,
-    $core.int? alpha,
+import 'name.pb.dart' as $0;
+
+/// 新颜色
+class NewColorRequest extends $pb.GeneratedMessage {
+  factory NewColorRequest({
+    $0.Name? name,
+    $core.Iterable<$core.int>? color,
+    $core.String? description,
   }) {
     final $result = create();
     if (name != null) {
       $result.name = name;
     }
-    if (red != null) {
-      $result.red = red;
+    if (color != null) {
+      $result.color.addAll(color);
     }
-    if (green != null) {
-      $result.green = green;
-    }
-    if (blue != null) {
-      $result.blue = blue;
-    }
-    if (alpha != null) {
-      $result.alpha = alpha;
+    if (description != null) {
+      $result.description = description;
     }
     return $result;
   }
-  Color._() : super();
-  factory Color.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Color.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  NewColorRequest._() : super();
+  factory NewColorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NewColorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Color', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'name')
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'red', $pb.PbFieldType.OU3)
-    ..a<$core.int>(3, _omitFieldNames ? '' : 'green', $pb.PbFieldType.OU3)
-    ..a<$core.int>(4, _omitFieldNames ? '' : 'blue', $pb.PbFieldType.OU3)
-    ..a<$core.int>(5, _omitFieldNames ? '' : 'alpha', $pb.PbFieldType.OU3)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewColorRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOM<$0.Name>(1, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
+    ..p<$core.int>(2, _omitFieldNames ? '' : 'color', $pb.PbFieldType.KU3)
+    ..aOS(3, _omitFieldNames ? '' : 'description')
     ..hasRequiredFields = false
   ;
 
@@ -56,67 +49,173 @@ class Color extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Color clone() => Color()..mergeFromMessage(this);
+  NewColorRequest clone() => NewColorRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Color copyWith(void Function(Color) updates) => super.copyWith((message) => updates(message as Color)) as Color;
+  NewColorRequest copyWith(void Function(NewColorRequest) updates) => super.copyWith((message) => updates(message as NewColorRequest)) as NewColorRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Color create() => Color._();
-  Color createEmptyInstance() => create();
-  static $pb.PbList<Color> createRepeated() => $pb.PbList<Color>();
+  static NewColorRequest create() => NewColorRequest._();
+  NewColorRequest createEmptyInstance() => create();
+  static $pb.PbList<NewColorRequest> createRepeated() => $pb.PbList<NewColorRequest>();
   @$core.pragma('dart2js:noInline')
-  static Color getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Color>(create);
-  static Color? _defaultInstance;
+  static NewColorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewColorRequest>(create);
+  static NewColorRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get name => $_getSZ(0);
+  $0.Name get name => $_getN(0);
   @$pb.TagNumber(1)
-  set name($core.String v) { $_setString(0, v); }
+  set name($0.Name v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
   void clearName() => clearField(1);
+  @$pb.TagNumber(1)
+  $0.Name ensureName() => $_ensure(0);
 
+  /// [r,g,b]
   @$pb.TagNumber(2)
-  $core.int get red => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set red($core.int v) { $_setUnsignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasRed() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearRed() => clearField(2);
+  $core.List<$core.int> get color => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.int get green => $_getIZ(2);
+  $core.String get description => $_getSZ(2);
   @$pb.TagNumber(3)
-  set green($core.int v) { $_setUnsignedInt32(2, v); }
+  set description($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasGreen() => $_has(2);
+  $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearGreen() => clearField(3);
+  void clearDescription() => clearField(3);
+}
 
-  @$pb.TagNumber(4)
-  $core.int get blue => $_getIZ(3);
-  @$pb.TagNumber(4)
-  set blue($core.int v) { $_setUnsignedInt32(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasBlue() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearBlue() => clearField(4);
+class NewColorResponse extends $pb.GeneratedMessage {
+  factory NewColorResponse({
+    $core.String? result,
+  }) {
+    final $result = create();
+    if (result != null) {
+      $result.result = result;
+    }
+    return $result;
+  }
+  NewColorResponse._() : super();
+  factory NewColorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NewColorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  @$pb.TagNumber(5)
-  $core.int get alpha => $_getIZ(4);
-  @$pb.TagNumber(5)
-  set alpha($core.int v) { $_setUnsignedInt32(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasAlpha() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearAlpha() => clearField(5);
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NewColorResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'result')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  NewColorResponse clone() => NewColorResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NewColorResponse copyWith(void Function(NewColorResponse) updates) => super.copyWith((message) => updates(message as NewColorResponse)) as NewColorResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static NewColorResponse create() => NewColorResponse._();
+  NewColorResponse createEmptyInstance() => create();
+  static $pb.PbList<NewColorResponse> createRepeated() => $pb.PbList<NewColorResponse>();
+  @$core.pragma('dart2js:noInline')
+  static NewColorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NewColorResponse>(create);
+  static NewColorResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get result => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set result($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResult() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResult() => clearField(1);
+}
+
+/// 获取颜色
+class GetColorsRequest extends $pb.GeneratedMessage {
+  factory GetColorsRequest() => create();
+  GetColorsRequest._() : super();
+  factory GetColorsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetColorsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetColorsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetColorsRequest clone() => GetColorsRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetColorsRequest copyWith(void Function(GetColorsRequest) updates) => super.copyWith((message) => updates(message as GetColorsRequest)) as GetColorsRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetColorsRequest create() => GetColorsRequest._();
+  GetColorsRequest createEmptyInstance() => create();
+  static $pb.PbList<GetColorsRequest> createRepeated() => $pb.PbList<GetColorsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetColorsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetColorsRequest>(create);
+  static GetColorsRequest? _defaultInstance;
+}
+
+class GetColorsResponse extends $pb.GeneratedMessage {
+  factory GetColorsResponse({
+    $core.Iterable<$core.List<$core.int>>? colors,
+  }) {
+    final $result = create();
+    if (colors != null) {
+      $result.colors.addAll(colors);
+    }
+    return $result;
+  }
+  GetColorsResponse._() : super();
+  factory GetColorsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetColorsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetColorsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'colors', $pb.PbFieldType.PY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetColorsResponse clone() => GetColorsResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetColorsResponse copyWith(void Function(GetColorsResponse) updates) => super.copyWith((message) => updates(message as GetColorsResponse)) as GetColorsResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetColorsResponse create() => GetColorsResponse._();
+  GetColorsResponse createEmptyInstance() => create();
+  static $pb.PbList<GetColorsResponse> createRepeated() => $pb.PbList<GetColorsResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetColorsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetColorsResponse>(create);
+  static GetColorsResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.List<$core.int>> get colors => $_getList(0);
 }
 
 

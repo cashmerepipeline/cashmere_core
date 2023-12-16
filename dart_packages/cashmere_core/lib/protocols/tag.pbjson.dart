@@ -17,7 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const NewTagRequest$json = {
   '1': 'NewTagRequest',
   '2': [
-    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 5, '10': 'targetManageId'},
+    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 9, '10': 'targetManageId'},
     {'1': 'name', '3': 2, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
   ],
@@ -25,7 +25,7 @@ const NewTagRequest$json = {
 
 /// Descriptor for `NewTagRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newTagRequestDescriptor = $convert.base64Decode(
-    'Cg1OZXdUYWdSZXF1ZXN0EigKEHRhcmdldF9tYW5hZ2VfaWQYASABKAVSDnRhcmdldE1hbmFnZU'
+    'Cg1OZXdUYWdSZXF1ZXN0EigKEHRhcmdldF9tYW5hZ2VfaWQYASABKAlSDnRhcmdldE1hbmFnZU'
     'lkEiIKBG5hbWUYAiABKAsyDi5jYXNobWVyZS5OYW1lUgRuYW1lEiAKC2Rlc2NyaXB0aW9uGAMg'
     'ASgJUgtkZXNjcmlwdGlvbg==');
 
@@ -46,7 +46,7 @@ const AddTagsToEntityRequest$json = {
   '1': 'AddTagsToEntityRequest',
   '2': [
     {'1': 'tag_ids', '3': 1, '4': 3, '5': 9, '10': 'tagIds'},
-    {'1': 'target_manage_id', '3': 2, '4': 1, '5': 5, '10': 'targetManageId'},
+    {'1': 'target_manage_id', '3': 2, '4': 1, '5': 9, '10': 'targetManageId'},
     {'1': 'target_entity_id', '3': 3, '4': 1, '5': 9, '10': 'targetEntityId'},
   ],
 };
@@ -54,7 +54,7 @@ const AddTagsToEntityRequest$json = {
 /// Descriptor for `AddTagsToEntityRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List addTagsToEntityRequestDescriptor = $convert.base64Decode(
     'ChZBZGRUYWdzVG9FbnRpdHlSZXF1ZXN0EhcKB3RhZ19pZHMYASADKAlSBnRhZ0lkcxIoChB0YX'
-    'JnZXRfbWFuYWdlX2lkGAIgASgFUg50YXJnZXRNYW5hZ2VJZBIoChB0YXJnZXRfZW50aXR5X2lk'
+    'JnZXRfbWFuYWdlX2lkGAIgASgJUg50YXJnZXRNYW5hZ2VJZBIoChB0YXJnZXRfZW50aXR5X2lk'
     'GAMgASgJUg50YXJnZXRFbnRpdHlJZA==');
 
 @$core.Deprecated('Use addTagsToEntityResponseDescriptor instead')
@@ -73,13 +73,13 @@ final $typed_data.Uint8List addTagsToEntityResponseDescriptor = $convert.base64D
 const GetTagsRequest$json = {
   '1': 'GetTagsRequest',
   '2': [
-    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 5, '10': 'targetManageId'},
+    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 9, '10': 'targetManageId'},
   ],
 };
 
 /// Descriptor for `GetTagsRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getTagsRequestDescriptor = $convert.base64Decode(
-    'Cg5HZXRUYWdzUmVxdWVzdBIoChB0YXJnZXRfbWFuYWdlX2lkGAEgASgFUg50YXJnZXRNYW5hZ2'
+    'Cg5HZXRUYWdzUmVxdWVzdBIoChB0YXJnZXRfbWFuYWdlX2lkGAEgASgJUg50YXJnZXRNYW5hZ2'
     'VJZA==');
 
 @$core.Deprecated('Use getTagsResponseDescriptor instead')
@@ -98,7 +98,7 @@ final $typed_data.Uint8List getTagsResponseDescriptor = $convert.base64Decode(
 const RemoveTagsFromEntityRequest$json = {
   '1': 'RemoveTagsFromEntityRequest',
   '2': [
-    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 5, '10': 'targetManageId'},
+    {'1': 'target_manage_id', '3': 1, '4': 1, '5': 9, '10': 'targetManageId'},
     {'1': 'target_entity_id', '3': 2, '4': 1, '5': 9, '10': 'targetEntityId'},
     {'1': 'tag_ids', '3': 3, '4': 3, '5': 9, '10': 'tagIds'},
   ],
@@ -106,7 +106,7 @@ const RemoveTagsFromEntityRequest$json = {
 
 /// Descriptor for `RemoveTagsFromEntityRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List removeTagsFromEntityRequestDescriptor = $convert.base64Decode(
-    'ChtSZW1vdmVUYWdzRnJvbUVudGl0eVJlcXVlc3QSKAoQdGFyZ2V0X21hbmFnZV9pZBgBIAEoBV'
+    'ChtSZW1vdmVUYWdzRnJvbUVudGl0eVJlcXVlc3QSKAoQdGFyZ2V0X21hbmFnZV9pZBgBIAEoCV'
     'IOdGFyZ2V0TWFuYWdlSWQSKAoQdGFyZ2V0X2VudGl0eV9pZBgCIAEoCVIOdGFyZ2V0RW50aXR5'
     'SWQSFwoHdGFnX2lkcxgDIAMoCVIGdGFnSWRz');
 
