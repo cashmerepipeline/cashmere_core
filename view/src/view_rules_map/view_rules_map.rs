@@ -14,6 +14,7 @@ use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::log;
 use dependencies_sync::mongodb;
 use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::rust_i18n::{self, t};
 
 use crate::view_rules::ViewRules;
 use manage_define::field_ids::VIEW_RULES_COLLECTION_FIELD_ID;

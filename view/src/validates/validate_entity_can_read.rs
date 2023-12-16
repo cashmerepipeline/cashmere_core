@@ -1,4 +1,5 @@
 use dependencies_sync::tonic::Status;
+use dependencies_sync::rust_i18n::{self, t};
 
 use crate::can_entity_read;
 

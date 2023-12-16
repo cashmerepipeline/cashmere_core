@@ -33,7 +33,5 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   # "tantivy",
   "serde_json",
   "log",
-  # "cang-jie",
-  # "jieba-rs",
 ] }
 

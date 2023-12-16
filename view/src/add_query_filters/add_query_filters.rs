@@ -15,10 +15,9 @@ pub async fn add_query_filters(
     group: &String,
     manage_id: &String,
 ) -> Option<Document> {
-    let rule = if let Ok(r) = query_collection_view_rules(manage_id, group).await {
+    let rule = if let Some(r) = query_collection_view_rules(manage_id, group).await {
         r
     } else {
-        error!("{}: {}", t!("读取可见性规则失败"), manage_id);
         return None;
     };
 

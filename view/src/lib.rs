@@ -1,6 +1,5 @@
-#[macro_use]
-extern crate rust_i18n;
-i18n!("locales");
+use dependencies_sync::rust_i18n::{self};
+rust_i18n::i18n!("locales");
 
 pub mod view_rules_map;
 

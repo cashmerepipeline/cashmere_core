@@ -1,4 +1,5 @@
 use dependencies_sync::log;
+use dependencies_sync::rust_i18n::{self, t};
 
 use crate::view_rules_map::query_collection_view_rules;
 use crate::view_rules_map::query_field_view_rules;
@@ -13,7 +14,7 @@ pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &Str
     }
 
     let collection_view_rules =
-        if let Ok(r) = query_collection_view_rules(&manage_id.to_string(), role_group).await {
+        if let Some(r) = query_collection_view_rules(&manage_id.to_string(), role_group).await {
             r
         } else {
             log::error!(
@@ -25,7 +26,7 @@ pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &Str
             return false;
         };
 
-    log::debug!("collection_view_rules: {:?}", collection_view_rules);
+    // log::debug!("collection_view_rules: {:?}", collection_view_rules);
 
     let field_view_rules = if let Some(r) =
         query_field_view_rules(&manage_id.to_string(), field_id, role_group).await
@@ -42,7 +43,7 @@ pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &Str
         return false;
     };
 
-    log::debug!("field_view_rules: {:?}", field_view_rules);
+    // log::debug!("field_view_rules: {:?}", field_view_rules);
 
     collection_view_rules.read_rule == ReadRule::Read
         || collection_view_rules.read_rule == ReadRule::OwnerRead

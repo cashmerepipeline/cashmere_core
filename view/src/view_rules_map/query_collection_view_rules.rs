@@ -1,4 +1,5 @@
 use dependencies_sync::log;
+use dependencies_sync::rust_i18n::{self, t};
 
 use cash_result::{operation_failed, OperationResult};
 
@@ -6,31 +7,17 @@ use super::get_manage_view_rules;
 use crate::view_rule::ViewRule;
 
 /// 取得集合视图规则
-pub async fn query_collection_view_rules(
-    manage_id: &String,
-    group_id: &String,
-) -> Result<ViewRule, OperationResult> {
-    match get_manage_view_rules(manage_id).await {
-        Some(manage_view_rules_map) => {
-            let m = manage_view_rules_map.read();
-            let result = m.collection.get(group_id).cloned().ok_or(operation_failed(
-                "query_collection_view_rules",
-                "取得集合可见性规则失败",
-            ));
-            log::debug!("{}: {:?}", t!("取得集合可见规则成功"), result);
-            result
-        }
-        None => {
-            log::error!(
-                "{}: {}, {}",
-                t!("取得集合可见规则失败"),
-                manage_id,
-                group_id
-            );
-            Err(operation_failed(
-                "query_collection_view_rules",
-                "取得可见规则失败",
-            ))
-        }
+pub async fn query_collection_view_rules(manage_id: &str, group_id: &str) -> Option<ViewRule> {
+    if let Some(manage_view_rules_map) = get_manage_view_rules(manage_id).await {
+        let m = manage_view_rules_map.read();
+        m.collection.get(group_id).cloned()
+    } else {
+        log::error!(
+            "{}: {}, {}",
+            t!("取得集合可见规则失败"),
+            manage_id,
+            group_id
+        );
+        None
     }
 }
