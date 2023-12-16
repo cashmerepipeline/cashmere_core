@@ -1,4 +1,4 @@
-use dependencies_sync::{log, rust_i18n::{self, t}, tonic::Status, chrono::format::format};
+use dependencies_sync::{log, rust_i18n::{self, t}, tonic::Status};
 
 use cash_core::SchemaField;
 use majordomo::get_majordomo;
@@ -10,7 +10,7 @@ pub async fn get_manage_schema_fields(manage_id: &str) -> Result<Vec<SchemaField
         r
     } else {
         log::error!("{}, {}", t!("取得管理器失败"), manage_id);
-        return Err(Status::not_found(format!("{}", t!("管理器不存在"))));
+        return Err(Status::not_found(t!("管理器不存在").to_string()));
     };
 
     Ok(manager.get_manage_schema().await)

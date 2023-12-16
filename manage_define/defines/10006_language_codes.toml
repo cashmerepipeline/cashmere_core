@@ -4,7 +4,6 @@
 
 id = "语言编码"
 name_map = { zh = "语言编码", en = "language_codes" }
-is_searchable = false
 description = "语言编码"
 
 # 数据描写 或者 模式

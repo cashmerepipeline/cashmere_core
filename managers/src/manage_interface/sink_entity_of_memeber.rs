@@ -1,4 +1,4 @@
-use cash_result::{ operation_failed, OperationResult};
+use cash_result::{operation_failed, OperationResult};
 use database::get_database;
 use dependencies_sync::{
     bson::{doc, Document},
@@ -18,7 +18,6 @@ use manage_define::{
     manage_ids::MEMBERS_MANAGE_ID,
 };
 
-
 pub async fn sink_entity_of_member(
     owner_manage_id: &str,
     owner_entity_id: &str,
@@ -35,7 +34,7 @@ pub async fn sink_entity_of_member(
     } else {
         return Err(operation_failed(
             "update_multi_entity_fields",
-            format!("{}", t!("发起会话失败")),
+            t!("发起会话失败").to_string(),
         ));
     };
 

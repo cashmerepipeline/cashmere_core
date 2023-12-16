@@ -5,7 +5,6 @@
 
 id = "地区"
 name_map = { zh = "地区", en = "areas" }
-is_searchable = true
 description = "地区管理"
 
 

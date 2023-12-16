@@ -51,7 +51,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
 
         // 检查管理实体是否存在，不存在给出错误信息
-        if entity::exists_by_id(&MANAGES_MANAGE_ID.to_string(), manage_id)
+        if entity::exists_by_id(MANAGES_MANAGE_ID, manage_id)
             .await
             .is_none()
         {
@@ -123,12 +123,6 @@ pub trait ManagerTrait: Any + Send + Sync {
             .map(|x| x.id)
             .collect::<Vec<i32>>();
         schema.contains(&field_id)
-    }
-
-    async fn is_searchable(&self) -> bool {
-        let manage_lock = self.get_manage().await;
-        let manage = manage_lock.read();
-        manage.is_searchable
     }
 
     // ---------------------------
@@ -316,13 +310,7 @@ pub trait ManagerTrait: Any + Send + Sync {
             MANAGES_SCHEMA_FIELD_ID.to_string():value
         };
 
-        match entity::add_to_array_field(
-            &MANAGES_MANAGE_ID.to_string(),
-            query_doc,
-            modify_doc,
-            account_id,
-        )
-        .await
+        match entity::add_to_array_field(MANAGES_MANAGE_ID, query_doc, modify_doc, account_id).await
         {
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
             _ => Ok(()),
@@ -382,7 +370,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         };
 
         match entity::update_entity_array_element_field(
-            &MANAGES_MANAGE_ID.to_string(),
+            MANAGES_MANAGE_ID,
             query_doc,
             modify_doc,
             account_id,
@@ -442,7 +430,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         };
 
         if let Err(e) = entity::update_entity_array_element_field(
-            &MANAGES_MANAGE_ID.to_string(),
+            MANAGES_MANAGE_ID,
             query_doc,
             modify_doc,
             account_id,
@@ -522,7 +510,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         group_id: &str,
     ) -> Result<String, OperationResult> {
         manage_interface::sink_entity(
-            &self.get_id(),
+            self.get_id(),
             new_entity_doc,
             account_id,
             group_id,
@@ -601,15 +589,8 @@ pub trait ManagerTrait: Any + Send + Sync {
             return Ok(cache_get_entity_stream(self.get_id()).await);
         }
 
-        match entity::get_query_cursor(
-            manage_id,
-            matche_doc,
-            unsets,
-            sorts,
-            start_oid,
-            skip_count,
-        )
-        .await
+        match entity::get_query_cursor(manage_id, matche_doc, unsets, sorts, start_oid, skip_count)
+            .await
         {
             Ok(mut r) => {
                 let (tx, rv) = mpsc::channel(1);
@@ -659,9 +640,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let mut m_doc = doc! {
             REMOVED_FIELD_ID.to_string(): true
         };
-        match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id)
-            .await
-        {
+        match entity::update_entity_field(manage_id, q_doc, &mut m_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
@@ -679,9 +658,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         let mut m_doc = doc! {
             REMOVED_FIELD_ID.to_string(): false
         };
-        match entity::update_entity_field(&manage_id.to_string(), q_doc, &mut m_doc, account_id)
-            .await
-        {
+        match entity::update_entity_field(manage_id, q_doc, &mut m_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
@@ -689,7 +666,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     async fn is_mark_removed(&self, entity_id: &str) -> bool {
         let manage_id = self.get_id();
-        match entity::get_entity_by_id(&manage_id.to_string(), entity_id, &[]).await {
+        match entity::get_entity_by_id(manage_id, entity_id, &[]).await {
             Ok(r) => {
                 if let Ok(b) = r.get_bool(REMOVED_FIELD_ID.to_string()) {
                     return b;
@@ -703,7 +680,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     async fn entity_exists(&self, query_doc: &Document) -> Option<String> {
         let manage_id = self.get_id();
-        entity::entity_exists(&manage_id.to_string(), query_doc).await
+        entity::entity_exists(manage_id, query_doc).await
     }
 
     //-------------------------

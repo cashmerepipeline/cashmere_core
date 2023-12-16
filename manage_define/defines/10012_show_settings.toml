@@ -4,7 +4,6 @@
 
 id = "显示设置"
 name_map = { zh = "显示设置", en = "show_settings" }
-is_searchable = true
 description = "用于存储客户端的显示设置"
 
 

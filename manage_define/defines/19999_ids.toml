@@ -4,7 +4,6 @@
 
 id = "编号器"
 name_map = { zh = "编号器", en = "ids" }
-is_searchable = false
 description = "用于id生成的数据库，不对外可见"
 
 

@@ -13,12 +13,13 @@ use dependencies_sync::{
 };
 
 use database::get_database;
-use majordomo::get_majordomo;
-use managers::ManagerTrait;
 
-use crate::database_event_handles::{handle_delete_event, handle_update_event};
 use crate::{
     database_event_handles::handle_insert_event, search_engine_runtime::get_search_engine_runtime,
+};
+use crate::{
+    database_event_handles::{handle_delete_event, handle_update_event},
+    is_manage_searchable::is_manage_searchable,
 };
 
 pub async fn watch_database() {
@@ -64,14 +65,10 @@ pub async fn watch_database() {
                         continue;
                     };
 
-                    {
-                        // 判断是否需要搜索
-                        let majordomo_arc = get_majordomo();
-                        let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
-                        if !manager.is_searchable().await {
-                            continue;
-                        }
+                    if !is_manage_searchable(manage_id) {
+                        continue;
                     }
+
                     log::info!("{}: {}", t!("接收到数据库变更"), manage_id);
 
                     let _object_id = if let Some(ref dk) = r.document_key {

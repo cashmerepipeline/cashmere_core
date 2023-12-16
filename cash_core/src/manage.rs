@@ -33,10 +33,6 @@ pub struct Manage {
     // en: schema
     pub schema: Vec<SchemaField>,
 
-    // zh: 能被搜索
-    //  en: is_searchable
-    pub is_searchable: bool,
-
     // zh: 注释
     // en: description
     pub description: String,

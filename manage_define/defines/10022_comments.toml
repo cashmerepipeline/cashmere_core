@@ -4,7 +4,6 @@
 
 id = "评论"
 name_map = { zh = "评论", en = "comments" }
-is_searchable = true
 description = "评论，必须属于某个实体"
 
 

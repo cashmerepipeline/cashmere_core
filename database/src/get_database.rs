@@ -1,5 +1,5 @@
 use crate::{get_mongodb_client, DatabaseConfigs};
-use dependencies_sync::mongodb::options::{ClientOptions, ServerAddress};
+
 use dependencies_sync::mongodb::Database;
 use std::sync::Arc;
 

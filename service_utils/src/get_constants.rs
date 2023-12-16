@@ -1,5 +1,5 @@
 use cash_result::{add_call_name_to_chain, OperationResult};
-use dependencies_sync::{bson::{Document, doc}, tonic::Status, tokio_stream::StreamExt};
+use dependencies_sync::{bson::{Document, doc}, tokio_stream::StreamExt};
 use majordomo::get_majordomo;
 use managers::ManagerTrait;
 

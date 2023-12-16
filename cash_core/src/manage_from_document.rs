@@ -6,8 +6,7 @@ use dependencies_sync::bson::{self, Document};
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
 use manage_define::general_field_ids::{
     CREATE_TIMESTAMP_FIELD_ID, CREATOR_FIELD_ID, DESCRIPTION_FIELD_ID, GROUPS_FIELD_ID,
-    ID_FIELD_ID, IS_SEARCHABLE_FIELD_ID, MODIFIER_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID,
-    NAME_MAP_FIELD_ID, OWNER_FIELD_ID,
+    ID_FIELD_ID, MODIFIER_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID, OWNER_FIELD_ID,
 };
 
 /// bson文档-->管理实体
@@ -54,10 +53,6 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
             schema.push(field);
         });
 
-    let is_searchable = manage_doc
-        .get_bool(IS_SEARCHABLE_FIELD_ID.to_string())
-        .unwrap();
-
     let description = manage_doc
         .get_str(&DESCRIPTION_FIELD_ID.to_string())
         .unwrap_or("");
@@ -73,7 +68,6 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         owner: owner.to_string(),
         groups,
         schema,
-        is_searchable,
         description: description.to_string(),
     })
 }

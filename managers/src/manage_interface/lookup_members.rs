@@ -1,19 +1,11 @@
-use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
-use database::{get_database, get_member_view_name};
+use cash_result::{add_call_name_to_chain, OperationResult};
+use database::get_member_view_name;
 use dependencies_sync::{
     bson::{doc, Document},
-    log,
-    mongodb::{
-        options::{Acknowledgment, ReadConcern, TransactionOptions, WriteConcern},
-        Collection,
-    },
-    rust_i18n::{self, t},
     tokio::{self, sync::mpsc},
     tokio_stream::{wrappers::ReceiverStream, StreamExt},
 };
 use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
-
-use crate::entity_cache_map::cache_update_entity;
 
 /// zh: 返回
 pub async fn lookup_members(
@@ -27,11 +19,7 @@ pub async fn lookup_members(
     // 相对于start_oid的位置跳过数，不包含start_oid
     skip_count: u32,
 ) -> Result<ReceiverStream<Document>, OperationResult> {
-    let view_name = get_member_view_name(
-        &owner_manage_id.to_string(),
-        owner_entity_id,
-        &self_manage_id.to_string(),
-    );
+    let view_name = get_member_view_name(owner_manage_id, owner_entity_id, self_manage_id);
     let mut match_doc = doc! {};
     query_doc.iter().for_each(|(k, v)| {
         match_doc.insert(

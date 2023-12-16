@@ -12,7 +12,7 @@ pub async fn query_field_view_rules(
         let m = manage_view_rules_map.read();
         m.schema
             .get(field_id)
-            .and_then(|schema| schema.get(group_id).map(|rule| rule.clone()))
+            .and_then(|schema| schema.get(group_id).cloned())
     } else {
         None
     }

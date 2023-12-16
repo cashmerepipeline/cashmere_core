@@ -5,10 +5,10 @@ use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::serde_json::{self, json};
 
-use tantivy::{schema::*, Document as TantivyDocument};
 use manage_define::general_field_ids::{
     DESCRIPTION_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID, NAME_MAP_FIELD_ID,
 };
+use tantivy::schema::*;
 
 use crate::get_tantivy_writer;
 

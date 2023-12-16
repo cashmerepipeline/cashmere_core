@@ -100,16 +100,6 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut is_searchable_name_map = LinkedHashMap::new();
-    is_searchable_name_map.insert("zh".to_string(), "可搜索".to_string());
-    is_searchable_name_map.insert("en".to_string(), "is_searchable".to_string());
-    let is_searchable_field = SchemaField {
-        id: IS_SEARCHABLE_FIELD_ID,
-        name_map: is_searchable_name_map,
-        data_type: "Boolean".to_string(),
-        removed: false,
-    };
-
     let mut comments_name_map = LinkedHashMap::new();
     comments_name_map.insert("zh".to_string(), "评论".to_string());
     comments_name_map.insert("en".to_string(), "comments".to_string());
@@ -150,5 +140,5 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    vec![id_field, name_map_field, owner_field, group_field, is_searchable_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
+    vec![id_field, name_map_field, owner_field, group_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
 }

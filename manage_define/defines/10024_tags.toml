@@ -5,7 +5,6 @@
 
 id = "标签"
 name_map = { zh = "标签", en = "tags" }
-is_searchable = true
 description = "对实体进行标记，标记添加到实体的tags表中"
 
 

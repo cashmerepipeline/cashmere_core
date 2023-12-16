@@ -4,7 +4,6 @@
 
 id = "管理"
 name_map = { zh = "管理", en = "manages" }
-is_searchable = false
 description = "管理定义，用于描述一个管理中实体具备的字段和属性"
 
 # 描写，模式

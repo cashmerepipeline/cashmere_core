@@ -5,7 +5,6 @@
 
 id = "品类"
 name_map = { zh = "品类", en = "categories" }
-is_searchable = true
 description = "对实体进行归类，添加到实体的categories表中"
 
 

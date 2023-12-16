@@ -1,26 +1,23 @@
 use std::sync::Arc;
 
-use dependencies_sync::futures::StreamExt;
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::bson::doc;
+use dependencies_sync::futures::StreamExt;
 use dependencies_sync::log::info;
+use dependencies_sync::rust_i18n::{self, t};
 
 use cash_result::{operation_failed, operation_succeed, OperationResult};
 use manage_define::general_field_ids::ID_FIELD_ID;
 
 use crate::entity_cache_map::get_manage_entity_cache;
 
-pub async fn cache_init_cache(
-    manage_id: &'static str,
-) -> Result<OperationResult, OperationResult> {
+pub async fn cache_init_cache(manage_id: &'static str) -> Result<OperationResult, OperationResult> {
     let mut entities = vec![];
-    let mut cursor = if let Ok(r) =
-        entity::get_query_cursor(&manage_id.to_string(), doc! {}, None, None, None, 0).await
-    {
-        r
-    } else {
-        return Err(operation_failed("init_cache", "初始化缓存失败".to_string()));
-    };
+    let mut cursor =
+        if let Ok(r) = entity::get_query_cursor(manage_id, doc! {}, None, None, None, 0).await {
+            r
+        } else {
+            return Err(operation_failed("init_cache", "初始化缓存失败".to_string()));
+        };
 
     while let Some(doc_result) = cursor.next().await {
         if let Ok(doc) = doc_result {
@@ -36,7 +33,12 @@ pub async fn cache_init_cache(
             cache_map.insert(id, Arc::new(entity));
         }
 
-        info!( "{}: {}, {}", t!("初始化缓存完成"), manage_id, cache_map.len() );
+        info!(
+            "{}: {}, {}",
+            t!("初始化缓存完成"),
+            manage_id,
+            cache_map.len()
+        );
     }
 
     Ok(operation_succeed("ok"))
