@@ -1,3 +1,7 @@
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n};
+i18n!("locales");
+
 pub use manage::*;
 pub use manage_from_document::*;
 

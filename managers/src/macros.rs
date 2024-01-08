@@ -14,7 +14,7 @@ macro_rules! declare_get_manager {
             unsafe {
                 if $static_manager.is_none() {
                     let m_object = <$manager>::default();
-                    match m_object.init().await {
+                    match m_object.init_check().await {
                         Ok(_r) => (),
                         Err(e) => panic!("{} {}", e.operation(), e.details())
                     };

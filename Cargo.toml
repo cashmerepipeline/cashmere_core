@@ -15,18 +15,18 @@ members = [
   "configs",
   "database",
   "entity",
-  # "property_field",
+  # "manage_interface",
   #    "server_template",
-  "request_utils",
-  "core_service_handles",
   "majordomo",
-  "define_utils",
   "managers",
+  "define_utils",
   # "minit",
   "view",
   "dependencies_sync",
-  "search_engine",
   "validates",
+  "request_utils",
+  "core_service_handles",
+  "search_engine",
 ]
 
 exclude = ["server_template", "minit"]

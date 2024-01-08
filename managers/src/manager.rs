@@ -1,12 +1,12 @@
 use crate::manager_inner::ManagerInner;
 use crate::ManagerTrait;
 use cash_core::Manage;
+use cash_core::SchemaField;
 use cash_result::OperationResult;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::tonic::async_trait;
 use manage_define::cashmere::EntityFieldEdit;
-use cash_core::SchemaField;
 use std::sync::Arc;
 
 /// 管理器包裹
@@ -53,8 +53,14 @@ impl ManagerTrait for Manager {
         self.inner.entity_exists(query_doc).await
     }
 
-    async fn get_entity_by_id(&self, entity_id: &String, no_present_fields: &Vec<String>) -> Result<Document, OperationResult> {
-        self.inner.get_entity_by_id(entity_id, no_present_fields).await
+    async fn get_entity_by_id(
+        &self,
+        entity_id: &str,
+        no_present_fields: &Vec<String>,
+    ) -> Result<Document, OperationResult> {
+        self.inner
+            .get_entity_by_id(entity_id, no_present_fields)
+            .await
     }
 
     async fn get_entities_by_filter(
@@ -82,8 +88,8 @@ impl ManagerTrait for Manager {
             .await
     }
 
-    async fn init(&self) -> Result<OperationResult, OperationResult> {
-        self.inner.init().await
+    async fn init_check(&self) -> Result<OperationResult, OperationResult> {
+        self.inner.init_check().await
     }
 
     fn unregister(&self) -> Result<OperationResult, OperationResult> {

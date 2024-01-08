@@ -17,13 +17,9 @@ pub async fn get_entity_by_id(
     id: &str,
     no_present_fields: &[String],
 ) -> Result<Document, OperationResult> {
-    if !database::collection_exists(collection_name).await {
-        return Err(collection_not_exists("get_entity_by_id"));
-    }
-
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("entity::get_entity_by_id")),
+        None => return Err(collection_not_exists(collection_name, "entity::get_entity_by_id")),
     };
 
     let mut project_doc = doc! {};

@@ -19,7 +19,7 @@ pub async fn get_entities(
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("get_entities")),
+        None => return Err(collection_not_exists(collection_name, "get_entities")),
     };
 
     let cursor = if !no_present_fields.is_empty() {

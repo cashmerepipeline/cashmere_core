@@ -6,12 +6,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/foundation.dart';
 
 class SchemaFieldsNotifier extends StateNotifier<List<SchemaField>> {
-  final int manageId;
+  final String manageId;
   SchemaFieldsNotifier(this.manageId) : super([]);
 }
 
 class SchemaFieldsProviderArgs {
-  final int manageId;
+  final String manageId;
   final GrpcCall<GetManageSchemaRequest, GetManageSchemaResponse> stubCall;
 
   SchemaFieldsProviderArgs({required this.manageId, required this.stubCall});

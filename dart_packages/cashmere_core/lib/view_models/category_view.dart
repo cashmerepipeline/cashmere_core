@@ -4,7 +4,7 @@ import 'package:cashmere_core/view_models/entity_view_base.dart';
 import 'package:cashmere_core/view_models/set_general_fields.dart';
 
 class CategoryView extends EntityViewBase {
-  final int manageId;
+  final String manageId;
   CategoryView(id, {required this.manageId}) : super(id);
 
   factory CategoryView.fromMap(Map<String, dynamic> map) {

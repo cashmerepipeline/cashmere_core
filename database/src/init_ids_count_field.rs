@@ -6,7 +6,7 @@ use cash_result::{operation_failed, operation_succeed, OperationResult};
 use crate::get_ids_collection;
 
 /// 初始化实体编号字段
-pub async fn init_ids_count_field(manage_id: &String) -> Result<OperationResult, OperationResult> {
+pub async fn init_ids_count_field(manage_id: &str) -> Result<OperationResult, OperationResult> {
     let ids_collection = get_ids_collection().await;
 
     let f_result = ids_collection

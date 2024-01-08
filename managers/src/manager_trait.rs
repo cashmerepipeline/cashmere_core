@@ -27,54 +27,21 @@ use manage_define::manage_ids::*;
 
 use crate::entity_cache_map::cache_get_entity;
 use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::entity_interface;
+use crate::entity_interface::get_entities_by_filter;
+use crate::entity_interface::get_entity_by_id;
+use crate::entity_interface::get_entity_stream;
 use crate::manage_interface;
+use crate::manage_interface::init_check;
 use cash_core::schema_field_exists;
 
 /// 管理接口
 #[async_trait]
 pub trait ManagerTrait: Any + Send + Sync {
     // 注册管理器
-    async fn init(&self) -> Result<OperationResult, OperationResult> {
+    async fn init_check(&self) -> Result<OperationResult, OperationResult> {
         let manage_id = &self.get_id().to_string();
-        log::info!("{}: {}", t!("管理器数据库检查"), manage_id);
-
-        // 检查数据库是否存在管理集合，不存在则需要创建管理集合
-        if !database::collection_exists(manage_id).await {
-            return Err(operation_failed(
-                "ManagerTrait::init",
-                format!(
-                    "{}: {}",
-                    t!("数据库管理集合不存在, 请先初始化数据库"),
-                    manage_id
-                ),
-            ));
-        }
-
-        // 检查管理实体是否存在，不存在给出错误信息
-        if entity::exists_by_id(MANAGES_MANAGE_ID, manage_id)
-            .await
-            .is_none()
-        {
-            return Err(operation_failed(
-                "ManagerTrait::init",
-                format!(
-                    "{}: {}",
-                    t!("管理实体不存在, 需要先初始化管理实体"),
-                    manage_id
-                ),
-            ));
-        }
-
-        // 检查序列号生成器
-        if let Err(_e) = database::init_ids_count_field(manage_id).await {
-            return Err(operation_failed(
-                "ManagerTrait::init",
-                t!("初始化序列号生成器失败"),
-            ));
-        }
-
-        log::info!("管理器数据库检查完成：{}", manage_id);
-        Ok(operation_succeed("ok"))
+        init_check(manage_id).await
     }
 
     // 移除管理器
@@ -284,7 +251,10 @@ pub trait ManagerTrait: Any + Send + Sync {
 
             // 检查是否存着，不存在则添加，缓存和数据库不再检查
             if schema_field_exists(field_id, &manage.schema) {
-                return Err(target_already_exists("new_schema_field"));
+                return Err(target_already_exists(
+                    &field_id.to_string(),
+                    "new_schema_field",
+                ));
             } else {
                 manage.schema.push(new_field.clone());
             }
@@ -509,7 +479,7 @@ pub trait ManagerTrait: Any + Send + Sync {
         account_id: &str,
         group_id: &str,
     ) -> Result<String, OperationResult> {
-        manage_interface::sink_entity(
+        entity_interface::sink_entity(
             self.get_id(),
             new_entity_doc,
             account_id,
@@ -522,26 +492,11 @@ pub trait ManagerTrait: Any + Send + Sync {
     /// 通过id取得实体
     async fn get_entity_by_id(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         no_present_fields: &Vec<String>,
     ) -> Result<Document, OperationResult> {
-        let manage_id = self.get_id().to_string();
-        // 如果存在缓存，从缓存中取得
-        if self.has_cache() {
-            let result = cache_get_entity(self.get_id(), entity_id);
-            return match result {
-                Some(r) => Ok(r),
-                None => Err(operation_failed("get_entity_by_id", t!("取得实体缓存失败"))),
-            };
-        }
-
-        match entity::get_entity_by_id(&manage_id, entity_id, no_present_fields).await {
-            Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(
-                e,
-                "manager::get_entity_by_id".to_string(),
-            )),
-        }
+        let manage_id = self.get_id();
+        get_entity_by_id(manage_id, entity_id, self.has_cache(), no_present_fields).await
     }
 
     /// 通过过滤取得实体
@@ -549,11 +504,8 @@ pub trait ManagerTrait: Any + Send + Sync {
         &self,
         filter: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
-        let manage_id = self.get_id().to_string();
-        match entity::get_entities(&manage_id, filter, &vec![]).await {
-            Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
-        }
+        let manage_id = self.get_id();
+        get_entities_by_filter(manage_id, filter).await
     }
 
     /// 取得条件排序分页
@@ -585,28 +537,16 @@ pub trait ManagerTrait: Any + Send + Sync {
     ) -> Result<ReceiverStream<Document>, OperationResult> {
         let manage_id = self.get_id();
 
-        if self.has_cache() {
-            return Ok(cache_get_entity_stream(self.get_id()).await);
-        }
-
-        match entity::get_query_cursor(manage_id, matche_doc, unsets, sorts, start_oid, skip_count)
-            .await
-        {
-            Ok(mut r) => {
-                let (tx, rv) = mpsc::channel(1);
-                tokio::spawn(async move {
-                    while let Some(r) = r.next().await {
-                        let _ = tx.send(r.unwrap()).await;
-                    }
-                });
-
-                Ok(ReceiverStream::new(rv))
-            }
-            Err(e) => Err(add_call_name_to_chain(
-                e,
-                "manager::get_entity_stream".to_string(),
-            )),
-        }
+        get_entity_stream(
+            manage_id,
+            matche_doc,
+            unsets,
+            sorts,
+            start_oid,
+            skip_count,
+            self.has_cache(),
+        )
+        .await
     }
 
     async fn update_entity_field(

@@ -24,7 +24,7 @@ pub async fn update_entity_array_element_field(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("upate_entity_array_field")),
+        None => return Err(collection_not_exists(manage_id, "upate_entity_array_field")),
     };
 
     let mut _modify_doc = doc! {

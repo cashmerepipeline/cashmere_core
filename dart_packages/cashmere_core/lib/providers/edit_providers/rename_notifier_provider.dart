@@ -14,7 +14,7 @@ class RenameNotifier extends StateNotifier<EditEntityNotifierState> {
         );
 
   Future<void> rename(
-    int manageId,
+    String manageId,
     String entityId,
     Name newName,
     GrpcCall<RenameRequest, RenameResponse> renameCall,

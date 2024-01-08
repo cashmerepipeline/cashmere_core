@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:grpc/grpc.dart';
 
 Future<List<SchemaField>> fetchSchemaFields(
-  int manageId,
+  String manageId,
   GrpcCall<GetManageSchemaRequest, GetManageSchemaResponse> stubCall,
   Map<String, String> metaData,
 ) async {

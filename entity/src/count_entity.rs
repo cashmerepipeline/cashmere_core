@@ -14,16 +14,16 @@ use manage_define::general_field_ids::*;
 
 /// 使用过滤条件获取实体数量
 pub async fn count_entity(
-    collection_name: &String,
+    collection_name: &str,
     filter_doc: Document,
 ) -> Result<u64, OperationResult> {
     if !database::collection_exists(collection_name).await {
-        return Err(collection_not_exists("get_entity_by_id"));
+        return Err(collection_not_exists(&collection_name, "get_entity_by_id"));
     }
 
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("get_entity_by_id")),
+        None => return Err(collection_not_exists(collection_name, "get_entity_by_id")),
     };
 
     let result = collection.count_documents(filter_doc, None).await;

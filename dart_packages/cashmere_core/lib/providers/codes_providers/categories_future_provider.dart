@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CategoriesProviderArg {
   final GrpcCall<GetCategoriesRequest, GetCategoriesResponse> stubCall;
-  final int manageId;
+  final String manageId;
 
   CategoriesProviderArg({required this.stubCall, required this.manageId});
 }

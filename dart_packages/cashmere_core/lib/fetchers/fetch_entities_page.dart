@@ -8,7 +8,7 @@ import '../grpc_call.dart';
 
 // 通用新建接口，如果需要特别新建形式，则建新的函数
 Future<Stream<Map<String, dynamic>>> fetchEntitiesPage(
-  int manageId,
+  String manageId,
   int pageIndex,
   String startOid,
   Map<String, int> sortDoc,

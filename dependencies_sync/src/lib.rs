@@ -8,6 +8,9 @@ pub use tokio;
 #[cfg(feature="tokio-stream")]
 pub use tokio_stream;
 
+#[cfg(feature="tokio-util")]
+pub use tokio_util;
+
 #[cfg(feature="parking_lot")]
 pub use parking_lot;
 

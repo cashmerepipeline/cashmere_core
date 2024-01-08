@@ -150,7 +150,7 @@ async fn handle_add_member(
         Err(Status::aborted(format!(
             "{}: {}",
             t!("获取新实体失败"),
-            "new_language_code"
+            "handle_add_member"
         )))
     }
 }

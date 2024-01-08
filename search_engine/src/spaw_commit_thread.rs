@@ -3,10 +3,14 @@ use configs::ConfigTrait;
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
-    tokio::{time},
+    tokio::time,
 };
 
-use crate::{get_tantivy_writer, search_engine_runtime::get_search_engine_runtime, SearchEngineConfigs};
+use crate::{
+    get_tantivy_writer,
+    search_engine_runtime::{get_search_engine_runtime, is_search_engine_runtime_shutdown},
+    SearchEngineConfigs,
+};
 
 pub fn spaw_commit_thread() -> Result<(), OperationResult> {
     let writer_arc = get_tantivy_writer();
@@ -30,6 +34,10 @@ pub fn spaw_commit_thread() -> Result<(), OperationResult> {
                     log::error!("{}: {:?}", t!("索引提交失败"), e);
                 }
             };
+
+            if is_search_engine_runtime_shutdown() {
+                break;
+            }
         }
     });
     Ok(())

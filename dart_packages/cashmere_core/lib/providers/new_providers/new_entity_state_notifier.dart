@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:account_module/providers/meta_data_provider.dart';
 import 'package:cashmere_core/grpc_call.dart';
 import 'package:cashmere_core/new_entity_calls/new_entity_call.dart';
@@ -13,25 +14,28 @@ class NewEntityNotifierState<Res> {
   NewEntityNotifierState(this.state);
 }
 
-class NewEntityNotifier<V, Req, Res> extends StateNotifier<NewEntityNotifierState> {
+class NewEntityNotifier<V, Req, Res> extends StateNotifier<NewEntityNotifierState<Res>> {
   NewEntityNotifier()
       : super(
           NewEntityNotifierState(NewEntityNotifierStateEnum.preparing),
         );
 
-  Future<void> newEntity(ViewToRequest newEntityView, GrpcCall<Req, Res> stubcall, WidgetRef ref) async {
-    state = NewEntityNotifierState(NewEntityNotifierStateEnum.creating);
+  Future<Res> newEntity(ViewToRequest newEntityView, GrpcCall<Req, Res> stubcall, WidgetRef ref) async {
+    state = NewEntityNotifierState<Res>(NewEntityNotifierStateEnum.creating);
     final metaData = await ref.watch(metaDataFutureProvider.future);
 
     try {
-      final result = await newEntityCall(newEntityView, stubcall, metaData);
+      final response = await newEntityCall(newEntityView, stubcall, metaData);
 
-      final newState = NewEntityNotifierState(NewEntityNotifierStateEnum.success);
-      newState.result = result;
+      final newState = NewEntityNotifierState<Res>(NewEntityNotifierStateEnum.success);
+      newState.result = response;
       state = newState;
+      return response;
     } catch (e) {
-      final errState = NewEntityNotifierState(NewEntityNotifierStateEnum.error);
+      debugPrint("$e.toString()");
+      final errState = NewEntityNotifierState<Res>(NewEntityNotifierStateEnum.error);
       state = errState;
+      return Future.error("新建实体错误: ${e.toString()}");
     }
   }
 }

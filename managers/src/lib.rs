@@ -30,9 +30,11 @@ mod macros;
 pub mod manager_trait;
 mod manager_inner;
 mod manager;
-mod entity_cache_map;
 
+mod entity_cache_map;
 pub mod manage_interface;
+pub mod entity_interface;
+
 // pub mod tag_types_manager;
 // pub mod show_settings_manager;
 

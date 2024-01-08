@@ -37,7 +37,7 @@ impl ManagerTrait for ManagerInner {
             .await
     }
 
-    async fn get_entity_by_id(&self, entity_id: &String, no_present_fields: &Vec<String>) -> Result<Document, OperationResult> {
+    async fn get_entity_by_id(&self, entity_id: &str, no_present_fields: &Vec<String>) -> Result<Document, OperationResult> {
         self.manager.get_entity_by_id(entity_id, no_present_fields).await
     }
 
@@ -58,8 +58,8 @@ impl ManagerTrait for ManagerInner {
             .await
     }
 
-    async fn init(&self) -> Result<OperationResult, OperationResult> {
-        self.manager.init().await
+    async fn init_check(&self) -> Result<OperationResult, OperationResult> {
+        self.manager.init_check().await
     }
 
     fn unregister(&self) -> Result<OperationResult, OperationResult> {

@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class EntryCountProviderArgs {
-  final int manageId;
+  final String manageId;
   final GrpcCall<GetManageEntryCountRequest, GetManageEntryCountResponse> stubCall;
 
   EntryCountProviderArgs({required this.manageId, required this.stubCall});

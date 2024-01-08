@@ -7,12 +7,12 @@ edition = "2021"
 
 [dependencies]
 majordomo = { path = "../majordomo"}
-search_engine = { path = "../search_engine"}
 configs = { path = "../configs" }
 managers = { path = "../managers" }
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tokio",
+  "tokio-util",
   "log",
   "rust-i18n",
   "once_cell",

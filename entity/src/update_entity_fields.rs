@@ -24,7 +24,7 @@ pub async fn update_entity_fields(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(collection).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("update_entity_fields")),
+        None => return Err(collection_not_exists(collection, "update_entity_fields")),
     };
 
     let pipeline_docs: Vec<Document> = vec![

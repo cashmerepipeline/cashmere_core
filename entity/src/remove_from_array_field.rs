@@ -24,7 +24,7 @@ pub async fn remove_from_array_field(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("pull_entity_array_field")),
+        None => return Err(collection_not_exists(manage_id, "pull_entity_array_field")),
     };
 
     let mut _modify_doc = doc! {"$pull": modify_doc.clone()};

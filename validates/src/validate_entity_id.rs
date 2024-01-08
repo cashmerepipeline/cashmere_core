@@ -13,7 +13,7 @@ pub async fn validate_entity_id(manage_id: &str, entity_id: &String) -> Result<(
     if entity_id.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}: {}",
-            t!("实体编号为空"),
+            t!("实体编号不能为空"),
             entity_id
         )));
     }

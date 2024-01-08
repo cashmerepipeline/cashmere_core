@@ -23,11 +23,11 @@ pub async fn insert_entity(
     // 检查
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("insert_entity")),
+        None => return Err(collection_not_exists(manage_id, "insert_entity")),
     };
 
     if !entity_doc.contains_key(ID_FIELD_ID.to_string()) {
-        return Err(collection_not_exists("实体没有指定ID."));
+        return Err(collection_not_exists(manage_id, "insert_entity"));
     }
 
     let id = entity_doc

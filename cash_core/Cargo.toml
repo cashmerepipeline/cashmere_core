@@ -16,6 +16,7 @@ dependencies_sync = { path = "../dependencies_sync", features = [
     "futures",
     "bytes",
     "linked-hash-map",
+    "rust-i18n",
 ] }
 
 manage_define = { path = "../manage_define" }

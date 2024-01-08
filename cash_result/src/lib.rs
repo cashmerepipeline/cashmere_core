@@ -6,6 +6,10 @@ Created:  2020-11-24T10:33:37.591Z
 Modified: !date!
 */
 
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n, t};
+i18n!("locales");
+
 #[derive(Debug)]
 pub struct Failed {
     pub operation: String,
@@ -34,29 +38,29 @@ impl OperationResult {
     }
 }
 
-// 操作成功
+/// 操作成功
 pub fn operation_succeed(result: impl Into<String>) -> OperationResult {
     OperationResult::Succeed(result.into())
 }
 
-// 集合不存在
-pub fn collection_not_exists(operation: impl Into<String>) -> OperationResult {
+/// 集合不存在
+pub fn collection_not_exists(collection: &str, operation: impl Into<String>) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
-        details: "集合不存在".to_string(),
+        details: format!("{}: {}", t!("集合不存在"), collection),
     };
 
     OperationResult::Failed(result)
 }
 
-// 实体不存在
+/// 实体不存在
 pub fn entity_not_exists(
     operation: impl Into<String>,
     entity: impl Into<String>,
 ) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
-        details: format!("实体不存在: {}", entity.into()),
+        details: format!("{}: {}", t!("实体不存在"), entity.into()),
     };
 
     OperationResult::Failed(result)
@@ -66,7 +70,7 @@ pub fn entity_not_exists(
 pub fn field_not_exists(operation: impl Into<String>, field: impl Into<String>) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
-        details: format!("不能取得属性: {}", field.into()),
+        details: format!("{}: {}", t!("不能取得属性"), field.into()),
     };
 
     OperationResult::Failed(result)
@@ -78,23 +82,23 @@ pub fn field_edited_already(
 ) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
-        details: format!("属性已经是想要的值: {}", field.into()),
+        details: format!("{}: {}", t!("属性已经是想要的值"), field.into()),
     };
 
     OperationResult::Failed(result)
 }
 
 /// 目标已存在
-pub fn target_already_exists(operation: impl Into<String>) -> OperationResult {
+pub fn target_already_exists(target: &str, operation: impl Into<String>) -> OperationResult {
     let result = Failed {
         operation: operation.into(),
-        details: "目标已经存在".to_string(),
+        details: format!("{}: {}",  t!("目标已经存在"), target),
     };
 
     OperationResult::Failed(result)
 }
 
-// 操作失败
+/// 操作失败
 pub fn operation_failed(
     operation: impl Into<String>,
     details: impl Into<String>,

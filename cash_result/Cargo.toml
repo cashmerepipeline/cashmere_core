@@ -1,9 +1,10 @@
 [package]
 name = "cash_result"
-version = "0.1.0"
-authors = ["wangrongwen <403271579@qq.com>"]
+version = "0.1.1"
+authors = ["yes7rose <7470718@qq.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+dependencies_sync = { path = "../dependencies_sync", features = ["rust-i18n"] }

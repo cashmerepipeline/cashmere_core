@@ -17,7 +17,7 @@ pub async fn add_to_array_field(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("push_entity_array_field")),
+        None => return Err(collection_not_exists(manage_id, "push_entity_array_field")),
     };
 
     

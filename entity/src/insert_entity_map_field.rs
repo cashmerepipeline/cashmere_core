@@ -26,7 +26,7 @@ pub async fn insert_entity_map_field(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("update_entity")),
+        None => return Err(collection_not_exists(manage_id, "update_entity")),
     };
 
     let mut _modify_doc = doc! { "$set":modify_doc.clone()};

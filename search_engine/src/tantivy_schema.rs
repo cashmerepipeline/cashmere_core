@@ -20,7 +20,7 @@ fn init_schema() -> Schema {
     let text_options = get_text_options();
 
     let mut schema_builder = Schema::builder();
-    let _mid = schema_builder.add_u64_field("mid", STORED | FAST);
+    let _mid = schema_builder.add_text_field("mid", STORED | TEXT);
     let _id = schema_builder.add_text_field("_id", STORED | TEXT);
     let _idf = schema_builder.add_text_field(ID_FIELD_ID.to_string().as_ref(), STORED | TEXT);
     let _name_map =

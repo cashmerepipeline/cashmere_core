@@ -17,7 +17,7 @@ use manage_define::general_field_ids::*;
 
 /// 取得条件排序分页
 pub async fn get_entities_by_page(
-    collection_id: &String,
+    collection_id: &str,
     page_index: u32,
     matches: &Option<Document>,
     sorts: &Option<Document>,
@@ -25,7 +25,7 @@ pub async fn get_entities_by_page(
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists("get_entities_by_page")),
+        None => return Err(collection_not_exists(collection_id, "get_entities_by_page")),
     };
 
     let mut pipeline: Vec<Document> = vec![];
