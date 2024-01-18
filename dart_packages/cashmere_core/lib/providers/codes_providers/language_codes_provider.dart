@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final countryCodesFutureProvider =
     FutureProvider.family<List<Map<String, dynamic>>, GrpcCall<GetLanguageCodesRequest, GetLanguageCodesResponse>>(
-        (ref, stubCall) async {
+        (ref, grpcCall) async {
   final metaData = await ref.watch(metaDataFutureProvider.future);
   final request = GetLanguageCodesRequest();
   final response =
-      await fetchPrecodedCodes<GetLanguageCodesRequest, GetLanguageCodesResponse>(request, stubCall, metaData);
+      await fetchPrecodedCodes<GetLanguageCodesRequest, GetLanguageCodesResponse>(request, grpcCall, metaData);
 
   final items = response.codes.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
 

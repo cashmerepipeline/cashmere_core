@@ -1,11 +1,11 @@
-use dependencies_sync::tonic::async_trait;
-use cash_core::SchemaField;
-use std::sync::Arc;
+use crate::ManagerTrait;
 use cash_core::Manage;
+use cash_core::SchemaField;
 use cash_result::OperationResult;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
-use crate::ManagerTrait;
+use dependencies_sync::tonic::async_trait;
+use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct ManagerInner {
@@ -37,8 +37,15 @@ impl ManagerTrait for ManagerInner {
             .await
     }
 
-    async fn get_entity_by_id(&self, entity_id: &str, no_present_fields: &Vec<String>) -> Result<Document, OperationResult> {
-        self.manager.get_entity_by_id(entity_id, no_present_fields).await
+    async fn get_entity_by_id(
+        &self,
+        entity_id: &str,
+        present_fields: &[String],
+        no_present_fields: &[String],
+    ) -> Result<Document, OperationResult> {
+        self.manager
+            .get_entity_by_id(entity_id, present_fields, no_present_fields)
+            .await
     }
 
     async fn get_entities_by_filter(

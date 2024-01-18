@@ -20,7 +20,7 @@ pub async fn validate_entity_id(manage_id: &str, entity_id: &String) -> Result<(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
-    match manager.get_entity_by_id(entity_id, &vec![]).await {
+    match manager.get_entity_by_id(entity_id, &vec![], &vec![]).await {
         Ok(r) => {
             if r.get_bool(REMOVED_FIELD_ID.to_string()).unwrap_or(true) {
                 Err(Status::invalid_argument(format!(

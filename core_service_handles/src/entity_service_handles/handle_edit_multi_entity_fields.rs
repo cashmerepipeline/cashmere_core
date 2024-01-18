@@ -6,6 +6,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use manage_define::cashmere::*;
 
 use managers::Manager;
+use managers::entity_interface::update_multi_entity_fields;
 use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;
@@ -72,7 +73,7 @@ async fn handle_edit_multi_entity_fields(
 
     let edits = &request.get_ref().edits;
 
-    let result = Manager::update_multi_entity_fields(edits, &account_id).await;
+    let result = update_multi_entity_fields(edits, &account_id).await;
 
     match result {
         Ok(_r) => Ok(Response::new(EditMultiEntityFieldsResponse {

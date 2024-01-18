@@ -467,9 +467,9 @@ pub trait ManagerTrait: Any + Send + Sync {
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
-    async fn get_new_entity_id(&self, _account_id: &str) -> Option<i64> {
+    async fn get_new_entity_id(&self, account_id: &str) -> Option<i64> {
         let manage_id = self.get_id().to_string();
-        entity::get_new_entity_id(&manage_id.to_string(), &manage_id).await
+        entity::get_new_entity_id(&manage_id.to_string(), &account_id).await
     }
 
     // 新建实体
@@ -493,10 +493,11 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn get_entity_by_id(
         &self,
         entity_id: &str,
-        no_present_fields: &Vec<String>,
+        present_fields: &[String],
+        no_present_fields: &[String],
     ) -> Result<Document, OperationResult> {
         let manage_id = self.get_id();
-        get_entity_by_id(manage_id, entity_id, self.has_cache(), no_present_fields).await
+        get_entity_by_id(manage_id, entity_id, self.has_cache(), present_fields, no_present_fields).await
     }
 
     /// 通过过滤取得实体

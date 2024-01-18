@@ -115,7 +115,7 @@ async fn handle_get_entities(
                 filtered_ids.push(id.to_owned());
             };
 
-            let entity = manager.get_entity_by_id(id, &filtered_ids).await;
+            let entity = manager.get_entity_by_id(id, &vec![], &filtered_ids).await;
             if let Ok(e) = entity {
                 let resp = GetEntitiesResponse {
                     entity: bson::to_vec(&e).unwrap(),

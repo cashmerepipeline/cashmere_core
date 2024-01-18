@@ -65,6 +65,7 @@ async fn handle_new_calendar_book(
     let param_manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
     let description = &request.get_ref().description;
+    let mark = &request.get_ref().mark;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc
@@ -74,9 +75,10 @@ async fn handle_new_calendar_book(
     let name = name.to_owned().unwrap();
     let name_doc = doc! {name.language.clone():name.name.clone()};
 
-    // zh: 重名检查
+    // zh: 重标记检查
+    let name_key = format!("{}.{}", NAME_MAP_FIELD_ID.to_string(), name.language.clone());
     let query_doc = doc! {
-        NAME_MAP_FIELD_ID.to_string(): name_doc,
+        CALENDAR_BOOKS_MARK_FIELD_ID.to_string(): mark.to_owned(),
         CALENDAR_BOOKS_MANAGE_ID_FIELD_ID.to_string(): param_manage_id.to_owned(),
         CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(): entity_id.to_owned(),
     };
@@ -101,7 +103,7 @@ async fn handle_new_calendar_book(
         )));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),
             bson::to_document(&name).unwrap(),
@@ -111,6 +113,7 @@ async fn handle_new_calendar_book(
             param_manage_id.to_owned(),
         );
         new_entity_doc.insert(CALENDAR_BOOKS_ENTITY_ID_FIELD_ID.to_string(), entity_id.to_owned());
+        new_entity_doc.insert(CALENDAR_BOOKS_MARK_FIELD_ID.to_string(), mark.to_owned());
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.to_owned());
 
         let result = manager

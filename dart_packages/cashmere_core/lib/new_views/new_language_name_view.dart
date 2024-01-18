@@ -2,7 +2,7 @@ import 'package:cashmere_core/new_entity_calls/view_to_request.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 
 class NewLanguageNameView extends ViewToRequest<NewLanguageNameRequest> {
-  final int manageId;
+  final String manageId;
   final String entityId;
   final Name newName;
 

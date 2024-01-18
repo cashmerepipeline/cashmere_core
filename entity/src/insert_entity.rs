@@ -4,7 +4,7 @@ use dependencies_sync::chrono::Utc;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::log::error;
+use dependencies_sync::log::{error, debug};
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use serde::Deserialize;
@@ -25,6 +25,8 @@ pub async fn insert_entity(
         Some(c) => c,
         None => return Err(collection_not_exists(manage_id, "insert_entity")),
     };
+    
+    debug!("insert_entity {:?}", entity_doc);
 
     if !entity_doc.contains_key(ID_FIELD_ID.to_string()) {
         return Err(collection_not_exists(manage_id, "insert_entity"));

@@ -176,6 +176,7 @@ message GetEntityRequest {
     string entity_id = 2;
     // 不出现的字段, 主要用于分步加载数据
     repeated string no_present_fields = 3;
+    repeated string present_fields = 4;
 }
 message GetEntityResponse {
     bytes entity = 1;
@@ -188,6 +189,7 @@ message GetEntitiesRequest {
     repeated string entity_ids = 2;
     // 不出现的字段, 主要用于分步加载数据
     repeated string no_present_fields = 3;
+    repeated string present_fields = 6;
 }
 message GetEntitiesResponse {
     bytes entity = 1;
@@ -206,6 +208,7 @@ message GetEntitiesPageRequest {
   repeated string no_present_fields = 5;
   // 起始oid，用于分页，第一页不需要指定
   string start_oid = 6;
+  repeated string present_fields = 6;
 }
 // 返回为流
 message GetEntitiesPageResponse {
@@ -221,6 +224,7 @@ message InteractiveGetEntitiesRequest {
   bytes match_doc = 3;
   bytes sort_doc = 4;
   repeated string no_present_fields = 5;
+  repeated string present_fields = 6;
 }
 message InteractiveGetEntitiesResponse {
   uint32 page_index = 1;
@@ -275,7 +279,7 @@ message GetRemovedDataListResponse{
 // ---------
 message EntityTimestamp {
   string entity_id = 1;
-  // 格式二进制 bson Document 形式{"value": Timestamp()}
+  // 格式: 二进制 bson Document 形式: {"value": Timestamp()}
   bytes timestamp = 2;
 }
 

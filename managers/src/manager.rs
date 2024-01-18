@@ -15,6 +15,7 @@ pub struct Manager {
     pub inner: Arc<ManagerInner>,
 }
 
+/// 不和具体管理绑定的方法
 impl Manager {
     pub async fn update_multi_entity_fields(
         edits: &Vec<EntityFieldEdit>,
@@ -56,10 +57,11 @@ impl ManagerTrait for Manager {
     async fn get_entity_by_id(
         &self,
         entity_id: &str,
-        no_present_fields: &Vec<String>,
+        present_fields: &[String],
+        no_present_fields: &[String],
     ) -> Result<Document, OperationResult> {
         self.inner
-            .get_entity_by_id(entity_id, no_present_fields)
+            .get_entity_by_id(entity_id, present_fields, no_present_fields)
             .await
     }
 

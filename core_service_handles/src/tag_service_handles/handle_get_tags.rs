@@ -1,20 +1,17 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 
-
-
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::manage_ids::{ TAGS_MANAGE_ID};
+use manage_define::manage_ids::TAGS_MANAGE_ID;
 use managers::manager_trait::ManagerTrait;
 
-use dependencies_sync::tokio_stream::{StreamExt};
+use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 use service_utils::types::UnaryResponseResult;
 use validates::validate_manage_id;
@@ -64,7 +61,9 @@ async fn handle_get_tags(
         TAGS_TARGET_MANAGES_FIELD_ID.to_string():manage_id,
     };
 
-    let result = manager.get_entity_stream(query_doc, None, None, None, 0).await;
+    let result = manager
+        .get_entity_stream(query_doc, None, None, None, 0)
+        .await;
 
     match result {
         Ok(mut entities_iter) => {
@@ -73,9 +72,7 @@ async fn handle_get_tags(
                 results.push(bson::to_vec(&r).unwrap());
             }
 
-            Ok(Response::new(GetTagsResponse {
-                tags: results,
-            }))
+            Ok(Response::new(GetTagsResponse { tags: results }))
         }
         Err(e) => Err(Status::aborted(format!(
             "{} {}",
@@ -84,5 +81,3 @@ async fn handle_get_tags(
         ))),
     }
 }
-
-

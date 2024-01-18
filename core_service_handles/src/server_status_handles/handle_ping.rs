@@ -82,7 +82,7 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                     }
 
                     // 5秒一次
-                    tokio::time::sleep(std::time::Duration::from_millis(5000)).await;
+                    tokio::time::sleep(std::time::Duration::from_millis(1000)).await;
                     let now = std::time::SystemTime::now()
                         .duration_since(std::time::UNIX_EPOCH)
                         .unwrap()

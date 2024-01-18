@@ -4,11 +4,18 @@ import 'package:cashmere_core/protocols/name.pb.dart';
 
 class NewCalendarBookView extends ViewToRequest<NewCalendarBookRequest> {
   final Name name;
-  final int manageId;
+  final String manageId;
   final String entityId;
+  final String bookMark;
   final String description;
 
-  NewCalendarBookView({required this.name, required this.manageId, required this.entityId, required this.description});
+  NewCalendarBookView({
+    required this.name,
+    required this.manageId,
+    required this.entityId,
+    required this.bookMark,
+    required this.description,
+  });
 
   @override
   NewCalendarBookRequest toRequest() {
@@ -16,6 +23,7 @@ class NewCalendarBookView extends ViewToRequest<NewCalendarBookRequest> {
       name: name,
       manageId: manageId,
       entityId: entityId,
+      mark: bookMark,
       description: description,
     );
   }

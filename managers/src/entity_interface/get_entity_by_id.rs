@@ -11,18 +11,19 @@ pub async fn get_entity_by_id(
     manage_id: &'static str,
     entity_id: &str,
     has_cache: bool,
-    no_present_fields: &Vec<String>,
+    present_fields: &[String],
+    no_present_fields: &[String],
 ) -> Result<Document, OperationResult> {
     // 如果存在缓存，从缓存中取得
     if has_cache {
-        let result = cache_get_entity(manage_id, entity_id);
+        let result = cache_get_entity(manage_id, entity_id, present_fields, no_present_fields);
         return match result {
             Some(r) => Ok(r),
             None => Err(operation_failed("get_entity_by_id", t!("取得实体缓存失败"))),
         };
     }
 
-    match entity::get_entity_by_id(manage_id, entity_id, no_present_fields).await {
+    match entity::get_entity_by_id(manage_id, entity_id, present_fields, no_present_fields).await {
         Ok(r) => Ok(r),
         Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
     }

@@ -100,7 +100,7 @@ async fn handle_new_category(
         )));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(CATEGORIES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
@@ -113,7 +113,7 @@ async fn handle_new_category(
 
         match result {
             Ok(_r) => Ok(Response::new(NewCategoryResponse {
-                result: new_id.to_string(),
+                result: _r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

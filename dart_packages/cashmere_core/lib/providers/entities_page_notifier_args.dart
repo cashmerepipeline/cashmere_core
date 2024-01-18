@@ -5,5 +5,11 @@ class EntitiesPageNotifierArgs {
   final String manageId;
   final ResponseStreamGrpcCall<GetEntitiesPageRequest, GetEntitiesPageResponse> stubCall;
 
-  EntitiesPageNotifierArgs({required this.manageId, required this.stubCall});
+  final GrpcCall<CheckEntitiesUpdateRequest, CheckEntitiesUpdateResponse> checkEntitiesUpdate;
+
+  EntitiesPageNotifierArgs({
+    required this.manageId,
+    required this.stubCall,
+    required this.checkEntitiesUpdate,
+  });
 }

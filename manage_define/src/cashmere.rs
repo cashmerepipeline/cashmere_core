@@ -1574,12 +1574,44 @@ pub struct NewCalendarBookRequest {
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "4")]
     pub description: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub mark: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewCalendarBookResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 列出所属帐本
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListCalendarBooksRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListCalendarBooksResponse {
+    /// bson documents
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub books: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 列出帐本日历
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBookCalendarsRequest {
+    #[prost(string, tag = "1")]
+    pub book_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBookCalendarsResponse {
+    /// bson documents
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub calendars: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

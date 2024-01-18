@@ -4,7 +4,7 @@ use dependencies_sync::chrono::Utc;
 // use dependencies_sync::tokio::stream::StreamExt;
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
-use dependencies_sync::log;
+use dependencies_sync::log::{self, debug};
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use dependencies_sync::rust_i18n::{self, t};
@@ -16,12 +16,14 @@ use manage_define::general_field_ids::*;
 
 use crate::utils::get_timestamp_update_doc;
 
+const ID_COUNT_FIELD_NAME: &str = "id_count";
+
 /// 取得新连续id
+/// 数据库初始化后新建实体需要保证编号次序
 pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
-
     let update_doc = doc! {
-     "$inc": {"id_count":1},
+     "$inc": {ID_COUNT_FIELD_NAME:1},
      "$set": { MODIFIER_FIELD_ID.to_string(): account_id},
      "$currentDate": {
          MODIFY_TIMESTAMP_FIELD_ID.to_string(): { "$type": "timestamp" }

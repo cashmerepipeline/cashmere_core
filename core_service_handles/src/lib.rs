@@ -34,4 +34,6 @@ pub mod view_rules_service_handles;
 pub mod comment_service_handles;
 
 pub mod member_service_handles;
+
+pub mod calendars_service_handles;
 pub mod calendar_book_service_handles;

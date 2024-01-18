@@ -2654,7 +2654,7 @@ class EntityTimestamp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearEntityId() => clearField(1);
 
-  /// 格式二进制 bson Document 形式{"value": Timestamp()}
+  /// 格式: 二进制 bson Document 形式: {"value": Timestamp()}
   @$pb.TagNumber(2)
   $core.List<$core.int> get timestamp => $_getN(1);
   @$pb.TagNumber(2)

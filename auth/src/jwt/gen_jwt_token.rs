@@ -1,3 +1,4 @@
+use configs::{ServerConfigs, ConfigTrait};
 use jsonwebtoken::{Algorithm, encode, EncodingKey, Header};
 use dependencies_sync::chrono::Utc;
 use crate::jwt::Claims;
@@ -10,7 +11,8 @@ pub async fn gen_jwt_token(
     departments: &Vec<String>,
     roles: &Vec<String>,
 ) -> Option<String> {
-    let server_configs = configs::get_server_configs();
+    // let server_configs = configs::get_server_configs();
+    let server_configs = ServerConfigs::get();
     let secret_code = server_configs.secret_code.as_bytes();
 
     let mut header = Header::new(Algorithm::HS512);

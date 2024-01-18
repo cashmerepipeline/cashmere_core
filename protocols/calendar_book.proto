@@ -8,7 +8,27 @@ message NewCalendarBookRequest{
   string entity_id = 2;
   Name name = 3;
   string description = 4;
+  string mark =5;
 }
 message NewCalendarBookResponse{
   string result = 1;
+}
+
+// 列出所属帐本
+message ListCalendarBooksRequest{
+  string manage_id = 1;
+  string entity_id = 2;
+}
+message ListCalendarBooksResponse{
+  // bson documents
+  repeated bytes books = 1;
+}
+
+// 列出帐本日历
+message ListBookCalendarsRequest{
+  string book_id = 1;
+}
+message ListBookCalendarsResponse{
+  // bson documents
+  repeated bytes calendars = 1;
 }

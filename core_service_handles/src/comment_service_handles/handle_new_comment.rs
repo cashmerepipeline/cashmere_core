@@ -10,7 +10,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerTrait, utils::make_new_entity_document};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -56,7 +56,6 @@ async fn handle_new_comment(
     let target_entity_id = &request.get_ref().target_entity_id;
     let contents = &request.get_ref().contents;
 
-    let mut new_entity_doc = Document::new();
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(COMMENTS_MANAGE_ID).unwrap();
@@ -66,8 +65,8 @@ async fn handle_new_comment(
         return Err(Status::aborted(format!("{}: {}", t!("获取新ID失败"), "new_comment")));
     };
 
-    new_entity_doc.insert("_id", new_id.to_string());
-    new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());
+    let mut new_entity_doc = make_new_entity_document(&manager, &account_id).await?;
+
     new_entity_doc.insert(
         COMMENTS_TARGET_MANAGE_FIELD_ID.to_string(),
         target_manage_id,

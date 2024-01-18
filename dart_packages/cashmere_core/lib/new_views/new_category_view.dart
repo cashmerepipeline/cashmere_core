@@ -3,7 +3,7 @@ import 'package:cashmere_core/protocols/category.pb.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 
 class NewCategoryView extends ViewToRequest<NewCategoryRequest> {
-  final int manageId;
+  final String manageId;
   final Name name;
   final String description;
 

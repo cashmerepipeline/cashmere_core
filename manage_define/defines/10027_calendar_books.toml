@@ -12,6 +12,8 @@ description = "用于记录某个实体的日历信息"
 schema = [
   { data_type = "String", name_map = { zh = "管理", en = "manage_id" }, removed = false },
   { data_type = "String", name_map = { zh = "实体", en = "entity_id" }, removed = false },
+  # 对同一实体不同帐本的标记，用于区分不同帐本
+  { data_type = "String", name_map = { zh = "标记", en = "mark" }, removed = false },
 ]
 
 # 初始实体

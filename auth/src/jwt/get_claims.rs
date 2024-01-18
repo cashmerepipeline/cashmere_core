@@ -1,9 +1,10 @@
+use configs::{ServerConfigs, ConfigTrait};
 use jsonwebtoken::{Algorithm, DecodingKey, Validation};
 use crate::jwt::Claims;
 
 // claims utils
 pub fn get_claims(token: &String) -> Option<Claims> {
-    let configs = configs::get_server_configs();
+    let configs = ServerConfigs::get();
     let secret_code = configs.secret_code.as_bytes();
 
     match jsonwebtoken::decode::<Claims>(

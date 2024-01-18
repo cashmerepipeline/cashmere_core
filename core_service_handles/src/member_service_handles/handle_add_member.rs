@@ -115,7 +115,7 @@ async fn handle_add_member(
         )));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(
             MEMBERS_OWNER_MANAGE_ID_FIELD_ID.to_string(),

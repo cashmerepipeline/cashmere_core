@@ -22,6 +22,8 @@ pub mod view_rules_manager;
 pub mod country_codes_manager;
 pub mod language_codes_manager;
 pub mod phone_area_codes_manager;
+pub mod calendars_manager;
+pub mod calendar_books_manager;
 
 pub mod utils;
 

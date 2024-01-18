@@ -6,6 +6,6 @@ import 'edit_entity_notifier_state.dart';
 
 // 编辑单个字段
 final editEntityMapFieldNotifierProvider = StateNotifierProvider<
-    EditEntityFieldNotifier<EditEntityMapFieldRequest, EditEntitiesFielsdsResponse>, EditEntityNotifierState>(
+    EditEntityFieldNotifier<EditEntityMapFieldRequest, EditEntityMapFieldResponse>, EditEntityNotifierState>(
   (ref) => EditEntityFieldNotifier(),
 );

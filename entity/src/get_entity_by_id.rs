@@ -15,6 +15,7 @@ use manage_define::general_field_ids::*;
 pub async fn get_entity_by_id(
     collection_name: &str,
     id: &str,
+    present_fields: &[String],
     no_present_fields: &[String],
 ) -> Result<Document, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
@@ -23,6 +24,9 @@ pub async fn get_entity_by_id(
     };
 
     let mut project_doc = doc! {};
+    present_fields.iter().for_each(|f| {
+        project_doc.insert(f.clone(), 1);
+    });
     no_present_fields.iter().for_each(|f| {
         project_doc.insert(f.clone(), 0);
     });

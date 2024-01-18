@@ -84,7 +84,7 @@ async fn handle_new_country(
         return Err(Status::aborted("颜色已经存在"));
     }
 
-    if let Some(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(COLORS_VALUE_FIELD_ID.to_string(), color.clone());
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description);
 
