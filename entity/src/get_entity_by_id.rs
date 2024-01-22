@@ -5,6 +5,7 @@ use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::mongodb::options::{FindOneOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
+use dependencies_sync::rust_i18n::{self, t};
 use serde::Deserialize;
 
 use cash_result::*;
@@ -31,7 +32,7 @@ pub async fn get_entity_by_id(
         project_doc.insert(f.clone(), 0);
     });
 
-    let result = if !no_present_fields.is_empty() {
+    let result = if !project_doc.is_empty() {
         let find_option = FindOneOptions::builder().projection(project_doc).build();
         collection
             .find_one(
@@ -62,7 +63,7 @@ pub async fn get_entity_by_id(
         },
         Err(_e) => Err(operation_failed(
             "get_entity_by_id",
-            format!("获取失败{}", id),
+            format!("{}: {}", t!("重数据库获取实体失败"), id),
         )),
     }
 }

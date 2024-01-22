@@ -10,15 +10,13 @@ description = "人相关信息"
 # 描写，模式
 schema = [
   # 2001
+  # { data_type = "String", name_map = { zh = "帐号", en = "account" }, removed = false },
   { data_type = "String", name_map = { zh = "性别", en = "gender" }, removed = false },
-
   # 2002
   { data_type = "DateTime", name_map = { zh = "生日", en = "birthday" }, removed = false },
-  
   # 2003
   { data_type = "Binary", name_map = { zh = "头像", en = "portrait" }, removed = false },
   { data_type = "String", name_map = { zh = "地址", en = "address" }, removed = false },
-
 ]
 
 [view_rules]
@@ -186,8 +184,3 @@ schema = [
 ] }
 
 [items]
-root = { 1000 = "8610000000000", 1001 = "root", 1002 = "8610000000000", 1006 = "8610000000000", 2001 = "男", 2002 = "2020-10-22", 2004 = [
-  "10000",
-], 2005 = [
-  "1000",
-] }

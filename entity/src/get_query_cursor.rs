@@ -20,7 +20,7 @@ use manage_define::general_field_ids::*;
 pub async fn get_query_cursor(
     collection_id: &str,
     matches: Document,
-    unsets: Option<Vec<String>>,
+    unsets: &[String],
     sort_doc: Option<Document>,
     start_oid: Option<&str>,
     skip_count: u32,
@@ -42,8 +42,8 @@ pub async fn get_query_cursor(
         pipeline.push(doc! {"$match": matches});
     }
 
-    if unsets.is_some() {
-        pipeline.push(doc! {"$unset": unsets.clone().unwrap()});
+    if !unsets.is_empty() {
+        pipeline.push(doc! {"$unset": unsets});
     }
 
     if sort_doc.is_some() {

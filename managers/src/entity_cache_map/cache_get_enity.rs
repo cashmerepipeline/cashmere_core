@@ -14,7 +14,7 @@ pub fn cache_get_entity(manage_id: &'static str, entity_id: &str, present_fields
         
         // zh: 要排除的字段表
         // en: The table of fields to be excluded
-        let mut excluded_fields = no_present_fields.clone();
+        let mut excluded_fields: Vec<String> = no_present_fields.to_owned();
         
         // zh: 将需要排除的字段加入
         // en: Add the fields that need to be excluded

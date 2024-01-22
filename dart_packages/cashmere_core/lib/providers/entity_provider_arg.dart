@@ -3,11 +3,11 @@ import 'package:cashmere_core/cache/entities_cache.dart';
 class EntityProviderArg {
   final String manageId;
   final String oid;
-  final EntitiesFetchCallsArg fetchCalls;
+  final EntitiesCacheArg fetchCalls;
 
-  EntityProviderArg(
-    this.manageId,
-    this.oid,
-    this.fetchCalls,
-  );
+  EntityProviderArg({
+    required this.manageId,
+    required this.oid,
+    required this.fetchCalls,
+  });
 }

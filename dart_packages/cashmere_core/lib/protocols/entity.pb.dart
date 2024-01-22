@@ -1536,6 +1536,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
     $core.String? manageId,
     $core.String? entityId,
     $core.Iterable<$core.String>? noPresentFields,
+    $core.Iterable<$core.String>? presentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1547,6 +1548,9 @@ class GetEntityRequest extends $pb.GeneratedMessage {
     if (noPresentFields != null) {
       $result.noPresentFields.addAll(noPresentFields);
     }
+    if (presentFields != null) {
+      $result.presentFields.addAll(presentFields);
+    }
     return $result;
   }
   GetEntityRequest._() : super();
@@ -1557,6 +1561,7 @@ class GetEntityRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOS(2, _omitFieldNames ? '' : 'entityId')
     ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
+    ..pPS(4, _omitFieldNames ? '' : 'presentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1602,6 +1607,9 @@ class GetEntityRequest extends $pb.GeneratedMessage {
   /// 不出现的字段, 主要用于分步加载数据
   @$pb.TagNumber(3)
   $core.List<$core.String> get noPresentFields => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get presentFields => $_getList(3);
 }
 
 class GetEntityResponse extends $pb.GeneratedMessage {
@@ -1660,6 +1668,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
     $core.String? manageId,
     $core.Iterable<$core.String>? entityIds,
     $core.Iterable<$core.String>? noPresentFields,
+    $core.Iterable<$core.String>? presentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1671,6 +1680,9 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
     if (noPresentFields != null) {
       $result.noPresentFields.addAll(noPresentFields);
     }
+    if (presentFields != null) {
+      $result.presentFields.addAll(presentFields);
+    }
     return $result;
   }
   GetEntitiesRequest._() : super();
@@ -1681,6 +1693,7 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..pPS(2, _omitFieldNames ? '' : 'entityIds')
     ..pPS(3, _omitFieldNames ? '' : 'noPresentFields')
+    ..pPS(4, _omitFieldNames ? '' : 'presentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1721,6 +1734,9 @@ class GetEntitiesRequest extends $pb.GeneratedMessage {
   /// 不出现的字段, 主要用于分步加载数据
   @$pb.TagNumber(3)
   $core.List<$core.String> get noPresentFields => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get presentFields => $_getList(3);
 }
 
 class GetEntitiesResponse extends $pb.GeneratedMessage {
@@ -1783,6 +1799,7 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
     $core.List<$core.int>? sortDoc,
     $core.Iterable<$core.String>? noPresentFields,
     $core.String? startOid,
+    $core.Iterable<$core.String>? presentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1803,6 +1820,9 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
     if (startOid != null) {
       $result.startOid = startOid;
     }
+    if (presentFields != null) {
+      $result.presentFields.addAll(presentFields);
+    }
     return $result;
   }
   GetEntitiesPageRequest._() : super();
@@ -1816,6 +1836,7 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
     ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
     ..aOS(6, _omitFieldNames ? '' : 'startOid')
+    ..pPS(7, _omitFieldNames ? '' : 'presentFields')
     ..hasRequiredFields = false
   ;
 
@@ -1891,6 +1912,9 @@ class GetEntitiesPageRequest extends $pb.GeneratedMessage {
   $core.bool hasStartOid() => $_has(5);
   @$pb.TagNumber(6)
   void clearStartOid() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.List<$core.String> get presentFields => $_getList(6);
 }
 
 /// 返回为流
@@ -1953,6 +1977,7 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     $core.List<$core.int>? matchDoc,
     $core.List<$core.int>? sortDoc,
     $core.Iterable<$core.String>? noPresentFields,
+    $core.Iterable<$core.String>? presentFields,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -1970,6 +1995,9 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     if (noPresentFields != null) {
       $result.noPresentFields.addAll(noPresentFields);
     }
+    if (presentFields != null) {
+      $result.presentFields.addAll(presentFields);
+    }
     return $result;
   }
   InteractiveGetEntitiesRequest._() : super();
@@ -1982,6 +2010,7 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'matchDoc', $pb.PbFieldType.OY)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'sortDoc', $pb.PbFieldType.OY)
     ..pPS(5, _omitFieldNames ? '' : 'noPresentFields')
+    ..pPS(6, _omitFieldNames ? '' : 'presentFields')
     ..hasRequiredFields = false
   ;
 
@@ -2045,6 +2074,9 @@ class InteractiveGetEntitiesRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(5)
   $core.List<$core.String> get noPresentFields => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.String> get presentFields => $_getList(5);
 }
 
 class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {
@@ -2854,7 +2886,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
 
 class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeResponse({
-    $core.Iterable<$core.String>? entityIds,
+    $core.Iterable<$core.List<$core.int>>? entityIds,
   }) {
     final $result = create();
     if (entityIds != null) {
@@ -2867,7 +2899,7 @@ class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..pPS(1, _omitFieldNames ? '' : 'entityIds')
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entityIds', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -2895,7 +2927,7 @@ class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   /// 分组返回，每组最多20条
   /// 最多返回1000条
   @$pb.TagNumber(1)
-  $core.List<$core.String> get entityIds => $_getList(0);
+  $core.List<$core.List<$core.int>> get entityIds => $_getList(0);
 }
 
 

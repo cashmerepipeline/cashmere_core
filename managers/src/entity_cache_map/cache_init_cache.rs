@@ -13,7 +13,7 @@ use crate::entity_cache_map::get_manage_entity_cache;
 pub async fn cache_init_cache(manage_id: &'static str) -> Result<OperationResult, OperationResult> {
     let mut entities = vec![];
     let mut cursor =
-        if let Ok(r) = entity::get_query_cursor(manage_id, doc! {}, None, None, None, 0).await {
+        if let Ok(r) = entity::get_query_cursor(manage_id, doc! {}, &vec![], None, None, 0).await {
             r
         } else {
             return Err(operation_failed("init_cache", "初始化缓存失败".to_string()));

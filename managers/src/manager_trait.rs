@@ -531,7 +531,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn get_entity_stream(
         &self,
         matche_doc: Document,
-        unsets: Option<Vec<String>>,
+        unsets: &[String],
         sorts: Option<Document>,
         start_oid: Option<&str>,
         skip_count: u32,
@@ -607,7 +607,7 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     async fn is_mark_removed(&self, entity_id: &str) -> bool {
         let manage_id = self.get_id();
-        match entity::get_entity_by_id(manage_id, entity_id, &[]).await {
+        match entity::get_entity_by_id(manage_id, entity_id, &[], &[]).await {
             Ok(r) => {
                 if let Ok(b) = r.get_bool(REMOVED_FIELD_ID.to_string()) {
                     return b;

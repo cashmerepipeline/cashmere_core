@@ -1,10 +1,8 @@
 import 'package:bson/bson.dart';
 
-typedef NameMap = Map<String, String>;
-
 abstract class EntityViewBase {
   final String id;
-  late final NameMap nameMap;
+  late final Map<String, String> nameMap;
   late final String creator;
   late final Timestamp createTimestamp;
   late final String modifier;

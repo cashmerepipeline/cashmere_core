@@ -72,6 +72,8 @@ async fn handle_get_entities_page(
     // 页码和起始点不同时起作用
     let page_index = &request.get_ref().page_index;
     let start_oid = &request.get_ref().start_oid;
+    let present_fields = &request.get_ref().present_fields;
+    let no_present_fields = &request.get_ref().no_present_fields;
 
     let match_doc: Document = bson::from_slice(match_doc).unwrap_or(Document::new());
     let sort_doc: Document = bson::from_slice(sort_doc).unwrap_or(Document::new());
@@ -95,9 +97,20 @@ async fn handle_get_entities_page(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
+    
+    let schemas = manager.get_manage_schema().await;
+    let keys: Vec<String> = schemas.iter().map(|s| s.id.to_string()).collect();
+
+    // zh: 排除其他字段 
+    let mut unsets = no_present_fields.clone();
+    for k in &keys {
+        if !present_fields.contains(k) {
+            unsets.push(k.clone());
+        }
+    }
 
     let doc_stream = manager
-        .get_entity_stream(match_doc, None, sort, start_oid, skip_count)
+        .get_entity_stream(match_doc, &unsets, sort, start_oid, skip_count)
         .await;
 
     // 创建返回流

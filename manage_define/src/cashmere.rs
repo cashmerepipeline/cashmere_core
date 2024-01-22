@@ -334,6 +334,8 @@ pub struct GetEntityRequest {
     /// 不出现的字段, 主要用于分步加载数据
     #[prost(string, repeated, tag = "3")]
     pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "4")]
+    pub present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -353,6 +355,8 @@ pub struct GetEntitiesRequest {
     /// 不出现的字段, 主要用于分步加载数据
     #[prost(string, repeated, tag = "3")]
     pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "4")]
+    pub present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -381,6 +385,8 @@ pub struct GetEntitiesPageRequest {
     /// 起始oid，用于分页，第一页不需要指定
     #[prost(string, tag = "6")]
     pub start_oid: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "7")]
+    pub present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// 返回为流
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -405,6 +411,8 @@ pub struct InteractiveGetEntitiesRequest {
     pub sort_doc: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, repeated, tag = "5")]
     pub no_present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "6")]
+    pub present_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -490,7 +498,7 @@ pub struct GetRemovedDataListResponse {
 pub struct EntityTimestamp {
     #[prost(string, tag = "1")]
     pub entity_id: ::prost::alloc::string::String,
-    /// 格式二进制 bson Document 形式{"value": Timestamp()}
+    /// 格式: 二进制 bson Document 形式: {"value": Timestamp()}
     #[prost(bytes = "vec", tag = "2")]
     pub timestamp: ::prost::alloc::vec::Vec<u8>,
 }
@@ -530,8 +538,8 @@ pub struct CheckUpdatesLaterThenTimeRequest {
 pub struct CheckUpdatesLaterThenTimeResponse {
     /// 分组返回，每组最多20条
     /// 最多返回1000条
-    #[prost(string, repeated, tag = "1")]
-    pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 编辑操作类型
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -1437,6 +1445,8 @@ pub struct AddMemberResponse {
 pub struct NewCategoryRequest {
     #[prost(string, tag = "1")]
     pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub code: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "3")]

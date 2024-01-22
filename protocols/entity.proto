@@ -169,7 +169,6 @@ message EditEntityArrayFieldRemoveItemsResponse {
   string result = 1;
 }
 
-
 // 依据id取得单个实体
 message GetEntityRequest {
     string manage_id = 1;
@@ -189,7 +188,7 @@ message GetEntitiesRequest {
     repeated string entity_ids = 2;
     // 不出现的字段, 主要用于分步加载数据
     repeated string no_present_fields = 3;
-    repeated string present_fields = 6;
+    repeated string present_fields = 4;
 }
 message GetEntitiesResponse {
     bytes entity = 1;
@@ -208,7 +207,7 @@ message GetEntitiesPageRequest {
   repeated string no_present_fields = 5;
   // 起始oid，用于分页，第一页不需要指定
   string start_oid = 6;
-  repeated string present_fields = 6;
+  repeated string present_fields = 7;
 }
 // 返回为流
 message GetEntitiesPageResponse {
@@ -306,5 +305,5 @@ message CheckUpdatesLaterThenTimeRequest {
 message CheckUpdatesLaterThenTimeResponse {
   // 分组返回，每组最多20条
   // 最多返回1000条
-  repeated string entity_ids = 1;
+  repeated bytes entity_ids = 1;
 }

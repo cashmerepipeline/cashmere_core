@@ -1,17 +1,22 @@
+use core::time;
+
 use dependencies_sync::bson::{self, doc, Document};
+use dependencies_sync::chrono::format::format;
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::error;
+use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{self, StreamExt};
-use dependencies_sync::tonic::{Request, Response, Status};
 use dependencies_sync::tonic::async_trait;
+use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
+use view::view_rules_map::{get_manage_view_rules, query_collection_view_rules};
+use view::ReadRule;
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -34,8 +39,7 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) =
-            view::validates::validate_collection_can_read(&manage_id, &role_group).await
+        if let Err(e) = view::validates::validate_collection_can_read(&manage_id, &role_group).await
         {
             return Err(e);
         }
@@ -80,10 +84,11 @@ async fn validate_request_params(
     Ok(request)
 }
 
+/// zh: 根据帐号访问条件，返回最新的更新，
 async fn handle_check_updates_later_then_time(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
-    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let timestamp = &request.get_ref().timestamp;
@@ -92,10 +97,27 @@ async fn handle_check_updates_later_then_time(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
+    let collection_view_rules = query_collection_view_rules(manage_id, &role_group)
+        .await
+        .unwrap();
+
+    /* match collection_view_rules.read_filters {
+        ReadRule::Read => __,
+        ReadRule::GroupRead => query_doc.insert(GROUPS_FIELD_ID.to_string(), role_group),
+        ReadRule::OwnerRead => query_doc.insert(OWNER_FIELD_ID.to_string(), account_id),
+        ReadRule::Unknown => {
+            return Err(Status::unauthenticated(format!(
+                "{}: {}, {}",
+                t!("无可见权限设置"),
+                manage_id,
+                role_group
+            )));
+        }
+    } */
+
     let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
     let timestamp = timestamp_doc.get_timestamp("value").unwrap();
-
-    let query_doc = doc! {
+    let mut query_doc = doc! {
     MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
         };
 
@@ -109,13 +131,10 @@ async fn handle_check_updates_later_then_time(
         }
     };
 
-    let unsets = vec! [
-        ID_FIELD_ID.to_string(),
-        MODIFY_TIMESTAMP_FIELD_ID.to_string(),
-    ];
+    let unsets = vec![];
 
     let mut query_cursor = match manager
-        .get_entity_stream(query_doc, Some(unsets), Some(sort_doc), None, 0)
+        .get_entity_stream(query_doc, &unsets, Some(sort_doc), None, 0)
         .await
     {
         Ok(cursor) => cursor,
@@ -144,8 +163,22 @@ async fn handle_check_updates_later_then_time(
         let mut ids = vec![];
         while let Some(result) = query_cursor.next().await {
             // TODO: 可读过滤
-            let id = result.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
-            ids.push(id);
+            let mut r = doc! {};
+            debug!("{}-{}", t!("数据库查询更新"), result);
+
+            r.insert("_id", result.get_object_id("_id").unwrap());
+            r.insert(
+                ID_FIELD_ID.to_string(),
+                result.get_str(ID_FIELD_ID.to_string()).unwrap(),
+            );
+            r.insert(
+                MODIFY_TIMESTAMP_FIELD_ID.to_string(),
+                result
+                    .get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string())
+                    .unwrap(),
+            );
+
+            ids.push(bson::to_vec(&r).unwrap());
 
             // 满20，发送到返回流
             if ids.len() >= 20 {

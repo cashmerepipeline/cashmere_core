@@ -7,7 +7,7 @@ import 'package:cashmere_core/view_models/set_general_fields.dart';
 /// 管理视图
 class ManageView {
   final String id;
-  late final NameMap nameMap;
+  late final Map<String, String> nameMap;
   late final String creator;
   late final Timestamp createTimestamp;
   late final String modifier;

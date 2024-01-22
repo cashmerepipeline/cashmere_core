@@ -91,7 +91,7 @@ macro_rules! declare_default_get_manage {
 //                 } else {
 //                     let collection_name = $id.to_string();
 //                     let id_str = $id.to_string();
-//                     let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
+//                     let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
 //                         Ok(r) => r,
 //                         Err(e) => panic!("{} {}", e.operation(), e.details())),
 //                     };

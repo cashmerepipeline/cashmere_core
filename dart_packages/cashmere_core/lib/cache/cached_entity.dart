@@ -5,18 +5,19 @@ part 'cached_entity.g.dart';
 
 @collection
 class CachedEntity {
-  final String manageId;
   @id
   final String oid;
-  final Map<String, dynamic> data;
+  final String nid;
+  List<byte>? data;
   // millisceconds utc
-  final int lastModified;
+  final DateTime lastModified;
+  // final Timestamp lastModified;
   // millisceconds utc
   final DateTime lastChecked;
 
   CachedEntity({
-    required this.manageId,
     required this.oid,
+    required this.nid,
     required this.data,
     required this.lastModified,
     required this.lastChecked,

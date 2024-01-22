@@ -10,7 +10,7 @@ pub async fn get_constants(manage_id: &str) -> Result<Vec<Document>, OperationRe
     let query_doc = doc! {};
 
     let result = manager
-        .get_entity_stream(query_doc, None, None, None, 0)
+        .get_entity_stream(query_doc, &vec![], None, None, 0)
         .await;
 
     match result {

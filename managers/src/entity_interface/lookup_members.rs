@@ -42,7 +42,7 @@ pub async fn lookup_members(
     match entity::get_query_cursor(
         &view_name,
         match_doc,
-        Some(unsets),
+        &unsets,
         Some(sorts),
         start_oid,
         skip_count,

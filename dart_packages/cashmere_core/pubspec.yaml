@@ -15,11 +15,11 @@ dependencies:
   path_provider: ^2.1.1
   hooks_riverpod: ^2.4.3
   platform_device_id: ^1.0.1
-  hive: ^2.2.3
+#  hive: ^2.2.3
   isar: ^4.0.0-dev.14
   isar_flutter_libs: ^4.0.0-dev.14
-  # isar: ^3.1.0+1
-  # isar_flutter_libs: ^3.1.0+1
+#  isar: ^3.1.0+1
+#  isar_flutter_libs: ^3.1.0+1
 
   account_module:
     path: ../../../account_module/dart_packages/account_module

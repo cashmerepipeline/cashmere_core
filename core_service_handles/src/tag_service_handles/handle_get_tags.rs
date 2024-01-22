@@ -62,7 +62,7 @@ async fn handle_get_tags(
     };
 
     let result = manager
-        .get_entity_stream(query_doc, None, None, None, 0)
+        .get_entity_stream(query_doc, &vec![], None, None, 0)
         .await;
 
     match result {

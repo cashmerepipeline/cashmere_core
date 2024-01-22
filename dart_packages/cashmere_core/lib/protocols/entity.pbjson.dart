@@ -346,6 +346,7 @@ const GetEntityRequest$json = {
     {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_id', '3': 2, '4': 1, '5': 9, '10': 'entityId'},
     {'1': 'no_present_fields', '3': 3, '4': 3, '5': 9, '10': 'noPresentFields'},
+    {'1': 'present_fields', '3': 4, '4': 3, '5': 9, '10': 'presentFields'},
   ],
 };
 
@@ -353,7 +354,7 @@ const GetEntityRequest$json = {
 final $typed_data.Uint8List getEntityRequestDescriptor = $convert.base64Decode(
     'ChBHZXRFbnRpdHlSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSGwoJZW50aX'
     'R5X2lkGAIgASgJUghlbnRpdHlJZBIqChFub19wcmVzZW50X2ZpZWxkcxgDIAMoCVIPbm9QcmVz'
-    'ZW50RmllbGRz');
+    'ZW50RmllbGRzEiUKDnByZXNlbnRfZmllbGRzGAQgAygJUg1wcmVzZW50RmllbGRz');
 
 @$core.Deprecated('Use getEntityResponseDescriptor instead')
 const GetEntityResponse$json = {
@@ -374,6 +375,7 @@ const GetEntitiesRequest$json = {
     {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
     {'1': 'entity_ids', '3': 2, '4': 3, '5': 9, '10': 'entityIds'},
     {'1': 'no_present_fields', '3': 3, '4': 3, '5': 9, '10': 'noPresentFields'},
+    {'1': 'present_fields', '3': 4, '4': 3, '5': 9, '10': 'presentFields'},
   ],
 };
 
@@ -381,7 +383,7 @@ const GetEntitiesRequest$json = {
 final $typed_data.Uint8List getEntitiesRequestDescriptor = $convert.base64Decode(
     'ChJHZXRFbnRpdGllc1JlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBIdCgplbn'
     'RpdHlfaWRzGAIgAygJUgllbnRpdHlJZHMSKgoRbm9fcHJlc2VudF9maWVsZHMYAyADKAlSD25v'
-    'UHJlc2VudEZpZWxkcw==');
+    'UHJlc2VudEZpZWxkcxIlCg5wcmVzZW50X2ZpZWxkcxgEIAMoCVINcHJlc2VudEZpZWxkcw==');
 
 @$core.Deprecated('Use getEntitiesResponseDescriptor instead')
 const GetEntitiesResponse$json = {
@@ -405,6 +407,7 @@ const GetEntitiesPageRequest$json = {
     {'1': 'sort_doc', '3': 4, '4': 1, '5': 12, '10': 'sortDoc'},
     {'1': 'no_present_fields', '3': 5, '4': 3, '5': 9, '10': 'noPresentFields'},
     {'1': 'start_oid', '3': 6, '4': 1, '5': 9, '10': 'startOid'},
+    {'1': 'present_fields', '3': 7, '4': 3, '5': 9, '10': 'presentFields'},
   ],
 };
 
@@ -413,7 +416,8 @@ final $typed_data.Uint8List getEntitiesPageRequestDescriptor = $convert.base64De
     'ChZHZXRFbnRpdGllc1BhZ2VSZXF1ZXN0EhsKCW1hbmFnZV9pZBgBIAEoCVIIbWFuYWdlSWQSHQ'
     'oKcGFnZV9pbmRleBgCIAEoDVIJcGFnZUluZGV4EhsKCW1hdGNoX2RvYxgDIAEoDFIIbWF0Y2hE'
     'b2MSGQoIc29ydF9kb2MYBCABKAxSB3NvcnREb2MSKgoRbm9fcHJlc2VudF9maWVsZHMYBSADKA'
-    'lSD25vUHJlc2VudEZpZWxkcxIbCglzdGFydF9vaWQYBiABKAlSCHN0YXJ0T2lk');
+    'lSD25vUHJlc2VudEZpZWxkcxIbCglzdGFydF9vaWQYBiABKAlSCHN0YXJ0T2lkEiUKDnByZXNl'
+    'bnRfZmllbGRzGAcgAygJUg1wcmVzZW50RmllbGRz');
 
 @$core.Deprecated('Use getEntitiesPageResponseDescriptor instead')
 const GetEntitiesPageResponse$json = {
@@ -436,6 +440,7 @@ const InteractiveGetEntitiesRequest$json = {
     {'1': 'match_doc', '3': 3, '4': 1, '5': 12, '10': 'matchDoc'},
     {'1': 'sort_doc', '3': 4, '4': 1, '5': 12, '10': 'sortDoc'},
     {'1': 'no_present_fields', '3': 5, '4': 3, '5': 9, '10': 'noPresentFields'},
+    {'1': 'present_fields', '3': 6, '4': 3, '5': 9, '10': 'presentFields'},
   ],
 };
 
@@ -444,7 +449,8 @@ final $typed_data.Uint8List interactiveGetEntitiesRequestDescriptor = $convert.b
     'Ch1JbnRlcmFjdGl2ZUdldEVudGl0aWVzUmVxdWVzdBIbCgltYW5hZ2VfaWQYASABKAlSCG1hbm'
     'FnZUlkEh0KCnBhZ2VfaW5kZXgYAiABKA1SCXBhZ2VJbmRleBIbCgltYXRjaF9kb2MYAyABKAxS'
     'CG1hdGNoRG9jEhkKCHNvcnRfZG9jGAQgASgMUgdzb3J0RG9jEioKEW5vX3ByZXNlbnRfZmllbG'
-    'RzGAUgAygJUg9ub1ByZXNlbnRGaWVsZHM=');
+    'RzGAUgAygJUg9ub1ByZXNlbnRGaWVsZHMSJQoOcHJlc2VudF9maWVsZHMYBiADKAlSDXByZXNl'
+    'bnRGaWVsZHM=');
 
 @$core.Deprecated('Use interactiveGetEntitiesResponseDescriptor instead')
 const InteractiveGetEntitiesResponse$json = {
@@ -633,12 +639,12 @@ final $typed_data.Uint8List checkUpdatesLaterThenTimeRequestDescriptor = $conver
 const CheckUpdatesLaterThenTimeResponse$json = {
   '1': 'CheckUpdatesLaterThenTimeResponse',
   '2': [
-    {'1': 'entity_ids', '3': 1, '4': 3, '5': 9, '10': 'entityIds'},
+    {'1': 'entity_ids', '3': 1, '4': 3, '5': 12, '10': 'entityIds'},
   ],
 };
 
 /// Descriptor for `CheckUpdatesLaterThenTimeResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List checkUpdatesLaterThenTimeResponseDescriptor = $convert.base64Decode(
-    'CiFDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVzcG9uc2USHQoKZW50aXR5X2lkcxgBIAMoCV'
+    'CiFDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVzcG9uc2USHQoKZW50aXR5X2lkcxgBIAMoDF'
     'IJZW50aXR5SWRz');
 

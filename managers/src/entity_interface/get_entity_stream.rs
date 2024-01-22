@@ -6,7 +6,7 @@ use crate::entity_cache_map::cache_get_entity_stream;
 pub async fn get_entity_stream(
     manage_id: &'static str,
     matche_doc: Document,
-    unsets: Option<Vec<String>>,
+    unsets: &[String],
     sorts: Option<Document>,
     start_oid: Option<&str>,
     skip_count: u32,

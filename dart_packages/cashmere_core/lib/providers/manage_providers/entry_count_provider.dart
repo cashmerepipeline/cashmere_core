@@ -14,10 +14,11 @@ class EntryCountProviderArgs {
   EntryCountProviderArgs({required this.manageId, required this.stubCall});
 }
 
-final entryCountFutureProvider = FutureProvider.autoDispose.family<Int64, EntryCountProviderArgs>((ref, args) async {
+final entryCountFutureProvider = FutureProvider.autoDispose.family<int, EntryCountProviderArgs>((ref, args) async {
   final metaData = await ref.watch(metaDataFutureProvider.future);
 
   final count = await fetchEntryCount(args.manageId, args.stubCall, metaData);
   debugPrint('entry count: $count');
-  return count;
+
+  return count.toInt();
 });
