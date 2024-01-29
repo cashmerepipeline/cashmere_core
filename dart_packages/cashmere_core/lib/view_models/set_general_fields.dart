@@ -3,7 +3,7 @@ import 'package:cashmere_core/ids/general_field_ids.dart';
 import 'package:cashmere_core/view_models/entity_view_base.dart';
 
 T setGeneralFields<T extends EntityViewBase>(T entity, Map<String, dynamic> map) {
-  map[NAME_MAP_FIELD_ID.toString()] != null ? entity.nameMap = nameMapFromMap(map[NAME_MAP_FIELD_ID.toString()]) : null;
+  map[NAME_MAP_FIELD_ID.toString()] != null ? entity.nameMap = nameMapFromMap(map[NAME_MAP_FIELD_ID.toString()])! : null;
   map[CREATOR_FIELD_ID.toString()] != null ? entity.creator = map[CREATOR_FIELD_ID.toString()] : null;
   map[CREATE_TIMESTAMP_FIELD_ID.toString()] != null
       ? entity.createTimestamp = map[CREATE_TIMESTAMP_FIELD_ID.toString()]

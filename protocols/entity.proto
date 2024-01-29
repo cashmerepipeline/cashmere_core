@@ -303,7 +303,7 @@ message CheckUpdatesLaterThenTimeRequest {
   bool ascending_order = 3;
 }
 message CheckUpdatesLaterThenTimeResponse {
-  // 分组返回，每组最多20条
+  // {"_id", "id", modifiedtimestamp}, 分组返回，每组最多20条
   // 最多返回1000条
-  repeated bytes entity_ids = 1;
+  repeated bytes results = 1;
 }

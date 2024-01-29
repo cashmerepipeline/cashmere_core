@@ -4,6 +4,7 @@
 
 // ignore_for_file: constant_identifier_names
 
+const String OID_FIELD_ID = "_id";
 // 编号
 const int ID_FIELD_ID = 1000;
 // 名字

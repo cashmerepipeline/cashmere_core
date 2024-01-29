@@ -183,7 +183,7 @@ async fn handle_check_updates_later_then_time(
             // 满20，发送到返回流
             if ids.len() >= 20 {
                 let resp = CheckUpdatesLaterThenTimeResponse {
-                    entity_ids: ids.clone(),
+                    results: ids.clone(),
                 };
                 resp_tx.send(Ok(resp)).await.unwrap();
                 ids.clear();
@@ -198,7 +198,7 @@ async fn handle_check_updates_later_then_time(
         }
         // 发送最后一批
         if !ids.is_empty() {
-            let resp = CheckUpdatesLaterThenTimeResponse { entity_ids: ids };
+            let resp = CheckUpdatesLaterThenTimeResponse { results: ids };
             resp_tx.send(Ok(resp)).await.unwrap();
         }
     });

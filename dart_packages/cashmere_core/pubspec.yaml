@@ -15,11 +15,6 @@ dependencies:
   path_provider: ^2.1.1
   hooks_riverpod: ^2.4.3
   platform_device_id: ^1.0.1
-#  hive: ^2.2.3
-  isar: ^4.0.0-dev.14
-  isar_flutter_libs: ^4.0.0-dev.14
-#  isar: ^3.1.0+1
-#  isar_flutter_libs: ^3.1.0+1
 
   account_module:
     path: ../../../account_module/dart_packages/account_module
@@ -27,9 +22,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
-  build_runner: any
-  # source_gen: ^1.5.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -639,12 +639,12 @@ final $typed_data.Uint8List checkUpdatesLaterThenTimeRequestDescriptor = $conver
 const CheckUpdatesLaterThenTimeResponse$json = {
   '1': 'CheckUpdatesLaterThenTimeResponse',
   '2': [
-    {'1': 'entity_ids', '3': 1, '4': 3, '5': 12, '10': 'entityIds'},
+    {'1': 'results', '3': 1, '4': 3, '5': 12, '10': 'results'},
   ],
 };
 
 /// Descriptor for `CheckUpdatesLaterThenTimeResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List checkUpdatesLaterThenTimeResponseDescriptor = $convert.base64Decode(
-    'CiFDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVzcG9uc2USHQoKZW50aXR5X2lkcxgBIAMoDF'
-    'IJZW50aXR5SWRz');
+    'CiFDaGVja1VwZGF0ZXNMYXRlclRoZW5UaW1lUmVzcG9uc2USGAoHcmVzdWx0cxgBIAMoDFIHcm'
+    'VzdWx0cw==');
 

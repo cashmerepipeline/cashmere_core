@@ -29,6 +29,6 @@ Stream<List<Map<String, dynamic>>> fetchEntitiesLaterThanTime(FetchLaterThanTime
 
   final response = arg.fetchCall(request, options: CallOptions(metadata: arg.metadata));
   await for (final res in response) {
-    yield res.entityIds.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
+    yield res.results.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
   }
 }

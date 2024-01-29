@@ -1,9 +1,8 @@
 /// Timestamp extension methods.
 import "package:bson/bson.dart";
-import "package:isar/isar.dart";
 
 extension TimestampExtension on Timestamp {
-  List<byte> serialize() {
+  List<int> serialize() {
     return BsonCodec.serialize({"v": this}).byteList;
   }
   DateTime toDateTime(){
@@ -19,7 +18,7 @@ extension TimestampExtensionDateTime on DateTime {
   }
 }
 
-extension TimestampExtensionIsar on List<byte>{
+extension TimestampExtensionIsar on List<int>{
   Timestamp deserializeTimestamp() {
     return BsonCodec.deserialize(BsonBinary.from(this))["v"] as Timestamp;
   }
