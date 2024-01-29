@@ -1,6 +1,4 @@
 import 'package:account_module/providers/meta_data_provider.dart';
-import 'package:cashmere_core/cache/cache_provider.dart';
-import 'package:cashmere_core/cache/entities_cache.dart';
 import 'package:cashmere_core/grpc_call.dart';
 import 'package:cashmere_core/protocols/name.pb.dart';
 import 'package:grpc/grpc.dart';
@@ -21,11 +19,11 @@ class RenameNotifier extends StateNotifier<EditEntityNotifierState> {
     Name newName,
     GrpcCall<RenameRequest, RenameResponse> renameCall,
     WidgetRef ref,
-    EntitiesCacheArg cacheArg,
+    // EntitiesCacheArg cacheArg,
   ) async {
     state = EditEntityNotifierState("", EditEntityNotifierStateEnum.editing);
     final metaData = await ref.watch(metaDataFutureProvider.future);
-    final cache = await ref.watch(cacheProvider(cacheArg).future);
+    // final cache = await ref.watch(cacheProvider(cacheArg).future);
 
     final request = RenameRequest(
       manageId: manageId,
@@ -40,7 +38,7 @@ class RenameNotifier extends StateNotifier<EditEntityNotifierState> {
       );
 
       // zh: 更新缓存
-      cache.updateEntity(entityId);
+      // cache.updateEntity(entityId);
 
       state = EditEntityNotifierState(response.result, EditEntityNotifierStateEnum.success);
     } catch (e) {

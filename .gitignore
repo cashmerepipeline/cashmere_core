@@ -9,3 +9,4 @@ target/
 
 dart_packages/cashmere_core/.flutter-plugins
 dart_packages/cashmere_core/.flutter-plugins-dependencies
+dart_packages/cashmere_core/lib/cache_schemas/generate/

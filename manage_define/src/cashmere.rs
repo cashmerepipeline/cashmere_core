@@ -536,10 +536,10 @@ pub struct CheckUpdatesLaterThenTimeRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CheckUpdatesLaterThenTimeResponse {
-    /// 分组返回，每组最多20条
+    /// {"_id", "id", modifiedtimestamp}, 分组返回，每组最多20条
     /// 最多返回1000条
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub entity_ids: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub results: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 编辑操作类型
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

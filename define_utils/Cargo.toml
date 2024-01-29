@@ -7,6 +7,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+convert_case = "0.6.0"
+
 manage_define = { path = "../manage_define" }
 cash_core = { path = "../cash_core" }
 # property_field = { path = "../property_field" }

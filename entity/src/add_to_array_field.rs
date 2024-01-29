@@ -28,14 +28,14 @@ pub async fn add_to_array_field(
 
     // 更新
     let result = collection
-        .update_one(query_doc.clone(), _modify_doc, None)
+        .update_one(query_doc.clone(), _modify_doc.clone(), None)
         .await;
 
     // 结果
     match result {
         Ok(r) => match r.modified_count {
             0 => {
-                trace!("没有实体被更新: {}-{}", query_doc, modify_doc);
+                trace!("没有实体被更新: {}-{}", query_doc, _modify_doc);
                 Ok(operation_succeed("succeed"))
             }
             1 => Ok(operation_succeed("succeed")),

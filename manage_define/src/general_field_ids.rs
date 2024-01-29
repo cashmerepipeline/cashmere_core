@@ -2,6 +2,8 @@
 // 通用属性
 // ----------------
 
+// mongodb objectid
+pub const OID_FIELD_ID: &str = "_id";
 // 编号
 pub const ID_FIELD_ID: i32 = 1000;
 // 名字表

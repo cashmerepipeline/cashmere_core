@@ -1,8 +1,6 @@
 import 'package:bson/bson.dart';
 import 'package:cashmere_core/core/name_map_from_map.dart';
 import 'package:cashmere_core/ids/general_field_ids.dart';
-import 'package:cashmere_core/view_models/entity_view_base.dart';
-import 'package:cashmere_core/view_models/set_general_fields.dart';
 
 /// 管理视图
 class ManageView {

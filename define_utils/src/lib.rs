@@ -9,7 +9,9 @@ pub use get_schema::*;
 pub use get_toml_files_of_dir::*;
 pub use get_toml_map::*;
 pub use get_tomls_from_pathes::*;
+
 pub use generate_manage_defines::*;
+pub use generate_dart_schema::*;
 
 mod get_id;
 mod get_name_map;
@@ -20,3 +22,4 @@ mod get_toml_files_of_dir;
 mod get_tomls_from_pathes;
 mod get_toml_map;
 mod generate_manage_defines;
+mod generate_dart_schema;

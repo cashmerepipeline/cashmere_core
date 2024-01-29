@@ -2886,11 +2886,11 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
 
 class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeResponse({
-    $core.Iterable<$core.List<$core.int>>? entityIds,
+    $core.Iterable<$core.List<$core.int>>? results,
   }) {
     final $result = create();
-    if (entityIds != null) {
-      $result.entityIds.addAll(entityIds);
+    if (results != null) {
+      $result.results.addAll(results);
     }
     return $result;
   }
@@ -2899,7 +2899,7 @@ class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   factory CheckUpdatesLaterThenTimeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CheckUpdatesLaterThenTimeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
-    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entityIds', $pb.PbFieldType.PY)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'results', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
@@ -2924,10 +2924,10 @@ class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {
   static CheckUpdatesLaterThenTimeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CheckUpdatesLaterThenTimeResponse>(create);
   static CheckUpdatesLaterThenTimeResponse? _defaultInstance;
 
-  /// 分组返回，每组最多20条
+  /// {"_id", "id", modifiedtimestamp}, 分组返回，每组最多20条
   /// 最多返回1000条
   @$pb.TagNumber(1)
-  $core.List<$core.List<$core.int>> get entityIds => $_getList(0);
+  $core.List<$core.List<$core.int>> get results => $_getList(0);
 }
 
 

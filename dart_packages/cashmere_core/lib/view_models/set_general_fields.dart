@@ -1,16 +1,20 @@
+import 'package:bson/bson.dart';
+import 'package:cashmere_core/cache/timestamp_extension.dart';
 import 'package:cashmere_core/core/name_map_from_map.dart';
 import 'package:cashmere_core/ids/general_field_ids.dart';
 import 'package:cashmere_core/view_models/entity_view_base.dart';
 
 T setGeneralFields<T extends EntityViewBase>(T entity, Map<String, dynamic> map) {
-  map[NAME_MAP_FIELD_ID.toString()] != null ? entity.nameMap = nameMapFromMap(map[NAME_MAP_FIELD_ID.toString()]) : null;
+  map[NAME_MAP_FIELD_ID.toString()] != null
+      ? entity.nameMap = nameMapFromMap(map[NAME_MAP_FIELD_ID.toString()])!
+      : null;
   map[CREATOR_FIELD_ID.toString()] != null ? entity.creator = map[CREATOR_FIELD_ID.toString()] : null;
   map[CREATE_TIMESTAMP_FIELD_ID.toString()] != null
-      ? entity.createTimestamp = map[CREATE_TIMESTAMP_FIELD_ID.toString()]
+      ? entity.createTimestamp = (map[CREATE_TIMESTAMP_FIELD_ID.toString()] as Timestamp).toDateTime()
       : null;
   map[MODIFIER_FIELD_ID.toString()] != null ? entity.modifier = map[MODIFIER_FIELD_ID.toString()] : null;
   map[MODIFY_TIMESTAMP_FIELD_ID.toString()] != null
-      ? entity.modifyTimestamp = map[MODIFY_TIMESTAMP_FIELD_ID.toString()]
+      ? entity.modifyTimestamp = (map[MODIFY_TIMESTAMP_FIELD_ID.toString()] as Timestamp).toDateTime()
       : null;
   map[OWNER_FIELD_ID.toString()] != null ? entity.owner = map[OWNER_FIELD_ID.toString()] : null;
 

@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:bson/bson.dart';
+import 'package:grpc/grpc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:cashmere_core/grpc_call.dart';
 import 'package:cashmere_core/protocols/entity.pb.dart';
-import 'package:grpc/grpc.dart';
 
 class FetchLaterThanTimeArg {
   final String manageId;
@@ -20,6 +21,7 @@ class FetchLaterThanTimeArg {
 }
 
 Stream<List<Map<String, dynamic>>> fetchEntitiesLaterThanTime(FetchLaterThanTimeArg arg) async* {
+  debugPrint('Fetching entities later than time: ${arg.manageId}, ${arg.timestamp}');
   final t = BsonCodec.serialize({"value": arg.timestamp}).byteList;
 
   final request = CheckUpdatesLaterThenTimeRequest(
@@ -29,6 +31,10 @@ Stream<List<Map<String, dynamic>>> fetchEntitiesLaterThanTime(FetchLaterThanTime
 
   final response = arg.fetchCall(request, options: CallOptions(metadata: arg.metadata));
   await for (final res in response) {
-    yield res.entityIds.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
+    final resMaps = res.results.map((e) => BsonCodec.deserialize(BsonBinary.from(e))).toList();
+
+    debugPrint('Received response: $resMaps');
+
+    yield resMaps;
   }
 }

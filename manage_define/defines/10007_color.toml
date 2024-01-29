@@ -10,7 +10,7 @@ description = "预设颜色"
 # 数据描写 或者 模式
 schema = [
   # [r, g, b]数组形式存储
-  { data_type = "Array", name_map = { zh = "色值", en = "value" }, removed = false },
+  { data_type = "Array<Int32>", name_map = { zh = "色值", en = "value" }, removed = false },
 ]
 
 [view_rules]

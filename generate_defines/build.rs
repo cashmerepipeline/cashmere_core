@@ -34,6 +34,7 @@ fn main() {
     define_utils::generate_manage_defines(
         &["../manage_define/defines"],
         "../manage_define/src",
-        Some("../dart_packages/cashmere_core/lib/ids"),
+        Some("../dart_packages/cashmere_core/lib"),
+        Some("cashmere_core"),
     );
 }

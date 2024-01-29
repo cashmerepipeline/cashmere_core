@@ -20,6 +20,7 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
     $core.String? manageId,
     $0.Name? name,
     $core.String? description,
+    $core.String? code,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -31,6 +32,9 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
     if (description != null) {
       $result.description = description;
     }
+    if (code != null) {
+      $result.code = code;
+    }
     return $result;
   }
   NewCategoryRequest._() : super();
@@ -41,6 +45,7 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..aOM<$0.Name>(2, _omitFieldNames ? '' : 'name', subBuilder: $0.Name.create)
     ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'code')
     ..hasRequiredFields = false
   ;
 
@@ -93,6 +98,15 @@ class NewCategoryRequest extends $pb.GeneratedMessage {
   $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
   void clearDescription() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get code => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set code($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCode() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCode() => clearField(4);
 }
 
 class NewCategoryResponse extends $pb.GeneratedMessage {

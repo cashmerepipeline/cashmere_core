@@ -18,6 +18,7 @@ const NewCategoryRequest$json = {
   '1': 'NewCategoryRequest',
   '2': [
     {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+    {'1': 'code', '3': 4, '4': 1, '5': 9, '10': 'code'},
     {'1': 'name', '3': 2, '4': 1, '5': 11, '6': '.cashmere.Name', '10': 'name'},
     {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
   ],
@@ -25,9 +26,9 @@ const NewCategoryRequest$json = {
 
 /// Descriptor for `NewCategoryRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List newCategoryRequestDescriptor = $convert.base64Decode(
-    'ChJOZXdDYXRlZ29yeVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBIiCgRuYW'
-    '1lGAIgASgLMg4uY2FzaG1lcmUuTmFtZVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVz'
-    'Y3JpcHRpb24=');
+    'ChJOZXdDYXRlZ29yeVJlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2VJZBISCgRjb2'
+    'RlGAQgASgJUgRjb2RlEiIKBG5hbWUYAiABKAsyDi5jYXNobWVyZS5OYW1lUgRuYW1lEiAKC2Rl'
+    'c2NyaXB0aW9uGAMgASgJUgtkZXNjcmlwdGlvbg==');
 
 @$core.Deprecated('Use newCategoryResponseDescriptor instead')
 const NewCategoryResponse$json = {
