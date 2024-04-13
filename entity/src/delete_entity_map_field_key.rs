@@ -26,7 +26,7 @@ pub async fn delete_entity_map_field_key(
     // 集合是否存在， 不自动创建集合
     let collection = match database::get_collection_by_id(manage_id).await {
         Some(c) => c,
-        None => return Err(collection_not_exists(manage_id, "update_entity_field")),
+        None => return Err(collection_not_exists(manage_id, "delete_entity_map_field_key")),
     };
 
     let mut _modify_doc = doc! {"$unset": modify_doc.clone()};
@@ -42,7 +42,7 @@ pub async fn delete_entity_map_field_key(
         Ok(r) => match r.modified_count == 1 {
             true => Ok(operation_succeed("succeed")),
             false => Err(operation_failed(
-                "updata_entity_field",
+                "delete_entity_map_field_key",
                 format!("更新了多个实体{}", query_doc),
             )),
         },
@@ -50,7 +50,7 @@ pub async fn delete_entity_map_field_key(
             error!("{}: {}", t!("更新实体属性失败"), _e);
 
             Err(operation_failed(
-                "entity::update_entity",
+                "entity::delete_entity_map_field_key",
                 format!("{}: {}, {}", t!("更新操作失败"), query_doc, modify_doc),
             ))
         }

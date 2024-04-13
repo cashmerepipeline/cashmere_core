@@ -709,6 +709,21 @@ pub trait ManagerTrait: Any + Send + Sync {
         }
     }
 
+    async fn query_entity_map_field(
+        &self,
+        query_doc: &Document,
+        account_id: &str,
+    ) -> Result<Document, OperationResult> {
+        let manage_id = self.get_id().to_string();
+        match entity::query_entity_map_field(&manage_id, query_doc, account_id).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(
+                e,
+                "query_entity_map_field".to_string(),
+            )),
+        }
+    }
+
     /// 更新映射字段
     async fn update_entity_map_field(
         &self,
