@@ -11,9 +11,12 @@ pub use manager_inner::*;
 pub mod manages_manager;
 
 pub mod areas_manager;
+
 pub mod categaries_manager;
 pub mod tags_manager;
 pub mod comments_manager;
+pub mod recommends_manager;
+
 pub mod groups_manager;
 pub mod persons_manager;
 pub mod templates_manager;

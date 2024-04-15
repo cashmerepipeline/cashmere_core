@@ -5,6 +5,7 @@ pub const MEMBERS_MANAGE_ID: &str = "成员";
 pub const LANGUAGE_CODES_MANAGE_ID: &str = "语言编码"; 
 pub const COLORS_MANAGE_ID: &str = "颜色"; 
 pub const PERSONS_MANAGE_ID: &str = "人"; 
+pub const RECOMMENDS_MANAGE_ID: &str = "推荐"; 
 pub const TEMPLATES_MANAGE_ID: &str = "模板"; 
 pub const SHOW_SETTINGS_MANAGE_ID: &str = "显示设置"; 
 pub const VIEW_RULES_MANAGE_ID: &str = "映像规则"; 

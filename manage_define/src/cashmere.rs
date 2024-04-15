@@ -1684,3 +1684,62 @@ pub struct SearchResponse {
     #[prost(string, repeated, tag = "1")]
     pub results: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+/// / 切换推荐状态
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ToggleRecommendRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ToggleRecommendResponse {
+    /// 返回推荐状态
+    #[prost(bool, tag = "1")]
+    pub result: bool,
+}
+/// 获取最多推荐，最多1000个
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTopRecommenedRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTopRecommenedResponse {
+    #[prost(string, repeated, tag = "1")]
+    pub recommend_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 取得推荐帐号表
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRecommendAccountListRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub entity_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRecommendAccountListResponse {
+    #[prost(string, repeated, tag = "1")]
+    pub accounts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 取得帐号推荐了的实体列表, 只对当前帐号有效
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRecommendedEntitiesRequest {
+    #[prost(string, tag = "1")]
+    pub manage_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRecommendedEntitiesResponse {
+    #[prost(string, repeated, tag = "1")]
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
