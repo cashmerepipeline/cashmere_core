@@ -5,6 +5,7 @@
 id = "语言编码"
 name_map = { zh = "语言编码", en = "language_codes" }
 description = "语言编码"
+hard_coded = true
 
 # 数据描写 或者 模式
 schema = [

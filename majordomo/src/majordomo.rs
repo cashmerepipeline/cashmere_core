@@ -56,6 +56,7 @@ impl Majordomo {
     ) -> Result<OperationResult, OperationResult> {
         add_managers(new_managers)
     }
+    
 
     // TODO: 管理依赖检查，全部管理库加载完成后
     // pub fn check_dependents(&self) -> Result<OperationResult, OperationResult> {}

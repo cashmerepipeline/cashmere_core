@@ -33,6 +33,10 @@ pub struct Manage {
     // en: schema
     pub schema: Vec<SchemaField>,
 
+    // zh: 硬编码的
+    // en: hard_coded
+    pub hard_coded: bool,
+
     // zh: 注释
     // en: description
     pub description: String,

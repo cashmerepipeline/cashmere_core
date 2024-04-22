@@ -91,49 +91,18 @@ pub trait ManagerTrait: Any + Send + Sync {
             .collect::<Vec<i32>>();
         schema.contains(&field_id)
     }
+    
+    /// zh: 管理是否硬编码
+    async fn is_hard_coded(&self) -> bool{
+        let manage_arc = self.get_manage().await;
+        let manage_rlock = manage_arc.read();
+        return manage_rlock.hard_coded;
+    }
 
     // ---------------------------
     //  数据验证
     // ---------------------------
-    async fn validate_data_field(
-        &self,
-        data: &Vec<u8>,
-    ) -> Result<OperationResult, OperationResult> {
-        let d = if let Ok(d) = bson::from_slice::<Document>(data) {
-            d
-        } else {
-            return Err(operation_failed(
-                "validate_data_fields",
-                "数据不是数据对的形式",
-            ));
-        };
-
-        // let b = data.clone();
-        // let d = match Document::from_reader(&mut b.as_slice()) {
-        //     Ok(r) => r,
-        //     Err(_e) => {
-        //         return Err(operation_failed(
-        //             "validate_data_fields",
-        //             "数据不是数据对的形式",
-        //         ));
-        //     }
-        // };
-        let ks: Vec<i32> = d.keys().map(|x| x.parse::<i32>().unwrap()).collect();
-        if ks.is_empty() || ks.len() > 1 {
-            return Err(operation_failed("validate_data_fields", "数据格式不正确"));
-        }
-        // 检查是否在描写中
-        let schema = self.get_manage_schema().await;
-
-        if schema.iter().map(|x| x.id).any(|x| x == ks[0]) {
-            Ok(operation_succeed("ok"))
-        } else {
-            return Err(operation_failed(
-                "validate_data_fields",
-                format!("属性不在描写模式中 {}", ks[0]),
-            ));
-        }
-    }
+    
 
     async fn validate_data_fields(
         &self,
@@ -153,7 +122,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 }
             };
             let ks: Vec<i32> = d.keys().map(|x| x.parse::<i32>().unwrap()).collect();
-            if ks.is_empty() || ks.len() > 1 {
+            if ks.is_empty() || ks.len() < 1 {
                 return Err(operation_failed("validate_data_fields", "数据格式不正确"));
             }
 
@@ -175,31 +144,31 @@ pub trait ManagerTrait: Any + Send + Sync {
         Ok(operation_succeed("ok"))
     }
 
-    async fn validate_data_fields_doc(
-        &self,
-        fields_doc: &Document,
-    ) -> Result<OperationResult, OperationResult> {
-        // 取出ids
-        let data_keys: Vec<i32> = fields_doc
-            .iter()
-            .map(|x| x.0.parse::<i32>().unwrap())
-            .collect();
+    // async fn validate_data_fields_doc(
+    //     &self,
+    //     fields_doc: &Document,
+    // ) -> Result<OperationResult, OperationResult> {
+    //     // 取出ids
+    //     let data_keys: Vec<i32> = fields_doc
+    //         .iter()
+    //         .map(|x| x.0.parse::<i32>().unwrap())
+    //         .collect();
 
-        // 检查是否在描写中
-        let schema = self.get_manage_schema().await;
+    //     // 检查是否在描写中
+    //     let schema = self.get_manage_schema().await;
 
-        for k in data_keys {
-            if schema.iter().map(|x| x.id).any(|x| x == k) {
-                continue;
-            } else {
-                return Err(operation_failed(
-                    "validate_data_fields",
-                    format!("属性不在描写中 {}", k),
-                ));
-            }
-        }
-        Ok(operation_succeed("ok"))
-    }
+    //     for k in data_keys {
+    //         if schema.iter().map(|x| x.id).any(|x| x == k) {
+    //             continue;
+    //         } else {
+    //             return Err(operation_failed(
+    //                 "validate_data_fields",
+    //                 format!("属性不在描写中 {}", k),
+    //             ));
+    //         }
+    //     }
+    //     Ok(operation_succeed("ok"))
+    // }
 
     // 取得管理描写二进制列表
     async fn get_manage_schema_bytes(&self) -> Result<Vec<Vec<u8>>, OperationResult> {

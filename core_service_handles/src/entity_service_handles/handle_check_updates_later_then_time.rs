@@ -52,6 +52,7 @@ async fn validate_request_params(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> Result<Request<CheckUpdatesLaterThenTimeRequest>, Status> {
     let timestamp = &request.get_ref().timestamp;
+    let filter = &request.get_ref().filter;
 
     if timestamp.is_empty() {
         return Err(Status::invalid_argument(format!(
@@ -81,6 +82,17 @@ async fn validate_request_params(
         )));
     }
 
+    if !filter.is_empty() {
+        if let Err(err) = bson::from_slice::<Document>(filter) {
+            return Err(Status::invalid_argument(format!(
+                "{}: {}, {}",
+                t!("反序列化过滤条件失败"),
+                err,
+                "check_update_later_then_time"
+            )));
+        }
+    }
+
     Ok(request)
 }
 
@@ -93,6 +105,7 @@ async fn handle_check_updates_later_then_time(
     let manage_id = &request.get_ref().manage_id;
     let timestamp = &request.get_ref().timestamp;
     let ascending_order = &request.get_ref().ascending_order;
+    let filter = &request.get_ref().filter;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
@@ -117,9 +130,18 @@ async fn handle_check_updates_later_then_time(
 
     let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
     let timestamp = timestamp_doc.get_timestamp("value").unwrap();
+
+
     let mut query_doc = doc! {
     MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
         };
+
+    if !filter.is_empty() {
+        let filter_doc: Document =  bson::from_slice(filter).unwrap(); 
+        filter_doc.iter().for_each(|(k, v)| {
+            query_doc.insert(k, v);
+        });
+    }
 
     let sort_doc = if *ascending_order {
         doc! {

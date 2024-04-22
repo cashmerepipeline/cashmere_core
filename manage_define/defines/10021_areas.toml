@@ -6,6 +6,7 @@
 id = "地区"
 name_map = { zh = "地区", en = "areas" }
 description = "地区管理"
+hard_coded = true
 
 
 # 数据描写 或者 模式

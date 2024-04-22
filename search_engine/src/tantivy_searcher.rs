@@ -9,7 +9,7 @@ pub fn get_tantivy_searcher() -> Option<Searcher> {
 
     let reader = match index
         .reader_builder()
-        .reload_policy(tantivy::ReloadPolicy::OnCommit)
+        .reload_policy(tantivy::ReloadPolicy::OnCommitWithDelay)
         .try_into()
     {
         Ok(reader) => reader,

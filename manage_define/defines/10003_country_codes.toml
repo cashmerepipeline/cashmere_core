@@ -5,6 +5,7 @@
 id = "国家编码"
 name_map = { zh = "国家编码", en = "country_codes" }
 description = "国家"
+hard_coded = true
 
 # 数据描写 或者 模式
 schema = [

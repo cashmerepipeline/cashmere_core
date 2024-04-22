@@ -11,16 +11,19 @@ message ToggleRecommendResponse{
   bool result = 1;
 }
 
-// 获取最多推荐，最多1000个
-message GetTopRecommenedRequest{
+/// zh: 获取最多推荐，最多1000个
+message GetTopRecommendsRequest{
   string manage_id = 1;
   string entity_id = 2;
+  // 数量，最多1000个
+  int32 count = 3;
 }
-message GetTopRecommenedResponse{
+message GetTopRecommendsResponse{
+  // 只返回实体的id
   repeated string recommend_list = 1;
 }
 
-// 取得推荐帐号表
+/// 取得推荐帐号表
 message GetRecommendAccountListRequest{
   string manage_id = 1;
   string entity_id = 2;
@@ -29,7 +32,7 @@ message GetRecommendAccountListResponse{
   repeated string accounts = 1;
 }
 
-// 取得帐号推荐了的实体列表, 只对当前帐号有效
+/// 取得帐号推荐了的实体列表, 只对当前帐号有效
 message GetRecommendedEntitiesRequest{
   string manage_id = 1;
 }

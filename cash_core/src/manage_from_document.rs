@@ -53,6 +53,8 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
             schema.push(field);
         });
 
+    let hard_coded = manage_doc.get_bool("hard_coded").unwrap_or(false);
+
     let description = manage_doc
         .get_str(&DESCRIPTION_FIELD_ID.to_string())
         .unwrap_or("");
@@ -68,6 +70,7 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         owner: owner.to_string(),
         groups,
         schema,
+        hard_coded,
         description: description.to_string(),
     })
 }

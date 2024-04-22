@@ -41,3 +41,5 @@ mod handle_recover_removed_entity;
 mod handle_search;
 
 mod get_manage_entities_page;
+
+mod handle_get_hard_coded_entities;

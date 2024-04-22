@@ -2809,6 +2809,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
     $core.String? manageId,
     $core.List<$core.int>? timestamp,
     $core.bool? ascendingOrder,
+    $core.List<$core.int>? filter,
   }) {
     final $result = create();
     if (manageId != null) {
@@ -2820,6 +2821,9 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
     if (ascendingOrder != null) {
       $result.ascendingOrder = ascendingOrder;
     }
+    if (filter != null) {
+      $result.filter = filter;
+    }
     return $result;
   }
   CheckUpdatesLaterThenTimeRequest._() : super();
@@ -2830,6 +2834,7 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'manageId')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'timestamp', $pb.PbFieldType.OY)
     ..aOB(3, _omitFieldNames ? '' : 'ascendingOrder')
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'filter', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -2882,6 +2887,16 @@ class CheckUpdatesLaterThenTimeRequest extends $pb.GeneratedMessage {
   $core.bool hasAscendingOrder() => $_has(2);
   @$pb.TagNumber(3)
   void clearAscendingOrder() => clearField(3);
+
+  /// bson document 形式 {"key": value}, 只支持匹配形式
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get filter => $_getN(3);
+  @$pb.TagNumber(4)
+  set filter($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFilter() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFilter() => clearField(4);
 }
 
 class CheckUpdatesLaterThenTimeResponse extends $pb.GeneratedMessage {

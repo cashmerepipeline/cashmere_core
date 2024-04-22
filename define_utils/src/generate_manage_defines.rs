@@ -155,7 +155,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                 std::fs::create_dir_all(out_path).expect("创建目录失败");
             }
 
-            let out_file = format!("{}/{}.dart", outdir, name);
+            let out_file = format!("{}/{}.dart.gen", outdir, name);
             println!("{}", out_file);
 
             let mut schema_dart_file =

@@ -58,8 +58,8 @@ pub fn commit_search_document(
             DESCRIPTION_FIELD_ID.to_string(): description,
             MODIFY_TIMESTAMP_FIELD_ID.to_string(): modify_time
     });
-    // let doc = if let Ok(doc) = TantivyDocument::parse_json(&schema, json_doc.to_string().as_str()) {
-    let doc = if let Ok(doc) = schema.parse_document(json_doc.to_string().as_str()) {
+    let doc = if let Ok(doc) = TantivyDocument::parse_json(&schema, json_doc.to_string().as_str()) {
+    // let doc = if let Ok(doc) = schema.parse_document(json_doc.to_string().as_str()) {
         doc
     } else {
         log::error!("{}: {}: {:?}", t!("转换为tdoc失败"), manage_id, json_doc);
