@@ -1,10 +1,10 @@
 use dependencies_sync::{
     bson::{self, doc},
     futures::TryFutureExt,
+    log::{debug, error},
     rust_i18n::{self, t},
     tokio_stream::StreamExt,
-    tonic::async_trait,
-    tonic::{Request, Response, Status},
+    tonic::{async_trait, Request, Response, Status},
 };
 use majordomo::{self, get_majordomo};
 use manage_define::{
@@ -17,7 +17,9 @@ use manage_define::{
 use managers::{utils::make_new_entity_document, ManagerTrait};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id, validate_name};
+use validates::{validate_entity_id, validate_manage_id, validate_name};
+
+use super::query_top_recommends;
 
 #[async_trait]
 pub trait HandleGetTopRecommends {
@@ -51,10 +53,9 @@ async fn validate_request_params(
     request: Request<GetTopRecommendsRequest>,
 ) -> Result<Request<GetTopRecommendsRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
-    let entity_id = &request.get_ref().entity_id;
     let count = &request.get_ref().count;
 
-    validate_entity_id(&manage_id, entity_id).await?;
+    validate_manage_id(manage_id.as_str()).await?;
 
     if count > &1000 || count < &1 {
         return Err(Status::invalid_argument(format!(
@@ -77,60 +78,26 @@ async fn handle_get_top_recommends(
     let manage_id = RECOMMENDS_MANAGE_ID;
 
     let target_manage_id = &request.get_ref().manage_id;
-    let entity_id = &request.get_ref().entity_id;
     let count = &request.get_ref().count;
 
-    let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(&manage_id).unwrap();
+    let result = query_top_recommends::query_top_recommends(&target_manage_id, count).await;
 
-    // 确保实体存在
-    let query_doc = doc! {
-        RECOMMENDS_MANAGE_ID_FIELD_ID.to_string(): target_manage_id.clone(),
-        RECOMMENDS_ENTITY_ID_FIELD_ID.to_string(): entity_id.clone(),
-    };
-
-    let sort_doc = doc! {
-    RECOMMENDS_RECOMMENDS_COUNT_FIELD_ID.to_string(): -1,
-    };
-
-    let mut stream = match manager
-        .get_entity_stream(
-            query_doc,
-            &[RECOMMENDS_RECOMMENDS_MAP_FIELD_ID.to_string()],
-            Some(sort_doc),
-            None,
-            0,
-        )
-        .await
-    {
-        Ok(r) => r,
+    match result {
+        Ok(r) => {
+            let bs = r
+                .iter()
+                .map(|x| bson::to_vec(x).unwrap())
+                .collect::<Vec<_>>();
+            Ok(Response::new(GetTopRecommendsResponse { recommends: bs }))
+        }
         Err(e) => {
-            return Err(Status::aborted(format!(
-                "{} {}",
-                t!("取得推荐列表失败"),
-                e.details()
-            )));
+            error!("{}: {}", t!("查询推荐失败"), e.details());
+
+            Err(Status::internal(format!(
+                "{}: {}",
+                t!("查询推荐失败"),
+                target_manage_id
+            )))
         }
-    };
-
-    let mut result: Vec<String> = vec![];
-    let mut getted_count = 0;
-    while let Some(entity) = stream.next().await {
-        if &getted_count > count || getted_count > 1000 {
-            break;
-        }
-
-        result.push(
-            entity
-                .get_str(RECOMMENDS_RECOMMENDS_MAP_FIELD_ID.to_string())
-                .unwrap()
-                .to_string(),
-        );
-
-        getted_count += 1;
     }
-
-    Ok(Response::new(GetTopRecommendsResponse {
-        recommend_list: result,
-    }))
 }

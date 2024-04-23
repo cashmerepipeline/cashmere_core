@@ -2151,6 +2151,101 @@ class InteractiveGetEntitiesResponse extends $pb.GeneratedMessage {
   void clearTotalCount() => clearField(3);
 }
 
+/// / 取得硬编码管理实体
+class GetHardCodedEntitiesRequest extends $pb.GeneratedMessage {
+  factory GetHardCodedEntitiesRequest({
+    $core.String? manageId,
+  }) {
+    final $result = create();
+    if (manageId != null) {
+      $result.manageId = manageId;
+    }
+    return $result;
+  }
+  GetHardCodedEntitiesRequest._() : super();
+  factory GetHardCodedEntitiesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetHardCodedEntitiesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetHardCodedEntitiesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'manageId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetHardCodedEntitiesRequest clone() => GetHardCodedEntitiesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetHardCodedEntitiesRequest copyWith(void Function(GetHardCodedEntitiesRequest) updates) => super.copyWith((message) => updates(message as GetHardCodedEntitiesRequest)) as GetHardCodedEntitiesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetHardCodedEntitiesRequest create() => GetHardCodedEntitiesRequest._();
+  GetHardCodedEntitiesRequest createEmptyInstance() => create();
+  static $pb.PbList<GetHardCodedEntitiesRequest> createRepeated() => $pb.PbList<GetHardCodedEntitiesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetHardCodedEntitiesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetHardCodedEntitiesRequest>(create);
+  static GetHardCodedEntitiesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get manageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set manageId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasManageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearManageId() => clearField(1);
+}
+
+class GetHardCodedEntitiesResponse extends $pb.GeneratedMessage {
+  factory GetHardCodedEntitiesResponse({
+    $core.Iterable<$core.List<$core.int>>? entities,
+  }) {
+    final $result = create();
+    if (entities != null) {
+      $result.entities.addAll(entities);
+    }
+    return $result;
+  }
+  GetHardCodedEntitiesResponse._() : super();
+  factory GetHardCodedEntitiesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetHardCodedEntitiesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetHardCodedEntitiesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'cashmere'), createEmptyInstance: create)
+    ..p<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'entities', $pb.PbFieldType.PY)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetHardCodedEntitiesResponse clone() => GetHardCodedEntitiesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetHardCodedEntitiesResponse copyWith(void Function(GetHardCodedEntitiesResponse) updates) => super.copyWith((message) => updates(message as GetHardCodedEntitiesResponse)) as GetHardCodedEntitiesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetHardCodedEntitiesResponse create() => GetHardCodedEntitiesResponse._();
+  GetHardCodedEntitiesResponse createEmptyInstance() => create();
+  static $pb.PbList<GetHardCodedEntitiesResponse> createRepeated() => $pb.PbList<GetHardCodedEntitiesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetHardCodedEntitiesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetHardCodedEntitiesResponse>(create);
+  static GetHardCodedEntitiesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.List<$core.int>> get entities => $_getList(0);
+}
+
 /// 标记实体已移除
 class MarkEntityRemovedRequest extends $pb.GeneratedMessage {
   factory MarkEntityRemovedRequest({

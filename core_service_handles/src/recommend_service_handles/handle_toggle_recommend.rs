@@ -7,17 +7,16 @@ use dependencies_sync::{
 };
 use majordomo::{self, get_majordomo};
 use manage_define::{
+    cashmere::*,
+    field_ids::*,
     general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID},
     language_keys::CHINESE,
     manage_ids::*,
-    field_ids::*,
-    cashmere::*,
 };
 use managers::{utils::make_new_entity_document, ManagerTrait};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_entity_id, validate_name};
-
 
 #[async_trait]
 pub trait HandleToggleRecommend {
@@ -75,8 +74,10 @@ async fn handle_toggle_recommend(
     let mut query_doc = doc! {
         RECOMMENDS_MANAGE_ID_FIELD_ID.to_string(): target_manage_id.clone(),
         RECOMMENDS_ENTITY_ID_FIELD_ID.to_string(): entity_id.clone(),
+        RECOMMENDS_ACCOUNT_FIELD_ID.to_string(): account_id.clone(),
     };
 
+    // 不存在则新建记录
     if manager.entity_exists(&query_doc).await.is_none() {
         // 新建实体
         let mut new_entity_doc =
@@ -92,54 +93,25 @@ async fn handle_toggle_recommend(
             target_manage_id.clone(),
         );
         new_entity_doc.insert(RECOMMENDS_ENTITY_ID_FIELD_ID.to_string(), entity_id.clone());
+        new_entity_doc.insert(RECOMMENDS_ACCOUNT_FIELD_ID.to_string(), account_id.clone());
 
         if let Err(err) = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await
         {
             return Err(Status::internal(err.details()));
-        };
-    };
-
-    let map_field = format!("{}.{}", RECOMMENDS_RECOMMENDS_MAP_FIELD_ID, account_id);
-
-    let result = if let Ok(entity) = manager.query_entity_map_field(&query_doc, &map_field).await {
-        let modify_doc = doc! {
-            map_field.clone():{"$set": true},
-        };
-        // 存在则删除字段
-        if let Err(r) = manager
-            .delete_entity_map_field_key(query_doc, modify_doc, &account_id)
-            .await
-        {
-            Err(r)
         } else {
-            // 没有推荐
-            Ok(false)
-        }
+            return Ok(Response::new(ToggleRecommendResponse { result: true }));
+        };
     } else {
-        // 不存在则添加字段
-        let modify_doc = doc! {
-            map_field:{"$set": true},
+        // 存在则删除记录
+        match manager.delete_entity(&query_doc, &account_id).await {
+            Ok(_) => {
+                return Ok(Response::new(ToggleRecommendResponse { result: false }));
+            }
+            Err(err) => {
+                return Err(Status::internal(err.details()));
+            }
         };
-
-        if let Err(err) = manager
-            .update_entity_map_field(query_doc, modify_doc, &account_id)
-            .await
-        {
-            Err(err)
-        } else {
-            // 推荐
-            Ok(true)
-        }
     };
-
-    match result {
-        Ok(_r) => Ok(Response::new(ToggleRecommendResponse { result: _r })),
-        Err(e) => Err(Status::aborted(format!(
-            "{} {}",
-            e.operation(),
-            e.details()
-        ))),
-    }
 }

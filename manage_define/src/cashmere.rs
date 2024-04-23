@@ -1723,8 +1723,6 @@ pub struct ToggleRecommendResponse {
 pub struct GetTopRecommendsRequest {
     #[prost(string, tag = "1")]
     pub manage_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub entity_id: ::prost::alloc::string::String,
     /// 数量，最多1000个
     #[prost(int32, tag = "3")]
     pub count: i32,
@@ -1732,14 +1730,14 @@ pub struct GetTopRecommendsRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTopRecommendsResponse {
-    /// 只返回实体的id
-    #[prost(string, repeated, tag = "1")]
-    pub recommend_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// {id: count}表
+    #[prost(bytes = "vec", repeated, tag = "1")]
+    pub recommends: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// / 取得推荐帐号表
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRecommendAccountListRequest {
+pub struct GetRecommendAccountsRequest {
     #[prost(string, tag = "1")]
     pub manage_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -1747,20 +1745,20 @@ pub struct GetRecommendAccountListRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRecommendAccountListResponse {
+pub struct GetRecommendAccountsResponse {
     #[prost(string, repeated, tag = "1")]
     pub accounts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// / 取得帐号推荐了的实体列表, 只对当前帐号有效
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRecommendedEntitiesRequest {
+pub struct GetAccountRecommendedEntitiesRequest {
     #[prost(string, tag = "1")]
     pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRecommendedEntitiesResponse {
+pub struct GetAccountRecommendedEntitiesResponse {
     #[prost(string, repeated, tag = "1")]
     pub entities: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }

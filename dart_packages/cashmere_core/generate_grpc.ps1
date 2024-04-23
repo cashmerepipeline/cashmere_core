@@ -25,4 +25,5 @@ protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/member.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/calendar.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/calendar_book.proto
 protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/person.proto
+protoc -I../../protocols  --dart_out=lib/protocols  ../../protocols/recommend.proto
 

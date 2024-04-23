@@ -9,6 +9,7 @@ hard_coded = true
 
 # 描写，模式
 schema = [
+  { data_type = "Boolean", name_map = { zh = "硬编码的", en = "hard_coded" }, removed = false },
   { data_type = "Document", name_map = { zh = "描写", en = "schema" }, removed = false },
 ]
 

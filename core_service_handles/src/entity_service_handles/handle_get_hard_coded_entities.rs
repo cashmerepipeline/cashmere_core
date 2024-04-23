@@ -18,7 +18,7 @@ use validates::{validate_manage_hard_coded, validate_manage_id};
 #[async_trait]
 pub trait HandleGetHardCodedEntities {
     /// 取得管理记录数量
-    async fn handle_get_country_codes(
+    async fn handle_get_hard_coded_entities(
         &self,
         request: Request<GetHardCodedEntitiesRequest>,
     ) -> UnaryResponseResult<GetHardCodedEntitiesResponse> {
@@ -47,7 +47,7 @@ async fn validate_request_params(
 }
 
 async fn handle_get_country_codes(
-    _request: Request<GetHardCodedEntitiesRequest>,
+    request: Request<GetHardCodedEntitiesRequest>,
 ) -> Result<Response<GetHardCodedEntitiesResponse>, Status> {
     let manage_id = &request.get_ref().manage_id;
 

@@ -13,6 +13,7 @@ use database;
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
+use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
@@ -91,18 +92,19 @@ pub trait ManagerTrait: Any + Send + Sync {
             .collect::<Vec<i32>>();
         schema.contains(&field_id)
     }
-    
+
     /// zh: 管理是否硬编码
-    async fn is_hard_coded(&self) -> bool{
+    async fn is_hard_coded(&self) -> bool {
         let manage_arc = self.get_manage().await;
         let manage_rlock = manage_arc.read();
+
+        debug!("{:?}", manage_rlock.hard_coded);
         return manage_rlock.hard_coded;
     }
 
     // ---------------------------
     //  数据验证
     // ---------------------------
-    
 
     async fn validate_data_fields(
         &self,
@@ -466,7 +468,14 @@ pub trait ManagerTrait: Any + Send + Sync {
         no_present_fields: &[String],
     ) -> Result<Document, OperationResult> {
         let manage_id = self.get_id();
-        get_entity_by_id(manage_id, entity_id, self.has_cache(), present_fields, no_present_fields).await
+        get_entity_by_id(
+            manage_id,
+            entity_id,
+            self.has_cache(),
+            present_fields,
+            no_present_fields,
+        )
+        .await
     }
 
     /// 通过过滤取得实体
@@ -591,6 +600,18 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn entity_exists(&self, query_doc: &Document) -> Option<String> {
         let manage_id = self.get_id();
         entity::entity_exists(manage_id, query_doc).await
+    }
+
+    async fn delete_entity(
+        &self,
+        query_doc: &Document,
+        account_id: &str,
+    ) -> Result<OperationResult, OperationResult> {
+        let manage_id = self.get_id();
+        match entity::delete_entity(manage_id, query_doc).await {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(e, "delete_entity".to_string())),
+        }
     }
 
     //-------------------------

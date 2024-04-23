@@ -3,6 +3,7 @@ use crate::Manage;
 use crate::SchemaField;
 use cash_result::OperationResult;
 use dependencies_sync::bson::{self, Document};
+use manage_define::field_ids::MANAGES_HARD_CODED_FIELD_ID;
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
 use manage_define::general_field_ids::{
     CREATE_TIMESTAMP_FIELD_ID, CREATOR_FIELD_ID, DESCRIPTION_FIELD_ID, GROUPS_FIELD_ID,
@@ -53,7 +54,7 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
             schema.push(field);
         });
 
-    let hard_coded = manage_doc.get_bool("hard_coded").unwrap_or(false);
+    let hard_coded = manage_doc.get_bool(MANAGES_HARD_CODED_FIELD_ID.to_string()).unwrap_or(false);
 
     let description = manage_doc
         .get_str(&DESCRIPTION_FIELD_ID.to_string())

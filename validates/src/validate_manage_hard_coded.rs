@@ -21,6 +21,6 @@ pub async fn validate_manage_hard_coded(manage_id: &str) -> Result<(), Status> {
       Ok(())
     }
     else{
-      Err(Status::permission_denied(t!("管理不是硬编码的")))
+      Err(Status::invalid_argument(t!("管理不是硬编码的")))
     }
 }

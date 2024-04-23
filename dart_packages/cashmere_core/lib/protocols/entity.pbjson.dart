@@ -468,6 +468,32 @@ final $typed_data.Uint8List interactiveGetEntitiesResponseDescriptor = $convert.
     'FnZUluZGV4EhoKCGVudGl0aWVzGAIgAygMUghlbnRpdGllcxIfCgt0b3RhbF9jb3VudBgDIAEo'
     'BFIKdG90YWxDb3VudA==');
 
+@$core.Deprecated('Use getHardCodedEntitiesRequestDescriptor instead')
+const GetHardCodedEntitiesRequest$json = {
+  '1': 'GetHardCodedEntitiesRequest',
+  '2': [
+    {'1': 'manage_id', '3': 1, '4': 1, '5': 9, '10': 'manageId'},
+  ],
+};
+
+/// Descriptor for `GetHardCodedEntitiesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getHardCodedEntitiesRequestDescriptor = $convert.base64Decode(
+    'ChtHZXRIYXJkQ29kZWRFbnRpdGllc1JlcXVlc3QSGwoJbWFuYWdlX2lkGAEgASgJUghtYW5hZ2'
+    'VJZA==');
+
+@$core.Deprecated('Use getHardCodedEntitiesResponseDescriptor instead')
+const GetHardCodedEntitiesResponse$json = {
+  '1': 'GetHardCodedEntitiesResponse',
+  '2': [
+    {'1': 'entities', '3': 1, '4': 3, '5': 12, '10': 'entities'},
+  ],
+};
+
+/// Descriptor for `GetHardCodedEntitiesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getHardCodedEntitiesResponseDescriptor = $convert.base64Decode(
+    'ChxHZXRIYXJkQ29kZWRFbnRpdGllc1Jlc3BvbnNlEhoKCGVudGl0aWVzGAEgAygMUghlbnRpdG'
+    'llcw==');
+
 @$core.Deprecated('Use markEntityRemovedRequestDescriptor instead')
 const MarkEntityRemovedRequest$json = {
   '1': 'MarkEntityRemovedRequest',

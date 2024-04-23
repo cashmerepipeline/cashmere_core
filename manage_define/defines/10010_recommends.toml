@@ -1,5 +1,5 @@
 #
-# 推荐， 记录管理下实体的推荐，每人对某个实体只有推荐或者没推荐2个状态
+# 推荐， 记录管理下实体的推荐，每个推荐建立一条记录
 #
 
 id = "推荐"
@@ -11,10 +11,8 @@ schema = [
   { data_type = "String", name_map = { zh = "管理", en = "manage_id" }, removed = false },
   # 所推实体
   { data_type = "String", name_map = { zh = "实体", en = "entity_id" }, removed = false },
-  # 存储推荐帐号和是否已推荐, {account: true}, 只记录推荐状态
-  { data_type = "Document", name_map = { zh = "推荐表", en = "recommends_map" }, removed = false },
-  # 推荐数
-  { data_type = "Int64", name_map = { zh = "推荐数", en = "recommends_count" }, removed = false },
+  # 推荐人
+  { data_type = "Document", name_map = { zh = "推荐表", en = "account" }, removed = false },
 ]
 
 # 事件队列和消息队列表
