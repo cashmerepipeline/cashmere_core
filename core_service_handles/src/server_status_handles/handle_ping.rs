@@ -1,6 +1,7 @@
 use dependencies_sync::bson::doc;
+use dependencies_sync::chrono::Duration;
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::error;
+use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
@@ -54,6 +55,9 @@ async fn validate_request_params(
     Ok(request)
 }
 
+
+/// 心跳
+/// 客户端参数设置需要匹配
 async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResult<PingResponse> {
     let (account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
@@ -61,37 +65,65 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
 
     tokio::spawn(async move {
+        // 前次时间
+        let max_interval = std::time::Duration::from_secs(32);
+        // 每轮次数
+        let count_per_round = 32u8;
+
+        let mut pre_ping_time: u64 = 0;
+        // 当前次数
+        let mut count: u8 = 0;
+        // 总时间/轮
+        let mut total_time_per_round: u64 = 0;
+        let mut round_start_time = std::time::SystemTime::now();
+
         while let Some(result) = in_stream.next().await {
             match result {
                 Ok(ping) => {
                     let index = &ping.index;
                     let device_id = &ping.device_id;
                     let time = &ping.time;
-
-                    let now = std::time::SystemTime::now()
-                        .duration_since(std::time::UNIX_EPOCH)
-                        .unwrap()
-                        .as_millis() as u64;
+                    
+                    // 开始计时
                     if index != &0u64 {
-                        let eclapse_time = now - time;
-                        //TODO: 根据网速进行动态加载平衡分组
-                        println!(
-                            "id: {}, account_id: {}, index: {}, eclapse:{}",
-                            device_id, account_id, index, eclapse_time
-                        );
+                        let eclapse_time = time - pre_ping_time;
+
+                        total_time_per_round += eclapse_time;
+                        count += 1;
+
+                        if count == count_per_round {
+                            let average_time = total_time_per_round / count as u64;
+
+                            // 30秒内不再回应
+                            if round_start_time.elapsed().unwrap() > max_interval{
+                                // TODO: 可能是异常访问判断，断开连接
+                                round_start_time = std::time::SystemTime::now();
+                                continue;
+                            }
+
+                            debug!(
+                                "device_id: {}, account_id: {}, index: {}, avg_interval:{}",
+                                device_id, account_id, index, average_time
+                            );
+
+                            // 重置
+                            count = 0;
+                            total_time_per_round = 0;
+                        }
                     }
 
-                    // 5秒一次
-                    tokio::time::sleep(std::time::Duration::from_millis(1000)).await;
                     let now = std::time::SystemTime::now()
                         .duration_since(std::time::UNIX_EPOCH)
                         .unwrap()
                         .as_millis() as u64;
 
                     let resp = Ok(PingResponse {
-                        index: *index + 1,
+                        // 返回相同的index
+                        index: *index,
                         time: now,
                     });
+
+                    pre_ping_time = *time;
 
                     // 发送
                     if let Err(e) = resp_tx.send(resp).await {
