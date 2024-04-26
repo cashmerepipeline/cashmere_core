@@ -102,7 +102,7 @@ async fn handle_check_updates_later_then_time(
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = &request.get_ref().manage_id;
+    let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
     let ascending_order = &request.get_ref().ascending_order;
     let filter = &request.get_ref().filter;
@@ -110,7 +110,7 @@ async fn handle_check_updates_later_then_time(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let collection_view_rules = query_collection_view_rules(manage_id, &role_group)
+    let collection_view_rules = query_collection_view_rules(manage_id.as_str(), &role_group)
         .await
         .unwrap();
 
@@ -130,7 +130,6 @@ async fn handle_check_updates_later_then_time(
 
     let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
     let timestamp = timestamp_doc.get_timestamp("value").unwrap();
-
 
     let mut query_doc = doc! {
     MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
@@ -182,11 +181,20 @@ async fn handle_check_updates_later_then_time(
     tokio::spawn(async move {
         // 最多获取1000个
         let mut limit_count = 0;
-        let mut ids = vec![];
+        let mut infos = vec![];
+
         while let Some(result) = query_cursor.next().await {
             // TODO: 可读过滤
             let mut r = doc! {};
-            debug!("{}-{}", t!("数据库查询更新"), result);
+
+            // 从缓存取得的数据会返回所有数据，需要过滤
+            if manager.has_cache(){
+                let e_timestamp = result.get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string()).unwrap();
+                if timestamp >= e_timestamp{
+                    debug!("{}: {}-{}", t!("不需要拉取"), manage_id, result.get_str(ID_FIELD_ID.to_string()).unwrap());
+                    continue;
+                }
+            }
 
             r.insert("_id", result.get_object_id("_id").unwrap());
             r.insert(
@@ -200,15 +208,15 @@ async fn handle_check_updates_later_then_time(
                     .unwrap(),
             );
 
-            ids.push(bson::to_vec(&r).unwrap());
+            infos.push(bson::to_vec(&r).unwrap());
 
             // 满20，发送到返回流
-            if ids.len() >= 20 {
+            if infos.len() >= 20 {
                 let resp = CheckUpdatesLaterThenTimeResponse {
-                    results: ids.clone(),
+                    results: infos.clone(),
                 };
                 resp_tx.send(Ok(resp)).await.unwrap();
-                ids.clear();
+                infos.clear();
             }
 
             // 最多1000条
@@ -219,8 +227,8 @@ async fn handle_check_updates_later_then_time(
             limit_count += 1;
         }
         // 发送最后一批
-        if !ids.is_empty() {
-            let resp = CheckUpdatesLaterThenTimeResponse { results: ids };
+        if !infos.is_empty() {
+            let resp = CheckUpdatesLaterThenTimeResponse { results: infos };
             resp_tx.send(Ok(resp)).await.unwrap();
         }
     });

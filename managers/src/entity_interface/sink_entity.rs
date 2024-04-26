@@ -1,5 +1,7 @@
-use cash_result::{add_call_name_to_chain, OperationResult};
 use dependencies_sync::bson::Document;
+use dependencies_sync::rust_i18n::{self, t};
+
+use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
 use manage_define::general_field_ids::ID_FIELD_ID;
 
 use crate::entity_cache_map::cache_update_entity;
@@ -19,9 +21,9 @@ pub async fn sink_entity(
     // zh: 先更新缓存
     // zh: 如果有缓存则更新缓存
     let old_doc = if has_cache {
-        cache_update_entity(manage_id, entity_id.as_str(), new_entity_doc.clone())
+        cache_update_entity(manage_id, entity_id.as_str(), new_entity_doc.clone()).await
     } else {
-        None
+        return Err(operation_failed("sink_entity", t!("更新缓存失败")));
     };
 
     // zh: 再添加到数据库
@@ -35,6 +37,7 @@ pub async fn sink_entity(
     {
         Ok(r) => Ok(r),
         Err(e) => {
+            // zh: 更新数据库失败则恢复缓存
             if has_cache && old_doc.is_some() {
                 cache_update_entity(manage_id, entity_id.as_str(), old_doc.unwrap());
             }

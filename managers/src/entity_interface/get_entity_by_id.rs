@@ -16,7 +16,7 @@ pub async fn get_entity_by_id(
 ) -> Result<Document, OperationResult> {
     // 如果存在缓存，从缓存中取得
     if has_cache {
-        let result = cache_get_entity(manage_id, entity_id, present_fields, no_present_fields);
+        let result = cache_get_entity(manage_id, entity_id, present_fields, no_present_fields).await;
         return match result {
             Some(r) => Ok(r),
             None => Err(operation_failed("get_entity_by_id", t!("取得实体缓存失败"))),

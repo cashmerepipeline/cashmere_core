@@ -11,7 +11,7 @@ use crate::entity_cache_map::get_manage_entity_cache;
 
 pub async fn cache_get_entity_stream(manage_id: &'static str) -> ReceiverStream<Document> {
     let entities = {
-        let c_map = get_manage_entity_cache(manage_id);
+        let c_map = get_manage_entity_cache(manage_id).await;
         let e_map = c_map.read();
         e_map
             .values().cloned()

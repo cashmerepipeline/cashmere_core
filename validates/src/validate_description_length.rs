@@ -1,12 +1,6 @@
-
 use dependencies_sync::rust_i18n::{self, t};
 
-
-
 use dependencies_sync::tonic::Status;
-
-
-
 
 /// zh: 验证描述字符串长度
 pub fn validate_description_length(description: &str) -> Result<(), Status> {
