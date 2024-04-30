@@ -1021,8 +1021,11 @@ pub struct NewGroupRequest {
     pub name: ::core::option::Option<Name>,
     #[prost(string, tag = "2")]
     pub new_group_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "3")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1180,8 +1183,11 @@ pub struct NewColorRequest {
     /// \[r,g,b\]
     #[prost(uint32, repeated, tag = "2")]
     pub color: ::prost::alloc::vec::Vec<u32>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "3")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1304,8 +1310,11 @@ pub struct NewCalendarRequest {
     pub book_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub calendar: ::core::option::Option<Calendar>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "3")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1448,8 +1457,11 @@ pub struct AddMemberRequest {
     pub self_manage_id: i32,
     #[prost(string, tag = "5")]
     pub self_entity_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "6")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "6")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1466,8 +1478,11 @@ pub struct NewCategoryRequest {
     pub code: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "3")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1532,8 +1547,11 @@ pub struct NewTagRequest {
     pub target_manage_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "3")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1599,8 +1617,11 @@ pub struct NewCalendarBookRequest {
     pub entity_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
     pub name: ::core::option::Option<Name>,
-    #[prost(string, tag = "4")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "4")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     #[prost(string, tag = "5")]
     pub mark: ::prost::alloc::string::String,
 }
@@ -1651,8 +1672,11 @@ pub struct NewPersonRequest {
     pub birthday: u64,
     #[prost(bytes = "vec", tag = "4")]
     pub portrait: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag = "5")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(map = "string, string", tag = "5")]
+    pub description: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     #[prost(string, tag = "6")]
     pub address: ::prost::alloc::string::String,
 }

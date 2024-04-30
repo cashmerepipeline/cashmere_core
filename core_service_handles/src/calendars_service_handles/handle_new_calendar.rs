@@ -84,7 +84,7 @@ async fn handle_new_calendar(
             book_id.to_owned(),
         );
         new_entity_doc.insert(CALENDARS_CALENDAR_FIELD_ID.to_string(), bson::to_document(calendar).unwrap());
-        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.to_owned());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

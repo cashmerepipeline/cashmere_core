@@ -4,7 +4,7 @@
 
 id = "人"
 name_map = { zh = "人", en = "persons" }
-description = "人相关信息"
+description = { zh = "人相关信息" }
 
 
 # 描写，模式

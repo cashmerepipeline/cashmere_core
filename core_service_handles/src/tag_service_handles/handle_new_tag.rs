@@ -1,4 +1,4 @@
-use dependencies_sync::bson::doc;
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::rust_i18n::{self, t};
@@ -96,7 +96,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
     if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(TAGS_TARGET_MANAGES_FIELD_ID.to_string(), target_manage_id);
-        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

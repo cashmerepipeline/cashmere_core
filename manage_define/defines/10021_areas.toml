@@ -5,7 +5,7 @@
 
 id = "地区"
 name_map = { zh = "地区", en = "areas" }
-description = "地区管理"
+description = { zh = "地区管理" }
 hard_coded = true
 
 

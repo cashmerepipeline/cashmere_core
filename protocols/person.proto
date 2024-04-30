@@ -13,7 +13,7 @@ message NewPersonRequest{
   Gender gender = 2;
   uint64 birthday = 3;
   bytes portrait = 4;
-  string description = 5;
+  map<string, string> description = 5;
   string address = 6;
 }
 message NewPersonResponse{

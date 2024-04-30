@@ -17,7 +17,7 @@ message NewColorRequest{
     Name name = 1;
     // [r,g,b]
     repeated uint32 color = 2;
-    string description = 3;
+    map<string, string> description = 3;
 }
 message NewColorResponse{
     string result = 1;

@@ -55,10 +55,11 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         });
 
     let hard_coded = manage_doc.get_bool(MANAGES_HARD_CODED_FIELD_ID.to_string()).unwrap_or(false);
-
+    
+    let empty_doc = Document::new();
     let description = manage_doc
-        .get_str(&DESCRIPTION_FIELD_ID.to_string())
-        .unwrap_or("");
+        .get_document(&DESCRIPTION_FIELD_ID.to_string())
+        .unwrap_or(&empty_doc);
 
     Ok(Manage {
         object_id: object_id.to_string(),
@@ -72,6 +73,6 @@ pub fn manage_from_document(manage_doc: Document) -> Result<Manage, OperationRes
         groups,
         schema,
         hard_coded,
-        description: description.to_string(),
+        description: bson::from_document(description.clone()).unwrap(),
     })
 }

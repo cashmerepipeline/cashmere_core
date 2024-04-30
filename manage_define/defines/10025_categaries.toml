@@ -5,7 +5,7 @@
 
 id = "品类"
 name_map = { zh = "品类", en = "categories" }
-description = "对实体进行归类，添加到实体的categories表中"
+description = { zh = "对实体进行归类，添加到实体的categories表中" }
 
 
 # 数据描写 或者 模式

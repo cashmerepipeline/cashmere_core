@@ -1,3 +1,4 @@
+use dependencies_sync::indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 
 use dependencies_sync::bson::Timestamp;
@@ -36,5 +37,5 @@ pub struct Manage {
     pub hard_coded: bool,
 
     // zh: 注释
-    pub description: String,
+    pub description: IndexMap<String, String>,
 }

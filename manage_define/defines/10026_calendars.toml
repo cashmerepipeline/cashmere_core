@@ -5,7 +5,7 @@
 
 id = "日历"
 name_map = { zh = "日历", en = "calendars" }
-description = "日历必须依附于某个帐本"
+description = { zh = "日历必须依附于某个帐本" }
 
 
 # 数据描写 或者 模式

@@ -7,7 +7,7 @@ id = "成员"
 # id = "members"
 
 name_map = { zh = "成员", en = "members" }
-description = "成员, 表达成员关系"
+description = { zh = "成员, 表达成员关系" }
 
 # 数据描写 或者 模式
 schema = [

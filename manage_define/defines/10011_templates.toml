@@ -4,7 +4,7 @@
 
 id = "模板"
 name_map = { zh = "模板", en = "templates" }
-description = "实体模板，用于创建实体时"
+description = { zh = "实体模板，用于创建实体时"}
 
 # 描写，模式
 schema = [

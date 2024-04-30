@@ -4,7 +4,7 @@
 
 id = "映像规则"
 name_map = { zh = "映像规则", en = "view_rules" }
-description = "映像规则，定义各层级的操作可见性"
+description = { zh = "映像规则，定义各层级的操作可见性" }
 
 # 描写，模式
 schema = [

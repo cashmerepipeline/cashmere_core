@@ -5,7 +5,7 @@
 
 id = "日历帐本"
 name_map = { zh = "日历帐本", en = "calendar_books" }
-description = "用于记录某个实体的日历信息"
+description = { zh = "用于记录某个实体的日历信息" }
 
 
 # 数据描写 或者 模式

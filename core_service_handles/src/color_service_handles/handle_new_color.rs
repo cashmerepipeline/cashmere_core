@@ -1,4 +1,4 @@
-use dependencies_sync::bson::doc;
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
@@ -86,7 +86,7 @@ async fn handle_new_country(
 
     if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(COLORS_VALUE_FIELD_ID.to_string(), color.clone());
-        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description);
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)

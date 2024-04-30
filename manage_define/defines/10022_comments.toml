@@ -4,7 +4,7 @@
 
 id = "评论"
 name_map = { zh = "评论", en = "comments" }
-description = "评论，必须属于某个实体"
+description = { zh = "评论，必须属于某个实体" }
 
 
 # 数据描写 或者 模式

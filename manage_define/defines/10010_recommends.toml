@@ -4,6 +4,7 @@
 
 id = "推荐"
 name_map = { zh = "推荐", en = "recommends" }
+description = { zh = "推荐", en = "recommends" }
 
 # 数据描写 或者 模式
 schema = [
