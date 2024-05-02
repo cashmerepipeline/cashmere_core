@@ -12,7 +12,7 @@ pub async fn init_ids_count_field(manage_id: &str) -> Result<OperationResult, Op
     let f_result = ids_collection
         .find_one(
             doc! {
-                "_id": manage_id.clone()
+                "_id": manage_id
             },
             None,
         )
@@ -23,7 +23,7 @@ pub async fn init_ids_count_field(manage_id: &str) -> Result<OperationResult, Op
             match ids_collection
                 .insert_one(
                     doc! {
-                        "_id": manage_id.clone(),
+                        "_id": manage_id,
                         "id_count": 0i64
                     },
                     None,

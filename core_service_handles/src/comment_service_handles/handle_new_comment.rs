@@ -1,5 +1,4 @@
 use dependencies_sync::{
-    bson::Document,
     futures::TryFutureExt,
     tonic::async_trait,
     tonic::{Request, Response, Status},
@@ -8,7 +7,7 @@ use dependencies_sync::rust_i18n::{self, t};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
 use manage_define::manage_ids::*;
 use managers::{manager_trait::ManagerTrait, utils::make_new_entity_document};
 
@@ -59,7 +58,7 @@ async fn handle_new_comment(
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(COMMENTS_MANAGE_ID).unwrap();
-    let new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await{
+    let _new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await{
         r
     }else{
         return Err(Status::aborted(format!("{}: {}", t!("获取新ID失败"), "new_comment")));

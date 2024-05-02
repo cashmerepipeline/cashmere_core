@@ -1,5 +1,5 @@
 use dependencies_sync::{
-    bson::{self, doc},
+    bson::{doc},
     futures::TryFutureExt,
     rust_i18n::{self, t},
     tokio_stream::StreamExt,
@@ -10,14 +10,12 @@ use majordomo::{self, get_majordomo};
 use manage_define::{
     cashmere::*,
     field_ids::*,
-    general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID},
-    language_keys::CHINESE,
     manage_ids::*,
 };
-use managers::{utils::make_new_entity_document, ManagerTrait};
+use managers::{ManagerTrait};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id, validate_name};
+use validates::{validate_entity_id};
 
 #[async_trait]
 pub trait HandleGetRecommendAccounts {
@@ -53,7 +51,7 @@ async fn validate_request_params(
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
 
-    validate_entity_id(&manage_id, entity_id).await?;
+    validate_entity_id(manage_id, entity_id).await?;
 
     Ok(request)
 }
@@ -61,7 +59,7 @@ async fn validate_request_params(
 async fn handle_get_recommend_accounts(
     request: Request<GetRecommendAccountsRequest>,
 ) -> UnaryResponseResult<GetRecommendAccountsResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
     let manage_id = RECOMMENDS_MANAGE_ID;
 
@@ -69,7 +67,7 @@ async fn handle_get_recommend_accounts(
     let entity_id = &request.get_ref().entity_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(&manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
     // 确保实体存在
     let query_doc = doc! {

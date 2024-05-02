@@ -73,10 +73,8 @@ async fn handle_new_calendar_book(
         .unwrap();
 
     let name = name.to_owned().unwrap();
-    let name_doc = doc! {name.language.clone():name.name.clone()};
 
     // zh: 重标记检查
-    let name_key = format!("{}.{}", NAME_MAP_FIELD_ID.to_string(), name.language.clone());
     let query_doc = doc! {
         CALENDAR_BOOKS_MARK_FIELD_ID.to_string(): mark.to_owned(),
         CALENDAR_BOOKS_MANAGE_ID_FIELD_ID.to_string(): param_manage_id.to_owned(),

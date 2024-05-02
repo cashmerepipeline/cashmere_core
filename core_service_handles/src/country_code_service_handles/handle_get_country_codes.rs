@@ -52,7 +52,7 @@ async fn handle_get_country_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_entity_stream(query_doc, &vec![], None, None, 0).await;
+    let result = manager.get_entity_stream(query_doc, &[], None, None, 0).await;
 
     match result {
         Ok(mut entities_iter) => {

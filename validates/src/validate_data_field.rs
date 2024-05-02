@@ -36,11 +36,11 @@ pub async fn validate_data_field(manage_id: &str, data: &Vec<u8>) -> Result<(), 
     if schema.iter().map(|x| x.id).any(|x| x == ks[0]) {
         Ok(())
     } else {
-        return Err(Status::invalid_argument(format!(
+        Err(Status::invalid_argument(format!(
             "{}: {}, {}",
             t!("无效数据, 描写中不存在"),
             manage_id,
             ks[0]
-        )));
+        )))
     }
 }

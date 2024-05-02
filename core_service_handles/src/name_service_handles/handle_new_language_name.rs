@@ -82,7 +82,7 @@ async fn handle_new_language_name(
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     // 检查语言是否已经存在
-    let entity = manager.get_entity_by_id(entity_id, &vec![], &vec![]).await.unwrap();
+    let entity = manager.get_entity_by_id(entity_id, &[], &[]).await.unwrap();
     let lang_name_exists = entity
         .get_document(NAME_MAP_FIELD_ID.to_string())
         .unwrap()

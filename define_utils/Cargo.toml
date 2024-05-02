@@ -21,5 +21,6 @@ dependencies_sync = { path = "../dependencies_sync", features = [
   "linked-hash-map",
   "glob",
   "rust-i18n",
+  "indexmap"
 ] }
 

@@ -5,15 +5,15 @@ use dependencies_sync::bson::{self, Document};
 use dependencies_sync::glob;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 
-use dependencies_sync::log::debug;
-use dependencies_sync::tokio::fs::{create_dir, create_dir_all};
-use manage_define::general_field_names::{
+
+
+use manage_define::hard_coded_field_names::{
     DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME,
 };
 use manage_define::language_keys::ENGLISH;
 
 use crate::{
-    generate_dart_schema_code, get_dart_data_type, get_id, get_name_map, get_schema, get_toml_map,
+    generate_dart_schema_code, get_id, get_name_map, get_schema, get_toml_map,
 };
 
 /// 输入定义文件表，输出id的常量定义
@@ -129,7 +129,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                 ))
                 .expect("写入属性编码rust文件错误");
 
-            if let Some(out_dir) = dart_dir {
+            if let Some(_out_dir) = dart_dir {
                 manage_field_ids_file_dart
                     .write_fmt(format_args!(
                         "const int {}_{}_FIELD_ID = {};\n",
@@ -143,7 +143,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
     }
 
     if let Some(out_dir) = dart_dir {
-        println!("{}", "create dart schemas");
+        println!("create dart schemas");
         for (name, fields) in manage_field_ids_map.iter() {
             println!("create schema: {}", name);
             
@@ -160,7 +160,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
 
             let mut schema_dart_file =
                 std::fs::File::create(out_file).expect("打开属性编号dart文件失败");
-            let content = generate_dart_schema_code(&name, fields, dart_package_name.unwrap());
+            let content = generate_dart_schema_code(name, fields, dart_package_name.unwrap());
             schema_dart_file.write_fmt(format_args!("{}", content));
         }
     }

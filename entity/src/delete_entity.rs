@@ -17,7 +17,7 @@ pub async fn delete_entity(
     let result = collection.delete_one(match_doc.clone(), None).await;
 
     match result {
-        Ok(r) => Ok(operation_succeed("ok")),
+        Ok(_r) => Ok(operation_succeed("ok")),
         Err(_e) => Err(operation_failed("delete_entity", t!("删除失败"))),
     }
 }

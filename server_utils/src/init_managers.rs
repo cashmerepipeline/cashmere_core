@@ -29,10 +29,8 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
             );
         }
 
-        if m.has_cache() {
-            if m.init_cache().await.is_err() {
-                panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
-            };
+        if m.has_cache() && m.init_cache().await.is_err() {
+            panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
         }
 
         manages_map.insert(manager_id, m.clone());

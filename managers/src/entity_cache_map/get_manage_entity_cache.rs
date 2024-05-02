@@ -24,7 +24,7 @@ pub async fn get_manage_entity_cache(
     // 不存在则初始化缓存
     let new_map = Arc::new(RwLock::new(BTreeMap::new()));
     {
-        let mut cursor = entity::get_query_cursor(&manage_id, doc! {}, &[], None, None, 0).await;
+        let cursor = entity::get_query_cursor(manage_id, doc! {}, &[], None, None, 0).await;
 
         if let Ok(mut r) = cursor {
             while let Some(d) = r.next().await {

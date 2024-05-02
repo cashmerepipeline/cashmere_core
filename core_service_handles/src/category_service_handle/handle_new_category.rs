@@ -109,8 +109,6 @@ async fn handle_new_category(
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
 
-        let new_id = new_entity_doc.get_str(ID_FIELD_ID.to_string()).unwrap();
-
         match result {
             Ok(_r) => Ok(Response::new(NewCategoryResponse {
                 result: _r,

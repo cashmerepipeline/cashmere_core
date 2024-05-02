@@ -1,9 +1,10 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::indexmap::IndexMap;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
-use dependencies_sync::linked_hash_map::LinkedHashMap;
+
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
@@ -76,7 +77,7 @@ async fn handle_new_schema_field(
 
     let name_map = field.name_map.clone();
     let name_doc = bson::to_document(&name_map).unwrap();
-    let name: LinkedHashMap<String, String> = bson::from_document(name_doc).unwrap();
+    let name: IndexMap<String, String> = bson::from_document(name_doc).unwrap();
 
     let new_field: CoreSchemaField = CoreSchemaField {
         id: field.id,

@@ -1,23 +1,20 @@
 use dependencies_sync::{
     bson::{self, doc},
     futures::TryFutureExt,
-    log::{debug, error},
+    log::{error},
     rust_i18n::{self, t},
     tokio_stream::StreamExt,
     tonic::{async_trait, Request, Response, Status},
 };
-use majordomo::{self, get_majordomo};
+
 use manage_define::{
     cashmere::*,
-    field_ids::*,
-    general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID},
-    language_keys::CHINESE,
     manage_ids::*,
 };
-use managers::{utils::make_new_entity_document, ManagerTrait};
+
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id, validate_manage_id, validate_name};
+use validates::{validate_manage_id};
 
 use super::query_top_recommends;
 
@@ -57,7 +54,7 @@ async fn validate_request_params(
 
     validate_manage_id(manage_id.as_str()).await?;
 
-    if count > &1000 || count < &1 {
+    if !(&1..=&1000).contains(&count) {
         return Err(Status::invalid_argument(format!(
             "{} {} {} {}",
             t!("推荐数量不能超过"),
@@ -73,14 +70,14 @@ async fn validate_request_params(
 async fn handle_get_top_recommends(
     request: Request<GetTopRecommendsRequest>,
 ) -> UnaryResponseResult<GetTopRecommendsResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = RECOMMENDS_MANAGE_ID;
+    let _manage_id = RECOMMENDS_MANAGE_ID;
 
     let target_manage_id = &request.get_ref().manage_id;
     let count = &request.get_ref().count;
 
-    let result = query_top_recommends::query_top_recommends(&target_manage_id, count).await;
+    let result = query_top_recommends::query_top_recommends(target_manage_id, count).await;
 
     match result {
         Ok(r) => {

@@ -3,6 +3,7 @@ i18n!("locales");
 
 pub use get_id::*;
 pub use get_name_map::*;
+pub use get_index_map::*;
 pub use get_hard_coded::*;
 pub use get_schema::*;
 
@@ -18,6 +19,7 @@ pub use generate_dart_schema::*;
 
 mod get_id;
 mod get_name_map;
+mod get_index_map;
 mod get_hard_coded;
 mod get_schema;
 

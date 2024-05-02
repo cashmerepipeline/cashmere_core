@@ -28,7 +28,7 @@ pub async fn query_top_recommends(manage_id: &str, count: &i32) -> Result<Vec<Do
     }
   };
   
-  let mut result = collection.aggregate([match_doc, query_doc, sort_doc], None).await;
+  let result = collection.aggregate([match_doc, query_doc, sort_doc], None).await;
   match result {
     Ok(mut results) => {
       let mut result_list = Vec::new();

@@ -7,7 +7,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::manage_ids::{TAGS_MANAGE_ID, CALENDAR_BOOKS_MANAGE_ID};
+use manage_define::manage_ids::{CALENDAR_BOOKS_MANAGE_ID};
 use managers::manager_trait::ManagerTrait;
 
 use dependencies_sync::tokio_stream::StreamExt;

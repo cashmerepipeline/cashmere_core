@@ -1,5 +1,5 @@
 use dependencies_sync::{
-    bson::{self, doc},
+    bson::{doc},
     futures::TryFutureExt,
     rust_i18n::{self, t},
     tonic::async_trait,
@@ -9,14 +9,14 @@ use majordomo::{self, get_majordomo};
 use manage_define::{
     cashmere::*,
     field_ids::*,
-    general_field_ids::{DESCRIPTION_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID},
+    general_field_ids::{NAME_MAP_FIELD_ID},
     language_keys::CHINESE,
     manage_ids::*,
 };
 use managers::{utils::make_new_entity_document, ManagerTrait};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id, validate_name};
+use validates::{validate_entity_id};
 
 #[async_trait]
 pub trait HandleToggleRecommend {
@@ -52,7 +52,7 @@ async fn validate_request_params(
     let manage_id = &request.get_ref().manage_id;
     let entity_id = &request.get_ref().entity_id;
 
-    validate_entity_id(&manage_id, entity_id).await?;
+    validate_entity_id(manage_id, entity_id).await?;
 
     Ok(request)
 }
@@ -68,10 +68,10 @@ async fn handle_toggle_recommend(
     let entity_id = &request.get_ref().entity_id;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(&manage_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
 
     // 确保实体存在
-    let mut query_doc = doc! {
+    let query_doc = doc! {
         RECOMMENDS_MANAGE_ID_FIELD_ID.to_string(): target_manage_id.clone(),
         RECOMMENDS_ENTITY_ID_FIELD_ID.to_string(): entity_id.clone(),
         RECOMMENDS_ACCOUNT_FIELD_ID.to_string(): account_id.clone(),
@@ -99,19 +99,19 @@ async fn handle_toggle_recommend(
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await
         {
-            return Err(Status::internal(err.details()));
+            Err(Status::internal(err.details()))
         } else {
-            return Ok(Response::new(ToggleRecommendResponse { result: true }));
-        };
+            Ok(Response::new(ToggleRecommendResponse { result: true }))
+        }
     } else {
         // 存在则删除记录
         match manager.delete_entity(&query_doc, &account_id).await {
             Ok(_) => {
-                return Ok(Response::new(ToggleRecommendResponse { result: false }));
+                Ok(Response::new(ToggleRecommendResponse { result: false }))
             }
             Err(err) => {
-                return Err(Status::internal(err.details()));
+                Err(Status::internal(err.details()))
             }
-        };
-    };
+        }
+    }
 }

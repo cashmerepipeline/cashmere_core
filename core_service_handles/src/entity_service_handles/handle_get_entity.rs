@@ -1,6 +1,6 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{self, debug};
+use dependencies_sync::log::{self};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
@@ -12,7 +12,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use validates::{validate_entity_id, validate_manage_id};
+use validates::{validate_manage_id};
 use view::{self, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
@@ -52,7 +52,7 @@ async fn validate_request_params(
     request: Request<GetEntityRequest>,
 ) -> Result<Request<GetEntityRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
-    let entity_id = &request.get_ref().entity_id;
+    let _entity_id = &request.get_ref().entity_id;
 
     validate_manage_id(manage_id).await?;
 

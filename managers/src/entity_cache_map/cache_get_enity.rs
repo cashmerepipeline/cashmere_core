@@ -1,4 +1,4 @@
-use std::ops::{Deref, Not};
+use std::ops::Deref;
 
 use dependencies_sync::{
     bson::Document,

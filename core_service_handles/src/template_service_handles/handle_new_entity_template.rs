@@ -14,7 +14,7 @@ use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 use managers::ManagerTrait;
 use request_utils::request_account_context;
-use validates::{validate_data_field, validate_data_fields, validate_manage_id};
+use validates::{validate_data_field, validate_manage_id};
 
 #[async_trait]
 pub trait HandleNewTemplate {

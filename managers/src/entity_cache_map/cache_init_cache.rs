@@ -1,12 +1,7 @@
-use std::sync::Arc;
-
-use dependencies_sync::bson::doc;
-use dependencies_sync::futures::StreamExt;
 use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};
 
-use cash_result::{operation_failed, operation_succeed, OperationResult};
-use manage_define::general_field_ids::ID_FIELD_ID;
+use cash_result::{operation_succeed, OperationResult};
 
 use crate::entity_cache_map::get_manage_entity_cache;
 
@@ -26,19 +21,19 @@ pub async fn cache_init_cache(manage_id: &'static str) -> Result<OperationResult
     // }
 
     // {
-        let m_cahce_map_arc = get_manage_entity_cache(manage_id).await;
-        let cache_map = m_cahce_map_arc.read();
-        // for entity in entities {
-            // let id = entity.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
-            // cache_map.insert(id, Arc::new(entity));
-        // }
+    let m_cahce_map_arc = get_manage_entity_cache(manage_id).await;
+    let cache_map = m_cahce_map_arc.read();
+    // for entity in entities {
+    // let id = entity.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
+    // cache_map.insert(id, Arc::new(entity));
+    // }
 
-        info!(
-            "{}: {}, {}",
-            t!("初始化缓存完成"),
-            manage_id,
-            cache_map.len()
-        );
+    info!(
+        "{}: {}, {}",
+        t!("初始化缓存完成"),
+        manage_id,
+        cache_map.len()
+    );
     // }
 
     Ok(operation_succeed("ok"))

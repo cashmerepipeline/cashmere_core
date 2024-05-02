@@ -6,14 +6,14 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-use manage_define::manage_ids::COUNTRY_CODES_MANAGE_ID;
+
 use managers::manager_trait::ManagerTrait;
 
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_manage_hard_coded, validate_manage_id};
+use validates::{validate_manage_hard_coded};
 
 #[async_trait]
 pub trait HandleGetHardCodedEntities {
@@ -56,7 +56,7 @@ async fn handle_get_country_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_entity_stream(query_doc, &vec![], None, None, 0).await;
+    let result = manager.get_entity_stream(query_doc, &[], None, None, 0).await;
 
     match result {
         Ok(mut entities_iter) => {

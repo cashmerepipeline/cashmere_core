@@ -15,7 +15,10 @@ pub const DATA_TYPE_FIELD_NAME: &str = "data_type";
 pub const REMOVED_FIELD_NAME: &str = "removed";
 
 /// 硬编码标记
-pub const HARD_CODED: &str = "hard_coded";
+pub const HARD_CODED_FIELD_NAME: &str = "hard_coded";
+
+/// 索引标记
+pub const INDEX_MAP_FIELD_NAME: &str = "index_map";
 
 /// 成员lookup字段
 pub const MEMBER_LOOKUP_FIELD_NAME: &str = "member";

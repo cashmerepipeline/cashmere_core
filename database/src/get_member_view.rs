@@ -7,7 +7,7 @@ use manage_define::field_ids::{
     MEMBERS_SELF_ENTITY_ID_FIELD_ID, MEMBERS_SELF_MANAGE_ID_FIELD_ID,
 };
 use manage_define::general_field_ids::ID_FIELD_ID;
-use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
+use manage_define::hard_coded_field_names::MEMBER_LOOKUP_FIELD_NAME;
 
 /// 取得集合
 pub async fn get_member_view(

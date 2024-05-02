@@ -7,14 +7,14 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::manage_ids::{TAGS_MANAGE_ID, CALENDAR_BOOKS_MANAGE_ID, CALENDARS_MANAGE_ID};
+use manage_define::manage_ids::{CALENDAR_BOOKS_MANAGE_ID, CALENDARS_MANAGE_ID};
 use managers::manager_trait::ManagerTrait;
 
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_manage_id, validate_entity_id};
+use validates::{validate_entity_id};
 
 #[async_trait]
 pub trait HandleListBookCalendars {

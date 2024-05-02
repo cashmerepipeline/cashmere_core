@@ -1,7 +1,7 @@
-use core::time;
+
 
 use dependencies_sync::bson::{self, doc, Document};
-use dependencies_sync::chrono::format::format;
+
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};
@@ -15,8 +15,8 @@ use manage_define::general_field_ids::*;
 use managers::manager_trait::ManagerTrait;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
-use view::view_rules_map::{get_manage_view_rules, query_collection_view_rules};
-use view::ReadRule;
+use view::view_rules_map::{query_collection_view_rules};
+
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -100,7 +100,7 @@ async fn validate_request_params(
 async fn handle_check_updates_later_then_time(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
@@ -110,7 +110,7 @@ async fn handle_check_updates_later_then_time(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let collection_view_rules = query_collection_view_rules(manage_id.as_str(), &role_group)
+    let _collection_view_rules = query_collection_view_rules(manage_id.as_str(), &role_group)
         .await
         .unwrap();
 

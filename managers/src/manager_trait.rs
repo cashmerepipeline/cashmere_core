@@ -9,15 +9,14 @@ use std::{any::Any, sync::Arc};
 use cash_core::Manage;
 use cash_core::SchemaField;
 use cash_result::*;
-use database;
+
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tokio;
-use dependencies_sync::tokio::sync::mpsc;
+
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
@@ -26,13 +25,12 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
-use crate::entity_cache_map::cache_get_entity;
-use crate::entity_cache_map::{cache_get_entity_stream, cache_init_cache, cache_update_entity};
+use crate::entity_cache_map::{cache_init_cache, cache_update_entity};
 use crate::entity_interface;
 use crate::entity_interface::get_entities_by_filter;
 use crate::entity_interface::get_entity_by_id;
 use crate::entity_interface::get_entity_stream;
-use crate::manage_interface;
+
 use crate::manage_interface::init_check;
 use cash_core::schema_field_exists;
 
@@ -124,7 +122,7 @@ pub trait ManagerTrait: Any + Send + Sync {
                 }
             };
             let ks: Vec<i32> = d.keys().map(|x| x.parse::<i32>().unwrap()).collect();
-            if ks.is_empty() || ks.len() < 1 {
+            if ks.is_empty() || ks.is_empty() {
                 return Err(operation_failed("validate_data_fields", "数据格式不正确"));
             }
 
@@ -428,19 +426,19 @@ pub trait ManagerTrait: Any + Send + Sync {
 
     async fn count_entity(&self, filter_doc: Document) -> Result<u64, OperationResult> {
         let manage_id = self.get_id();
-        entity::count_entity(&manage_id.to_string(), filter_doc).await
+        entity::count_entity(manage_id, filter_doc).await
     }
 
     async fn get_entry_counts(&self) -> Result<u64, OperationResult> {
         let manage_id = self.get_id();
 
-        entity::get_entry_count(&manage_id.to_string()).await
+        entity::get_entry_count(manage_id).await
     }
 
     /// 取得新实体id, 针对数量有限相对固定的管理使用, 不需要使用id的情况需要重写本方法
     async fn get_new_entity_id(&self, account_id: &str) -> Option<i64> {
         let manage_id = self.get_id().to_string();
-        entity::get_new_entity_id(&manage_id.to_string(), &account_id).await
+        entity::get_new_entity_id(&manage_id.to_string(), account_id).await
     }
 
     // 新建实体
@@ -605,7 +603,7 @@ pub trait ManagerTrait: Any + Send + Sync {
     async fn delete_entity(
         &self,
         query_doc: &Document,
-        account_id: &str,
+        _account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
         match entity::delete_entity(manage_id, query_doc).await {
