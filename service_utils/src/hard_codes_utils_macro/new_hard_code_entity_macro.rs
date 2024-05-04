@@ -1,6 +1,6 @@
 #[macro_export]
 macro_rules! declare_new_hard_code_entity {
-    ( $req:ty, $res:ty, $manage_id:ident;) => {
+    ( $req:ty, $res:ty, $manage_id:ident) => {
         async fn new_hard_code_entity(request: Request<$req>) -> Result<Response<$res>, Status> {
             let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
