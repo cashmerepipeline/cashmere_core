@@ -38,8 +38,10 @@ pub async fn sink_entity(
         Ok(r) => Ok(r),
         Err(e) => {
             // zh: 更新数据库失败则恢复缓存
-            if has_cache && old_doc.is_some() {
-                cache_update_entity(manage_id, entity_id.as_str(), old_doc.unwrap());
+            if let Some(old_doc) = old_doc {
+                if has_cache {
+                    cache_update_entity(manage_id, entity_id.as_str(), old_doc).await;
+                }
             }
             Err(add_call_name_to_chain(e, "sink_entity".to_string()))
         }

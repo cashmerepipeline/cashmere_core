@@ -18,7 +18,6 @@ use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
 use entity;
 use manage_define::field_ids::*;
@@ -419,7 +418,12 @@ pub trait ManagerTrait: Any + Send + Sync {
             ));
         };
 
-        cache_update_entity(self.get_id(), &id, new_doc.clone());
+        if cache_update_entity(self.get_id(), &id, new_doc.clone()).await.is_none(){
+            return Err(operation_failed(
+                "update_cache",
+                t!("更新缓存失败"),
+            ));
+        };
 
         Ok(operation_succeed(format!("{}: {}", t!("更新缓存完成"), id)))
     }

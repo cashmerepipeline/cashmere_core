@@ -5,7 +5,7 @@ use dependencies_sync::tonic::Status;
 use managers::ManagerTrait;
 
 /// zh: 验证单个key的上传数据，在验证管理编号之后
-pub async fn validate_data_field(manage_id: &str, data: &Vec<u8>) -> Result<(), Status> {
+pub async fn validate_data_field(manage_id: &str, data: &[u8]) -> Result<(), Status> {
     let d = if let Ok(d) = bson::from_slice::<Document>(data) {
         d
     } else {

@@ -1,20 +1,16 @@
 use dependencies_sync::{
     bson::{self, doc},
     futures::TryFutureExt,
-    log::{error},
+    log::error,
     rust_i18n::{self, t},
-    tokio_stream::StreamExt,
     tonic::{async_trait, Request, Response, Status},
 };
 
-use manage_define::{
-    cashmere::*,
-    manage_ids::*,
-};
+use manage_define::{cashmere::*, manage_ids::*};
 
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_manage_id};
+use validates::validate_manage_id;
 
 use super::query_top_recommends;
 

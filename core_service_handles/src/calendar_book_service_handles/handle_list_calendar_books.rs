@@ -10,7 +10,6 @@ use manage_define::field_ids::*;
 use manage_define::manage_ids::{CALENDAR_BOOKS_MANAGE_ID};
 use managers::manager_trait::ManagerTrait;
 
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;

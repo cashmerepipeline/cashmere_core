@@ -36,7 +36,15 @@ pub fn build_runtime() -> Arc<Runtime> {
     // 在新线程中启动一个新的tokio运行时
     std::thread::spawn(move || {
         rt_arc.block_on(async {
-            shutdown_rx.await;
+            match shutdown_rx.await{
+                Ok(()) => {
+                    log::info!("{}", t!("收到退出信号"));
+                },
+                Err(_) => {
+                    log::info!("{}", t!("退出信号错误"));
+                }
+            };
+
             log::info!("{}", t!("开始退出搜索运行时"));
         });
     });

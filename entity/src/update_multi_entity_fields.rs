@@ -40,19 +40,29 @@ pub async fn update_multi_entity_fields(
     if let Err(err) = session.start_transaction(options).await {
         return Err(operation_failed(
             "update_multi_entity_fields",
-            format!("{}: {}", t!(""), err),
+            format!("{}: {}", t!("发起事务失败"), err),
         ));
     };
 
     // TODO: 事务提交失败后，重试提交事务
     match execute_transaction(edits, &mut session, account_id).await {
         Ok(_) => {
-            session.commit_transaction().await;
+            if let Err(err) = session.commit_transaction().await {
+                log::error!("{}: {}", t!("提交事务失败"), err);
+                return Err(operation_failed(
+                    "update_multi_entity_fields",
+                    format!("{}: {:?}", t!("提交失败"), err),
+                ));
+            };
             Ok(operation_succeed("ok"))
         }
         Err(err) => {
             log::error!("{}: {}", t!("执行事务失败"), err);
-            session.abort_transaction().await;
+
+            if let Err(err) = session.abort_transaction().await{
+                log::error!("{}: {}", t!("回滚事务失败"), err);
+            };
+
             Err(operation_failed(
                 "update_multi_entity_fields",
                 format!("{}: {:?}", t!("提交失败"), err),
