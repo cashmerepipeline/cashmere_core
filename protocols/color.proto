@@ -14,10 +14,11 @@ import "name.proto";
 
 // 新颜色
 message NewColorRequest{
-    Name name = 1;
+    string code = 1;
+    Name name = 2;
     // [r,g,b]
-    repeated uint32 color = 2;
-    map<string, string> description = 3;
+    repeated uint32 color = 3;
+    map<string, string> description = 4;
 }
 message NewColorResponse{
     string result = 1;

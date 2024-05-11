@@ -1178,12 +1178,14 @@ pub struct DoubleRange {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewColorRequest {
-    #[prost(message, optional, tag = "1")]
+    #[prost(string, tag = "1")]
+    pub code: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
     pub name: ::core::option::Option<Name>,
     /// \[r,g,b\]
-    #[prost(uint32, repeated, tag = "2")]
+    #[prost(uint32, repeated, tag = "3")]
     pub color: ::prost::alloc::vec::Vec<u32>,
-    #[prost(map = "string, string", tag = "3")]
+    #[prost(map = "string, string", tag = "4")]
     pub description: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,

@@ -1,7 +1,7 @@
 use dependencies_sync::bson::doc;
-use dependencies_sync::tonic::async_trait;
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
@@ -13,7 +13,6 @@ use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 use service_utils::types::UnaryResponseResult;
 
@@ -37,7 +36,9 @@ async fn validate_view_rules(
     {
         let manage_id = COUNTRIES_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -81,7 +82,8 @@ async fn handle_new_country(
         .entity_exists(&doc! {
             COUNTRY_CODES_CODE_FIELD_ID.to_string():code.clone(),
         })
-        .await.is_some()
+        .await
+        .is_some()
     {
         return Err(Status::aborted("国家已经存在"));
     }
@@ -112,6 +114,10 @@ async fn handle_new_country(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("获取新实体失败"), "new_country")))
+        Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新实体失败"),
+            "new_country"
+        )))
     }
 }

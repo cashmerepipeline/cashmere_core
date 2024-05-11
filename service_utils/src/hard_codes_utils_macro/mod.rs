@@ -1,1 +1,0 @@
-mod new_hard_code_entity_macro;

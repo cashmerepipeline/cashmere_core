@@ -1,6 +1,7 @@
 #[macro_export]
+/// 通用硬编码实体创建函数
 macro_rules! declare_new_hard_code_entity {
-    ( $req:ty, $res:ty, $manage_id:ident) => {
+    ( $req:ident, $res:ident, $manage_id:ident) => {
         async fn new_hard_code_entity(request: Request<$req>) -> Result<Response<$res>, Status> {
             let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
@@ -27,7 +28,7 @@ macro_rules! declare_new_hard_code_entity {
             let mut new_entity_doc = make_new_entity_document(&manager, &account_id).await?;
             new_entity_doc.insert(ID_FIELD_ID.to_string(), code);
             new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
-            new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
+            new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 
             let result = manager
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)

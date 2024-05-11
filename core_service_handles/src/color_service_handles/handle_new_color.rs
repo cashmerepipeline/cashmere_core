@@ -14,18 +14,19 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
+use service_utils::declare_new_hard_code_entity;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_description_length, validate_name};
 
 #[async_trait]
 pub trait HandleNewColor {
-    async fn handle_new_country_code(
+    async fn handle_new_color(
         &self,
         request: Request<NewColorRequest>,
     ) -> UnaryResponseResult<NewColorResponse> {
         validate_view_rules(request)
             .and_then(validate_request_params)
-            .and_then(handle_new_country)
+            .and_then(handle_new_color)
             .await
     }
 }
@@ -58,7 +59,7 @@ async fn validate_request_params(
     Ok(request)
 }
 
-async fn handle_new_country(
+async fn handle_new_color(
     request: Request<NewColorRequest>,
 ) -> UnaryResponseResult<NewColorResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
