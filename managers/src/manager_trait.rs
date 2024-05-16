@@ -1,3 +1,4 @@
+use std::ops::Deref;
 /*
 Project: cashmere_server
 Creator: 闫刚
@@ -24,6 +25,7 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
+use crate::entity_cache_map::get_manage_entity_cache;
 use crate::entity_cache_map::{cache_init_cache, cache_update_entity};
 use crate::entity_interface;
 use crate::entity_interface::get_entities_by_filter;
@@ -418,11 +420,11 @@ pub trait ManagerTrait: Any + Send + Sync {
             ));
         };
 
-        if cache_update_entity(self.get_id(), &id, new_doc.clone()).await.is_none(){
-            return Err(operation_failed(
-                "update_cache",
-                t!("更新缓存失败"),
-            ));
+        if cache_update_entity(self.get_id(), &id, new_doc.clone())
+            .await
+            .is_none()
+        {
+            return Err(operation_failed("update_cache", t!("更新缓存失败")));
         };
 
         Ok(operation_succeed(format!("{}: {}", t!("更新缓存完成"), id)))
@@ -486,6 +488,16 @@ pub trait ManagerTrait: Any + Send + Sync {
         filter: &Option<Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id();
+
+        if self.has_cache() {
+            let entities = {
+                let c_map = get_manage_entity_cache(manage_id).await;
+                let e_map = c_map.read();
+                e_map.values().map(|v| v.deref().clone()).collect::<Vec<Document>>()
+            };
+            return Ok(entities);
+        }
+
         get_entities_by_filter(manage_id, filter).await
     }
 

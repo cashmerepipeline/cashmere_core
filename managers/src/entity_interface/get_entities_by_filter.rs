@@ -5,6 +5,7 @@ use dependencies_sync::bson::Document;
 pub async fn get_entities_by_filter(
     manage_id: &str,
     filter: &Option<Document>,
+    // has_cache: bool,
 ) -> Result<Vec<Document>, OperationResult> {
     match entity::get_entities(manage_id, filter, &vec![]).await {
         Ok(r) => Ok(r),

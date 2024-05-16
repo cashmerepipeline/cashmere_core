@@ -8,6 +8,7 @@ use manage_define::general_field_ids::ID_FIELD_ID;
 
 use crate::entity_cache_map::get_entity_cache_map;
 
+/// 获取实体缓存表
 pub async fn get_manage_entity_cache(
     manage_id: &'static str,
 ) -> Arc<RwLock<BTreeMap<String, Arc<Document>>>> {
