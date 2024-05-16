@@ -21,6 +21,7 @@ use cash_result::*;
 use manage_define::manage_ids::*;
 
 use crate::declare_get_manager;
+use crate::entity_cache_map::EntityCacheInterface;
 use dependencies_sync::bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use crate::manager::Manager;
@@ -62,10 +63,6 @@ impl ManagerTrait for PersonsManager {
         "PersonsManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
-
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
             if PERSONS_MANAGE.is_some() {
@@ -102,3 +99,5 @@ impl ManagerTrait for PersonsManager {
         }
     }
 }
+
+impl EntityCacheInterface for PersonsManager { }

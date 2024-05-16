@@ -15,6 +15,7 @@ use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
+use crate::entity_cache_map::EntityCacheInterface;
 use crate::{declare_get_manager, ManagerTrait};
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
@@ -56,10 +57,6 @@ impl ManagerTrait for ManagesManager {
         "ManagesManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        true
-    }
-
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
             if MANAGES_MANAGE.is_some() {
@@ -67,10 +64,11 @@ impl ManagerTrait for ManagesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = MANAGES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
 
                 let manage: Manage = manage_from_document(m_doc).unwrap();
                 MANAGES_MANAGE.replace(Arc::new(RwLock::new(manage)));
@@ -86,10 +84,11 @@ impl ManagerTrait for ManagesManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = MANAGES_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
 
                 MANAGES_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
                 MANAGES_MANAGE_DOCUMENT.clone().unwrap()
@@ -100,13 +99,6 @@ impl ManagerTrait for ManagesManager {
     async fn get_new_entity_id(&self, _account_id: &str) -> Option<i64> {
         None
     }
-
-    // async fn get_entities_by_filter(filter: &Document) -> Result<Vec<Document>, OperationResult>{
-    //     Err(operation_failed("get_entities_by_filter"))
-
-    // }
-
-    // async fn get_schema_document() -> Result<Document, OperationResult>{
-    //     Err(operation_succeed("ok"))
-    // }
 }
+
+impl EntityCacheInterface for ManagesManager {}

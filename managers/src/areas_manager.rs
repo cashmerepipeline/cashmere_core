@@ -6,25 +6,26 @@ Created:  2020-11-28T02:17:47.146Z
 Modified: !date!
 */
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
-// use dependencies_sync::log::{error, info, warn};
+use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
+use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 
 use super::ManagerTrait;
 
-use cash_core::{Manage, manage_from_document};
+use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-use crate::declare_get_manager;
-use dependencies_sync::bson::Document;
-use manage_define::manage_ids::MANAGES_MANAGE_ID;
+use crate::entity_cache_map::{cache_init_cache, EntityCacheInterface, MEntityCacheMap};
 use crate::manager::Manager;
 use crate::manager_inner::ManagerInner;
+use crate::{declare_get_manager, declare_common_cache_interface};
+use manage_define::manage_ids::MANAGES_MANAGE_ID;
 
 #[derive(Default)]
 pub struct AreasManager;
@@ -32,6 +33,7 @@ pub struct AreasManager;
 /// 缓存
 static mut AREAS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
 static mut AREAS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut ENTITY_CACHE: OnceLock<MEntityCacheMap> = OnceLock::new();
 
 /// 管理器
 static mut AREAS_MANAGER: Option<Arc<Manager>> = None;
@@ -62,10 +64,6 @@ impl ManagerTrait for AreasManager {
         "AreasManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
-
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
             if AREAS_MANAGE.is_some() {
@@ -73,10 +71,11 @@ impl ManagerTrait for AreasManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = AREAS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
                 let manage: Manage = manage_from_document(m_doc).unwrap();
                 AREAS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 AREAS_MANAGE.clone().unwrap()
@@ -91,10 +90,11 @@ impl ManagerTrait for AreasManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = AREAS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
 
                 AREAS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
                 AREAS_MANAGE_DOCUMENT.clone().unwrap()
@@ -102,3 +102,5 @@ impl ManagerTrait for AreasManager {
         }
     }
 }
+
+declare_common_cache_interface!(AreasManager, ENTITY_CACHE, AREAS_MANAGE_ID);

@@ -16,6 +16,7 @@ use cash_result::*;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
+use crate::entity_cache_map::EntityCacheInterface;
 use crate::{declare_get_manager, ManagerTrait, Manager, ManagerInner};
 
 use manage_define::manage_ids::RECOMMENDS_MANAGE_ID;
@@ -92,7 +93,7 @@ impl ManagerTrait for RecommendsManager {
         }
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 }
+
+impl EntityCacheInterface for RecommendsManager { }

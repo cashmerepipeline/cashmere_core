@@ -5,6 +5,7 @@ use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
+use crate::entity_cache_map::EntityCacheInterface;
 use crate::{declare_get_manager, manager_trait::ManagerTrait};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
@@ -49,9 +50,7 @@ impl ManagerTrait for CalendarsManager {
         "CalendarsManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -89,3 +88,5 @@ impl ManagerTrait for CalendarsManager {
         }
     }
 }
+
+impl EntityCacheInterface for CalendarsManager { }

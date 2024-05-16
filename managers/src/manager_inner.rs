@@ -1,4 +1,7 @@
+use crate::entity_cache_map::EntityCacheInterface;
+use crate::entity_cache_map::MEntityCacheMap;
 use crate::ManagerTrait;
+
 use cash_core::Manage;
 use cash_core::SchemaField;
 use cash_result::OperationResult;
@@ -10,6 +13,17 @@ use std::sync::Arc;
 #[derive(Clone)]
 pub struct ManagerInner {
     pub manager: Arc<dyn ManagerTrait>,
+}
+
+#[async_trait]
+impl EntityCacheInterface for ManagerInner {
+    fn has_cache(&self) -> bool {
+        self.manager.has_cache()
+    }
+    
+    async fn get_cache(&self) -> Option<MEntityCacheMap> {
+        self.manager.get_cache().await
+    }
 }
 
 #[async_trait]
@@ -79,10 +93,6 @@ impl ManagerTrait for ManagerInner {
 
     fn get_name(&self) -> String {
         self.manager.get_name()
-    }
-
-    fn has_cache(&self) -> bool {
-        self.manager.has_cache()
     }
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {

@@ -1,21 +1,16 @@
-use std::sync::Arc;
-
-use dependencies_sync::bson::{doc};
 use dependencies_sync::indexmap::IndexMap;
 use dependencies_sync::log::info;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tokio_stream::StreamExt;
 
+use cash_result::{operation_succeed, OperationResult};
 
-use manage_define::general_field_ids::ID_FIELD_ID;
-
-
+use crate::entity_cache_map::get_manage_entity_cache;
 
 use super::MEntityCacheMap;
 
 pub async fn cache_init_cache(manage_id: &'static str) -> Option<MEntityCacheMap> {
-    let new_map = MEntityCacheMap::new(RwLock::new(IndexMap::new()));
+    let new_map = Arc::new(RwLock::new(IndexMap::new()));
 
     {
         let cursor = entity::get_query_cursor(manage_id, doc! {}, &[], None, None, 0).await;
@@ -33,10 +28,11 @@ pub async fn cache_init_cache(manage_id: &'static str) -> Option<MEntityCacheMap
     }
 
     info!(
-        "{}: {}",
+        "{}: {}, {}",
         t!("初始化缓存完成"),
         manage_id,
+        cache_map.len()
     );
 
-    Some(new_map)
+    Some(new_map.clone())
 }

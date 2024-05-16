@@ -1,11 +1,14 @@
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::log::error;
 use dependencies_sync::tonic::async_trait;
 
+use crate::declare_common_cache_interface;
 use crate::{declare_get_manager, manager_trait::ManagerTrait};
+use crate::entity_cache_map::{cache_init_cache, EntityCacheInterface, MEntityCacheMap};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::CATEGORIES_MANAGE_ID;
@@ -21,6 +24,7 @@ pub struct CategoriesManager;
 /// 缓存
 static mut CATEGORIES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
 static mut CATEGORIES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut ENTITY_CACHE: OnceLock<MEntityCacheMap> = OnceLock::new();
 
 /// 管理器
 static mut CATEGORIES_MANAGER: Option<Arc<Manager>> = None;
@@ -51,9 +55,7 @@ impl ManagerTrait for CategoriesManager {
         "CategoriesManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -105,3 +107,5 @@ impl ManagerTrait for CategoriesManager {
         schema_builder.build()
     } */
 }
+
+declare_common_cache_interface!(CategoriesManager, ENTITY_CACHE, CATEGORIES_MANAGE_ID);

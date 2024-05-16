@@ -1,3 +1,5 @@
+use crate::entity_cache_map::EntityCacheInterface;
+use crate::entity_cache_map::MEntityCacheMap;
 use crate::manager_inner::ManagerInner;
 use crate::ManagerTrait;
 use cash_core::Manage;
@@ -25,6 +27,18 @@ impl Manager {
     }
 }
 
+
+#[async_trait]
+impl EntityCacheInterface for Manager {
+    fn has_cache(&self) -> bool {
+        self.inner.has_cache()
+    }
+    
+    async fn get_cache(&self) -> Option<MEntityCacheMap> {
+        self.inner.get_cache().await
+    }
+}
+
 #[async_trait]
 impl ManagerTrait for Manager {
     async fn get_manage_schema(&self) -> Vec<SchemaField> {
@@ -38,7 +52,7 @@ impl ManagerTrait for Manager {
     async fn get_schema_document(&self) -> Result<Document, OperationResult> {
         self.inner.get_schema_document().await
     }
-
+    
     async fn sink_entity(
         &self,
         new_entity_doc: &mut Document,
@@ -104,10 +118,6 @@ impl ManagerTrait for Manager {
 
     fn get_name(&self) -> String {
         self.inner.get_name()
-    }
-
-    fn has_cache(&self) -> bool {
-        self.inner.has_cache()
     }
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {

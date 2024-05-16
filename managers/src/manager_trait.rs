@@ -25,8 +25,8 @@ use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
 
-use crate::entity_cache_map::get_manage_entity_cache;
-use crate::entity_cache_map::{cache_init_cache, cache_update_entity};
+use crate::entity_cache_map::{get_manage_entity_cache, EntityCacheInterface};
+use crate::entity_cache_map::{cache_update_entity};
 use crate::entity_interface;
 use crate::entity_interface::get_entities_by_filter;
 use crate::entity_interface::get_entity_by_id;
@@ -37,7 +37,7 @@ use cash_core::schema_field_exists;
 
 /// 管理接口
 #[async_trait]
-pub trait ManagerTrait: Any + Send + Sync {
+pub trait ManagerTrait: Any + Send + Sync + EntityCacheInterface {
     // 注册管理器
     async fn init_check(&self) -> Result<OperationResult, OperationResult> {
         let manage_id = &self.get_id().to_string();
@@ -394,16 +394,6 @@ pub trait ManagerTrait: Any + Send + Sync {
     fn is_entity_deleteable(&self) -> bool {
         false
     }
-
-    // 实体缓存
-    fn has_cache(&self) -> bool;
-
-    async fn init_cache(&self) -> Result<OperationResult, OperationResult> {
-        cache_init_cache(self.get_id()).await
-    }
-
-    // fn get_entities_cache_map(&self) -> Option<Arc<RwLock<HashMap<i32, Document>>>>;
-    // fn refresh_cache(&self) -> Result<OperationResult, OperationResult>;
 
     // 直接替换缓存中的实体
     async fn update_cache(&self, new_doc: &Document) -> Result<OperationResult, OperationResult> {
@@ -762,25 +752,4 @@ pub trait ManagerTrait: Any + Send + Sync {
             )),
         }
     }
-
-    // ---------------------
-    // 映像
-    // 取得映像
-    // async fn get_view(&self, account_id: &str, )
-
-    // 关联事件队列
-
-    // 触发事件
-
-    // ---------------------
-    // 消息
-    // 新建消息
-
-    // 关联消息队列
-
-    // 发送消息
-
-    // ---------------------
-    // 数据
-    // ---------------
 }

@@ -49,9 +49,7 @@ impl ManagerTrait for ShowSettingsManager {
         "ShowSettingsManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -90,5 +88,4 @@ impl ManagerTrait for ShowSettingsManager {
     }
 }
 
-
-
+impl EntityCacheInterface for ShowSettingsManager {}

@@ -36,7 +36,7 @@ pub mod manager_trait;
 mod manager_inner;
 mod manager;
 
-mod entity_cache_map;
+pub mod entity_cache_map;
 pub mod manage_interface;
 pub mod entity_interface;
 

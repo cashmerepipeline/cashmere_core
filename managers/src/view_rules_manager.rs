@@ -6,9 +6,9 @@ Created:  2020-11-28T02:17:47.146Z
 Modified: !date!
 */
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
-// use dependencies_sync::log::{error, info, warn};
+use dependencies_sync::log::{error};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
@@ -20,11 +20,12 @@ use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::*;
 
-use crate::declare_get_manager;
+use crate::{declare_get_manager, declare_common_cache_interface};
 use dependencies_sync::bson::Document;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
 use crate::manager::Manager;
 use crate::manager_inner::ManagerInner;
+use crate::entity_cache_map::{cache_init_cache, EntityCacheInterface, MEntityCacheMap};
 
 #[derive(Default)]
 pub struct ViewRulesManager;
@@ -32,6 +33,7 @@ pub struct ViewRulesManager;
 /// 缓存
 static mut VIEW_RULES_MANAGE: Option<Arc<RwLock<Manage>>> = None;
 static mut VIEW_RULES_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut ENTITY_CACHE: OnceLock<MEntityCacheMap> = OnceLock::new();
 
 /// 管理器
 static mut VIEW_RULES_MANAGER: Option<Arc<Manager>> = None;
@@ -62,9 +64,7 @@ impl ManagerTrait for ViewRulesManager {
         "ViewRulesManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -102,3 +102,5 @@ impl ManagerTrait for ViewRulesManager {
         }
     }
 }
+
+declare_common_cache_interface!(ViewRulesManager, ENTITY_CACHE, VIEW_RULES_MANAGE_ID);

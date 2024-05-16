@@ -6,15 +6,16 @@ Created:  2020-11-28T02:17:47.146Z
 Modified: !date!
 */
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
-// use dependencies_sync::log::{error, info, warn};
+use dependencies_sync::log::{error};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
 use dependencies_sync::parking_lot::RwLock;
 
-use crate::ManagerTrait;
+use crate::{declare_common_cache_interface, ManagerTrait};
+use crate::entity_cache_map::{cache_init_cache, EntityCacheInterface, MEntityCacheMap};
 
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
@@ -33,6 +34,7 @@ pub struct GroupsManager;
 /// 缓存
 static mut GROUPS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
 static mut GROUPS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static mut ENTITY_CACHE: OnceLock<MEntityCacheMap> = OnceLock::new();
 
 /// 管理器
 static mut GROUPS_MANAGER: Option<Arc<Manager>> = None;
@@ -63,9 +65,7 @@ impl ManagerTrait for GroupsManager {
         "GroupsManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
+    
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -103,3 +103,5 @@ impl ManagerTrait for GroupsManager {
         }
     }
 }
+
+declare_common_cache_interface!(GroupsManager, ENTITY_CACHE, GROUPS_MANAGE_ID);

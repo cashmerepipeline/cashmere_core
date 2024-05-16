@@ -2,11 +2,14 @@ use std::collections::BTreeMap;
 use std::sync::Arc;
 
 use dependencies_sync::bson::Document;
+use dependencies_sync::indexmap::IndexMap;
 use dependencies_sync::parking_lot::RwLock;
 
 // 注意： 只用于少量常用数据的缓存，不要缓存大量数据
 // 只支持2种取得访问方式
 type EntityCacheMap<'a> = BTreeMap<&'a str, Arc<RwLock<BTreeMap<String, Arc<Document>>>>>;
+
+pub type MEntityCacheMap<'a> = Arc<RwLock<IndexMap<String, Arc<RwLock<Document>>>>>;
 
 static mut ENTITY_CACHE_MAP: Option<Arc<RwLock<EntityCacheMap>>> = None;
 

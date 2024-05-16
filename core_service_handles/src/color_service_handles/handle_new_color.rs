@@ -14,7 +14,7 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-use service_utils::declare_new_hard_code_entity;
+
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_description_length, validate_name};
 

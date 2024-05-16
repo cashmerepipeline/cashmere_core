@@ -27,7 +27,9 @@ pub async fn sink_entity(
     };
 
     // zh: 再添加到数据库
-    let result = match entity::insert_entity(
+    
+
+    match entity::insert_entity(
         manage_id.to_string().as_str(),
         new_entity_doc,
         account_id,
@@ -45,7 +47,5 @@ pub async fn sink_entity(
             }
             Err(add_call_name_to_chain(e, "sink_entity".to_string()))
         }
-    };
-
-    result
+    }
 }

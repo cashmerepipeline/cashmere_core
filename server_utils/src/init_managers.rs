@@ -29,7 +29,7 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
             );
         }
 
-        if m.has_cache() && m.init_cache().await.is_err() {
+        if m.inner.manager.has_cache() && m.inner.manager.get_cache().await.is_none() {
             panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
         }
 
