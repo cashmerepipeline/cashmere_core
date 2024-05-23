@@ -1,12 +1,3 @@
-/*
-Author: 闫刚 (yes7rose@sina.com)
-results.rs (c) 2020
-Desc: 返回结果
-Created:  2020-11-24T10:33:37.591Z
-Modified: !date!
-*/
-
-use dependencies_sync::once_cell;
 use dependencies_sync::rust_i18n::{self, i18n, t};
 i18n!("locales");
 

@@ -1,6 +1,7 @@
 use dependencies_sync::{
     log,
     rust_i18n::{self, t},
+    toml,
 };
 use serde::Serialize;
 

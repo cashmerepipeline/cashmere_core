@@ -2,7 +2,7 @@ use dependencies_sync::bson::{self, Bson, Document};
 use dependencies_sync::log::error;
 use dependencies_sync::toml;
 
-use manage_define::general_field_names::{
+use manage_define::hard_coded_field_names::{
     DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME, REMOVED_FIELD_NAME,
 };
 use cash_core::SchemaField;

@@ -1,9 +1,10 @@
 use std::collections::HashMap;
 
 use dependencies_sync::bson::doc;
-use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::futures::{Stream, TryFutureExt};
 use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tokio::stream;
 use dependencies_sync::tokio_stream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
@@ -12,10 +13,10 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use cash_core::SchemaField as CoreSchemaField;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use managers::manager_trait::ManagerTrait;
+use managers::manager_trait::ManagerInterface;
 use request_utils::request_account_context;
 
-use view::can_field_read;
+use view::{can_field_read, can_field_write};
 
 #[async_trait]
 pub trait HandleGetManageSchema {
@@ -69,39 +70,44 @@ async fn handle_get_manage_schema(
     let mut field_stream = tokio_stream::iter(&fields);
 
     // 可见性过滤
-    let mut result: Vec<CoreSchemaField> = vec![];
+    let mut core_fields: Vec<CoreSchemaField> = vec![];
     while let Some(field) = field_stream.next().await {
         if can_field_read(manage_id, &field.id.to_string(), &role_group).await {
-            result.push(field.to_owned());
+            core_fields.push(field.to_owned());
         } else {
-            debug!(
-                "{}:, {}-{}, {}",
-                t!("属性不可见"),
-                &manage_id,
-                &field.id,
-                role_group
-            );
+            if cfg!(debug_assertions) {
+                debug!(
+                    "{}:, {}-{}, {}",
+                    t!("属性不可见"),
+                    &manage_id,
+                    &field.id,
+                    role_group
+                );
+            }
             continue;
         }
     }
 
-    // 如果为空则返回空表，无异常发生
-    Ok(Response::new(GetManageSchemaResponse {
-        fields: result
-            .iter()
-            .map(|f| {
-                let mut name_map = HashMap::new();
-                f.name_map.iter().for_each(|(k, v)| {
-                    name_map.insert(k.to_string(), v.to_string());
-                });
+    let mut streamed_fields = tokio_stream::iter(&core_fields);
+    let mut result: Vec<SchemaField> = vec![];
+    while let Some(f) = streamed_fields.next().await {
+        let mut name_map = HashMap::new();
+        f.name_map.iter().for_each(|(k, v)| {
+            name_map.insert(k.to_string(), v.to_string());
+        });
+        
+        // zh: 是否可编辑
+        let editable = can_field_write(manage_id, f.id.to_string().as_str(), &role_group).await;
 
-                SchemaField {
-                    id: f.id,
-                    name_map,
-                    data_type: f.data_type.to_string(),
-                    removed: f.removed,
-                }
-            })
-            .collect(),
-    }))
+        result.push(SchemaField {
+            id: f.id,
+            name_map,
+            data_type: f.data_type.to_string(),
+            removed: f.removed,
+            editable,
+        });
+    }
+
+    // 如果为空则返回空表，无异常发生
+    Ok(Response::new(GetManageSchemaResponse { fields: result }))
 }

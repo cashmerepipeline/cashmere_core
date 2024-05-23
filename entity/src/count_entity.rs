@@ -18,7 +18,7 @@ pub async fn count_entity(
     filter_doc: Document,
 ) -> Result<u64, OperationResult> {
     if !database::collection_exists(collection_name).await {
-        return Err(collection_not_exists(&collection_name, "get_entity_by_id"));
+        return Err(collection_not_exists(collection_name, "get_entity_by_id"));
     }
 
     let collection = match database::get_collection_by_id(collection_name).await {

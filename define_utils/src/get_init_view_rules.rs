@@ -1,8 +1,10 @@
+use dependencies_sync::bson::{from_bson, to_bson};
+
 use dependencies_sync::log::error;
-use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::toml;
 
-use view::{ViewRule, ViewRules};
+use view::ViewRules;
 
 /// 取得映像定义
 pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Option<ViewRules> {
@@ -15,36 +17,33 @@ pub fn get_init_view_rules(toml_map: &toml::map::Map<String, toml::Value>) -> Op
 
     match result {
         Some(rules) => {
-            let manage_str = if let Some(m_str) = rules.get("manage"){
-                m_str.to_string()
-            }else {
-                error!("取得管理权限错误：{}", manage_id);
-                return None;
-            };
-
-            let collection_str = if let Some(c_str) = rules.get("collection"){
-                c_str.to_string()
-            }else {
-                error!("取得集合权限错误：{}", manage_id);
-                return None;
-            };
-            let schema_str = if let Some(s_str) = rules.get("schema"){
-                s_str.to_string()
+            let manage_map = if let Some(m) = rules.get("manage") {
+                let b = to_bson(m).unwrap();
+                from_bson(b).unwrap()
             } else {
-                error!("取得模式描写权限错误：{}", manage_id);
+                error!("{}：{}", t!("取得管理权限错误"), manage_id);
                 return None;
             };
 
-            let manage_map: LinkedHashMap<String, ViewRule> =
-                toml::from_str(manage_str.as_str()).unwrap();
-            let entity_map: LinkedHashMap<String, ViewRule> =
-                toml::from_str(collection_str.as_str()).unwrap();
-            let schema_map: LinkedHashMap<String, LinkedHashMap<String, ViewRule>> =
-                toml::from_str(schema_str.as_str()).unwrap();
+            let collection_map = if let Some(c) = rules.get("collection") {
+                let b = to_bson(c).unwrap();
+                from_bson(b).unwrap()
+            } else {
+                error!("{}：{}", t!("取得集合权限错误"), manage_id);
+                return None;
+            };
+
+            let schema_map = if let Some(s) = rules.get("schema") {
+                let b = to_bson(s).unwrap();
+                from_bson(b).unwrap()
+            } else {
+                error!("{}：{}", t!("取得模式描写权限错误"), manage_id);
+                return None;
+            };
 
             Some(ViewRules {
                 manage: manage_map,
-                collection: entity_map,
+                collection: collection_map,
                 schema: schema_map,
             })
         }

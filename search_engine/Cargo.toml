@@ -16,10 +16,10 @@ majordomo ={ path = "../majordomo"}
 managers ={ path = "../managers"}
 server_utils ={ path = "../server_utils"}
 
-tantivy = { version = "0.21.1"}
+tantivy = { version = "0.22.0"}
 # tantivy = {git = "https://github.com/quickwit-oss/tantivy.git", optional = true}
-# cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git", optional = true}
-cang-jie = { version = "0.18.0"}
+cang-jie ={ git = "https://github.com/cashmerepipeline/cang-jie.git"}
+# cang-jie = { version = "0.18.0"}
 jieba-rs = { version = "0.6.8"}
 
 serde = { version = "1.0", features = ["derive"] }

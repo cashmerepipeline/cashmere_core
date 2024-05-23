@@ -1,5 +1,5 @@
 use convert_case::{Case, Casing};
-use manage_define::general_field_names;
+
 
 /// zh: 生成isar本地数据库的schema dart代码
 pub fn generate_dart_schema_code(
@@ -7,9 +7,7 @@ pub fn generate_dart_schema_code(
     manage_schema: &Vec<(String, i32, String)>,
     package_name: &str,
 ) -> String {
-    let import_statements = vec![
-        "import 'package:objectbox/objectbox.dart';\n",
-    ];
+    let import_statements = ["import 'package:objectbox/objectbox.dart';\n"];
 
     let part_statement = format!("import 'package:{}/objectbox.g.dart';\n\n", package_name);
 
@@ -46,7 +44,7 @@ pub fn generate_dart_schema_code(
 
     let mut define_statements = vec![];
     let mut construct_statements = vec![];
-    for (s_name, s_id, s_type) in manage_schema.iter() {
+    for (s_name, _s_id, s_type) in manage_schema.iter() {
         let s = format!(
             "{}? {};\n",
             get_dart_data_type(s_type),

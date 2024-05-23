@@ -1,8 +1,6 @@
 use dependencies_sync::log;
 use dependencies_sync::rust_i18n::{self, t};
 
-use cash_result::{operation_failed, OperationResult};
-
 use super::get_manage_view_rules;
 use crate::view_rule::ViewRule;
 

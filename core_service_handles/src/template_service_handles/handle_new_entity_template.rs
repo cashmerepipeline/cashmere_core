@@ -5,20 +5,16 @@ use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::{Request, Response, Status};
 
-
 use dependencies_sync::tonic::async_trait;
-
 
 use majordomo::get_majordomo;
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::ManagerTrait;
+use managers::{entity_interface::EntityInterface,ManagerInterface};
 use request_utils::request_account_context;
-
-
-
+use validates::{validate_data_field, validate_manage_id};
 
 #[async_trait]
 pub trait HandleNewTemplate {
@@ -54,6 +50,23 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<NewTemplateRequest>,
 ) -> Result<Request<NewTemplateRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let fields = &request.get_ref().fields;
+
+    validate_manage_id(manage_id).await?;
+    
+    for field in fields {
+        if field.len() > 1024 * 1024 {
+            return Err(Status::aborted(format!(
+                "{}: {}",
+                t!("字段长度不能超过"),
+                1024 * 1024
+            )));
+        }
+
+        validate_data_field(manage_id, field).await?;
+    }
+
     Ok(request)
 }
 
@@ -87,10 +100,14 @@ async fn handle_new_entity_template(
         })
         .collect();
 
-    let new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await{
+    let new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await {
         r
-    }else{
-        return Err(Status::aborted(format!("{}: {}", t!("获取新ID失败"), "new_comment")));
+    } else {
+        return Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新ID失败"),
+            "new_comment"
+        )));
     };
 
     let mut new_doc = Document::new();

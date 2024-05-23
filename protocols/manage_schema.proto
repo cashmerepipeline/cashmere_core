@@ -17,6 +17,7 @@ message SchemaField {
   map<string, string> name_map = 2;
   string data_type = 3;
   bool removed = 4;
+  bool editable = 5;
 }
 
 // 取得管理描写

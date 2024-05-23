@@ -2,6 +2,7 @@ use std::io::Read;
 use std::path::PathBuf;
 
 use dependencies_sync::log;
+use dependencies_sync::toml;
 use dependencies_sync::rust_i18n::{self, t};
 
 use crate::{get_configs_map, get_configs_file_path};

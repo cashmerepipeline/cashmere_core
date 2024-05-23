@@ -1,16 +1,19 @@
 use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log::debug;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
 
-use managers::manager_trait::ManagerTrait;
+use managers::{
+    entity_interface::EntityInterface, hard_coded_cache_interface::HardCodedInterface,
+};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 #[async_trait]
 pub trait HandleNewLanguageName {
@@ -32,7 +35,9 @@ async fn validate_view_rules(
     {
         let manage_id = LANGUAGE_CODES_MANAGE_ID;
         let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
 
@@ -82,7 +87,9 @@ async fn handle_new_language_name(
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
     // 检查语言是否已经存在
-    let entity = manager.get_entity_by_id(entity_id, &vec![], &vec![]).await.unwrap();
+    let entity = manager.get_entity_by_id(entity_id, &[], &[]).await.unwrap();
+    debug!("{}: {}", t!("取得实体"), entity);
+
     let lang_name_exists = entity
         .get_document(NAME_MAP_FIELD_ID.to_string())
         .unwrap()
@@ -101,6 +108,14 @@ async fn handle_new_language_name(
     let result = manager
         .insert_entity_map_field(query_doc, modify_doc, &account_id)
         .await;
+
+    if manager.is_hard_coded().await {
+        // 刷新缓存
+        manager
+            .refresh_hard_coded_cache(manage_id, entity_id)
+            .await
+            .unwrap();
+    }
 
     match result {
         Ok(_r) => Ok(Response::new(NewLanguageNameResponse {

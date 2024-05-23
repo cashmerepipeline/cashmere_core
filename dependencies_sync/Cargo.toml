@@ -1,6 +1,6 @@
 [package]
 name = "dependencies_sync"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,9 +11,9 @@ edition = "2021"
 
 [dependencies]
 futures = { version = "0.3.13", optional = true }
-tokio = { version = "1.21.2", features = ["full"], optional = true }
-tokio-stream = { version = "0.1.11", optional = true }
-tokio-util = { version = "0.7.2", optional = true }
+tokio = { version = "1.28.1", features = ["full"], optional = true }
+tokio-stream = { version = "0.1.14", optional = true }
+tokio-util = { version = "0.7.9", optional = true }
 parking_lot = { version = "0.12.1", optional = true }
 
 glob = { version = "0.3.0", optional = true }
@@ -21,14 +21,15 @@ fs4 = { version = "0.6.6", features = ["tokio-async"], optional = true }
 
 chrono = { version = "0.4.19", features = ["serde"], optional = true }
 
-mongodb = { version = "2.6.1", optional = true }
-bson = { version = "2.6.1", optional = true }
-toml = { version = "0.5.8", features = ["preserve_order"], optional = true }
+mongodb = { version = "2.8.1", optional = true }
+bson = { version = "2.8.1", optional = true }
+toml = { version = "0.7.8", features = ["preserve_order"], optional = true }
 
 md-5 = { version = "0.10.1", optional = true }
 bytes = { version = "1.4", optional = true }
 hex = { version = "0.4.3", optional = true }
 linked-hash-map = { version = "0.5.6", optional = true, features = ["serde_impl"]}
+indexmap ={ version = "2.0.2", optional = true, features = ["serde"]}
 
 serde = { version = "1.0", features = ["derive"], optional = true }
 serde_derive = { version = "1.0", optional = true }
@@ -42,8 +43,8 @@ tonic-build = { version = "0.10.2", optional = true }
 log = { version = "0.4.17", optional = true }
 simplelog = { version = "0.12.1", optional = true }
 
-once_cell = { version = "1.10", optional = true }
-rust-i18n = { version = "2.2.1", optional = true }
+once_cell = { version = "1.19.0", optional = true }
+rust-i18n = { version = "2.3.1", optional = true }
 
 clap = { version = "3.2.23", optional = true }
 
@@ -70,7 +71,7 @@ toml = ["dep:toml"]
 # tantivy = ["dep:tantivy"]
 # cang-jie = ["dep:cang-jie"]
 # jieba-rs = ["dep:jieba-rs"]
-
+indexmap = ["dep:indexmap"]
 linked-hash-map = ["dep:linked-hash-map"]
 md-5 = ["dep:md-5"]
 bytes = ["dep:bytes"]

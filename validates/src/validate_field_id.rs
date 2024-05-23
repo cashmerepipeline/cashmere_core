@@ -2,7 +2,7 @@ use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::Status;
 
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+use managers::ManagerInterface;
 
 /// zh: 验证管理字段是否存在
 pub async fn validate_field_id(manage_id: &str, field_id: &String) -> Result<(), Status> {

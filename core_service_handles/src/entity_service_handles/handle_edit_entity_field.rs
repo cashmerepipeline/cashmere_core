@@ -11,7 +11,7 @@ use manage_define::cashmere::*;
 
 use manage_define::general_field_ids::*;
 
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use request_utils::{request_account_context, get_manage_schema_fields};
 
 use service_utils::types::UnaryResponseResult;

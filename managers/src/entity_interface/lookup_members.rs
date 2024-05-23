@@ -5,7 +5,7 @@ use dependencies_sync::{
     tokio::{self, sync::mpsc},
     tokio_stream::{wrappers::ReceiverStream, StreamExt},
 };
-use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
+use manage_define::hard_coded_field_names::MEMBER_LOOKUP_FIELD_NAME;
 
 /// zh: 返回
 pub async fn lookup_members(

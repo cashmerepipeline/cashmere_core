@@ -5,7 +5,7 @@ use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
 use managers::Manager;
-use managers::ManagerTrait;
+use managers::ManagerInterface;
 
 use crate::managers_map::add_managers;
 use crate::{get_managers_map, ManagersMap};
@@ -21,9 +21,9 @@ impl Majordomo {
     }
 
     /// 取得管理器, 返回Arc指针
-    pub fn get_manager_by_id(&self, id: &str) -> Result<Arc<Manager>, OperationResult> {
-        let managers = get_managers_map();
-        let managers = managers.read();
+    pub fn get_manager_by_id(&self, id: &str) -> Result<&'static Manager, OperationResult> {
+        let managers_arc = get_managers_map();
+        let managers = managers_arc.read();
 
         managers
             .get(&id)
@@ -52,10 +52,11 @@ impl Majordomo {
     /// 设置管理器表
     pub async fn add_managers(
         &self,
-        new_managers: Vec<Arc<Manager>>,
+        new_managers: Vec<&'static Manager>,
     ) -> Result<OperationResult, OperationResult> {
         add_managers(new_managers)
     }
+    
 
     // TODO: 管理依赖检查，全部管理库加载完成后
     // pub fn check_dependents(&self) -> Result<OperationResult, OperationResult> {}

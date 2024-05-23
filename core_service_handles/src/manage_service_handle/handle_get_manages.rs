@@ -1,12 +1,14 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log::debug;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::MANAGES_SCHEMA_FIELD_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::manager_trait::ManagerInterface;
 use request_utils::request_account_context;
 
 #[async_trait]
@@ -53,6 +55,10 @@ async fn handle_get_manages(
 ) -> Result<Response<GetManagesResponse>, Status> {
     let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
 
+    if cfg!(debug_assertions) {
+        debug!("{}", t!("开始取得管理表"));
+    }
+
     let managers_ids = get_majordomo()
         .get_manager_ids()
         .iter()
@@ -61,10 +67,18 @@ async fn handle_get_manages(
 
     let mut result: Vec<Vec<u8>> = Vec::new();
     for id in managers_ids {
+        if cfg!(debug_assertions) {
+            debug!("{}: {}", t!("取得管理"), id);
+        }
+
         let manager = get_majordomo().get_manager_by_id(id.as_str()).unwrap();
         let mut doc = manager.get_manage_document().await.read().clone();
 
         let _ = doc.remove(MANAGES_SCHEMA_FIELD_ID.to_string());
+
+        if cfg!(debug_assertions) {
+            debug!("{}: {:?}", t!("取得管理实体"), doc);
+        }
 
         result.push(bson::to_vec(&doc).unwrap());
     }

@@ -19,6 +19,7 @@ class SchemaField extends $pb.GeneratedMessage {
     $core.Map<$core.String, $core.String>? nameMap,
     $core.String? dataType,
     $core.bool? removed,
+    $core.bool? editable,
   }) {
     final $result = create();
     if (id != null) {
@@ -33,6 +34,9 @@ class SchemaField extends $pb.GeneratedMessage {
     if (removed != null) {
       $result.removed = removed;
     }
+    if (editable != null) {
+      $result.editable = editable;
+    }
     return $result;
   }
   SchemaField._() : super();
@@ -44,6 +48,7 @@ class SchemaField extends $pb.GeneratedMessage {
     ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'nameMap', entryClassName: 'SchemaField.NameMapEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('cashmere'))
     ..aOS(3, _omitFieldNames ? '' : 'dataType')
     ..aOB(4, _omitFieldNames ? '' : 'removed')
+    ..aOB(5, _omitFieldNames ? '' : 'editable')
     ..hasRequiredFields = false
   ;
 
@@ -97,6 +102,15 @@ class SchemaField extends $pb.GeneratedMessage {
   $core.bool hasRemoved() => $_has(3);
   @$pb.TagNumber(4)
   void clearRemoved() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.bool get editable => $_getBF(4);
+  @$pb.TagNumber(5)
+  set editable($core.bool v) { $_setBool(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasEditable() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearEditable() => clearField(5);
 }
 
 /// 取得管理描写

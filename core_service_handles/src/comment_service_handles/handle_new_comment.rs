@@ -1,16 +1,18 @@
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::{
-    bson::Document,
     futures::TryFutureExt,
     tonic::async_trait,
     tonic::{Request, Response, Status},
 };
-use dependencies_sync::rust_i18n::{self, t};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
-use manage_define::general_field_ids::*;
+
 use manage_define::manage_ids::*;
-use managers::{manager_trait::ManagerTrait, utils::make_new_entity_document};
+use managers::{
+    entity_interface::EntityInterface,
+    utils::make_new_entity_document,
+};
 
 use service_utils::types::UnaryResponseResult;
 
@@ -32,10 +34,12 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         use request_utils::request_account_context;
-        
+
         let manage_id = COMMENTS_MANAGE_ID;
         let (account_id, groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -56,13 +60,16 @@ async fn handle_new_comment(
     let target_entity_id = &request.get_ref().target_entity_id;
     let contents = &request.get_ref().contents;
 
-
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(COMMENTS_MANAGE_ID).unwrap();
-    let new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await{
+    let _new_id = if let Some(r) = manager.get_new_entity_id(&account_id).await {
         r
-    }else{
-        return Err(Status::aborted(format!("{}: {}", t!("获取新ID失败"), "new_comment")));
+    } else {
+        return Err(Status::aborted(format!(
+            "{}: {}",
+            t!("获取新ID失败"),
+            "new_comment"
+        )));
     };
 
     let mut new_entity_doc = make_new_entity_document(&manager, &account_id).await?;

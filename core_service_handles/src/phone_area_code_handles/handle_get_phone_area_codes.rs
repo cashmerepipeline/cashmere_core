@@ -9,7 +9,7 @@ use manage_define::cashmere::*;
 
 
 use manage_define::manage_ids::PHONE_AREA_CODES_MANAGE_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 
 use dependencies_sync::tokio_stream::{StreamExt};
@@ -56,7 +56,7 @@ async fn handle_get_phone_area_codes(
 
     let query_doc = doc! {};
 
-    let result = manager.get_entity_stream(query_doc, &vec![], None, None, 0).await;
+    let result = manager.get_entity_stream(query_doc, &[], None, None, 0).await;
 
     match result {
         Ok(mut entities_iter) => {
