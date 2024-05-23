@@ -12,7 +12,7 @@ use manage_define::{
     field_ids::*,
     manage_ids::*,
 };
-use managers::{ManagerTrait};
+use managers::{entity_interface::EntityInterface};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_entity_id};

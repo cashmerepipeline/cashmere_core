@@ -1,6 +1,6 @@
 [package]
 name = "managers"
-version = "0.5.2"
+version = "0.6.2"
 authors = ["yes7rose <yes7rose@sina.com>"]
 edition = "2021"
 

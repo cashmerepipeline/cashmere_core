@@ -12,7 +12,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use cash_core::SchemaField as CoreSchemaField;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerInterface};
 use request_utils::request_account_context;
 
 use view::can_field_read;

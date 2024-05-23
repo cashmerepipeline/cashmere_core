@@ -13,8 +13,9 @@ use_tls = false
 secret_code = "$camshere*soft*warm*smooth*beauty$"
 login_limit = 2
 
-# 事件队列数据库
-events_dbs_dir = "events_dbs"
+# root user
+root_id = "8610000000000"
+admin_group = "admin"
 
 # 默认语音
 language_code = "zh"
@@ -30,6 +31,16 @@ max_page_size = 20
 server_key_path = "tls/server.key"
 server_ca_path = "tls/server.crt"
 client_ca_path = "tls/client.crt"
+
+[manages]
+# 游客可以访问的管理列表
+public_manages = [
+  "语言编码",
+  "国家编码",
+  "手机区号",
+]
+# 普通用户不可访问的管理列表
+forbid_manages = ["编号器", "事件服务"]
 
 [search_engine]
 # zh: 索引存储位置
@@ -63,3 +74,8 @@ internal_root_dir_map = { "windows" = "X:/data_root/dir", "linux" = "/mnt/data_r
 # specs不能为空且目前只能为id，
 # data不能为空且目前只能为id，
 file_path_format = { "manage" = "manage_id", "specs" = "specs_id", "data" = "data_id", "stage" = "", "version" = "" }
+
+[event_service]
+max_concurrent_queue = 100
+max_event_type_count = 100
+max_listener_instance_count = 100

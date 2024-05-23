@@ -12,7 +12,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::ManagerTrait;
+use managers::{entity_interface::EntityInterface,ManagerInterface};
 use request_utils::request_account_context;
 use validates::{validate_data_field, validate_manage_id};
 

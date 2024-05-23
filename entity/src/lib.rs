@@ -98,3 +98,6 @@ mod count_entity;
 mod update_multi_entity_fields;
 
 mod delete_entity;
+
+// 硬编码缓存
+pub mod hard_code_cache;

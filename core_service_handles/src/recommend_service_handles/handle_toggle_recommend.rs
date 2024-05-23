@@ -1,5 +1,5 @@
 use dependencies_sync::{
-    bson::{doc},
+    bson::doc,
     futures::TryFutureExt,
     rust_i18n::{self, t},
     tonic::async_trait,
@@ -7,16 +7,13 @@ use dependencies_sync::{
 };
 use majordomo::{self, get_majordomo};
 use manage_define::{
-    cashmere::*,
-    field_ids::*,
-    general_field_ids::{NAME_MAP_FIELD_ID},
-    language_keys::CHINESE,
+    cashmere::*, field_ids::*, general_field_ids::NAME_MAP_FIELD_ID, language_keys::CHINESE,
     manage_ids::*,
 };
-use managers::{utils::make_new_entity_document, ManagerTrait};
+use managers::{utils::make_new_entity_document, entity_interface::EntityInterface};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_entity_id};
+use validates::validate_entity_id;
 
 #[async_trait]
 pub trait HandleToggleRecommend {
@@ -105,13 +102,9 @@ async fn handle_toggle_recommend(
         }
     } else {
         // 存在则删除记录
-        match manager.delete_entity(&query_doc, &account_id).await {
-            Ok(_) => {
-                Ok(Response::new(ToggleRecommendResponse { result: false }))
-            }
-            Err(err) => {
-                Err(Status::internal(err.details()))
-            }
+        match manager.delete_entity(&query_doc).await {
+            Ok(_) => Ok(Response::new(ToggleRecommendResponse { result: false })),
+            Err(err) => Err(Status::internal(err.details())),
         }
     }
 }

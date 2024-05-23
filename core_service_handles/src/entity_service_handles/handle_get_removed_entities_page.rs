@@ -4,7 +4,7 @@ use dependencies_sync::futures::TryFutureExt;
 
 use majordomo::{self, get_majordomo};
 use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerInterface, entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};

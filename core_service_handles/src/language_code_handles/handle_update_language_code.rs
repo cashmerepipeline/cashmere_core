@@ -6,7 +6,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::{LANGUAGE_CODES_CODE_FIELD_ID, LANGUAGE_CODES_NATIVE_FIELD_ID};
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};

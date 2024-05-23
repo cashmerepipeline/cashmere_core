@@ -6,31 +6,7 @@ Created:  2020-12-02T14:29:51.128Z
 Modified: !date!
 */
 
-#[macro_export]
-macro_rules! declare_get_manager {
-    ($manager:ty, $static_manager:ident) => {
-        // 取得管理器
-        pub async fn get_manager() -> Arc<Manager> {
-            unsafe {
-                if $static_manager.is_none() {
-                    let m_object = <$manager>::default();
-                    match m_object.init_check().await {
-                        Ok(_r) => (),
-                        Err(e) => panic!("{} {}", e.operation(), e.details())
-                    };
-                    $static_manager.replace(Arc::new(Manager {
-                        inner: Arc::new(ManagerInner {
-                            manager: Arc::new(m_object),
-                        }),
-                    }));
-                    $static_manager.clone().unwrap()
-                } else {
-                    $static_manager.clone().unwrap()
-                }
-            }
-        }
-    }
-}
+
 
 #[macro_export]
 macro_rules! declare_default_get_manage {

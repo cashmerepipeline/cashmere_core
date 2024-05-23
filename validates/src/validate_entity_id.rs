@@ -5,7 +5,8 @@ use majordomo::get_majordomo;
 use dependencies_sync::tonic::Status;
 
 use manage_define::general_field_ids::REMOVED_FIELD_ID;
-use managers::ManagerTrait;
+
+use managers::entity_interface::EntityInterface;
 
 /// zh: 验证目标实体存在性
 pub async fn validate_entity_id(manage_id: &str, entity_id: &String) -> Result<(), Status> {

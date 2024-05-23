@@ -7,7 +7,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::VIEW_RULES_ENTITY_FIELD_ID;
 use manage_define::general_field_ids::ID_FIELD_ID;
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 use request_utils::request_account_context;
 

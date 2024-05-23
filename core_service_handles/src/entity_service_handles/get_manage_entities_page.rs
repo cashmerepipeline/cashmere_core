@@ -4,18 +4,12 @@ use view::get_manage_schema_view_mask;
 
 use manage_define::general_field_ids::REMOVED_FIELD_ID;
 
-
-
-use dependencies_sync::log::{error};
-
-
+use dependencies_sync::log::error;
 
 use dependencies_sync::bson::doc;
 
-
-
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+use managers::{entity_interface::EntityInterface, ManagerInterface};
 
 use dependencies_sync::bson::Document;
 
@@ -38,15 +32,16 @@ pub(crate) async fn get_manage_entities_page(
     }
 
     let fields = manager.get_manage_schema().await;
-    let mut unsets =
-        get_manage_schema_view_mask(manage_id, &fields, &role_group.to_string())
-            .await
-            .iter()
-            .filter(|(_k, v)| !(**v))
-            .map(|(k, _v)| k.clone())
-            .collect::<Vec<String>>();
-    
-    no_present_fields.iter().for_each(|k| unsets.push(k.clone()));
+    let mut unsets = get_manage_schema_view_mask(manage_id, &fields, &role_group.to_string())
+        .await
+        .iter()
+        .filter(|(_k, v)| !(**v))
+        .map(|(k, _v)| k.clone())
+        .collect::<Vec<String>>();
+
+    no_present_fields
+        .iter()
+        .for_each(|k| unsets.push(k.clone()));
 
     let result = manager
         .get_entities_by_page(*page_index, &Some(matches), sort_doc, &unsets)

@@ -8,15 +8,15 @@ use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};
 use majordomo::get_majordomo;
 use managers::Manager;
-use managers::ManagerTrait;
+use managers::ManagerInterface;
 
-pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
+pub async fn init_managers(manager_arcs: Vec<&'static Manager>) {
     info!("{}", t!("初始化主管"));
     let majordomo_lock = get_majordomo();
 
     info!("{}", t!("初始化管理映射表"));
-    let managers_map_lock = majordomo_lock.get_managers_map();
-    let mut manages_map = managers_map_lock.write();
+    let managers_map_arc = majordomo_lock.get_managers_map();
+    let mut manages_map = managers_map_arc.write();
     for m in manager_arcs {
         let manager_id = m.get_id();
         // 管理编号不能相同
@@ -29,11 +29,12 @@ pub async fn init_managers(manager_arcs: Vec<Arc<Manager>>) {
             );
         }
 
-        if m.inner.manager.has_cache() && m.inner.manager.get_cache().await.is_none() {
-            panic!("{}: {}", t!("初始化管理缓存失败"), t!("请检查管理编号指定"));
-        }
+        // 初始化硬编码缓存
+        /* if m.inner.is_hard_coded().await && m.inner.get_hard_coded_cache(manager_id).await.is_none() {
+            panic!("{}: {}", t!("初始化管理缓存失败"), manager_id);
+        } */
 
-        manages_map.insert(manager_id, m.clone());
+        manages_map.insert(manager_id, m);
     }
 
     // 显示加载的管理

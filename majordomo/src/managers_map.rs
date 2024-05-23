@@ -7,16 +7,16 @@ use dependencies_sync::parking_lot::RwLock;
 use cash_result::*;
 use managers::{self};
 use managers::Manager;
-use managers::ManagerTrait;
+use managers::ManagerInterface;
 
 /// 管理表类型
-pub type ManagersMap = HashMap<&'static str, Arc<Manager>>;
+pub type ManagersMap = HashMap<&'static str, &'static Manager>;
 
 /// 管理管理器表
 static mut MANAGERS_MAP: Option<Arc<RwLock<ManagersMap>>> = None;
 
 /// 添加管理器
-pub fn add_managers(new_managers: Vec<Arc<Manager>>) -> Result<OperationResult, OperationResult> {
+pub fn add_managers(new_managers: Vec<&'static Manager>) -> Result<OperationResult, OperationResult> {
     if new_managers.is_empty() {
         return Ok(operation_succeed("ok"));
     }

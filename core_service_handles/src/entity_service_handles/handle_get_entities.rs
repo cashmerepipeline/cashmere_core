@@ -8,7 +8,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerInterface, entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};

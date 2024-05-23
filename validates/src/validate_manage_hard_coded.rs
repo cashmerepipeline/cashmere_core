@@ -1,7 +1,8 @@
 use dependencies_sync::rust_i18n::{self, t};
 
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+
+use managers::hard_coded_cache_interface::HardCodedInterface;
 
 use dependencies_sync::tonic::Status;
 

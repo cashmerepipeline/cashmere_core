@@ -15,7 +15,8 @@ schema = [
   # 2002
   { data_type = "DateTime", name_map = { zh = "生日", en = "birthday" }, removed = false },
   # 2003
-  { data_type = "Array<Int32>", name_map = { zh = "头像", en = "portrait" }, removed = false },
+  # { data_type = "Array<Int32>", name_map = { zh = "头像", en = "portrait" }, removed = false },
+  { data_type = "Array", name_map = { zh = "头像", en = "portrait" }, removed = false },
   { data_type = "String", name_map = { zh = "地址", en = "address" }, removed = false },
 ]
 

@@ -7,7 +7,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use manage_define::manage_ids::COUNTRY_CODES_MANAGE_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};

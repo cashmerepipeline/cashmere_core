@@ -12,8 +12,8 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
-use managers::manager_trait::ManagerTrait;
-use managers::entity_cache_map::EntityCacheInterface;
+use managers::{entity_interface::EntityInterface};
+use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
 use view::view_rules_map::{query_collection_view_rules};
@@ -189,7 +189,7 @@ async fn handle_check_updates_later_then_time(
             let mut r = doc! {};
 
             // 从缓存取得的数据会返回所有数据，需要过滤
-            if manager.inner.has_cache(){
+            if manager.is_hard_coded().await{
                 let e_timestamp = result.get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string()).unwrap();
                 if timestamp >= e_timestamp{
                     debug!("{}: {}-{}", t!("不需要拉取"), manage_id, result.get_str(ID_FIELD_ID.to_string()).unwrap());

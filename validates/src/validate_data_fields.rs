@@ -2,7 +2,7 @@ use dependencies_sync::bson::{self, Document};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::Status;
 
-use managers::ManagerTrait;
+use managers::ManagerInterface;
 
 /// zh: 验证单个key的上传数据，在验证管理编号之后
 pub async fn validate_data_fields(manage_id: &str, data: &[u8]) -> Result<(), Status> {

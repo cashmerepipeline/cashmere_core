@@ -7,7 +7,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::REMOVED_FIELD_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
@@ -72,9 +72,16 @@ async fn handle_get_entity(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
+    let mut presents = present_fields.clone();
+    // 需要返回删除字段
+    if !present_fields.is_empty() && !present_fields.contains(&REMOVED_FIELD_ID.to_string()) {
+        presents.push(REMOVED_FIELD_ID.to_string());
+    }
+
     let result = manager
-        .get_entity_by_id(entity_id, present_fields, no_present_fields)
+        .get_entity_by_id(entity_id, &presents, no_present_fields)
         .await;
+
 
     match result {
         Ok(r) => {
@@ -84,7 +91,7 @@ async fn handle_get_entity(
                     t!("实体已删除"),
                     manage_id,
                     entity_id,
-                    "validate_entity_id"
+                    "handle_get_entity",
                 )))
             } else {
                 // 字段可见性过滤

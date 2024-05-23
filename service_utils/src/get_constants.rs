@@ -4,7 +4,8 @@ use dependencies_sync::{
     tokio_stream::StreamExt,
 };
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+
+use managers::entity_interface::EntityInterface;
 
 pub async fn get_constants(manage_id: &str) -> Result<Vec<Document>, OperationResult> {
     let majordomo_arc = get_majordomo();
@@ -13,7 +14,7 @@ pub async fn get_constants(manage_id: &str) -> Result<Vec<Document>, OperationRe
     let query_doc = doc! {};
 
     let result = manager
-        .get_entity_stream(query_doc, &[], None, None, 0)
+        .inner.get_entity_stream(query_doc, &[], None, None, 0)
         .await;
 
     match result {

@@ -1,6 +1,6 @@
 use tantivy::Term;
 use majordomo::get_majordomo;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 use crate::{get_tantivy_schema, get_tantivy_writer};
 

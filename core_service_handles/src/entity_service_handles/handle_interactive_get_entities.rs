@@ -9,7 +9,7 @@ use dependencies_sync::tonic::async_trait;
 
 use majordomo::get_majordomo;
 use manage_define::cashmere::*;
-use managers::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Response, Status};

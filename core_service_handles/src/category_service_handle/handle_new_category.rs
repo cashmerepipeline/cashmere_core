@@ -8,7 +8,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
 

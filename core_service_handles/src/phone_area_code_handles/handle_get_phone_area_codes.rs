@@ -9,7 +9,7 @@ use manage_define::cashmere::*;
 
 
 use manage_define::manage_ids::PHONE_AREA_CODES_MANAGE_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 
 use dependencies_sync::tokio_stream::{StreamExt};

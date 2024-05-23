@@ -6,22 +6,22 @@ use dependencies_sync::{
     rust_i18n::{self, t},
 };
 
-use crate::entity_cache_map::get_manage_entity_cache;
+use super::get_hard_coded_cache_map;
 
-pub async fn cache_get_entity(
+pub async fn hard_coded_cache_get_entity(
     manage_id: &'static str,
     entity_id: &str,
     present_fields: &[String],
     no_present_fields: &[String],
 ) -> Option<Document> {
-    let e_map = {
-        let c_map = get_manage_entity_cache(manage_id).await;
+    let entity = {
+        let c_map = get_hard_coded_cache_map(manage_id).await.unwrap();
         let e_map = c_map.read();
         e_map.get(entity_id).cloned()
     };
 
-    if let Some(e) = e_map {
-        let mut result = e.deref().clone();
+    if let Some(e) = entity {
+        let mut result = e.clone();
 
         // zh: 要排除的字段表
         // en: The table of fields to be excluded

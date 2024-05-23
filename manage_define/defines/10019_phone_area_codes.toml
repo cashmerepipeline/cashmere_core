@@ -11,7 +11,8 @@ hard_coded = true
 # 数据描写 或者 模式
 schema = [
   { data_type = "String", name_map = { zh = "编号", en = "code" }, removed = false },
-  { data_type = "Array<String>", name_map = { zh = "地区", en = "using_areas" }, removed = false },
+  # { data_type = "Array<String>", name_map = { zh = "地区", en = "using_areas" }, removed = false },
+  { data_type = "Array", name_map = { zh = "地区", en = "using_areas" }, removed = false },
 ]
 
 [view_rules]

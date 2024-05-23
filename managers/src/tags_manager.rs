@@ -1,92 +1,48 @@
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use dependencies_sync::bson::Document;
+use dependencies_sync::once_cell::sync::Lazy;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::log::{error, info, warn};
 use dependencies_sync::tonic::async_trait;
 
-use crate::entity_cache_map::EntityCacheInterface;
-use crate::{declare_get_manager, manager_trait::ManagerTrait};
+use crate::entity_interface::EntityInterface;
+use crate::hard_coded_cache_interface::HardCodedInterface;
+use crate::{declare_common_manager_interface, AllManagerInterface};
+use crate::{declare_get_manager, manager_trait::ManagerInterface};
 use cash_core::{Manage, manage_from_document};
 use cash_result::*;
 use manage_define::manage_ids::TAGS_MANAGE_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
+
 use crate::manager::Manager;
-use crate::manager_inner::ManagerInner;
 
 #[derive(Default)]
 pub struct TagsManager;
 
 /// 缓存
-static mut TAGS_MANAGE: Option<Arc<RwLock<Manage>>> = None;
-static mut TAGS_MANAGE_DOCUMENT: Option<Arc<RwLock<Document>>> = None;
+static TAGS_MANAGE: OnceLock<Arc<RwLock<Manage>>> = OnceLock::new();
+static TAGS_MANAGE_DOCUMENT: OnceLock<Arc<RwLock<Document>>> = OnceLock::new();
 
 /// 管理器
-static mut TAGS_MANAGER: Option<Arc<Manager>> = None;
+static INNER: Lazy<Arc<Box<dyn AllManagerInterface>>> =
+    Lazy::new(|| Arc::new(Box::new(TagsManager {})));
+static TAGS_MANAGER: OnceLock<Manager> = OnceLock::new();
 
 // 声明管理器取得函数
-declare_get_manager!(TagsManager, TAGS_MANAGER);
+declare_get_manager!(TagsManager, TAGS_MANAGER, INNER.clone());
 
-// 实现接口
+declare_common_manager_interface!(
+    TagsManager,
+    TAGS_MANAGE,
+    TAGS_MANAGE_DOCUMENT,
+    TAGS_MANAGE_ID
+);
+
 #[async_trait]
-impl ManagerTrait for TagsManager {
-    fn unregister(&self) -> Result<OperationResult, OperationResult> {
-        Err(operation_failed(
-            "unregister",
-            format!(
-                "{}-{}-{}",
-                t!("管理器不能被注销"),
-                self.get_id(),
-                self.get_name()
-            ),
-        ))
-    }
-
-    fn get_id(&self) -> &'static str {
-        TAGS_MANAGE_ID
-    }
-
-    fn get_name(&self) -> String {
-        "TagsManager".to_string()
-    }
-
-    
-
-    async fn get_manage(&self) -> Arc<RwLock<Manage>> {
-        unsafe {
-            if TAGS_MANAGE.is_some() {
-                TAGS_MANAGE.clone().unwrap()
-            } else {
-                let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = TAGS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
-                let manage: Manage = manage_from_document(m_doc).unwrap();
-                TAGS_MANAGE.replace(Arc::new(RwLock::new(manage)));
-                TAGS_MANAGE.clone().unwrap()
-            }
-        }
-    }
-
-    async fn get_manage_document(&self) -> Arc<RwLock<Document>> {
-        unsafe {
-            if TAGS_MANAGE_DOCUMENT.is_some() {
-                TAGS_MANAGE_DOCUMENT.clone().unwrap()
-            } else {
-                let collection_name = MANAGES_MANAGE_ID.to_string();
-                let id_str = TAGS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
-
-                TAGS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
-                TAGS_MANAGE_DOCUMENT.clone().unwrap()
-            }
-        }
-    }
-}
-
-impl EntityCacheInterface for TagsManager { }
+impl AllManagerInterface for TagsManager {}
+#[async_trait]
+impl HardCodedInterface for TagsManager {}
+#[async_trait]
+impl EntityInterface for TagsManager {}
