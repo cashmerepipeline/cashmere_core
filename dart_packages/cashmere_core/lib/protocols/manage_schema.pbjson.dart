@@ -21,6 +21,7 @@ const SchemaField$json = {
     {'1': 'name_map', '3': 2, '4': 3, '5': 11, '6': '.cashmere.SchemaField.NameMapEntry', '10': 'nameMap'},
     {'1': 'data_type', '3': 3, '4': 1, '5': 9, '10': 'dataType'},
     {'1': 'removed', '3': 4, '4': 1, '5': 8, '10': 'removed'},
+    {'1': 'editable', '3': 5, '4': 1, '5': 8, '10': 'editable'},
   ],
   '3': [SchemaField_NameMapEntry$json],
 };
@@ -39,8 +40,9 @@ const SchemaField_NameMapEntry$json = {
 final $typed_data.Uint8List schemaFieldDescriptor = $convert.base64Decode(
     'CgtTY2hlbWFGaWVsZBIOCgJpZBgBIAEoBVICaWQSPQoIbmFtZV9tYXAYAiADKAsyIi5jYXNobW'
     'VyZS5TY2hlbWFGaWVsZC5OYW1lTWFwRW50cnlSB25hbWVNYXASGwoJZGF0YV90eXBlGAMgASgJ'
-    'UghkYXRhVHlwZRIYCgdyZW1vdmVkGAQgASgIUgdyZW1vdmVkGjoKDE5hbWVNYXBFbnRyeRIQCg'
-    'NrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWU6AjgB');
+    'UghkYXRhVHlwZRIYCgdyZW1vdmVkGAQgASgIUgdyZW1vdmVkEhoKCGVkaXRhYmxlGAUgASgIUg'
+    'hlZGl0YWJsZRo6CgxOYW1lTWFwRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiAB'
+    'KAlSBXZhbHVlOgI4AQ==');
 
 @$core.Deprecated('Use getManageSchemaRequestDescriptor instead')
 const GetManageSchemaRequest$json = {

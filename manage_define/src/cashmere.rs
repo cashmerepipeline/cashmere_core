@@ -760,6 +760,8 @@ pub struct SchemaField {
     pub data_type: ::prost::alloc::string::String,
     #[prost(bool, tag = "4")]
     pub removed: bool,
+    #[prost(bool, tag = "5")]
+    pub editable: bool,
 }
 /// 取得管理描写
 #[allow(clippy::derive_partial_eq_without_eq)]

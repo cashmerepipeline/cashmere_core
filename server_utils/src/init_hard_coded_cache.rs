@@ -7,7 +7,7 @@ use managers::Manager;
 use managers::ManagerInterface;
 use managers::hard_coded_cache_interface::HardCodedInterface;
 
-pub async fn init_hard_coded_cache(manager_arcs: Vec<&'static Manager>) {
+pub async fn init_hard_coded_cache(manager_arcs: &Vec<&'static Manager>) {
     info!("{}", t!("初始化硬编码缓存"));
     let majordomo_arc = get_majordomo();
 
