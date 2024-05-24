@@ -10,7 +10,7 @@ use majordomo::get_majordomo;
 use managers::Manager;
 use managers::ManagerInterface;
 
-pub async fn init_managers(manager_arcs: &Vec<&'static Manager>) {
+pub async fn init_managers_map(manager_arcs: &Vec<&'static Manager>) {
     info!("{}", t!("初始化主管"));
     let majordomo_lock = get_majordomo();
 

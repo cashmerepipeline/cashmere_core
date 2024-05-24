@@ -7,7 +7,8 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use manage_define::manage_ids::*;
-use managers::{manager_trait::ManagerInterface};
+use managers::hard_coded_cache_interface::HardCodedInterface;
+use managers::manager_trait::ManagerInterface;
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_entity_id, validate_manage_id};
@@ -68,10 +69,11 @@ async fn handle_change_manage_write_rule(
 
     let majordomo_arc = get_majordomo();
 
-    // 检查管理是否存在
-    if !majordomo_arc.get_manager_ids().contains(&manage_id.as_str()) {
-        return Err(Status::data_loss(format!("管理不存在: {}", manage_id)));
-    }
+    let hard_coded = majordomo_arc
+        .get_manager_by_id(&manage_id)
+        .unwrap()
+        .is_hard_coded()
+        .await;
 
     let view_rules_manager = majordomo_arc
         .get_manager_by_id(VIEW_RULES_MANAGE_ID)
@@ -82,7 +84,8 @@ async fn handle_change_manage_write_rule(
     let mut rules_map: Document = doc! {};
     for f in fields.iter() {
         let read_rule = can_field_read(manage_id, &f.id.to_string(), &role_group).await;
-        let write_rule = can_field_write(manage_id, &f.id.to_string(), &role_group).await;
+        let write_rule =
+            can_field_write(manage_id, &f.id.to_string(), hard_coded, &role_group).await;
         rules_map.insert(
             f.id.to_string(),
             doc! {

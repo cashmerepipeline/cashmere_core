@@ -9,6 +9,7 @@ pub use wait_for_terminate_signal::*;
 pub use build_runtime::*;
 pub use init_managers::*;
 pub use init_hard_coded_cache::*;
+pub use init_view_rules::*;
 
 pub use set_tls_configs::*;
 
@@ -19,6 +20,7 @@ mod build_runtime;
 mod init_log_dir;
 mod init_managers;
 mod init_hard_coded_cache;
+mod init_view_rules;
 
 mod shutdown_cancelation_token;
 mod wait_for_terminate_signal;

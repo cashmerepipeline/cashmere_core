@@ -76,6 +76,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "OnlyOwner",
 ] }
 [view_rules.schema.1004]
 admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
@@ -163,6 +164,7 @@ user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 admin = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -173,6 +175,7 @@ user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 admin = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",
@@ -183,6 +186,7 @@ user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 admin = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
 ], write_filters = [
+  "NoLimit",
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
   "NoLimit",

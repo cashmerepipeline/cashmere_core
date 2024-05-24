@@ -13,6 +13,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use cash_core::SchemaField as CoreSchemaField;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
+use managers::hard_coded_cache_interface::HardCodedInterface;
 use managers::manager_trait::ManagerInterface;
 use request_utils::request_account_context;
 
@@ -95,9 +96,21 @@ async fn handle_get_manage_schema(
         f.name_map.iter().for_each(|(k, v)| {
             name_map.insert(k.to_string(), v.to_string());
         });
-        
+
+        let hard_coded = majordomo_arc
+            .get_manager_by_id(&manage_id)
+            .unwrap()
+            .is_hard_coded()
+            .await;
+
         // zh: 是否可编辑
-        let editable = can_field_write(manage_id, f.id.to_string().as_str(), &role_group).await;
+        let editable = can_field_write(
+            manage_id,
+            f.id.to_string().as_str(),
+            hard_coded,
+            &role_group,
+        )
+        .await;
 
         result.push(SchemaField {
             id: f.id,
