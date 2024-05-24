@@ -1,4 +1,7 @@
-use crate::ManagerTrait;
+use crate::entity_interface::get_entity_by_id;
+use crate::hard_coded_cache_interface::HardCodedInterface;
+use crate::ManagerInterface;
+
 use cash_core::Manage;
 use cash_core::SchemaField;
 use cash_result::OperationResult;
@@ -9,11 +12,14 @@ use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct ManagerInner {
-    pub manager: Arc<dyn ManagerTrait>,
+    pub manager: Arc<dyn ManagerInterface>,
 }
 
 #[async_trait]
-impl ManagerTrait for ManagerInner {
+impl HardCodedInterface for ManagerInner {}
+
+#[async_trait]
+impl ManagerInterface for ManagerInner {
     async fn get_manage_schema(&self) -> Vec<SchemaField> {
         self.manager.get_manage_schema().await
     }
@@ -79,10 +85,6 @@ impl ManagerTrait for ManagerInner {
 
     fn get_name(&self) -> String {
         self.manager.get_name()
-    }
-
-    fn has_cache(&self) -> bool {
-        self.manager.has_cache()
     }
 
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {

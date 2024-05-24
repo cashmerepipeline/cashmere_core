@@ -4,20 +4,23 @@ use std::path::PathBuf;
 use dependencies_sync::bson::{self, Document};
 use dependencies_sync::glob;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::log::{error, info};
+use dependencies_sync::rust_i18n::{self, t};
 
-use dependencies_sync::log::debug;
-use dependencies_sync::tokio::fs::{create_dir, create_dir_all};
-use manage_define::general_field_names::{
+use manage_define::hard_coded_field_names::{
     DATA_TYPE_FIELD_NAME, ID_FIELD_NAME, NAME_MAP_FIELD_NAME,
 };
 use manage_define::language_keys::ENGLISH;
 
-use crate::{
-    generate_dart_schema_code, get_dart_data_type, get_id, get_name_map, get_schema, get_toml_map,
-};
+use crate::{generate_dart_schema_code, get_id, get_name_map, get_schema, get_toml_map};
 
 /// 输入定义文件表，输出id的常量定义
-pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Option<&str>, dart_package_name: Option<&str>) {
+pub fn generate_manage_defines(
+    src_dirs: &[&str],
+    target_dir: &str,
+    dart_dir: Option<&str>,
+    dart_package_name: Option<&str>,
+) {
     let manage_ids_path_rust = format!("{}/manage_ids.rs", target_dir);
     let manage_field_ids_path_rust = format!("{}/field_ids.rs", target_dir);
 
@@ -35,7 +38,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
     for dir in src_dirs.iter() {
         let src_dir = format!("{}/*.toml", dir);
 
-        for entry in glob::glob(src_dir.as_ref()).expect("读取tmol文件失败") {
+        for entry in glob::glob(src_dir.as_ref()).expect(&t!("读取tmol文件失败")) {
             // println!("{}", entry.as_ref().unwrap().to_str().unwrap());
             match entry {
                 Ok(path) => {
@@ -47,7 +50,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                     let manage_id = match get_id::get_id(&toml_map) {
                         Some(r) => r,
                         None => {
-                            println!("取得id错误 {}", toml_path);
+                            error!("{} {}", t!("取得id错误"), toml_path);
                             continue;
                         }
                     };
@@ -58,20 +61,20 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                         .to_string();
                     let schemas_bson = get_schema::get_schema(&toml_map).unwrap();
                     let schemas: Vec<Document> =
-                        bson::from_bson(schemas_bson).expect("转换描写失败");
+                        bson::from_bson(schemas_bson).expect(&t!("转换描写失败"));
 
                     let mut fields: Vec<(String, i32, String)> = Vec::new();
                     for item in schemas.iter() {
                         let name_doc = match item.get_document(NAME_MAP_FIELD_NAME) {
                             Ok(r) => r,
                             Err(_) => {
-                                panic!("管理定义错误 {} ", manage_name);
+                                panic!("{} {} ", t!("取得管理定义表失败"), manage_name);
                             }
                         };
                         let s_name = match name_doc.get_str(ENGLISH) {
                             Ok(r) => r,
                             Err(_) => {
-                                panic!("管理定义错误 {}", name_doc);
+                                panic!("{} {}", t!("取得管理英文名失败"), name_doc);
                             }
                         };
                         let s_id = item.get_i32(ID_FIELD_NAME).unwrap();
@@ -88,14 +91,14 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
     }
 
     let mut manage_ids_file_rust =
-        std::fs::File::create(manage_ids_path_rust).expect("打开管理编号rust文件失败");
+        std::fs::File::create(manage_ids_path_rust).expect(&t!("打开管理编号rust文件失败"));
     let mut manage_field_ids_file_rust =
-        std::fs::File::create(manage_field_ids_path_rust).expect("打开属性编号rust文件失败");
+        std::fs::File::create(manage_field_ids_path_rust).expect(&t!("打开属性编号rust文件失败"));
 
     let mut manage_ids_file_dart =
-        std::fs::File::create(manage_ids_path_dart).expect("打开管理编号dart文件失败");
+        std::fs::File::create(manage_ids_path_dart).expect(&t!("打开管理编号dart文件失败"));
     let mut manage_field_ids_file_dart =
-        std::fs::File::create(manage_field_ids_path_dart).expect("打开属性编号dart文件失败");
+        std::fs::File::create(manage_field_ids_path_dart).expect(&t!("打开属性编号dart文件失败"));
 
     for (name, id) in manage_ids_map.iter() {
         manage_ids_file_rust
@@ -104,7 +107,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                 name.to_uppercase(),
                 id
             ))
-            .expect("写入管理rust文件编码错误");
+            .expect(&t!("写入管理rust文件编码错误"));
 
         // dart
         if dart_dir.is_some() {
@@ -114,7 +117,7 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                     name.to_uppercase(),
                     id
                 ))
-                .expect("写入管理dart文件编码错误");
+                .expect(&t!("写入管理dart文件编码错误"));
         }
     }
 
@@ -127,9 +130,9 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                     s_name.to_uppercase(),
                     s_id
                 ))
-                .expect("写入属性编码rust文件错误");
+                .expect(&t!("写入属性编码rust文件错误"));
 
-            if let Some(out_dir) = dart_dir {
+            if let Some(_out_dir) = dart_dir {
                 manage_field_ids_file_dart
                     .write_fmt(format_args!(
                         "const int {}_{}_FIELD_ID = {};\n",
@@ -137,31 +140,32 @@ pub fn generate_manage_defines(src_dirs: &[&str], target_dir: &str, dart_dir: Op
                         s_name.to_uppercase(),
                         s_id
                     ))
-                    .expect("写入属性编码dart文件错误");
+                    .expect(&t!("写入属性编码dart文件错误"));
             }
         }
     }
 
     if let Some(out_dir) = dart_dir {
-        println!("{}", "create dart schemas");
         for (name, fields) in manage_field_ids_map.iter() {
-            println!("create schema: {}", name);
-            
+            info!("{}: {}", t!("开始创建dart管理定义"), name);
+
             // zh: 生成代码因为数据类型问题不能直接使用，只作为开始模板
             let outdir = format!("{}/cache_schemas/generate", out_dir);
             let out_path = PathBuf::from(out_dir);
-            if !out_path.exists(){
+            if !out_path.exists() {
                 // 创建目录
-                std::fs::create_dir_all(out_path).expect("创建目录失败");
+                std::fs::create_dir_all(out_path).expect(&t!("创建目录失败"));
             }
 
-            let out_file = format!("{}/{}.dart", outdir, name);
+            let out_file = format!("{}/{}.dart.gen", outdir, name);
             println!("{}", out_file);
 
             let mut schema_dart_file =
-                std::fs::File::create(out_file).expect("打开属性编号dart文件失败");
-            let content = generate_dart_schema_code(&name, fields, dart_package_name.unwrap());
-            schema_dart_file.write_fmt(format_args!("{}", content));
+                std::fs::File::create(out_file).expect(&t!("打开属性编号dart文件失败"));
+            let content = generate_dart_schema_code(name, fields, dart_package_name.unwrap());
+            if let Err(err) = schema_dart_file.write_fmt(format_args!("{}", content)) {
+                error!("{}: {}", t!("格式化写入错误"), err);
+            };
         }
     }
 }

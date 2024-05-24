@@ -1,3 +1,4 @@
+use dependencies_sync::indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 
 use dependencies_sync::bson::Timestamp;
@@ -30,10 +31,11 @@ pub struct Manage {
     pub groups: Vec<String>,
 
     // zh: 实体模式表
-    // en: schema
     pub schema: Vec<SchemaField>,
 
+    // zh: 硬编码的
+    pub hard_coded: bool,
+
     // zh: 注释
-    // en: description
-    pub description: String,
+    pub description: IndexMap<String, String>,
 }

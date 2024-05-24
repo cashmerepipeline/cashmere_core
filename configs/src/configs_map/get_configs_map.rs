@@ -1,6 +1,6 @@
 use std::{collections::HashMap, sync::Arc};
 
-use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::{parking_lot::RwLock, toml};
 
 type ConfigMap = Arc<RwLock<HashMap<String, toml::Table>>>;
 

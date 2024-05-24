@@ -7,7 +7,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerInterface};
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_entity_id, validate_manage_id};

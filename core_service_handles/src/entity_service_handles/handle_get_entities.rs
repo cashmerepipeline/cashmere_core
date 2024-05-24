@@ -8,7 +8,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
-use managers::manager_trait::ManagerTrait;
+use managers::{manager_trait::ManagerInterface, entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
@@ -91,7 +91,7 @@ async fn handle_get_entities(
 
     let manage_id = &request.get_ref().manage_id;
     let entity_ids = &request.get_ref().entity_ids;
-    let present_fields = &request.get_ref().present_fields;
+    let _present_fields = &request.get_ref().present_fields;
     let no_present_fields = &request.get_ref().no_present_fields;
 
     let majordomo_arc = get_majordomo();
@@ -116,7 +116,7 @@ async fn handle_get_entities(
                 filtered_ids.push(id.to_owned());
             };
 
-            let entity = manager.get_entity_by_id(id, &vec![], &filtered_ids).await;
+            let entity = manager.get_entity_by_id(id, &[], &filtered_ids).await;
             if let Ok(e) = entity {
                 let resp = GetEntitiesResponse {
                     entity: bson::to_vec(&e).unwrap(),

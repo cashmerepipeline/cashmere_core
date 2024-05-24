@@ -1,4 +1,4 @@
-use dependencies_sync::bson::doc;
+use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
@@ -8,7 +8,7 @@ use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 use managers::utils::make_new_entity_document;
 use request_utils::request_account_context;
 
@@ -72,14 +72,14 @@ async fn handle_new_category(
     request: Request<NewCategoryRequest>,
 ) -> UnaryResponseResult<NewCategoryResponse> {
     let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
-    let manager_id = CATEGORIES_MANAGE_ID;
+    let category_manage_id = CATEGORIES_MANAGE_ID;
 
     let name = &request.get_ref().name;
     let manage_id = &request.get_ref().manage_id;
     let description = &request.get_ref().description;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc.get_manager_by_id(manager_id).unwrap();
+    let manager = majordomo_arc.get_manager_by_id(category_manage_id).unwrap();
 
     let name = name.to_owned().unwrap();
     let name_doc = doc! {name.language.clone():name.name.clone()};
@@ -103,13 +103,11 @@ async fn handle_new_category(
     if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(CATEGORIES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
-        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), description.clone());
+        new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
-
-        let new_id = new_entity_doc.get_str(ID_FIELD_ID.to_string()).unwrap();
 
         match result {
             Ok(_r) => Ok(Response::new(NewCategoryResponse {

@@ -25,14 +25,14 @@ for (const key of Object.keys(countries)) {
     2003: country_info.phone[0],
     2004: country_info.languages,
     1006: "8610000000000",
-    1007: ["1000000",],
+    1007: ["admin",],
   });
 }
 
 const write_stream = fs.createWriteStream("countries_codes.toml");
 codes_map.forEach((v, key) => {
   const name_map = v[1001];
-  write_stream.write(`${key.toLowerCase()} = { 1000 = "${v[1000]}", 1002 = "${v[1002]}", 1001 = {zh = "${name_map.zh}", en="${name_map.en}"}, 1006 = "8610000000000", 1007 = ["1000000",],2001 = "${v[2001]}", 2002 = "${v[2002]}", 2003=${v[2003]}, 2004=${JSON.stringify(v[2004])} }`.replaceAll(':', '='));
+  write_stream.write(`${key.toLowerCase()} = { 1000 = "${v[1000]}", 1002 = "${v[1002]}", 1001 = {zh = "${name_map.zh}", en="${name_map.en}"}, 1006 = "8610000000000", 1007 = ["admin",],2001 = "${v[2001]}", 2002 = "${v[2002]}", 2003=${v[2003]}, 2004=${JSON.stringify(v[2004])} }`.replaceAll(':', '='));
   write_stream.write("\n");
 })
 

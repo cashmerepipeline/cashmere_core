@@ -7,14 +7,13 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::manage_ids::{TAGS_MANAGE_ID, CALENDAR_BOOKS_MANAGE_ID, CALENDARS_MANAGE_ID};
-use managers::manager_trait::ManagerTrait;
+use manage_define::manage_ids::{CALENDARS_MANAGE_ID, CALENDAR_BOOKS_MANAGE_ID};
+use managers::{entity_interface::EntityInterface};
 
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;
-use validates::{validate_manage_id, validate_entity_id};
+use validates::validate_entity_id;
 
 #[async_trait]
 pub trait HandleListBookCalendars {
@@ -42,7 +41,7 @@ async fn validate_request_params(
 ) -> Result<Request<ListBookCalendarsRequest>, Status> {
     // 没有参数
     let book_id = &request.get_ref().book_id;
-    
+
     validate_entity_id(CALENDAR_BOOKS_MANAGE_ID, book_id).await?;
 
     Ok(request)
@@ -62,7 +61,7 @@ async fn handle_list_book_calendars(
         CALENDARS_BOOK_ID_FIELD_ID.to_string():book_id,
     };
 
-    let result  = manager.get_entities_by_filter(&Some(query_doc)).await;
+    let result = manager.get_entities_by_filter(&Some(query_doc)).await;
 
     match result {
         Ok(entities) => {
@@ -77,4 +76,3 @@ async fn handle_list_book_calendars(
         ))),
     }
 }
-

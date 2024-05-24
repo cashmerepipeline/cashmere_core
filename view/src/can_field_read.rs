@@ -14,7 +14,7 @@ pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &Str
     }
 
     let collection_view_rules =
-        if let Some(r) = query_collection_view_rules(&manage_id.to_string(), role_group).await {
+        if let Some(r) = query_collection_view_rules(manage_id, role_group).await {
             r
         } else {
             log::error!(

@@ -6,7 +6,7 @@ import "name.proto";
 message NewTagRequest{
   string target_manage_id = 1;
   Name name = 2;
-  string description = 3;
+  map<string, string> description = 3;
 }
 message NewTagResponse{
   // 成功返回id, 失败返回错误信息

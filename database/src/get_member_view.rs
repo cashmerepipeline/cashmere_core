@@ -1,13 +1,15 @@
 use crate::{collection_exists, get_database, get_member_view_name};
 use dependencies_sync::bson::{doc, Document};
+use dependencies_sync::log::error;
 use dependencies_sync::mongodb::options::CreateCollectionOptions;
 use dependencies_sync::mongodb::Collection;
+use dependencies_sync::rust_i18n::{self, t};
 use manage_define::field_ids::{
     MEMBERS_OWNER_ENTITY_ID_FIELD_ID, MEMBERS_OWNER_MANAGE_ID_FIELD_ID,
     MEMBERS_SELF_ENTITY_ID_FIELD_ID, MEMBERS_SELF_MANAGE_ID_FIELD_ID,
 };
 use manage_define::general_field_ids::ID_FIELD_ID;
-use manage_define::general_field_names::MEMBER_LOOKUP_FIELD_NAME;
+use manage_define::hard_coded_field_names::MEMBER_LOOKUP_FIELD_NAME;
 
 /// 取得集合
 pub async fn get_member_view(
@@ -46,7 +48,10 @@ pub async fn get_member_view(
             .pipeline(vec![match_doc, lookup_doc, unwind_doc])
             .build();
 
-        cashmere_db.create_collection(view_name.clone(), Some(create_options));
+        if let Err(err) = cashmere_db.create_collection(view_name.clone(), Some(create_options)).await{
+            error!("{}: {:?}", t!("创建成域视图失败"), err);
+            return None;
+        }
     }
 
     Some(cashmere_db.collection(&view_name))

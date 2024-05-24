@@ -1,17 +1,18 @@
 use dependencies_sync::bson::{self, doc};
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log;
+use dependencies_sync::log::{self};
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
-use managers::manager_trait::ManagerTrait;
+use manage_define::general_field_ids::REMOVED_FIELD_ID;
+use managers::{entity_interface::EntityInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use validates::{validate_manage_id, validate_entity_id};
+use validates::{validate_manage_id};
 use view::{self, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
@@ -30,7 +31,6 @@ pub trait HandleGetEntity {
     }
 }
 
-
 async fn validate_view_rules(
     request: Request<GetEntityRequest>,
 ) -> Result<Request<GetEntityRequest>, Status> {
@@ -38,7 +38,9 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -50,10 +52,9 @@ async fn validate_request_params(
     request: Request<GetEntityRequest>,
 ) -> Result<Request<GetEntityRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
-    let entity_id = &request.get_ref().entity_id;
+    let _entity_id = &request.get_ref().entity_id;
 
     validate_manage_id(manage_id).await?;
-    validate_entity_id(manage_id, entity_id).await?;
 
     Ok(request)
 }
@@ -71,24 +72,43 @@ async fn handle_get_entity(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let result = manager.get_entity_by_id(entity_id, present_fields, no_present_fields).await;
+    let mut presents = present_fields.clone();
+    // 需要返回删除字段
+    if !present_fields.is_empty() && !present_fields.contains(&REMOVED_FIELD_ID.to_string()) {
+        presents.push(REMOVED_FIELD_ID.to_string());
+    }
+
+    let result = manager
+        .get_entity_by_id(entity_id, &presents, no_present_fields)
+        .await;
+
 
     match result {
         Ok(r) => {
-            // 字段可见性过滤
-            let mut result_doc = doc!();
-            let mut property_stream = stream::iter(r);
-            while let Some((k, v)) = property_stream.next().await {
-                if !can_field_read(manage_id, &k, &role_group).await {
-                    log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
-                    continue;
+            if r.get_bool(REMOVED_FIELD_ID.to_string()).unwrap_or(true) {
+                Err(Status::invalid_argument(format!(
+                    "{}: {}-{}, {}",
+                    t!("实体已删除"),
+                    manage_id,
+                    entity_id,
+                    "handle_get_entity",
+                )))
+            } else {
+                // 字段可见性过滤
+                let mut result_doc = doc!();
+                let mut property_stream = stream::iter(r);
+                while let Some((k, v)) = property_stream.next().await {
+                    if !can_field_read(manage_id, &k, &role_group).await {
+                        log::debug!("{}: {} {}-{}", t!("字段不可见"), role_group, manage_id, k);
+                        continue;
+                    }
+                    result_doc.insert(k, v);
                 }
-                result_doc.insert(k, v);
-            }
 
-            Ok(Response::new(GetEntityResponse {
-                entity: bson::to_vec(&result_doc).unwrap(),
-            }))
+                Ok(Response::new(GetEntityResponse {
+                    entity: bson::to_vec(&result_doc).unwrap(),
+                }))
+            }
         }
         Err(e) => Err(Status::aborted(format!(
             "{} {}",

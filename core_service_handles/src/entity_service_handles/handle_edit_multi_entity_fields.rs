@@ -5,7 +5,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use manage_define::cashmere::*;
 
-use managers::Manager;
+
 use managers::entity_interface::update_multi_entity_fields;
 use request_utils::{request_account_context, get_manage_schema_fields};
 

@@ -11,7 +11,7 @@ pub async fn validate_manage_can_write(
 ) -> Result<(), Status>{
 
     if !can_manage_write(
-        &manage_id.to_string(),
+        manage_id,
         role_group,
     )
     .await

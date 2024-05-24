@@ -7,10 +7,9 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::*;
 
-use manage_define::manage_ids::{TAGS_MANAGE_ID, CALENDAR_BOOKS_MANAGE_ID};
-use managers::manager_trait::ManagerTrait;
+use manage_define::manage_ids::{CALENDAR_BOOKS_MANAGE_ID};
+use managers::{entity_interface::EntityInterface};
 
-use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use service_utils::types::UnaryResponseResult;

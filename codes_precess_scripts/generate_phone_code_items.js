@@ -19,7 +19,7 @@ area_codes.forEach((area) => {
       2001: area.code,
       2002: [area.shortName.toLowerCase()],
       1006: "8610000000000",
-      1007: ["1000000",],
+      1007: ["admin",],
     });
   }
 });
@@ -28,7 +28,7 @@ const write_stream = fs.createWriteStream("phone_codes.toml");
 codes_map.forEach((v, key) => {
   const nameMap = v[1001];
   const areasStr = JSON.stringify(v[2002]);
-  write_stream.write(`${key} = { 1000 = "${v[1000]}", 1002 = "${v[1002]}", 1001 = {zh = "${nameMap.zh}", en = "${nameMap.en}"}, 2001 = "${v[2001]}", 1006 = "8610000000000", 1007 = ["1000000",], 2002 = ${areasStr} }`.replaceAll(':', '='));
+  write_stream.write(`${key} = { 1000 = "${v[1000]}", 1002 = "${v[1002]}", 1001 = {zh = "${nameMap.zh}", en = "${nameMap.en}"}, 2001 = "${v[2001]}", 1006 = "8610000000000", 1007 = ["admin",], 2002 = ${areasStr} }`.replaceAll(':', '='));
   write_stream.write("\n");
 })
 

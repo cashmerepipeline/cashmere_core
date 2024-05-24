@@ -1,0 +1,40 @@
+syntax = "proto3";
+package cashmere;
+
+/// 切换推荐状态
+message ToggleRecommendRequest{
+  string manage_id = 1;
+  string entity_id = 2;
+}
+message ToggleRecommendResponse{
+  // 返回推荐状态
+  bool result = 1;
+}
+
+/// zh: 获取最多推荐，最多1000个
+message GetTopRecommendsRequest{
+  string manage_id = 1;
+  // 数量，最多1000个
+  int32 count = 3;
+}
+message GetTopRecommendsResponse{
+  // {id: count}表
+  repeated bytes recommends = 1;
+}
+
+/// 取得推荐帐号表
+message GetRecommendAccountsRequest{
+  string manage_id = 1;
+  string entity_id = 2;
+}
+message GetRecommendAccountsResponse{
+  repeated string accounts = 1;
+}
+
+/// 取得帐号推荐了的实体列表, 只对当前帐号有效
+message GetAccountRecommendedEntitiesRequest{
+  string manage_id = 1;
+}
+message GetAccountRecommendedEntitiesResponse{
+  repeated string entities = 1;
+}

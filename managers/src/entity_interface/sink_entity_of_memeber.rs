@@ -139,7 +139,11 @@ pub async fn sink_entity_of_member(
 
     if let Err(err) = session.commit_transaction().await {
         log::error!("{}: {}", t!("执行事务失败"), err);
-        session.abort_transaction().await;
+
+        if let Err(err) = session.abort_transaction().await{
+            log::error!("{}: {}", t!("回滚事务失败"), err);
+        };
+
         return Err(operation_failed(
             "sink_entity_of_member",
             format!("{}: {:?}", t!("提交事务失败"), err),

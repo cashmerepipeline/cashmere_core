@@ -7,7 +7,7 @@ message NewCalendarBookRequest{
   string manage_id = 1;
   string entity_id = 2;
   Name name = 3;
-  string description = 4;
+  map<string, string> description = 4;
   string mark =5;
 }
 message NewCalendarBookResponse{

@@ -4,16 +4,18 @@
 use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 
-pub use manager_trait::ManagerTrait;
+pub use manager_trait::ManagerInterface;
 pub use manager::*;
-pub use manager_inner::*;
 
 pub mod manages_manager;
 
 pub mod areas_manager;
+
 pub mod categaries_manager;
 pub mod tags_manager;
 pub mod comments_manager;
+pub mod recommends_manager;
+
 pub mod groups_manager;
 pub mod persons_manager;
 pub mod templates_manager;
@@ -30,13 +32,12 @@ pub mod utils;
 mod macros;
 
 pub mod manager_trait;
-mod manager_inner;
+// mod manager_inner;
 mod manager;
 
-mod entity_cache_map;
+pub mod hard_coded_cache_interface;
 pub mod manage_interface;
 pub mod entity_interface;
 
-// pub mod tag_types_manager;
 // pub mod show_settings_manager;
 

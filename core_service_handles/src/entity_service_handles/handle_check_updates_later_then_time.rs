@@ -1,7 +1,7 @@
-use core::time;
+
 
 use dependencies_sync::bson::{self, doc, Document};
-use dependencies_sync::chrono::format::format;
+
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};
@@ -12,11 +12,12 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
+use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
-use view::view_rules_map::{get_manage_view_rules, query_collection_view_rules};
-use view::ReadRule;
+use view::view_rules_map::{query_collection_view_rules};
+
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -52,6 +53,7 @@ async fn validate_request_params(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> Result<Request<CheckUpdatesLaterThenTimeRequest>, Status> {
     let timestamp = &request.get_ref().timestamp;
+    let filter = &request.get_ref().filter;
 
     if timestamp.is_empty() {
         return Err(Status::invalid_argument(format!(
@@ -81,6 +83,17 @@ async fn validate_request_params(
         )));
     }
 
+    if !filter.is_empty() {
+        if let Err(err) = bson::from_slice::<Document>(filter) {
+            return Err(Status::invalid_argument(format!(
+                "{}: {}, {}",
+                t!("反序列化过滤条件失败"),
+                err,
+                "check_update_later_then_time"
+            )));
+        }
+    }
+
     Ok(request)
 }
 
@@ -88,16 +101,17 @@ async fn validate_request_params(
 async fn handle_check_updates_later_then_time(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
-    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
-    let manage_id = &request.get_ref().manage_id;
+    let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
     let ascending_order = &request.get_ref().ascending_order;
+    let filter = &request.get_ref().filter;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let collection_view_rules = query_collection_view_rules(manage_id, &role_group)
+    let _collection_view_rules = query_collection_view_rules(manage_id.as_str(), &role_group)
         .await
         .unwrap();
 
@@ -117,9 +131,17 @@ async fn handle_check_updates_later_then_time(
 
     let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
     let timestamp = timestamp_doc.get_timestamp("value").unwrap();
+
     let mut query_doc = doc! {
     MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
         };
+
+    if !filter.is_empty() {
+        let filter_doc: Document =  bson::from_slice(filter).unwrap(); 
+        filter_doc.iter().for_each(|(k, v)| {
+            query_doc.insert(k, v);
+        });
+    }
 
     let sort_doc = if *ascending_order {
         doc! {
@@ -160,11 +182,20 @@ async fn handle_check_updates_later_then_time(
     tokio::spawn(async move {
         // 最多获取1000个
         let mut limit_count = 0;
-        let mut ids = vec![];
+        let mut infos = vec![];
+
         while let Some(result) = query_cursor.next().await {
             // TODO: 可读过滤
             let mut r = doc! {};
-            debug!("{}-{}", t!("数据库查询更新"), result);
+
+            // 从缓存取得的数据会返回所有数据，需要过滤
+            if manager.is_hard_coded().await{
+                let e_timestamp = result.get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string()).unwrap();
+                if timestamp >= e_timestamp{
+                    debug!("{}: {}-{}", t!("不需要拉取"), manage_id, result.get_str(ID_FIELD_ID.to_string()).unwrap());
+                    continue;
+                }
+            }
 
             r.insert("_id", result.get_object_id("_id").unwrap());
             r.insert(
@@ -178,15 +209,15 @@ async fn handle_check_updates_later_then_time(
                     .unwrap(),
             );
 
-            ids.push(bson::to_vec(&r).unwrap());
+            infos.push(bson::to_vec(&r).unwrap());
 
             // 满20，发送到返回流
-            if ids.len() >= 20 {
+            if infos.len() >= 20 {
                 let resp = CheckUpdatesLaterThenTimeResponse {
-                    results: ids.clone(),
+                    results: infos.clone(),
                 };
                 resp_tx.send(Ok(resp)).await.unwrap();
-                ids.clear();
+                infos.clear();
             }
 
             // 最多1000条
@@ -197,8 +228,8 @@ async fn handle_check_updates_later_then_time(
             limit_count += 1;
         }
         // 发送最后一批
-        if !ids.is_empty() {
-            let resp = CheckUpdatesLaterThenTimeResponse { results: ids };
+        if !infos.is_empty() {
+            let resp = CheckUpdatesLaterThenTimeResponse { results: infos };
             resp_tx.send(Ok(resp)).await.unwrap();
         }
     });

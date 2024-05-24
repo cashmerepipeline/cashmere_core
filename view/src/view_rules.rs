@@ -1,4 +1,4 @@
-use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::{indexmap::IndexMap};
 use serde::{Deserialize, Serialize};
 
 use super::view_rule::ViewRule;
@@ -7,9 +7,9 @@ use super::view_rule::ViewRule;
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ViewRules {
     // 管理级，{组：规则}
-    pub manage: LinkedHashMap<String, ViewRule>,
+    pub manage: IndexMap<String, ViewRule>,
     // 集合级，{组：规则}
-    pub collection: LinkedHashMap<String, ViewRule>,
+    pub collection: IndexMap<String, ViewRule>,
     // {属性：组：规则}
-    pub schema: LinkedHashMap<String, LinkedHashMap<String, ViewRule>>,
+    pub schema: IndexMap<String, IndexMap<String, ViewRule>>,
 }

@@ -5,6 +5,7 @@ const String MEMBERS_MANAGE_ID ="成员";
 const String LANGUAGE_CODES_MANAGE_ID ="语言编码"; 
 const String COLORS_MANAGE_ID ="颜色"; 
 const String PERSONS_MANAGE_ID ="人"; 
+const String RECOMMENDS_MANAGE_ID ="推荐"; 
 const String TEMPLATES_MANAGE_ID ="模板"; 
 const String SHOW_SETTINGS_MANAGE_ID ="显示设置"; 
 const String VIEW_RULES_MANAGE_ID ="映像规则"; 

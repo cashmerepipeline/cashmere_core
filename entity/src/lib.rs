@@ -42,12 +42,18 @@ pub use add_to_array_field::*;
 
 pub use update_entity_array_element_field::*;
 pub use update_entity_array_map_field::*;
+
 pub use update_entity_field::*;
 pub use update_entity_fields::*;
+
+pub use query_entity_map_field::*;
 pub use update_entity_map_field::*;
 pub use delete_entity_map_field_key::*;
+
 pub use update_timestamp_field::*;
 pub use update_multi_entity_fields::*;
+
+pub use delete_entity::*;
 
 mod utils;
 mod get_new_entity_id;
@@ -66,7 +72,9 @@ mod update_entity_array_element_field;
 mod update_entity_array_map_field;
 
 mod update_entity_fields;
+
 mod insert_entity_map_field;
+mod query_entity_map_field;
 mod update_entity_map_field;
 mod delete_entity_map_field_key;
 
@@ -88,3 +96,8 @@ mod get_entity_groups;
 mod get_entry_count;
 mod count_entity;
 mod update_multi_entity_fields;
+
+mod delete_entity;
+
+// 硬编码缓存
+pub mod hard_code_cache;

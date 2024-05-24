@@ -4,9 +4,9 @@ use super::get_manage_view_rules;
 
 /// 取得属性视图规则
 pub async fn query_field_view_rules(
-    manage_id: &String,
-    field_id: &String,
-    group_id: &String,
+    manage_id: &str,
+    field_id: &str,
+    group_id: &str,
 ) -> Option<ViewRule> {
     if let Some(manage_view_rules_map) = get_manage_view_rules(manage_id).await {
         let m = manage_view_rules_map.read();

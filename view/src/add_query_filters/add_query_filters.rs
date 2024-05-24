@@ -1,6 +1,4 @@
 use dependencies_sync::bson::{doc, Document};
-use dependencies_sync::log::error;
-use dependencies_sync::rust_i18n::{self, t};
 
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, OWNER_FIELD_ID};
 
@@ -15,11 +13,7 @@ pub async fn add_query_filters(
     group: &String,
     manage_id: &String,
 ) -> Option<Document> {
-    let rule = if let Some(r) = query_collection_view_rules(manage_id, group).await {
-        r
-    } else {
-        return None;
-    };
+    let rule = query_collection_view_rules(manage_id, group).await?;
 
     // 是否无限制
     if check_group_read_nolimit(&rule) {

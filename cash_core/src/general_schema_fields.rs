@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use dependencies_sync::linked_hash_map::LinkedHashMap;
+use dependencies_sync::indexmap::IndexMap;
 
 use crate::SchemaField;
 
@@ -22,7 +22,7 @@ pub fn general_schema_fields() -> &'static Vec<SchemaField> {
 
 // 直接构建列表
 fn _general_property_fields() -> Vec<SchemaField> {
-    let mut id_name_map = LinkedHashMap::new();
+    let mut id_name_map = IndexMap::new();
     id_name_map.insert("zh".to_string(), "编号".to_string());
     id_name_map.insert("en".to_string(), "id".to_string());
     let id_field = SchemaField {
@@ -32,7 +32,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut name_name_map = LinkedHashMap::new();
+    let mut name_name_map = IndexMap::new();
     name_name_map.insert("zh".to_string(), "实体名".to_string());
     name_name_map.insert("en".to_string(), "name".to_string());
     let name_map_field = SchemaField {
@@ -42,7 +42,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut creator_name_map = LinkedHashMap::new();
+    let mut creator_name_map = IndexMap::new();
     creator_name_map.insert("zh".to_string(), "创建人".to_string());
     creator_name_map.insert("en".to_string(), "creator".to_string());
     let creator_field = SchemaField {
@@ -52,7 +52,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut create_timestamp_name_map = LinkedHashMap::new();
+    let mut create_timestamp_name_map = IndexMap::new();
     create_timestamp_name_map.insert("zh".to_string(), "创建时间戳".to_string());
     create_timestamp_name_map.insert("en".to_string(), "create_timestamp".to_string());
     let create_timestamp_field = SchemaField {
@@ -61,7 +61,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         data_type: "Timestamp".to_string(),
         removed: false,
     };
-    let mut modifier_name_map = LinkedHashMap::new();
+    let mut modifier_name_map = IndexMap::new();
     modifier_name_map.insert("zh".to_string(), "修改人".to_string());
     modifier_name_map.insert("en".to_string(), "modifier".to_string());
     let modifier_field = SchemaField {
@@ -70,7 +70,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         data_type: "Array".to_string(),
         removed: false,
     };
-    let mut modify_timestamp_name_map = LinkedHashMap::new();
+    let mut modify_timestamp_name_map = IndexMap::new();
     modify_timestamp_name_map.insert("zh".to_string(), "修改时间戳".to_string());
     modify_timestamp_name_map.insert("en".to_string(), "modify_timestamp".to_string());
     let modify_timestamp_field = SchemaField {
@@ -80,7 +80,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut owner_name_map = LinkedHashMap::new();
+    let mut owner_name_map = IndexMap::new();
     owner_name_map.insert("zh".to_string(), "主人".to_string());
     owner_name_map.insert("en".to_string(), "owner".to_string());
     let owner_field = SchemaField {
@@ -90,7 +90,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut group_name_map = LinkedHashMap::new();
+    let mut group_name_map = IndexMap::new();
     group_name_map.insert("zh".to_string(), "组".to_string());
     group_name_map.insert("en".to_string(), "group".to_string());
     let group_field = SchemaField {
@@ -100,7 +100,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut comments_name_map = LinkedHashMap::new();
+    let mut comments_name_map = IndexMap::new();
     comments_name_map.insert("zh".to_string(), "评论".to_string());
     comments_name_map.insert("en".to_string(), "comments".to_string());
     let comments_field = SchemaField {
@@ -110,7 +110,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut tags_name_map = LinkedHashMap::new();
+    let mut tags_name_map = IndexMap::new();
     tags_name_map.insert("zh".to_string(), "标签".to_string());
     tags_name_map.insert("en".to_string(), "tags".to_string());
     let tags_field = SchemaField {
@@ -120,7 +120,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut description_name_map = LinkedHashMap::new();
+    let mut description_name_map = IndexMap::new();
     description_name_map.insert("zh".to_string(), "注释".to_string());
     description_name_map.insert("en".to_string(), "description".to_string());
     let description_field = SchemaField {
@@ -130,7 +130,7 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut entity_removed_name_map = LinkedHashMap::new();
+    let mut entity_removed_name_map = IndexMap::new();
     entity_removed_name_map.insert("zh".to_string(), "已移除".to_string());
     entity_removed_name_map.insert("en".to_string(), "name".to_string());
     let entity_removed_field = SchemaField {
@@ -140,5 +140,18 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    vec![id_field, name_map_field, owner_field, group_field, description_field, tags_field, comments_field, creator_field, create_timestamp_field, modifier_field, modify_timestamp_field, entity_removed_field]
+    vec![
+        id_field,
+        name_map_field,
+        owner_field,
+        group_field,
+        description_field,
+        tags_field,
+        comments_field,
+        creator_field,
+        create_timestamp_field,
+        modifier_field,
+        modify_timestamp_field,
+        entity_removed_field,
+    ]
 }

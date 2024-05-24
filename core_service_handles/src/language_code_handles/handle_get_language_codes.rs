@@ -7,7 +7,7 @@ use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 
 use manage_define::manage_ids::LANGUAGE_CODES_MANAGE_ID;
-use managers::manager_trait::ManagerTrait;
+use managers::{entity_interface::EntityInterface};
 
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -53,7 +53,7 @@ async fn handle_get_language_codes(
     let query_doc = doc! {};
 
     let result = manager
-        .get_entity_stream(query_doc, &vec![], None, None, 0)
+        .get_entity_stream(query_doc, &[], None, None, 0)
         .await;
 
     match result {

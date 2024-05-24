@@ -20,6 +20,8 @@ pub struct ServerConfigs {
     pub log_dir: String,
     pub log_level: String,
     pub max_page_size: u16,
+    pub root_id: String,
+    pub admin_group: String,
 }
 
 impl ConfigTrait for ServerConfigs {
@@ -51,6 +53,8 @@ impl Default for ServerConfigs {
             log_dir: "log".to_string(),
             log_level: "info".to_string(),
             max_page_size: 20,
+            root_id:"8610000000000".to_string(),
+            admin_group: "admin".to_string(),
         }
     }
 }

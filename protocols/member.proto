@@ -9,7 +9,7 @@ message AddMemberRequest {
     string owner_entity_id = 3;
     int32 self_manage_id = 4;
     string self_entity_id = 5;
-    string description = 6;
+    map<string, string> description = 6;
   }
 message AddMemberResponse{
     string result = 1;

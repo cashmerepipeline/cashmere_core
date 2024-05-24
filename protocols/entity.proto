@@ -232,6 +232,15 @@ message InteractiveGetEntitiesResponse {
 }
 
 
+/// 取得硬编码管理实体
+message GetHardCodedEntitiesRequest {
+  string manage_id = 1;
+}
+message GetHardCodedEntitiesResponse {
+  repeated bytes entities = 1;
+}
+
+
 // 标记实体已移除
 message MarkEntityRemovedRequest {
   string manage_id = 1;
@@ -301,6 +310,9 @@ message CheckUpdatesLaterThenTimeRequest {
   bytes timestamp = 2;
   // 是否按时间升序排列, 默认降序
   bool ascending_order = 3;
+
+  // bson document 形式 {"key": value}, 只支持匹配形式
+  bytes filter = 4;
 }
 message CheckUpdatesLaterThenTimeResponse {
   // {"_id", "id", modifiedtimestamp}, 分组返回，每组最多20条
