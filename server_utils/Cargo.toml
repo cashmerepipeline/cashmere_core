@@ -9,6 +9,9 @@ edition = "2021"
 majordomo = { path = "../majordomo"}
 configs = { path = "../configs" }
 managers = { path = "../managers" }
+view = { path = "../view" }
+
+
 
 dependencies_sync = { path = "../dependencies_sync", features = [
   "tokio",

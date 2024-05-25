@@ -35,7 +35,7 @@ macro_rules! declare_common_manager_interface {
                                 .await
                             {
                                 Ok(r) => r,
-                                Err(e) => panic!("{} {}", e.operation(), e.details()),
+                                Err(e) => panic!("{}: {} {}", t!("初始化管理缓存失败"), e.operation(), e.details()),
                             };
 
                         let manage: Manage = manage_from_document(m_doc).unwrap();
@@ -61,7 +61,7 @@ macro_rules! declare_common_manager_interface {
                                 .await
                             {
                                 Ok(r) => r,
-                                Err(e) => panic!("{} {}", e.operation(), e.details()),
+                                Err(e) => panic!("{}: {} {}", t!("初始化管理文档缓存失败"), e.operation(), e.details()),
                             };
 
                         let ma = Arc::new(RwLock::new(m_doc));
