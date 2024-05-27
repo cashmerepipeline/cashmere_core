@@ -73,7 +73,7 @@ async fn handle_rename(
     };
 
     let result = manager
-        .update_entity_map_field(query_doc, modify_doc, &account_id)
+        .update_entity_map_field(&entity_id, modify_doc, &account_id)
         .await;
 
     match result {

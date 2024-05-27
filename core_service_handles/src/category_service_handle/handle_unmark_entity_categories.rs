@@ -67,7 +67,7 @@ async fn handle_unmark_entity_categories(
     };
 
     let result = manager
-        .remove_from_array_field(query_doc, modify_doc, &account_id)
+        .remove_from_array_field(&target_entity_id, modify_doc, &account_id)
         .await;
 
     match result {

@@ -69,7 +69,7 @@ async fn handle_remove_tags_from_entity(
     };
 
     let result = manager
-        .remove_from_array_field(query_doc, modify_doc, &account_id)
+        .remove_from_array_field(&target_entity_id, modify_doc, &account_id)
         .await;
 
     match result {

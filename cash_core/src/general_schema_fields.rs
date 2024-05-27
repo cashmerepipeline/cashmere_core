@@ -100,16 +100,6 @@ fn _general_property_fields() -> Vec<SchemaField> {
         removed: false,
     };
 
-    let mut comments_name_map = IndexMap::new();
-    comments_name_map.insert("zh".to_string(), "评论".to_string());
-    comments_name_map.insert("en".to_string(), "comments".to_string());
-    let comments_field = SchemaField {
-        id: COMMENTS_FIELD_ID,
-        name_map: comments_name_map,
-        data_type: "Array".to_string(),
-        removed: false,
-    };
-
     let mut tags_name_map = IndexMap::new();
     tags_name_map.insert("zh".to_string(), "标签".to_string());
     tags_name_map.insert("en".to_string(), "tags".to_string());
@@ -147,7 +137,6 @@ fn _general_property_fields() -> Vec<SchemaField> {
         group_field,
         description_field,
         tags_field,
-        comments_field,
         creator_field,
         create_timestamp_field,
         modifier_field,

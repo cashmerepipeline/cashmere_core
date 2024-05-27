@@ -95,7 +95,7 @@ async fn handle_change_manage_read_rule(
         };
 
     let result = view_rules_manager
-        .update_entity_map_field(query_doc, modify_doc, &account_id)
+        .update_entity_map_field(&manage_id, modify_doc, &account_id)
         .await;
 
     match result {

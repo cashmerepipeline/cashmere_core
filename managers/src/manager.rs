@@ -166,7 +166,7 @@ impl EntityInterface for Manager {
 
     async fn mark_entity_removed(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner.mark_entity_removed(entity_id, account_id).await
@@ -174,7 +174,7 @@ impl EntityInterface for Manager {
 
     async fn recover_removed_entity(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
@@ -199,77 +199,78 @@ impl EntityInterface for Manager {
 
     async fn add_to_array_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .add_to_array_field(query_doc, modify_doc, account_id)
+            .add_to_array_field(entity_id, modify_doc, account_id)
             .await
     }
 
     async fn remove_from_array_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .remove_from_array_field(query_doc, modify_doc, account_id)
+            .remove_from_array_field(entity_id, modify_doc, account_id)
             .await
     }
 
     async fn update_array_element_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .update_array_element_field(query_doc, modify_doc, account_id)
+            .update_array_element_field(entity_id, modify_doc, account_id)
             .await
     }
 
     async fn insert_entity_map_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .insert_entity_map_field(query_doc, modify_doc, account_id)
+            .insert_entity_map_field(entity_id, modify_doc, account_id)
             .await
     }
 
     async fn query_entity_map_field(
         &self,
+        entity_id: &str,
         query_doc: &Document,
         account_id: &str,
     ) -> Result<Document, OperationResult> {
         self.inner
-            .query_entity_map_field(query_doc, account_id)
+            .query_entity_map_field(entity_id, query_doc, account_id)
             .await
     }
 
     async fn update_entity_map_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .update_entity_map_field(query_doc, modify_doc, account_id)
+            .update_entity_map_field(entity_id, modify_doc, account_id)
             .await
     }
 
     async fn delete_entity_map_field_key(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .delete_entity_map_field_key(query_doc, modify_doc, account_id)
+            .delete_entity_map_field_key(entity_id, modify_doc, account_id)
             .await
     }
 }

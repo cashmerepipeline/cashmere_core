@@ -22,8 +22,6 @@ pub const OWNER_FIELD_ID: i32 = 1006;
 pub const GROUPS_FIELD_ID: i32 = 1007;
 // 可在搜索引擎中建立索引
 pub const IS_SEARCHABLE_FIELD_ID: i32 = 1008;
-// 注释和评论
-pub const COMMENTS_FIELD_ID: i32 = 1009;
 // 标签
 pub const TAGS_FIELD_ID: i32 = 1010;
 // 描述

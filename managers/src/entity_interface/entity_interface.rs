@@ -1,11 +1,16 @@
 use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
 use dependencies_sync::{
-    bson::{self, doc, Document}, log, rust_i18n::{self, t}, tokio::{self, sync::mpsc}, tokio_stream::{wrappers::ReceiverStream, StreamExt}, tonic::async_trait
+    bson::{self, doc, Document},
+    log,
+    rust_i18n::{self, t},
+    tokio::{self, sync::mpsc},
+    tokio_stream::{wrappers::ReceiverStream, StreamExt},
+    tonic::async_trait,
 };
 use entity::hard_code_cache::{
     get_hard_coded_cache_map, hard_coded_cache_get_entity, hard_coded_cache_get_entity_stream,
 };
-use manage_define::{general_field_ids::*};
+use manage_define::general_field_ids::*;
 
 use crate::{hard_coded_cache_interface::HardCodedInterface, ManagerInterface};
 
@@ -111,11 +116,14 @@ where
 
             /// 根据filter过滤
             let result = if let Some(f) = filter {
-                entities.iter().filter(|e| {
-                    f.iter().all(|(k, v)| {
-                        e.get(k).unwrap_or(&bson::Bson::default()) == v
+                entities
+                    .iter()
+                    .filter(|e| {
+                        f.iter()
+                            .all(|(k, v)| e.get(k).unwrap_or(&bson::Bson::default()) == v)
                     })
-                }).cloned().collect::<Vec<Document>>()
+                    .cloned()
+                    .collect::<Vec<Document>>()
             } else {
                 entities
             };
@@ -188,7 +196,7 @@ where
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
-        let query_doc: Document = doc!{ID_FIELD_ID.to_string(): entity_id};
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
 
         match entity::update_entity_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
             .await
@@ -196,9 +204,15 @@ where
             Ok(r) => {
                 // 更新缓存
                 if self.is_hard_coded().await {
-                    if let Err(r) = self.refresh_hard_coded_cache(self.get_id(), entity_id).await{
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
                         log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
-                        return Err(add_call_name_to_chain(r, "manager::update_entity_field".to_string()));
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
                     }
                 }
 
@@ -215,7 +229,7 @@ where
     // 标记为移除
     async fn mark_entity_removed(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
@@ -226,14 +240,30 @@ where
             REMOVED_FIELD_ID.to_string(): true
         };
         match entity::update_entity_field(manage_id, q_doc, &mut m_doc, account_id).await {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
     }
 
     async fn recover_removed_entity(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
@@ -244,7 +274,23 @@ where
             REMOVED_FIELD_ID.to_string(): false
         };
         match entity::update_entity_field(manage_id, q_doc, &mut m_doc, account_id).await {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(e, "mark_entity_removed".to_string())),
         }
     }
@@ -284,15 +330,33 @@ where
     /// 添加数组元素, 不重复
     async fn add_to_array_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::add_to_array_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
             .await
         {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(e, "add_to_array_field".to_string())),
         }
     }
@@ -300,11 +364,13 @@ where
     /// 移除数组元素
     async fn remove_from_array_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::remove_from_array_field(
             &manage_id.to_string(),
             query_doc,
@@ -313,7 +379,23 @@ where
         )
         .await
         {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "manager::remove_from_array_field".to_string(),
@@ -324,11 +406,13 @@ where
     /// 更新数组元素属性
     async fn update_array_element_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::update_entity_array_element_field(
             &manage_id.to_string(),
             query_doc,
@@ -337,7 +421,23 @@ where
         )
         .await
         {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "update_array_element_field".to_string(),
@@ -350,13 +450,31 @@ where
     /// 添加映射字段
     async fn insert_entity_map_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::insert_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "insert_entity_map_field".to_string(),
@@ -366,11 +484,19 @@ where
 
     async fn query_entity_map_field(
         &self,
+        entity_id: &str,
         query_doc: &Document,
         account_id: &str,
     ) -> Result<Document, OperationResult> {
         let manage_id = self.get_id().to_string();
-        match entity::query_entity_map_field(&manage_id, query_doc, account_id).await {
+        if self.is_hard_coded().await {
+            unimplemented!()
+        }
+        
+        let mut query_doc = query_doc.clone();
+        query_doc.insert(ID_FIELD_ID.to_string(), entity_id.to_string());
+
+        match entity::query_entity_map_field(&manage_id, &query_doc, account_id).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(
                 e,
@@ -382,13 +508,31 @@ where
     /// 更新映射字段
     async fn update_entity_map_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::update_entity_map_field(&manage_id, query_doc, modify_doc, account_id).await {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "update_entity_map_field".to_string(),
@@ -398,15 +542,33 @@ where
     /// 删除映射字段
     async fn delete_entity_map_field_key(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc = doc! {ID_FIELD_ID.to_string(): entity_id};
+
         match entity::delete_entity_map_field_key(&manage_id, query_doc, modify_doc, account_id)
             .await
         {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self
+                        .refresh_hard_coded_cache(self.get_id(), entity_id)
+                        .await
+                    {
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(
+                            r,
+                            "manager::update_entity_field".to_string(),
+                        ));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "update_entity_map_field".to_string(),

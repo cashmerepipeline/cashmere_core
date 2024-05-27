@@ -91,7 +91,7 @@ async fn handle_mark_entity_categories(
     };
 
     let result = manager
-        .add_to_array_field(query_doc, modify_doc, &account_id)
+        .add_to_array_field(&target_entity_id, modify_doc, &account_id)
         .await;
 
     match result {

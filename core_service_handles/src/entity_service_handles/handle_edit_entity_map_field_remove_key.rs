@@ -83,7 +83,7 @@ async fn handle_edit_entity_map_field_remove_key(
     modify_doc.insert(format!("{}.{}", field_id, key), bson::Bson::Null);
 
     let result = manager
-        .delete_entity_map_field_key(query_doc, modify_doc, &account_id)
+        .delete_entity_map_field_key(&entity_id, modify_doc, &account_id)
         .await;
 
     match result {
