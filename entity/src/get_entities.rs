@@ -6,15 +6,17 @@ use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, FindOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
+use dependencies_sync::rust_i18n::{self, t};
 use serde::Deserialize;
 
 use cash_result::*;
 use database::get_database;
 use manage_define::general_field_ids::*;
 
+/// zh: 如果没有查找到实体，则返回空表
 pub async fn get_entities(
     collection_name: &str,
-    filter: &Option<Document>,
+    filter: Option<&Document>,
     no_present_fields: &Vec<String>,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
@@ -29,9 +31,9 @@ pub async fn get_entities(
         });
         let find_options = FindOptions::builder().projection(project_doc).build();
 
-        collection.find(filter.clone(), Some(find_options)).await
+        collection.find(filter.cloned(), Some(find_options)).await
     } else {
-        collection.find(filter.clone(), None).await
+        collection.find(filter.cloned(), None).await
     };
 
     let mut result: Vec<Document> = Vec::new();
@@ -47,7 +49,7 @@ pub async fn get_entities(
         }
         Err(_e) => Err(operation_failed(
             "get_entities",
-            format!("获取失败{}", filter.clone().unwrap_or_default()),
+            format!("{}: {:?}", t!("取得实体失败"), filter),
         )),
     }
 }

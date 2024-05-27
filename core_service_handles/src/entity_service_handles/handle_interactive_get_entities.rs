@@ -113,7 +113,7 @@ async fn handle_interactive_entities_stream(
                         &role_group,
                         manage_id,
                         &match_doc,
-                        &Some(sort_doc),
+                        Some(&sort_doc),
                         page_index,
                         no_present_fields,
                     )

@@ -56,7 +56,7 @@ impl ManagerInterface for ManagerInner {
 
     async fn get_entities_by_filter(
         &self,
-        filter: &Option<Document>,
+        filter: Option<&Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         self.manager.get_entities_by_filter(filter).await
     }

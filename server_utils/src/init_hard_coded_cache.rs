@@ -1,4 +1,4 @@
-use std::sync::Arc;
+
 
 use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};
@@ -12,7 +12,7 @@ pub async fn init_hard_coded_cache(manager_arcs: &Vec<&'static Manager>) {
     let majordomo_arc = get_majordomo();
 
     let managers_map_arc = majordomo_arc.get_managers_map();
-    let mut manages_map = managers_map_arc.write();
+    let _manages_map = managers_map_arc.write();
     for m in manager_arcs {
         // 初始化硬编码缓存
         if m.is_hard_coded().await && m.get_hard_coded_cache(m.get_id()).await.is_none()

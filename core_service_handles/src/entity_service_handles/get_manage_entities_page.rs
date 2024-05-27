@@ -18,7 +18,7 @@ pub(crate) async fn get_manage_entities_page(
     role_group: &str,
     manage_id: &str,
     match_doc: &Document,
-    sort_doc: &Option<Document>,
+    sort_doc: Option<&Document>,
     page_index: &u32,
     no_present_fields: &[String],
 ) -> Result<Vec<Document>, OperationResult> {
@@ -44,7 +44,7 @@ pub(crate) async fn get_manage_entities_page(
         .for_each(|k| unsets.push(k.clone()));
 
     let result = manager
-        .get_entities_by_page(*page_index, &Some(matches), sort_doc, &unsets)
+        .get_entities_by_page(*page_index, Some(&matches), sort_doc, &unsets)
         .await;
 
     match result {

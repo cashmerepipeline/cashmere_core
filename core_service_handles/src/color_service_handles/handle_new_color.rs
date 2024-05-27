@@ -53,7 +53,7 @@ async fn validate_request_params(
 ) -> Result<Request<NewColorRequest>, Status> {
     let name = &request.get_ref().name;
     let description = &request.get_ref().description;
-    validate_name(name)?;
+    validate_name(name.as_ref())?;
     validate_description_length(description)?;
 
     Ok(request)
@@ -85,7 +85,7 @@ async fn handle_new_color(
         return Err(Status::aborted("颜色已经存在"));
     }
 
-    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(manager, &account_id).await {
         new_entity_doc.insert(COLORS_VALUE_FIELD_ID.to_string(), color.clone());
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());
 

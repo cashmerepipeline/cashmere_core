@@ -82,7 +82,7 @@ async fn handle_check_entities_update(
         ID_FIELD_ID.to_string(): {"$in": ids},
     };
 
-    let entity_docs = manager.get_entities_by_filter(&Some(query_doc)).await;
+    let entity_docs = manager.get_entities_by_filter(Some(&query_doc)).await;
 
     match entity_docs {
         Ok(r) => {

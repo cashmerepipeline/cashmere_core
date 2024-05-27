@@ -70,7 +70,7 @@ async fn handle_change_manage_write_rule(
     let majordomo_arc = get_majordomo();
 
     let hard_coded = majordomo_arc
-        .get_manager_by_id(&manage_id)
+        .get_manager_by_id(manage_id)
         .unwrap()
         .is_hard_coded()
         .await;

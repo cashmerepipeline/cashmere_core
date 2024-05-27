@@ -100,7 +100,7 @@ async fn handle_get_removed_entities_page(
     };
 
     let result = manager
-        .get_entities_by_page(index, &Some(matches), &sorts_doc, &unsets)
+        .get_entities_by_page(index, Some(&matches), sorts_doc.as_ref(), &unsets)
         .await;
 
     match result {

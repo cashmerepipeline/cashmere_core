@@ -83,8 +83,8 @@ impl ManagerInterface for Manager {
 
 #[async_trait]
 impl EntityInterface for Manager {
-    fn is_entity_deleteable(&self) -> bool {
-        self.inner.is_entity_deleteable()
+    fn is_safe_deleteable(&self) -> bool {
+        self.inner.is_safe_deleteable()
     }
 
     async fn count_entity(&self, filter_doc: Document) -> Result<u64, OperationResult> {
@@ -123,7 +123,7 @@ impl EntityInterface for Manager {
 
     async fn get_entities_by_filter(
         &self,
-        filter: &Option<Document>,
+        filter: Option<&Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         self.inner.get_entities_by_filter(filter).await
     }
@@ -131,8 +131,8 @@ impl EntityInterface for Manager {
     async fn get_entities_by_page(
         &self,
         page_index: u32,
-        matches: &Option<Document>,
-        sorts: &Option<Document>,
+        matches: Option<&Document>,
+        sorts: Option<&Document>,
         unsets: &Vec<String>,
     ) -> Result<Vec<Document>, OperationResult> {
         self.inner
@@ -155,12 +155,12 @@ impl EntityInterface for Manager {
 
     async fn update_entity_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: &mut Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.inner
-            .update_entity_field(query_doc, modify_doc, account_id)
+            .update_entity_field(entity_id, modify_doc, account_id)
             .await
     }
 

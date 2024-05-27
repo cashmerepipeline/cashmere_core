@@ -1,6 +1,6 @@
 use std::sync::OnceLock;
 
-use crate::general_field_ids::{CREATE_TIMESTAMP_FIELD_ID, ID_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID};
+use crate::general_field_ids::{CREATE_TIMESTAMP_FIELD_ID, MODIFY_TIMESTAMP_FIELD_ID};
 
 pub static SYSTEM_FIELDS: OnceLock<Vec<String>> = OnceLock::new();
 

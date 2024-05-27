@@ -55,7 +55,7 @@ async fn validate_request_params(
     let target_manage_id = &request.get_ref().target_manage_id;
 
     validate_manage_id(target_manage_id).await?; 
-    validate_name(name)?;
+    validate_name(name.as_ref())?;
     
     Ok(request)
 }
@@ -93,7 +93,7 @@ async fn handle_new_tag(request: Request<NewTagRequest>) -> UnaryResponseResult<
         )));
     }
 
-    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(TAGS_TARGET_MANAGES_FIELD_ID.to_string(), target_manage_id);
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());

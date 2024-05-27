@@ -78,7 +78,7 @@ async fn handle_toggle_recommend(
     if manager.entity_exists(&query_doc).await.is_none() {
         // 新建实体
         let mut new_entity_doc =
-            if let Ok(doc) = make_new_entity_document(&manager, &account_id).await {
+            if let Ok(doc) = make_new_entity_document(manager, &account_id).await {
                 doc
             } else {
                 return Err(Status::internal(t!("新建实体失败").to_string()));

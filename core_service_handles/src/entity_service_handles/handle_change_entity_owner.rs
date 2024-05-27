@@ -95,7 +95,7 @@ async fn handle_change_entity_owner(
     };
 
     let result = manager
-        .update_entity_field(query_doc, &mut modify_doc, &account_id)
+        .update_entity_field(&entity_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

@@ -29,7 +29,7 @@ pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &Str
     // log::debug!("collection_view_rules: {:?}", collection_view_rules);
 
     let field_view_rules = if let Some(r) =
-        query_field_view_rules(&manage_id.to_string(), field_id, role_group).await
+        query_field_view_rules(manage_id, field_id, role_group).await
     {
         r
     } else {

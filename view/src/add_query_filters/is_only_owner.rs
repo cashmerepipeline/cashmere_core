@@ -3,7 +3,7 @@ use crate::FilterRule;
 use crate::view_rule::ViewRule;
 
 /// 判断是否只主人可读
-pub fn is_only_owner(rules: &Option<&LinkedHashMap<String, ViewRule>>, groups: &Vec<String>) -> bool {
+pub fn is_only_owner(rules: Option<&&LinkedHashMap<String, ViewRule>>, groups: &Vec<String>) -> bool {
     if let Some(rules) = rules {
         let result: Vec<String> = groups
             .iter()

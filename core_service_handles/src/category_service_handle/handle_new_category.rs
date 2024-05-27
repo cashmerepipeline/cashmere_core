@@ -54,7 +54,7 @@ async fn validate_request_params(
     let name = &request.get_ref().name;
     let manage_id = &request.get_ref().manage_id;
 
-    validate_name(name)?; 
+    validate_name(name.as_ref())?; 
 
     // 目标管理不能为空
     if manage_id.is_empty() {
@@ -100,7 +100,7 @@ async fn handle_new_category(
         )));
     }
 
-    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(manager, &account_id).await {
         new_entity_doc.insert(NAME_MAP_FIELD_ID.to_string(), name_doc);
         new_entity_doc.insert(CATEGORIES_MANAGE_ID_FIELD_ID.to_string(), manage_id);
         new_entity_doc.insert(DESCRIPTION_FIELD_ID.to_string(), bson::to_document(description).unwrap());

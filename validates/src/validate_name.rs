@@ -5,7 +5,7 @@ use dependencies_sync::{
 use manage_define::cashmere::Name;
 
 /// 验证名称有效性
-pub fn validate_name(name: &Option<Name>) -> Result<(), Status> {
+pub fn validate_name(name: Option<&Name>) -> Result<(), Status> {
     if name.is_none() {
         return Err(Status::invalid_argument(t!("名称不能为空").to_string()));
     }

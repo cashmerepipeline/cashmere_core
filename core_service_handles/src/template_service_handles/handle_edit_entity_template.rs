@@ -75,7 +75,7 @@ async fn handle_edit_entity_template(
     };
 
     let result = template_manager
-        .update_entity_field(query_doc, &mut modify_doc, &account_id)
+        .update_entity_field(&template_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

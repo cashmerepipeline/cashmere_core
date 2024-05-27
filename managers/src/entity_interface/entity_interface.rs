@@ -1,26 +1,25 @@
-use cash_result::{add_call_name_to_chain, OperationResult};
+use cash_result::{add_call_name_to_chain, operation_failed, OperationResult};
 use dependencies_sync::{
-    bson::{doc, Document},
-    tokio_stream::wrappers::ReceiverStream, tonic::async_trait,
+    bson::{self, doc, Document}, log, rust_i18n::{self, t}, tokio::{self, sync::mpsc}, tokio_stream::{wrappers::ReceiverStream, StreamExt}, tonic::async_trait
 };
-use entity::hard_code_cache::{get_hard_coded_cache_map};
-use manage_define::general_field_ids::*;
+use entity::hard_code_cache::{
+    get_hard_coded_cache_map, hard_coded_cache_get_entity, hard_coded_cache_get_entity_stream,
+};
+use manage_define::{general_field_ids::*};
 
 use crate::{hard_coded_cache_interface::HardCodedInterface, ManagerInterface};
-
-use super::{get_entity_by_id, get_entity_stream};
 
 #[async_trait]
 pub trait EntityInterface
 where
-    Self: ManagerInterface + HardCodedInterface, 
+    Self: ManagerInterface + HardCodedInterface,
 {
     // ---------------------
     // 实体相关操作
     // ---------------------
 
     /// 实体是否可以删除，默认不可删除，使用removed字段
-    fn is_entity_deleteable(&self) -> bool {
+    fn is_safe_deleteable(&self) -> bool {
         false
     }
 
@@ -48,10 +47,18 @@ where
         account_id: &str,
         group_id: &str,
     ) -> Result<String, OperationResult> {
-        super::sink_entity(self.get_id(), new_entity_doc, account_id, group_id).await
+        let entity_id =
+            super::sink_entity(self.get_id(), new_entity_doc, account_id, group_id).await?;
+
+        // zh: 如果是硬编码管理, 则需要更新缓存
+        if self.is_hard_coded().await {
+            self.refresh_hard_coded_cache(self.get_id(), &entity_id);
+        }
+
+        Ok(entity_id)
     }
 
-    /// 通过id取得实体
+    /// zh: 通过id取得实体
     async fn get_entity_by_id(
         &self,
         entity_id: &str,
@@ -61,30 +68,59 @@ where
         let manage_id = self.get_id();
         let is_hard_coded = self.is_hard_coded().await;
 
-        get_entity_by_id(
-            manage_id,
-            entity_id,
-            is_hard_coded,
-            present_fields,
-            no_present_fields,
-        )
-        .await
+        // zh: 如果存在缓存，从缓存中取得
+        if is_hard_coded {
+            let result = hard_coded_cache_get_entity(
+                manage_id,
+                entity_id,
+                present_fields,
+                no_present_fields,
+            )
+            .await;
+            return match result {
+                Some(r) => Ok(r),
+                None => Err(operation_failed(
+                    "get_entity_by_id",
+                    t!("取得硬编码实体缓存失败"),
+                )),
+            };
+        }
+
+        // zh: 从数据库中取得实体
+        match entity::get_entity_by_id(self.get_id(), entity_id, present_fields, no_present_fields)
+            .await
+        {
+            Ok(r) => Ok(r),
+            Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
+        }
     }
 
-    /// 通过过滤取得实体
+    /// zh: 过滤条件取得实体
     async fn get_entities_by_filter(
         &self,
-        filter: &Option<Document>,
+        filter: Option<&Document>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id();
 
-        if HardCodedInterface::is_hard_coded(self).await {
+        if self.is_hard_coded().await {
             let entities = {
                 let c_map = get_hard_coded_cache_map(manage_id).await.unwrap();
                 let e_map = c_map.read();
                 e_map.values().cloned().collect::<Vec<Document>>()
             };
-            return Ok(entities);
+
+            /// 根据filter过滤
+            let result = if let Some(f) = filter {
+                entities.iter().filter(|e| {
+                    f.iter().all(|(k, v)| {
+                        e.get(k).unwrap_or(&bson::Bson::default()) == v
+                    })
+                }).cloned().collect::<Vec<Document>>()
+            } else {
+                entities
+            };
+
+            return Ok(result);
         }
 
         // zh: 从数据库中取得实体
@@ -94,12 +130,12 @@ where
         }
     }
 
-    /// 取得条件排序分页
+    /// zh: 按取得条件排序分页, 不支持缓存
     async fn get_entities_by_page(
         &self,
         page_index: u32,
-        matches: &Option<Document>,
-        sorts: &Option<Document>,
+        matches: Option<&Document>,
+        sorts: Option<&Document>,
         unsets: &Vec<String>,
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id().to_string();
@@ -113,6 +149,7 @@ where
         }
     }
 
+    /// zh: 取得实体流
     async fn get_entity_stream(
         &self,
         matche_doc: Document,
@@ -123,23 +160,51 @@ where
     ) -> Result<ReceiverStream<Document>, OperationResult> {
         let manage_id = self.get_id();
         let hard_coded = self.is_hard_coded().await;
-        get_entity_stream(
-            manage_id, matche_doc, unsets, sorts, start_oid, skip_count, hard_coded,
-        )
-        .await
+        if hard_coded {
+            return Ok(hard_coded_cache_get_entity_stream(manage_id).await);
+        }
+
+        match entity::get_query_cursor(manage_id, matche_doc, unsets, sorts, start_oid, skip_count)
+            .await
+        {
+            Ok(mut r) => {
+                let (tx, rv) = mpsc::channel(1);
+                tokio::spawn(async move {
+                    while let Some(r) = r.next().await {
+                        let _ = tx.send(r.unwrap()).await;
+                    }
+                });
+
+                Ok(ReceiverStream::new(rv))
+            }
+            Err(e) => Err(add_call_name_to_chain(e, "get_entity_stream".to_string())),
+        }
     }
 
     async fn update_entity_field(
         &self,
-        query_doc: Document,
+        entity_id: &str,
         modify_doc: &mut Document,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id().to_string();
+        let query_doc: Document = doc!{ID_FIELD_ID.to_string(): entity_id};
+
         match entity::update_entity_field(&manage_id.to_string(), query_doc, modify_doc, account_id)
             .await
         {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self.refresh_hard_coded_cache(self.get_id(), entity_id).await{
+                        log::error!("{}: {}, {}", t!("更新缓存失败"), manage_id, entity_id);
+                        return Err(add_call_name_to_chain(r, "manager::update_entity_field".to_string()));
+                    }
+                }
+
+                Ok(r)
+            }
+
             Err(e) => Err(add_call_name_to_chain(
                 e,
                 "manager::update_entity_field".to_string(),

@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
 use dependencies_sync::bson::doc;
-use dependencies_sync::futures::{Stream, TryFutureExt};
+use dependencies_sync::futures::{TryFutureExt};
 use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::tokio::stream;
+
 use dependencies_sync::tokio_stream;
 use dependencies_sync::tokio_stream::StreamExt;
 use dependencies_sync::tonic::async_trait;
@@ -98,7 +98,7 @@ async fn handle_get_manage_schema(
         });
 
         let hard_coded = majordomo_arc
-            .get_manager_by_id(&manage_id)
+            .get_manager_by_id(manage_id)
             .unwrap()
             .is_hard_coded()
             .await;

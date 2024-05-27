@@ -49,7 +49,7 @@ async fn validate_request_params(
 ) -> Result<Request<NewCalendarRequest>, Status> {
     let name = &request.get_ref().name;
 
-    validate_name(name)?;
+    validate_name(name.as_ref())?;
 
     Ok(request)
 }
@@ -74,7 +74,7 @@ async fn handle_new_calendar(
     let name = name.to_owned().unwrap();
     let name_doc = doc! {name.language.clone():name.name.clone()};
 
-    if let Ok(mut new_entity_doc) = make_new_entity_document(&manager, &account_id).await {
+    if let Ok(mut new_entity_doc) = make_new_entity_document(manager, &account_id).await {
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),
             name_doc,

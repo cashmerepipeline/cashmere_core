@@ -72,7 +72,7 @@ async fn handle_new_comment(
         )));
     };
 
-    let mut new_entity_doc = make_new_entity_document(&manager, &account_id).await?;
+    let mut new_entity_doc = make_new_entity_document(manager, &account_id).await?;
 
     new_entity_doc.insert(
         COMMENTS_TARGET_MANAGE_FIELD_ID.to_string(),

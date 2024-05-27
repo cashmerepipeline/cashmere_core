@@ -10,7 +10,7 @@ pub fn handle_delete_event(manage_id: &str, object_id: &String) {
     // zh: 大部分管理的实体不删除，只有少数的几个管理实体支持删除操作
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
-    if !manager.is_entity_deleteable() {
+    if !manager.is_safe_deleteable() {
         return;
     }
 

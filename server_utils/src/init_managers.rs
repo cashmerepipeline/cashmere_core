@@ -2,7 +2,7 @@
    初始化管理器表
 */
 
-use std::sync::Arc;
+
 
 use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};

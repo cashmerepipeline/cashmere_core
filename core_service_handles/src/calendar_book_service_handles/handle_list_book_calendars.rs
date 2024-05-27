@@ -61,7 +61,7 @@ async fn handle_list_book_calendars(
         CALENDARS_BOOK_ID_FIELD_ID.to_string():book_id,
     };
 
-    let result = manager.get_entities_by_filter(&Some(query_doc)).await;
+    let result = manager.get_entities_by_filter(Some(&query_doc)).await;
 
     match result {
         Ok(entities) => {

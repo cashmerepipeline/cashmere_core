@@ -19,8 +19,8 @@ use manage_define::general_field_ids::*;
 pub async fn get_entities_by_page(
     collection_id: &str,
     page_index: u32,
-    matches: &Option<Document>,
-    sorts: &Option<Document>,
+    matches: Option<&Document>,
+    sorts: Option<&Document>,
     unsets: &Vec<String>,
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_id).await {
