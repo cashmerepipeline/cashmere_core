@@ -5,7 +5,7 @@ use dependencies_sync::rust_i18n::{self, t};
 
 /// 检查实体是否可写
 // TODO: 需要独立检查是否为主
-pub async fn can_entity_write(manage_id: &String, role_group: &String) -> bool {
+pub async fn can_entity_write(manage_id: &str, role_group: &str) -> bool {
     let view_rules = if let Some(r) = query_collection_view_rules(manage_id, role_group).await {
         r
     } else {

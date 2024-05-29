@@ -262,8 +262,8 @@ pub trait ManagerInterface: Any + Send + Sync {
     async fn edit_schema_field_name(
         &self,
         field_id: i32,
-        local: &String,
-        new_name: &String,
+        local: &str,
+        new_name: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         // 更新管理
@@ -293,7 +293,7 @@ pub trait ManagerInterface: Any + Send + Sync {
                 ));
             }
 
-            field.name_map.insert(local.clone(), new_name.clone());
+            field.name_map.insert(local.to_string(), new_name.to_string());
 
             let field = manage.schema.get(index).unwrap().clone();
             new_field.replace(field);

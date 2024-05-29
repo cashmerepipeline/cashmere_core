@@ -93,7 +93,7 @@ async fn handle_edit_entity_array_field_add_items(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,
     };
 
@@ -101,7 +101,7 @@ async fn handle_edit_entity_array_field_add_items(
     modify_doc.insert(field_id, doc! {"$each":b_items.clone()});
 
     let result = manager
-        .add_to_array_field(&entity_id, modify_doc, &account_id)
+        .add_to_array_field(entity_id, modify_doc, &account_id)
         .await;
 
     match result {

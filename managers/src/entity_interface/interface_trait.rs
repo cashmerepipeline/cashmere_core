@@ -57,7 +57,7 @@ where
 
         // zh: 如果是硬编码管理, 则需要更新缓存
         if self.is_hard_coded().await {
-            self.refresh_hard_coded_cache(self.get_id(), &entity_id);
+            self.refresh_hard_coded_cache(self.get_id(), &entity_id).await?;
         }
 
         Ok(entity_id)
@@ -114,7 +114,7 @@ where
                 e_map.values().cloned().collect::<Vec<Document>>()
             };
 
-            /// 根据filter过滤
+            // 根据filter过滤
             let result = if let Some(f) = filter {
                 entities
                     .iter()
@@ -132,7 +132,7 @@ where
         }
 
         // zh: 从数据库中取得实体
-        match entity::get_entities(manage_id, filter, &vec![]).await {
+        match entity::get_entities(manage_id, filter, &[]).await {
             Ok(r) => Ok(r),
             Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
         }
@@ -144,7 +144,7 @@ where
         page_index: u32,
         matches: Option<&Document>,
         sorts: Option<&Document>,
-        unsets: &Vec<String>,
+        unsets: &[String],
     ) -> Result<Vec<Document>, OperationResult> {
         let manage_id = self.get_id().to_string();
 

@@ -7,7 +7,7 @@ use crate::can_manage_write;
 /// en: Validate manage can write permission 
 pub async fn validate_manage_can_write(
     manage_id: &str,
-    role_group: &String,
+    role_group: &str,
 ) -> Result<(), Status>{
 
     if !can_manage_write(

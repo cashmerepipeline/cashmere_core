@@ -32,7 +32,7 @@ pub(crate) async fn get_manage_entities_page(
     }
 
     let fields = manager.get_manage_schema().await;
-    let mut unsets = get_manage_schema_view_mask(manage_id, &fields, &role_group.to_string())
+    let mut unsets = get_manage_schema_view_mask(manage_id, &fields, role_group)
         .await
         .iter()
         .filter(|(_k, v)| !(**v))

@@ -1,10 +1,10 @@
 use dependencies_sync::bson::{self, doc};
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::{cashmere::*, general_field_ids::REMOVED_FIELD_ID};
-use managers::{manager_trait::ManagerInterface, entity_interface::EntityInterface};
+use managers::{entity_interface::EntityInterface, manager_trait::ManagerInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -84,13 +84,12 @@ async fn handle_get_removed_entities_page(
 
     // zh: 描写字段可见性过滤, 加入mongodb的project方法
     let fields = manager.get_manage_schema().await;
-    let unsets =
-        get_manage_schema_view_mask(manage_id, &fields, &role_group).await
+    let unsets: Vec<String> = get_manage_schema_view_mask(manage_id, &fields, &role_group)
+        .await
         .iter()
         .filter(|(_k, v)| !(**v))
-        .map(|(k, _v)| k.clone())
+        .map(|(k, _v)| k.to_string())
         .collect();
-    
 
     // zh: 从1开始，
     let index = if *page_index == 0u32 {

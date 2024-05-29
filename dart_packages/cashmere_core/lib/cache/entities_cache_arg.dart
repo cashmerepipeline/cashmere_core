@@ -1,5 +1,5 @@
 import 'package:cashmere_core/cache_schemas/cache_entity_from_map.dart';
-import 'package:cashmere_core/grpc_call.dart';
+import '../../../../../comgoapp/lib/temp/grpc_call.dart';
 import 'package:cashmere_core/protocols/entity.pb.dart';
 
 class EntitiesCacheArg<Bt> {

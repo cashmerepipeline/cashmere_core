@@ -63,7 +63,7 @@ async fn handle_edit_comment(
         .get_manager_by_id(COMMENTS_MANAGE_ID)
         .unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():comment_id,
     };
     let mut modify_doc = doc! {
@@ -71,7 +71,7 @@ async fn handle_edit_comment(
     };
 
     let result = manager
-        .update_entity_field(&comment_id, &mut modify_doc, &account_id)
+        .update_entity_field(comment_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

@@ -11,7 +11,7 @@ pub async fn can_field_write(
     manage_id: &str,
     field_id: &str,
     manage_hard_coded: bool,
-    role_group: &String,
+    role_group: &str,
 ) -> bool {
     let view_rules = if let Some(r) =
         query_field_view_rules(manage_id, field_id, role_group).await

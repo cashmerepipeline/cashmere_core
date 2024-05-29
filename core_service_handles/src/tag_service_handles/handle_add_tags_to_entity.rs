@@ -74,7 +74,7 @@ async fn handle_add_tags_to_entity(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(target_manage_id).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():target_entity_id
     };
     let modify_doc = doc! {
@@ -82,7 +82,7 @@ async fn handle_add_tags_to_entity(
     };
 
     let result = manager
-        .add_to_array_field(&target_entity_id, modify_doc, &account_id)
+        .add_to_array_field(target_entity_id, modify_doc, &account_id)
         .await;
 
     match result {

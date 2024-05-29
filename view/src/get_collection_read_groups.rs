@@ -3,9 +3,9 @@ use crate::ReadRule;
 
 /// 集合是否可写，向集合添加或者删除实体
 pub async fn get_collection_read_rule(
-    _account: &String,
-    groups: &Vec<String>,
-    manage_id: &String,
+    _account: &str,
+    groups: &[String],
+    manage_id: &str,
 ) -> Vec<String> {
     let view_rules_arc = get_view_rules_map().await;
     let view_rules = view_rules_arc.read();

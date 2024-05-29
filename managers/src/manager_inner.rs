@@ -63,7 +63,7 @@ impl ManagerInterface for ManagerInner {
 
     async fn mark_entity_removed(
         &self,
-        entity_id: &String,
+        entity_id: &str,
         account_id: &str,
     ) -> Result<OperationResult, OperationResult> {
         self.manager

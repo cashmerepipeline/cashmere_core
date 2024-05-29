@@ -94,14 +94,14 @@ async fn handle_edit_entity_map_field(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,
     };
     let mut modify_doc = Document::new();
     modify_doc.insert(format!("{}.{}", field_id, key), value.clone());
 
     let result = manager
-        .update_entity_field(&entity_id, &mut modify_doc, &account_id)
+        .update_entity_field(entity_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

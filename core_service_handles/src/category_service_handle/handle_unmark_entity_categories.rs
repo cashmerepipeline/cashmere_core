@@ -59,7 +59,7 @@ async fn handle_unmark_entity_categories(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(target_manage_id).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():target_entity_id
     };
     let modify_doc = doc! {
@@ -67,7 +67,7 @@ async fn handle_unmark_entity_categories(
     };
 
     let result = manager
-        .remove_from_array_field(&target_entity_id, modify_doc, &account_id)
+        .remove_from_array_field(target_entity_id, modify_doc, &account_id)
         .await;
 
     match result {

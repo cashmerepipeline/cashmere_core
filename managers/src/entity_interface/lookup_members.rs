@@ -14,7 +14,7 @@ pub async fn lookup_members(
     self_manage_id: &str,
     query_doc: &Document,
     sort_doc: &Document,
-    unsets: &Vec<String>,
+    unsets: &[String],
     start_oid: Option<&str>,
     // 相对于start_oid的位置跳过数，不包含start_oid
     skip_count: u32,

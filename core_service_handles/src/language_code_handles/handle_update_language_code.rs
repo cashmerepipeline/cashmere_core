@@ -65,7 +65,7 @@ async fn handle_update_language_code(
         .get_manager_by_id(manage_id.to_owned())
         .unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         "_id": id
     };
     let mut modify_doc = doc! {

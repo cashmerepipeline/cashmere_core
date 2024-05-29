@@ -9,7 +9,7 @@ use manage_define::general_field_ids::REMOVED_FIELD_ID;
 use managers::entity_interface::EntityInterface;
 
 /// zh: 验证目标实体存在性
-pub async fn validate_entity_id(manage_id: &str, entity_id: &String) -> Result<(), Status> {
+pub async fn validate_entity_id(manage_id: &str, entity_id: &str) -> Result<(), Status> {
     if entity_id.is_empty() {
         return Err(Status::invalid_argument(format!(
             "{}: {}",

@@ -7,10 +7,10 @@ use manage_define::manage_ids::VIEW_RULES_MANAGE_ID;
 /// 新建映像规则实体
 pub async fn new_view_rules_entity_to_database(
     id: i32,
-    name: &String,
+    name: &str,
     rules: &ViewRules,
-    account_id: &String,
-    group_id: &String,
+    account_id: &str,
+    group_id: &str,
 ) -> Result<String, OperationResult> {
     // 创建doc
     let mut view_rules_doc = bson::to_document(rules).unwrap();

@@ -9,7 +9,7 @@ use cash_core::SchemaField;
 pub fn validate_value_doc(
     new_value: &[u8],
     manage_id: &str,
-    field_id: &String,
+    field_id: &str,
     fields: Vec<SchemaField>,
 ) -> Result<(), Status> {
     let new_value_doc: Document = if let Ok(r) = bson::from_slice(new_value) {
@@ -57,7 +57,7 @@ pub fn validate_value_doc(
     let new_t = new_value_bson.element_type();
     let f_t = fields
         .iter()
-        .find(|f| &f.id.to_string() == field_id)
+        .find(|f| f.id.to_string() == field_id)
         .unwrap()
         .get_element_type();
     

@@ -61,12 +61,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     handle
         .block_on(async {
             // 读取配置
-            let server_address: &String = &configs.server.address;
-            let server_port: &String = &configs.server.port;
+            let server_address: &str = &configs.server.address;
+            let server_port: &str = &configs.server.port;
             let use_tls: &bool = &configs.server.use_tls;
-            let server_key_path: &String = &configs.tls.server_key_path;
-            let server_ca_path: &String = &configs.tls.server_ca_path;
-            let client_ca_path: &String = &configs.tls.client_ca_path;
+            let server_key_path: &str = &configs.tls.server_key_path;
+            let server_ca_path: &str = &configs.tls.server_ca_path;
+            let client_ca_path: &str = &configs.tls.client_ca_path;
 
             // Ctrl+c 终止程序
             let (tx, rx) = oneshot::channel();

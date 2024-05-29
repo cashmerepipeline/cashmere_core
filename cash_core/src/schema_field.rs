@@ -56,7 +56,7 @@ impl SchemaField {
 }
 
 impl SchemaField {
-    pub fn has_name(&self, name: &String) -> bool {
+    pub fn has_name(&self, name: &str) -> bool {
         self.name_map.values().cloned().any(|x| x == *name)
     }
 

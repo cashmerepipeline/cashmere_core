@@ -24,7 +24,7 @@ pub fn add_managers(new_managers: Vec<&'static Manager>) -> Result<OperationResu
     let managers_map_arc = get_managers_map();
     let mut managers_map_lock = managers_map_arc.write();
     for m in new_managers.iter() {
-        managers_map_lock.insert(m.get_id(), m.clone());
+        managers_map_lock.insert(m.get_id(), m);
     }
 
     Ok(operation_succeed("ok"))

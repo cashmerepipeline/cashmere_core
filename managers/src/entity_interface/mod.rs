@@ -1,4 +1,4 @@
-pub use entity_interface::*; // 数据访问接口
+pub use interface_trait::*; // 数据访问接口
 
 pub use sink_entity::*;
 pub use sink_entity_of_memeber::*;
@@ -10,7 +10,7 @@ pub use insert_entity_map_field::*;
 
 pub use query_entity_id::*;
 
-mod entity_interface;
+mod interface_trait;
 
 mod sink_entity;
 mod sink_entity_of_memeber;

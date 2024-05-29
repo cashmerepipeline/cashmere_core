@@ -26,7 +26,7 @@ pub use validate_is_owner::validate_is_owner;
 pub use validate_is_root::validate_is_root;
 pub use get_claims::get_claims;
 
-// pub async fn validate_is_super_admin(token: &String) -> bool {
+// pub async fn validate_is_super_admin(token: &str) -> bool {
 //     let (roles, groupid) = match get_claims(token).await {
 //         Some(c) => (c.roles, c.groupid),
 //         None => return false,
@@ -43,7 +43,7 @@ pub use get_claims::get_claims;
 //     false
 // }
 //
-// pub async fn validate_is_company_member(token: &String, company_id: &String) -> bool {
+// pub async fn validate_is_company_member(token: &str, company_id: &str) -> bool {
 //     let token_comp_id = match get_claims(token).await {
 //         Some(c) => c.groupid,
 //         None => return false,
@@ -54,7 +54,7 @@ pub use get_claims::get_claims;
 
 
 
-// pub async fn get_claims_company_id(token: &String) -> Option<String> {
+// pub async fn get_claims_company_id(token: &str) -> Option<String> {
 //     let company_id = match get_claims(token).await {
 //         Some(c) => c.groupid,
 //         None => return None,

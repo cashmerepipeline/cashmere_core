@@ -16,7 +16,7 @@ use manage_define::general_field_ids::*;
 /// 取得 实体
 pub async fn get_entity_by_objectid(
     collection_name: &str,
-    id: &String,
+    id: &str,
 ) -> Result<Document, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
@@ -26,7 +26,7 @@ pub async fn get_entity_by_objectid(
     let result = collection
         .find_one(
             doc! {
-                "_id": ObjectId::from_str(id.as_str()).unwrap()
+                "_id": ObjectId::from_str(id).unwrap()
             },
             None,
         )

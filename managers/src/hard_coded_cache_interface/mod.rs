@@ -1,4 +1,4 @@
-pub use hard_coded_cache_interface::*;
+pub use interface_trait::*;
 
 
-mod hard_coded_cache_interface;
+mod interface_trait;

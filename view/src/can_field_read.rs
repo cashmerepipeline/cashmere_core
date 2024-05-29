@@ -7,7 +7,7 @@ use crate::FilterRule;
 use crate::ReadRule;
 
 /// 实体的可写性，可否修改实体的字段
-pub async fn can_field_read(manage_id: &str, field_id: &String, role_group: &String) -> bool {
+pub async fn can_field_read(manage_id: &str, field_id: &str, role_group: &str) -> bool {
     // objectId 总可见
     if field_id == "_id" {
         return true;

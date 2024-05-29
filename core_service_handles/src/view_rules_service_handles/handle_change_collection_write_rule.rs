@@ -84,7 +84,7 @@ async fn handle_change_collection_write_rule(
         .get_manager_by_id(VIEW_RULES_MANAGE_ID)
         .unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():manage_id.to_string()
     };
 
@@ -93,7 +93,7 @@ async fn handle_change_collection_write_rule(
     };
 
     let result = view_rules_manager
-        .update_entity_map_field(&manage_id, modify_doc, &account_id)
+        .update_entity_map_field(manage_id, modify_doc, &account_id)
         .await;
 
     match result {

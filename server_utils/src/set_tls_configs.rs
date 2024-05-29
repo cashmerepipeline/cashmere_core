@@ -4,9 +4,9 @@ use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::transport::{ServerTlsConfig, Identity, Certificate};
 
 pub fn set_tls_configs(configs: &configs::TlsConfigs) -> ServerTlsConfig{
-    let server_key_path: &String = &configs.server_key_path;
-    let server_ca_path: &String = &configs.server_ca_path;
-    let client_ca_path: &String = &configs.client_ca_path;
+    let server_key_path: &str = &configs.server_key_path;
+    let server_ca_path: &str = &configs.server_ca_path;
+    let client_ca_path: &str = &configs.client_ca_path;
 
     // tls文件读取
     let cert = if let Ok(r) = fs::read(server_ca_path) {

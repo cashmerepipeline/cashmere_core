@@ -66,7 +66,7 @@ async fn handle_edit_entity_template(
         .get_manager_by_id(TEMPLATES_MANAGE_ID)
         .unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
       ID_FIELD_ID.to_string(): template_id,
     };
 
@@ -75,7 +75,7 @@ async fn handle_edit_entity_template(
     };
 
     let result = template_manager
-        .update_entity_field(&template_id, &mut modify_doc, &account_id)
+        .update_entity_field(template_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

@@ -9,10 +9,10 @@ use cash_result::OperationResult;
 /// 新建映射
 pub async fn new_view_rules(
     id: i32,
-    name: &String,
+    name: &str,
     rules: &ViewRules,
-    account_id: &String,
-    group_id: &String,
+    account_id: &str,
+    group_id: &str,
 ) -> Result<String, OperationResult> {
     // 创建doc
     let result = new_view_rules_entity_to_database(id, name, rules, account_id, group_id).await;
@@ -21,7 +21,7 @@ pub async fn new_view_rules(
         Ok(r) => {
             let view_rules_arc = get_view_rules_map().await;
             let mut view_rules_map = view_rules_arc.write();
-            view_rules_map.insert(name.clone(), Arc::new(RwLock::new(rules.clone())));
+            view_rules_map.insert(name.to_string(), Arc::new(RwLock::new(rules.clone())));
             Ok(r)
         }
         Err(e) => Err(e),

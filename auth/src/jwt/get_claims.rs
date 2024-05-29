@@ -3,7 +3,7 @@ use jsonwebtoken::{Algorithm, DecodingKey, Validation};
 use crate::jwt::Claims;
 
 // claims utils
-pub fn get_claims(token: &String) -> Option<Claims> {
+pub fn get_claims(token: &str) -> Option<Claims> {
     let configs = ServerConfigs::get();
     let secret_code = configs.secret_code.as_bytes();
 

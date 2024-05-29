@@ -8,7 +8,7 @@ use crate::can_field_read;
 pub async fn get_manage_schema_view_mask(
     manage_id: &str,
     fields: &[SchemaField],
-    role_group: &String,
+    role_group: &str,
 ) -> HashMap<String, bool> {
     let field_stream = fields.iter();
 

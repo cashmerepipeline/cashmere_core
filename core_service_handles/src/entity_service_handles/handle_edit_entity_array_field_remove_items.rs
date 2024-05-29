@@ -90,7 +90,7 @@ async fn handle_edit_entity_array_field_remove_items(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,
     };
 
@@ -98,7 +98,7 @@ async fn handle_edit_entity_array_field_remove_items(
     modify_doc.insert(field_id, doc! {"$in":b_items.clone()});
 
     let result = manager
-        .remove_from_array_field(&entity_id, modify_doc, &account_id)
+        .remove_from_array_field(entity_id, modify_doc, &account_id)
         .await;
 
     match result {

@@ -4,7 +4,7 @@ use dependencies_sync::log::error;
 use dependencies_sync::toml;
 
 /// 读取文件为toml_map
-pub fn get_toml_map(toml_path: &String) -> Option<toml::map::Map<String, toml::Value>> {
+pub fn get_toml_map(toml_path: &str) -> Option<toml::map::Map<String, toml::Value>> {
     let mut toml_file = match std::fs::File::open(toml_path) {
         Ok(r) => r,
         Err(_) => {

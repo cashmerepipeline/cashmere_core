@@ -4,7 +4,7 @@ use managers::{entity_interface::EntityInterface};
 
 use crate::{get_tantivy_schema, get_tantivy_writer};
 
-pub fn handle_delete_event(manage_id: &str, object_id: &String) {
+pub fn handle_delete_event(manage_id: &str, object_id: &str) {
     println!("handle_delete_event: {}-{}", manage_id, object_id);
 
     // zh: 大部分管理的实体不删除，只有少数的几个管理实体支持删除操作
@@ -20,6 +20,6 @@ pub fn handle_delete_event(manage_id: &str, object_id: &String) {
 
     writer.delete_term(Term::from_field_text(
         schema.get_field("_id").unwrap(),
-        object_id.as_str(),
+        object_id,
     ));
 }

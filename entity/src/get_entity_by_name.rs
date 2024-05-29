@@ -15,7 +15,7 @@ use manage_define::general_field_ids::*;
 /// 根据名字取得entity
 pub async fn get_entity_by_name(
     collection_name: &str,
-    name: &String,
+    name: &str,
 ) -> Result<Document, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,
@@ -25,7 +25,7 @@ pub async fn get_entity_by_name(
     let result = collection
         .find_one(
             doc! {
-                "name": name.clone()
+                "name": name
             },
             None,
         )

@@ -3,7 +3,7 @@ use std::path::Path;
 use dependencies_sync::log;
 
 // 取得目录下的toml文件
-pub fn get_toml_files_of_dir(toml_dir: &String) -> Option<Vec<String>> {
+pub fn get_toml_files_of_dir(toml_dir: &str) -> Option<Vec<String>> {
     let mut toml_pathes: Vec<String> = vec![];
     let toml_dir_path = Path::new(toml_dir);
     if toml_dir_path.exists() && toml_dir_path.is_dir() {

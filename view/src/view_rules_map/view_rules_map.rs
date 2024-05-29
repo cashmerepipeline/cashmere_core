@@ -193,8 +193,8 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
 
 //// 组可读
 // fn can_groups_read(
-//     groups: &Vec<String>,
-//     reads: &Vec<String>,
+//     groups: &[String],
+//     reads: &[String],
 // ) -> bool {
 //     let mut result = false;
 
@@ -210,8 +210,8 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
 
 // 组可写
 // fn can_groups_write(
-//     groups: &Vec<String>,
-//     writes: &Vec<String>,
+//     groups: &[String],
+//     writes: &[String],
 // ) -> bool {
 //     let mut result = false;
 
@@ -227,7 +227,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
 
 // 只主可读
 // fn is_read_owner_only(
-//     ands: &Vec<String>,
+//     ands: &[String],
 // ) -> bool {
 //     if ands.contains(&"ReadOwnerOnly".to_string()) {
 //         true
@@ -238,7 +238,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
 
 // 只主可写
 // fn is_write_owner_only(
-//     ands: &Vec<String>
+//     ands: &[String]
 // ) -> bool {
 //     if ands.contains(&"WriteOwnerOnly".to_string()) {
 //         true

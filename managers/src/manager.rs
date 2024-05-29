@@ -133,7 +133,7 @@ impl EntityInterface for Manager {
         page_index: u32,
         matches: Option<&Document>,
         sorts: Option<&Document>,
-        unsets: &Vec<String>,
+        unsets: &[String],
     ) -> Result<Vec<Document>, OperationResult> {
         self.inner
             .get_entities_by_page(page_index, matches, sorts, unsets)

@@ -5,11 +5,11 @@ use crate::can_collection_write;
 
 pub async fn validate_collection_can_write(
     manage_id: &str,
-    role_group: &String,
+    role_group: &str,
 ) -> Result<(), Status>{
 
     if !can_collection_write(
-        &manage_id.to_string(),
+        manage_id,
         role_group,
     )
     .await

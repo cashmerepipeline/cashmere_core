@@ -22,7 +22,6 @@ pub fn init_configs_map() -> Result<(), String> {
         Err(e) => {
             log::error!("{}: {}", t!("配置文件解析失败"), e.to_string());
             panic!("{}: {}", t!("配置文件解析失败"), e);
-            return Err(e.to_string());
         }
     };
 

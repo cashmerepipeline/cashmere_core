@@ -7,7 +7,7 @@ use crate::get_tantivy_schema;
 
 pub fn handle_update_event(
     manage_id: &str,
-    object_id: &String,
+    object_id: &str,
     updates: &Document,
     full_document: &Document,
 ) {
@@ -38,7 +38,7 @@ pub fn handle_update_event(
     }
 
     if let Err(err) =
-        commit_search_document(full_document, schema, manage_id, Some(object_id.clone()))
+        commit_search_document(full_document, schema, manage_id, Some(object_id.to_string()))
     {
         log::error!("{}: {}", t!("更新搜索文档失败"), err.details());
     };

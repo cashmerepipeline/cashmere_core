@@ -1,6 +1,6 @@
 use crate::jwt::get_claims;
 
-pub async fn validate_is_root(token: &String) -> bool {
+pub async fn validate_is_root(token: &str) -> bool {
     let r = match get_claims::get_claims(token) {
         Some(c) => c.roles,
         None => return false,

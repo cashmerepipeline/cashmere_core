@@ -1,10 +1,9 @@
 use convert_case::{Case, Casing};
 
-
 /// zh: 生成isar本地数据库的schema dart代码
 pub fn generate_dart_schema_code(
     manage_name: &str,
-    manage_schema: &Vec<(String, i32, String)>,
+    manage_schema: &[(String, i32, String)],
     package_name: &str,
 ) -> String {
     let import_statements = ["import 'package:objectbox/objectbox.dart';\n"];
@@ -52,10 +51,7 @@ pub fn generate_dart_schema_code(
         );
         define_statements.push(s);
 
-        let cs = format!(
-            "required this.{},\n",
-            s_name.to_case(Case::Camel)
-        );
+        let cs = format!("required this.{},\n", s_name.to_case(Case::Camel));
         construct_statements.push(cs);
     }
 

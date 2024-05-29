@@ -17,7 +17,7 @@ use manage_define::general_field_ids::*;
 pub async fn get_entities(
     collection_name: &str,
     filter: Option<&Document>,
-    no_present_fields: &Vec<String>,
+    no_present_fields: &[String],
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_name).await {
         Some(c) => c,

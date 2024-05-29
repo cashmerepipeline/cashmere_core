@@ -98,7 +98,7 @@ async fn handle_new_language_name(
         return Err(Status::already_exists("语言已经存在"));
     };
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
     ID_FIELD_ID.to_string():entity_id
         };
     let modify_doc = doc! {
@@ -106,7 +106,7 @@ async fn handle_new_language_name(
     };
 
     let result = manager
-        .insert_entity_map_field(&entity_id, modify_doc, &account_id)
+        .insert_entity_map_field(entity_id, modify_doc, &account_id)
         .await;
 
     if manager.is_hard_coded().await {

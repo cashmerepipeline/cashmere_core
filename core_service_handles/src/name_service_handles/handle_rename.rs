@@ -65,7 +65,7 @@ async fn handle_rename(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id
     };
     let modify_doc = doc! {
@@ -73,7 +73,7 @@ async fn handle_rename(
     };
 
     let result = manager
-        .update_entity_map_field(&entity_id, modify_doc, &account_id)
+        .update_entity_map_field(entity_id, modify_doc, &account_id)
         .await;
 
     match result {

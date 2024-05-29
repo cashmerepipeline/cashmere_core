@@ -2,7 +2,7 @@ use manage_define::general_field_ids::REMOVED_FIELD_ID;
 use manage_define::manage_ids::GROUPS_MANAGE_ID;
 
 /// 检查组是否有效
-pub async fn validate_group(group_id: &String) -> bool {
+pub async fn validate_group(group_id: &str) -> bool {
     // 存在
     match entity::get_entity_by_id(GROUPS_MANAGE_ID, group_id, &[], &[]).await {
         Ok(group_entity) => {

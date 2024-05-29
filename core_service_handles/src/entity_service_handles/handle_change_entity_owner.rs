@@ -86,7 +86,7 @@ async fn handle_change_entity_owner(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         ID_FIELD_ID.to_string():entity_id,
     };
 
@@ -95,7 +95,7 @@ async fn handle_change_entity_owner(
     };
 
     let result = manager
-        .update_entity_field(&entity_id, &mut modify_doc, &account_id)
+        .update_entity_field(entity_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

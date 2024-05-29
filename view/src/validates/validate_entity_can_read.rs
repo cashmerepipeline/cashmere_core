@@ -5,11 +5,11 @@ use crate::can_entity_read;
 
 pub async fn validate_entity_can_read(
     manage_id: &str,
-    role_group: &String,
+    role_group: &str,
 ) -> Result<(), Status>{
 
     if !can_entity_read(
-        &manage_id.to_string(),
+        manage_id,
         role_group,
     )
     .await

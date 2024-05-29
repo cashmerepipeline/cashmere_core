@@ -43,7 +43,7 @@ pub fn generate_manage_defines(
             match entry {
                 Ok(path) => {
                     let toml_path = path.to_str().unwrap();
-                    let toml_map = match get_toml_map::get_toml_map(&toml_path.to_string()) {
+                    let toml_map = match get_toml_map::get_toml_map(toml_path) {
                         Some(r) => r,
                         None => continue,
                     };

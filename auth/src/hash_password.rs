@@ -2,7 +2,7 @@ use dependencies_sync::chrono::Utc;
 use argon2::Config;
 
 // 加密密码
-pub async fn hash_password(passwd: &String) -> Option<String> {
+pub async fn hash_password(passwd: &str) -> Option<String> {
     let password = passwd.as_bytes();
     let now = Utc::now().to_rfc3339();
     let salt = now.as_bytes();

@@ -9,9 +9,9 @@ use crate::view_rules_map::query_collection_view_rules;
 
 /// 加入查询过滤
 pub async fn add_query_filters(
-    account: &String,
-    group: &String,
-    manage_id: &String,
+    account: &str,
+    group: &str,
+    manage_id: &str,
 ) -> Option<Document> {
     let rule = query_collection_view_rules(manage_id, group).await?;
 
@@ -23,7 +23,7 @@ pub async fn add_query_filters(
 
     // 组, 任一组匹配即可, 即每个组检查是否在可读组中
     if check_group_read_group(&rule) {
-        let query_filter_doc = doc! {"$elemMatch":{"$eq":group.clone()}};
+        let query_filter_doc = doc! {"$elemMatch":{"$eq":group}};
         let mut filter_doc = doc! {};
         filter_doc.insert(GROUPS_FIELD_ID.to_string(), query_filter_doc);
         return Some(filter_doc);

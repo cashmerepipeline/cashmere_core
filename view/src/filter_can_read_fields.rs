@@ -6,7 +6,7 @@ use crate::can_field_read;
 pub async fn filter_can_read_fields(
     result: &bson::Document,
     manage_id: &str,
-    role_group: &String,
+    role_group: &str,
 ) -> bson::Document {
     let mut result_doc = doc!();
     let mut property_stream = stream::iter(result);

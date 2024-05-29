@@ -62,7 +62,7 @@ async fn handle_edit_area(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(AREAS_MANAGE_ID).unwrap();
 
-    let query_doc = doc! {
+    let _query_doc = doc! {
         "_id": area_id
     };
     let mut modify_doc = doc! {
@@ -71,7 +71,7 @@ async fn handle_edit_area(
     };
 
     let result = manager
-        .update_entity_field(&area_id, &mut modify_doc, &account_id)
+        .update_entity_field(area_id, &mut modify_doc, &account_id)
         .await;
 
     match result {

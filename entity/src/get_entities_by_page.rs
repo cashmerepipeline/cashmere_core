@@ -21,7 +21,7 @@ pub async fn get_entities_by_page(
     page_index: u32,
     matches: Option<&Document>,
     sorts: Option<&Document>,
-    unsets: &Vec<String>,
+    unsets: &[String],
 ) -> Result<Vec<Document>, OperationResult> {
     let collection = match database::get_collection_by_id(collection_id).await {
         Some(c) => c,
