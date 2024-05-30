@@ -232,15 +232,6 @@ message InteractiveGetEntitiesResponse {
 }
 
 
-/// 取得硬编码管理实体
-message GetHardCodedEntitiesRequest {
-  string manage_id = 1;
-}
-message GetHardCodedEntitiesResponse {
-  repeated bytes entities = 1;
-}
-
-
 // 标记实体已移除
 message MarkEntityRemovedRequest {
   string manage_id = 1;

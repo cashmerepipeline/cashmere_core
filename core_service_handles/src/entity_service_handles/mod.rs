@@ -13,7 +13,6 @@ pub use handle_get_entity::*;
 pub use handle_interactive_get_entities::*;
 pub use handle_check_entities_update::*;
 pub use handle_check_updates_later_then_time::*;
-pub use handle_get_hard_coded_entities::*;
 
 pub(crate) use get_manage_entities_page::*;
 
@@ -26,7 +25,6 @@ pub use handle_search::*;
 mod handle_change_entity_owner;
 mod handle_check_entities_update;
 mod handle_check_updates_later_then_time;
-mod handle_get_hard_coded_entities;
 
 mod handle_edit_entity_array_field_add_items;
 mod handle_edit_entity_array_field_remove_items;

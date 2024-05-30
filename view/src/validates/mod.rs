@@ -1,3 +1,6 @@
+/// 各层级权限验证
+/// 失败返回grpc未授权状态
+
 pub use validate_collection_can_read::*;
 pub use validate_collection_can_write::*;
 pub use validate_entity_can_read::*;

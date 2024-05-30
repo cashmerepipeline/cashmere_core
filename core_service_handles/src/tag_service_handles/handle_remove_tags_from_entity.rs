@@ -31,10 +31,14 @@ async fn validate_view_rules(
     #[cfg(feature = "view_rules_validate")]
     {
         let manage_id = &request.get_ref().target_manage_id;
-        let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-
-        if let Err(e) =
-            view::validates::validate_entity_can_write(&manage_id, &role_group).await
+        let entity_id = &request.get_ref().entity_id;
+        let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
+        if let Err(e) = view::validates::validate_entity_can_write(
+            &manage_id,
+            &entity_id,
+            &account_id,
+            &role_group,
+        ).await
         {
             return Err(e);
         }

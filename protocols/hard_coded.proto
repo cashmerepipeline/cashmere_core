@@ -6,9 +6,9 @@ package cashmere;
 // 每种可能有提供有自己的访问接口
 // 常量一般不需要权限控制
 // NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
-message GetConstantsRequest {
+message GetHardCodedEntitiesRequest {
   string manage_id = 1;
 }
-message GetConstantsResponse {
-  repeated bytes constants = 1;
+message GetHardCodedEntitiesResponse {
+  repeated bytes entities = 1;
 }

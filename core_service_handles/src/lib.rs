@@ -12,7 +12,7 @@ i18n!("locales");
 
 pub mod server_status_handles;
 
-pub mod constant_service_handles;
+pub mod hard_coded_service_handles;
 pub mod area_service_handles;
 pub mod country_code_service_handles;
 pub mod language_code_handles;

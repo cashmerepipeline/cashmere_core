@@ -112,7 +112,7 @@ async fn handle_get_entities(
     let mut id_stream = stream::iter(entity_ids.clone());
     tokio::spawn(async move {
         while let Some(ref id) = id_stream.next().await {
-            if can_entity_read(&manage_id.clone(), &role_group).await {
+            if can_entity_read(&manage_id.clone(), id, &_account_id, &role_group).await {
                 filtered_ids.push(id.to_owned());
             };
 

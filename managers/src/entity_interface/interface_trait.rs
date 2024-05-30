@@ -57,7 +57,8 @@ where
 
         // zh: 如果是硬编码管理, 则需要更新缓存
         if self.is_hard_coded().await {
-            self.refresh_hard_coded_cache(self.get_id(), &entity_id).await?;
+            self.refresh_hard_coded_cache(self.get_id(), &entity_id)
+                .await?;
         }
 
         Ok(entity_id)
@@ -492,7 +493,7 @@ where
         if self.is_hard_coded().await {
             unimplemented!()
         }
-        
+
         let mut query_doc = query_doc.clone();
         query_doc.insert(ID_FIELD_ID.to_string(), entity_id.to_string());
 

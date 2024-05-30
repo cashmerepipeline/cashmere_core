@@ -16,6 +16,7 @@ use managers::{entity_interface::EntityInterface};
 use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
+use view::can_entity_read;
 use view::view_rules_map::{query_collection_view_rules};
 
 
@@ -101,7 +102,7 @@ async fn validate_request_params(
 async fn handle_check_updates_later_then_time(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> StreamResponseResult<CheckUpdatesLaterThenTimeResponse> {
-    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
@@ -185,7 +186,11 @@ async fn handle_check_updates_later_then_time(
         let mut infos = vec![];
 
         while let Some(result) = query_cursor.next().await {
-            // TODO: 可读过滤
+            let entity_id = result.get_str(ID_FIELD_ID.to_string()).unwrap();
+            if !can_entity_read(&manage_id, entity_id, &account_id, &role_group).await{
+                continue;
+            };
+
             let mut r = doc! {};
 
             // 从缓存取得的数据会返回所有数据，需要过滤
@@ -200,7 +205,7 @@ async fn handle_check_updates_later_then_time(
             r.insert("_id", result.get_object_id("_id").unwrap());
             r.insert(
                 ID_FIELD_ID.to_string(),
-                result.get_str(ID_FIELD_ID.to_string()).unwrap(),
+                entity_id,
             );
             r.insert(
                 MODIFY_TIMESTAMP_FIELD_ID.to_string(),

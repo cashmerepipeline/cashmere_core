@@ -15,16 +15,6 @@ pub async fn sink_entity(
         .unwrap()
         .to_owned();
 
-    // TODO: zh: 先更新缓存
-    /* // zh: 如果有缓存则更新缓存
-       let old_doc = if has_cache {
-           cache_update_entity(manage_id, entity_id.as_str(), new_entity_doc.clone()).await
-       } else {
-           return Err(operation_failed("sink_entity", t!("更新缓存失败")));
-       };
-    */
-    // zh: 再添加到数据库
-
     match entity::insert_entity(
         manage_id.to_string().as_str(),
         new_entity_doc,

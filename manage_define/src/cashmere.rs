@@ -425,19 +425,6 @@ pub struct InteractiveGetEntitiesResponse {
     #[prost(uint64, tag = "3")]
     pub total_count: u64,
 }
-/// / 取得硬编码管理实体
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetHardCodedEntitiesRequest {
-    #[prost(string, tag = "1")]
-    pub manage_id: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetHardCodedEntitiesResponse {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
 /// 标记实体已移除
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1006,15 +993,15 @@ pub struct GetPhoneAreaCodesResponse {
 /// NOTE: 如果服务对外，因为安全问题，这个接口最好不公开，对于内部服务，可以公开
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetConstantsRequest {
+pub struct GetHardCodedEntitiesRequest {
     #[prost(string, tag = "1")]
     pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetConstantsResponse {
+pub struct GetHardCodedEntitiesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
-    pub constants: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub entities: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

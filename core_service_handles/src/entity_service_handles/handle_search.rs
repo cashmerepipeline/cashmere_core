@@ -1,7 +1,8 @@
-use dependencies_sync::bson::{doc};
+use dependencies_sync::bson::doc;
 use dependencies_sync::futures::TryFutureExt;
 use dependencies_sync::rust_i18n::{self, t};
 
+use dependencies_sync::tokio_stream::{iter, StreamExt};
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
@@ -11,9 +12,9 @@ use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
 
-
 use search_engine::search;
 use service_utils::types::UnaryResponseResult;
+use view::can_entity_read;
 
 #[async_trait]
 pub trait HandleSearch {
@@ -63,14 +64,13 @@ async fn validate_request_params(
 async fn handle_search(
     request: Request<SearchRequest>,
 ) -> Result<Response<SearchResponse>, Status> {
-    let (_account_id, _groups, _role_group) = request_account_context(request.metadata())?;
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let search_params = &request.get_ref().search_params;
 
     let search_str = search_params
         .iter()
-
         // zh: 关键词必须用引号包裹, 否则空格位置会不正确
         .map(|(k, v)| format!("{}:\"{}\"", k, v))
         .collect::<Vec<String>>()
@@ -84,7 +84,17 @@ async fn handle_search(
     // TODO:  过滤不可读实体
 
     match result {
-        Ok(r) => Ok(Response::new(SearchResponse { results: r })),
+        Ok(r) => {
+            let mut itr = iter(r);
+            let mut rlt = Vec::new();
+            while let Some(e) = itr.next().await {
+                if can_entity_read(manage_id, &e, &account_id, &role_group).await {
+                    rlt.push(e);
+                }
+            }
+
+            Ok(Response::new(SearchResponse { results: rlt }))
+        }
         Err(e) => Err(Status::aborted(format!(
             "{} {}",
             e.operation(),
