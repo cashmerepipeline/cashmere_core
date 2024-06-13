@@ -4,7 +4,6 @@ use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
 
 /// 检查实体是否可写
-// TODO: 需要独立检查是否为主
 pub async fn can_entity_write(
     manage_id: &str,
     entity_id: &str,

@@ -44,7 +44,6 @@ pub async fn update_multi_entity_fields(
         ));
     };
 
-    // TODO: 事务提交失败后，重试提交事务
     match execute_transaction(edits, &mut session, account_id).await {
         Ok(_) => {
             if let Err(err) = session.commit_transaction().await {
@@ -63,6 +62,7 @@ pub async fn update_multi_entity_fields(
                 log::error!("{}: {}", t!("回滚事务失败"), err);
             };
 
+            // zh: 事务提交失败后，不重试提交事务
             Err(operation_failed(
                 "update_multi_entity_fields",
                 format!("{}: {:?}", t!("提交失败"), err),

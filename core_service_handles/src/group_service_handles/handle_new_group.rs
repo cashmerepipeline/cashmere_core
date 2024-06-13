@@ -66,9 +66,7 @@ async fn handle_new_group(
         .get_manager_by_id(manage_id.to_owned())
         .unwrap();
 
-    //TODO: 组编号是否符合格式
-
-    // 组是否已经存在
+    // zh: 组是否已经存在
     if group_manager
         .entity_exists(&doc! {ID_FIELD_ID.to_string():new_group_id})
         .await.is_some()

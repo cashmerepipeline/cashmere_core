@@ -24,7 +24,7 @@ pub const GROUPS_FIELD_ID: i32 = 1007;
 pub const IS_SEARCHABLE_FIELD_ID: i32 = 1008;
 // 标签
 pub const TAGS_FIELD_ID: i32 = 1010;
-// 描述
+// 描述表
 pub const DESCRIPTION_FIELD_ID: i32 = 1011;
 // 删除标记
 pub const REMOVED_FIELD_ID: i32 = 1200;
@@ -34,5 +34,5 @@ pub const REMOVED_FIELD_ID: i32 = 1200;
 // 非通用属性
 // --------
 
-// 分类
+// 分类表
 pub const CATEGORIES_FIELD_ID: i32 = 1300;

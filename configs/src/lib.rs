@@ -17,6 +17,8 @@ i18n!("locales");
 mod get_language_code;
 mod server_configs;
 mod tls_configs;
+mod grpc_configs;
+
 mod configs_file_path;
 mod read_configs_file_path;
 
@@ -30,8 +32,10 @@ pub use configs_map::*;
 
 pub use configs_file_path::*;
 pub use get_language_code::*;
+
 pub use server_configs::*;
 pub use tls_configs::*;
+pub use grpc_configs::*;
 
 pub use get_server_configs::*;
 

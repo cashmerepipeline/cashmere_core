@@ -15,13 +15,13 @@ pub async fn add_query_filters(
 ) -> Option<Document> {
     let rule = query_collection_view_rules(manage_id, group).await?;
 
-    // 是否无限制
+    // zh: 是否无限制
     if check_group_read_nolimit(&rule) {
         let filter_doc = doc! {};
         return Some(filter_doc);
     }
 
-    // 组, 任一组匹配即可, 即每个组检查是否在可读组中
+    // zh: 组, 任一组匹配即可, 即每个组检查是否在可读组中
     if check_group_read_group(&rule) {
         let query_filter_doc = doc! {"$elemMatch":{"$eq":group}};
         let mut filter_doc = doc! {};
@@ -29,7 +29,7 @@ pub async fn add_query_filters(
         return Some(filter_doc);
     }
 
-    // 只主人可读
+    // zh: 只主人可读
     if check_group_read_only_owner(&rule) {
         let mut filter_doc = doc! {};
         filter_doc.insert(OWNER_FIELD_ID.to_string(), account);
@@ -37,6 +37,6 @@ pub async fn add_query_filters(
         return Some(filter_doc);
     }
 
-    // 没有指定规则则不能访问
+    // zh: 没有指定规则则不能访问
     None
 }

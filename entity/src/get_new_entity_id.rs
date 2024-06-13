@@ -46,7 +46,7 @@ pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64>
                 if let Ok(r) = r.get_i64("id_count") {
                     Some(r)
                 } else {
-                    log::error!("{}: {}", t!("提取新实体编号失败"), manage_id);
+                    log::error!("{}: {}", t!("获取新实体编号失败"), manage_id);
                     None
                 }
             } else {

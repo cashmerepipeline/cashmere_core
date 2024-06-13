@@ -81,12 +81,12 @@ async fn handle_search(
 
     let result = search(manage_id, search_str.as_str()).await;
 
-    // TODO:  过滤不可读实体
-
     match result {
         Ok(r) => {
             let mut itr = iter(r);
             let mut rlt = Vec::new();
+
+            // 过滤不可读
             while let Some(e) = itr.next().await {
                 if can_entity_read(manage_id, &e, &account_id, &role_group).await {
                     rlt.push(e);

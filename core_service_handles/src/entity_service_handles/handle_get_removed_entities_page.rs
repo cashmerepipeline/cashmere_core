@@ -65,7 +65,6 @@ async fn handle_get_removed_entities_page(
     let sorts_doc = bson::to_document(conditions).ok().or(None);
 
     // 可读性过滤, 没有设置过滤即不可读
-    // TODO: 根据组改写，加入可读过滤项
     let mut matches = doc! {};
     if let Some(filter_doc) =
         add_query_filters(&account_id.to_string(), &role_group, &manage_id.to_string()).await

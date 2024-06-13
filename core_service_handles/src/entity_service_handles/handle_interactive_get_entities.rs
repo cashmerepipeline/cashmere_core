@@ -56,8 +56,6 @@ async fn validate_request_params(
     //     return Err(Status::invalid_argument(t!("设备id不能为空")));
     // }
 
-    // TODO: 是否检查时间间隔
-
     Ok(request)
 }
 
@@ -142,7 +140,6 @@ async fn handle_interactive_entities_stream(
                 Err(e) => {
                     error!("{}: {}", t!("交互查询数据错误"), e);
 
-                    // TODO: 断开连接处理和断线重连
                     match resp_tx.send(Err(e)).await {
                         Ok(_) => (),
                         Err(e) => {
