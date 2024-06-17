@@ -1,5 +1,3 @@
-
-
 use dependencies_sync::bson::{self, doc, Document};
 
 use dependencies_sync::futures::TryFutureExt;
@@ -12,13 +10,12 @@ use dependencies_sync::tonic::{Request, Response, Status};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
-use managers::{entity_interface::EntityInterface};
+use managers::entity_interface::EntityInterface;
 use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
 use view::can_entity_read;
-use view::view_rules_map::{query_collection_view_rules};
-
+use view::view_rules_map::query_collection_view_rules;
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -112,9 +109,16 @@ async fn handle_check_updates_later_then_time(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let _collection_view_rules = query_collection_view_rules(manage_id.as_str(), &role_group)
-        .await
-        .unwrap();
+    let _collection_view_rules =
+        if let Some(r) = query_collection_view_rules(manage_id.as_str(), &role_group).await {
+            r
+        } else {
+            return Err(Status::data_loss(
+                format!("{}: {}", t!("管理集合可见设置不存在"), manage_id),
+            ));
+        };
+    
+    // TODO: 可读检查
 
     /* match collection_view_rules.read_filters {
         ReadRule::Read => __,
@@ -138,7 +142,7 @@ async fn handle_check_updates_later_then_time(
         };
 
     if !filter.is_empty() {
-        let filter_doc: Document =  bson::from_slice(filter).unwrap(); 
+        let filter_doc: Document = bson::from_slice(filter).unwrap();
         filter_doc.iter().for_each(|(k, v)| {
             query_doc.insert(k, v);
         });
@@ -187,26 +191,30 @@ async fn handle_check_updates_later_then_time(
 
         while let Some(result) = query_cursor.next().await {
             let entity_id = result.get_str(ID_FIELD_ID.to_string()).unwrap();
-            if !can_entity_read(&manage_id, entity_id, &account_id, &role_group).await{
+            if !can_entity_read(&manage_id, entity_id, &account_id, &role_group).await {
                 continue;
             };
 
             let mut r = doc! {};
 
             // 从缓存取得的数据会返回所有数据，需要过滤
-            if manager.is_hard_coded().await{
-                let e_timestamp = result.get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string()).unwrap();
-                if timestamp >= e_timestamp{
-                    debug!("{}: {}-{}", t!("不需要拉取"), manage_id, result.get_str(ID_FIELD_ID.to_string()).unwrap());
+            if manager.is_hard_coded().await {
+                let e_timestamp = result
+                    .get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string())
+                    .unwrap();
+                if timestamp >= e_timestamp {
+                    debug!(
+                        "{}: {}-{}",
+                        t!("不需要拉取"),
+                        manage_id,
+                        result.get_str(ID_FIELD_ID.to_string()).unwrap()
+                    );
                     continue;
                 }
             }
 
             r.insert("_id", result.get_object_id("_id").unwrap());
-            r.insert(
-                ID_FIELD_ID.to_string(),
-                entity_id,
-            );
+            r.insert(ID_FIELD_ID.to_string(), entity_id);
             r.insert(
                 MODIFY_TIMESTAMP_FIELD_ID.to_string(),
                 result
