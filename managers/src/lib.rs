@@ -15,6 +15,7 @@ pub mod categaries_manager;
 pub mod tags_manager;
 pub mod comments_manager;
 pub mod recommends_manager;
+pub mod attributes_manager;
 
 pub mod groups_manager;
 pub mod persons_manager;

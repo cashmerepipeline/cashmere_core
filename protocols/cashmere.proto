@@ -9,6 +9,8 @@ import "entity.proto";
 
 import "country_code.proto";
 import "language_code.proto";
+import "attribute.proto";
+
 import "area.proto";
 import "phone_area_code.proto";
 import "hard_coded.proto";

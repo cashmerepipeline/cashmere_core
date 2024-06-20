@@ -18,6 +18,7 @@ pub mod country_code_service_handles;
 pub mod language_code_handles;
 pub mod phone_area_code_handles;
 pub mod color_service_handles;
+pub mod attribute_service_handles;
 
 pub mod category_service_handle;
 pub mod tag_service_handles;

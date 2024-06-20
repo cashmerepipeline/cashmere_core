@@ -1,10 +1,10 @@
 use std::sync::{Arc, OnceLock};
 
 use dependencies_sync::bson::Document;
+use dependencies_sync::log::error;
 use dependencies_sync::once_cell::sync::Lazy;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::log::{error};
 use dependencies_sync::tonic::async_trait;
 
 use crate::entity_interface::EntityInterface;
@@ -16,7 +16,6 @@ use cash_core::{manage_from_document, Manage};
 use cash_result::*;
 use manage_define::manage_ids::CALENDAR_BOOKS_MANAGE_ID;
 use manage_define::manage_ids::MANAGES_MANAGE_ID;
-
 
 #[derive(Default)]
 pub struct CalendarBooksManager;

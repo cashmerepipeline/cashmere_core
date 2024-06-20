@@ -2,6 +2,7 @@ pub const MANAGES_MANAGE_ID: &str = "管理";
 pub const GROUPS_MANAGE_ID: &str = "组"; 
 pub const COUNTRY_CODES_MANAGE_ID: &str = "国家编码"; 
 pub const MEMBERS_MANAGE_ID: &str = "成员"; 
+pub const ATTRIBUTES_MANAGE_ID: &str = "属性"; 
 pub const LANGUAGE_CODES_MANAGE_ID: &str = "语言编码"; 
 pub const COLORS_MANAGE_ID: &str = "颜色"; 
 pub const PERSONS_MANAGE_ID: &str = "人"; 

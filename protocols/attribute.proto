@@ -1,0 +1,32 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+message NewAttributeRequest{
+    repeated string categories = 1;
+    .cashmere.Name name = 2;
+    string data_type = 3;
+    map<string, string> description = 4;
+    bytes default_value = 5;
+    int32 index = 6;
+}
+message NewAttributeResponse{
+  string result = 1;
+}
+
+
+message DeleteAttributeRequest{
+    string manage_id = 1;
+    uint32 index = 2;
+}
+message DeleteAttributeResponse{
+  string result = 1;
+}
+
+message GetAttributesRequest{
+    string manage_id = 1;
+}
+message GetAttributesResponse{
+  repeated bytes attributes = 1;
+}

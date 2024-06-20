@@ -1,7 +1,7 @@
 use std::sync::{Arc, OnceLock};
 
 use dependencies_sync::bson::Document;
-use dependencies_sync::log::{error};
+use dependencies_sync::log::error;
 use dependencies_sync::once_cell::sync::Lazy;
 use dependencies_sync::parking_lot::RwLock;
 use dependencies_sync::rust_i18n::{self, t};

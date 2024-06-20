@@ -2,6 +2,7 @@ const String MANAGES_MANAGE_ID ="管理";
 const String GROUPS_MANAGE_ID ="组"; 
 const String COUNTRY_CODES_MANAGE_ID ="国家编码"; 
 const String MEMBERS_MANAGE_ID ="成员"; 
+const String ATTRIBUTES_MANAGE_ID ="属性"; 
 const String LANGUAGE_CODES_MANAGE_ID ="语言编码"; 
 const String COLORS_MANAGE_ID ="颜色"; 
 const String PERSONS_MANAGE_ID ="人"; 
