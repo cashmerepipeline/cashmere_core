@@ -9,11 +9,11 @@ hard_coded = true
 
 # 数据描写 或者 模式
 schema = [
-  # 2003
+  # 2001
   # 属性数据类型
   { data_type = "String", name_map = { zh = "数据类型", en = "data_type" }, removed = false },
   
-  # 2004
+  # 2002
   # 默认值
   { data_type = "Binary", name_map = { zh = "默认值", en = "default_value" }, removed = false },
 ]
@@ -56,6 +56,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1002]
@@ -64,6 +65,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1003]
@@ -80,6 +82,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1005]
@@ -88,6 +91,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1006]
@@ -104,6 +108,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1008]
@@ -112,6 +117,7 @@ admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 [view_rules.schema.1009]
@@ -147,6 +153,7 @@ admin = { read_rule = "Read", write_rule = "Write", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 
@@ -156,15 +163,7 @@ admin = { read_rule = "Read", write_rule = "Write", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-], write_filters = [
-] }
-
-[view_rules.schema.2003]
-admin = { read_rule = "Read", write_rule = "Write", read_filters = [
   "NoLimit",
-], write_filters = [
-] }
-user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 
@@ -174,6 +173,7 @@ admin = { read_rule = "Read", write_rule = "Write", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }
 
@@ -184,5 +184,16 @@ admin = { read_rule = "Read", write_rule = "Write", read_filters = [
 ], write_filters = [
 ] }
 user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.schema.1300]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
 ], write_filters = [
 ] }

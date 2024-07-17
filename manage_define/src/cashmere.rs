@@ -904,6 +904,7 @@ pub struct NewAttributeRequest {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    /// bson document {"value": value}
     #[prost(bytes = "vec", tag = "5")]
     pub default_value: ::prost::alloc::vec::Vec<u8>,
     #[prost(int32, tag = "6")]
@@ -931,13 +932,13 @@ pub struct DeleteAttributeResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAttributesRequest {
+pub struct ListAttributesRequest {
     #[prost(string, tag = "1")]
-    pub manage_id: ::prost::alloc::string::String,
+    pub category: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAttributesResponse {
+pub struct ListAttributesResponse {
     #[prost(bytes = "vec", repeated, tag = "1")]
     pub attributes: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }

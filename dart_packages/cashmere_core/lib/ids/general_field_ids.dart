@@ -37,4 +37,4 @@ const int REMOVED_FIELD_ID = 1200;
 // --------
 
 // 品类
-const int CATEGORIES_FIELD_ID = 1012;
+const int CATEGORIES_FIELD_ID = 1300;

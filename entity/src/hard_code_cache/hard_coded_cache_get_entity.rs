@@ -43,7 +43,9 @@ pub async fn hard_coded_cache_get_entity(
             result.remove(key);
         }
 
-        debug!("{}: {}-{:?}", t!("取得实体缓存"), manage_id, result);
+        if cfg!(debug_assertions) {
+            debug!("{}: {}-{:?}", t!("取得实体缓存"), manage_id, result);
+        }
 
         return Some(result);
     }

@@ -1,6 +1,8 @@
 use std::ops::Deref;
 use std::sync::Arc;
 
+use dependencies_sync::log::error;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::{tokio, tokio_stream};
 use dependencies_sync::bson::Document;
 use dependencies_sync::futures::StreamExt;
@@ -17,11 +19,14 @@ pub async fn hard_coded_cache_get_entity_stream(manage_id: &'static str) -> Rece
             .collect::<Vec<Document>>()
     };
 
-    let (tx, rx) = mpsc::channel(1);
+    let (tx, rx) = mpsc::channel(4);
     tokio::spawn(async move {
         let mut entity_stream = tokio_stream::iter(entities);
         while let Some(r) = &entity_stream.next().await {
-            tx.send(r.clone()).await.unwrap();
+            if let Err(e) = tx.send(r.clone()).await{
+                error!("{}: {}", t!("发送实体失败"), e.0,);
+                continue;
+            };
         }
     });
 

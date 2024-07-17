@@ -170,16 +170,31 @@ where
         let manage_id = self.get_id();
         let hard_coded = self.is_hard_coded().await;
         if hard_coded {
+            if cfg!(debug_assertions) {
+                log::debug!("{}: {}", t!("取得硬编码实体流"), manage_id);
+            }
             return Ok(hard_coded_cache_get_entity_stream(manage_id).await);
+        }
+
+        if cfg!(debug_assertions) {
+            log::debug!("{}: {}", t!("开始获取数据库实体流"), manage_id);
         }
 
         match entity::get_query_cursor(manage_id, matche_doc, unsets, sorts, start_oid, skip_count)
             .await
         {
             Ok(mut r) => {
+                if cfg!(debug_assertions) {
+                    log::debug!("{}: {}", t!("取得查询游标成功"), manage_id);
+                }
+
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {
                     while let Some(r) = r.next().await {
+                        if cfg!(debug_assertions) {
+                            log::debug!("{}: {}", t!("取得实体"), r.as_ref().unwrap().get(ID_FIELD_ID.to_string()).unwrap());
+                        }
+
                         let _ = tx.send(r.unwrap()).await;
                     }
                 });

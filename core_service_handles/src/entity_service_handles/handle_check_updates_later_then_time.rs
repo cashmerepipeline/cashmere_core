@@ -14,8 +14,9 @@ use managers::entity_interface::EntityInterface;
 use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
-use view::can_entity_read;
+use validates::validate_manage_id;
 use view::view_rules_map::query_collection_view_rules;
+use view::{can_collection_read, can_entity_read};
 
 #[async_trait]
 pub trait HandleCheckUpdatesLaterThenTime {
@@ -50,8 +51,11 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<CheckUpdatesLaterThenTimeRequest>,
 ) -> Result<Request<CheckUpdatesLaterThenTimeRequest>, Status> {
+    let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
     let filter = &request.get_ref().filter;
+
+    validate_manage_id(manage_id.as_str()).await?;
 
     if timestamp.is_empty() {
         return Err(Status::invalid_argument(format!(
@@ -109,16 +113,15 @@ async fn handle_check_updates_later_then_time(
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
 
-    let _collection_view_rules =
-        if let Some(r) = query_collection_view_rules(manage_id.as_str(), &role_group).await {
-            r
-        } else {
-            return Err(Status::data_loss(
-                format!("{}: {}", t!("管理集合可见设置不存在"), manage_id),
-            ));
-        };
-    
-    // TODO: 可读检查
+    // 可读检查
+    if !can_collection_read(manage_id.as_str(), role_group.as_str()).await {
+        return Err(Status::unauthenticated(format!(
+            "{}: {}, {}",
+            t!("无可见权限设置"),
+            manage_id,
+            role_group
+        )));
+    };
 
     /* match collection_view_rules.read_filters {
         ReadRule::Read => __,
@@ -191,7 +194,16 @@ async fn handle_check_updates_later_then_time(
 
         while let Some(result) = query_cursor.next().await {
             let entity_id = result.get_str(ID_FIELD_ID.to_string()).unwrap();
+
+            if cfg!(debug_assertions) {
+                debug!("{}: {}-{}", t!("取得新实体"), manage_id, entity_id,)
+            };
+
+            // 可读过滤
             if !can_entity_read(&manage_id, entity_id, &account_id, &role_group).await {
+                if cfg!(debug_assertions) {
+                    debug!("{}: {}", t!("实体不可读"), manage_id,);
+                }
                 continue;
             };
 
@@ -203,17 +215,19 @@ async fn handle_check_updates_later_then_time(
                     .get_timestamp(MODIFY_TIMESTAMP_FIELD_ID.to_string())
                     .unwrap();
                 if timestamp >= e_timestamp {
-                    debug!(
-                        "{}: {}-{}",
-                        t!("不需要拉取"),
-                        manage_id,
-                        result.get_str(ID_FIELD_ID.to_string()).unwrap()
-                    );
+                    if cfg!(debug_assertions) {
+                        debug!(
+                            "{}: {}-{}",
+                            t!("不需要拉取"),
+                            manage_id,
+                            result.get_str(ID_FIELD_ID.to_string()).unwrap()
+                        );
+                    }
                     continue;
                 }
             }
 
-            r.insert("_id", result.get_object_id("_id").unwrap());
+            r.insert(OID_FIELD_ID, result.get_object_id(OID_FIELD_ID).unwrap());
             r.insert(ID_FIELD_ID.to_string(), entity_id);
             r.insert(
                 MODIFY_TIMESTAMP_FIELD_ID.to_string(),
@@ -240,7 +254,12 @@ async fn handle_check_updates_later_then_time(
 
             limit_count += 1;
         }
+
         // 发送最后一批
+        if cfg!(debug_assertions) {
+            debug!("{}: {}, {} {}", t!("发送最后一批"), manage_id, infos.len(), t!("个"));
+        }
+
         if !infos.is_empty() {
             let resp = CheckUpdatesLaterThenTimeResponse { results: infos };
             resp_tx.send(Ok(resp)).await.unwrap();

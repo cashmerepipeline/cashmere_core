@@ -16,9 +16,10 @@ dependencies:
   hooks_riverpod: ^2.5.1
 
   account_module:
-    git:
-      url: ssh://yan@192.168.3.6/home/yan/cashmere/account_module
-      path: dart_packages/account_module
+    # git:
+    # url: ssh://yan@192.168.3.6/home/yan/cashmere/account_module
+    # path: dart_packages/account_module
+    path: Z:/account_module/dart_packages/account_module
 
 dev_dependencies:
   flutter_test:
