@@ -52,7 +52,7 @@ pub async fn get_query_cursor(
 
     pipeline.push(doc! {"$skip": skip_count});
 
-    let cursor = collection.aggregate(pipeline, None).await;
+    let cursor = collection.aggregate(pipeline).await;
 
     match cursor {
         Ok(r) => Ok(r),

@@ -35,7 +35,7 @@ pub async fn update_entity_array_element_field(
 
     // 更新
     let result = collection
-        .update_one(query_doc.clone(), _modify_doc, None)
+        .update_one(query_doc.clone(), _modify_doc)
         .await;
 
     // 结果

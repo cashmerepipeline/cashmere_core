@@ -31,11 +31,11 @@ pub async fn update_timestamp_field(
     };
 
     let mut _modify_doc = doc! {"$currentDate": modify_doc.clone()};
-    let _modify_doc = add_modify_update_fields(account_id, &mut _modify_doc);
+    let modify_doc = add_modify_update_fields(account_id, &mut _modify_doc);
 
     // 更新
     let result = collection
-        .update_one(query_doc.clone(), _modify_doc, None)
+        .update_one(query_doc.clone(), modify_doc)
         .await;
 
     // 结果

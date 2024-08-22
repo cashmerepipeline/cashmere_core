@@ -12,7 +12,7 @@ pub async fn get_manages_collection() -> Collection<Document> {
     // manages 不存在则创建
     if !collection_exists(manages_id).await {
         cashmere_db
-            .create_collection(manages_id, None)
+            .create_collection(manages_id)
             .await
             .expect("创建管理失败");
     }

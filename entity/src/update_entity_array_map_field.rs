@@ -37,7 +37,6 @@ pub async fn update_entity_array_map_field(
         .update_one(
             query_doc.clone(),
                 _modify_doc,
-            None,
         )
         .await;
 

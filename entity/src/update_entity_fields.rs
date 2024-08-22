@@ -44,7 +44,6 @@ pub async fn update_entity_fields(
                 ID_FIELD_ID.to_string(): entity_id
             },
             pipeline_docs,
-            None,
         )
         .await;
 

@@ -2,6 +2,9 @@
  *   一些通用的属性字段名
 */
 
+/// 实体编号字段
+pub const ID_ENUNM_FIELD_NAME: &str = "id_count";
+
 /// id字段, 属性的编号
 pub const ID_FIELD_NAME: &str = "id";
 

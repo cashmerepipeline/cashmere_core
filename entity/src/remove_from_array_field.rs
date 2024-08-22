@@ -35,7 +35,6 @@ pub async fn remove_from_array_field(
         .update_one(
             query_doc.clone(),
             _modify_doc,
-            None,
         )
         .await;
 

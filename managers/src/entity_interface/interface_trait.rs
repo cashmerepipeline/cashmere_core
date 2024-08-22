@@ -192,7 +192,11 @@ where
                 tokio::spawn(async move {
                     while let Some(r) = r.next().await {
                         if cfg!(debug_assertions) {
-                            log::debug!("{}: {}", t!("取得实体"), r.as_ref().unwrap().get(ID_FIELD_ID.to_string()).unwrap());
+                            log::debug!(
+                                "{}: {}",
+                                t!("取得实体"),
+                                r.as_ref().unwrap().get(ID_FIELD_ID.to_string()).unwrap()
+                            );
                         }
 
                         let _ = tx.send(r.unwrap()).await;
@@ -336,7 +340,17 @@ where
     ) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
         match entity::delete_entity(manage_id, query_doc).await {
-            Ok(r) => Ok(r),
+            Ok(r) => {
+                // 更新缓存
+                if self.is_hard_coded().await {
+                    if let Err(r) = self.refresh_hard_coded_cache(manage_id, "").await {
+                        log::error!("{}: {}", t!("更新缓存失败"), manage_id);
+                        return Err(add_call_name_to_chain(r, "delete_entity".to_string()));
+                    }
+                }
+
+                Ok(r)
+            }
             Err(e) => Err(add_call_name_to_chain(e, "delete_entity".to_string())),
         }
     }

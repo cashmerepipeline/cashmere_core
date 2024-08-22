@@ -8,6 +8,7 @@ use dependencies_sync::log::{self, debug};
 use dependencies_sync::mongodb::options::{FindOneAndUpdateOptions, UpdateOptions};
 use dependencies_sync::mongodb::{bson, bson::doc, bson::Bson, bson::Document, Collection};
 use dependencies_sync::rust_i18n::{self, t};
+use manage_define::hard_coded_field_names::ID_ENUNM_FIELD_NAME;
 use serde::Deserialize;
 
 use cash_result::*;
@@ -16,14 +17,13 @@ use manage_define::general_field_ids::*;
 
 use crate::utils::get_timestamp_update_doc;
 
-const ID_COUNT_FIELD_NAME: &str = "id_count";
 
 /// 取得新连续id
 /// 数据库初始化后新建实体需要保证编号次序
 pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64> {
     let ids_collection = database::get_ids_collection().await;
     let update_doc = doc! {
-     "$inc": {ID_COUNT_FIELD_NAME:1},
+     "$inc": {ID_ENUNM_FIELD_NAME:1},
      "$set": { MODIFIER_FIELD_ID.to_string(): account_id},
      "$currentDate": {
          MODIFY_TIMESTAMP_FIELD_ID.to_string(): { "$type": "timestamp" }
@@ -36,14 +36,14 @@ pub async fn get_new_entity_id(manage_id: &str, account_id: &str) -> Option<i64>
                 "_id": manage_id
             },
             update_doc,
-            Some(FindOneAndUpdateOptions::builder().upsert(true).build()),
         )
+        .upsert(true)
         .await;
 
     match result {
         Ok(r) => {
             if let Some(r) = r {
-                if let Ok(r) = r.get_i64("id_count") {
+                if let Ok(r) = r.get_i64(ID_ENUNM_FIELD_NAME) {
                     Some(r)
                 } else {
                     log::error!("{}: {}", t!("获取新实体编号失败"), manage_id);

@@ -29,7 +29,7 @@ pub async fn sink_entity_of_member(
     let client = database::get_mongodb_client().await;
     let database = get_database().await;
 
-    let mut session = if let Ok(s) = client.start_session(None).await {
+    let mut session = if let Ok(s) = client.start_session().await {
         s
     } else {
         return Err(operation_failed(
@@ -43,7 +43,7 @@ pub async fn sink_entity_of_member(
         .write_concern(WriteConcern::builder().w(Acknowledgment::Majority).build())
         .build();
 
-    if let Err(err) = session.start_transaction(options).await {
+    if let Err(err) = session.start_transaction().await {
         return Err(operation_failed(
             "update_multi_entity_fields",
             format!("{}: {}", t!(""), err),
@@ -81,7 +81,8 @@ pub async fn sink_entity_of_member(
     );
 
     if let Err(err) = entity_collection
-        .insert_one_with_session(new_entity_doc, None, &mut session)
+        .insert_one(new_entity_doc)
+        .session(&mut session)
         .await
     {
         log::error!("{}: {}-{}", t!("插入新实体到会话失败"), self_manage_id, err);
@@ -93,7 +94,7 @@ pub async fn sink_entity_of_member(
     };
 
     if let Err(err) = member_collection
-        .insert_one_with_session(new_member_doc.clone(), None, &mut session)
+        .insert_one(new_member_doc.clone()).session(&mut session)
         .await
     {
         log::error!("{}: {}-{}", t!("插入新成员到会话失败"), self_manage_id, err);
@@ -115,7 +116,7 @@ pub async fn sink_entity_of_member(
     };
 
     if let Err(err) = entity_collection
-        .update_one_with_session(query_doc, update_timestamp_doc.clone(), None, &mut session)
+        .update_one(query_doc, update_timestamp_doc.clone()).session(&mut session)
         .await
     {
         log::error!("{}: {}-{}", t!("更新实体到会话失败"), self_manage_id, err);
@@ -126,7 +127,7 @@ pub async fn sink_entity_of_member(
         ));
     };
     if let Err(err) = member_collection
-        .update_one_with_session(new_member_doc, update_timestamp_doc, None, &mut session)
+        .update_one(new_member_doc, update_timestamp_doc).session(&mut session)
         .await
     {
         log::error!("{}: {}-{}", t!("更新成员到会话失败"), self_manage_id, err);
@@ -140,7 +141,7 @@ pub async fn sink_entity_of_member(
     if let Err(err) = session.commit_transaction().await {
         log::error!("{}: {}", t!("执行事务失败"), err);
 
-        if let Err(err) = session.abort_transaction().await{
+        if let Err(err) = session.abort_transaction().await {
             log::error!("{}: {}", t!("回滚事务失败"), err);
         };
 

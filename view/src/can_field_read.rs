@@ -18,9 +18,11 @@ pub async fn can_field_read(manage_id: &str, field_id: &str, role_group: &str) -
             r
         } else {
             log::error!(
-                "{}:{}, {}",
+                "{}: {}: {}, {}: {}",
                 t!("取得集合可见性规则失败"),
+                t!("角色组"),
                 role_group,
+                t!("管理"),
                 manage_id
             );
             return false;

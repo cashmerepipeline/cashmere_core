@@ -28,7 +28,7 @@ pub async fn add_to_array_field(
 
     // 更新
     let result = collection
-        .update_one(query_doc.clone(), _modify_doc.clone(), None)
+        .update_one(query_doc.clone(), _modify_doc.clone())
         .await;
 
     // 结果

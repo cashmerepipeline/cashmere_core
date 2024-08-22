@@ -52,7 +52,7 @@ pub async fn get_entities_by_page(
         pipeline.push(doc! {"$unset": unsets});
     }
 
-    let cursor = collection.aggregate(pipeline, None).await;
+    let cursor = collection.aggregate(pipeline).await;
 
     let mut result: Vec<Document> = Vec::new();
     match cursor {

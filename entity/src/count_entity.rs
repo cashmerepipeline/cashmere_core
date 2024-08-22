@@ -26,7 +26,7 @@ pub async fn count_entity(
         None => return Err(collection_not_exists(collection_name, "get_entity_by_id")),
     };
 
-    let result = collection.count_documents(filter_doc, None).await;
+    let result = collection.count_documents(filter_doc).await;
 
     // let result = collection.find(filter_doc, None).await;
 

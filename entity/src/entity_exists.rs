@@ -9,7 +9,7 @@ pub async fn entity_exists(manage_id: &str, query_doc: &Document) -> Option<Stri
         None => return None,
     };
 
-    let result = collection.find_one(query_doc.clone(), None).await;
+    let result = collection.find_one(query_doc.clone()).await;
 
     match result {
         Ok(Some(r)) => {

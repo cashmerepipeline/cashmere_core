@@ -39,16 +39,17 @@ message ChangeEntityOwnerResponse
   string result = 1;
 }
 
-// 太通用，不建议开放
+// 太通用，不建议开放，或者需要严格权限控制
 message NewEntityRequest {
   string manage_id = 1;
+  // {field_id:value, ...}
   bytes data = 2;
 }
 message NewEntityResponse {
   string result = 1;
 }
 
-// 不建议开放
+// 不建议开放, 或者需要严格权限控制
 message EditEntityRequest {
   string manage_id = 1;
   string entity_id = 2;
@@ -309,4 +310,15 @@ message CheckUpdatesLaterThenTimeResponse {
   // {"_id", "id", modifiedtimestamp}, 分组返回，每组最多20条
   // 最多返回1000条
   repeated bytes results = 1;
+}
+
+// 删除实体
+message DeleteEntitiesRequest {
+  string manage_id = 1;
+  repeated string entity_ids = 2;
+}
+// 返回被删除实体流
+message DeleteEntitiesResponse {
+  // 成功返回被删除实体列表
+  bytes entity = 1;
 }

@@ -48,7 +48,11 @@ pub async fn get_member_view(
             .pipeline(vec![match_doc, lookup_doc, unwind_doc])
             .build();
 
-        if let Err(err) = cashmere_db.create_collection(view_name.clone(), Some(create_options)).await{
+        if let Err(err) = cashmere_db
+            .create_collection(view_name.clone())
+            .with_options(create_options)
+            .await
+        {
             error!("{}: {:?}", t!("创建成域视图失败"), err);
             return None;
         }

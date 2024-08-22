@@ -34,14 +34,18 @@ pub async fn watch_database() {
             .full_document(Some(FullDocumentType::UpdateLookup))
             .build();
 
-        let mut change_stream: ChangeStream<ChangeStreamEvent<Document>> =
-            match database.watch(None, Some(read_concern)).await {
-                Ok(r) => r,
-                Err(e) => {
-                    log::error!("{}", t!("取得监听数据流发生错误"));
-                    panic!("{}", e);
-                }
-            };
+        let mut change_stream: ChangeStream<ChangeStreamEvent<Document>> = match database
+            .watch()
+            .read_concern(ReadConcern::majority())
+            .full_document(FullDocumentType::UpdateLookup)
+            .await
+        {
+            Ok(r) => r,
+            Err(e) => {
+                log::error!("{}", t!("取得监听数据流发生错误"));
+                panic!("{}", e);
+            }
+        };
 
         // while let result = &change_stream.next().await {
         //     let change_event: &Result<ChangeStreamEvent<Document>, Error> = match result {

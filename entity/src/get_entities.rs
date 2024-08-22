@@ -31,9 +31,9 @@ pub async fn get_entities(
         });
         let find_options = FindOptions::builder().projection(project_doc).build();
 
-        collection.find(filter.cloned(), Some(find_options)).await
+        collection.find(filter.cloned().unwrap()).projection(project_doc).await
     } else {
-        collection.find(filter.cloned(), None).await
+        collection.find(filter.cloned().unwrap()).await
     };
 
     let mut result: Vec<Document> = Vec::new();

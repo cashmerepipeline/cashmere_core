@@ -21,7 +21,7 @@ pub async fn get_entry_count(
         None => return Err(collection_not_exists(collection_name, "get_entity_by_id")),
     };
 
-    let result = collection.estimated_document_count(None).await;
+    let result = collection.estimated_document_count().await;
 
     match result {
         Ok(r) => Ok(r),

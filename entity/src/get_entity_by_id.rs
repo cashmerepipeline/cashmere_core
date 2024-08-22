@@ -39,8 +39,8 @@ pub async fn get_entity_by_id(
                 doc! {
                     ID_FIELD_ID.to_string(): id,
                 },
-                Some(find_option),
             )
+            .projection(project_doc)
             .await
     } else {
         collection
@@ -48,7 +48,6 @@ pub async fn get_entity_by_id(
                 doc! {
                     ID_FIELD_ID.to_string(): id,
                 },
-                None,
             )
             .await
     };

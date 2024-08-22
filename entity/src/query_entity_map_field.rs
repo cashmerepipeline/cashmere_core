@@ -34,12 +34,11 @@ pub async fn query_entity_map_field(
     }
     project_doc.insert(map_field, 1);
 
-    let find_options = FindOneOptions::builder()
-        .projection(Some(project_doc))
-        .build();
-
     // 更新
-    let result = collection.find_one(query_doc.clone(), find_options).await;
+    let result = collection
+        .find_one(query_doc.clone())
+        .projection(project_doc)
+        .await;
 
     // 结果
     match result {

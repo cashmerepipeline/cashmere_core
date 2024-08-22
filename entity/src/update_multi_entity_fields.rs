@@ -23,7 +23,7 @@ pub async fn update_multi_entity_fields(
     account_id: &str,
 ) -> Result<OperationResult, OperationResult> {
     let client = database::get_mongodb_client().await;
-    let mut session = if let Ok(s) = client.start_session(None).await {
+    let mut session = if let Ok(s) = client.start_session().await {
         s
     } else {
         return Err(operation_failed(
@@ -37,7 +37,7 @@ pub async fn update_multi_entity_fields(
         .write_concern(WriteConcern::builder().w(Acknowledgment::Majority).build())
         .build();
 
-    if let Err(err) = session.start_transaction(options).await {
+    if let Err(err) = session.start_transaction().with_options(options).await {
         return Err(operation_failed(
             "update_multi_entity_fields",
             format!("{}: {}", t!("发起事务失败"), err),
@@ -58,7 +58,7 @@ pub async fn update_multi_entity_fields(
         Err(err) => {
             log::error!("{}: {}", t!("执行事务失败"), err);
 
-            if let Err(err) = session.abort_transaction().await{
+            if let Err(err) = session.abort_transaction().await {
                 log::error!("{}: {}", t!("回滚事务失败"), err);
             };
 
@@ -102,7 +102,8 @@ async fn execute_transaction(
                 let mut modify_doc = doc! {"$set": new_value_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
                 match collection
-                    .update_one_with_session(query_doc, modify_doc, None, session)
+                    .update_one(query_doc, modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,
@@ -134,7 +135,8 @@ async fn execute_transaction(
                 let mut modify_doc = doc! {"$addToSet": modify_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
                 match collection
-                    .update_one_with_session(query_doc, modify_doc, None, session)
+                    .update_one(query_doc, modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,
@@ -175,12 +177,8 @@ async fn execute_transaction(
                 let mut modify_doc = doc! {f: new_value_doc.get("index").unwrap().clone()};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
                 match collection
-                    .update_one_with_session(
-                        query_doc,
-                        modify_doc,
-                        UpdateOptions::builder().upsert(true).build(),
-                        session,
-                    )
+                    .update_one(query_doc, modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,
@@ -213,7 +211,8 @@ async fn execute_transaction(
                 let mut modify_doc = doc! {"$pull": modify_doc};
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
                 match collection
-                    .update_one_with_session(query_doc.clone(), modify_doc, None, session)
+                    .update_one(query_doc.clone(), modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,
@@ -251,12 +250,8 @@ async fn execute_transaction(
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
 
                 match collection
-                    .update_one_with_session(
-                        query_doc.clone(),
-                        modify_doc,
-                        UpdateOptions::builder().upsert(true).build(),
-                        session,
-                    )
+                    .update_one(query_doc.clone(), modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,
@@ -286,12 +281,8 @@ async fn execute_transaction(
 
                 let modify_doc = add_modify_update_fields(account_id, &mut modify_doc);
                 match collection
-                    .update_one_with_session(
-                        query_doc,
-                        modify_doc,
-                        UpdateOptions::builder().upsert(true).build(),
-                        session,
-                    )
+                    .update_one(query_doc, modify_doc)
+                    .session(&mut *session)
                     .await
                 {
                     Ok(_) => continue,

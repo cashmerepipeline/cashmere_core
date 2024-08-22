@@ -28,7 +28,6 @@ pub async fn get_entity_by_objectid(
             doc! {
                 "_id": ObjectId::from_str(id).unwrap()
             },
-            None,
         )
         .await;
 

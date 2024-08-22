@@ -149,3 +149,25 @@ user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
   "OnlyOwner",
 ] }
+
+[view_rules.schema.2001]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "OnlyOwner",
+], write_filters = [
+  "OnlyOwner",
+] }
+
+[view_rules.schema.2002]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "OnlyOwner",
+], write_filters = [
+  "OnlyOwner",
+] }

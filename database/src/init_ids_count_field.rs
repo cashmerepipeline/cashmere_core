@@ -3,6 +3,8 @@ use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};
 
 use cash_result::{operation_failed, operation_succeed, OperationResult};
+use manage_define::field_ids::IDS_ID_COUNT_FIELD_ID;
+use manage_define::hard_coded_field_names::ID_ENUNM_FIELD_NAME;
 use crate::get_ids_collection;
 
 /// 初始化实体编号字段
@@ -14,7 +16,6 @@ pub async fn init_ids_count_field(manage_id: &str) -> Result<OperationResult, Op
             doc! {
                 "_id": manage_id
             },
-            None,
         )
         .await;
 
@@ -24,9 +25,8 @@ pub async fn init_ids_count_field(manage_id: &str) -> Result<OperationResult, Op
                 .insert_one(
                     doc! {
                         "_id": manage_id,
-                        "id_count": 0i64
+                        ID_ENUNM_FIELD_NAME: 0i64
                     },
-                    None,
                 )
                 .await
             {

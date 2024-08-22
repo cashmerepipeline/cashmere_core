@@ -27,7 +27,6 @@ pub async fn get_entity_by_name(
             doc! {
                 "name": name
             },
-            None,
         )
         .await;
 

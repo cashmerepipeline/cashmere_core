@@ -8,6 +8,7 @@ Modified: !date!
 
 use std::sync::Arc;
 
+use dependencies_sync::bson::doc;
 use dependencies_sync::bson::{de::from_document, Document};
 use dependencies_sync::futures::stream::StreamExt;
 use dependencies_sync::linked_hash_map::LinkedHashMap;
@@ -47,7 +48,7 @@ async fn init_view_rules() -> Option<Arc<RwLock<ViewRulesMap>>> {
         Some(r) => r,
         None => return None,
     };
-    let cusor = match view_rules_collection.find(None, None).await {
+    let cusor = match view_rules_collection.find(doc! {}).await {
         Ok(c) => c,
         Err(_e) => return None,
     };
