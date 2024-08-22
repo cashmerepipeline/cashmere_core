@@ -33,7 +33,6 @@ pub async fn get_entity_by_id(
     });
 
     let result = if !project_doc.is_empty() {
-        let find_option = FindOneOptions::builder().projection(project_doc).build();
         collection
             .find_one(
                 doc! {

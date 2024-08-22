@@ -19,9 +19,15 @@ where
     {
         let map = map_arc.read();
 
-        if let Some(t) = map.get(config_name).cloned() {
-            log::debug!("{}: {:?}", t!("配置加载成功"), t);
-            let config = t.try_into().expect("配置格式错误");
+        if let Some(c) = map.get(config_name).cloned() {
+            log::debug!("{}: {:?}", t!("配置加载成功"), c);
+            let config = match c.clone().try_into() {
+                Ok(config) => config,
+                Err(e) => {
+                    log::error!("{}: {}, {}, {}", t!("配置数据错误"), config_name, c, e);
+                    panic!();
+                }
+            };
             return Some(config);
         };
     }

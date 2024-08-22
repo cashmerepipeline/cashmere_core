@@ -23,17 +23,22 @@ pub async fn get_entities(
         Some(c) => c,
         None => return Err(collection_not_exists(collection_name, "get_entities")),
     };
+    
+    let filter_doc = if let Some(f) = filter {
+        f.clone()
+    } else {
+        doc! {}
+    };
 
     let cursor = if !no_present_fields.is_empty() {
         let mut project_doc = doc! {};
         no_present_fields.iter().for_each(|f| {
             project_doc.insert(f.clone(), 0);
         });
-        let find_options = FindOptions::builder().projection(project_doc).build();
 
-        collection.find(filter.cloned().unwrap()).projection(project_doc).await
+        collection.find(filter_doc).projection(project_doc).await
     } else {
-        collection.find(filter.cloned().unwrap()).await
+        collection.find(filter_doc).await
     };
 
     let mut result: Vec<Document> = Vec::new();

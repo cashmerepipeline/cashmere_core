@@ -3,6 +3,7 @@ use configs::ServerConfigs;
 
 use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::log::debug;
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::wrappers::ReceiverStream;
 use dependencies_sync::tokio_stream::StreamExt;
@@ -104,9 +105,13 @@ async fn handle_get_entities_page(
     // zh: 排除其他字段 
     let mut unsets = no_present_fields.clone();
     for k in &keys {
-        if !present_fields.contains(k) {
+        if present_fields.contains(k) {
             unsets.push(k.clone());
         }
+    }
+    
+    if cfg!(debug_assertions) {
+        debug!("不显示字段: {:?}", unsets);
     }
 
     let doc_stream = manager

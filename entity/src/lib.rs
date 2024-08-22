@@ -55,7 +55,7 @@ pub use update_multi_entity_fields::*;
 
 pub use delete_entity::*;
 
-mod utils;
+pub mod utils;
 mod get_new_entity_id;
 mod entity_exists;
 mod exists_by_name;

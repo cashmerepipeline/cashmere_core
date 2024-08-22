@@ -14,7 +14,7 @@ use manage_define::general_field_ids::*;
 
 /// 取得实体数据 所属人
 pub fn get_entity_owner(entity_doc: &Document) -> Option<String> {
-    match entity_doc.get_str("owner") {
+    match entity_doc.get_str(OWNER_FIELD_ID.to_string()) {
         Ok(r) => Some(r.to_string()),
         Err(_e) => None,
     }

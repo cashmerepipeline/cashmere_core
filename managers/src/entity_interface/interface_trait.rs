@@ -190,16 +190,18 @@ where
 
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {
-                    while let Some(r) = r.next().await {
+                    while let Some(d) = r.next().await {
+                        log::debug!("{}: {}", t!("获取实体"), d.as_ref().unwrap());
+
                         if cfg!(debug_assertions) {
-                            log::debug!(
-                                "{}: {}",
-                                t!("取得实体"),
-                                r.as_ref().unwrap().get(ID_FIELD_ID.to_string()).unwrap()
-                            );
+                            let m = match d {
+                                Ok(ref r) => r.get_str(ID_FIELD_ID.to_string()).unwrap().to_string(),
+                                Err(ref e) => e.to_string(),
+                            };
+                            log::debug!("{}: {}", t!("取得实体"), m,);
                         }
 
-                        let _ = tx.send(r.unwrap()).await;
+                        let _ = tx.send(d.unwrap()).await;
                     }
                 });
 

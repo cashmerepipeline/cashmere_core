@@ -35,7 +35,7 @@ pub async fn update_timestamp_field(
 
     // 更新
     let result = collection
-        .update_one(query_doc.clone(), modify_doc)
+        .update_one(query_doc.clone(), modify_doc.clone())
         .await;
 
     // 结果

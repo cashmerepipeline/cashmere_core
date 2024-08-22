@@ -16,7 +16,9 @@ use request_utils::request_account_context;
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
 use service_utils::send_stream_response;
-use view::{self, can_entity_read, can_entity_write, get_manage_schema_view_mask};
+use view::{
+    self, can_collection_write, can_entity_read, can_entity_write, get_manage_schema_view_mask,
+};
 
 use service_utils::types::{ResponseStream, StreamResponseResult};
 
@@ -94,7 +96,7 @@ async fn validate_request_params(
 async fn handle_delete_entities(
     request: Request<DeleteEntitiesRequest>,
 ) -> StreamResponseResult<DeleteEntitiesResponse> {
-    let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
+    let (account_id, _groups, role_group) = request_account_context(request.metadata())?;
 
     let manage_id = &request.get_ref().manage_id;
     let entity_ids = &request.get_ref().entity_ids;
@@ -108,14 +110,16 @@ async fn handle_delete_entities(
     let mut id_stream = stream::iter(entity_ids.clone());
     tokio::spawn(async move {
         while let Some(ref id) = id_stream.next().await {
-            if !can_entity_write(&manage_id.clone(), id, &_account_id, &role_group).await {
+            if !can_entity_write(&manage_id.clone(), id, &account_id, &role_group).await {
                 error!(
-                    "{}, {}: {}-{}",
+                    "{}, {}: {}-{}, {}",
                     t!("删除实体失败"),
                     t!("没有权限"),
                     manage_id,
-                    id
+                    id,
+                    role_group,
                 );
+
                 continue;
             }
 
