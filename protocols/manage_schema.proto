@@ -34,6 +34,8 @@ message NewSchemaFieldRequest{
   SchemaField new_field = 2;
 }
 message NewSchemaFieldResponse{
+  // zh: 新id
+  // en: new id
   string result = 1;
 }
 
@@ -43,6 +45,7 @@ message MarkSchemaFieldRemovedRequest{
   int32 field_id = 2;
 }
 message MarkSchemaFieldRemovedResponse{
+  // 返回移除的id
   string result = 1;
 }
 

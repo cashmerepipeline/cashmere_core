@@ -53,7 +53,7 @@ async fn validate_request_params(
 ) -> Result<Request<NewColorRequest>, Status> {
     let name = &request.get_ref().name;
     let description = &request.get_ref().description;
-    validate_name(name.as_ref())?;
+    validate_name(name.as_ref()).await?;
     validate_description_length(description)?;
 
     Ok(request)

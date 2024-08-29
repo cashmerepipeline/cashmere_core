@@ -9,8 +9,8 @@ edition = "2021"
 [dependencies]
 dependencies_sync = {path="../dependencies_sync", features = ["tonic", "toml", "linked-hash-map", "bson", "log"]}
 
-tonic = { version = "0.12.1", features = ["tls"] }
-prost = "0.13"
+tonic = { version = "0.10", features = ["tls"] }
+prost = "0.12"
 serde_derive = { version = "1.0"}
 serde = { version = "1.0"}
 

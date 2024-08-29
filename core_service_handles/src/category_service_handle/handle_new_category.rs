@@ -54,7 +54,7 @@ async fn validate_request_params(
     let name = &request.get_ref().name;
     let manage_id = &request.get_ref().manage_id;
 
-    validate_name(name.as_ref())?; 
+    validate_name(name.as_ref()).await?; 
 
     // 目标管理不能为空
     if manage_id.is_empty() {

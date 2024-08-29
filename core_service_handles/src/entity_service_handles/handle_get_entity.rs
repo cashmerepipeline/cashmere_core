@@ -1,18 +1,18 @@
 use dependencies_sync::bson::{self, doc};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{self};
+use dependencies_sync::log::{self, debug};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::REMOVED_FIELD_ID;
-use managers::{entity_interface::EntityInterface};
+use managers::entity_interface::EntityInterface;
 use request_utils::request_account_context;
 
 use dependencies_sync::tokio_stream::{self as stream, StreamExt};
 use dependencies_sync::tonic::{Request, Response, Status};
-use validates::{validate_manage_id};
+use validates::validate_manage_id;
 use view::{self, can_field_read};
 
 use service_utils::types::UnaryResponseResult;
@@ -82,7 +82,6 @@ async fn handle_get_entity(
         .get_entity_by_id(entity_id, &presents, no_present_fields)
         .await;
 
-
     match result {
         Ok(r) => {
             if r.get_bool(REMOVED_FIELD_ID.to_string()).unwrap_or(true) {
@@ -110,10 +109,21 @@ async fn handle_get_entity(
                 }))
             }
         }
-        Err(e) => Err(Status::aborted(format!(
-            "{} {}",
-            e.operation(),
-            e.details()
-        ))),
+        Err(e) => {
+            debug!(
+                "{}: {}-{}, {}",
+                t!("获取实体失败"),
+                manage_id,
+                entity_id,
+                e.details()
+            );
+
+            Err(Status::data_loss(format!(
+                "{}: {}-{}",
+                t!("获取实体失败"),
+                manage_id,
+                entity_id
+            )))
+        }
     }
 }

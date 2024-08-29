@@ -129,7 +129,7 @@ async fn handle_delete_entities(
 
             let entity = manager.get_entity_by_id(id, &[], &[]).await;
 
-            if let Err(e) = manager.delete_entity(&query_doc).await {
+            if let Err(e) = manager.delete_entity(id.as_str()).await {
                 error!(
                     "{}: {}-{}, {}",
                     t!("删除实体失败"),

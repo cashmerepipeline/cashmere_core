@@ -1,6 +1,6 @@
 use cash_result::*;
 use dependencies_sync::bson::doc;
-use dependencies_sync::log::trace;
+use dependencies_sync::log::{debug, trace};
 use dependencies_sync::mongodb::bson::Document;
 use dependencies_sync::rust_i18n::{self, t};
 
@@ -20,7 +20,9 @@ pub async fn add_to_array_field(
         None => return Err(collection_not_exists(manage_id, "push_entity_array_field")),
     };
 
-    
+    if cfg!(debug_assertions) {
+        debug!("{}: {}-{}", t!("添加实体到数组字段"), query_doc, modify_doc);
+    }
 
     let mut _modify_doc = doc! { "$addToSet": modify_doc.clone()};
 
@@ -31,11 +33,15 @@ pub async fn add_to_array_field(
         .update_one(query_doc.clone(), _modify_doc.clone())
         .await;
 
+    if cfg!(debug_assertions) {
+        debug!("{}: {}-{}", t!("添加实体到数组字段结果"), query_doc, result.is_ok());
+    }
+
     // 结果
     match result {
         Ok(r) => match r.modified_count {
             0 => {
-                trace!("没有实体被更新: {}-{}", query_doc, _modify_doc);
+                debug!("没有实体被更新: {}-{}", query_doc, _modify_doc);
                 Ok(operation_succeed("succeed"))
             }
             1 => Ok(operation_succeed("succeed")),

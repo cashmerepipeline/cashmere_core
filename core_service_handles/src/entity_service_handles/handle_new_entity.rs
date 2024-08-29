@@ -1,20 +1,20 @@
-use dependencies_sync::bson::{self, doc};
+use dependencies_sync::bson::{self, doc, Document};
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::tonic::async_trait;
+use dependencies_sync::log::error;
 use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::field_ids::{LANGUAGE_CODES_CODE_FIELD_ID, LANGUAGE_CODES_NATIVE_FIELD_ID};
 use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use manage_define::manage_ids::*;
-use managers::ManagerInterface;
-use managers::{entity_interface::EntityInterface};
+use managers::entity_interface::EntityInterface;
 use managers::utils::make_new_entity_document;
+use managers::ManagerInterface;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
-
 
 #[async_trait]
 pub trait HandleNewEntity {
@@ -42,7 +42,9 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (account_id, groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) =
+            view::validates::validate_collection_can_write(&manage_id, &role_group).await
+        {
             return Err(e);
         }
     }
@@ -76,10 +78,8 @@ async fn handle_new_entity(
     let data = &request.get_ref().data;
 
     let majordomo_arc = get_majordomo();
-    let manager = majordomo_arc
-        .get_manager_by_id(manage_id)
-        .unwrap();
-    
+    let manager = majordomo_arc.get_manager_by_id(manage_id).unwrap();
+
     let schema = manager.get_manage_schema().await;
     // schema 不能为空
     if schema.is_empty() {
@@ -89,12 +89,24 @@ async fn handle_new_entity(
             manage_id
         )));
     }
-    
-    let new_doc = bson::to_document(data).unwrap();
+
+    let new_doc: Document = if let Ok(r) = bson::from_slice(data) {
+        r
+    } else {
+        if cfg!(debug_assertions) {
+            error!("{}: {}", t!("无效数据"), manage_id);
+        }
+
+        return Err(Status::invalid_argument(format!(
+            "{}: {}",
+            t!("无效数据"),
+            manage_id,
+        )));
+    };
 
     if let Ok(mut new_entity_doc) = make_new_entity_document(manager, &account_id).await {
         for (k, v) in new_doc.iter() {
-          new_entity_doc.insert(k.to_string(), v.clone());
+            new_entity_doc.insert(k.to_string(), v.clone());
         }
 
         let result = manager
@@ -110,7 +122,10 @@ async fn handle_new_entity(
             ))),
         }
     } else {
-        Err(Status::aborted(format!("{}: {}", t!("新建实体失败"), "new_entity_code")))
+        Err(Status::aborted(format!(
+            "{}: {}",
+            t!("新建实体失败"),
+            "new_entity_code"
+        )))
     }
 }
-

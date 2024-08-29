@@ -8,6 +8,7 @@ use managers::{manager_trait::ManagerInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::{validate_field_id, validate_manage_id};
 
 
 #[async_trait]
@@ -43,6 +44,12 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<MarkSchemaFieldRemovedRequest>,
 ) -> Result<Request<MarkSchemaFieldRemovedRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let field_id = request.get_ref().field_id;
+    
+    validate_manage_id(manage_id).await?;
+    validate_field_id(manage_id, field_id.to_string().as_str()).await?;
+
     Ok(request)
 }
 
@@ -62,7 +69,7 @@ async fn handle_mark_schema_field_removed(
 
     match result {
         Ok(_r) => Ok(Response::new(MarkSchemaFieldRemovedResponse {
-            result: "ok".to_string(),
+            result: field_id.to_string(),
         })),
         Err(e) => Err(Status::aborted(format!(
             "{} {}",

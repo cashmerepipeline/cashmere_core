@@ -1,9 +1,6 @@
 use std::{sync::OnceLock, u16};
 
-use dependencies_sync::{
-    chrono::Duration,
-    rust_i18n::{self, t},
-};
+use dependencies_sync::rust_i18n::{self, t};
 use serde_derive::{Deserialize, Serialize};
 
 use crate::{get_config, ConfigTrait};

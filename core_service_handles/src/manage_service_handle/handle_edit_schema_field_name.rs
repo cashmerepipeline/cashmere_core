@@ -8,6 +8,8 @@ use managers::{manager_trait::ManagerInterface};
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::{validate_field_id, validate_manage_id, validate_name};
+use view::validates::validate_manage_can_write;
 
 
 #[async_trait]
@@ -32,7 +34,7 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) = view::validates::validate_collection_can_write(&manage_id, &role_group).await {
+        if let Err(e) = view::validates::validate_manage_can_write(&manage_id, &role_group).await {
             return Err(e);
         }
     }
@@ -43,6 +45,15 @@ async fn validate_view_rules(
 async fn validate_request_params(
     request: Request<EditSchemaFieldNameRequest>,
 ) -> Result<Request<EditSchemaFieldNameRequest>, Status> {
+    let manage_id = &request.get_ref().manage_id;
+    let field_id = request.get_ref().field_id;
+    let language = &request.get_ref().language;
+    let new_name = &request.get_ref().new_name;
+    
+    validate_manage_id(manage_id).await?;
+    validate_field_id(manage_id, field_id.to_string().as_str()).await?;
+    validate_name(Some(&Name{language: language.clone(), name: new_name.clone()})).await?;
+
     Ok(request)
 }
 

@@ -16,7 +16,7 @@ pub struct PingRequest {
     pub time: u64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PingResponse {
     /// 返回ping请求的时间
     #[prost(uint64, tag = "1")]
@@ -87,7 +87,7 @@ pub struct RemoveLanguageNameResponse {
 }
 /// 取得管理列表
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManagesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -104,7 +104,7 @@ pub struct GetManageEntryCountRequest {
     pub manage_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetManageEntryCountResponse {
     #[prost(uint64, tag = "1")]
     pub count: u64,
@@ -793,6 +793,8 @@ pub struct NewSchemaFieldRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSchemaFieldResponse {
+    /// zh: 新id
+    /// en: new id
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -808,6 +810,7 @@ pub struct MarkSchemaFieldRemovedRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkSchemaFieldRemovedResponse {
+    /// 返回移除的id
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -855,7 +858,7 @@ pub struct NewCountryCodeResponse {
 /// 取得编码列表, 读取不需要权限
 /// 客户端应该缓存这个列表
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCountryCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -883,7 +886,7 @@ pub struct NewLanguageCodeResponse {
 /// 取得编码列表, 读取不需要权限
 /// 客户端应该缓存这个列表
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLanguageCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1048,7 +1051,7 @@ pub struct NewPhoneAreaCodeResponse {
 /// 取得区号编码列表, 读取不需要权限
 /// 客户端应该缓存这个列表
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPhoneAreaCodesRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1184,7 +1187,7 @@ impl FieldDataType {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Int32Range {
     #[prost(int32, tag = "1")]
     pub min: i32,
@@ -1194,7 +1197,7 @@ pub struct Int32Range {
     pub value: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Int64Range {
     #[prost(int64, tag = "1")]
     pub min: i64,
@@ -1204,7 +1207,7 @@ pub struct Int64Range {
     pub value: i64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UInt32Range {
     #[prost(uint32, tag = "1")]
     pub min: u32,
@@ -1214,7 +1217,7 @@ pub struct UInt32Range {
     pub value: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FloatRange {
     #[prost(float, tag = "1")]
     pub min: f32,
@@ -1224,7 +1227,7 @@ pub struct FloatRange {
     pub value: f32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DoubleRange {
     #[prost(double, tag = "1")]
     pub min: f64,
@@ -1258,7 +1261,7 @@ pub struct NewColorResponse {
 }
 /// 获取颜色
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetColorsRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1338,12 +1341,12 @@ impl Season {
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Position {
-    #[prost(int32, tag = "1")]
-    pub x: i32,
-    #[prost(int32, tag = "2")]
-    pub y: i32,
+    #[prost(float, tag = "1")]
+    pub x: f32,
+    #[prost(float, tag = "2")]
+    pub y: f32,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1760,7 +1763,7 @@ pub struct GetGroupPersonsRequest {
     pub group_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPersonsPageRequest {
     #[prost(int32, tag = "1")]
     pub start: i32,
@@ -1796,7 +1799,7 @@ pub struct ToggleRecommendRequest {
     pub entity_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ToggleRecommendResponse {
     /// 返回推荐状态
     #[prost(bool, tag = "1")]

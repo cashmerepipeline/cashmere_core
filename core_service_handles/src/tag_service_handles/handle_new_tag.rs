@@ -55,7 +55,7 @@ async fn validate_request_params(
     let target_manage_id = &request.get_ref().target_manage_id;
 
     validate_manage_id(target_manage_id).await?; 
-    validate_name(name.as_ref())?;
+    validate_name(name.as_ref()).await?;
     
     Ok(request)
 }

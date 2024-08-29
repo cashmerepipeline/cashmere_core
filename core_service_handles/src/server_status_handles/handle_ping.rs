@@ -1,7 +1,7 @@
 use dependencies_sync::bson::doc;
 
 use dependencies_sync::futures::TryFutureExt;
-use dependencies_sync::log::{debug, error};
+use dependencies_sync::log::{debug, error, info};
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{wrappers::ReceiverStream, StreamExt};
@@ -55,7 +55,6 @@ async fn validate_request_params(
     Ok(request)
 }
 
-
 /// 心跳
 /// 客户端参数设置需要匹配
 async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResult<PingResponse> {
@@ -64,7 +63,7 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
     let mut in_stream = request.into_inner();
     let (resp_tx, resp_rx) = tokio::sync::mpsc::channel(1);
 
-    tokio::spawn(async move {
+    let ping = || async move {
         // 前次时间
         let max_interval = std::time::Duration::from_secs(32);
         // 每轮次数
@@ -83,7 +82,7 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                     let index = &ping.index;
                     let device_id = &ping.device_id;
                     let time = &ping.time;
-                    
+
                     // 开始计时
                     if index != &0u64 {
                         let eclapse_time = time - pre_ping_time;
@@ -95,7 +94,7 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                             let average_time = total_time_per_round / count as u64;
 
                             // 30秒内不再回应
-                            if round_start_time.elapsed().unwrap() > max_interval{
+                            if round_start_time.elapsed().unwrap() > max_interval {
                                 // TODO: 可能是异常访问判断，断开连接
                                 round_start_time = std::time::SystemTime::now();
                                 continue;
@@ -147,6 +146,17 @@ async fn handle_ping(request: RequestStream<PingRequest>) -> StreamResponseResul
                 }
             }
         }
+    };
+
+    tokio::spawn(async move {
+        tokio::select! {
+            _ = ping() => {
+                info!("{:?}", "ping结束");
+            },
+            _ = tokio::signal::ctrl_c() => {
+                info!("{:?}", "开始停止ping");
+            }
+        };
     });
 
     let resp_stream = ReceiverStream::new(resp_rx);

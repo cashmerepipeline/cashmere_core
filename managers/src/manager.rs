@@ -192,9 +192,9 @@ impl EntityInterface for Manager {
 
     async fn delete_entity(
         &self,
-        query_doc: &Document,
+        entity_id: &str,
     ) -> Result<OperationResult, OperationResult> {
-        self.inner.delete_entity(query_doc).await
+        self.inner.delete_entity(entity_id).await
     }
 
     async fn add_to_array_field(

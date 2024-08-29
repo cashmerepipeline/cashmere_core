@@ -145,36 +145,6 @@ user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
 ] }
 
-[view_rules.schema.2002]
-admin = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-  "NoLimit",
-] }
-user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-], write_filters = [
-] }
-
-[view_rules.schema.2003]
-admin = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-  "NoLimit",
-] }
-user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-], write_filters = [
-] }
-
-[view_rules.schema.2004]
-admin = { read_rule = "Read", write_rule = "Write", read_filters = [
-  "NoLimit",
-], write_filters = [
-  "NoLimit",
-] }
-user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
-], write_filters = [
-] }
-
 
 [view_rules.schema.1200]
 admin = { read_rule = "Read", write_rule = "Write", read_filters = [
@@ -193,19 +163,11 @@ cn = { 1000 = "cn", 1002 = "8610000000000", 1001 = { zh = "中国", en = "China"
  "admin",
 ], 1008 = [
 ], 1900 = [
-], 1200 = false, 2001 = "中国", 2002 = "cn", 2003 = [
-  "86",
-], 2004 = [
-  "zh",
-] }
+], 1200 = false, 2001 = []}
 
 us = { 1000 = "us", 1002 = "8610000000000", 1001 = { zh = "美国", en = "United States" }, 1006 = "8610000000000", 1007 = [
  "admin",
 ], 1008 = [
 ], 1900 = [
-], 1200 = false, 2001 = "United States", 2002 = "us", 2003 = [
-  "1",
-], 2004 = [
-  "en",
-] }
+], 1200 = false, 2001 = []}
 

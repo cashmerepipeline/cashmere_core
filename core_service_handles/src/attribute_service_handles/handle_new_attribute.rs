@@ -56,7 +56,7 @@ async fn validate_request_params(
     // 检查目标实体存在
     let name = &request.get_ref().name;
 
-    validate_name(name.as_ref())?;
+    validate_name(name.as_ref()).await?;
 
     Ok(request)
 }

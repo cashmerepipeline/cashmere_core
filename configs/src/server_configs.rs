@@ -53,7 +53,7 @@ impl Default for ServerConfigs {
             log_dir: "log".to_string(),
             log_level: "info".to_string(),
             max_page_size: 20,
-            root_id:"8610000000000".to_string(),
+            root_id:"86100000000000".to_string(),
             admin_group: "admin".to_string(),
         }
     }

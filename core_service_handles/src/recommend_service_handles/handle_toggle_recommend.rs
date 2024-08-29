@@ -102,7 +102,7 @@ async fn handle_toggle_recommend(
         }
     } else {
         // 存在则删除记录
-        match manager.delete_entity(&query_doc).await {
+        match manager.delete_entity(&entity_id).await {
             Ok(_) => Ok(Response::new(ToggleRecommendResponse { result: false })),
             Err(err) => Err(Status::internal(err.details())),
         }

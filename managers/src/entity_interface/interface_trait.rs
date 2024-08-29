@@ -83,13 +83,17 @@ where
                 no_present_fields,
             )
             .await;
-            return match result {
-                Some(r) => Ok(r),
-                None => Err(operation_failed(
-                    "get_entity_by_id",
-                    t!("取得硬编码实体缓存失败"),
-                )),
-            };
+            if let Some(r) = result {
+                return Ok(r);
+            } else {
+                if cfg!(debug_assertions) {
+                    log::warn!(
+                        "从缓存取得硬编码实体失败, manage_id: {}, entity_id: {}",
+                        manage_id,
+                        entity_id
+                    );
+                }
+            }
         }
 
         // zh: 从数据库中取得实体
@@ -97,7 +101,20 @@ where
             .await
         {
             Ok(r) => Ok(r),
-            Err(e) => Err(add_call_name_to_chain(e, "get_entity_by_id".to_string())),
+            Err(e) => {
+                if cfg!(debug_assertions) {
+                    log::warn!(
+                        "从数据库中取得实体失败, manage_id: {}, entity_id: {}",
+                        manage_id,
+                        entity_id
+                    );
+                }
+
+                Err(operation_failed(
+                    "get_entity_by_id",
+                    format!("{}: {}", t!("获取实体失败"), e.details()),
+                ))
+            }
         }
     }
 
@@ -195,7 +212,9 @@ where
 
                         if cfg!(debug_assertions) {
                             let m = match d {
-                                Ok(ref r) => r.get_str(ID_FIELD_ID.to_string()).unwrap().to_string(),
+                                Ok(ref r) => {
+                                    r.get_str(ID_FIELD_ID.to_string()).unwrap().to_string()
+                                }
                                 Err(ref e) => e.to_string(),
                             };
                             log::debug!("{}: {}", t!("取得实体"), m,);
@@ -336,21 +355,18 @@ where
         entity::entity_exists(manage_id, query_doc).await
     }
 
-    async fn delete_entity(
-        &self,
-        query_doc: &Document,
-    ) -> Result<OperationResult, OperationResult> {
+    async fn delete_entity(&self, entity_id: &str) -> Result<OperationResult, OperationResult> {
         let manage_id = self.get_id();
-        match entity::delete_entity(manage_id, query_doc).await {
+        let query_doc = doc! {
+            ID_FIELD_ID.to_string(): entity_id
+        };
+        match entity::delete_entity(manage_id, &query_doc).await {
             Ok(r) => {
-                // 更新缓存
+                // zh: 如果是硬编码管理, 则需要更新缓存
                 if self.is_hard_coded().await {
-                    if let Err(r) = self.refresh_hard_coded_cache(manage_id, "").await {
-                        log::error!("{}: {}", t!("更新缓存失败"), manage_id);
-                        return Err(add_call_name_to_chain(r, "delete_entity".to_string()));
-                    }
+                    self.refresh_hard_coded_cache(self.get_id(), &entity_id)
+                        .await?;
                 }
-
                 Ok(r)
             }
             Err(e) => Err(add_call_name_to_chain(e, "delete_entity".to_string())),

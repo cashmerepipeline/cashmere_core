@@ -1,4 +1,3 @@
-
 /*
 Project: cashmere_server
 Creator: 闫刚
@@ -15,21 +14,15 @@ use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::log;
 
+use dependencies_sync::log::debug;
 use dependencies_sync::parking_lot::RwLock;
 
-
-
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
-
 
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::*;
-
-
-
-
-
 
 use crate::manage_interface::init_check;
 use cash_core::schema_field_exists;
@@ -232,17 +225,6 @@ pub trait ManagerInterface: Any + Send + Sync {
             }
         }
 
-        //  更新数据缓存
-        {
-            let doc_arc = self.get_manage_document().await;
-            let mut doc = doc_arc.write();
-            let schema = doc
-                .get_array_mut(&MANAGES_SCHEMA_FIELD_ID.to_string())
-                .unwrap();
-            let new_bson = bson::to_bson(&new_field).unwrap();
-            schema.push(new_bson);
-        }
-
         // 更新数据库
         let value = bson::to_bson(&new_field).unwrap();
         let query_doc = doc! {
@@ -254,8 +236,29 @@ pub trait ManagerInterface: Any + Send + Sync {
 
         match entity::add_to_array_field(MANAGES_MANAGE_ID, query_doc, modify_doc, account_id).await
         {
+            _ => {
+                //  更新数据缓存
+                {
+                    if cfg!(debug_assertions) {
+                        debug!("{}: {}-{}", t!("更新描写缓存"), manage_id, field_id);
+                    }
+
+                    let doc_arc = self.get_manage_document().await;
+                    let mut doc = doc_arc.write();
+                    let schema = doc
+                        .get_array_mut(&MANAGES_SCHEMA_FIELD_ID.to_string())
+                        .unwrap();
+                    let new_bson = bson::to_bson(&new_field).unwrap();
+                    schema.push(new_bson);
+
+                    if cfg!(debug_assertions) {
+                        debug!("{}: {}-{}", t!("描写缓存更新完成"), manage_id, field_id);
+                    }
+                }
+
+                Ok(())
+            }
             Err(e) => return Err(add_call_name_to_chain(e, "new_schema_field".to_string())),
-            _ => Ok(()),
         }
     }
 
@@ -293,7 +296,9 @@ pub trait ManagerInterface: Any + Send + Sync {
                 ));
             }
 
-            field.name_map.insert(local.to_string(), new_name.to_string());
+            field
+                .name_map
+                .insert(local.to_string(), new_name.to_string());
 
             let field = manage.schema.get(index).unwrap().clone();
             new_field.replace(field);
