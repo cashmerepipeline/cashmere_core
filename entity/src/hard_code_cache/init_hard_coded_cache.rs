@@ -19,8 +19,8 @@ pub async fn init_hard_coded_cache(manage_id: &str) -> Result<HardCodedCacheMap,
         let cursor = crate::get_query_cursor(manage_id, doc! {}, &[], None, None, 0).await;
 
         if let Ok(mut r) = cursor {
-            while let Some(d) = r.next().await {
-                if let Ok(d) = d {
+            while let Some(rd) = r.next().await {
+                if let Ok(d) = rd {
                     let id = d.get_str(ID_FIELD_ID.to_string()).unwrap().to_string();
                     let mut m = new_map.write();
                     m.insert(id, d);

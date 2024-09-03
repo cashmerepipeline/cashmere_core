@@ -161,10 +161,10 @@ async fn handle_check_updates_later_then_time(
         }
     };
 
-    let unsets = vec![];
+    // let unsets = vec![];
 
     let mut query_cursor = match manager
-        .get_entity_stream(query_doc, &unsets, Some(sort_doc), None, 0)
+        .get_entity_stream(query_doc, &[], Some(sort_doc), None, 0)
         .await
     {
         Ok(cursor) => cursor,

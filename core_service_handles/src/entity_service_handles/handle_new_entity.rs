@@ -15,6 +15,7 @@ use managers::ManagerInterface;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
+use validates::validate_manage_id;
 
 #[async_trait]
 pub trait HandleNewEntity {
@@ -56,15 +57,8 @@ async fn validate_request_params(
     request: Request<NewEntityRequest>,
 ) -> Result<Request<NewEntityRequest>, Status> {
     let manage_id = &request.get_ref().manage_id;
-
-    // 管理编号不能为0
-    if manage_id.is_empty() {
-        return Err(Status::invalid_argument(format!(
-            "{}-{}",
-            t!("管理编号不能为空"),
-            "get_entities"
-        )));
-    }
+    
+    validate_manage_id(manage_id).await?;
 
     Ok(request)
 }

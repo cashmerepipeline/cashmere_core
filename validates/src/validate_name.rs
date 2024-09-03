@@ -14,7 +14,7 @@ pub async fn validate_name(name: Option<&Name>) -> Result<(), Status> {
 
     // 名称不为空
     if let Some(name) = name.as_ref() {
-        validate_entity_id(LANGUAGE_CODES_MANAGE_ID, name.name.as_str()).await?;
+        validate_entity_id(LANGUAGE_CODES_MANAGE_ID, &name.language.as_str()).await?;
         if name.name.is_empty() {
             return Err(Status::invalid_argument(t!("名字不能为空").to_string()));
         }
