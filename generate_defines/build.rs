@@ -1,5 +1,6 @@
 use dependencies_sync::tonic_build;
 fn main() {
+
     tonic_build::configure()
         .out_dir("../manage_define/src")
         .build_client(false)
@@ -37,4 +38,6 @@ fn main() {
         Some("../dart_packages/cashmere_core/lib"),
         Some("cashmere_core"),
     );
+
+    // println!("cargo::rerun-if-changed=build.rs");
 }

@@ -85,14 +85,12 @@ where
             .await;
             if let Some(r) = result {
                 return Ok(r);
-            } else {
-                if cfg!(debug_assertions) {
-                    log::warn!(
-                        "从缓存取得硬编码实体失败, manage_id: {}, entity_id: {}",
-                        manage_id,
-                        entity_id
-                    );
-                }
+            } else if cfg!(debug_assertions) {
+                log::warn!(
+                    "从缓存取得硬编码实体失败, manage_id: {}, entity_id: {}",
+                    manage_id,
+                    entity_id
+                );
             }
         }
 

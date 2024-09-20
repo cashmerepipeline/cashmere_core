@@ -12,6 +12,8 @@ use dependencies_sync::once_cell;
 use dependencies_sync::rust_i18n::{self, i18n};
 i18n!("locales");
 
+pub mod query_filters;
+
 pub use change_entity_owner::*;
 pub use entity_exists::*;
 pub use exists_by_id::*;

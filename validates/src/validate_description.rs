@@ -5,7 +5,7 @@ use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::Status;
 
 /// zh: 验证描述字符串长度
-pub fn validate_description_length(description: &HashMap<String, String>) -> Result<(), Status> {
+pub fn validate_description(description: &HashMap<String, String>) -> Result<(), Status> {
     if description.is_empty() {
         return Ok(())
     }

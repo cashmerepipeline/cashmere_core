@@ -1,4 +1,4 @@
-use crate::view_rules_map::{query_collection_view_rules, query_manage_view_rules};
+use crate::view_rules_map::query_collection_view_rules;
 use crate::FilterRule;
 use dependencies_sync::log::{debug, error};
 use dependencies_sync::rust_i18n::{self, t};

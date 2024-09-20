@@ -29,4 +29,8 @@ members = [
   "search_engine",
 ]
 
-exclude = ["server_template", "minit"]
+exclude = [
+  "server_template",
+  "minit",
+  # "generate_defines"
+]

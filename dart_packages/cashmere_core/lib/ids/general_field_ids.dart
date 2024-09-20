@@ -38,3 +38,6 @@ const int REMOVED_FIELD_ID = 1200;
 
 // 品类
 const int CATEGORIES_FIELD_ID = 1300;
+
+// 联系方式
+const int CONTACTS_FIELD_ID = 1301;

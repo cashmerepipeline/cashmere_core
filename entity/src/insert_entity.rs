@@ -45,7 +45,7 @@ pub async fn insert_entity(
 
     // 插入, 返回插入后的ID
     let result = match collection.insert_one(entity_doc.clone()).await {
-        Ok(r) => {
+        Ok(_r) => {
             // 需要单独更新时间戳
             let query_doc = doc! {
                 ID_FIELD_ID.to_string(): id.clone(),

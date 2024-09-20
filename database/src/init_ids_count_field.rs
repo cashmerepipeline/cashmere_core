@@ -3,7 +3,6 @@ use dependencies_sync::log::info;
 use dependencies_sync::rust_i18n::{self, t};
 
 use cash_result::{operation_failed, operation_succeed, OperationResult};
-use manage_define::field_ids::IDS_ID_COUNT_FIELD_ID;
 use manage_define::hard_coded_field_names::ID_ENUNM_FIELD_NAME;
 use crate::get_ids_collection;
 

@@ -18,6 +18,9 @@ pub mod country_code_service_handles;
 pub mod language_code_handles;
 pub mod phone_area_code_handles;
 pub mod color_service_handles;
+pub mod platform_service_handles;
+pub mod purpose_service_handles;
+
 pub mod attribute_service_handles;
 
 pub mod category_service_handle;
@@ -39,3 +42,5 @@ pub mod member_service_handles;
 
 pub mod calendars_service_handles;
 pub mod calendar_book_service_handles;
+
+pub mod contacts_service_handles;

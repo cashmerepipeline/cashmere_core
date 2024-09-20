@@ -1,0 +1,170 @@
+#
+# 目的
+# 比如联系方式的目的，
+
+id = "目的"
+name_map = { zh = "目的", en = "purposes" }
+description = { zh = "数据或实体的目的和意图。" }
+
+# 描写，模式
+schema = [
+]
+
+[view_rules]
+[view_rules.manage]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.collection]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.schema.1000]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1001]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1002]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1003]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1004]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1005]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1006]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "OwnerWrite", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1007]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1008]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1009]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1010]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1011]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+
+[view_rules.schema.1200]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
+[view_rules.schema.1300]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
+[items]
+# 联系方式目的
+# 咨询
+inquiry = { 1000 = "web", 1001 = { zh = "问询", en = "inquiry" }, 1002 = "8610000000000", 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "用于咨询" }, 1300 = ["联系方式"]}
+# 商务
+business = { 1000 = "web", 1001 = { zh = "商务", en = "business" }, 1002 = "8610000000000", 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "用于商务" }, 1300 = ["联系方式"]}
+# 售后
+after_sales = { 1000 = "web", 1001 = { zh = "售后", en = "after_sales" }, 1002 = "8610000000000", 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "用于售后" }, 1300 = ["联系方式"]}

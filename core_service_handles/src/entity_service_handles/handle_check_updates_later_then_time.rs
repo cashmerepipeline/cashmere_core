@@ -7,6 +7,7 @@ use dependencies_sync::tokio;
 use dependencies_sync::tokio_stream::{self, StreamExt};
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
+use entity::query_filters::{generate_filter_document, generate_sort_document};
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
@@ -14,7 +15,7 @@ use managers::entity_interface::EntityInterface;
 use managers::hard_coded_cache_interface::HardCodedInterface;
 use request_utils::request_account_context;
 use service_utils::types::{ResponseStream, StreamResponseResult};
-use validates::validate_manage_id;
+use validates::{validate_field_id, validate_manage_id};
 use view::view_rules_map::query_collection_view_rules;
 use view::{can_collection_read, can_entity_read};
 
@@ -53,7 +54,8 @@ async fn validate_request_params(
 ) -> Result<Request<CheckUpdatesLaterThenTimeRequest>, Status> {
     let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
-    let filter = &request.get_ref().filter;
+    let filters = &request.get_ref().filters;
+    let sorts = &request.get_ref().sorts;
 
     validate_manage_id(manage_id.as_str()).await?;
 
@@ -85,14 +87,17 @@ async fn validate_request_params(
         )));
     }
 
-    if !filter.is_empty() {
-        if let Err(err) = bson::from_slice::<Document>(filter) {
-            return Err(Status::invalid_argument(format!(
-                "{}: {}, {}",
-                t!("反序列化过滤条件失败"),
-                err,
-                "check_update_later_then_time"
-            )));
+    // 验证过滤条件字段
+    if !filters.is_empty() {
+        for filter in filters {
+            validate_field_id(manage_id.as_str(), &filter.field_id).await?;
+        }
+    }
+
+    // 验证排序字段
+    if !sorts.is_empty() {
+        for sort in sorts {
+            validate_field_id(manage_id.as_str(), &sort.field).await?;
         }
     }
 
@@ -107,8 +112,8 @@ async fn handle_check_updates_later_then_time(
 
     let manage_id = request.get_ref().manage_id.clone();
     let timestamp = &request.get_ref().timestamp;
-    let ascending_order = &request.get_ref().ascending_order;
-    let filter = &request.get_ref().filter;
+    let filters = &request.get_ref().filters;
+    let sorts = &request.get_ref().sorts;
 
     let majordomo_arc = get_majordomo();
     let manager = majordomo_arc.get_manager_by_id(manage_id.as_str()).unwrap();
@@ -123,20 +128,6 @@ async fn handle_check_updates_later_then_time(
         )));
     };
 
-    /* match collection_view_rules.read_filters {
-        ReadRule::Read => __,
-        ReadRule::GroupRead => query_doc.insert(GROUPS_FIELD_ID.to_string(), role_group),
-        ReadRule::OwnerRead => query_doc.insert(OWNER_FIELD_ID.to_string(), account_id),
-        ReadRule::Unknown => {
-            return Err(Status::unauthenticated(format!(
-                "{}: {}, {}",
-                t!("无可见权限设置"),
-                manage_id,
-                role_group
-            )));
-        }
-    } */
-
     let timestamp_doc: Document = bson::from_slice(timestamp).unwrap();
     let timestamp = timestamp_doc.get_timestamp("value").unwrap();
 
@@ -144,27 +135,33 @@ async fn handle_check_updates_later_then_time(
     MODIFY_TIMESTAMP_FIELD_ID.to_string(): {"$gt": timestamp},
         };
 
-    if !filter.is_empty() {
-        let filter_doc: Document = bson::from_slice(filter).unwrap();
+    if !filters.is_empty() {
+        let filter_doc: Document = if let Ok(r) = generate_filter_document(filters) {
+            r
+        } else {
+            error!("{}: {:?}", t!("生成过滤条件失败"), filters);
+
+            return Err(Status::invalid_argument(format!(
+                "{}: {}",
+                t!("生成过滤条件失败"),
+                manage_id
+            )));
+        };
+
         filter_doc.iter().for_each(|(k, v)| {
             query_doc.insert(k, v);
         });
     }
 
-    let sort_doc = if *ascending_order {
-        doc! {
-            MODIFY_TIMESTAMP_FIELD_ID.to_string(): 1,
-        }
+    let sort_doc = generate_sort_document(sorts);
+    let sort_doc = if sort_doc.len() > 0 {
+        Some(sort_doc)
     } else {
-        doc! {
-            MODIFY_TIMESTAMP_FIELD_ID.to_string(): -1,
-        }
+        None
     };
 
-    // let unsets = vec![];
-
     let mut query_cursor = match manager
-        .get_entity_stream(query_doc, &[], Some(sort_doc), None, 0)
+        .get_entity_stream(query_doc, &[], sort_doc, None, 0)
         .await
     {
         Ok(cursor) => cursor,
@@ -257,7 +254,13 @@ async fn handle_check_updates_later_then_time(
 
         // 发送最后一批
         if cfg!(debug_assertions) {
-            debug!("{}: {}, {} {}", t!("发送最后一批"), manage_id, infos.len(), t!("个"));
+            debug!(
+                "{}: {}, {} {}",
+                t!("发送最后一批"),
+                manage_id,
+                infos.len(),
+                t!("个")
+            );
         }
 
         if !infos.is_empty() {

@@ -16,7 +16,7 @@ pub use validate_name_map::*;
 pub use validate_value_doc::*;
 pub use validate_role_group::*;
 pub use validate_is_login::*;
-pub use validate_description_length::*;
+pub use validate_description::*;
 
 pub use validate_bson_document_bytes::*;
 
@@ -39,7 +39,7 @@ mod validate_name_map;
 mod validate_value_doc;
 mod validate_role_group;
 mod validate_is_login;
-mod validate_description_length;
+mod validate_description;
 
 mod validate_bson_document_bytes;
 mod validate_data_field;

@@ -40,5 +40,11 @@ import "person.proto";
 import "search.proto";
 import "recommend.proto";
 
+import "query_filter.proto";
+import "platform.proto";
+import "purpose.proto";
+import "contact.proto";
+
 service CashmereGrpc{
-}
+  // test
+ }

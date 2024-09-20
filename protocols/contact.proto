@@ -1,0 +1,15 @@
+syntax = "proto3";
+package cashmere;
+
+/// 新建联系方式
+message NewContactRequest {
+  // 联系方式
+  string manange_id = 1;
+  string entity_id = 2;
+  string purpose = 3;
+  string platform = 4;
+  string account = 5;
+}
+message NewContactResponse {
+  string result = 1;
+}

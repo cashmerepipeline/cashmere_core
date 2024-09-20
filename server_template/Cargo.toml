@@ -23,7 +23,7 @@ manage_define = { path = "../cashmere_core/manage_define" }
 
 dependencies_sync = { path = "../cashmere_core/dependencies_sync", features = ["tonic", "bson"]}
 
-prost = "0.12"
+prost = "0.13"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 

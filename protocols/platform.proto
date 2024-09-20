@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cashmere;
+
+import "name.proto";
+
+/// 新建平台
+message NewPlatformRequest {
+  Name name = 2;
+  // 平台编码
+  string platform = 1;
+  map<string, string> description = 3;
+  string website = 4;
+}
+message NewPlatformResponse {
+  // 新平台ID
+  string result = 1;
+}

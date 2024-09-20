@@ -1,4 +1,4 @@
-use std::{sync::OnceLock, u16};
+use std::sync::OnceLock;
 
 use dependencies_sync::rust_i18n::{self, t};
 use serde_derive::{Deserialize, Serialize};

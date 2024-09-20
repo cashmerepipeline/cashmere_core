@@ -1,0 +1,255 @@
+#
+# 平台
+# 各种平台，结合平台类别使用，
+#
+
+id = "平台"
+name_map = { zh = "平台", en = "platforms" }
+hard_coded = true
+
+# 数据描写 或者 模式
+schema = [
+  { data_type = "String", name_map = { zh = "网站", en = "website" }, removed = false },
+]
+
+[view_rules]
+[view_rules.manage]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "OnlyOwner",
+], write_filters = [
+] }
+[view_rules.collection]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
+  "OnlyOwner",
+], write_filters = [
+] }
+
+[view_rules.schema.1000]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1001]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1002]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1003]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1004]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1005]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1006]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1007]
+admin = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1008]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1009]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+], write_filters = [
+] }
+[view_rules.schema.1010]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1011]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+[view_rules.schema.1200]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+[view_rules.schema.1300]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+[view_rules.schema.2001]
+admin = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "NoLimit",
+] }
+user = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "NoLimit",
+], write_filters = [
+  "OnlyOwner",
+] }
+
+
+# 初始实体
+[items]
+# 互联网
+web = { 1000 = "web", 1001 = { zh = "网站", en = "web" }, 1002 = "8610000000000", 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "网站" }, 1300 = ["传媒"], 2001 = "" }
+
+# 微博
+weibo = { 1000 = "weibo", 1002 = "8610000000000", 1001 = { zh = "微博", en = "weibo" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "微博" }, 1300 = ["传媒"], 2001 = "https://weibo.com" }
+
+# 微信公众号
+wechat_official_account = { 1000 = "wechat_official_account", 1002 = "8610000000000", 1001 = { zh = "微信公众号", en = "wechat_official_account" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "微信公众号" }, 1300 = ["传媒"], 2001 = "https://mp.weixin.qq.com" }
+
+# 抖音
+douyin = { 1000 = "douyin", 1002 = "8610000000000", 1001 = { zh = "抖音", en = "douyin" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "抖音" }, 1300 = ["传媒"], 2001 = "https://www.douyin.com" }
+
+# 快手
+kuaishou = { 1000 = "kuaishou", 1002 = "8610000000000", 1001 = { zh = "快手", en = "kuaishou" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "快手" }, 1300 = ["传媒"], 2001 = "https://www.kuaishou.com" }
+
+# 电话
+phone = { 1000 = "phone", 1002 = "8610000000000", 1001 = { zh = "电话", en = "phone" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "电话" }, 1300 = ["通信"], 2001 = "" }
+
+# 邮件
+email = { 1000 = "email", 1002 = "8610000000000", 1001 = { zh = "邮件", en = "email" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "邮件" }, 1300 = ["通信"], 2001 = "" }
+
+# 微信
+wechat = { 1000 = "wechat", 1002 = "8610000000000", 1001 = { zh = "微信", en = "wechat" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "微信" }, 1300 = ["通信"], 2001 = "https://weixin.qq.com" }
+
+# QQ
+qq = { 1000 = "qq", 1002 = "8610000000000", 1001 = { zh = "QQ", en = "qq" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "QQ" }, 1300 = ["通信"], 2001 = "https://www.qq.com" }
+
+# 淘宝
+taobao = { 1000 = "taobao", 1002 = "8610000000000", 1001 = { zh = "淘宝", en = "taobao" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "淘宝" }, 1300 = ["电商"], 2001 = "https://www.taobao.com" }
+
+# 京东
+jingdong = { 1000 = "jd", 1002 = "8610000000000", 1001 = { zh = "京东", en = "jd" }, 1006 = "8610000000000", 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "京东" }, 1300 = ["电商"], 2001 = "https://www.jd.com" }
+
+# 拼多多
+pinduoduo = { 1000 = "pdd", 1002 = "8610000000000", 1001 = { zh = "拼多多", en = "pdd" }, 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "拼多多" }, 1300 = ["电商"], 2001 = "https://www.pinduoduo.com" }
+
+# 唯品会
+vipinhui = { 1000 = "vip", 1002 = "8610000000000", 1001 = { zh = "唯品会", en = "vip" }, 1007 = [
+  "admin",
+], 1200 = false, 1011 = { zh = "唯品会" }, 1300 = ["电商"], 2001 = "https://www.vip.com" }
+
+# 亚马逊
+amozon = { 1000 = "amazon", 1002 = "8610000000000", 1001 = { zh = "亚马逊", en = "amazon" }, 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "亚马逊" }, 1300 = ["电商"], 2001 = "https://www.amazon.com" }
+
+# 网易严选
+wangyiyanxuan = { 1000 = "yanxuan", 1002 = "8610000000000", 1001 = { zh = "网易严选", en = "yanxuan" }, 1007 = [
+  "admin",
+], 1008 = [
+], 1200 = false, 1011 = { zh = "网易严选" }, 1300 = ["电商"], 2001 = "https://you.163.com" }
