@@ -11,7 +11,10 @@ enum AreaLevel {
     Country = 0;
     Province = 1;
     City = 2;
-    Area = 3;
+    County = 3;
+    Town = 4;
+    Village = 5;
+    Unknown = 6;
 }
 
 message NewAreaRequest {
@@ -31,4 +34,16 @@ message EditAreaRequest {
 }
 message EditAreaResponse {
     string result = 1;
+}
+
+// 地址
+message Address {
+    string country_id = 1;
+    string province_id = 2;
+    string city_id = 3;
+    string county_id = 4;
+    string town_id = 5;
+    string village_id = 6;
+    // 详细地址, 如街道、门牌号等, {语言: 地址}，不在使用编码
+    map<string, string> details = 7;
 }

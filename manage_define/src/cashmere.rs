@@ -1007,13 +1007,38 @@ pub struct EditAreaResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 地址
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Address {
+    #[prost(string, tag = "1")]
+    pub country_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub province_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub city_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub county_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub town_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub village_id: ::prost::alloc::string::String,
+    /// 详细地址, 如街道、门牌号等, {语言: 地址}，不在使用编码
+    #[prost(map = "string, string", tag = "7")]
+    pub details: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum AreaLevel {
     Country = 0,
     Province = 1,
     City = 2,
-    Area = 3,
+    County = 3,
+    Town = 4,
+    Village = 5,
+    Unknown = 6,
 }
 impl AreaLevel {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -1025,7 +1050,10 @@ impl AreaLevel {
             AreaLevel::Country => "Country",
             AreaLevel::Province => "Province",
             AreaLevel::City => "City",
-            AreaLevel::Area => "Area",
+            AreaLevel::County => "County",
+            AreaLevel::Town => "Town",
+            AreaLevel::Village => "Village",
+            AreaLevel::Unknown => "Unknown",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1034,7 +1062,10 @@ impl AreaLevel {
             "Country" => Some(Self::Country),
             "Province" => Some(Self::Province),
             "City" => Some(Self::City),
-            "Area" => Some(Self::Area),
+            "County" => Some(Self::County),
+            "Town" => Some(Self::Town),
+            "Village" => Some(Self::Village),
+            "Unknown" => Some(Self::Unknown),
             _ => None,
         }
     }

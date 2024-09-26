@@ -246,6 +246,15 @@ async fn handle_check_updates_later_then_time(
 
             // 最多1000条
             if limit_count >= 1000 {
+                if cfg!(debug_assertions) {
+                    debug!(
+                        "{}: {} {} {}",
+                        t!("达到最大数量"),
+                        manage_id,
+                        1000,
+                        t!("个")
+                    );
+                }
                 break;
             }
 
@@ -266,6 +275,10 @@ async fn handle_check_updates_later_then_time(
         if !infos.is_empty() {
             let resp = CheckUpdatesLaterThenTimeResponse { results: infos };
             resp_tx.send(Ok(resp)).await.unwrap();
+        }
+        
+        if cfg!(debug_assertions) {
+            debug!("{}: {}", t!("发送完成"), manage_id);
         }
     });
 

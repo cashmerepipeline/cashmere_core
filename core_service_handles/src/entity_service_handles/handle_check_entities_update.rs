@@ -1,5 +1,6 @@
 use dependencies_sync::bson::{self, doc, Document};
-use dependencies_sync::futures::TryFutureExt;
+use dependencies_sync::futures::{stream, TryFutureExt};
+use dependencies_sync::log::debug;
 use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tokio_stream::{iter, StreamExt};
 use dependencies_sync::tonic::async_trait;
@@ -7,7 +8,7 @@ use dependencies_sync::tonic::async_trait;
 use majordomo::{self, get_majordomo};
 use manage_define::cashmere::*;
 use manage_define::general_field_ids::*;
-use managers::{entity_interface::EntityInterface};
+use managers::entity_interface::EntityInterface;
 use request_utils::request_account_context;
 
 use dependencies_sync::tonic::{Request, Response, Status};
@@ -37,8 +38,7 @@ async fn validate_view_rules(
     {
         let manage_id = &request.get_ref().manage_id;
         let (_account_id, _groups, role_group) = request_account_context(request.metadata())?;
-        if let Err(e) =
-            view::validates::validate_collection_can_read(&manage_id, &role_group).await
+        if let Err(e) = view::validates::validate_collection_can_read(&manage_id, &role_group).await
         {
             return Err(e);
         }
@@ -82,10 +82,21 @@ async fn handle_check_entities_update(
         ID_FIELD_ID.to_string(): {"$in": ids},
     };
 
+    if cfg!(debug_assertions) {
+        debug!("{}: {}", t!("查询实体更新"), query_doc);
+    }
     let entity_docs = manager.get_entities_by_filter(Some(&query_doc)).await;
+
+    if cfg!(debug_assertions) {
+        debug!("{}: {}", t!("查询实体更新完成"), query_doc);
+    }
 
     match entity_docs {
         Ok(r) => {
+            if cfg!(debug_assertions) {
+                debug!("{}: {}", t!("查询实体更新个数"), r.len());
+            }
+
             let results: Vec<&Document> = r
                 .iter()
                 .filter(|e| {
@@ -115,11 +126,20 @@ async fn handle_check_entities_update(
                 .collect();
 
             let mut entities = vec![];
-            while let Some(e) = iter(&results).next().await {
-                let entity = filter_can_read_fields(e, manage_id, &role_group).await;
+            
+            // 过滤不可读字段，必须单独建立流
+            let mut result_stream = stream::iter(results);
+            while let Some(doc) = result_stream.next().await {
+                if cfg!(debug_assertions) {
+                    debug!("{}: {:?}", t!("过滤实体不可读字段"), doc);
+                }
+                let entity = filter_can_read_fields(doc, manage_id, &role_group).await;
                 entities.push(bson::to_vec(&entity).unwrap());
             }
 
+            if cfg!(debug_assertions) {
+                debug!("{}: {:?}", t!("发送实体"), entities);
+            }
             Ok(Response::new(CheckEntitiesUpdateResponse { entities }))
         }
         Err(e) => Err(Status::data_loss(format!(

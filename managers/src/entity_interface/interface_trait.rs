@@ -206,7 +206,9 @@ where
                 let (tx, rv) = mpsc::channel(1);
                 tokio::spawn(async move {
                     while let Some(d) = r.next().await {
-                        log::debug!("{}: {}", t!("获取实体"), d.as_ref().unwrap());
+                        if cfg!(debug_assertions) {
+                            log::debug!("{}: {}", t!("获取实体"), d.as_ref().unwrap());
+                        }
 
                         if cfg!(debug_assertions) {
                             let m = match d {
