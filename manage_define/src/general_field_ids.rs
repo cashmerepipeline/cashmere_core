@@ -37,3 +37,9 @@ pub const REMOVED_FIELD_ID: i32 = 1200;
 
 /// 分类表
 pub const CATEGORIES_FIELD_ID: i32 = 1300;
+
+/// 冻结，实体在冻结后不再允许修改
+/// true: 冻结
+pub const IS_FREEZED_FIELD_ID: i32 = 1400;
+/// 冻结时间, 这个时候后续的修改都不会生效
+pub const FREEZED_TIME_FIELD_ID: i32 = 1401;

@@ -11,10 +11,11 @@ use managers::entity_interface::EntityInterface;
 /// zh: 验证目标实体存在性
 pub async fn validate_entity_id(manage_id: &str, entity_id: &str) -> Result<(), Status> {
     if entity_id.is_empty() {
+        
         return Err(Status::invalid_argument(format!(
             "{}: {}",
             t!("实体编号不能为空"),
-            entity_id
+            manage_id
         )));
     }
 

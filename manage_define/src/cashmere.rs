@@ -1008,6 +1008,7 @@ pub struct EditAreaResponse {
     pub result: ::prost::alloc::string::String,
 }
 /// 地址
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Address {
     #[prost(string, tag = "1")]

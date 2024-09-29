@@ -29,6 +29,10 @@ fn main() {
             "CalendarType",
             "#[derive(serde::Serialize, serde::Deserialize)]",
         )
+        .type_attribute(
+            "Address",
+            "#[derive(serde::Serialize, serde::Deserialize)]",
+        )
         .compile(&["../protocols/cashmere.proto"], &["../protocols"])
         .unwrap();
 
